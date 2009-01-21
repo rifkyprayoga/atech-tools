@@ -1,0 +1,568 @@
+package com.atech.db.hibernate.transfer;
+
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+
+import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
+import com.atech.graphics.components.tree.CheckNode;
+import com.atech.graphics.components.tree.CheckNodeTree;
+import com.atech.help.ComponentHelpCapable;
+import com.atech.help.HelpCapable;
+import com.atech.i18n.I18nControlAbstract;
+import com.atech.utils.ATDataAccess;
+import com.atech.utils.ATDataAccessAbstract;
+
+
+/**
+ *  This file is part of ATech Tools library.
+ *  
+ *  BackupRestoreDialog - Dialog for doing backup/restore. This needs to be
+ *                        sub-classes.
+ *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
+ *  
+ *  
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ *  
+ *  
+ *  For additional information about this project please visit our project site on 
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  andyrozman@users.sourceforge.net or andy@atech-software.com
+ *  
+ *  @author Andy  {andy@atech-software.com}
+ *
+ */
+
+
+
+
+public abstract class BackupRestoreDialog extends JDialog implements ActionListener, BackupRestoreWorkGiver, HelpCapable, ComponentHelpCapable
+{
+
+    private static final long serialVersionUID = 4209248421335758364L;
+    
+    protected I18nControlAbstract ic = null;
+    protected ATDataAccessAbstract m_da = null;
+
+
+    /*
+     *  Globaly used variables
+     */
+    JPanel panel;
+    JLabel label_title;
+    JButton button, button_backup, button_help;
+    Font font_big, font_normal, font_normal_b;
+
+    JLabel label_date;
+
+    JProgressBar progress_full, progress_current;
+    
+    CheckNodeTree tree;
+    
+    int m_error = 0;
+    int lastAction = 0;  // no event
+
+    protected int count_of_backup_elements = 0;
+    protected int done_backup_elements = -1;
+    
+
+    JLabel label_total_progress, label_current_progress; 
+    
+    
+    
+
+    protected BackupRestoreCollection backuprestore_root;
+    protected Hashtable<String,BackupRestoreObject> ht_backup_objects;
+    
+    Container my_parent = null;
+    
+    
+    /**
+     * Constructor 
+     * 
+     * @param parent
+     * @param da
+     * @param br_coll
+     */
+    public BackupRestoreDialog(JDialog parent, ATDataAccessAbstract da, BackupRestoreCollection br_coll)
+    {
+        super(parent, "", true);
+        
+        my_parent = parent;
+        m_da = da; 
+        this.ic = m_da.getI18nControlInstance();
+        
+        backuprestore_root = br_coll;
+        
+        init();
+    }
+
+    
+    /**
+     * Constructor 
+     * 
+     * @param parent
+     * @param da
+     * @param br_coll
+     */
+    public BackupRestoreDialog(JFrame parent, ATDataAccessAbstract da, BackupRestoreCollection br_coll)
+    {
+        super(parent, "", true);
+        my_parent = parent;
+        m_da = da; 
+        this.ic = m_da.getI18nControlInstance();
+      
+        backuprestore_root = br_coll;
+      
+        init();
+    }
+    
+    
+
+    
+    
+    private void init()
+    {
+        
+        this.setBounds(130, 50, 450, 440); // 360
+
+        ht_backup_objects = new Hashtable<String,BackupRestoreObject>(); 
+        
+        font_big = m_da.getFont(ATDataAccess.FONT_BIG_BOLD); 
+        font_normal = m_da.getFont(ATDataAccess.FONT_NORMAL);
+        font_normal_b = m_da.getFont(ATDataAccess.FONT_NORMAL_BOLD);
+
+
+        this.cmdUpdate();
+    
+        this.setResizable(false);
+        this.m_da.centerJDialog(this, this.my_parent); //m_da.getParent());
+
+        this.m_da.addComponent(this);
+
+    }
+    
+    
+    /**
+     * Show Dialog
+     */
+    public void showDialog()
+    {
+        this.setVisible(true);
+    }
+    
+    
+    
+    
+    /**
+     * Displays title for dialog
+     * 
+     * @param backup 
+     */
+    public void showTitle(boolean backup)
+    {
+        if (backup)
+        {
+            this.setTitle(ic.getMessage("BACKUP_DB_TITLE"));
+            label_title.setText(ic.getMessage("BACKUP_DB_TITLE_SHORT"));
+        }
+        else
+        {
+            this.setTitle(ic.getMessage("RESTORE_DB_TITLE"));
+            label_title.setText(ic.getMessage("RESTORE_DB_TITLE_SHORT"));
+        }
+    }
+
+
+
+
+
+
+    /**
+     *   Displays GUI
+     */
+    public void cmdUpdate()
+    {
+
+        Container dgPane = this.getContentPane();
+
+        panel = new JPanel();
+        panel.setBounds(5, 5, 450, 450);
+        panel.setLayout(null);              // 600 450
+        dgPane.add(panel);
+
+        
+        label_title = new JLabel();
+        label_title.setBounds(0, 15, 450, 40);
+        label_title.setFont(font_big); 
+        label_title.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(label_title, null);
+        
+        showTitle(true);
+        
+        JLabel label = new JLabel(ic.getMessage("SELECT_ELEMENTS_TO_BACKUP"));
+        label.setBounds(25, 70, 500, 25);
+        label.setFont(this.font_normal_b);
+        panel.add(label);
+        
+        tree = new CheckNodeTree(this.backuprestore_root, CheckNode.DIG_IN_SELECTION);
+        
+        JScrollPane scroll = new JScrollPane(tree);
+        scroll.setBounds(25, 100, 250, 150);
+        panel.add(scroll);
+        scroll.repaint();
+        scroll.updateUI();
+
+
+        // ---
+        // --- Backup Command
+        // ---
+        button_backup = new JButton("  " +ic.getMessage("BACKUP"));
+        button_backup.setToolTipText(ic.getMessage("BACKUP"));
+        button_backup.setBounds(290,100,130,30);
+        button_backup.setIcon(m_da.getImageIcon_22x22("export1.png", this));
+        button_backup.addActionListener(this);
+        button_backup.setFont(font_normal);
+        button_backup.setActionCommand("backup");
+        panel.add(button_backup);
+    
+        // ---
+        // --- Close Command
+        // ---
+        button = new JButton("  " +ic.getMessage("CLOSE"));
+        button.setBounds(290,140,130,30);
+        button.setIcon(m_da.getImageIcon_22x22("cancel.png", this));
+        button.addActionListener(this);
+        button.setFont(font_normal);
+        button.setActionCommand("close");
+        panel.add(button);
+    
+
+        // ---
+        // --- Help command
+        // ---
+        button_help = m_da.createHelpButtonByBounds(290, 180, 130, 30, this);
+        button_help.setFont(font_normal);
+        panel.add(button_help);
+        
+        
+        
+        label_total_progress = new JLabel(); //"<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;    " + ic.getMessage("BACKUP_NOT_STARTED_YET") + "</html>");
+        label_total_progress.setBounds(25, 325, 380, 25);
+        label_total_progress.setFont(this.font_normal);
+        panel.add(label_total_progress);
+         
+        
+        this.progress_full = new JProgressBar(0, 100);
+        this.progress_full.setBounds(25, 350, 380, 20);
+        this.progress_full.setStringPainted(true);
+        //this.progress_full.setIndeterminate(true);
+        panel.add(this.progress_full);
+        
+        label_current_progress = new JLabel(); //ic.getMessage("CURRENT_TASK") + ":    " + ic.getMessage("NO_TASK_STARTED"));
+        label_current_progress.setBounds(25, 265, 380, 25);  // 265
+        label_current_progress.setFont(this.font_normal);
+        panel.add(label_current_progress);
+
+        //this.label_current_progress.
+        
+        this.progress_current = new JProgressBar(0, 100);
+        this.progress_current.setBounds(25, 290, 380, 20); // 290
+        this.progress_current.setStringPainted(true);
+        //this.progress_current.setString(null);
+        //this.progress_current.setIndeterminate(true);
+        panel.add(this.progress_current);
+        
+        //this.progress_current.setValue(n)
+        setTask(null);
+        
+    }
+    
+
+    /**
+     * Set Task
+     * 
+     * @see com.atech.db.hibernate.transfer.BackupRestoreWorkGiver#setTask(java.lang.String)
+     */
+    public void setTask(String task)
+    {
+        if (task == null)
+        {
+            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("BACKUP_NOT_STARTED_YET") + "</html>");
+            label_current_progress.setText("<html><b>" +ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("NO_TASK_STARTED")  + "</html>");       
+        }
+        else
+        {
+            this.done_backup_elements++;
+            
+            int tsk = this.done_backup_elements;
+            tsk++;
+            
+//            System.out.println("Task: " + tsk);
+            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("TASK") + " (" + tsk + "/" + this.count_of_backup_elements + ")</html>");
+            label_current_progress.setText("<html><b>" +ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + task  + "</html>");       
+        }
+    }
+
+
+    /**
+     * Set Status
+     * 
+     * @see com.atech.db.hibernate.transfer.BackupRestoreWorkGiver#setStatus(int)
+     */
+    public void setStatus(int procent)
+    {
+        //System.out.println("setStatus BRD:" + procent);
+        int cnt = (this.done_backup_elements * 100) + procent;
+        
+        cnt /= this.count_of_backup_elements;
+        //System.out.println("cnt:" + procent);
+        
+        this.progress_full.setValue(cnt);
+        
+        //this.progress_full.setString("" + cnt + " %");
+        
+        this.progress_current.setValue(procent);
+        //this.progress_current.setString("" + procent + " %");
+        
+    }
+    
+
+    
+    
+
+    /**
+     * Action Performed
+     * 
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    public void actionPerformed(ActionEvent e)
+    {
+        String cmd = e.getActionCommand();
+        
+        if (cmd.equals("backup"))
+        {
+            cleanBackupDirectory();
+            preprocesData();
+            
+            if (this.count_of_backup_elements==0)
+                return;
+            
+            performBackup();
+            button_backup.setEnabled(false);
+        }
+        else if (cmd.equals("close"))
+        {
+            this.m_da.removeComponent(this);
+            this.dispose();
+        }
+            
+        
+    }
+
+
+    private void cleanBackupDirectory()
+    {
+        File f = new File("../data");
+    
+        if (!f.exists())
+            f.mkdir();
+    
+        f = new File("../data/export");
+
+        if (!f.exists())
+            f.mkdir();
+    
+        f = new File("../data/export/tmp");
+
+        if (!f.exists())
+            f.mkdir();
+        
+        File[] all_files = f.listFiles();
+        
+        for(int i=0; i<all_files.length; i++)
+        {
+            all_files[i].delete();
+        }
+    }
+        
+    
+    /**
+     * Pack Backup Files
+     */
+    public void packBackupFiles()
+    {
+        
+    }
+    
+    
+    
+/*    
+    cleanBackupDirectory();
+    packBackupFiles();
+ */   
+
+    
+    private void preprocesData()
+    {
+        traverseTree(this.backuprestore_root);
+        
+        int elements_count = 0;
+        
+        for(Enumeration<String> en = this.ht_backup_objects.keys(); en.hasMoreElements(); )
+        {
+            BackupRestoreObject bro = (BackupRestoreObject)this.ht_backup_objects.get(en.nextElement());
+            
+            if (bro.isSelected())
+                elements_count++;
+        }
+        
+//        System.out.println("Elements counts: " + elements_count);
+        this.count_of_backup_elements = elements_count;
+    }
+    
+    
+    /**
+     * Is BackupRestore Object Selected
+     * @param key
+     * @return
+     */
+    public boolean isBackupRestoreObjectSelected(String key)
+    {
+        if (this.ht_backup_objects.containsKey(key))
+            return this.ht_backup_objects.get(key).isSelected();
+        else
+            return false;
+    }
+    
+    
+    
+    /**
+     * Traverse Tree
+     * 
+     * @param cb
+     */
+    public void traverseTree(BackupRestoreBase cb)
+    {
+        
+        if (!cb.hasChildren())
+        {
+            // no children
+            cb.setSelected(tree.getValueForNode(cb.getTargetName()));
+            
+            if (!cb.isCollection())
+                ht_backup_objects.put(cb.getTargetName(), (BackupRestoreObject)cb);
+            
+        }
+        else
+        {
+            // children
+            ArrayList<CheckBoxTreeNodeInterface> lst = cb.getChildren();
+            
+            for(int i=0; i<lst.size(); i++)
+            {
+                traverseTree((BackupRestoreBase)lst.get(i));
+            }
+        }
+    }
+    
+    
+    /**
+     * Perform Backup
+     */
+    public abstract void performBackup();
+    
+    
+    
+    /**
+     *  Gets info if action was performed.
+     * 
+     *  @return true if action was done, false if not.
+     */
+    public boolean wasAction()
+    {
+        if (lastAction==1)
+            return true;
+        else
+            return false;
+    }
+
+
+    /**
+     *  Returns object saved
+     * 
+     *  @return object of type of Object
+     */
+    public Object getObject()
+    {
+	return null;
+    }
+
+
+    String help_id = null;
+    
+    /** 
+     * enableHelp
+     */
+    public void enableHelp(String help_id_p)
+    {
+        this.help_id = help_id_p;
+        m_da.enableHelp(this);
+    }
+
+
+    /** 
+     * getComponent
+     */
+    public Component getComponent()
+    {
+        return this;
+    }
+
+
+    /** 
+     * getHelpButton
+     */
+    public JButton getHelpButton()
+    {
+        return button_help; 
+    }
+
+
+    /** 
+     * getHelpId
+     */
+    public String getHelpId()
+    {
+        return this.help_id;
+    }
+
+
+}

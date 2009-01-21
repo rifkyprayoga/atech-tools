@@ -1,0 +1,707 @@
+package com.atech.db.hibernate;
+
+
+import java.sql.SQLException;
+import java.util.StringTokenizer;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
+
+import com.atech.utils.ATDataAccessAbstract;
+
+/**
+ *  This file is part of ATech Tools library.
+ *  
+ *  <one line to give the library's name and a brief idea of what it does.>
+ *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  
+ *  
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ *  
+ *  
+ *  For additional information about this project please visit our project site on 
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  andyrozman@users.sourceforge.net or andy@atech-software.com
+ *  
+ *  @author Andy
+ *
+*/
+
+
+public abstract class HibernateDb
+{
+    public static final int DB_CONFIG_LOADED = 1;
+    public static final int DB_INITIALIZED = 2;
+    public static final int DB_STARTED = 3;
+
+    private boolean debug = true;
+//x    private boolean db_debug = false;
+    
+    private static Log log = LogFactory.getLog(HibernateDb.class); 
+    protected Session m_session = null;
+    protected SessionFactory sessions = null;
+    protected int m_errorCode = 0;
+    protected String m_errorDesc = "";
+    private String m_addId = "";
+
+
+    //private Configuration m_cfg = null;
+    @SuppressWarnings("unused")
+    private ATDataAccessAbstract m_da; 
+
+    private int m_loadStatus = 0;
+
+
+    HibernateConfiguration config = null;
+
+    
+
+
+
+
+    public HibernateDb(ATDataAccessAbstract da)
+    {
+        config = createConfiguration();
+        m_da = da;
+        m_loadStatus = DB_CONFIG_LOADED;
+    }
+
+
+    public HibernateDb()
+    {
+        config = createConfiguration();
+        m_loadStatus = DB_CONFIG_LOADED;
+//	debugConfig();
+    }
+
+    public Configuration getConfiguration()
+    {
+        return this.config.getConfiguration();
+    }
+
+    
+    public HibernateConfiguration getHibernateConfiguration()
+    {
+        return this.config;
+    }
+    
+    
+/*
+    private void debugConfig()
+    {
+/*
+	System.out.println("Debug Configuration:");
+
+        //this.m_cfg.g
+        //this.m_cfg.
+
+        Iterator it = this.m_cfg.getClassMappings();
+
+        //m_cfg.get
+        
+        while (it.hasNext())
+        {
+            org.hibernate.mapping.RootClass rc = (org.hibernate.mapping.RootClass)it.next();
+            //System.out.println(it.next());
+//	    exploreRootClass(rc);
+        }
+
+*/
+//    }
+
+
+
+    public void initDb()
+    {
+        openHibernateSimple();
+    }
+
+    public boolean isDbStarted()
+    {
+        return(this.m_loadStatus == DB_STARTED);
+    }
+
+    public void closeDb()
+    {
+        if (this.getHibernateConfiguration().db_hib_dialect.equals("org.hibernate.dialect.HSQLDialect"))
+        {
+            try
+            {
+                getSession().connection().createStatement().execute("SHUTDOWN");
+            }
+            catch (Exception ex)
+            {
+                System.out.println("closeDb:Exception> " + ex);
+            }
+        }
+        getSession().close();
+        m_session = null;
+        m_loadStatus = DB_CONFIG_LOADED;
+    }
+
+
+    public void openHibernateSimple()
+    {
+        sessions = this.getConfiguration().buildSessionFactory();
+        m_session = sessions.openSession();
+        m_loadStatus = DB_INITIALIZED;
+    }
+
+
+    public int getLoadStatus()
+    {
+        return m_loadStatus;
+    }
+
+
+    
+
+    public void displayError(String source, Exception ex)
+    {
+
+        System.out.println("Exception ["+ source + "]: " + ex);
+        log.error("Exception [" + source + "]: " + ex, ex);
+
+        if (debug)
+        {
+            System.out.println("Exception ["+ source +"]: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+    }
+
+
+    public Session getSession()
+    {
+        m_session.clear();
+        return m_session;
+    }
+
+
+    public void createDatabase()
+    {
+        new SchemaExport(this.getConfiguration()).create(true, true);
+    }
+
+    
+    public abstract String getApplicationDbName();
+    
+    
+
+    // *************************************************************
+    // ****              DB HANDLING METHODS                    ****
+    // *************************************************************
+
+    //---
+    //---  BASIC METHODS (Hibernate and DataLayer processing)
+    //---
+
+
+
+    public boolean add(Object obj)
+    {
+
+        if (obj instanceof DatabaseObjectHibernate)
+        {
+            DatabaseObjectHibernate doh = (DatabaseObjectHibernate)obj;
+
+            log.trace(doh.getObjectName()+"::DbAdd");
+
+            try
+            {
+                String id = doh.DbAdd(getSession()); //getSession());
+                this.m_addId = id;
+                return true;
+            }
+            catch (SQLException ex)
+            {
+                setError(1, ex.getMessage(), doh.getObjectName());
+                log.error("SQLException on add: " + ex, ex);
+                Exception eee = ex.getNextException();
+
+                if (eee!=null)
+                {
+                    log.error("Nested Exception on add: " + eee.getMessage(), eee);
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                setError(1, ex.getMessage(), doh.getObjectName());
+                log.error("Exception on add: " + ex, ex);
+                return false;
+            }
+
+        }
+        else
+        {
+            setError(-2, "Object is not DatabaseObjectHibernate instance", getApplicationDbName());
+            
+            log.error("Internal error on add: " + obj);
+            return false;
+        }
+
+    }
+
+
+    // this method is used for direct use with hibernate objects (unlike use with our 
+    // datalayer classes)
+    public long addHibernate(Object obj)
+    {
+
+        log.trace("addHibernate::" + obj.toString());
+
+        try
+        {
+            Session sess = getSession();
+            Transaction tx = sess.beginTransaction();
+
+            Long val = (Long)sess.save(obj);
+            tx.commit();
+
+            return val.longValue();
+        }
+        catch (Exception ex)
+        {
+            log.error("Exception on addHibernate: " + ex, ex);
+            return -1;
+        }
+
+    }
+
+
+
+    public boolean edit(Object obj)
+    {
+
+        if (obj instanceof DatabaseObjectHibernate)
+        {
+            DatabaseObjectHibernate doh = (DatabaseObjectHibernate)obj;
+
+            log.debug(doh.getObjectName()+"::DbEdit");
+
+            try
+            {
+                doh.DbEdit(getSession()); 
+                return true;
+            }
+            catch (SQLException ex)
+            {
+                setError(1, ex.getMessage(), doh.getObjectName());
+                log.error("SQLException on edit: " + ex, ex);
+                Exception eee = ex.getNextException();
+
+                if (eee!=null)
+                {
+                    log.error("Nested Exception on edit: " + eee.getMessage(), eee);
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                setError(1, ex.getMessage(), doh.getObjectName());
+                log.error("Exception on edit: " + ex, ex);
+                return false;
+            }
+        }
+        else
+        {
+            setError(-2, "Object is not DatabaseObjectHibernate instance", getApplicationDbName());
+            log.error("Internal error on edit: " + obj);
+            return false;
+        }
+
+    }
+
+
+    // this method is used for direct use with hibernate objects (unlike use with our 
+    // datalayer classes)
+    public boolean editHibernate(Object obj)
+    {
+
+        log.debug("editHibernate::" + obj.toString());
+
+        try
+        {
+            Session sess = getSession();
+            Transaction tx = sess.beginTransaction();
+
+            sess.update(obj);
+
+            tx.commit();
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            log.error("Exception on editHibernate: " + ex, ex);
+            //ex.printStackTrace();
+            return false;
+        }
+
+    }
+
+
+    public boolean deleteHibernate(Object obj)
+    {
+
+        log.debug("deleteHibernate::" + obj.toString());
+
+        try
+        {
+            Session sess = getSession();
+            Transaction tx = sess.beginTransaction();
+
+            sess.delete(obj);
+
+            tx.commit();
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            log.error("Exception on deleteHibernate: " + ex, ex);
+            //ex.printStackTrace();
+            return false;
+        }
+
+    }
+
+
+
+
+    public boolean get(Object obj)
+    {
+
+        if (obj instanceof DatabaseObjectHibernate)
+        {
+            DatabaseObjectHibernate doh = (DatabaseObjectHibernate)obj;
+
+            log.debug(doh.getObjectName()+"::DbGet");
+
+            try
+            {
+                doh.DbGet(getSession());
+                return true;
+            }
+            catch (SQLException ex)
+            {
+                setError(1, ex.getMessage(), doh.getObjectName());
+                log.error("SQLException on get: " + ex, ex);
+                Exception eee = ex.getNextException();
+
+                if (eee!=null)
+                {
+                    log.error("Nested Exception on get: " + eee.getMessage(), eee);
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                setError(1, ex.getMessage(), doh.getObjectName());
+                log.error("Exception on get: " + ex, ex);
+                return false;
+            }
+
+        }
+        else
+        {
+            setError(-2, "Object is not DatabaseObjectHibernate instance", getApplicationDbName());
+            log.error("Internal error on get: " + obj);
+            return false;
+        }
+
+    }
+
+
+
+
+    public boolean delete(Object obj)
+    {
+
+        if (obj instanceof DatabaseObjectHibernate)
+        {
+            DatabaseObjectHibernate doh = (DatabaseObjectHibernate)obj;
+
+            log.debug(doh.getObjectName()+"::DbDelete");
+
+            try
+            {
+
+                if (doh.DbHasChildren(getSession()))
+                {
+                    setError(-3, "Object has children object", doh.getObjectName());
+                    log.error(doh.getObjectName() + " had Children objects");
+                    return false;
+                }
+
+                doh.DbDelete(getSession());
+
+                return true;
+            }
+            catch (SQLException ex)
+            {
+                setError(1, ex.getMessage(), doh.getObjectName());
+                log.error("SQLException on delete: " + ex, ex);
+                Exception eee = ex.getNextException();
+
+                if (eee!=null)
+                {
+                    log.error("Nested Exception on delete: " + eee.getMessage(), eee);
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                setError(1, ex.getMessage(), doh.getObjectName());
+                log.error("Exception on delete: " + ex, ex);
+                return false;
+            }
+
+        }
+        else
+        {
+            setError(-2, "Object is not DatabaseObjectHibernate instance", getApplicationDbName());
+            log.error("Internal error on delete: " + obj);
+            return false;
+        }
+
+    }
+
+
+
+
+
+
+    public String addGetId()
+    {
+        return this.m_addId;
+    }
+
+
+
+    public int getErrorCode()
+    {
+        return this.m_errorCode;
+    }
+
+
+
+    public String getErrorDescription()
+    {
+        return this.m_errorDesc;
+    }
+
+
+
+    public void setError(int code, String desc, String source)
+    {
+        this.m_errorCode = code;
+        this.m_errorDesc = source + " : " + desc;
+    }
+
+
+    // *************************************************************
+    // ****                     SETTINGS                        ****
+    // *************************************************************
+
+
+    public abstract HibernateConfiguration createConfiguration();
+    
+    /*
+    {
+        
+        
+
+
+        try
+        {
+
+            Properties props = new Properties();
+
+            boolean config_read = false;
+
+            try
+            {
+                FileInputStream in = new FileInputStream("../data/GGC_Config.properties");
+                props.load(in);
+                in.close();
+
+                db_num = new Integer(props.getProperty("SELECTED_DB"));
+                db_conn_name = props.getProperty("DB"+db_num+"_CONN_NAME");
+
+                config_read = true;
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+
+            if (config_read)
+            {
+                log.info("GGCDb: Loading Db Configuration #"+ db_num + ": " + db_conn_name);
+
+                db_hib_dialect = props.getProperty("DB"+db_num+"_HIBERNATE_DIALECT");
+
+
+                db_driver_class = props.getProperty("DB"+db_num+"_CONN_DRIVER_CLASS");
+                db_conn_url = props.getProperty("DB"+db_num+"_CONN_URL");
+                db_conn_username = props.getProperty("DB"+db_num+"_CONN_USERNAME");
+                db_conn_password = props.getProperty("DB"+db_num+"_CONN_PASSWORD");
+            }
+            else
+            {
+                // we had trouble reading config so we use default database
+
+                db_num = 0;
+                db_conn_name = "Internal Database";
+
+                log.info("GGCDb: Database configuration not found. Using default database.");
+                log.info("GGCDb: Loading Db Configuration #"+ db_num + ": " + db_conn_name);
+
+                db_hib_dialect = "org.hibernate.dialect.HSQLDialect";
+                db_driver_class = "org.hsqldb.jdbcDriver";
+                db_conn_url = "jdbc:hsqldb:file:../data/ggc_db";
+                db_conn_username = "sa";
+                db_conn_password = "";
+            }
+
+
+
+            Configuration cfg = new Configuration()
+                                .addResource("GGC_Nutrition.hbm.xml")
+                                .addResource("GGC_Main.hbm.xml")
+                                .addResource("GGC_Other.hbm.xml")
+
+                                .setProperty("hibernate.dialect", db_hib_dialect)
+                                .setProperty("hibernate.connection.driver_class", db_driver_class)
+                                .setProperty("hibernate.connection.url", db_conn_url)
+                                .setProperty("hibernate.connection.username", db_conn_username)
+                                .setProperty("hibernate.connection.password", db_conn_password)
+                                .setProperty("hibernate.connection.charSet", "utf-8")
+                                .setProperty("hibernate.use_outer_join", "true");
+//	      .setProperty("hibernate.show_sql", "true")
+/*                            .setProperty("hibernate.c3p0.min_size", "5")
+                            .setProperty("hibernate.c3p0.max_size", "20")
+                            .setProperty("hibernate.c3p0.timeout", "1800")
+                            .setProperty("hibernate.c3p0.max_statements", "50"); */
+
+
+//	    System.out.println("Config loaded.");
+/*
+            return cfg;
+        }
+        catch (Exception ex)
+        {
+            log.error("Loading GGCConfiguration Exception: " + ex.getMessage(), ex);
+            //ex.printStackTrace();
+        }
+        return null;
+    }
+*/
+
+    // *************************************************************
+    // ****               DATABASE INIT METHODS                 ****
+    // *************************************************************
+
+
+    public void loadStaticData()
+    {
+        m_loadStatus = DB_STARTED;
+    }
+    
+    
+
+    
+
+    
+
+    // *************************************************************
+    // ****                       U T I L S                     ****
+    // *************************************************************
+
+
+    public String changeCase(String in)
+    {
+
+        StringTokenizer stok = new StringTokenizer(in, " ");
+
+        boolean first = true;
+        String out = "";
+
+        while (stok.hasMoreTokens())
+        {
+            if (!first)
+                out += " ";
+
+            out += changeCaseWord(stok.nextToken());
+            first = false;
+        }
+
+        return out;
+
+    }
+
+    public String changeCaseWord(String in)
+    {
+
+        String t = "";
+
+        t = in.substring(0,1).toUpperCase();
+        t += in.substring(1).toLowerCase();
+
+        return t;
+
+    }
+
+
+    public void showByte(byte[] in)
+    {
+
+        for (int i=0;i<in.length; i++)
+        {
+            System.out.println((char)in[i] + " " + in[i]);
+        }
+
+    }
+
+
+
+    public void debugOut(String source, Exception ex)
+    {
+
+        this.m_errorCode = 1;
+        this.m_errorDesc = ex.getMessage();
+
+        if (debug)
+            System.out.println("  " + source + "::Exception: "+ex);
+
+        if (debug)
+            ex.printStackTrace();
+
+
+    }
+
+
+}
+
+

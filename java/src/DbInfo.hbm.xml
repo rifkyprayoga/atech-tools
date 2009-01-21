@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    
+    <!-- ***************** ggc::Main SCHEMA  ******************* -->
+
+    <class name="com.atech.db.hibernate.check.DbInfoH" table="db_info">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
+        </id>            
+        <property name="key" column="el_key" type="string"  length="44" not-null="true" />    
+        <property name="value" column="el_value" type="string"  length="255"/>    
+        <property name="type" type="int"  />    <!-- 1-string, 2-int, 3=float -->
+        <property name="description" type="string" length="255" />   
+    </class>
+
+
+
+</hibernate-mapping>
