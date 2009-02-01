@@ -1285,5 +1285,15 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+
+    @Override
+    public void loadSpecialParameters()
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
 }
 

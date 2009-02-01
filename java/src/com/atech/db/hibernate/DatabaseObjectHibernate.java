@@ -76,7 +76,6 @@ public interface DatabaseObjectHibernate
     /**
      * DbHasChildren - Shows if this entry has any children object, this is needed for delete
      * 
-     * 
      * @param sess Hibernate Session object
      * @throws Exception (HibernateException) with error
      * @return true if action done or Exception if not

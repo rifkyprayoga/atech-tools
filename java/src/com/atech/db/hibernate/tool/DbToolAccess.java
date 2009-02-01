@@ -701,4 +701,15 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
     }
 
+    
+    /**
+     * Load Special Parameters
+     * 
+     * @see com.atech.utils.ATDataAccessAbstract#loadSpecialParameters()
+     */
+    public void loadSpecialParameters()
+    {
+    }
+    
+    
 }

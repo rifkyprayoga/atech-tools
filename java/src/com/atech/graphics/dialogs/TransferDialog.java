@@ -40,32 +40,90 @@ public abstract class TransferDialog extends JDialog
 {
 
     private static final long serialVersionUID = 6150106762052989231L;
+    Component parent = null;
 
-    public TransferDialog(Component parent)
+    
+    /**
+     * Constructor
+     * 
+     * @param parent
+     */
+    public TransferDialog(JFrame parent)
     {
-        super((JFrame)parent, "", true);
+        super(parent, "", true);
+        this.parent = parent;
+    }
+
+    
+    /**
+     * Constructor
+     * 
+     * @param parent
+     */
+    public TransferDialog(JDialog parent)
+    {
+        super(parent, "", true);
+        this.parent = parent;
     }
     
+    
+    /**
+     * Get Empty Input Parameters
+     * 
+     * @return
+     */
     public Object[] getEmptyInputParameters()
     {
         return new Object[this.getInputParametersCount()];
         
     }
     
+    
+    /**
+     * Get Input Parameters Count
+     * 
+     * @return
+     */
     public abstract int getInputParametersCount();
     
+    
+    /**
+     * Set Input Paramters
+     * 
+     * @param ip
+     */
     public abstract void setInputParameters(Object[] ip);
     
     
+    /**
+     * Show Dialog
+     * 
+     * @param visible
+     */
     public abstract void showDialog(boolean visible);
     
     
+    /**
+     * Was Action
+     * 
+     * @return
+     */
     public abstract boolean wasAction();
     
     
+    /**
+     * Get Result Values
+     * 
+     * @return
+     */
     public abstract Object[] getResultValues();
 
     
+    /**
+     * Get Result Values String
+     * 
+     * @return
+     */
     public abstract String[] getResultValuesString();
 
     

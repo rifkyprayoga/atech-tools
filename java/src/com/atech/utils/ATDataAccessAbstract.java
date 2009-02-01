@@ -138,6 +138,7 @@ public abstract class ATDataAccessAbstract
     protected GraphConfigProperties graph_config = null;
     //private static HibernateDb m_db_hib;
     
+    protected Hashtable<String, String> special_parameters = null;
     
     /*
      * ABS REMOVED
@@ -234,6 +235,9 @@ public abstract class ATDataAccessAbstract
     
     
     public abstract HibernateDb getHibernateDb();
+    
+    
+    
     
     
     // Method: getInstance
@@ -2351,6 +2355,19 @@ public abstract class ATDataAccessAbstract
     {
         return this.graph_config;
     }
+    
+    
+    
+    
+    public abstract void loadSpecialParameters();
+    
+    
+    public Hashtable<String, String> getSpecialParameters()
+    {
+        return special_parameters;
+    }
+    
+    
     
     
 }

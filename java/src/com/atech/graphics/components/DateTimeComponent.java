@@ -10,6 +10,8 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 
 import com.atech.i18n.I18nControlAbstract;
+import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.ATechDate;
 
 /**
  *  This file is part of ATech Tools library.
@@ -59,7 +61,7 @@ public class DateTimeComponent extends JPanel
     JSpinner day, month, year;
     JSpinner hour, minute, second;
 
-    public static String months[];
+    //public static String months[];
 
 
     public static final int ALIGN_HORIZONTAL = 1;
@@ -71,76 +73,65 @@ public class DateTimeComponent extends JPanel
     public static final int TIME_MAXIMAL_MINUTE = 1;
     public static final int TIME_MAXIMAL_SECOND = 2;
     
-    
+    ATDataAccessAbstract m_da;
     public int m_time_type = 1;
 
-    public DateTimeComponent(/*DataAccess da*/ I18nControlAbstract ic)
+    public DateTimeComponent(ATDataAccessAbstract da)
     {
         //this(1800,5,da, ALIGN_HORIZONTAL, m_gap);
-        this(1800,5,ic,ALIGN_HORIZONTAL, m_gap, DateTimeComponent.TIME_MAXIMAL_MINUTE);
+        this(da.getStartYear(), 5, da, ALIGN_HORIZONTAL, m_gap, DateTimeComponent.TIME_MAXIMAL_MINUTE);
     }
 
-    public DateTimeComponent(/*DataAccess da*/ I18nControlAbstract ic, int time_type)
+    public DateTimeComponent(ATDataAccessAbstract da, int time_type)
     {
         //this(1800,5,da, ALIGN_HORIZONTAL, m_gap);
-        this(1800,5,ic,ALIGN_HORIZONTAL, m_gap, time_type );
+        this(da.getStartYear(),5,da,ALIGN_HORIZONTAL, m_gap, time_type );
     }
     
     
     
-/*
-    public DateTimeComponent(I18nControlAbstract ic, int type_align)
-    {
-        this(1800,5, ic, type_align, m_gap, time_type);
-    }
-  */  
-    
-    /*
-    public DateTimeComponent(I18nControlAbstract ic,  int type_align, int time_type)
-    {
-        //this(1800,5,da, type_align, m_gap);
-        this(1800,5, ic,  type_align, m_gap, time_type);
-    }
-*/
+
 
     
-    public DateTimeComponent(I18nControlAbstract ic, /*DataAccess da,*/ int type_align, int gap)
+    public DateTimeComponent(ATDataAccessAbstract da, int type_align, int gap)
     {
-        this(1800,5,ic, /*da,*/ type_align, gap, DateTimeComponent.TIME_MAXIMAL_MINUTE);
+        this(da.getStartYear(),5, da, type_align, gap, DateTimeComponent.TIME_MAXIMAL_MINUTE);
     }
     
     
 
-    public DateTimeComponent(I18nControlAbstract ic, /*DataAccess da,*/ int type_align, int gap, int time_type)
+    public DateTimeComponent(ATDataAccessAbstract da, int type_align, int gap, int time_type)
     {
         //this(1800,5,da, type_align, gap);
-        this(1800,5,ic, /*da,*/ type_align, gap, time_type);
+        this(da.getStartYear(),5, da, type_align, gap, time_type);
     }
 
 
     
-    public DateTimeComponent(int lower_year, /*DataAccess da,*/ I18nControlAbstract ic, int type_align, int gap)
+    public DateTimeComponent(int lower_year, ATDataAccessAbstract da, int type_align, int gap)
     {
-        this(lower_year,5, ic, type_align, gap, DateTimeComponent.TIME_MAXIMAL_MINUTE);
+        this(lower_year,5, da, type_align, gap, DateTimeComponent.TIME_MAXIMAL_MINUTE);
     }
     
     
     
-    public DateTimeComponent(int lower_year, /*DataAccess da,*/ I18nControlAbstract ic, int type_align, int gap, int time_type)
+    public DateTimeComponent(int lower_year, ATDataAccessAbstract da, int type_align, int gap, int time_type)
     {
         //this(lower_year,5, da, type_align, gap);
-        this(lower_year,5, ic, type_align, gap, time_type);
+        this(lower_year,5, da, type_align, gap, time_type);
     }
 
     
     
-    public DateTimeComponent(int lower_year, int higher_year_diff, /*DataAccess da,*/ I18nControlAbstract ic, int type_align, int gap, int time_type)
+    public DateTimeComponent(int lower_year, int higher_year_diff, ATDataAccessAbstract da, int type_align, int gap, int time_type)
     {
         super();
-
-        this.ic = ic;
+        
+        this.m_da = da;
+        
+        this.ic = da.getI18nControlInstance();
         //m_da = da;
-        initMonths();
+        //initMonths();
 
         int sec_x, sec_y;
         
@@ -174,7 +165,7 @@ public class DateTimeComponent extends JPanel
         day.setFont(font_normal);
 
 
-        SpinnerListModel listMonthsModel = new SpinnerListModel(months);
+        SpinnerListModel listMonthsModel = new SpinnerListModel(m_da.getMonthsArray());
 
         month = new JSpinner(listMonthsModel);
         month.setFont(font_normal);
@@ -240,7 +231,7 @@ public class DateTimeComponent extends JPanel
 
     }
 
-
+/*
     public void initMonths()
     {
     	if (months==null)
@@ -264,7 +255,7 @@ public class DateTimeComponent extends JPanel
     	}
 
     }
-
+*/
 
 
     public boolean checkDateTime()
@@ -348,11 +339,11 @@ public class DateTimeComponent extends JPanel
 
     public int findMonth(String se)
     {
-        //String[] ms = m_da.getMonthsArray();
+        String[] ms = m_da.getMonthsArray();
 
-        for (int i=0; i<months.length; i++)
+        for (int i=0; i<ms.length; i++)
         {
-            if (months[i].equals(se))
+            if (ms[i].equals(se))
                 return i;
         }
 
@@ -366,7 +357,7 @@ public class DateTimeComponent extends JPanel
         int v = Integer.parseInt(val);
 
         //String[] ms = m_da.getMonthsArray();
-        return months[v-1];
+        return m_da.getMonthsArray()[v-1];
 
     }
 
@@ -413,7 +404,7 @@ public class DateTimeComponent extends JPanel
             
             year.setValue(y);
             day.setValue(d);
-            month.setValue(months[m-1]);
+            month.setValue(m_da.getMonthsArray()[m-1]);
 
             hour.setValue(h);
             minute.setValue(min);
@@ -460,7 +451,7 @@ public class DateTimeComponent extends JPanel
             
             year.setValue(y);
             day.setValue(d);
-            month.setValue(months[m-1]);
+            month.setValue(m_da.getMonthsArray()[m-1]);
 
             hour.setValue(h);
             minute.setValue(min);
@@ -503,6 +494,11 @@ public class DateTimeComponent extends JPanel
     }
 */
 
+    /**
+     * Get DateTime (long)
+     * 
+     * @return
+     */
     public long getDateTime()
     {
 
@@ -557,6 +553,31 @@ public class DateTimeComponent extends JPanel
 
     }
 
+    
+    /**
+     * Get DateTime Object (ATechDate)
+     * 
+     * @return
+     */
+    public ATechDate getDateTimeObject()
+    {
+        if (this.m_time_type==DateTimeComponent.TIME_MAXIMAL_MINUTE)
+        {
+            return new ATechDate(ATechDate.FORMAT_DATE_AND_TIME_MIN, getDateTime());
+        }
+        else if (this.m_time_type==DateTimeComponent.TIME_MAXIMAL_SECOND)
+        {
+            return new ATechDate(ATechDate.FORMAT_DATE_AND_TIME_S, getDateTime());
+        }
+        else
+        {
+            System.out.println("Unhandled time type: " + this.m_time_type);
+            return null;
+        }
+        
+    }
+    
+    
 
 /*
     public void setTime(int date)
@@ -599,6 +620,8 @@ public class DateTimeComponent extends JPanel
         year.setEnabled(isEnabled);
         hour.setEnabled(isEnabled);
         minute.setEnabled(isEnabled);
+        if (this.second!=null)
+            this.second.setEnabled(isEnabled);
     }
 
 
@@ -610,6 +633,8 @@ public class DateTimeComponent extends JPanel
         year.setVisible(isEnabled);
         hour.setVisible(isEnabled);
         minute.setVisible(isEnabled);
+        if (this.second!=null)
+            this.second.setVisible(isEnabled);
     }
 
 

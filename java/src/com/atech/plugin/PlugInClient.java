@@ -255,7 +255,7 @@ public abstract class PlugInClient implements ActionListener
     {
         String text = "\n"; //String.format(ic.getMessage("PLUGIN_NOT_INSTALLED_OR_AVAILABLE"), this.getName());
             
-        text += ic.getMessage(command_desc) +"' ";
+        text += "'" + ic.getMessage(command_desc) +"' ";
         text += String.format(ic.getMessage("IMPLEMENTED_VERSION"), ver);
         text += "!\n\n";
     
