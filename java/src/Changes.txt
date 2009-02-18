@@ -4,10 +4,14 @@ Changes file for atech-tools
 See Authors for more description on developers
 --------------------------------------------------
 
+0.3.3
+    * fixed Calendar (big bug with February calendar display)
+
 0.3.2
     * added Statistics functionality (work in progress)
     * added DecimalHandler
     * added ATechConverter, which should be super class to all converters
+    * STARTUP 1.1: minor changes
 
 0.3.1
     * added library Nano Xml 2 Lite

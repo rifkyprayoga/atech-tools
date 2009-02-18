@@ -90,6 +90,14 @@ public class ATechDate
         process(ATechDate.FORMAT_DATE_AND_TIME_MIN, entry);
     }
 
+    
+    public ATechDate(int type)
+    {
+        this.atech_datetime_type = type;
+    }
+
+    
+    
     /**
      * ATechDate (long)
      * 
@@ -290,6 +298,15 @@ public class ATechDate
     }
 
 
+    public String getDateFilenameString()
+    {
+        if (this.year==0)
+            return getLeadingZero(this.day_of_month,2) + "_" + getLeadingZero(this.month,2);
+        else
+            return getLeadingZero(this.day_of_month,2) + "_" + getLeadingZero(this.month,2) + "_" + this.year;
+    }
+    
+    
 
     public String getTimeString()
     {

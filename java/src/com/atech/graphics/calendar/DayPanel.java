@@ -12,12 +12,15 @@ package com.atech.graphics.calendar;
 
 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
+import java.util.Hashtable;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -72,12 +75,17 @@ public class DayPanel extends JPanel implements CalendarListener
 
     CalendarModel cMod;
 
+//    private int month_days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    
     private String m_days[] = null;
 
+    private GridLayout m_grid57 = null;
     private GridLayout m_grid67 = null;
     private GridLayout m_grid77 = null;
 
-
+    private Font font_plain = null;
+    private Font font_bold = null;
+    
     /**
      * Constructor
      * 
@@ -90,11 +98,21 @@ public class DayPanel extends JPanel implements CalendarListener
         this.cMod = cMod;
         //setLayout(new GridLayout(6, 7));
 
+        this.m_grid57 = new GridLayout(5, 7);
         this.m_grid67 = new GridLayout(6, 7);
         this.m_grid77 = new GridLayout(7, 7);
+//        this.m_grid87 = new GridLayout(8, 7);
         setLayout(this.m_grid67);
 
+        
         this.m_ic = this.m_da.getI18nControlInstance(); 
+        
+        
+        font_plain = new Font("Dialog", Font.PLAIN, 12);
+        font_bold = new Font("Dialog", Font.BOLD, 12);
+        
+        
+//        m_gc = new GregorianCalendar();
         
         String days[] = { 
             m_ic.getMessage("SU"),
@@ -110,6 +128,7 @@ public class DayPanel extends JPanel implements CalendarListener
         //setLayout(null);
         //setComponentOrientation(
         //        ComponentOrientation.RIGHT_TO_LEFT);
+//        createPanels();
         doLayoutButtons();
         //this.setBackground(Color.blue);
         //this.setBounds(10, 40, 100,200);
@@ -122,17 +141,31 @@ public class DayPanel extends JPanel implements CalendarListener
         int numdays_m = cMod.getNumDaysInMonth();
         int curday = firstday + cMod.getDay();
 
+        boolean special = false;
+        
         removeAll();
 
-//        System.out.println("first: " + firstday + " num: " + numdays);
+//        System.out.println("year: " + cMod.getYear() + " first: " + firstday + " num_days: " + numdays + ", num_days_m: " + numdays_m + ", curr_day=" + curday);
 
         if (((numdays_m==31) && (firstday>4)) ||
             ((numdays_m==30) && (firstday>5)))
-            setLayout(this.m_grid77); 
-        else
+        {
+            setLayout(this.m_grid77);
+        }
+        else if (((numdays_m==28) && (firstday==0)))  
+        {
+            setLayout(this.m_grid57);
+        }
+        else if ((numdays_m==29) && (firstday==0))
+        {
             setLayout(this.m_grid67); 
+            special = true;
+        }
+        else
+        {
+            setLayout(this.m_grid67);
+        }
 
-        this.invalidate();
 
         for (int i=0; i<7; i++) 
         {
@@ -143,7 +176,7 @@ public class DayPanel extends JPanel implements CalendarListener
             
             label.setHorizontalTextPosition(SwingConstants.CENTER);
             label.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(label);
+            add(label);
         }
 
 
@@ -154,33 +187,84 @@ public class DayPanel extends JPanel implements CalendarListener
         }
 
         int lbl = 0;
-        for (int i = firstday; i < curday - 1; i++) 
+        JButton b = null;
+        int curr_day = curday-1;
+        
+        for (int i = firstday; i < numdays; i++) 
         {
-            add(createButton(++lbl));
+            add(b = createButton(++lbl));
+            
+            if (i==curr_day)
+            {
+                b.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+                b.setFont(this.font_bold); //new Font("Dialog", Font.BOLD, 12));
+            }
         }
-
-        JButton button2 = new JButton(++lbl + "");
-        button2.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-        button2.setFont(new Font("Dialog", Font.BOLD, 12));
-        add(button2);
-
-        for (int i = curday; i < numdays; i++) 
+        
+        
+        if (special)
         {
-            add(createButton(++lbl));
+            add(new JLabel());
         }
-
-        this.validate();
+        
+        
+        //this.validate();
         this.repaint();
 
     }
 
 
+    /*
+    Hashtable<String,JPanel> list = new Hashtable<String,JPanel>();
+    
+    private void createPanels()
+    {
+        for(int i=5; i<9; i++)
+        {
+            JPanel panel = new JPanel();
+            
+            
+            panel.setLayout(new GridLayout(i, 7));
+            
+            list.put("" + i, panel);
+        }
+        
+        createSpecialPanel();
+        
+    }
+    
+    
+    private void createSpecialPanel()
+    {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(6, 7));
+        
+        
+        for (int i=0; i<7; i++) 
+        {
+            JLabel label = new JLabel(this.m_days[i]);
+            
+            if (i==0)
+            label.setForeground(Color.red);
+            
+            label.setHorizontalTextPosition(SwingConstants.CENTER);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            panel.add(label);
+        }
+        
+        
+        list.put("SP", panel);
+        
+    }
+    */
+    
+    
     private JButton createButton(final int j)
     {
         JButton button = new JButton(j + "");
         button.setBorder(BorderFactory.createEmptyBorder());
         button.setPreferredSize(new Dimension(20, 18));
-        button.setFont(new Font("Dialog", Font.PLAIN, 12));
+        button.setFont(this.font_plain); //new Font("Dialog", Font.PLAIN, 12));
         button.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)

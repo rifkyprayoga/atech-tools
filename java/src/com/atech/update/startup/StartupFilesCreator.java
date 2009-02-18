@@ -237,7 +237,7 @@ public class StartupFilesCreator
 	 */
 	public void createFile(StartupFileAbstract file_ab) throws Exception
 	{
-	    System.out.println("CreateFile: " + file_ab);
+	    //System.out.println("CreateFile: " + file_ab);
 	    
         try
         {

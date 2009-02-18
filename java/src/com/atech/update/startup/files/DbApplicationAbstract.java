@@ -1,6 +1,7 @@
 package com.atech.update.startup.files;
 
 import com.atech.update.config.UpdateConfiguration;
+import com.atech.update.startup.StartupUtil;
 import com.atech.update.startup.os.StartupOSAbstract;
 
 /**
@@ -67,7 +68,7 @@ public abstract class DbApplicationAbstract extends AtechToolsApplication
         sb.append(";");
         sb.append(getClasspathForComponent("Log4j"));
         
-        return sb.toString();
+        return StartupUtil.replaceExpression(sb.toString(), ";", this.os_abstract.getSeparator());
     }
 
     
