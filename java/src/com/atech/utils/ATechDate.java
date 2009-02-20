@@ -58,8 +58,11 @@ public class ATechDate
     public final static int FORMAT_DATE_AND_TIME_MS     = 7;
 
 
-    public String[] desc = {
+    public String[] desc = { "",
         "Date only",
+        "Time only (min)",
+        "Time only (s)",
+        "Time only (ms)",
         "Date and Time (minute)",
         "Date and Time (second)",
         "Date and Time (mili second)"
@@ -233,6 +236,15 @@ public class ATechDate
             date -= this.minute*100L;
             
             this.second = (int)date;
+
+        }
+        else if (type == ATechDate.FORMAT_TIME_ONLY_MIN)
+        {
+
+            this.hour_of_day = (int)(date/100L);
+            date -= this.hour_of_day*100L;
+            
+            this.minute = (int)date;
 
         }
         else

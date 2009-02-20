@@ -64,7 +64,10 @@ public abstract class GraphUtil //extends JPanel
     {
         this.m_da = da;
         this.config = da.getGraphConfigProperties();
-        getRenderingQuality();
+        
+        
+        // removed for now Andy !!!!
+        //getRenderingQuality();
         
         initLocal();
         init();
