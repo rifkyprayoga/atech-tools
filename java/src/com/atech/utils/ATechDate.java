@@ -245,6 +245,8 @@ public class ATechDate
             date -= this.hour_of_day*100L;
             
             this.minute = (int)date;
+            
+            checkAndCorrectValues();
 
         }
         else
@@ -298,7 +300,17 @@ public class ATechDate
     }
 
 
-
+    private void checkAndCorrectValues()
+    {
+        if (this.minute>59)
+            this.minute=59;
+        
+        if (this.hour_of_day>23)
+            this.minute=23;
+        
+        if (this.second>59)
+            this.second=59;
+    }
     
 
     public String getDateString()
