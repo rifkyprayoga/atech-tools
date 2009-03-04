@@ -476,8 +476,6 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @param hs
      *            the default HelpSet to be displayed. If hs is null the default
      *            HelpSet will be assumed.
-     * 
-     * @see getHelpKeyActionListener
      */
     public void enableHelpKey(Component comp, String id, HelpSet hs)
     {
@@ -510,7 +508,6 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *            the content. Also for some Presenations this will be used to
      *            "name" the Presentation.
      * 
-     * @see getHelpKeyActionListener
      * @throws IllegalArgumentException
      *             if presentation != null and hs == null
      */
@@ -607,8 +604,6 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @param hs
      *            the HelpSet the id is in. If hs is null the default HelpSet
      *            will be assumed.
-     * @see CSH.setHelpID
-     * @see CSH.setHelpSet
      */
     public void enableHelp(Component comp, String id, HelpSet hs)
     {
@@ -634,8 +629,6 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @param hs
      *            the HelpSet the id is in. If hs is null the default HelpSet
      *            will be assumed.
-     * @see CSH.setHelpID
-     * @see CSH.setHelpSet
      */
     public void enableHelp(MenuItem comp, String id, HelpSet hs)
     {
@@ -665,8 +658,6 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *            the HelpSet the id is in. If hs is null the default HelpSet
      *            will be assumed.
      * 
-     * @see CSH.setHelpID
-     * @see CSH.setHelpSet
      * @see javax.swing.AbstractButton
      * @see java.awt.Button
      * @throws IllegalArgumentException
@@ -712,8 +703,6 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @param hs
      *            the HelpSet the id is in. If hs is null the default HelpSet
      *            will be assumed.
-     * @see CSH.setHelpID
-     * @see CSH.setHelpSet
      * @see java.awt.MenuItem
      * @throws IllegalArgumentException
      *             if comp is null.
@@ -741,7 +730,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * HelpSet and adds an ActionListener. When an action is performed it
      * displays the Component's helpID and HelpSet in the default viewer.
      * 
-     * @param comp
+     * @param obj
      *            the Component to set the id and hs on. If the Component is not
      *            a javax.swing.AbstractButton or a java.awt.Button an
      *            IllegalArgumentException is thrown.
@@ -751,8 +740,6 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *            the HelpSet the id is in. If hs is null the default HelpSet
      *            will be assumed.
      * 
-     * @see CSH.setHelpID
-     * @see CSH.setHelpSet
      * @see javax.swing.AbstractButton
      * @see java.awt.Button
      * @throws IllegalArgumentException
@@ -827,8 +814,6 @@ public class DummyHelpBroker extends DefaultHelpBroker
 
     /**
      * Returns the default DisplayHelpFromFocus listener.
-     * 
-     * @see enableHelpKey
      */
     protected ActionListener getDisplayHelpFromFocus()
     {
@@ -841,8 +826,6 @@ public class DummyHelpBroker extends DefaultHelpBroker
 
     /**
      * Returns the default DisplayHelpFromSource listener.
-     * 
-     * @see enableHelp
      */
     protected ActionListener getDisplayHelpFromSource()
     {
@@ -862,12 +845,9 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * setActivationWindow
      * </pre>
      * 
-     * .
-     * 
      * @parem comp the activation Component or MenuItem
      * @since 1.1
      * 
-     * @see setActivationWindow
      */
     public void setActivationObject(Object comp)
     {

@@ -112,6 +112,9 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
             //ATDataAccess.getInstance();
         //m_da.setParent(parent);
         this.backuprestore_root = br_coll;
+        
+        System.out.println("Br Coll: " + br_coll);
+        
         this.filename = filename;
         //System.out.println("BRD ic: " + this.ic);
         
@@ -199,7 +202,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
 
         processBackupRestoreCollection();
         
-        this.restore_possible = this.backuprestore_root.hasChildren();
+        this.restore_possible = this.backuprestore_root.hasNodeChildren();
         
     }
 
@@ -217,15 +220,15 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         
         do
         {
-            for(int i=0; i<brc.childCount(); i++)
+            for(int i=0; i<brc.nodeChildCount(); i++)
             {
-                if (brc.getChild(i) instanceof BackupRestoreCollection)
+                if (brc.getNodeChild(i) instanceof BackupRestoreCollection)
                 {
-                    processCollection((BackupRestoreCollection)brc.getChild(i));
+                    processCollection((BackupRestoreCollection)brc.getNodeChild(i));
                     // remove empty folder
-                    if (!brc.getChild(i).hasChildren())
+                    if (!brc.getNodeChild(i).hasNodeChildren())
                     {
-                        brc.removeChild(i);
+                        brc.removeNodeChild(i);
                         break;
                     }
                 }
@@ -233,21 +236,21 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
                 {
                 
                 
-                    if (!this.restore_files.containsKey(brc.getChild(i).getClassName()))
+                    if (!this.restore_files.containsKey(brc.getNodeChild(i).getClassName()))
                     {
-                        brc.removeChild(i);
+                        brc.removeNodeChild(i);
                         break;
                     }
                 }
                 
-                if (i==(brc.childCount()-1))
+                if (i==(brc.nodeChildCount()-1))
                 {
                     finished = true;
                 }
                 
             }
             
-            if (brc.childCount()==0)
+            if (brc.nodeChildCount()==0)
                 finished = true;
         } while (!finished);
     }
@@ -548,7 +551,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     public void traverseTree(BackupRestoreBase cb)
     {
         
-        if (!cb.hasChildren())
+        if (!cb.hasNodeChildren())
         {
             // no children
             cb.setSelected(tree.getValueForNode(cb.getTargetName()));
@@ -560,7 +563,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         else
         {
             // children
-            ArrayList<CheckBoxTreeNodeInterface> lst = cb.getChildren();
+            ArrayList<CheckBoxTreeNodeInterface> lst = cb.getNodeChildren();
             
             for(int i=0; i<lst.size(); i++)
             {

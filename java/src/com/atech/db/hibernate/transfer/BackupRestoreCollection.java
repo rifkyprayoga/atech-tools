@@ -65,7 +65,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 	}
 	
 	
-	public void addChild(BackupRestoreBase base)
+	public void addNodeChild(BackupRestoreBase base)
 	{
 		this.children.add(base);
 		this.children_tree.add((CheckBoxTreeNodeInterface)base);
@@ -79,25 +79,25 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 	}
 	
 	
-	public ArrayList<CheckBoxTreeNodeInterface>  getChildren()
+	public ArrayList<CheckBoxTreeNodeInterface>  getNodeChildren()
 	{
 		return this.children_tree;
 	}
 	
 	
-	public BackupRestoreBase getChild(int index)
+	public BackupRestoreBase getNodeChild(int index)
 	{
 	    return this.children.get(index);
 	}
 	
 	
-	public void removeChild(int index)
+	public void removeNodeChild(int index)
 	{
 	    this.children_tree.remove(index);
 	    this.children.remove(index);
 	}
 
-    public int childCount()
+    public int nodeChildCount()
     {
         return this.children_tree.size();
     }
@@ -140,7 +140,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 	}
 
 	
-	public boolean hasChildren()
+	public boolean hasNodeChildren()
 	{
 		return (this.children.size()!=0);
 		

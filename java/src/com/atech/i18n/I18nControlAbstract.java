@@ -1,4 +1,3 @@
-
 package com.atech.i18n;
 
 
@@ -13,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -62,18 +62,42 @@ public abstract class I18nControlAbstract
     ResourceBundle res;
 
 
+    /**
+     * The resource bundles.
+     */
     Hashtable<String,String> resourceBundles;
 
 
+    /**
+     * The lang_file_root.
+     */
     public String lang_file_root = null;
 
+    /**
+     * The def_language.
+     */
     public String def_language = "en";
 
+    /**
+     * The selected_language.
+     */
     public String selected_language = null;
     
+    /**
+     * The selected_language_locale.
+     */
     public Locale selected_language_locale = null;
+    
+    
+    /**
+     * The selected_language_locale.
+     */
+    public Locale selected_language_locale_real = null;
 
 
+    /**
+     * The languages.
+     */
     protected String languages[] = null;
 /*
     }
@@ -85,7 +109,10 @@ public abstract class I18nControlAbstract
     };
 */
 
-    protected Locale lcls[] = null;
+    /**
+ * The lcls.
+ */
+protected Locale lcls[] = null;
 /*	{
         Locale.ENGLISH,
         Locale.GERMAN,
@@ -93,6 +120,9 @@ public abstract class I18nControlAbstract
         Locale.SIMPLIFIED_CHINESE
     };
 */
+
+
+    protected Locale lcls_real[] = null;
 
 
 //    static private I18nControl m_i18n = null;   // This is handle to unique 
@@ -170,6 +200,11 @@ public abstract class I18nControlAbstract
     }
 
     
+    /**
+     * Gets the selected langauge.
+     * 
+     * @return the selected langauge
+     */
     public String getSelectedLangauge()
     {
         return this.selected_language;
@@ -244,6 +279,11 @@ public abstract class I18nControlAbstract
 
 
 
+    /**
+     * Gets the selected language locale.
+     * 
+     * @return the selected language locale
+     */
     public Locale getSelectedLanguageLocale()
     {
         return this.selected_language_locale;
@@ -465,6 +505,13 @@ public abstract class I18nControlAbstract
 
 
     // temporary only - this is not core
+    /**
+     * Checks for mnemonic.
+     * 
+     * @param msg_id the msg_id
+     * 
+     * @return true, if successful
+     */
     public boolean hasMnemonic(String msg_id)
     {
         try
@@ -488,9 +535,8 @@ public abstract class I18nControlAbstract
      *  Returns mnemonic of String that is stored in bundle as msg_id. If mnemonic is
      *  not found 0 is returned. Calls private method resolveMnemonics.
      * 
-     *  @see resolveMnemonic
      *  @param msg_id id of message in bundle
-     *  @return int representation of char that is mnemonic, 0 if none found
+     *  @return msg_id int representation of char that is mnemonic, 0 if none found
      */
     public char getMnemonic(String msg_id)
     {
@@ -514,14 +560,14 @@ public abstract class I18nControlAbstract
 
 
 
-    // Method: getMessageWithoutMnemonic
     /**
+     *  Get Message Without Mnemonic
+     *  
      *  Returns String that is stored in bundle as msg_id. It also removes  
      *  mnemonic signs and removed double &. Calls private method resolveMnemonics.
      * 
-     *  @see resolveMnemonic
      *  @param msg_id id of message in bundle
-     *  @return String message from catalog, woithout mnemonic and double &
+     *  @return String message from catalog, without mnemonic and double &
      */
     public String getMessageWithoutMnemonic(String msg_id)
     {
@@ -602,6 +648,9 @@ public abstract class I18nControlAbstract
 
     
     
+    /**
+     * Creates the collation defintion.
+     */
     public void createCollationDefintion()
     {
     	
@@ -634,14 +683,15 @@ public abstract class I18nControlAbstract
     }
     
     
+    /**
+     * Gets the collation defintion.
+     * 
+     * @return the collation defintion
+     */
     public Collator getCollationDefintion()
     {
         return this.langaugeCollator;
     }
-    
-    
-    
+   
 
 }
-
-

@@ -44,6 +44,7 @@ import com.atech.graphics.graphs.GraphConfigProperties;
 import com.atech.help.HelpCapable;
 import com.atech.help.HelpContext;
 import com.atech.i18n.I18nControlAbstract;
+import com.atech.i18n.info.LanguageInfo;
 import com.atech.plugin.PlugInClient;
 import com.atech.update.config.UpdateConfiguration;
 
@@ -106,6 +107,8 @@ public abstract class ATDataAccessAbstract
 
     public Color color_background, color_foreground;
 
+    protected LanguageInfo m_lang_info;
+    
     //public boolean printing_plugin_installed = false;
 
     protected I18nControlAbstract m_i18n = null; // ATI18nControl.getInstance();
@@ -1006,6 +1009,13 @@ public abstract class ATDataAccessAbstract
     // ****** Languages *****
     // ********************************************************
 
+    /**
+     * This method is intended to load additional Language info. Either special langauge configuration
+     * or special data required for real Locale handling.
+     */
+    public abstract void loadLanguageInfo();
+    
+    
     /*
      * public Object[] getAvailableLanguages() { return new Object[] = { "en"
      * };; }
@@ -2228,7 +2238,7 @@ public abstract class ATDataAccessAbstract
 
     public boolean isValueSet(String val)
     {
-        if ((val == null) || (val.trim().length() == 0))
+        if ((val == null) || (val.trim().length() == 0) || (val.equals("null")))
             return false;
         else
             return true;
@@ -2368,6 +2378,17 @@ public abstract class ATDataAccessAbstract
     }
     
     
+    
+    public LanguageInfo getLanguageInfo()
+    {
+        return this.m_lang_info;
+    }
+ 
+    
+    public abstract int getSelectedLangIndex();
+
+    
+    public abstract void setSelectedLangIndex(int index);
     
     
 }

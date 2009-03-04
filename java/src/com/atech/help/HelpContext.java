@@ -5,6 +5,7 @@ import javax.help.HelpBroker;
 import javax.help.HelpSet;
 import javax.swing.JMenuItem;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -49,63 +50,118 @@ public class HelpContext
 	
 
     
+	/**
+	 * Instantiates a new help context.
+	 * 
+	 * @param main_help_set the main_help_set
+	 */
 	public HelpContext(String main_help_set)
 	{
 		this.main_help_set_name = main_help_set;
 	}
 	
     
+    /**
+     * Gets the main help broker.
+     * 
+     * @return the main help broker
+     */
     public HelpBroker getMainHelpBroker()
     {
     	return this.main_help_broker;
     }
     
+    /**
+     * Sets the main help broker.
+     * 
+     * @param broker the new main help broker
+     */
     public void setMainHelpBroker(HelpBroker broker)
     {
     	this.main_help_broker = broker;
     }
     
     
+    /**
+     * Sets the help item.
+     * 
+     * @param item the new help item
+     */
     public void setHelpItem(JMenuItem item)
     {
     	this.help_item = item;
     }
     
 
+    /**
+     * Gets the help item.
+     * 
+     * @return the help item
+     */
     public JMenuItem getHelpItem()
     {
     	return this.help_item;
     }
     
     
+    /**
+     * Sets the main help set name.
+     * 
+     * @param help_set_name the new main help set name
+     */
     public void setMainHelpSetName(String help_set_name)
     {
     	this.main_help_set_name = help_set_name;
     }
     
+    /**
+     * Gets the main help set name.
+     * 
+     * @return the main help set name
+     */
     public String getMainHelpSetName()
     {
     	return this.main_help_set_name;
     }
     
 
+    /**
+     * Sets the display help from source instance.
+     * 
+     * @param csh the new display help from source instance
+     */
     public void setDisplayHelpFromSourceInstance(CSH.DisplayHelpFromSource csh)
     {
     	this.csh = csh;
     }
 
     
+    /**
+     * Gets the display help from source instance.
+     * 
+     * @return the display help from source instance
+     */
     public CSH.DisplayHelpFromSource getDisplayHelpFromSourceInstance()
     {
     	return this.csh;
     }
 
     
+    /**
+     * Sets the main help set.
+     * 
+     * @param help_set the new main help set
+     */
     public void setMainHelpSet(HelpSet help_set)
     {
     	this.main_help_set = help_set;
     }
     
+    /**
+     * Gets the main help set.
+     * 
+     * @return the main help set
+     */
     public HelpSet getMainHelpSet()
     {
     	return this.main_help_set;

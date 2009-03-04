@@ -472,7 +472,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
     public void traverseTree(BackupRestoreBase cb)
     {
         
-        if (!cb.hasChildren())
+        if (!cb.hasNodeChildren())
         {
             // no children
             cb.setSelected(tree.getValueForNode(cb.getTargetName()));
@@ -484,7 +484,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         else
         {
             // children
-            ArrayList<CheckBoxTreeNodeInterface> lst = cb.getChildren();
+            ArrayList<CheckBoxTreeNodeInterface> lst = cb.getNodeChildren();
             
             for(int i=0; i<lst.size(); i++)
             {

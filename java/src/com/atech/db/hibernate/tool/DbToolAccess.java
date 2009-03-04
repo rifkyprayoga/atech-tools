@@ -711,5 +711,30 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
     }
     
+
+    /**
+     * This method is intended to load additional Language info. Either special langauge configuration
+     * or special data required for real Locale handling.
+     */
+    @Override
+    public void loadLanguageInfo()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public int getSelectedLangIndex()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void setSelectedLangIndex(int index)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+    
     
 }

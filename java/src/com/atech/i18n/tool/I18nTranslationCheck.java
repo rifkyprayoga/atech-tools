@@ -13,7 +13,7 @@ import com.atech.utils.ATDataAccess;
 /**
  * This file is part of ATech Tools library.
  * 
- * <one line to give the library's name and a brief idea of what it does.>
+ * I18nTranslationCheck - check if translation is complete (we check that translation is not same as source)
  * Copyright (C) 2007 Andy (Aleksander) Rozman (Atech-Software)
  * 
  * 
@@ -49,6 +49,9 @@ public class I18nTranslationCheck
     ResourceBundle res;
 
     // Hashtable of Resource Bundles for different langauges
+    /**
+     * The resource bundles.
+     */
     Hashtable<String, ResourceBundle> resourceBundles;
 
     // Reversed Hashtable of Resource Bundles for different langauges
@@ -63,10 +66,10 @@ public class I18nTranslationCheck
     private String check_lang = null;
     private int keyword_count_full = 0;
 
-    // Constructor: OmniI18nControl
+    
     /**
      * 
-     * This is OmniI18nControl constructor; Since classes use Singleton Pattern,
+     * I18nTranslationCheck constructor; Since classes use Singleton Pattern,
      * constructor is protected and can be accessed only with getInstance()
      * method.<br>
      * <br>
@@ -99,6 +102,12 @@ public class I18nTranslationCheck
 
     }
 
+    
+    
+    
+    /**
+     * Gets the available files.
+     */
     public void getAvailableFiles()
     {
         File fl = new File(".");
@@ -121,6 +130,9 @@ public class I18nTranslationCheck
 
     }
 
+    /**
+     * Load languages.
+     */
     public void loadLanguages()
     {
 
@@ -180,6 +192,13 @@ public class I18nTranslationCheck
     
     
     
+    /**
+     * Gets the resource bundle.
+     * 
+     * @param lcl the lcl
+     * 
+     * @return the resource bundle
+     */
     public ResourceBundle getResourceBundle(Locale lcl)
     {
 
@@ -197,6 +216,13 @@ public class I18nTranslationCheck
 
     }
 
+    /**
+     * Gets the resource bundle.
+     * 
+     * @param lcl_str the lcl_str
+     * 
+     * @return the resource bundle
+     */
     public ResourceBundle getResourceBundle(String lcl_str)
     {
 
@@ -216,6 +242,9 @@ public class I18nTranslationCheck
 
     }
 
+    /**
+     * Check translation.
+     */
     public void checkTranslation()
     {
         System.out.println("==========================================================================");
@@ -263,6 +292,9 @@ public class I18nTranslationCheck
 
     }
 
+    /**
+     * Check languages.
+     */
     public void checkLanguages()
     {
 
@@ -293,12 +325,22 @@ public class I18nTranslationCheck
 
     }
 
+    /**
+     * Check if lang file has all keywords.
+     * 
+     * @param short_lang the short_lang
+     */
     public void checkIfLangFileHasAllKeywords(String short_lang)
     {
         ResourceBundle rb = resourceBundles.get(short_lang);
         checkIfLangFileHasAllKeywords(rb);
     }
 
+    /**
+     * Check if lang file has all keywords.
+     * 
+     * @param rb the rb
+     */
     public void checkIfLangFileHasAllKeywords(ResourceBundle rb)
     {
 
@@ -337,6 +379,11 @@ public class I18nTranslationCheck
 
     }
 
+    /**
+     * Check if lang has no longer used keywords.
+     * 
+     * @param rb the rb
+     */
     public void checkIfLangHasNoLongerUsedKeywords(ResourceBundle rb)
     {
 
@@ -373,6 +420,11 @@ public class I18nTranslationCheck
 
     }
 
+    /**
+     * The main method.
+     * 
+     * @param args the arguments
+     */
     public static void main(String args[])
     {
         if (args.length != 3)

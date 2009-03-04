@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -38,9 +39,15 @@ import com.atech.i18n.I18nControlAbstract;
 public class ATechDate
 {
 
+    /**
+     * The i18n_control.
+     */
     public static I18nControlAbstract i18n_control = null;
 
 
+    /**
+     * The days_month.
+     */
     public int[] days_month = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
         
 
@@ -49,15 +56,45 @@ public class ATechDate
     // ********************************************************
 
 
+    /**
+     * The Constant FORMAT_DATE_ONLY.
+     */
     public final static int FORMAT_DATE_ONLY            = 1;
+    
+    /**
+     * The Constant FORMAT_TIME_ONLY_MIN.
+     */
     public final static int FORMAT_TIME_ONLY_MIN        = 2;
+    
+    /**
+     * The Constant FORMAT_TIME_ONLY_S.
+     */
     public final static int FORMAT_TIME_ONLY_S          = 3;
+    
+    /**
+     * The Constant FORMAT_TIME_ONLY_MS.
+     */
     public final static int FORMAT_TIME_ONLY_MS         = 4;
+    
+    /**
+     * The Constant FORMAT_DATE_AND_TIME_MIN.
+     */
     public final static int FORMAT_DATE_AND_TIME_MIN    = 5;
+    
+    /**
+     * The Constant FORMAT_DATE_AND_TIME_S.
+     */
     public final static int FORMAT_DATE_AND_TIME_S      = 6;
+    
+    /**
+     * The Constant FORMAT_DATE_AND_TIME_MS.
+     */
     public final static int FORMAT_DATE_AND_TIME_MS     = 7;
 
 
+    /**
+     * The desc.
+     */
     public String[] desc = { "",
         "Date only",
         "Time only (min)",
@@ -69,14 +106,44 @@ public class ATechDate
     };
 
 
+    /**
+     * The day_of_month.
+     */
     public int day_of_month;
+    
+    /**
+     * The month.
+     */
     public int month;
+    
+    /**
+     * The year.
+     */
     public int year;
+    
+    /**
+     * The hour_of_day.
+     */
     public int hour_of_day;
+    
+    /**
+     * The minute.
+     */
     public int minute;
+    
+    /**
+     * The second.
+     */
     public int second = 0;
+    
+    /**
+     * The msecond.
+     */
     public int msecond = 0;
 
+    /**
+     * The atech_datetime_type.
+     */
     public int atech_datetime_type;
 
     //public int m_type;
@@ -94,6 +161,11 @@ public class ATechDate
     }
 
     
+    /**
+     * Instantiates a new a tech date.
+     * 
+     * @param type the type
+     */
     public ATechDate(int type)
     {
         this.atech_datetime_type = type;
@@ -115,6 +187,16 @@ public class ATechDate
     }
 
 
+    /**
+     * Instantiates a new a tech date.
+     * 
+     * @param _day the _day
+     * @param _month the _month
+     * @param _year the _year
+     * @param _hour the _hour
+     * @param _minute the _minute
+     * @param type the type
+     */
     public ATechDate(int _day, int _month, int _year, int _hour, int _minute, int type)
     {
         this.day_of_month = _day;
@@ -131,6 +213,12 @@ public class ATechDate
     
     
 
+    /**
+     * Instantiates a new a tech date.
+     * 
+     * @param type the type
+     * @param gc the gc
+     */
     public ATechDate(int type, GregorianCalendar gc)
     {
         atech_datetime_type = type;
@@ -183,6 +271,12 @@ public class ATechDate
 
 
 
+    /**
+     * Process.
+     * 
+     * @param type the type
+     * @param date the date
+     */
     public void process(int type, long date) 
     {
         atech_datetime_type = type;
@@ -259,6 +353,14 @@ public class ATechDate
     }
 
     
+    /**
+     * Gets the time string.
+     * 
+     * @param type the type
+     * @param date the date
+     * 
+     * @return the time string
+     */
     public static String getTimeString(int type, long date)
     {
         ATechDate dt = new ATechDate(type, date);
@@ -266,6 +368,14 @@ public class ATechDate
     }
     
 
+    /**
+     * Gets the time string.
+     * 
+     * @param type the type
+     * @param gc the gc
+     * 
+     * @return the time string
+     */
     public static String getTimeString(int type, GregorianCalendar gc)
     {
         ATechDate dt = new ATechDate(type, gc);
@@ -273,6 +383,14 @@ public class ATechDate
     }
     
     
+    /**
+     * Gets the date time string.
+     * 
+     * @param type the type
+     * @param date the date
+     * 
+     * @return the date time string
+     */
     public static String getDateTimeString(int type, long date)
     {
         ATechDate dt = new ATechDate(type, date);
@@ -280,6 +398,14 @@ public class ATechDate
     }
 
 
+    /**
+     * Gets the date time string.
+     * 
+     * @param type the type
+     * @param gc the gc
+     * 
+     * @return the date time string
+     */
     public static String getDateTimeString(int type, GregorianCalendar gc)
     {
         ATechDate dt = new ATechDate(type, gc);
@@ -287,12 +413,28 @@ public class ATechDate
     }
 
 
+    /**
+     * Gets the date string.
+     * 
+     * @param type the type
+     * @param date the date
+     * 
+     * @return the date string
+     */
     public static String getDateString(int type, long date)
     {
         ATechDate dt = new ATechDate(type, date);
         return dt.getDateString();
     }
 
+    /**
+     * Gets the date string.
+     * 
+     * @param type the type
+     * @param gc the gc
+     * 
+     * @return the date string
+     */
     public static String getDateString(int type, GregorianCalendar gc)
     {
         ATechDate dt = new ATechDate(type, gc);
@@ -313,6 +455,11 @@ public class ATechDate
     }
     
 
+    /**
+     * Gets the date string.
+     * 
+     * @return the date string
+     */
     public String getDateString()
     {
         if (this.year==0)
@@ -322,6 +469,11 @@ public class ATechDate
     }
 
 
+    /**
+     * Gets the date filename string.
+     * 
+     * @return the date filename string
+     */
     public String getDateFilenameString()
     {
         if (this.year==0)
@@ -332,6 +484,11 @@ public class ATechDate
     
     
 
+    /**
+     * Gets the time string.
+     * 
+     * @return the time string
+     */
     public String getTimeString()
     {
         if ((this.atech_datetime_type==ATechDate.FORMAT_DATE_AND_TIME_MIN) ||
@@ -352,6 +509,11 @@ public class ATechDate
     }
 
     
+    /**
+     * Gets the time.
+     * 
+     * @return the time
+     */
     public int getTime()
     {
         if ((this.atech_datetime_type==ATechDate.FORMAT_DATE_AND_TIME_MIN) ||
@@ -374,6 +536,11 @@ public class ATechDate
     }
     
     
+    /**
+     * Gets the date time string.
+     * 
+     * @return the date time string
+     */
     public String getDateTimeString()
     {
         return getDateString() + " " + getTimeString();
@@ -400,6 +567,14 @@ public class ATechDate
 
 
 
+    /**
+     * Gets the aT date time from gc.
+     * 
+     * @param gc the gc
+     * @param type the type
+     * 
+     * @return the aT date time from gc
+     */
     public static long getATDateTimeFromGC(GregorianCalendar gc, int type) // throws Exception
     {
     	long dt = 0L;
@@ -433,6 +608,15 @@ public class ATechDate
     }
 
 
+    /**
+     * Convert at date.
+     * 
+     * @param dt the dt
+     * @param input_format the input_format
+     * @param output_format the output_format
+     * 
+     * @return the long
+     */
     public static long convertATDate(long dt, int input_format, int output_format)
     {
         ATechDate atd = new ATechDate(input_format, dt);
@@ -441,6 +625,18 @@ public class ATechDate
     
     
 
+    /**
+     * Gets the aT date time from parts.
+     * 
+     * @param _day the _day
+     * @param _month the _month
+     * @param _year the _year
+     * @param _hour the _hour
+     * @param _minute the _minute
+     * @param type the type
+     * 
+     * @return the aT date time from parts
+     */
     public long getATDateTimeFromParts(int _day, int _month, int _year, int _hour, int _minute, int type)  //throws Exception
     {
     	long dt = 0L;
@@ -474,6 +670,11 @@ public class ATechDate
 
 
     
+    /**
+     * Gets the aT date time as long.
+     * 
+     * @return the aT date time as long
+     */
     public long getATDateTimeAsLong() //throws Exception
     {
         return this.getATDateTimeAsLong(this.atech_datetime_type);
@@ -481,6 +682,13 @@ public class ATechDate
 
 
 
+    /**
+     * Gets the aT date time as long.
+     * 
+     * @param output_format the output_format
+     * 
+     * @return the aT date time as long
+     */
     public long getATDateTimeAsLong(int output_format) //throws Exception
     {
         long dt = 0L;
@@ -524,6 +732,13 @@ public class ATechDate
 
 
 
+    /**
+     * Gets the date from at date.
+     * 
+     * @param data the data
+     * 
+     * @return the date from at date
+     */
     public long getDateFromATDate(long data)
     {
         if (this.atech_datetime_type == FORMAT_DATE_AND_TIME_MIN)
@@ -544,6 +759,13 @@ public class ATechDate
 
 
 
+    /**
+     * Gets the date time as time string.
+     * 
+     * @param date the date
+     * 
+     * @return the date time as time string
+     */
     public String getDateTimeAsTimeString(long date)
     {
         return getDateTimeString(date, 3);
@@ -560,6 +782,14 @@ public class ATechDate
 
 
 
+    /**
+     * Gets the date time string.
+     * 
+     * @param dt the dt
+     * @param ret_type the ret_type
+     * 
+     * @return the date time string
+     */
     public String getDateTimeString(long dt, int ret_type)
     {
 
@@ -637,12 +867,25 @@ public class ATechDate
     }
 */
 
-    public static GregorianCalendar getGregorianCalendar(int format, long dt)
+    /**
+ * Gets the gregorian calendar.
+ * 
+ * @param format the format
+ * @param dt the dt
+ * 
+ * @return the gregorian calendar
+ */
+public static GregorianCalendar getGregorianCalendar(int format, long dt)
     {
         ATechDate atd = new ATechDate(format, dt);
         return atd.getGregorianCalendar();
     }
 
+    /**
+     * Gets the gregorian calendar.
+     * 
+     * @return the gregorian calendar
+     */
     public GregorianCalendar getGregorianCalendar()
     {
         GregorianCalendar gc = new GregorianCalendar();
@@ -659,6 +902,11 @@ public class ATechDate
     }
 
 
+    /**
+     * Sets the Gregorian Calendar
+     * 
+     * @param gc 
+     */
     public void setGregorianCalendar(GregorianCalendar gc)
     {
         this.year = gc.get(GregorianCalendar.YEAR);
@@ -671,6 +919,12 @@ public class ATechDate
     }
 
 
+    /**
+     * Adds the.
+     * 
+     * @param date_field the date_field
+     * @param value the value
+     */
     public void add(int date_field, int value)
     {
         GregorianCalendar gc = getGregorianCalendar();
@@ -779,6 +1033,14 @@ public class ATechDate
 */
 
 
+    /**
+     * Gets the leading zero.
+     * 
+     * @param number the number
+     * @param places the places
+     * 
+     * @return the leading zero
+     */
     public String getLeadingZero(int number, int places)
     {
 
@@ -797,6 +1059,13 @@ public class ATechDate
 
 
 
+    /**
+     * Checks if is leap year.
+     * 
+     * @param _year the _year
+     * 
+     * @return true, if is leap year
+     */
     public boolean isLeapYear(int _year)
     {
         if (_year%4!=0)

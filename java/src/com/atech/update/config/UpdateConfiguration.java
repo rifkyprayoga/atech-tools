@@ -9,35 +9,35 @@ import java.util.StringTokenizer;
 import com.atech.update.startup.StartupUtil;
 
 
+// TODO: Auto-generated Javadoc
 /**
- *  This file is part of ATech Tools library.
- *  
- *  UpdateConfiguration - This is main data file for configuration file
- *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
- *  
- *  
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
- *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
- *  
- *  
- *  For additional information about this project please visit our project site on 
- *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
- *  andyrozman@users.sourceforge.net or andy@atech-software.com
- *  
- *  @author Andy
- *
-*/
+ * This file is part of ATech Tools library.
+ * 
+ * UpdateConfiguration - This is main data file for configuration file
+ * Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
+ * 
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * 
+ * 
+ * For additional information about this project please visit our project site on
+ * http://atech-tools.sourceforge.net/ or contact us via this emails:
+ * andyrozman@users.sourceforge.net or andy@atech-software.com
+ * 
+ * @author Andy
+ */
 
 
 public class UpdateConfiguration
@@ -51,112 +51,113 @@ public class UpdateConfiguration
 	Hashtable<String,String> cfg;
 	
 	/**
-	 * Components
+	 * Components.
 	 */
 	ArrayList<ComponentEntry> components;
 	
     /**
-     * Components HashTable
+     * Components HashTable.
      */
     public Hashtable<String,ComponentEntry> components_ht = new Hashtable<String,ComponentEntry>();
     
     /**
-     * Group
+     * Group.
      */
     public Hashtable<String,ComponentGroup> groups = new Hashtable<String,ComponentGroup>();
 	
     /**
-     * Root
+     * Root.
      */
 	public String root = ""; 
 	
 	/**
-	 * Java Executable 
+	 * Java Executable.
 	 */
 	public String java_exe = ""; 
 	
 	/**
-	 * Main Class 
+	 * Main Class.
 	 */
 	public String main_class = "";
 	
 	/**
-	 * Run filename for Application 
+	 * Run filename for Application.
 	 */
 	public String run_filename = "";
 	
 	/**
-	 * Applications
+	 * Applications.
 	 */
     public Hashtable<String,ComponentCustomApp> custom_apps = new Hashtable<String,ComponentCustomApp>(); 
 	
     
     /**
-     * Database Update Site
+     * Database Update Site.
      */
     public String db_update_site = "";
     
     /**
-     * Database Version Required 
+     * Database Version Required.
      */
     public int db_version_required = 0;
     
     /**
-     * Database Enabled 
+     * Database Enabled.
      */
     public boolean db_enabled = false;
     
     /**
-     * Db Config Class  
+     * Db Config Class.
      */
     public String db_config_class = "";
     
     /**
-     * JDBC Files 
+     * JDBC Files.
      */
     public String jdbc_files = "";
     
     /**
-     * Db App: Do we want DbTool
+     * Db App: Do we want DbTool.
      */
     public boolean db_app_db_tool = false;
     
     /**
-     * Db App: Do we want DbCheck
+     * Db App: Do we want DbCheck.
      */
     public boolean db_app_db_check = false;
     
     /**
-     * Db App: Do we want Db Application
+     * Db App: Do we want Db Application.
      */
     public boolean db_app_db_application = false;
 
     /**
-     * Db Application class
+     * Db Application class.
      */
     public String db_app_db_application_class = "";
     
     /**
-     * Db App: Do we want DbCheck
+     * Db App: Do we want DbCheck.
      */
     public boolean db_app_db_init = false;
     
     /**
-     * DbInit Class
+     * DbInit Class.
      */
     public String db_app_db_init_class = "";
 
     /**
-     * Db App: Do we want DbImport
+     * Db App: Do we want DbImport.
      */
     public boolean db_app_db_import = false;
     
     /**
-     * DbImport Class
+     * DbImport Class.
      */
     public String db_app_db_import_class = "";
 
 
+	/** The needed_params. */
 	private String[] needed_params = {
             "PRODUCT_ID",
             "DB_TOOL", 
@@ -176,7 +177,7 @@ public class UpdateConfiguration
 	
 	
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public UpdateConfiguration()
 	{
@@ -187,10 +188,10 @@ public class UpdateConfiguration
 	
 	
 	/**
-	 * Constructor
+	 * Constructor.
 	 * 
-	 * @param upd_cfg_file
-	 * @param java_exe
+	 * @param upd_cfg_file the upd_cfg_file
+	 * @param java_exe the java_exe
 	 */
 	public UpdateConfiguration(String upd_cfg_file, String java_exe)
 	{
@@ -200,12 +201,12 @@ public class UpdateConfiguration
 	/**
 	 * Init
 	 * 
-	 * @param upd_cfg_file
-	 * @param java_exe
+	 * @param upd_cfg_file the upd_cfg_file
+	 * @param _java_exe the java_exe
 	 */
-	public void init(String upd_cfg_file, String java_exe)
+	public void init(String upd_cfg_file, String _java_exe)
 	{
-		this.java_exe = java_exe;
+		this.java_exe = _java_exe;
 		components = new ArrayList<ComponentEntry>();
 		
 		discoverJdbcClasses();
@@ -214,6 +215,9 @@ public class UpdateConfiguration
 	}
 	
 	
+	/**
+	 * Discover jdbc classes
+	 */
 	private void discoverJdbcClasses()
 	{
 	    //System.out.println("disocverJDBC");
@@ -235,14 +239,14 @@ public class UpdateConfiguration
 	    }
 	    
 	    FileFilter fileFilter = new FileFilter() {
-	        public boolean accept(File f) 
+	        public boolean accept(File f1) 
 	        {
-	            if (f.isDirectory()) 
+	            if (f1.isDirectory()) 
 	            {
 	                return false;
 	            }
 
-	            String ext = f.getName();
+	            String ext = f1.getName();
 	            
 	            if (ext.endsWith(".jar"))
 	            {
@@ -260,13 +264,13 @@ public class UpdateConfiguration
 	    
 	    for(int i=0; i<lst.size(); i++)
 	    {
-	        String root = "../lib/" + lst.get(i).getName() + "/";
+	        String _root = "../lib/" + lst.get(i).getName() + "/";
 	        
 	        File[] subFiles = lst.get(i).listFiles(fileFilter);
 	        
 	        for(int j=0; j<subFiles.length; j++)
 	        {
-	            sb.append(root + subFiles[j].getName() + ";");
+	            sb.append(_root + subFiles[j].getName() + ";");
 	        }
 	    }
 	    
@@ -285,8 +289,9 @@ public class UpdateConfiguration
 	/**
 	 * Load Configuration
 	 * 
-	 * @param upd_cfg_file
-	 * @return
+	 * @param upd_cfg_file the upd_cfg_file
+	 * 
+	 * @return true, if load configuration
 	 */
 	public boolean loadConfiguration(String upd_cfg_file)
 	{
@@ -326,6 +331,9 @@ public class UpdateConfiguration
 	}
 	
 
+	/**
+	 * Gets the Db data
+	 */
 	private void getDbData()
 	{
 	    this.db_update_site = cfg.get("DB_UPDATE_SITE");
@@ -335,6 +343,9 @@ public class UpdateConfiguration
 	}
 	
 
+	/**
+	 * Gets the Db application data
+	 */
 	private void getDbApplicationData()
 	{
         this.db_app_db_check = StartupUtil.isOptionEnabled(cfg.get("DB_CHECK"));
@@ -351,6 +362,9 @@ public class UpdateConfiguration
 	}
 	
 	
+	/**
+	 * Gets the application data
+	 */
 	private void getApplicationData()
 	{
 	    int count = Integer.parseInt(cfg.get("APP_CUSTOM_COUNT"));
@@ -372,6 +386,9 @@ public class UpdateConfiguration
 	}
 	
 	
+	/**
+	 * Gets the components data
+	 */
 	private void getComponentsData()
 	{
 		int cnt = Integer.parseInt(cfg.get("LAST_COMPONENT"));
@@ -435,7 +452,7 @@ public class UpdateConfiguration
 	/**
 	 * Get Components
 	 * 
-	 * @return
+	 * @return the array list< component entry>
 	 */
 	public ArrayList<ComponentEntry> Components()
 	{
@@ -446,7 +463,7 @@ public class UpdateConfiguration
 	/**
 	 * Get Flat Update List
 	 * 
-	 * @return
+	 * @return the flat update list
 	 */
 	public ArrayList<ComponentInterface> getFlatUpdateList()
 	{
@@ -473,7 +490,7 @@ public class UpdateConfiguration
     /**
      * Get Update Table
      * 
-     * @return
+     * @return the update table
      */
     public ArrayList<ComponentInterface> getUpdateTable()
     {
@@ -482,10 +499,11 @@ public class UpdateConfiguration
 	
 	
     /**
-     * Get Int Parameter
+     * Get Int Parameter.
      * 
-     * @param key
-     * @return
+     * @param key the key
+     * 
+     * @return the int parameter
      */
     public int getIntParameter(String key)
     {
@@ -505,10 +523,11 @@ public class UpdateConfiguration
     
     
     /**
-     * Get String Array
+     * Get String Array.
      * 
-     * @param key
-     * @return
+     * @param key the key
+     * 
+     * @return the string array
      */
     public String[] getStringArray(String key)
     {

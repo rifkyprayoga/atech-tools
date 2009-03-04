@@ -1,6 +1,4 @@
-
 package com.atech.i18n.tool;
-
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ import java.util.ResourceBundle;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
+ *  I18nCheck - For checking I18n Files (if they have all needed keywords)
  *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
@@ -50,6 +48,9 @@ public class I18nCheck
     ResourceBundle res;
 
     // Hashtable of Resource Bundles for different langauges
+    /**
+     * The resource bundles.
+     */
     Hashtable<String, ResourceBundle> resourceBundles;
 
     // Reversed Hashtable of Resource Bundles for different langauges
@@ -66,12 +67,12 @@ public class I18nCheck
 
 
 
-    //   Constructor:  OmniI18nControl
+    
     /**
-     *
-     *  This is OmniI18nControl constructor; Since classes use Singleton Pattern,
-     *  constructor is protected and can be accessed only with getInstance() 
-     *  method.<br><br>
+     * I18nCheck constructor; Since classes use Singleton Pattern,
+     * constructor is protected and can be accessed only with getInstance() 
+     * method.<br><br>
+     *  
      * @param prefix 
      * @param default_lang 
      *
@@ -114,6 +115,9 @@ public class I18nCheck
     }
 
 
+    /**
+     * Gets the available files.
+     */
     public void getAvailableFiles()
     {
         File fl = new File(".");
@@ -140,6 +144,9 @@ public class I18nCheck
 
 
 
+    /**
+     * Load languages.
+     */
     public void loadLanguages()
     {
 
@@ -182,6 +189,13 @@ public class I18nCheck
     }
 
 
+    /**
+     * Gets the resource bundle.
+     * 
+     * @param lcl the lcl
+     * 
+     * @return the resource bundle
+     */
     public ResourceBundle getResourceBundle(Locale lcl)
     {
 
@@ -200,6 +214,13 @@ public class I18nCheck
     }
 
 
+    /**
+     * Gets the resource bundle.
+     * 
+     * @param lcl_str the lcl_str
+     * 
+     * @return the resource bundle
+     */
     public ResourceBundle getResourceBundle(String lcl_str)
     {
 
@@ -236,6 +257,9 @@ public class I18nCheck
 
 
 
+    /**
+     * Check languages.
+     */
     public void checkLanguages()
     {
 
@@ -272,6 +296,11 @@ public class I18nCheck
 
 
 
+    /**
+     * Check if lang file has all keywords.
+     * 
+     * @param short_lang the short_lang
+     */
     public void checkIfLangFileHasAllKeywords(String short_lang)
     {
         ResourceBundle rb = resourceBundles.get(short_lang);
@@ -279,6 +308,11 @@ public class I18nCheck
     }
 
 
+    /**
+     * Check if lang file has all keywords.
+     * 
+     * @param rb the rb
+     */
     public void checkIfLangFileHasAllKeywords(ResourceBundle rb)
     {
 
@@ -319,6 +353,11 @@ public class I18nCheck
 
 
 
+    /**
+     * Check if lang has no longer used keywords.
+     * 
+     * @param rb the rb
+     */
     public void checkIfLangHasNoLongerUsedKeywords(ResourceBundle rb)
     {
 
@@ -358,6 +397,11 @@ public class I18nCheck
     
 
 
+    /**
+     * The main method.
+     * 
+     * @param args the arguments
+     */
     public static void main(String args[])
     {
         if (args.length!=2)

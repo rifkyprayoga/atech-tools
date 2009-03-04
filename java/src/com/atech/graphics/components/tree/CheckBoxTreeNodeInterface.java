@@ -38,8 +38,8 @@ public interface CheckBoxTreeNodeInterface
 
     public abstract String getTargetName();
 
-    public abstract ArrayList<CheckBoxTreeNodeInterface> getChildren();
+    public abstract ArrayList<CheckBoxTreeNodeInterface> getNodeChildren();
 
-    public abstract boolean hasChildren();
+    public abstract boolean hasNodeChildren();
     
 }

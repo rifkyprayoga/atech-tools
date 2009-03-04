@@ -11,6 +11,7 @@ import javax.swing.text.*;
 import javax.swing.text.html.*;
 import javax.swing.undo.*;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -46,11 +47,18 @@ public class HTMLDocEditor extends JFrame implements ActionListener
 {
 
     private static final long serialVersionUID = 1608797065642430368L;
+    
+    /**
+     * The Class RedoAction.
+     */
     class RedoAction extends AbstractAction
     {
 
         private static final long serialVersionUID = 234327098549187946L;
 
+        /** 
+         * actionPerformed
+         */
         public void actionPerformed(ActionEvent e)
         {
             try
@@ -66,6 +74,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             undoAction.update();
         }
 
+        /**
+         * Update.
+         */
         protected void update()
         {
             if(undo.canRedo())
@@ -79,6 +90,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             }
         }
 
+        /**
+         * Instantiates a new redo action.
+         */
         public RedoAction()
         {
             super("Redo");
@@ -86,12 +100,18 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * The Class UndoAction.
+     */
     class UndoAction extends AbstractAction
     {
 
         private static final long serialVersionUID = 7877236529165912956L;
 
 
+        /* 
+         * actionPerformed
+         */
         public void actionPerformed(ActionEvent e)
         {
             try
@@ -107,6 +127,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             redoAction.update();
         }
 
+        /**
+         * Update.
+         */
         protected void update()
         {
             if(undo.canUndo())
@@ -121,6 +144,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         }
 
 
+        /**
+         * Instantiates a new undo action.
+         */
         public UndoAction()
         {
             super("Undo");
@@ -128,9 +154,15 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * The Class UndoHandler.
+     */
     class UndoHandler implements UndoableEditListener
     {
 
+        /* 
+         * undoableEditHappened
+         */
         public void undoableEditHappened(UndoableEditEvent e)
         {
             undo.addEdit(e.getEdit());
@@ -139,38 +171,59 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         }
 
 
+        /**
+         * Instantiates a new undo handler.
+         */
         UndoHandler()
         {
             super();
         }
     }
 
+    /**
+     * The Class HTMLFileFilter.
+     */
     class HTMLFileFilter extends FileFilter
     {
 
+        /* 
+         * accept
+         */
         public boolean accept(File f)
         {
             return f.isDirectory() || f.getName().toLowerCase().indexOf(".htm") > 0;
         }
 
+        /* 
+         * getDescription
+         */
         public String getDescription()
         {
             return "html";
         }
 
 
+        /**
+         * Instantiates a new hTML file filter.
+         */
         HTMLFileFilter()
         {
             super();
         }
     }
 
+    /**
+     * The Class StrikeThroughAction.
+     */
     class StrikeThroughAction extends javax.swing.text.StyledEditorKit.StyledTextAction
     {
 
         private static final long serialVersionUID = -5816644815136707434L;
 
 
+        /* 
+         * actionPerformed
+         */
         public void actionPerformed(ActionEvent ae)
         {
             javax.swing.JEditorPane editor = getEditor(ae);
@@ -186,18 +239,27 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         }
 
 
+        /**
+         * Instantiates a new strike through action.
+         */
         public StrikeThroughAction()
         {
             super(StyleConstants.StrikeThrough.toString());
         }
     }
 
+    /**
+     * The Class SuperscriptAction.
+     */
     class SuperscriptAction extends javax.swing.text.StyledEditorKit.StyledTextAction
     {
 
         private static final long serialVersionUID = -6397583463447945632L;
 
 
+        /* 
+         * actionPerformed
+         */
         public void actionPerformed(ActionEvent ae)
         {
             javax.swing.JEditorPane editor = getEditor(ae);
@@ -213,17 +275,26 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         }
 
 
+        /**
+         * Instantiates a new superscript action.
+         */
         public SuperscriptAction()
         {
             super(StyleConstants.Superscript.toString());
         }
     }
 
+    /**
+     * The Class SubscriptAction.
+     */
     class SubscriptAction extends javax.swing.text.StyledEditorKit.StyledTextAction
     {
 
         private static final long serialVersionUID = -2333034083654733244L;
 
+        /* 
+         * actionPerformed
+         */
         public void actionPerformed(ActionEvent ae)
         {
             javax.swing.JEditorPane editor = getEditor(ae);
@@ -238,21 +309,39 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             }
         }
 
+        /**
+         * Instantiates a new subscript action.
+         */
         public SubscriptAction()
         {
             super(StyleConstants.Subscript.toString());
         }
     }
 
+    /**
+     * The listener interface for receiving frame events.
+     * The class that is interested in processing a frame
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addFrameListener<code> method. When
+     * the frame event occurs, that object's appropriate
+     * method is invoked.
+     */
     class FrameListener extends WindowAdapter
     {
 
+        /**
+         * windowClosing
+         */
         public void windowClosing(WindowEvent we)
         {
             exit();
         }
 
 
+        /**
+         * Instantiates a new frame listener.
+         */
         FrameListener()
         {
             super();
@@ -260,6 +349,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
     }
 
 
+    /**
+     * Instantiates a new hTML doc editor.
+     */
     public HTMLDocEditor()
     {
         super("HTMLDocumentEditor");
@@ -284,6 +376,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
     }
 
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
         addWindowListener(new FrameListener());
@@ -560,6 +655,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         return img;
     }
 
+    /** 
+     * actionPerformed
+     */
     public void actionPerformed(ActionEvent ae)
     {
         String actionCommand = ae.getActionCommand();
@@ -607,6 +705,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             System.out.println("Bol activated");
     }
 
+    /**
+     * Reset undo manager.
+     */
     protected void resetUndoManager()
     {
         undo.discardAllEdits();
@@ -614,6 +715,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         redoAction.update();
     }
 
+    /**
+     * Start new document.
+     */
     public void startNewDocument()
     {
         Document oldDoc = textPane.getDocument();
@@ -628,6 +732,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         resetUndoManager();
     }
 
+    /**
+     * Open document.
+     */
     public void openDocument()
     {
         try
@@ -667,6 +774,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * Save document.
+     */
     public void saveDocument()
     {
         if(currentFile != null)
@@ -688,6 +798,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             saveDocumentAs();
     }
 
+    /**
+     * Save document as.
+     */
     public void saveDocumentAs()
     {
         try
@@ -735,6 +848,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * Exit.
+     */
     public void exit()
     {
         String exitMessage = "Are you sure you want to exit?";
@@ -742,33 +858,53 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             System.exit(0);
     }
 
+    /**
+     * Clear.
+     */
     public void clear()
     {
         startNewDocument();
     }
 
+    /**
+     * Select all.
+     */
     public void selectAll()
     {
         textPane.selectAll();
     }
 
+    /**
+     * Help.
+     */
     public void help()
     {
         JOptionPane.showMessageDialog(this, "DocumentEditor.java\nAuthor: Charles Bell\nVersion: May 25, 2002\nhttp://www.quantumhyperspace.com\nQuantumHyperSpace Programming Services");
     }
 
+    /**
+     * Show shortcuts.
+     */
     public void showShortcuts()
     {
         String shortcuts = "Navigate in    |  Tab\nNavigate out   |  Ctrl+Tab\nNavigate out backwards    |  Shift+Ctrl+Tab\nMove up/down a line    |  Up/Down Arrown\nMove left/right a component or char    |  Left/Right Arrow\nMove up/down one vertical block    |  PgUp/PgDn\nMove to start/end of line    |  Home/End\nMove to previous/next word    |  Ctrl+Left/Right Arrow\nMove to start/end of data    |  Ctrl+Home/End\nMove left/right one block    |  Ctrl+PgUp/PgDn\nSelect All    |  Ctrl+A\nExtend selection up one line    |  Shift+Up Arrow\nExtend selection down one line    |  Shift+Down Arrow\nExtend selection to beginning of line    |  Shift+Home\nExtend selection to end of line    |  Shift+End\nExtend selection to beginning of data    |  Ctrl+Shift+Home\nExtend selection to end of data    |  Ctrl+Shift+End\nExtend selection left    |  Shift+Right Arrow\nExtend selection right    |  Shift+Right Arrow\nExtend selection up one vertical block    |  Shift+PgUp\nExtend selection down one vertical block    |  Shift+PgDn\nExtend selection left one block    |  Ctrl+Shift+PgUp\nExtend selection right one block    |  Ctrl+Shift+PgDn\nExtend selection left one word    |  Ctrl+Shift+Left Arrow\nExtend selection right one word    |  Ctrl+Shift+Right Arrow\n";
         JOptionPane.showMessageDialog(this, shortcuts);
     }
 
+    /**
+     * About quantum hyper space.
+     */
     public void aboutQuantumHyperSpace()
     {
         JOptionPane.showMessageDialog(this, "QuantumHyperSpace Programming Services\nhttp://www.quantumhyperspace.com\nemail: support@quantumhyperspace.com\n                     or \nemail: charles@quantumhyperspace.com\n", "QuantumHyperSpace", 1, new ImageIcon("quantumhyperspace.gif"));
     }
 
 
+    /**
+     * The main method.
+     * 
+     * @param args the arguments
+     */
     public static void main(String args[])
     {
 	 /*HTMLDocumentEditor editor =*/ new HTMLDocumentEditor();
@@ -779,7 +915,15 @@ public class HTMLDocEditor extends JFrame implements ActionListener
     private JTextPane textPane;
     private boolean debug;
     private File currentFile;
+    
+    /**
+     * The undo handler.
+     */
     protected UndoableEditListener undoHandler;
+    
+    /**
+     * The undo.
+     */
     protected UndoManager undo;
     private UndoAction undoAction;
     private RedoAction redoAction;

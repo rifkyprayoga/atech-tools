@@ -45,13 +45,13 @@ public class CheckNodeUtil
 	
 	public static CheckNode traverseTree(CheckBoxTreeNodeInterface cb, int check_type)
 	{
-		CheckNode node = new CheckNode(cb, cb.getTargetName(), cb.hasChildren(), check_type);
+		CheckNode node = new CheckNode(cb, cb.getTargetName(), cb.hasNodeChildren(), check_type);
 		
-		if (cb.hasChildren())
+		if (cb.hasNodeChildren())
 		{
-			for(int i=0; i<cb.getChildren().size(); i++)
+			for(int i=0; i<cb.getNodeChildren().size(); i++)
 			{
-				node.add(CheckNodeUtil.traverseTree(cb.getChildren().get(i), check_type));
+				node.add(CheckNodeUtil.traverseTree(cb.getNodeChildren().get(i), check_type));
 			}
 		}
 		

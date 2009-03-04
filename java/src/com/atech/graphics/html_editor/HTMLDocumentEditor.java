@@ -47,6 +47,7 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -88,9 +89,15 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
     private File currentFile;
 
     /*  Listener for the edits on the current document. */
+    /**
+     * The undo handler.
+     */
     protected UndoableEditListener undoHandler = new UndoHandler();
 
     /*  UndoManager that we add edits to. */
+    /**
+     * The undo.
+     */
     protected UndoManager undo = new UndoManager();
 
     private UndoAction undoAction = new UndoAction();
@@ -110,6 +117,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
     private HTMLEditorKit.InsertHTMLTextAction bulletAction = new HTMLEditorKit.InsertHTMLTextAction("Bullets",
             "<li> </li>", HTML.Tag.UL, HTML.Tag.LI);
 
+    /**
+     * Instantiates a new hTML document editor.
+     */
     public HTMLDocumentEditor()
     {
         super("HTMLDocumentEditor");
@@ -132,11 +142,19 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         init();
     }
 
+    /**
+     * The main method.
+     * 
+     * @param args the arguments
+     */
     public static void main(String[] args)
     {
         /* HTMLDocumentEditor editor = */new HTMLDocumentEditor();
     }
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
 
@@ -445,6 +463,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         // show();
     }
 
+    /** 
+     * actionPerformed
+     */
     public void actionPerformed(ActionEvent ae)
     {
         String actionCommand = ae.getActionCommand();
@@ -500,6 +521,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * Reset undo manager.
+     */
     protected void resetUndoManager()
     {
         undo.discardAllEdits();
@@ -507,6 +531,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         redoAction.update();
     }
 
+    /**
+     * Start new document.
+     */
     public void startNewDocument()
     {
         Document oldDoc = textPane.getDocument();
@@ -521,6 +548,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         resetUndoManager();
     }
 
+    /**
+     * Open document.
+     */
     public void openDocument()
     {
         try
@@ -561,6 +591,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
 
     }
 
+    /**
+     * Save document.
+     */
     public void saveDocument()
     {
         if (currentFile != null)
@@ -586,6 +619,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * Save document as.
+     */
     public void saveDocumentAs()
     {
         try
@@ -634,6 +670,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * Exit.
+     */
     public void exit()
     {
         String exitMessage = "Are you sure you want to exit?";
@@ -643,16 +682,25 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * Clear.
+     */
     public void clear()
     {
         startNewDocument();
     }
 
+    /**
+     * Select all.
+     */
     public void selectAll()
     {
         textPane.selectAll();
     }
 
+    /**
+     * Help.
+     */
     public void help()
     {
         JOptionPane.showMessageDialog(this, "DocumentEditor.java\n" + "Author: Charles Bell\n"
@@ -660,6 +708,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
                 + "QuantumHyperSpace Programming Services");
     }
 
+    /**
+     * Show shortcuts.
+     */
     public void showShortcuts()
     {
         String shortcuts = "Navigate in    |  Tab\n" + "Navigate out   |  Ctrl+Tab\n"
@@ -686,6 +737,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         JOptionPane.showMessageDialog(this, shortcuts);
     }
 
+    /**
+     * About quantum hyper space.
+     */
     public void aboutQuantumHyperSpace()
     {
         JOptionPane.showMessageDialog(this, "QuantumHyperSpace Programming Services\n"
@@ -694,24 +748,46 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
             JOptionPane.INFORMATION_MESSAGE, new ImageIcon("quantumhyperspace.gif"));
     }
 
+    /**
+     * The listener interface for receiving frame events.
+     * The class that is interested in processing a frame
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addFrameListener<code> method. When
+     * the frame event occurs, that object's appropriate
+     * method is invoked.
+     */
     class FrameListener extends WindowAdapter
     {
+        
+        /* 
+         * windowClosing
+         */
         public void windowClosing(WindowEvent we)
         {
             exit();
         }
     }
 
+    /**
+     * The Class SubscriptAction.
+     */
     class SubscriptAction extends StyledEditorKit.StyledTextAction
     {
 
         private static final long serialVersionUID = -2357448086050851187L;
 
+        /**
+         * Instantiates a new subscript action.
+         */
         public SubscriptAction()
         {
             super(StyleConstants.Subscript.toString());
         }
 
+        /* 
+         * actionPerformed
+         */
         public void actionPerformed(ActionEvent ae)
         {
             JEditorPane editor = getEditor(ae);
@@ -727,16 +803,25 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * The Class SuperscriptAction.
+     */
     class SuperscriptAction extends StyledEditorKit.StyledTextAction
     {
 
         private static final long serialVersionUID = -2988620562330624160L;
 
+        /**
+         * Instantiates a new superscript action.
+         */
         public SuperscriptAction()
         {
             super(StyleConstants.Superscript.toString());
         }
 
+        /* 
+         * actionPerformed
+         */
         public void actionPerformed(ActionEvent ae)
         {
             JEditorPane editor = getEditor(ae);
@@ -752,16 +837,25 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * The Class StrikeThroughAction.
+     */
     class StrikeThroughAction extends StyledEditorKit.StyledTextAction
     {
 
         private static final long serialVersionUID = 6098428615697945138L;
 
+        /**
+         * Instantiates a new strike through action.
+         */
         public StrikeThroughAction()
         {
             super(StyleConstants.StrikeThrough.toString());
         }
 
+        /* 
+         * actionPerformed
+         */
         public void actionPerformed(ActionEvent ae)
         {
             JEditorPane editor = getEditor(ae);
@@ -777,26 +871,41 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * The Class HTMLFileFilter.
+     */
     class HTMLFileFilter extends javax.swing.filechooser.FileFilter
     {
 
+        /* 
+         * accept
+         */
         public boolean accept(File f)
         {
             return ((f.isDirectory()) || (f.getName().toLowerCase().indexOf(".htm") > 0));
         }
 
+        /* 
+         * getDescription
+         */
         public String getDescription()
         {
             return "html";
         }
     }
 
+    /**
+     * The Class UndoHandler.
+     */
     class UndoHandler implements UndoableEditListener
     {
 
         /*
          * Messaged when the Document has created an edit, the edit is added to
          * <code>undo</code>, an instance of UndoManager.
+         */
+        /* 
+         * undoableEditHappened
          */
         public void undoableEditHappened(UndoableEditEvent e)
         {
@@ -806,17 +915,26 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * The Class UndoAction.
+     */
     class UndoAction extends AbstractAction
     {
 
         private static final long serialVersionUID = -2045664268696511641L;
 
+        /**
+         * Instantiates a new undo action.
+         */
         public UndoAction()
         {
             super("Undo");
             setEnabled(false);
         }
 
+        /* 
+         * actionPerformed
+         */
         public void actionPerformed(ActionEvent e)
         {
             try
@@ -832,6 +950,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
             redoAction.update();
         }
 
+        /**
+         * Update.
+         */
         protected void update()
         {
             if (undo.canUndo())
@@ -847,17 +968,26 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * The Class RedoAction.
+     */
     class RedoAction extends AbstractAction
     {
 
         private static final long serialVersionUID = 3041001975205450053L;
 
+        /**
+         * Instantiates a new redo action.
+         */
         public RedoAction()
         {
             super("Redo");
             setEnabled(false);
         }
 
+        /* 
+         * actionPerformed
+         */
         public void actionPerformed(ActionEvent e)
         {
             try
@@ -873,6 +1003,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
             undoAction.update();
         }
 
+        /**
+         * Update.
+         */
         protected void update()
         {
             if (undo.canRedo())

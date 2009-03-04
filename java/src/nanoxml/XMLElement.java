@@ -229,7 +229,7 @@ public class XMLElement
      *     <li>The values are char arrays
      * </ul></dd></dl>
      */
-    private Hashtable entities;
+    private Hashtable<String,Object> entities;
 
 
     /**
@@ -498,7 +498,7 @@ public class XMLElement
      *
      * @see nanoxml.XMLElement#createAnotherElement()
      */
-    protected XMLElement(Hashtable<String,char[]> entities,
+    protected XMLElement(Hashtable<String,Object> entities,
                          boolean   skipLeadingWhitespace,
                          boolean   fillBasicConversionTable,
                          boolean   ignoreCase)
@@ -513,7 +513,7 @@ public class XMLElement
         this.lineNr = 0;
         Enumeration<String> enume = this.entities.keys();
         while (enume.hasMoreElements()) {
-            Object key = enume.nextElement();
+            String key = enume.nextElement();
             Object value = this.entities.get(key);
             if (value instanceof String) {
                 value = ((String) value).toCharArray();
