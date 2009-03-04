@@ -126,7 +126,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
     }
 
 
-    public void preInit()
+    private void preInit()
     {
         ic = I18nControlDbT.getInstance();
         ATSwingUtils.setI18nControl(ic);
