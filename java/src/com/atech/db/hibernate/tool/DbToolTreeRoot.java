@@ -2,6 +2,7 @@ package com.atech.db.hibernate.tool;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -36,20 +37,48 @@ import java.util.ArrayList;
 public class DbToolTreeRoot 
 {
 
+    /**
+     * The Constant ROOT_SINGLE.
+     */
     public static final int ROOT_SINGLE = 1;
+    
+    /**
+     * The Constant ROOT_MULTIPLE.
+     */
     public static final int ROOT_MULTIPLE = 2;
 
+    /**
+     * The type.
+     */
     public int type = ROOT_SINGLE;
 
+    /**
+     * The m_app group.
+     */
     public ArrayList<DbToolApplicationInterface> m_appGroup = null;
+    
+    /**
+     * The m_app.
+     */
     public DbToolApplicationInterface m_app = null;
 
 //    public Hashtable m_appGroup_table = null;
-    public ArrayList<DatabaseSettings> m_app_list = null;
+    /**
+ * The m_app_list.
+ */
+public ArrayList<DatabaseSettings> m_app_list = null;
 
+    /**
+     * The m_da.
+     */
     public DbToolAccess m_da = null;
 
 
+    /**
+     * Instantiates a new db tool tree root.
+     * 
+     * @param da the da
+     */
     public DbToolTreeRoot(DbToolAccess da) 
     {
 
@@ -83,12 +112,23 @@ public class DbToolTreeRoot
         
     }
 
+    
+    
+    
+    /**
+     * Load data.
+     */
     public void loadData()
     {
         m_appGroup = m_da.getApplicationDatas();
         type = ROOT_MULTIPLE;
     }
 
+    /**
+     * Load data.
+     * 
+     * @param intr the intr
+     */
     public void loadData(DbToolApplicationInterface intr)
     {
     	//m_appGroup = new ArrayList();
@@ -101,6 +141,13 @@ public class DbToolTreeRoot
     }
 
 
+    /**
+     * Gets the list of databases.
+     * 
+     * @param intr the intr
+     * 
+     * @return the list of databases
+     */
     public ArrayList<DatabaseSettings> getListOfDatabases(DbToolApplicationInterface intr)
     {
         intr.loadConfig();
@@ -116,6 +163,9 @@ public class DbToolTreeRoot
 
 
 
+    /** 
+     * toString
+     */
     public String toString()
     {
     	if (type==ROOT_SINGLE)

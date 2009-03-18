@@ -45,9 +45,12 @@ public class DbToolTreeCellRenderer extends DefaultTreeCellRenderer
     /** Last tree the renderer was painted in. */
     //private JTree tree;
 
-    public Font defFont = null;
-    public Font boldFont = null;
+    private Font defFont = null;
+    private Font boldFont = null;
 
+    /**
+     * Constructor
+     */
     public DbToolTreeCellRenderer()
     {
         super();
@@ -79,10 +82,10 @@ public class DbToolTreeCellRenderer extends DefaultTreeCellRenderer
 						  boolean sel,
 						  boolean expanded,
 						  boolean leaf, int row,
-						  boolean hasFocus) 
+						  boolean _hasFocus) 
     {
         String stringValue = tree.convertValueToText(value, sel,
-					  expanded, leaf, row, hasFocus);
+					  expanded, leaf, row, _hasFocus);
         setFont(this.defFont);
 
         //System.out.println(value);
@@ -96,7 +99,7 @@ public class DbToolTreeCellRenderer extends DefaultTreeCellRenderer
 
 
         //this.tree = tree;
-    	this.hasFocus = hasFocus;
+    	this.hasFocus = _hasFocus;
     	setText(stringValue);
     	if(sel)
     	    setForeground(getTextSelectionColor());

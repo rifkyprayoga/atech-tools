@@ -388,6 +388,52 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
     }
     
+
+    
+    public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type, String except, boolean with_init)
+    {
+        super(parent, "Selector", true);
+
+        font_normal = new Font("SansSerif", Font.PLAIN, 12);
+        this.m_except = except;
+
+        this.m_da = da;
+        this.ic = da.getI18nControlInstance();
+
+        this.selector_type = type;
+  
+        this.parent_frame = parent;
+        this.parent_type = SelectorAbstractDialog.PARENT_DIALOG;
+        
+        if (with_init)
+            init();
+        
+        
+    }
+    
+    
+    /*
+    public SelectorAbstractDialog(JFrame parent, I18nControlAbstract ic, int type, String except, boolean with_init) 
+    {
+        super(parent, "Selector", true);
+
+        font_normal = new Font("SansSerif", Font.PLAIN, 12);
+        this.m_except = except;
+        
+        this.ic = ic;
+
+        this.selector_type = type;
+  
+        this.parent_frame = parent;
+        this.parent_type = SelectorAbstractDialog.PARENT_DIALOG;
+        
+        if (with_init)
+            init();
+
+        //this.setVisible(true);
+
+    }
+    */
     
 
     public void init()
@@ -1319,7 +1365,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
         this.setBounds(100, 80, 520, 440);
         
-        ATDataAccess.getInstance().centerJDialog(this, getInternalParent());
+        //ATDataAccess.getInstance().centerJDialog(this, getInternalParent());
+        
+        m_da.centerJDialog(this, getInternalParent());
 
         this.setResizable(false);
 

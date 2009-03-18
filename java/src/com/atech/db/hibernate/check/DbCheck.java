@@ -15,6 +15,7 @@ import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.db.hibernate.HibernateUtil;
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.update.startup.BuildStartupFile;
+import com.atech.update.startup.StartupUtil;
 import com.atech.utils.ATDataAccess;
 import com.atech.utils.ATDataAccessAbstract;
 
@@ -76,6 +77,9 @@ public class DbCheck
     
     public DbCheck()
     {
+        if (!StartupUtil.shouldDbCheckBeDone())
+            return;
+        
         this.upd_conf = new BuildStartupFile().getConfiguration();
         da = ATDataAccess.getInstance();
         //loadApplicationData();
@@ -83,16 +87,23 @@ public class DbCheck
         readUpdateSystemData();
         readCurrentDbVersion();
         writeReport();
+        
+        StartupUtil.writeStartupWithOldCopy(1);
     }
     
     public DbCheck(String req_version, String db_class)
     {
+        if (!StartupUtil.shouldDbCheckBeDone())
+            return;
+
         da = ATDataAccess.getInstance();
         this.version_db_required = req_version;
         this.db_config_instance_class = db_class; 
 
         readCurrentDbVersion();
         writeReport();
+
+        StartupUtil.writeStartupWithOldCopy(1);
     }
     
     

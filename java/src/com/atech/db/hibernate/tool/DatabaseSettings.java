@@ -1,9 +1,11 @@
 package com.atech.db.hibernate.tool;
 
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Hashtable;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -37,23 +39,72 @@ import java.util.Hashtable;
 
 public class DatabaseSettings implements Comparable<DatabaseSettings> //<DatabaseSettings>
 {
+    
+    /**
+     * The number.
+     */
     public int number = 0;
 
+    /**
+     * The db_name.
+     */
     public String db_name = null;
+    
+    /**
+     * The name.
+     */
     public String name = null;
+    
+    /**
+     * The driver.
+     */
     public String driver = null;
+    
+    /**
+     * The driver_class.
+     */
     public String driver_class = null;
+    
+    /**
+     * The url.
+     */
     public String url = null;
+    
+    /**
+     * The port.
+     */
     public String port = null;
+    
+    /**
+     * The dialect.
+     */
     public String dialect = null;
 
+    /**
+     * The username.
+     */
     public String username = null;
+    
+    /**
+     * The password.
+     */
     public String password = null;
 
+    /**
+     * The is default.
+     */
     public boolean isDefault = false;
 
+    /**
+     * The settings.
+     */
     public Hashtable<String,String> settings = null;
 
+    
+    
+    
+    
+    
 /*
     public String hostname = null;
     public String url = null;
@@ -61,11 +112,23 @@ public class DatabaseSettings implements Comparable<DatabaseSettings> //<Databas
     public String database = null;
 */
 
+    /**
+     * Instantiates a new database settings.
+     */
     public DatabaseSettings()
     {
         settings = new Hashtable<String,String>();
     }
 
+    /**
+     * Instantiates a new database settings.
+     * 
+     * @param name the name
+     * @param driver the driver
+     * @param url the url
+     * @param port the port
+     * @param dialect the dialect
+     */
     public DatabaseSettings(String name, String driver, String url, String port, String dialect)
     {
     	this.name = name;
@@ -77,7 +140,14 @@ public class DatabaseSettings implements Comparable<DatabaseSettings> //<Databas
     	settings = new Hashtable<String,String>();
     }
 
-    public void write(BufferedWriter bw) throws java.io.IOException
+    /**
+     * Write.
+     * 
+     * @param bw the bw
+     * 
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public void write(BufferedWriter bw) throws IOException
     {
     	bw.write("\n#\n# Database #" + this.number +" - " + this.name + "\n#\n");
     	bw.write("DB" + this.number + "_CONN_NAME=" + this.name +"\n");
@@ -90,6 +160,9 @@ public class DatabaseSettings implements Comparable<DatabaseSettings> //<Databas
     }
 
 
+    /** 
+     * toString
+     */
     @Override
     public String toString()
     {
@@ -128,7 +201,7 @@ public class DatabaseSettings implements Comparable<DatabaseSettings> //<Databas
      * <tt>0</tt>, or <tt>1</tt> according to whether the value of
      * <i>expression</i> is negative, zero or positive.
      *
-     * @param   o the object to be compared.
+     * @param   ds the object to be compared.
      * @return  a negative integer, zero, or a positive integer as this object
      *		is less than, equal to, or greater than the specified object.
      *

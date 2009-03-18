@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-/*
+/**
  * This file is part of ATech Tools library.
  * 
  * <one line to give the library's name and a brief idea of what it does.>
@@ -55,6 +55,11 @@ public class PanelRoot extends JPanel implements ActionListener
 
     // NutritionTreeDialog m_dialog = null;
 
+    /**
+     * Constructor 
+     * 
+     * @param dia
+     */
     public PanelRoot(DbTool dia)
     {
 
@@ -71,7 +76,7 @@ public class PanelRoot extends JPanel implements ActionListener
 
     }
 
-    public void createPanel()
+    private void createPanel()
     {
 
         this.setSize(420, 460);

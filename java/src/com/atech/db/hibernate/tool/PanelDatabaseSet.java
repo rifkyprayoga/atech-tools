@@ -17,12 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.Document;
 
-/*
+/**
  * This file is part of ATech Tools library.
  * 
  * <one line to give the library's name and a brief idea of what it does.>
@@ -90,24 +86,34 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
     Hashtable<String, JTextField> parameters_textfield = new Hashtable<String, JTextField>();
 
     int posy = 320;
+    
+    PanelDbAction db_action = null;
+    DbTool m_dialog;
+    
 
+    /**
+     * Constructor
+     * 
+     * @param dia
+     */
     public PanelDatabaseSet(DbTool dia)
     {
 
         super();
 
-        // m_dialog = dia;
+        m_dialog = dia;
         m_da = DbToolAccess.getInstance();
 
         font_big = m_da.getFont(DbToolAccess.FONT_BIG_BOLD);
         font_normal_b = m_da.getFont(DbToolAccess.FONT_NORMAL_BOLD);
         font_normal = m_da.getFont(DbToolAccess.FONT_NORMAL);
 
+        
         createPanel();
 
     }
 
-    public void createPanel()
+    private void createPanel()
     {
 
         this.setSize(500, 560);
@@ -167,6 +173,8 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
         tf_url.setEditable(false);
         this.add(tf_url, null);
 
+        this.db_action = new PanelDbAction(this, m_dialog);
+        this.add(db_action, null);
         
         // TODO : remove this
         /*
@@ -228,14 +236,32 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
         return;
     }
 
+    /**
+     * Set Data
+     * 
+     * @param intr
+     */
     public void setData(DatabaseSettings intr)
     {
         m_database_settings = intr;
         clearElements();
         reDraw();
         processExistingUrl(intr.url);
+        //this.db_action.setDatabaseSettings
     }
 
+    
+    public DatabaseSettings getDatabaseSettings()
+    {
+        return this.m_database_settings;
+    }
+    
+    
+    public String getJDBCUrl()
+    {
+        return this.tf_url.getText();
+    }
+    
     
     private void clearElements()
     {
@@ -298,7 +324,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
 
     }
 
-    public void unpackURL(String url)
+    private void unpackURL(String url)
     {
         StringTokenizer tok = new StringTokenizer(url, "<");
         url_list.clear();
@@ -369,6 +395,9 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
             }
         }
 
+        this.db_action.setBounds(0, posy + 30, 300, 50);
+        
+        
     }
 
     private void processExistingUrl(String url)

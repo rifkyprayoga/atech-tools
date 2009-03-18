@@ -47,6 +47,19 @@ public class BuildStartupFile
 	 */
 	public BuildStartupFile()
 	{
+	    
+	    if (!StartupUtil.shouldStartupFilesBeCreated())
+	    {
+            System.out.println("============================================================");
+            System.out.println("===             Startup/Update Manager                   ===");
+            System.out.println("===   Startupfiles were not marked to be created. OK.    ===");
+            System.out.println("============================================================");
+
+            StartupUtil.writeStartupWithOldCopy(2);                
+
+            return;
+	    }
+	    
 		Hashtable<String,String> cfg = StartupUtil.getConfiguration(OSUtil.getOSSpecificConfigurationFile());
 		
 		if (cfg.containsKey("UPDATE_CONFIG"))
@@ -62,7 +75,9 @@ public class BuildStartupFile
                 System.out.println("===   (support@atech-software.com).                                       ===");
                 System.out.println("=============================================================================");
                 
-			    return;
+                StartupUtil.writeStartupWithOldCopy(2);                
+			    
+                return;
 			}
 			
 			if (buildStartupFiles())
@@ -93,11 +108,8 @@ public class BuildStartupFile
 			System.out.println("===   Error: StartupConfig.properties is missing or missconfigured.       ===");
 			System.out.println("=============================================================================");
 		}
-		//loadPreDefinition("");
 		
-		
-		
-		
+		StartupUtil.writeStartupWithOldCopy(2);
 	}
 	
 	

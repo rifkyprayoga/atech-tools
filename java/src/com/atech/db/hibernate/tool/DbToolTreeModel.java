@@ -49,6 +49,11 @@ public class DbToolTreeModel implements TreeModel
     private DbToolTreeRoot rootObj = null;
 
 
+    /**
+     * Constructor
+     * 
+     * @param rt
+     */
     public DbToolTreeModel(DbToolTreeRoot rt) 
     {
         //xisRoot = true;
@@ -56,7 +61,7 @@ public class DbToolTreeModel implements TreeModel
     }
 
 
-    public void debug(String deb)
+    private void debug(String deb)
     {
         if (m_debug)
             System.out.println(deb);

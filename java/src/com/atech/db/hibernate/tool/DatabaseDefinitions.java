@@ -3,7 +3,7 @@ package com.atech.db.hibernate.tool;
 import java.util.Hashtable;
 import java.util.ArrayList;
 
-/*
+/**
  * This file is part of ATech Tools library.
  * 
  * <one line to give the library's name and a brief idea of what it does.>
@@ -40,6 +40,9 @@ public class DatabaseDefinitions
 
     int hibernate_main_version = 3;
 
+    /**
+     * Database Settings
+     */
     public String databaseSettings[] = {
 
         // DB2

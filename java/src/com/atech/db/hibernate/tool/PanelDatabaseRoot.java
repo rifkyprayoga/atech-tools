@@ -63,6 +63,11 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
     
 
 
+    /**
+     * Constructor
+     * 
+     * @param dia
+     */
     public PanelDatabaseRoot(DbTool dia)
     {
 
@@ -81,7 +86,7 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
 
 
 
-    public void createPanel()
+    private void createPanel()
     {
 
         this.setSize(420, 460);
@@ -145,15 +150,23 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
     }
 
 
+    /**
+     * Set Data
+     * 
+     * @param intr
+     */
     public void setData(DbToolApplicationInterface intr)
     {
-	m_application = intr;
-	reDraw();
+        m_application = intr;
+        reDraw();
     }
 
+    /**
+     * Re Draw
+     */
     public void reDraw()
     {
-	System.out.println("Redraw Not working");
+        System.out.println("Redraw Not working");
     }
 
 
