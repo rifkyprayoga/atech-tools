@@ -334,6 +334,14 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         this.parent_frame = parent;
         this.parent_type = SelectorAbstractDialog.PARENT_FRAME;
 
+        if (m_da.getCurrentComponent()!=parent)
+        {
+            m_da.addComponent(parent);
+        }
+        
+        m_da.addComponent(this);
+        
+        
         if (with_init)
             init();
 
@@ -358,6 +366,19 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
   
         this.parent_dialog = parent;
         this.parent_type = SelectorAbstractDialog.PARENT_DIALOG;
+
+        if (m_da.getCurrentComponent()!=parent)
+        {
+            System.out.println("current!=parent");
+            m_da.addComponent(parent);
+        }
+        else
+        {
+            System.out.println("current==parent");
+        }
+        
+        m_da.addComponent(this);
+        
         
         if (with_init)
             init();
@@ -380,6 +401,18 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
   
         this.parent_dialog = parent;
         this.parent_type = SelectorAbstractDialog.PARENT_DIALOG;
+
+        if (m_da.getCurrentComponent()!=parent)
+        {
+            System.out.println("current!=parent");
+            m_da.addComponent(parent);
+        }
+        else
+        {
+            System.out.println("current==parent");
+        }
+        
+        m_da.addComponent(this);
         
         if (with_init)
             init();
@@ -403,7 +436,19 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         this.selector_type = type;
   
         this.parent_frame = parent;
-        this.parent_type = SelectorAbstractDialog.PARENT_DIALOG;
+        this.parent_type = SelectorAbstractDialog.PARENT_FRAME;
+        
+        if (m_da.getCurrentComponent()!=parent)
+        {
+            System.out.println("current!=parent");
+            m_da.addComponent(parent);
+        }
+        else
+        {
+            System.out.println("current==parent");
+        }
+        
+        m_da.addComponent(this);
         
         if (with_init)
             init();
@@ -1367,7 +1412,10 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         
         //ATDataAccess.getInstance().centerJDialog(this, getInternalParent());
         
-        m_da.centerJDialog(this, getInternalParent());
+        System.out.println("internalparent: " + getInternalParent());
+        
+        m_da.centerJDialog(this, this.getParent()); //getInternalParent());
+        //m_da.centerJDialog(this); //, getInternalParent());
 
         this.setResizable(false);
 
