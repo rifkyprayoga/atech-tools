@@ -813,7 +813,7 @@ public abstract class ATDataAccessAbstract
         this.parent = component;
     }
 
-    public Container getParent()
+    public Component getParent()
     {
         return this.parent;
     }
@@ -841,7 +841,7 @@ public abstract class ATDataAccessAbstract
         return getImageIcon(this.getImagesRoot(), name);
     }
 
-    public ImageIcon getImageIcon(String root, String name, Container comp)
+    public ImageIcon getImageIcon(String root, String name, Component comp)
     {
         return new ImageIcon(getImage(root + name, comp));
     }
