@@ -223,6 +223,7 @@ public abstract class ATDataAccessAbstract
         m_settings_ht = new Hashtable<String, String>();
         plugins = new Hashtable<String,PlugInClient>();
         this.m_collator = this.m_i18n.getCollationDefintion();
+        loadPlugIns();
         loadBackupRestoreCollection();
         
         if (!ATDataAccessAbstract.decimals_set)
@@ -240,7 +241,7 @@ public abstract class ATDataAccessAbstract
     public abstract HibernateDb getHibernateDb();
     
     
-    
+    public abstract void loadPlugIns();
     
     
     // Method: getInstance
@@ -2392,6 +2393,13 @@ public abstract class ATDataAccessAbstract
 
     
     public abstract void setSelectedLangIndex(int index);
+ 
+    
+    public Hashtable<String,PlugInClient> getPlugins()
+    {
+        return this.plugins;
+    }
+    
     
     
 }

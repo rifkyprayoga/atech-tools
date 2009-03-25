@@ -11,24 +11,17 @@ public class EventSource extends Observable //implements Runnable
     
     public void sendChangeNotification(int value)
     {
-        System.out.println("Event Source. Change Int [" + value + "]");
-//        value_int = value;
-//        type = 1;
         setChanged();
         notifyObservers( value );
     }
 
     public void sendChangeNotification(String value)
     {
-        System.out.println("Event Source. Change String [" + value + "]");
-//        value_str = value;
-//        type = 2;
-    //    notifyObservers( value );
         setChanged();
         notifyObservers( value );
-        
     }
-    
+
+    /*
     public void clear()
     {
         type = 0;
@@ -62,5 +55,5 @@ public class EventSource extends Observable //implements Runnable
         
             
         }
-    }
+    }*/
 }

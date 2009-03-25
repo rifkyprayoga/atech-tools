@@ -5,9 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
 import com.atech.db.hibernate.HibernateDb;
+import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.graphics.components.StatusReporterInterface;
 import com.atech.graphics.dialogs.TransferDialog;
 import com.atech.i18n.I18nControlAbstract;
@@ -336,5 +338,55 @@ public abstract class PlugInClient implements ActionListener
         else
             return this.m_server.getReturnObject(ret_obj_id);
     }
+    
+    
+    /**
+     * Get Backup Objects (if available)
+     * 
+     * @return
+     */
+    public BackupRestoreCollection getBackupObjects()
+    {
+        if (m_server==null)
+            return null;
+        else
+            return m_server.getBackupObjects();
+    }
+    
+    
+    /**
+     * Get PlugIn Main Menu 
+     * 
+     * This is new way to handle everything, previously we used to pass ActionListener items through
+     * plugin framework, but in new way, we will use this one.
+     *  
+     * @return
+     */
+    public JMenu getPlugInMainMenu()
+    {
+        if (m_server==null)
+            return null;
+        else
+            return m_server.getPlugInMainMenu();
+    }
+    
+    
+    /**
+     * Get PlugIn Print Menu 
+     * 
+     * Since printing is also PlugIn specific we need to add Printing jobs to application.
+     *  
+     * @return
+     */
+    public JMenu getPlugInPrintMenu()
+    {
+        if (m_server==null)
+            return null;
+        else
+            return m_server.getPlugInPrintMenu();
+    }
+    
+    
+    
     
 }

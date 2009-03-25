@@ -774,8 +774,8 @@ public class ATSwingUtils
         addComponent(comp, posX, posY, width, height, FONT_NORMAL, parent);
     }
 
-    public static void addComponent(JComponent comp, int posX, int posY, int width,
-            int height, int font_id, JPanel parent)
+    
+    public static void addComponent(JComponent comp, int posX, int posY, int width, int height, int font_id, JPanel parent)
     {
         comp.setBounds(posX, posY, width, height);
         comp.setFont(getFont(font_id));
@@ -785,6 +785,65 @@ public class ATSwingUtils
     
     
     
+    
+    /**
+     * Create Menu
+     * 
+     * @param name
+     * @param tool_tip
+     * @param ic
+     * @return
+     */
+    public static JMenu createMenu(String name, String tool_tip, I18nControlAbstract ic)
+    {
+        JMenu item = new JMenu(ic.getMessageWithoutMnemonic(name));
+        item.setMnemonic(ic.getMnemonic(name));
+
+        if (tool_tip != null)
+        {
+            item.setToolTipText(tool_tip);
+        }
+
+        return item;
+    }
+    
+    
+    /**
+     * Create Menu Item 
+     * 
+     * @param menu
+     * @param name
+     * @param tip
+     * @param action_command
+     * @param al
+     * @param icon_small
+     * @param ic
+     * @param da
+     * @param c
+     */
+    public static void createMenuItem(JMenu menu, String name, String tip, String action_command, ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c)
+    {
+        JMenuItem mi = new JMenuItem(ic.getMessageWithoutMnemonic(name));
+        mi.setMnemonic(ic.getMnemonic(name));
+        
+        mi.setActionCommand(action_command);
+        mi.addActionListener(al);
+        
+        if (tip != null)
+        {
+            mi.setToolTipText(tip);
+        }
+
+        if (icon_small != null)
+        {
+            mi.setIcon(da.getImageIcon(icon_small, 15, 15, c));
+        }
+
+        if (menu != null)
+            menu.add(mi);
+
+        // return action;
+    }
     
     
 }

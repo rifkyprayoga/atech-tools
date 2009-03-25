@@ -3,9 +3,11 @@ package com.atech.plugin;
 import java.awt.Container;
 import java.util.ArrayList;
 
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
 import com.atech.db.hibernate.HibernateDb;
+import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.graphics.components.StatusReporterInterface;
 import com.atech.graphics.dialogs.TransferDialog;
 import com.atech.i18n.I18nControlAbstract;
@@ -225,6 +227,37 @@ public abstract class PlugInServer
      * @return
      */
     public abstract Object getReturnObject(int ret_obj_id);
+    
+    
+    /**
+     * Get PlugIn Main Menu 
+     * 
+     * This is new way to handle everything, previously we used to pass ActionListener items through
+     * plugin framework, but in new way, we will use this one.
+     *  
+     * @return
+     */
+    public abstract JMenu getPlugInMainMenu();
+    
+    
+    /**
+     * Get PlugIn Print Menu 
+     * 
+     * Since printing is also PlugIn specific we need to add Printing jobs to application.
+     *  
+     * @return
+     */
+    public abstract JMenu getPlugInPrintMenu();
+    
+    
+    
+    
+    /**
+     * Get Backup Objects (if available)
+     * 
+     * @return
+     */
+    public abstract BackupRestoreCollection getBackupObjects();
     
     
 }
