@@ -1465,7 +1465,8 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     	}
         else if (this.getFilterType()==SelectorAbstractDialog.SELECTOR_FILTER_DATE_BOTH_TEXT)
         {
-        	log.warn("initByFilterType(): Date Both and Text Not Implemented !!!" );
+        	log.warn("initByFilterType(): Date Both and Text Not Implemented FULLY !!!" );
+        	initFilterType_DateBoth_Text();
         }
         else if (this.getFilterType()==SelectorAbstractDialog.SELECTOR_FILTER_DATE_FROM)
         {
@@ -1473,7 +1474,8 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         }
         else if (this.getFilterType()==SelectorAbstractDialog.SELECTOR_FILTER_DATE_BOTH)
         {
-            log.warn("initByFilterType(): Date_Both Not Implemented !!!" );
+            //log.warn("initByFilterType(): Date_Both Not Implemented !!!" );
+            initFilterType_DateBoth();
         }
     	
     	
@@ -1515,7 +1517,54 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     	
     }
     
+    public void initFilterType_DateBoth()
+    {
+        this.checkBox1 = new JCheckBox();
+        this.checkBox1.setText(" " + ic.getMessage("FROM") +":");
+        this.checkBox1.setBounds(25, 60, 80, 26);  // 85
+        this.checkBox1.addChangeListener(this);
+        this.checkBox1.setName("from");
+        panel.add(this.checkBox1, null);
     
+        dt_start = new DateComponent(m_da.getI18nControlInstance());
+        dt_start.setBounds(90, 60, 210, 26);
+        dt_start.setEnabled(false);
+        dt_start.addActionListener(this);
+        dt_start.setActionCommand("date_changed");
+        dt_start.setNote("start");
+        
+        //comboBox1.addItemListener(this);
+        panel.add(dt_start, null);
+    
+        this.checkBox2 = new JCheckBox();
+        this.checkBox2.setText(" " + ic.getMessage("TILL") +":");
+        this.checkBox2.setBounds(25, 85, 80, 26);  // 85
+        this.checkBox2.setSelected(false);
+        this.checkBox2.addChangeListener(this);
+        this.checkBox2.setName("till");
+        panel.add(this.checkBox2, null);
+    
+        dt_end = new DateComponent(m_da.getI18nControlInstance());
+        dt_end.addActionListener(this);
+        dt_end.setBounds(90, 85, 210, 26);
+        dt_end.setEnabled(false);
+        dt_end.setActionCommand("date_changed");
+        dt_end.setNote("end");
+        //comboBox1.addItemListener(this);
+        panel.add(dt_end, null);
+        
+    }
+
+    
+    public void initFilterType_DateBoth_Text()
+    {
+        initFilterType_DateBoth();
+        
+        
+        
+        
+        
+    }
     
     
     
@@ -2484,24 +2533,33 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
     public void stateChanged(javax.swing.event.ChangeEvent ce)
     {
-    int type = 0;
-
-    if (checkBox1.isSelected())
-    {
-        this.dt_start.setEnabled(true);
-        type+=1;
-    }
-
-    if (checkBox2.isSelected())
-    {
-        this.dt_end.setEnabled(true);
-        type+=2;
-    }
-
-    date_selector_type = type;
-
-    this.filterEntries();
-    //System.out.println("Type: " + type);
+        
+        int type = 0;
+    
+        if (checkBox1.isSelected())
+        {
+            this.dt_start.setEnabled(true);
+            type+=1;
+        }
+        else
+        {
+            this.dt_start.setEnabled(false);
+        }
+    
+        if (checkBox2.isSelected())
+        {
+            this.dt_end.setEnabled(true);
+            type+=2;
+        }
+        else
+        {
+            this.dt_end.setEnabled(false);
+        }
+    
+        date_selector_type = type;
+    
+        this.filterEntries();
+        //System.out.println("Type: " + type);
 
     }
 
@@ -2517,7 +2575,17 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     	}
     	else if (action.equals("edit"))
     	{
-    		checkAndExecuteActionEdit();
+    	    if (this.table.getSelectedRowCount()==0)
+    	    {
+                JOptionPane.showConfirmDialog(this, m_da.getI18nControlInstance().getMessage("SELECT_ROW_FIRST"), m_da.getI18nControlInstance().getMessage("ERROR"), JOptionPane.CLOSED_OPTION);
+                return;
+    	    }
+    	    else
+    	    {
+                int index = this.table.getSelectedRow();
+                SelectableInterface si = this.list.get(index);
+    	        checkAndExecuteActionEdit(si);
+    	    }
     	}
     	else if (action.equals("select"))
     	{
@@ -2545,8 +2613,10 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     
     /**
      * Check and Execute Action: Edit
+     * 
+     * @param si 
      */
-    public abstract void checkAndExecuteActionEdit();
+    public abstract void checkAndExecuteActionEdit(SelectableInterface si);
     
     /**
      * Check and Execute Action: Select

@@ -74,7 +74,7 @@ public class DateTimeComponent extends JPanel
     public static final int TIME_MAXIMAL_SECOND = 2;
     
     ATDataAccessAbstract m_da;
-    public int m_time_type = 1;
+    public int m_time_type = TIME_MAXIMAL_MINUTE;
 
     public DateTimeComponent(ATDataAccessAbstract da)
     {
@@ -258,6 +258,9 @@ public class DateTimeComponent extends JPanel
 */
 
 
+    
+    
+    
     public boolean checkDateTime()
     {
 
@@ -494,6 +497,19 @@ public class DateTimeComponent extends JPanel
     }
 */
 
+    public void setDateTimeAsCurrent()
+    {
+        int type = 0;
+        
+        if (this.m_time_type==DateTimeComponent.TIME_MAXIMAL_MINUTE)
+            type = ATechDate.FORMAT_DATE_AND_TIME_MIN;
+        else
+            type = ATechDate.FORMAT_DATE_AND_TIME_S;
+        
+        this.setDateTime(ATechDate.getATDateTimeFromGC(new GregorianCalendar(), type));
+    }
+    
+    
     /**
      * Get DateTime (long)
      * 
@@ -667,6 +683,11 @@ public class DateTimeComponent extends JPanel
 
     }
 
+
+    public void setDateTimeType(int type)
+    {
+        m_time_type = type;
+    }
 
 
 }

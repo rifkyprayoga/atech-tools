@@ -74,7 +74,7 @@ public class TimeComponent extends JPanel
 
         SpinnerNumberModel listMinModel = new SpinnerNumberModel(0,0,59,1);
         minute = new JSpinner(listMinModel);
-        minute.setEditor(new JSpinner.NumberEditor(hour, "00"));
+        minute.setEditor(new JSpinner.NumberEditor(minute, "00"));
         minute.setFont(font_normal);
 
 

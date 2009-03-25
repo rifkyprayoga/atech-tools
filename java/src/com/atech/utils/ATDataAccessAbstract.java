@@ -2179,7 +2179,10 @@ public abstract class ATDataAccessAbstract
     public float getFloatValueFromString(String aValue, float def_value)
     {
         float out = def_value;
-
+        
+        // parse float, doesn't look in locale for decimal sign
+        aValue = aValue.replace(",", ".");
+        
         try
         {
             if ((aValue==null) || (aValue.trim().length()==0))
