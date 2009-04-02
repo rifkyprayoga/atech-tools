@@ -191,9 +191,9 @@ public class DbToolAccess extends ATDataAccessAbstract
     // ****** Fonts *****
     // ********************************************************
 
-    public static final int FONT_BIG_BOLD = 0;
-    public static final int FONT_NORMAL = 1;
-    public static final int FONT_NORMAL_BOLD = 2;
+    //public static final int FONT_BIG_BOLD = 0;
+    //public static final int FONT_NORMAL = 1;
+    //public static final int FONT_NORMAL_BOLD = 2;
 
     public void loadFonts()
     {

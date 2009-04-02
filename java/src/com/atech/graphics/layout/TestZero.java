@@ -58,6 +58,9 @@ public class TestZero extends JFrame
     // ---
 
 
+    /**
+     * Constructor
+     */
     public TestZero()
     {
         this.setTitle("Andy's Simple Java Html Browser 0.1");
@@ -91,6 +94,11 @@ public class TestZero extends JFrame
     }
 
 
+    /**
+     * Main method
+     * 
+     * @param args
+     */
     public static void main(String args[])
     {
         new TestZero();

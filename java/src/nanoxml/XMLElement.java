@@ -744,7 +744,7 @@ public class XMLElement
     /**
      * Adds or modifies an attribute.
      *
-     * @param name
+     * @param _name
      *     The name of the attribute.
      * @param value
      *     The value of the attribute.
@@ -752,10 +752,10 @@ public class XMLElement
      * @deprecated Use {@link #setDoubleAttribute(java.lang.String, double)
      *             setDoubleAttribute} instead.
      */
-    public void addProperty(String name,
+    public void addProperty(String _name,
                             double value)
     {
-        this.setDoubleAttribute(name, value);
+        this.setDoubleAttribute(_name, value);
     }
 
 

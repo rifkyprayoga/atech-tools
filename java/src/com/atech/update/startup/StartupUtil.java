@@ -10,8 +10,6 @@ import java.util.GregorianCalendar;
 import java.util.Hashtable;
 import java.util.Properties;
 
-import com.atech.utils.ATDataAccess;
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -386,6 +384,11 @@ public class StartupUtil
     }
     
     
+    /**
+     * Get Current DateTime String
+     * 
+     * @return
+     */
     public static String getCurrentDateTimeString()
     {
         GregorianCalendar gc = new GregorianCalendar();

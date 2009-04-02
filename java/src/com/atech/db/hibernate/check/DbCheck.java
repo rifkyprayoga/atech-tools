@@ -1,7 +1,5 @@
 package com.atech.db.hibernate.check;
 
-
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.lang.reflect.Constructor;
@@ -75,6 +73,9 @@ public class DbCheck
     private boolean get_successful = false;
     private HibernateConfiguration hc = null; 
     
+    /**
+     * Constructor
+     */
     public DbCheck()
     {
         if (!StartupUtil.shouldDbCheckBeDone())
@@ -91,6 +92,12 @@ public class DbCheck
         StartupUtil.writeStartupWithOldCopy(1);
     }
     
+    /**
+     * Constructor
+     * 
+     * @param req_version
+     * @param db_class
+     */
     public DbCheck(String req_version, String db_class)
     {
         if (!StartupUtil.shouldDbCheckBeDone())
@@ -107,12 +114,18 @@ public class DbCheck
     }
     
     
+    /**
+     * Read Update System Data
+     */
     public void readUpdateSystemData()
     {
         this.version_db_required = "" + this.upd_conf.db_version_required;
         this.db_config_instance_class = this.upd_conf.db_config_class;
     }
     
+    /**
+     * Read Current Db Version
+     */
     public void readCurrentDbVersion()
     {
         try
@@ -181,6 +194,9 @@ public class DbCheck
     }
     
 
+    /**
+     * Write Report
+     */
     public void writeReport()
     {
         StringBuffer sb = new StringBuffer();
@@ -231,6 +247,11 @@ public class DbCheck
     
 
 
+    /**
+     * Startup method
+     * 
+     * @param args
+     */
     public static void main(String[] args)
     {
         if (args.length==0)

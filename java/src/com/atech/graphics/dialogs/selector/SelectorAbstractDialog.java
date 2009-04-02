@@ -112,7 +112,7 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     //public int indexes 
 
     private boolean help_enabled = true;
-    
+    protected boolean use_generic_select = false;    
     
     //
     // as interface -- start
@@ -2589,7 +2589,33 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     	}
     	else if (action.equals("select"))
     	{
-    		checkAndExecuteActionSelect();
+    	    if (use_generic_select)
+    	    {
+                if (this.table.getSelectedRowCount()==0)
+                {
+                    JOptionPane.showConfirmDialog(this, m_da.getI18nControlInstance().getMessage("SELECT_ROW_FIRST"), m_da.getI18nControlInstance().getMessage("ERROR"), JOptionPane.CLOSED_OPTION);
+                    return;
+                }
+                else
+                {
+                    if (this.isMultipleSelectionEnabled())
+                    {
+                        System.out.println("Multiple Generic Selector not implemented YET !!!");
+                    }
+                    else
+                    {
+                        int index = this.table.getSelectedRow();
+                        SelectableInterface si = this.list.get(index);
+                        this.selected_object = si;
+                        m_da.removeComponent(this);
+                        this.dispose();
+                    }
+                    //checkAndExecuteActionEdit(si);
+                }
+    	        
+    	    }
+    	    else
+    	        checkAndExecuteActionSelect();
     	}
         else if (action.equals("cancel"))
         {

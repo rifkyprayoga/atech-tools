@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.Collator;
@@ -854,7 +853,7 @@ public abstract class ATDataAccessAbstract
 
     public ImageIcon getImageIcon(String root, String name)
     {
-        File f = new File(".");
+        //File f = new File(".");
         
         //System.out.println("Start path: " + f.getAbsolutePath());
         //System.out.println("Image: " + root + name);

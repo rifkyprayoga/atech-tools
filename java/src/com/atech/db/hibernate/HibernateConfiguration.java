@@ -299,6 +299,8 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     
     /**
      * Get Number Of Sessions
+     * 
+     * @return 
      */
     public abstract int getNumberOfSessions();
     
