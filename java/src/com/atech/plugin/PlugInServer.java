@@ -3,6 +3,7 @@ package com.atech.plugin;
 import java.awt.Container;
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
@@ -156,6 +157,14 @@ public abstract class PlugInServer
     public abstract void executeCommand(int command, Object data);
     
     
+    
+    public boolean executeCommandDialog(JDialog dialog, int command, Object data)
+    {
+        System.out.println("ExecuteCommandDialog is not implemented for " + getName());
+        return false;
+    }
+    
+    
     /**
      * Feature not implemented message
      * @param command_desc
@@ -233,7 +242,8 @@ public abstract class PlugInServer
      * Get PlugIn Main Menu 
      * 
      * This is new way to handle everything, previously we used to pass ActionListener items through
-     * plugin framework, but in new way, we will use this one.
+     * plugin framework, but in new way, we will use this one. We just give main application menu,
+     * which contains all items accessible through menus.
      *  
      * @return
      */
@@ -241,13 +251,13 @@ public abstract class PlugInServer
     
     
     /**
-     * Get PlugIn Print Menu 
+     * Get PlugIn Print Menus 
      * 
      * Since printing is also PlugIn specific we need to add Printing jobs to application.
      *  
      * @return
      */
-    public abstract JMenu getPlugInPrintMenu();
+    public abstract JMenu[] getPlugInPrintMenus();
     
     
     

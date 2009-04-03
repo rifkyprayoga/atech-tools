@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
@@ -202,6 +203,60 @@ public abstract class PlugInClient implements ActionListener
     }
 
     
+    /**
+     * Execute Command
+     * 
+     * @param _parent 
+     * @param command
+     */
+    public void executeCommandDialog(JDialog _parent, int command)
+    {
+        executeCommandDialog(_parent, command, null);
+    }
+    
+    
+    /**
+     * Execute Command with Dialog as Parent
+     * 
+     * @param _parent
+     * @param command
+     * @param command_object
+     * @return 
+     */
+    public boolean executeCommandDialog(JDialog _parent, int command, Object command_object)
+    {
+        if (m_server==null)
+        {
+            if (this.isCommandImplemented(command))
+            {
+                this.showMessage(String.format(ic.getMessage("PLUGIN_NOT_INSTALLED"), this.getName()));
+            }
+            else
+            {
+                this.featureNotImplemented(commands[command]);
+            }
+        }
+        else
+        {
+            if (this.isCommandImplemented(command))
+                return m_server.executeCommandDialog(_parent, command, command_object);
+            else
+            {
+                
+                System.out.println("array commands_will_be_done: " + this.commands_will_be_done);
+                System.out.println("array commands_will_be_done[command]: " + this.commands_will_be_done[command]);
+                
+                if ((this.commands_will_be_done==null) || (this.commands_will_be_done[command]==null))
+                    this.featureNotImplementedInstalled(commands[command]);
+                else
+                    this.featureNotImplementedInstalled(commands[command], this.commands_will_be_done[command]);
+                    
+            }
+        }
+        return false;
+    }
+    
+    
     /** 
      * Action Performed
      */
@@ -378,12 +433,12 @@ public abstract class PlugInClient implements ActionListener
      *  
      * @return
      */
-    public JMenu getPlugInPrintMenu()
+    public JMenu[] getPlugInPrintMenus()
     {
         if (m_server==null)
             return null;
         else
-            return m_server.getPlugInPrintMenu();
+            return m_server.getPlugInPrintMenus();
     }
     
     
