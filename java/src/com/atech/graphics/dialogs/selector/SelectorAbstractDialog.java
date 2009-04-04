@@ -1,5 +1,6 @@
 package com.atech.graphics.dialogs.selector;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -41,8 +42,8 @@ import org.apache.commons.logging.LogFactory;
 
 import com.atech.graphics.components.DateComponent;
 import com.atech.graphics.layout.ZeroLayout;
+import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
-import com.atech.utils.ATDataAccess;
 import com.atech.utils.ATDataAccessAbstract;
 
 /**
@@ -77,7 +78,7 @@ import com.atech.utils.ATDataAccessAbstract;
 
 // LEAVE OLD TEXTS INSIDE, THEY ARE THERE TO HELP WITH IMPLEMENTATION AND DEBUGING
 
-public abstract class SelectorAbstractDialog extends JDialog implements ActionListener, DocumentListener, ItemListener, ChangeListener, ResortableColumns
+public abstract class SelectorAbstractDialog extends JDialog implements ActionListener, DocumentListener, ItemListener, ChangeListener, ResortableColumns, HelpCapable
 {
 
     private static final long serialVersionUID = 3826331169088096885L;
@@ -741,9 +742,17 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     	return help_id;
     }
     
+    
+    public Component getComponent()
+    {
+        return this;
+    }
+    
+    
     public void setHelpEnabled(boolean enabled)
     {
         this.help_enabled = enabled;
+        m_da.enableHelp(this);
     }
     
     public void setSelectorObject(SelectableInterface obj)
