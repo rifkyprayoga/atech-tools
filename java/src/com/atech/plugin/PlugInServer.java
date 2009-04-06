@@ -60,6 +60,7 @@ public abstract class PlugInServer
     protected Container parent = null;
     protected String selected_lang = "en";
     protected ATDataAccessAbstract m_da;
+    protected boolean backup_restore_enabled = false;
     PlugInClient client;
     HibernateDb db;
     
@@ -158,6 +159,13 @@ public abstract class PlugInServer
     
     
     
+    /**
+     * Execute Command Dialog
+     * @param dialog
+     * @param command
+     * @param data
+     * @return
+     */
     public boolean executeCommandDialog(JDialog dialog, int command, Object data)
     {
         System.out.println("ExecuteCommandDialog is not implemented for " + getName());
@@ -261,13 +269,40 @@ public abstract class PlugInServer
     
     
     
+    /**
+     * Is Backup Restore Enabled
+     * 
+     * @return
+     */
+    public boolean isBackupRestoreEnabled()
+    {
+        return this.backup_restore_enabled;
+    }
+    
     
     /**
      * Get Backup Objects (if available)
      * 
      * @return
      */
-    public abstract BackupRestoreCollection getBackupObjects();
+    public BackupRestoreCollection getBackupObjects()
+    {
+        System.out.println("getBackupObjects() is not implemented for " + getName());
+        return null;
+    }
+
+    
+    /**
+     * Get Backup Restore Handler
+     * 
+     * @return
+     */
+    public BackupRestorePlugin getBackupRestoreHandler()
+    {
+        System.out.println("getBackupRestoreHandler() is not implemented for " + getName());
+        return null;
+    }
+
     
     
 }

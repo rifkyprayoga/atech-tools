@@ -395,18 +395,6 @@ public abstract class PlugInClient implements ActionListener
     }
     
     
-    /**
-     * Get Backup Objects (if available)
-     * 
-     * @return
-     */
-    public BackupRestoreCollection getBackupObjects()
-    {
-        if (m_server==null)
-            return null;
-        else
-            return m_server.getBackupObjects();
-    }
     
     
     /**
@@ -441,6 +429,49 @@ public abstract class PlugInClient implements ActionListener
             return m_server.getPlugInPrintMenus();
     }
     
+    
+    
+    /**
+     * Is Backup Restore Enabled
+     * 
+     * @return
+     */
+    public boolean isBackupRestoreEnabled()
+    {
+        if (m_server==null)
+            return false;
+        else
+            return m_server.isBackupRestoreEnabled();
+    }
+    
+    
+    
+    /**
+     * Get Backup Restore Handler
+     * 
+     * @return
+     */
+    public BackupRestorePlugin getBackupRestoreHandler()
+    {
+        if (m_server==null)
+            return null;
+        else
+            return m_server.getBackupRestoreHandler();
+    }
+
+    
+    /**
+     * Get Backup Objects (if available)
+     * 
+     * @return
+     */
+    public BackupRestoreCollection getBackupObjects()
+    {
+        if (m_server==null)
+            return null;
+        else
+            return m_server.getBackupObjects();
+    }
     
     
     

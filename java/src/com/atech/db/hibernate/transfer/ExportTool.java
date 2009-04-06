@@ -296,11 +296,13 @@ public abstract class ExportTool extends ImportExportAbstract
             bw_file.write(";\n");
             bw_file.write("; Exported by ATechTools - Hibernate Exporter 0.3\n");
             bw_file.write(";\n");
-            bw_file.write("; Columns: " + bro.dbExportHeader() + "\n");
-            bw_file.write(";\n");
+            //bw_file.write("; Columns: " + bro.dbExportHeader() + "\n");
             bw_file.write("; Database version: " +  db_version + "\n");
-            bw_file.write("; Table version: " +  bro.getTableVersion() + "\n");
+            bw_file.write(bro.dbExportHeader());
             bw_file.write(";\n");
+            //bw_file.write("; Database version: " +  db_version + "\n");
+            //bw_file.write("; Table version: " +  bro.getTableVersion() + "\n");
+            //bw_file.write(";\n");
             bw_file.flush();
         }
         catch (Exception ex)

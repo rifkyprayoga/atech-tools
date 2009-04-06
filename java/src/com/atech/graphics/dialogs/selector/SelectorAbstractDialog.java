@@ -752,7 +752,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     public void setHelpEnabled(boolean enabled)
     {
         this.help_enabled = enabled;
-        m_da.enableHelp(this);
+        
+        if (enabled)
+            m_da.enableHelp(this);
     }
     
     public void setSelectorObject(SelectableInterface obj)
