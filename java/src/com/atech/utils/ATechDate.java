@@ -483,6 +483,22 @@ public class ATechDate
     }
     
     
+    
+    /**
+     * Gets the time filename string
+     * 
+     * @return time filename string
+     */
+    public String getTimeFilenameString()
+    {
+        if (this.second>0)
+            return getLeadingZero(this.hour_of_day, 2) + "_" + getLeadingZero(this.minute, 2) + "_" + getLeadingZero(this.second, 2); 
+        else
+            return getLeadingZero(this.hour_of_day, 2) + "_" + getLeadingZero(this.minute, 2);
+
+    }
+    
+    
 
     /**
      * Gets the time string.
