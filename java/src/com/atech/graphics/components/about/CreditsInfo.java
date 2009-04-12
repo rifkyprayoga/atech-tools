@@ -2,9 +2,8 @@ package com.atech.graphics.components.about;
 import java.util.ArrayList;
 
 import javax.swing.JEditorPane;
-import javax.swing.JScrollPane;
 import javax.swing.JPanel;
-
+import javax.swing.JScrollPane;
 
 import com.atech.i18n.I18nControlAbstract;
 

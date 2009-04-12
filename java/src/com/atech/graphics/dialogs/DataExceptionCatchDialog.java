@@ -2,6 +2,7 @@ package com.atech.graphics.dialogs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JDialog;
 
 import com.atech.utils.ATDataAccessAbstract;

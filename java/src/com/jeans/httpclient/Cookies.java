@@ -1,7 +1,8 @@
 package com.jeans.httpclient;
 
-import weiss.util.*;
-import java.net.*;
+import java.net.URL;
+
+import weiss.util.LinkedList;
 
 /**
  * This file is part of ATech Tools library.

@@ -1,7 +1,6 @@
 package com.atech.utils;
 
 import java.util.ArrayList;
-import com.atech.utils.TimerControlAbstract;
 
 /**
  *  This file is part of ATech Tools library.

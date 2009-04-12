@@ -1,10 +1,19 @@
 package com.jeans.httpclient;
 
-import java.io.*;
-import java.net.*;
-import weiss.util.*;
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.MalformedURLException;
+import java.net.Socket;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.StringTokenizer;
+
+import weiss.util.LinkedList;
 
 /**
  * This file is part of ATech Tools library.

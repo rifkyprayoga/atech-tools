@@ -27,6 +27,9 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.text.AbstractDocument;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atech.graphics.components.DateComponent;
 import com.atech.graphics.dialogs.selector.SelectableInterface;
 import com.atech.i18n.I18nControlAbstract;
@@ -70,6 +73,7 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
 
     // CHANGE    this marking is set where you need to implement
 
+    private static Log log = LogFactory.getLog(ActionExceptionCatchDialog.class);
 
 	/**
      * 
@@ -488,7 +492,8 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
         //initByFilterType();
         
         
-        
+        log.error("Error dialog opened: Ex: " + this.exception, this.exception);
+
         
         JList list = new JList(this.exception.getStackTrace());
         

@@ -1,7 +1,7 @@
 package com.atech.db.hibernate.tool;
 
-import java.util.Hashtable;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 /**
  * This file is part of ATech Tools library.

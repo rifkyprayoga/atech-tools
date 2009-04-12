@@ -881,7 +881,7 @@ public abstract class ATDataAccessAbstract
     {
         Component cmp = this.getCurrentComponentParent();
         
-        System.out.println("comps: " + this.components);
+        //System.out.println("comps: " + this.components);
         
         this.centerJDialog(dialog, cmp);
     }

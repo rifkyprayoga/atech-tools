@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atech.help.HelpCapable;
 import com.atech.utils.ATDataAccessAbstract;
 
@@ -70,7 +73,8 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     String error_message_tip = null;
     String base_error_message = "Unknown exception occured. Please consider sending report to us, so that we can resolve problem";
     //private static Log log = LogFactory.getLog(ActionExceptionCatchDialog.class); 
-    
+    private static Log log = LogFactory.getLog(ActionExceptionCatchDialog.class);
+
     
     private String component_name;
 

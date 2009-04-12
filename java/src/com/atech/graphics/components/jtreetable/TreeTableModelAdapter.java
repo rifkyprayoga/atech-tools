@@ -1,10 +1,11 @@
 
 package com.atech.graphics.components.jtreetable;
 
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.tree.*;
-import javax.swing.table.*;
+import javax.swing.JTree;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeExpansionListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.TreePath;
 
 
 /*

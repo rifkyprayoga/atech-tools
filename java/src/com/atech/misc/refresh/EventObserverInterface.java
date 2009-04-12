@@ -1,7 +1,7 @@
 package com.atech.misc.refresh;
  
 import java.util.Observable;
-import java.util.Observer;  /* this is Event Handler */
+import java.util.Observer;
  
 public interface EventObserverInterface extends Observer
 {

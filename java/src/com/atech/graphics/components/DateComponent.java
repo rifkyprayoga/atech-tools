@@ -362,7 +362,7 @@ public class DateComponent extends JPanel implements ChangeListener
 
         GregorianCalendar gc1 = new GregorianCalendar();
         gc1.set(GregorianCalendar.DAY_OF_MONTH, d);
-        gc1.set(GregorianCalendar.MONTH, (mo + 1));
+        gc1.set(GregorianCalendar.MONTH, mo);
         gc1.set(GregorianCalendar.YEAR, y);
 
         return gc1;

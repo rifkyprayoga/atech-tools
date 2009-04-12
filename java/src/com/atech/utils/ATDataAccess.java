@@ -9,7 +9,6 @@ import java.awt.Image;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Hashtable;
 

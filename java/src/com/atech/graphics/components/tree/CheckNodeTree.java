@@ -13,6 +13,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+// TODO: Auto-generated Javadoc
 /*
  * @version 1.1 01/15/99
  */
@@ -53,56 +54,39 @@ public class CheckNodeTree extends JTree
 
     private static final long serialVersionUID = -7832116437447066164L;
 
+    /**
+     * Instantiates a new check node tree.
+     * 
+     * @param root_node the root_node
+     * @param check_type the check_type
+     */
     public CheckNodeTree(CheckBoxTreeNodeInterface root_node, int check_type)
     {
         super(CheckNodeUtil.buildTree(root_node, check_type));
 
-        // this.getModel().getRoot()
-
-        /*
-         * super("CheckNode TreeExample"); String[] strs = {"swing", // 0
-         * "platf", // 1 "basic", // 2 "metal", // 3 "JTree"}; // 4
-         */
-        /*
-         * CheckNode[] nodes = new CheckNode[strs.length]; for (int
-         * i=0;i<strs.length;i++) { nodes[i] = new CheckNode(strs[i]); }
-         * nodes[0].add(nodes[1]); nodes[1].add(nodes[2]);
-         * nodes[1].add(nodes[3]); nodes[0].add(nodes[4]);
-         * nodes[3].setSelected(true);
-         * 
-         * 
-         * 
-         * JTree tree = new JTree( nodes[0] );
-         */
         this.setCellRenderer(new CheckRenderer());
         this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         this.putClientProperty("JTree.lineStyle", "Angled");
         this.addMouseListener(new NodeSelectionListener(this));
-
-        /*
-         * JScrollPane sp = new JScrollPane(tree);
-         * 
-         * //ModePanel mp = new ModePanel(nodes); JTextArea textArea = new
-         * JTextArea(3,10); JScrollPane textPanel = new JScrollPane(textArea);
-         * JButton button = new JButton("print"); button.addActionListener( new
-         * ButtonActionListener(nodes[0], textArea)); JPanel panel = new
-         * JPanel(new BorderLayout()); panel.add(mp, BorderLayout.CENTER);
-         * panel.add(button, BorderLayout.SOUTH);
-         * 
-         * getContentPane().add(sp, BorderLayout.CENTER);
-         * getContentPane().add(panel, BorderLayout.EAST);
-         * getContentPane().add(textPanel, BorderLayout.SOUTH);
-         */
+        
     }
 
+    /**
+     * Prints the tree.
+     */
     public void printTree()
     {
         printTreeTraverse((CheckNode) this.getModel().getRoot());
     }
 
+    /**
+     * Prints the tree traverse.
+     * 
+     * @param nd the nd
+     */
     public void printTreeTraverse(CheckNode nd)
     {
-        System.out.println("Node [" + nd.toString() + "]: " + nd.isSelected());
+        //System.out.println("Node [" + nd.toString() + "]: " + nd.isSelected());
 
         for (int i = 0; i < nd.getChildCount(); i++)
         {
@@ -111,13 +95,28 @@ public class CheckNodeTree extends JTree
 
     }
 
+    /**
+     * Gets the root node.
+     * 
+     * @return the root node
+     */
     public CheckNode getRootNode()
     {
         return (CheckNode) this.getModel().getRoot();
     }
 
+    /**
+     * The temp_selected.
+     */
     boolean temp_selected = false;
 
+    /**
+     * Gets the value for node.
+     * 
+     * @param node_name the node_name
+     * 
+     * @return the value for node
+     */
     public boolean getValueForNode(String node_name)
     {
         boolean found = traverseNodes(this.getRootNode(), node_name);
@@ -129,6 +128,14 @@ public class CheckNodeTree extends JTree
 
     }
 
+    /**
+     * Traverse nodes.
+     * 
+     * @param node the node
+     * @param search_item the search_item
+     * 
+     * @return true, if successful
+     */
     public boolean traverseNodes(CheckNode node, String search_item)
     {
         if (node.getName() == search_item)
@@ -151,15 +158,36 @@ public class CheckNodeTree extends JTree
         return false;
     }
 
+    /**
+     * The listener interface for receiving nodeSelection events.
+     * The class that is interested in processing a nodeSelection
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addNodeSelectionListener<code> method. When
+     * the nodeSelection event occurs, that object's appropriate
+     * method is invoked.
+     */
     class NodeSelectionListener extends MouseAdapter
     {
+        
+        /**
+         * The tree.
+         */
         JTree tree;
 
+        /**
+         * Instantiates a new node selection listener.
+         * 
+         * @param tree the tree
+         */
         NodeSelectionListener(JTree tree)
         {
             this.tree = tree;
         }
 
+        /** 
+         * mouseClicked
+         */
         public void mouseClicked(MouseEvent e)
         {
             int x = e.getX();
@@ -197,34 +225,44 @@ public class CheckNodeTree extends JTree
         }
     }
 
-    /*
-     * class ModePanel extends JPanel implements ActionListener { CheckNode[]
-     * nodes; JRadioButton b_single, b_dig_in;
-     * 
-     * ModePanel(CheckNode[] nodes) { this.nodes = nodes; setLayout(new
-     * GridLayout(2,1)); setBorder(new TitledBorder("Check Mode")); ButtonGroup
-     * group = new ButtonGroup(); add(b_dig_in = new JRadioButton("DIG_IN  "));
-     * add(b_single = new JRadioButton("SINGLE  ")); group.add(b_dig_in);
-     * group.add(b_single); b_dig_in.addActionListener(this);
-     * b_single.addActionListener(this); b_dig_in.setSelected(true); }
-     * 
-     * public void actionPerformed(ActionEvent e) { int mode; if (b_single ==
-     * e.getSource()) { mode = CheckNode.SINGLE_SELECTION; } else { mode =
-     * CheckNode.DIG_IN_SELECTION; } for (int i=0;i<nodes.length;i++) {
-     * nodes[i].setSelectionMode(mode); } } }
-     */
 
+    /**
+     * The listener interface for receiving buttonAction events.
+     * The class that is interested in processing a buttonAction
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addButtonActionListener<code> method. When
+     * the buttonAction event occurs, that object's appropriate
+     * method is invoked.
+     */
     class ButtonActionListener implements ActionListener
     {
+        
+        /**
+         * The root.
+         */
         CheckNode root;
+        
+        /**
+         * The text area.
+         */
         JTextArea textArea;
 
+        /**
+         * Instantiates a new button action listener.
+         * 
+         * @param root the root
+         * @param textArea the text area
+         */
         ButtonActionListener(final CheckNode root, final JTextArea textArea)
         {
             this.root = root;
             this.textArea = textArea;
         }
 
+        /** 
+         * actionPerformed
+         */
         public void actionPerformed(ActionEvent e)
         {
             Enumeration<?> en = root.breadthFirstEnumeration();
@@ -243,10 +281,5 @@ public class CheckNodeTree extends JTree
             }
         }
     }
-    /*
-     * public static void main(String args[]) { CheckNodeTreeExample frame = new
-     * CheckNodeTreeExample(); frame.addWindowListener(new WindowAdapter() {
-     * public void windowClosing(WindowEvent e) {System.exit(0);} });
-     * frame.setSize(300, 200); frame.setVisible(true); }
-     */
+   
 }
