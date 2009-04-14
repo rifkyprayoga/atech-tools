@@ -2179,13 +2179,13 @@ public abstract class ATDataAccessAbstract
     {
         float out = def_value;
         
-        // parse float, doesn't look in locale for decimal sign
-        aValue = aValue.replace(",", ".");
-        
         try
         {
             if ((aValue==null) || (aValue.trim().length()==0))
                 return def_value;
+
+            // parse float, doesn't look in locale for decimal sign
+            aValue = aValue.replace(",", ".");
             
             out = Float.parseFloat(aValue);
         }
