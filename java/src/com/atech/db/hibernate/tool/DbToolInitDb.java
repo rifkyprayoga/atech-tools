@@ -36,14 +36,81 @@ import com.atech.db.hibernate.HibernateConfiguration;
 public abstract class DbToolInitDb
 {
 
-    public DbToolInitDb(HibernateConfiguration config)
+    public static final int INIT_TYPE_NONE = 0;
+    public static final int INIT_TYPE_INIT_DB = 1;
+    public static final int INIT_TYPE_INIT_DB_AND_BASE_IMPORT = 2;
+    
+    
+    int init_type;
+    protected HibernateConfiguration hibernate_config;
+    int error_code;
+    String error_desc;
+    Exception error_exception;
+    
+    public DbToolInitDb(HibernateConfiguration config, int init_type_)
     {
-	//InitDb(
-
+        this.hibernate_config = config;
+        this.init_type = init_type_;
     }
 
 
+    public boolean isInitPossible()
+    {
+        return (init_type>0);
+    }
 
 
+    public boolean dbInit()
+    {
+        if (init_type == INIT_TYPE_NONE)
+        {
+            return false;
+        }
+        else if (init_type == INIT_TYPE_INIT_DB)
+        {
+            return createTables();
+        }
+        else if (init_type == INIT_TYPE_INIT_DB_AND_BASE_IMPORT)
+        {
+            boolean res = createTables();
+            if (!res)
+                return false;
+            
+            return this.fillData();
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    
+    public int getErrorCode()
+    {
+        return this.error_code;
+        
+    }
+    
+    
+    public String getErrorDescription()
+    {
+        return this.error_desc;
+    }
+    
+    public Exception getErrorException()
+    {
+        return this.error_exception;
+    }
+    
+    public boolean createTables()
+    {
+        // TODO
+        return false;
+    }
+    
+
+    public abstract boolean fillData();
+    
+    
 
 }
