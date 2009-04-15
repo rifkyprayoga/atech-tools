@@ -89,7 +89,7 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
     private void createPanel()
     {
 
-        this.setSize(420, 460);
+        this.setSize(500, 560);
         this.setLayout(null);
 
         Font fnt_18 = new Font("Times New Roman", Font.BOLD, 18);
@@ -97,18 +97,18 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
 
         label = new JLabel("Database Root");
 	    //ic.getMessage("CONFIGURATION"));
-        label.setBounds(0, 35, 420, 40);
+        label.setBounds(0, 35, 500, 40);
         label.setFont(font_big); 
         label.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(label, null);
 
 
-        label = new JLabel(ic.getMessage("ADD"));
+        label = new JLabel(ic.getMessage("ADD_VIEW"));
         label.setBounds(40, 100, 100, 30);
         label.setFont(fnt_18); 
         this.add(label, null);
 
-        label = new JLabel(ic.getMessage("ADD_DESC"));
+        label = new JLabel(ic.getMessage("ADD_VIEW_DESC"));
         label.setBounds(40, 130, 300, 60);
         label.setFont(font_normal); 
         this.add(label, null);
@@ -127,10 +127,10 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
         button.setActionCommand("add_");
         this.add(button);
 */
-        button = new JButton(ic.getMessage("ADD_"));
+        button = new JButton(ic.getMessage("ADD_DB"));
         button.setBounds(110, 220, 170, 25);
         button.setFont(font_normal);
-        button.setActionCommand("add_p");
+        button.setActionCommand("add_db");
         button.addActionListener(this);
         this.add(button);
 
@@ -166,7 +166,7 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
      */
     public void reDraw()
     {
-        System.out.println("Redraw Not working");
+        //System.out.println("Redraw Not working");
     }
 
 

@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -101,8 +102,9 @@ public class PanelDbAction extends JPanel implements ActionListener
     private void createPanel()
     {
 
-        this.setSize(400, 40);
+        this.setSize(700, 70);
         this.setLayout(null);
+        this.setBorder(new TitledBorder("Database Tools"));
 
 /*
         button = new JButton(ic.getMessage("ADD_"));
@@ -113,13 +115,13 @@ public class PanelDbAction extends JPanel implements ActionListener
         this.add(button);
 */
         
-        ATSwingUtils.getButton(ic.getMessage("TEST_CONNECTION"), 0, 10, 120, 25, 
+        ATSwingUtils.getButton(ic.getMessage("TEST_CONNECTION"), 20, 25, 140, 25, 
                                this, ATSwingUtils.FONT_NORMAL, null, "test_connection", this, m_da);
         
-        ATSwingUtils.getButton(ic.getMessage("STATUS"), 140, 10, 120, 25, 
-            this, ATSwingUtils.FONT_NORMAL, null, "status", this, m_da);
+        ATSwingUtils.getButton(ic.getMessage("DB_STATUS"), 170, 25, 140, 25, 
+            this, ATSwingUtils.FONT_NORMAL, null, "db_status", this, m_da);
         
-        ATSwingUtils.getButton(ic.getMessage("INIT_DB"), 280, 10, 120, 25, 
+        ATSwingUtils.getButton(ic.getMessage("INIT_DB"), 320, 25, 140, 25, 
             this, ATSwingUtils.FONT_NORMAL, null, "init_db", this, m_da);
         
 /*        button = new JButton(ic.getMessage("TEST_CONNECTION"));

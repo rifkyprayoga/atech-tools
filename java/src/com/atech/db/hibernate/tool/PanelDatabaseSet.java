@@ -395,7 +395,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
             }
         }
 
-        this.db_action.setBounds(0, posy + 30, 300, 50);
+        this.db_action.setBounds(0, posy + 40, 485, 65);
         
         
     }
