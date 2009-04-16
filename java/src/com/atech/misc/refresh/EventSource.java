@@ -8,6 +8,7 @@ public class EventSource extends Observable //implements Runnable
     int type = 0;
     int value_int = 0;
     String value_str = null;
+    Object value_obj = null;
     
     public void sendChangeNotification(int value)
     {
@@ -21,6 +22,13 @@ public class EventSource extends Observable //implements Runnable
         notifyObservers( value );
     }
 
+    public void sendChangeNotification(Object value)
+    {
+        setChanged();
+        notifyObservers( value );
+    }
+    
+    
     /*
     public void clear()
     {
