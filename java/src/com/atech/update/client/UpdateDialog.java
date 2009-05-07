@@ -5,13 +5,15 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -27,6 +29,7 @@ import com.atech.update.config.ComponentInterface;
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.utils.ATDataAccess;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.ATSwingUtils;
 
 
 /**
@@ -80,7 +83,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
      *  Globaly used variables
      */
     JPanel panel;
-    JLabel label, label_title;
+    JLabel label, label_title, status_label;
     JButton button, help_button;
     Font font_big, font_normal, font_normal_b;
 
@@ -203,6 +206,8 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
     	//m_mass = mse;
     
+        ATSwingUtils.initLibrary();
+        
     	//this.loadNeededData();
 
         //this.uo_root = uo_root;
@@ -288,6 +293,12 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         label.setBounds(30, 340, 600, 30);
         panel.add(label, null);
   */
+        
+        
+        this.label = ATSwingUtils.getLabel(ic.getMessage("SERVER_STATUS") + ":", 30, 70, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD); 
+        
+        this.status_label = ATSwingUtils.getLabel(ic.getMessage("SERVER_STATUS"), 150, 70, 320, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD); 
+        
         
         this.label = new JLabel(ic.getMessage("LEGEND") +":");
         label.setBounds(30, 340, 100, 30);
@@ -469,12 +480,11 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         }
         else if (action.equals("run_update"))
         {
-            // to do
+            this.runUpdate();
         }
         else if (action.equals("check_server"))
         {
-            JOptionPane.showMessageDialog(this, ic.getMessage("UPDATE_SERVER_NA"), ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
-            
+            this.checkServer();
         }
         else if (action.equals("close"))
         {
@@ -560,8 +570,109 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         return this.help_id;
     }
 
+    
+    public void checkServer()
+    {
+        
+        //JOptionPane.showMessageDialog(this, ic.getMessage("UPDATE_SERVER_NA"), ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+        
+        try
+        {
+            // TODO
+            URL url = new URL("http://localhost:8080/ATechUpdateInfo?application=ggc&version=0.3");
+
+
+
+            
+            //HTMLDocument tt = new HTMLDocument();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                                url.openStream()));
+
+            String iLine , iLine2;
+            iLine2 = null;
+
+            while ((iLine = in.readLine()) != null)
+            {
+                iLine2 += iLine;
+                System.out.println(iLine);
+            } // while file
+            
+            in.close();
+        
+            
+            // resolve result
+            
+            String error_nr = getParameter("error_nr", iLine2);
+            String error_code = getParameter("error_code", iLine2);
+            
+            if (error_nr.equals("0"))
+            {
+                
+                
+            }
+            else
+            {
+                this.status_label.setText(ic.getMessage(error_code));
+            }
+            
+            /*
+            out.println("  <error_nr>" + this.error_id + "</error_nr>");
+            out.println("  <error_code>" + this.error_code + "</error_code>");
+            
+            if (this.error_id==0)
+            {
+                out.println("  <versions>");
+                out.println("    <latest_version>" + latest_ver+ "</latest_version>\n");
+                
+                if (!latest_ver)
+                {
+                    
+                    out.println("  <newer_version_our_db>" + (never_ver!=-1)+ "</newer_version_our_db>");
+                    out.println("  <newer_version_our_db_number>" + never_ver+ "</newer_version_our_db_number>");
+                    out.println("  <newer_version_higher_db>" + new_for_new_db+ "</newer_version_higher_db>");
+                    out.println("  <newer_version_higher_db_number>" + this.getLatestVersion(app).version_num + "</newer_version_higher_db_number>\n");
+                }
+                out.println("  </versions>");
+                
+                
+            }
+            out.println("</server_report>");
+            */
+            
+            
+            
+            
+        }
+        catch(Exception ex)
+        {
+            this.status_label.setText(ic.getMessage("UPD_ERROR_CONTACTING_SERVER"));
+            System.out.println(ex);
+            ex.printStackTrace();
+        }
+    }
+
+    
+    private String getParameter(String parameter, String text)
+    {
+        String start_tag = "<" + parameter + ">";
+        
+        if (!text.contains(start_tag))
+            return "";
+        
+        String end_tag = "</" + parameter + ">";
+        
+        
+        String par = text.substring(text.indexOf(start_tag) + start_tag.length(), text.indexOf(end_tag));        
+        
+        return par;
+    }
+    
+    
+    public void runUpdate()
+    {
+        
+    }
 
 
 }
-
-
