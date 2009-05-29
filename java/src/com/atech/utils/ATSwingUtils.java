@@ -821,7 +821,7 @@ public class ATSwingUtils
      * @param da
      * @param c
      */
-    public static void createMenuItem(JMenu menu, String name, String tip, String action_command, ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c)
+    public static JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c)
     {
         JMenuItem mi = new JMenuItem(ic.getMessageWithoutMnemonic(name));
         mi.setMnemonic(ic.getMnemonic(name));
@@ -842,8 +842,16 @@ public class ATSwingUtils
         if (menu != null)
             menu.add(mi);
 
+        return mi;
         // return action;
     }
+ 
+    
+    
+    
+    
+    
+    
     
     
 }
