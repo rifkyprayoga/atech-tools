@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    
+    <!-- ***************** TranslationTool::Main SCHEMA  ******************* -->
+
+    <class name="com.atech.i18n.db.ApplicationH" table="app_main">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
+        </id>            
+        <property name="name" type="string"  length="10" not-null="true" />    
+        <property name="desc" type="string"  length="255"/>    
+    </class>
+
+
+    <class name="com.atech.i18n.db.TranslatorH" table="translator">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
+        </id>            
+        <property name="username" type="string" length="10" not-null="true" />    
+        <property name="password" type="string" length="255" />    
+        <property name="special_tag" type="int" />    
+    </class>
+
+
+    <class name="com.atech.i18n.db.LanguageH" table="language">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
+        </id>            
+        <property name="name" type="string"  length="40" not-null="true" />    
+        <property name="desc" type="string"  length="255"/>    
+    </class>
+
+
+    <class name="com.atech.i18n.db.AppModuleH" table="app_module">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
+        </id>            
+        <property name="name" type="string"  length="40" not-null="true" />    
+        <property name="desc" type="string"  length="255"/>    
+        <property name="app_id" type="long" not-null="true" />    
+		
+		
+		
+    </class>
+
+    <class name="com.atech.i18n.db.AppGroupH" table="app_group">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
+        </id>            
+        <property name="name" type="string"  length="40" not-null="true" />    
+        <property name="desc" type="string"  length="255"/>    
+    </class>
+
+
+    <class name="com.atech.i18n.db.AppTranslationH" table="app_translation_template">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
+        </id>            
+        <property name="module_id" type="long" not-null="true" />    
+		<property name="app_id" type="long" not-null="true" />    
+        <property name="lang_id" type="long" not-null="true" />    
+
+        <property name="keyword" type="string" length="255"/>    
+        <property name="value" type="text" />    
+        <property name="changed" type="long" />    
+    </class>
+
+
+    <class name="com.atech.i18n.db.AppTranslationH" table="app_translation">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
+        </id>            
+        <property name="module_id" type="long" not-null="true" />    
+		<property name="app_id" type="long" not-null="true" />    
+        <property name="lang_id" type="long" not-null="true" />    
+
+        <property name="keyword" type="string" length="255"/>    
+        <property name="value" type="text" />    
+        <property name="status" type="int" />    
+        <property name="changed" type="long" />    
+    </class>
+
+
+
+
+</hibernate-mapping>
