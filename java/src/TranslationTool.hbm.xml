@@ -4,7 +4,7 @@
     
     <!-- ***************** TranslationTool::Main SCHEMA  ******************* -->
 
-    <class name="com.atech.i18n.db.ApplicationH" table="app_main">
+    <class name="com.atech.i18n.tool.client.db.hibernate.ApplicationH" table="app_main">
         <id name="id" type="long" unsaved-value="0">
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
@@ -13,7 +13,7 @@
     </class>
 
 
-    <class name="com.atech.i18n.db.TranslatorH" table="translator">
+    <class name="com.atech.i18n.tool.client.db.hibernate.TranslatorH" table="translator">
         <id name="id" type="long" unsaved-value="0">
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
@@ -23,7 +23,7 @@
     </class>
 
 
-    <class name="com.atech.i18n.db.LanguageH" table="language">
+    <class name="com.atech.i18n.tool.client.db.hibernate.LanguageH" table="language">
         <id name="id" type="long" unsaved-value="0">
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
@@ -32,7 +32,7 @@
     </class>
 
 
-    <class name="com.atech.i18n.db.AppModuleH" table="app_module">
+    <class name="com.atech.i18n.tool.client.db.hibernate.AppModuleH" table="app_module">
         <id name="id" type="long" unsaved-value="0">
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
@@ -40,20 +40,19 @@
         <property name="desc" type="string"  length="255"/>    
         <property name="app_id" type="long" not-null="true" />    
 		
-		
-		
     </class>
 
-    <class name="com.atech.i18n.db.AppGroupH" table="app_group">
+    <class name="com.atech.i18n.tool.client.db.hibernate.AppGroupH" table="app_group">
         <id name="id" type="long" unsaved-value="0">
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
         <property name="name" type="string"  length="40" not-null="true" />    
         <property name="desc" type="string"  length="255"/>    
+        <property name="module_id" type="long" not-null="true" />    
     </class>
 
 
-    <class name="com.atech.i18n.db.AppTranslationH" table="app_translation_template">
+    <class name="com.atech.i18n.tool.client.db.hibernate.AppTranslationTemplateH" table="tra_template">
         <id name="id" type="long" unsaved-value="0">
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
@@ -67,7 +66,7 @@
     </class>
 
 
-    <class name="com.atech.i18n.db.AppTranslationH" table="app_translation">
+    <class name="com.atech.i18n.tool.client.db.hibernate.AppTranslationH" table="tra_translation">
         <id name="id" type="long" unsaved-value="0">
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
