@@ -2372,6 +2372,10 @@ public abstract class ATDataAccessAbstract
         return this.graph_config;
     }
     
+    public void setGraphConfigProperties(GraphConfigProperties config)
+    {
+        this.graph_config = config;
+    }
     
     
     
