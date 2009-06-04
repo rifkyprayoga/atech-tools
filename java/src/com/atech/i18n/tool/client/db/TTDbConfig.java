@@ -12,11 +12,7 @@ public class TTDbConfig extends HibernateConfiguration
     private static Log log = LogFactory.getLog(TTDbConfig.class);
 
     private String[] db_files = { 
-                   "GGC_Main.hbm.xml", 
-                   "GGC_Nutrition.hbm.xml", 
-                   "GGC_Other.hbm.xml",
-                   "GGC_Pump.hbm.xml", 
-                   "GGC_CGM.hbm.xml" 
+                   "TranslationTool.hbm.xml" 
     };
 
     /**
@@ -45,7 +41,7 @@ public class TTDbConfig extends HibernateConfiguration
     @Override
     public String getConfigurationFile()
     {
-        return "../data/GGC_Config.properties";
+        return "../data/TT_Config.properties";
     }
 
     /**
@@ -57,7 +53,7 @@ public class TTDbConfig extends HibernateConfiguration
         return db_files;
     }
 
-    /**
+    /** 
      * Load Default Database
      * 
      * @param config_found
@@ -73,11 +69,23 @@ public class TTDbConfig extends HibernateConfiguration
             log.info("GGCDb: Database configuration not found. Using default database.");
         log.info("GGCDb: Loading Db Configuration #" + db_num + ": " + db_conn_name);
 
+        
+        db_hib_dialect = "org.hibernate.dialect.PostgreSQLDialect";
+        db_driver_class = "org.postgresql.Driver";
+        db_conn_url = "jdbc:postgresql://localhost:5432/translation_v1?user=ggc&password=ggc";
+        db_conn_username = "ggc";
+        db_conn_password = "ggc";
+        
+        /*
         db_hib_dialect = "org.hibernate.dialect.H2Dialect";
         db_driver_class = "org.h2.Driver";
         db_conn_url = "jdbc:h2:../data/db/ggc_db";
         db_conn_username = "sa";
         db_conn_password = "";
+        */
+        
+        
+        
     }
 
     /**

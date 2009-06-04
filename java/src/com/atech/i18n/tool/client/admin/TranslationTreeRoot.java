@@ -67,6 +67,7 @@ public class TranslationTreeRoot
      */
     public AppModuleO getChild(int index) 
     {
+        debug("getChild:" + index);
         return this.list.get(index);
     }
     
@@ -76,6 +77,7 @@ public class TranslationTreeRoot
      */
     public int getChildCount() 
     {
+        debug("getChildCount:" );
         return this.list.size();
     }
 
@@ -88,6 +90,9 @@ public class TranslationTreeRoot
     }
     
     
-    
+    public String toString()
+    {
+        return "TRANSLATION_ADMIN";
+    }
     
 }

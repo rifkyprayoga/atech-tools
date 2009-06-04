@@ -13,9 +13,9 @@ import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.tool.DatabaseDefObject;
 import com.atech.db.hibernate.tool.DatabaseDefinitions;
 import com.atech.db.hibernate.tool.DatabaseSettings;
-import com.atech.db.hibernate.tool.DbToolAccess;
 import com.atech.db.hibernate.tool.DbToolApplicationInterface;
 import com.atech.db.hibernate.tool.DbToolTreeRoot;
+import com.atech.i18n.tool.client.db.TTDb;
 import com.atech.utils.ATDataAccessAbstract;
 
 /**
@@ -189,6 +189,12 @@ public class DataAccessTT extends ATDataAccessAbstract
 
     }
 
+    
+    
+    
+    
+    
+    
     // ********************************************************
     // ****** Fonts *****
     // ********************************************************
@@ -744,6 +750,25 @@ public class DataAccessTT extends ATDataAccessAbstract
         // TODO Auto-generated method stub
         
     }
+
+    
+    TTDb tdb;
+    
+    
+    public void startDb()
+    {
+        tdb = new TTDb(this);
+        
+        
+    }
+    
+    
+    public TTDb getDb()
+    {
+        return tdb;
+    }
+    
+    
     
     
 }

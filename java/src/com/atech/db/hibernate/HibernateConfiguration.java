@@ -165,6 +165,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
             {
                 log.error(this.cfg_file_missing_str + "(" + this.getConfigurationFile() + ").");
                 config_found = false;
+                loadDefaultDatabase(config_found);
                 return;
             }
 

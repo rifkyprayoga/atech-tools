@@ -66,7 +66,7 @@ public class TTDb extends HibernateDb // implements DbCheckInterface HibernateDb
 //    private String m_errorDesc = "";
 //    private String m_addId = "";
 
-    TTDbConfig hib_config = null;
+    //TTDbConfig hib_config = null;
 
     private Configuration m_cfg = null;
     private DataAccessTT m_da;
@@ -98,13 +98,14 @@ public class TTDb extends HibernateDb // implements DbCheckInterface HibernateDb
      */
     public TTDb(DataAccessTT da)
     {
-        /*m_cfg =*/ createConfiguration();
+        super(da);
+        /*m_cfg =*/ //createConfiguration();
         m_da = da;
         
         //System.out.println("GGCDb");
         //System.out.println("m_da: " + m_da);
         //System.out.println("m_da.getSettings(): " + m_da.getSettings());
-        
+        //createDatabase();
         
         m_loadStatus = DB_CONFIG_LOADED;
         // debugConfig();
@@ -116,6 +117,7 @@ public class TTDb extends HibernateDb // implements DbCheckInterface HibernateDb
      */
     public TTDb()
     {
+        super();
         /*m_cfg =*/ 
         createConfiguration();
         m_loadStatus = DB_CONFIG_LOADED;
@@ -165,24 +167,24 @@ public class TTDb extends HibernateDb // implements DbCheckInterface HibernateDb
     /** 
      * Close Db
      */
-    public void closeDb()
+    /*public void closeDb()
     {
         this.hib_config.closeDb();
         m_loadStatus = DB_CONFIG_LOADED;
-    }
+    }*/
 
     /** 
      * Get Hibernate Configuration
      */
-    public TTDbConfig getHibernateConfiguration()
+/*    public TTDbConfig getHibernateConfiguration()
     {
         return this.hib_config;
     }
-
+*/
     /** 
      * Open Hibernate Simple
      */
-    public void openHibernateSimple()
+/*    public void openHibernateSimple()
     {
         this.hib_config.createSessionFactory();
 /*        
@@ -197,8 +199,8 @@ public class TTDb extends HibernateDb // implements DbCheckInterface HibernateDb
         m_loadStatus = DB_INITIALIZED;
         logInfo("openHibernateSimple", "End");
         */
-        m_loadStatus = DB_INITIALIZED;
-    }
+  /*      m_loadStatus = DB_INITIALIZED;
+    } */
 
 
     /**
@@ -249,32 +251,22 @@ public class TTDb extends HibernateDb // implements DbCheckInterface HibernateDb
     /**
      * Get Session
      */
-    public Session getSession()
+/*    public Session getSession()
     {
         return getSession(1);
     }
-
+*/
     /**
      * Get Session
      * 
      * @param session_nr 
      * @return 
      */
-    public Session getSession(int session_nr)
+/*    public Session getSession(int session_nr)
     {
         return this.hib_config.getSession(session_nr);
-        /*
-        if (session_nr == 1)
-        {
-            m_session.clear();
-            return m_session;
-        }
-        else
-        {
-            m_session_2.clear();
-            return m_session_2;
-        }*/
-    }
+        
+    } */
 
     /**
      * Create Database
@@ -603,10 +595,10 @@ public class TTDb extends HibernateDb // implements DbCheckInterface HibernateDb
     public HibernateConfiguration createConfiguration()
     {
         logInfo("createConfiguration()");
-        this.hib_config = new TTDbConfig(true);
-        this.hib_config.getConfiguration();
+        TTDbConfig hib_config = new TTDbConfig(true);
+        hib_config.getConfiguration();
     
-        return this.hib_config;
+        return hib_config;
     }
 
 

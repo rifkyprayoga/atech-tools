@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
 import com.atech.i18n.I18nControlAbstract;
+import com.atech.i18n.tool.client.admin.TranslationTreeDialog;
 import com.atech.utils.ATSwingUtils;
 
 /**
@@ -31,6 +32,7 @@ public class TranslationTool extends JFrame implements ActionListener
         super();
 
         m_ic = m_da.getI18nControlInstance();
+        m_da.startDb();
         
         init();
         
@@ -121,6 +123,10 @@ public class TranslationTool extends JFrame implements ActionListener
         if (cmd.equals("exit"))
         {
             cmdQuit();
+        }
+        else if (cmd.equals("adm_translation"))
+        {
+            TranslationTreeDialog ttd = new TranslationTreeDialog(this, m_da, 1);
         }
         else
             System.out.println("Unknown command: " + cmd);
