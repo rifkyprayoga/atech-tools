@@ -190,8 +190,8 @@ public abstract class PlugInClient implements ActionListener
             else
             {
                 
-                System.out.println("array commands_will_be_done: " + this.commands_will_be_done);
-                System.out.println("array commands_will_be_done[command]: " + this.commands_will_be_done[command]);
+//                System.out.println("array commands_will_be_done: " + this.commands_will_be_done);
+//                System.out.println("array commands_will_be_done[command]: " + this.commands_will_be_done[command]);
                 
                 if ((this.commands_will_be_done==null) || (this.commands_will_be_done[command]==null))
                     this.featureNotImplementedInstalled(commands[command]);
@@ -243,8 +243,8 @@ public abstract class PlugInClient implements ActionListener
             else
             {
                 
-                System.out.println("array commands_will_be_done: " + this.commands_will_be_done);
-                System.out.println("array commands_will_be_done[command]: " + this.commands_will_be_done[command]);
+//                System.out.println("array commands_will_be_done: " + this.commands_will_be_done);
+//                System.out.println("array commands_will_be_done[command]: " + this.commands_will_be_done[command]);
                 
                 if ((this.commands_will_be_done==null) || (this.commands_will_be_done[command]==null))
                     this.featureNotImplementedInstalled(commands[command]);
@@ -255,6 +255,50 @@ public abstract class PlugInClient implements ActionListener
         }
         return false;
     }
+    
+
+    
+    /**
+     * Execute Command with Dialog as Parent
+     * 
+     * @param _parent
+     * @param command
+     * @param command_object
+     * @return 
+     */
+    public Object[] executeCommandDialogReturn(JDialog _parent, int command, Object command_object)
+    {
+        if (m_server==null)
+        {
+            if (this.isCommandImplemented(command))
+            {
+                this.showMessage(String.format(ic.getMessage("PLUGIN_NOT_INSTALLED"), this.getName()));
+            }
+            else
+            {
+                this.featureNotImplemented(commands[command]);
+            }
+        }
+        else
+        {
+            if (this.isCommandImplemented(command))
+                return m_server.executeCommandDialogReturn(_parent, command, command_object);
+            else
+            {
+                
+                //System.out.println("array commands_will_be_done: " + this.commands_will_be_done);
+                //System.out.println("array commands_will_be_done[command]: " + this.commands_will_be_done[command]);
+                
+                if ((this.commands_will_be_done==null) || (this.commands_will_be_done[command]==null))
+                    this.featureNotImplementedInstalled(commands[command]);
+                else
+                    this.featureNotImplementedInstalled(commands[command], this.commands_will_be_done[command]);
+                    
+            }
+        }
+        return null;
+    }
+    
     
     
     /** 

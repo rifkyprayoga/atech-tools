@@ -202,7 +202,7 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     /**
      * Help Button
      */
-    JButton help_button = null;
+    JButton help_button = new JButton();
     
     
     /**
@@ -1410,7 +1410,7 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         // ---
         // --- Help command
         // ---
-        this.help_button = new JButton(ic.getMessage("HELP"));
+        this.help_button.setText(ic.getMessage("HELP"));
         this.help_button.setBounds(395,122,80,23);
         this.help_button.setFont(font_normal);
         //button.addActionListener(this);

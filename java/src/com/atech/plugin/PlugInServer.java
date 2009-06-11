@@ -160,7 +160,10 @@ public abstract class PlugInServer
     
     
     /**
-     * Execute Command Dialog
+     * Execute Command Dialog Return - This one executes command that starts dialog, with
+     *   dialog as parent, and supply of Object as input data. Input data can be anything
+     *   even ArrayList of data. As returning parameters we get boolean. 
+     *   
      * @param dialog
      * @param command
      * @param data
@@ -172,6 +175,23 @@ public abstract class PlugInServer
         return false;
     }
     
+    /**
+     * Execute Command Dialog Return - This one executes command that starts dialog, with
+     *   dialog as parent, and supply of Object as input data. Input data can be anything
+     *   even ArrayList of data. As returning parameters we get array of Object, or null
+     *   if action was unsuccessful
+     * 
+     * @param dialog parent dialog
+     * @param command command id (specific to plugin)
+     * @param data as Object (can be ArrayList)
+     * 
+     * @return Array of Objects or null
+     */
+    public Object[] executeCommandDialogReturn(JDialog dialog, int command, Object data)
+    {
+        System.out.println("executeCommandDialogReturn is not implemented for " + getName());
+        return null;
+    }
     
     /**
      * Feature not implemented message
