@@ -24,9 +24,14 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreeSelectionModel;
 
 import com.atech.graphics.components.EditableAbstractPanel;
-import com.atech.graphics.components.EditablePanel;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.tool.client.DataAccessTT;
+import com.atech.i18n.tool.client.admin.panels.PanelAGroupEdit;
+import com.atech.i18n.tool.client.admin.panels.PanelAGroupView;
+import com.atech.i18n.tool.client.admin.panels.PanelAKeyWordView;
+import com.atech.i18n.tool.client.admin.panels.PanelAModuleEdit;
+import com.atech.i18n.tool.client.admin.panels.PanelAModuleView;
+import com.atech.i18n.tool.client.admin.panels.PanelAdminRoot;
 import com.atech.i18n.tool.client.db.TTDb;
 import com.atech.utils.ATDataAccessAbstract;
 
@@ -256,6 +261,15 @@ public class TranslationTreeDialog extends JDialog implements TreeSelectionListe
     {
         
         panels = new EditableAbstractPanel[7];
+        panels[0] = new PanelAdminRoot();
+        panels[1] = new PanelAModuleView();
+        panels[2] = new PanelAGroupView();
+        panels[3] = new PanelAKeyWordView();
+        panels[4] = new PanelAModuleEdit();
+        panels[5] = new PanelAGroupEdit();
+        panels[6] = new PanelAKeyWordView();
+        
+        
         
 /*
         panels = new GGCTreePanel[3];
