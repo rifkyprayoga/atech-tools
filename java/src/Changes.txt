@@ -7,6 +7,7 @@ See Authors for more description on developers
 0.3.10 (current)
     * plugins extended with executeCommandDialogReturn
     * TranslationTool Db context, some admin classes
+    * PlugInClient class changed (isActive() and isActiveWarning methods added)
 
 
 0.3.9

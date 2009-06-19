@@ -124,11 +124,23 @@ public abstract class PlugInClient implements ActionListener
     
     
     /**
-     * Get Name 
+     * Get Name of plugin
      * 
-     * @return name of plugin
+     * @return
      */
-    public abstract String getName();
+    public String getName()
+    {
+        return ic.getMessage(getNameBase());
+    }
+
+    
+    /**
+     * Get Name of plugin
+     * 
+     * @return
+     */
+    public abstract String getNameBase();
+    
     
     
     /**
@@ -516,6 +528,45 @@ public abstract class PlugInClient implements ActionListener
         else
             return m_server.getBackupObjects();
     }
+    
+    
+    /**
+     * Checks if plug-in is active. Plugin is active, when client side is connected to server side
+     * of it.
+     * 
+     * @return
+     */
+    public boolean isActive()
+    {
+        return (m_server!=null);
+    }
+    
+    
+    /**
+     * Checks if plug-in is active. Plugin is active, when client side is connected to server side
+     * of it.
+     * 
+     * @param warn 
+     * @param dialog 
+     * 
+     * @return
+     */
+    public boolean isActiveWarning(boolean warn, JDialog dialog)
+    {
+        boolean act = isActive();
+
+        if ((!act) && (warn))
+        {
+            JOptionPane.showMessageDialog(dialog,
+                String.format(ic.getMessage("PLUGIN_NOT_ACTIVE"), getNameBase()),
+                ic.getMessage("WARNING"), 
+                JOptionPane.WARNING_MESSAGE);
+        }
+        
+        return act;
+        
+    }
+    
     
     
     
