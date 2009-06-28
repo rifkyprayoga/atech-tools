@@ -2,6 +2,7 @@ package com.atech.graphics.components.about;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -39,6 +40,11 @@ public class CreditsGroup
     private String name;
     private ArrayList<CreditsEntry> entries;
 
+    /**
+     * Instantiates a new credits group.
+     * 
+     * @param name the name
+     */
     public CreditsGroup(String name)
     {
         this.name = name;
@@ -46,22 +52,42 @@ public class CreditsGroup
     }
 
 
+    /**
+     * Adds the credits entry.
+     * 
+     * @param ce the ce
+     */
     public void addCreditsEntry(CreditsEntry ce)
     {
         this.entries.add(ce);
     }
 
+    /**
+     * Gets the group start html.
+     * 
+     * @return the group start html
+     */
     public String getGroupStartHTML()
     {
         return "<table width=\"100%\" border=\"0\"><tr><td width=\"5%\">&nbsp;</td><td><font color=\"#0099FF\">" + this.name + ":</font></td></tr></table>";
     }
 
+    /**
+     * Gets the group end html.
+     * 
+     * @return the group end html
+     */
     public String getGroupEndHTML()
     {
         return "<br>";
     }
 
 
+    /**
+     * Gets the entries.
+     * 
+     * @return the entries
+     */
     public ArrayList<CreditsEntry> getEntries()
     {
         return this.entries;

@@ -1,5 +1,6 @@
 package com.atech.graphics.components.about;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -37,6 +38,13 @@ public class CreditsEntry
     private String email;
     private String what_does;
 
+    /**
+     * Instantiates a new credits entry.
+     * 
+     * @param name the name
+     * @param email the email
+     * @param what_does the what_does
+     */
     public CreditsEntry(String name, String email, String what_does)
     {
         this.name = name;
@@ -44,6 +52,11 @@ public class CreditsEntry
         this.what_does = what_does;
     }
 
+    /**
+     * Gets the hTML code.
+     * 
+     * @return the hTML code
+     */
     public String getHTMLCode()
     {
         if ((this.email==null) || (this.email.trim().length()==0))

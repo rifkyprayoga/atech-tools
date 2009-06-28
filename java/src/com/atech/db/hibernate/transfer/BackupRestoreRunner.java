@@ -10,6 +10,7 @@ import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -44,7 +45,14 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
 {
 
     
+    /**
+     * The ic.
+     */
     protected I18nControlAbstract ic = null;
+    
+    /**
+     * The m_da.
+     */
     protected ATDataAccessAbstract m_da = null;
 
 
@@ -52,26 +60,69 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      *  Globaly used variables
      */
 
+    /**
+     * The label_date.
+     */
     JLabel label_date;
 
+    /**
+     * The progress_current.
+     */
     JProgressBar progress_full, progress_current;
     
+    /**
+     * The tree.
+     */
     CheckNodeTree tree;
     
+    /**
+     * The m_error.
+     */
     int m_error = 0;
+    
+    /**
+     * The last action.
+     */
     int lastAction = 0;  // no event
 
+    /**
+     * The count_of_backup_elements.
+     */
     protected int count_of_backup_elements = 0;
+    
+    /**
+     * The done_backup_elements.
+     */
     protected int done_backup_elements = 0;
     
+    /**
+     * The is_backup.
+     */
     boolean is_backup = false;
     
     
 
+    /**
+     * The ht_backup_objects.
+     */
     protected Hashtable<String,BackupRestoreObject> ht_backup_objects;
+    
+    /**
+     * The ht_restore_objects.
+     */
     Hashtable<String,RestoreFileInfo> ht_restore_objects;
+    
+    /**
+     * The work_giver.
+     */
     protected BackupRestoreWorkGiver work_giver;
     
+    /**
+     * Instantiates a new backup restore runner.
+     * 
+     * @param objects the objects
+     * @param work_giver the work_giver
+     */
     public BackupRestoreRunner(Hashtable<String,BackupRestoreObject> objects, BackupRestoreWorkGiver work_giver)
     {
         super();
@@ -81,6 +132,13 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     }
 
     
+    /**
+     * Instantiates a new backup restore runner.
+     * 
+     * @param objects the objects
+     * @param work_giver the work_giver
+     * @param special the special
+     */
     public BackupRestoreRunner(Hashtable<String,RestoreFileInfo> objects, BackupRestoreWorkGiver work_giver, String special)
     {
         super();
@@ -92,12 +150,18 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     
     
     
+    /** 
+     * setTask
+     */
     public void setTask(String task)
     {
         this.work_giver.setTask(task);
     }
     
     
+    /** 
+     * setStatus
+     */
     public void setStatus(int status)
     {
         this.work_giver.setStatus(status);
@@ -105,6 +169,13 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
 
 
     
+    /**
+     * Checks if is backup object selected.
+     * 
+     * @param key the key
+     * 
+     * @return true, if is backup object selected
+     */
     public boolean isBackupObjectSelected(String key)
     {
         if (this.ht_backup_objects==null)
@@ -117,6 +188,13 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     }
     
     
+    /**
+     * Checks if is restore object selected.
+     * 
+     * @param key the key
+     * 
+     * @return true, if is restore object selected
+     */
     public boolean isRestoreObjectSelected(String key)
     {
         if (this.ht_restore_objects==null)
@@ -131,6 +209,13 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     }
     
     
+    /**
+     * Gets the restore object.
+     * 
+     * @param key the key
+     * 
+     * @return the restore object
+     */
     public RestoreFileInfo getRestoreObject(String key)
     {
         if (this.ht_restore_objects==null)
@@ -143,6 +228,9 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     }
     
     
+    /** 
+     * run
+     */
     public void run()
     {
         if (is_backup)
@@ -152,8 +240,14 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     }
     
     
+    /**
+     * Execute backup.
+     */
     public abstract void executeBackup();
     
+    /**
+     * Execute restore.
+     */
     public abstract void executeRestore();
 
 

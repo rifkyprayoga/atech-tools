@@ -14,6 +14,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 import com.atech.utils.ATDataAccessAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -47,17 +48,45 @@ import com.atech.utils.ATDataAccessAbstract;
 
 public abstract class HibernateDb
 {
+    
+    /**
+     * The Constant DB_CONFIG_LOADED.
+     */
     public static final int DB_CONFIG_LOADED = 1;
+    
+    /**
+     * The Constant DB_INITIALIZED.
+     */
     public static final int DB_INITIALIZED = 2;
+    
+    /**
+     * The Constant DB_STARTED.
+     */
     public static final int DB_STARTED = 3;
 
     private boolean debug = true;
 //x    private boolean db_debug = false;
     
     private static Log log = LogFactory.getLog(HibernateDb.class); 
+    
+    /**
+     * The m_session.
+     */
     protected Session m_session = null;
+    
+    /**
+     * The sessions.
+     */
     protected SessionFactory sessions = null;
+    
+    /**
+     * The m_error code.
+     */
     protected int m_errorCode = 0;
+    
+    /**
+     * The m_error desc.
+     */
     protected String m_errorDesc = "";
     private String m_addId = "";
 
@@ -69,6 +98,9 @@ public abstract class HibernateDb
     private int m_loadStatus = 0;
 
 
+    /**
+     * The config.
+     */
     HibernateConfiguration config = null;
 
     
@@ -76,6 +108,11 @@ public abstract class HibernateDb
 
 
 
+    /**
+     * Instantiates a new hibernate db.
+     * 
+     * @param da the da
+     */
     public HibernateDb(ATDataAccessAbstract da)
     {
         config = createConfiguration();
@@ -84,6 +121,9 @@ public abstract class HibernateDb
     }
 
 
+    /**
+     * Instantiates a new hibernate db.
+     */
     public HibernateDb()
     {
         config = createConfiguration();
@@ -91,12 +131,22 @@ public abstract class HibernateDb
 //	debugConfig();
     }
 
+    /**
+     * Gets the configuration.
+     * 
+     * @return the configuration
+     */
     public Configuration getConfiguration()
     {
         return this.config.getConfiguration();
     }
 
     
+    /**
+     * Gets the hibernate configuration.
+     * 
+     * @return the hibernate configuration
+     */
     public HibernateConfiguration getHibernateConfiguration()
     {
         return this.config;
@@ -128,16 +178,27 @@ public abstract class HibernateDb
 
 
 
-    public void initDb()
+    /**
+ * Inits the db.
+ */
+public void initDb()
     {
         openHibernateSimple();
     }
 
+    /**
+     * Checks if is db started.
+     * 
+     * @return true, if is db started
+     */
     public boolean isDbStarted()
     {
         return(this.m_loadStatus == DB_STARTED);
     }
 
+    /**
+     * Close db.
+     */
     public void closeDb()
     {
         if (this.getHibernateConfiguration().db_hib_dialect.equals("org.hibernate.dialect.HSQLDialect"))
@@ -157,6 +218,9 @@ public abstract class HibernateDb
     }
 
 
+    /**
+     * Open hibernate simple.
+     */
     public void openHibernateSimple()
     {
         sessions = this.getConfiguration().buildSessionFactory();
@@ -165,6 +229,11 @@ public abstract class HibernateDb
     }
 
 
+    /**
+     * Gets the load status.
+     * 
+     * @return the load status
+     */
     public int getLoadStatus()
     {
         return m_loadStatus;
@@ -173,6 +242,12 @@ public abstract class HibernateDb
 
     
 
+    /**
+     * Display error.
+     * 
+     * @param source the source
+     * @param ex the ex
+     */
     public void displayError(String source, Exception ex)
     {
 
@@ -188,6 +263,11 @@ public abstract class HibernateDb
     }
 
 
+    /**
+     * Gets the session.
+     * 
+     * @return the session
+     */
     public Session getSession()
     {
         m_session.clear();
@@ -195,12 +275,20 @@ public abstract class HibernateDb
     }
 
 
+    /**
+     * Creates the database.
+     */
     public void createDatabase()
     {
         new SchemaExport(this.getConfiguration()).create(true, true);
     }
 
     
+    /**
+     * Gets the application db name.
+     * 
+     * @return the application db name
+     */
     public abstract String getApplicationDbName();
     
     
@@ -215,6 +303,13 @@ public abstract class HibernateDb
 
 
 
+    /**
+     * Adds the.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
     public boolean add(Object obj)
     {
 
@@ -263,6 +358,13 @@ public abstract class HibernateDb
 
     // this method is used for direct use with hibernate objects (unlike use with our 
     // datalayer classes)
+    /**
+     * Adds the hibernate.
+     * 
+     * @param obj the obj
+     * 
+     * @return the long
+     */
     public long addHibernate(Object obj)
     {
 
@@ -288,6 +390,13 @@ public abstract class HibernateDb
 
 
 
+    /**
+     * Edits the.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
     public boolean edit(Object obj)
     {
 
@@ -333,6 +442,13 @@ public abstract class HibernateDb
 
     // this method is used for direct use with hibernate objects (unlike use with our 
     // datalayer classes)
+    /**
+     * Edits the hibernate.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
     public boolean editHibernate(Object obj)
     {
 
@@ -359,6 +475,13 @@ public abstract class HibernateDb
     }
 
 
+    /**
+     * Delete hibernate.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
     public boolean deleteHibernate(Object obj)
     {
 
@@ -387,6 +510,13 @@ public abstract class HibernateDb
 
 
 
+    /**
+     * Gets the.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
     public boolean get(Object obj)
     {
 
@@ -433,6 +563,13 @@ public abstract class HibernateDb
 
 
 
+    /**
+     * Delete.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
     public boolean delete(Object obj)
     {
 
@@ -490,6 +627,11 @@ public abstract class HibernateDb
 
 
 
+    /**
+     * Adds the get id.
+     * 
+     * @return the string
+     */
     public String addGetId()
     {
         return this.m_addId;
@@ -497,6 +639,11 @@ public abstract class HibernateDb
 
 
 
+    /**
+     * Gets the error code.
+     * 
+     * @return the error code
+     */
     public int getErrorCode()
     {
         return this.m_errorCode;
@@ -504,6 +651,11 @@ public abstract class HibernateDb
 
 
 
+    /**
+     * Gets the error description.
+     * 
+     * @return the error description
+     */
     public String getErrorDescription()
     {
         return this.m_errorDesc;
@@ -511,6 +663,13 @@ public abstract class HibernateDb
 
 
 
+    /**
+     * Sets the error.
+     * 
+     * @param code the code
+     * @param desc the desc
+     * @param source the source
+     */
     public void setError(int code, String desc, String source)
     {
         this.m_errorCode = code;
@@ -523,6 +682,11 @@ public abstract class HibernateDb
     // *************************************************************
 
 
+    /**
+     * Creates the configuration.
+     * 
+     * @return the hibernate configuration
+     */
     public abstract HibernateConfiguration createConfiguration();
     
     /*
@@ -624,6 +788,9 @@ public abstract class HibernateDb
     // *************************************************************
 
 
+    /**
+     * Load static data.
+     */
     public void loadStaticData()
     {
         m_loadStatus = DB_STARTED;
@@ -640,6 +807,13 @@ public abstract class HibernateDb
     // *************************************************************
 
 
+    /**
+     * Change case.
+     * 
+     * @param in the in
+     * 
+     * @return the string
+     */
     public String changeCase(String in)
     {
 
@@ -661,6 +835,13 @@ public abstract class HibernateDb
 
     }
 
+    /**
+     * Change case word.
+     * 
+     * @param in the in
+     * 
+     * @return the string
+     */
     public String changeCaseWord(String in)
     {
 
@@ -674,6 +855,11 @@ public abstract class HibernateDb
     }
 
 
+    /**
+     * Show byte.
+     * 
+     * @param in the in
+     */
     public void showByte(byte[] in)
     {
 
@@ -686,6 +872,12 @@ public abstract class HibernateDb
 
 
 
+    /**
+     * Debug out.
+     * 
+     * @param source the source
+     * @param ex the ex
+     */
     public void debugOut(String source, Exception ex)
     {
 

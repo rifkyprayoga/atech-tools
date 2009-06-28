@@ -12,83 +12,152 @@ import java.util.Hashtable;
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.utils.ATDataAccessAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
- *  This file is part of ATech Tools library.
- *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
- *  
- *  
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
- *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
- *  
- *  
- *  For additional information about this project please visit our project site on 
- *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
- *  andyrozman@users.sourceforge.net or andy@atech-software.com
- *  
- *  @author Andy
- *
-*/
+ * * This file is part of ATech Tools library.
+ * 
+ * <one line to give the library's name and a brief idea of what it does.>
+ * Copyright (C) 2007 Andy (Aleksander) Rozman (Atech-Software)
+ * 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ * 
+ * For additional information about this project please visit our project site
+ * on http://atech-tools.sourceforge.net/ or contact us via this emails:
+ * andyrozman@users.sourceforge.net or andy@atech-software.com
+ * 
+ * @author Andy
+ */
 
-
+/**
+ * The Class DbToolAccess.
+ */
 public class DbToolAccess extends ATDataAccessAbstract
 {
 
     // LF
     // Hashtable<String,String> availableLF_full = null;
+    /**
+     * The available lf.
+     */
     Object[] availableLF = null;
+    
+    /**
+     * The available lang.
+     */
     Object[] availableLang = null;
 
+    /**
+     * The selected lf.
+     */
     String selectedLF = null;
+    
+    /**
+     * The sub selected lf.
+     */
     String subSelectedLF = null;
 
     // Config file
+    /**
+     * The config_db_values.
+     */
     Hashtable<String, String> config_db_values = null;
+    
+    /**
+     * The selected_db.
+     */
     public int selected_db = -1;
+    
+    /**
+     * The selected_lang.
+     */
     public int selected_lang = 1;
+    
+    /**
+     * The selected_ l f_ class.
+     */
     public String selected_LF_Class = null; // class
+    
+    /**
+     * The selected_ l f_ name.
+     */
     public String selected_LF_Name = null; // name
+    
+    /**
+     * The skin lf selected.
+     */
     public String skinLFSelected = null;
+    
+    /**
+     * The all dbs.
+     */
     String allDbs[] = null;
 
+    /**
+     * The s_path prefix.
+     */
     public static String s_pathPrefix = "./";
 
+    /**
+     * The m_i18n.
+     */
     public I18nControlDbT m_i18n = I18nControlDbT.getInstance();
 
     private static DbToolAccess s_da = null; // This is handle to unique
     // singelton instance
 
     // public GGCDb m_db = null;
+    /**
+     * The m_main.
+     */
     public Component m_main = null;
 
-    public Font fonts[] = null;
-
+    
+    /**
+     * The m_databases_treeroot.
+     */
     public DbToolTreeRoot m_databases_treeroot = null;
     // public GGCTreeRoot m_meals_treeroot = null;
 
+    /**
+     * The m_date.
+     */
     public Date m_date = null;
     // public HbA1cValues m_HbA1c = null;
     // public DailyValues m_dvalues = null;
 
+    /**
+     * The m_table of databases.
+     */
     public Hashtable<String, DatabaseDefObject> m_tableOfDatabases = new Hashtable<String, DatabaseDefObject>();
     // public ArrayList m_listOfDatabases = null;
 
+    /**
+     * The m_available databases.
+     */
     public Object[] m_availableDatabases = null;
 
+    /**
+     * The list of classes.
+     */
     public ArrayList<DbToolApplicationInterface> listOfClasses = new ArrayList<DbToolApplicationInterface>();
 
+    /**
+     * The m_data defs.
+     */
     public DatabaseDefinitions m_dataDefs = null;
 
     // ********************************************************
@@ -138,6 +207,13 @@ public class DbToolAccess extends ATDataAccessAbstract
         return s_da;
     }
 
+    /**
+     * Creates the instance.
+     * 
+     * @param main the main
+     * 
+     * @return the db tool access
+     */
     public static DbToolAccess createInstance(Component main)
     {
         if (s_da == null)
@@ -153,6 +229,11 @@ public class DbToolAccess extends ATDataAccessAbstract
      * static public DataAccess getInstance() { return m_da; }
      */
 
+    /**
+     * Gets the available databases.
+     * 
+     * @return the available databases
+     */
     public Object[] getAvailableDatabases()
     {
         // System.out.println("getAvailableDatabases() " +
@@ -160,11 +241,22 @@ public class DbToolAccess extends ATDataAccessAbstract
         return m_availableDatabases;
     }
 
+    /**
+     * Creates the available databases.
+     * 
+     * @param number the number
+     */
     public void createAvailableDatabases(int number)
     {
         m_availableDatabases = new Object[number];
     }
 
+    /**
+     * Adds the available database.
+     * 
+     * @param index the index
+     * @param obj the obj
+     */
     public void addAvailableDatabase(int index, DatabaseDefObject obj)
     {
         m_availableDatabases[index] = obj;
@@ -187,10 +279,13 @@ public class DbToolAccess extends ATDataAccessAbstract
     // ****** Fonts *****
     // ********************************************************
 
-    //public static final int FONT_BIG_BOLD = 0;
-    //public static final int FONT_NORMAL = 1;
-    //public static final int FONT_NORMAL_BOLD = 2;
+    // public static final int FONT_BIG_BOLD = 0;
+    // public static final int FONT_NORMAL = 1;
+    // public static final int FONT_NORMAL_BOLD = 2;
 
+    /** 
+     * loadFonts
+     */
     public void loadFonts()
     {
         fonts = new Font[3];
@@ -199,6 +294,9 @@ public class DbToolAccess extends ATDataAccessAbstract
         fonts[2] = new Font("SansSerif", Font.BOLD, 12);
     }
 
+    /** 
+     * getFont
+     */
     public Font getFont(int font_id)
     {
         return fonts[font_id];
@@ -208,20 +306,25 @@ public class DbToolAccess extends ATDataAccessAbstract
     // ****** Parent handling (for UIs) *****
     // ********************************************************
 
+    /**
+     * Sets the parent.
+     * 
+     * @param main the new parent
+     */
     public void setParent(Component main)
     {
         m_main = main;
     }
-/*
-    public Component getParent()
-    {
-        return m_main;
-    }
-*/
+
+    /*
+        public Component getParent()
+        {
+            return m_main;
+        }
+    */
     // ********************************************************
     // ****** Look and Feel *****
     // ********************************************************
-
     /*
      * public void loadAvailableLFs() {
      * 
@@ -264,12 +367,19 @@ public class DbToolAccess extends ATDataAccessAbstract
     // ********************************************************
     // ****** Languages *****
     // ********************************************************
-
+    /**
+     * Gets the application datas.
+     * 
+     * @return the application datas
+     */
     public ArrayList<DbToolApplicationInterface> getApplicationDatas()
     {
         return listOfClasses;
     }
 
+    /**
+     * Load application data.
+     */
     public void loadApplicationData()
     {
 
@@ -279,7 +389,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         {
             // System.out.println("Root: " + f.getCanonicalPath());
             processDirectory(f.getCanonicalPath(), f, false);
-        } 
+        }
         catch (Exception ex)
         {
             System.out.println("Exception: " + ex);
@@ -287,6 +397,13 @@ public class DbToolAccess extends ATDataAccessAbstract
 
     }
 
+    /**
+     * Process directory.
+     * 
+     * @param root the root
+     * @param f the f
+     * @param display the display
+     */
     public void processDirectory(String root, File f, boolean display)
     {
         File fl[] = f.listFiles();
@@ -298,7 +415,8 @@ public class DbToolAccess extends ATDataAccessAbstract
             if (fl[i].isDirectory())
             {
                 processDirectory(root, fl[i], false);
-            } else
+            }
+            else
             {
                 String file = fl[i].getName();
 
@@ -322,24 +440,28 @@ public class DbToolAccess extends ATDataAccessAbstract
                             Class<?> c = Class.forName(can);
                             if (getCorrectInterface(c))
                             {
-                                DbToolApplicationInterface obj = (DbToolApplicationInterface) c
-                                        .newInstance();
+                                DbToolApplicationInterface obj = (DbToolApplicationInterface) c.newInstance();
                                 listOfClasses.add(obj);
                             }
-                        } catch (java.lang.NoClassDefFoundError ex)
+                        }
+                        catch (java.lang.NoClassDefFoundError ex)
                         {
-                        } catch (java.lang.ExceptionInInitializerError ex)
+                        }
+                        catch (java.lang.ExceptionInInitializerError ex)
                         {
-                        } catch (Exception ex)
+                        }
+                        catch (Exception ex)
                         {
                         }
 
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         System.out.println("  Ex:" + ex);
                     }
 
-                } else if (file.endsWith(".jar"))
+                }
+                else if (file.endsWith(".jar"))
                 {
                     System.out.println("JAR: " + file);// fl[i]);
                 }
@@ -348,6 +470,13 @@ public class DbToolAccess extends ATDataAccessAbstract
         }
     }
 
+    /**
+     * Gets the correct interface.
+     * 
+     * @param c the c
+     * 
+     * @return the correct interface
+     */
     public boolean getCorrectInterface(Class<?> c) // Object o)
     {
         Class<?>[] theInterfaces = c.getInterfaces();
@@ -355,12 +484,12 @@ public class DbToolAccess extends ATDataAccessAbstract
         {
             String interfaceName = theInterfaces[i].getName();
 
-            if (interfaceName
-                    .equals("com.atech.db.tool.DbToolApplicationInterface"))
+            if (interfaceName.equals("com.atech.db.tool.DbToolApplicationInterface"))
             {
                 // System.out.println("Found Interface: " + interfaceName);
                 return true;
-            } else
+            }
+            else
                 return false;
 
         }
@@ -368,12 +497,14 @@ public class DbToolAccess extends ATDataAccessAbstract
         return false;
     }
 
-
     // ********************************************************
     // ****** Config File Handling *****
     // ********************************************************
 
     // public void loadCo
+    /**
+     * Load config.
+     */
     public void loadConfig(/* DbToolApplicationInterface dtai */)
     {
 
@@ -441,6 +572,11 @@ public class DbToolAccess extends ATDataAccessAbstract
          */
     }
 
+    /**
+     * Gets the list of databases.
+     * 
+     * @return the list of databases
+     */
     public ArrayList<DatabaseSettings> getListOfDatabases()
     {
 
@@ -469,6 +605,9 @@ public class DbToolAccess extends ATDataAccessAbstract
          */
     }
 
+    /**
+     * Save config.
+     */
     public void saveConfig()
     {
 
@@ -542,11 +681,21 @@ public class DbToolAccess extends ATDataAccessAbstract
 
     }
 
+    /**
+     * Gets the available dbs.
+     * 
+     * @return the available dbs
+     */
     public String[] getAvailableDbs()
     {
         return allDbs;
     }
 
+    /**
+     * Gets the selected db index.
+     * 
+     * @return the selected db index
+     */
     public int getSelectedDbIndex()
     {
         for (int i = 0; i < allDbs.length; i++)
@@ -557,6 +706,9 @@ public class DbToolAccess extends ATDataAccessAbstract
         return 0;
     }
 
+    /** 
+     * getMonthsArray
+     */
     public String[] getMonthsArray()
     {
 
@@ -579,27 +731,33 @@ public class DbToolAccess extends ATDataAccessAbstract
 
     }
 
+    /** 
+     * getDateString
+     */
     public String getDateString(int date)
     {
 
         // 20051012
 
         int year = date / 10000;
-        int months = date - (year * 10000);
+        int months_ = date - (year * 10000);
 
-        months = months / 100;
+        months_ = months_ / 100;
 
-        int days = date - (year * 10000) - (months * 100);
+        int days_ = date - (year * 10000) - (months_ * 100);
 
         if (year == 0)
         {
-            return getLeadingZero(days, 2) + "/" + getLeadingZero(months, 2);
-        } else
-            return getLeadingZero(days, 2) + "/" + getLeadingZero(months, 2)
-                    + "/" + year;
+            return getLeadingZero(days_, 2) + "/" + getLeadingZero(months_, 2);
+        }
+        else
+            return getLeadingZero(days_, 2) + "/" + getLeadingZero(months_, 2) + "/" + year;
 
     }
 
+    /** 
+     * getTimeString
+     */
     public String getTimeString(int time)
     {
 
@@ -611,20 +769,28 @@ public class DbToolAccess extends ATDataAccessAbstract
 
     }
 
-
-
+    /**
+     * Not implemented.
+     * 
+     * @param source the source
+     */
     public static void notImplemented(String source)
     {
         System.out.println("Not Implemented: " + source);
     }
 
-
     // ---
     // --- Array Utils
     // ---
 
-    public ArrayList<String> getArrayListFromHashtableValues(
-            Hashtable<String, String> table)
+    /**
+     * Gets the array list from hashtable values.
+     * 
+     * @param table the table
+     * 
+     * @return the array list from hashtable values
+     */
+    public ArrayList<String> getArrayListFromHashtableValues(Hashtable<String, String> table)
     {
         ArrayList<String> al = new ArrayList<String>();
 
@@ -636,8 +802,14 @@ public class DbToolAccess extends ATDataAccessAbstract
         return al;
     }
 
-    public ArrayList<DatabaseSettings> getArrayOfDatabaseSettings(
-            Hashtable<String, DatabaseSettings> table)
+    /**
+     * Gets the array of database settings.
+     * 
+     * @param table the table
+     * 
+     * @return the array of database settings
+     */
+    public ArrayList<DatabaseSettings> getArrayOfDatabaseSettings(Hashtable<String, DatabaseSettings> table)
     {
         ArrayList<DatabaseSettings> al = new ArrayList<DatabaseSettings>();
 
@@ -656,13 +828,19 @@ public class DbToolAccess extends ATDataAccessAbstract
         return al;
     }
 
+    /** 
+     * checkPrerequisites
+     */
     @Override
     public void checkPrerequisites()
     {
         // TODO Auto-generated method stub
-        
+
     }
 
+    /** 
+     * getApplicationName
+     */
     @Override
     public String getApplicationName()
     {
@@ -670,34 +848,48 @@ public class DbToolAccess extends ATDataAccessAbstract
         return null;
     }
 
+    /** 
+     * getHibernateDb
+     */
     @Override
     public HibernateDb getHibernateDb()
     {
         return null;
     }
 
+    /** 
+     * getImagesRoot
+     */
     @Override
     public String getImagesRoot()
     {
         return null;
     }
 
+    /** 
+     * initSpecial
+     */
     @Override
     public void initSpecial()
     {
     }
 
+    /** 
+     * loadBackupRestoreCollection
+     */
     @Override
     public void loadBackupRestoreCollection()
     {
     }
 
+    /** 
+     * loadGraphConfigProperties
+     */
     @Override
     public void loadGraphConfigProperties()
     {
     }
 
-    
     /**
      * Load Special Parameters
      * 
@@ -706,7 +898,6 @@ public class DbToolAccess extends ATDataAccessAbstract
     public void loadSpecialParameters()
     {
     }
-    
 
     /**
      * This method is intended to load additional Language info. Either special langauge configuration
@@ -718,6 +909,9 @@ public class DbToolAccess extends ATDataAccessAbstract
         // TODO Auto-generated method stub
     }
 
+    /** 
+     * getSelectedLangIndex
+     */
     @Override
     public int getSelectedLangIndex()
     {
@@ -725,19 +919,24 @@ public class DbToolAccess extends ATDataAccessAbstract
         return 0;
     }
 
+    /** 
+     * setSelectedLangIndex
+     */
     @Override
     public void setSelectedLangIndex(int index)
     {
         // TODO Auto-generated method stub
-        
+
     }
 
+    /** 
+     * loadPlugIns
+     */
     @Override
     public void loadPlugIns()
     {
         // TODO Auto-generated method stub
-        
+
     }
-    
-    
+
 }

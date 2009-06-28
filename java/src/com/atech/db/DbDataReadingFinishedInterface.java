@@ -35,6 +35,9 @@ package com.atech.db;
 public interface DbDataReadingFinishedInterface 
 {
 
+    /**
+     * Reading Finished
+     */
     public abstract void readingFinished();
 
 }

@@ -60,12 +60,31 @@ public abstract class BackupRestorePlugin
     
 
     
+    /**
+     * Get Backup Restore Object
+     * 
+     * @param class_name
+     * @return
+     */
     public abstract BackupRestoreObject getBackupRestoreObject(String class_name);
     
     
+    /**
+     * Get Backup Restore Object
+     * 
+     * @param obj
+     * @param bro
+     * @return
+     */
     public abstract BackupRestoreObject getBackupRestoreObject(Object obj, BackupRestoreObject bro);
     
 
+    /**
+     * Does Contain Backup Restore Object
+     * 
+     * @param bro_name
+     * @return
+     */
     public abstract boolean doesContainBackupRestoreObject(String bro_name);
     
     

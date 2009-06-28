@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -72,6 +73,11 @@ public class GraphViewerPanel extends JPanel
     }
 
     
+    /**
+     * Instantiates a new graph viewer panel.
+     * 
+     * @param gvi the gvi
+     */
     public GraphViewerPanel(AbstractGraphViewAndProcessor gvi) //, GraphViewDataProcessorInterface gvdp)
     {
         super();

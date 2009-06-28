@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -44,8 +45,18 @@ public class LibraryInfo extends AboutPanel
 {
 
     private static final long serialVersionUID = -3384856095101992059L;
+    
+    /**
+     * The libraries.
+     */
     ArrayList<LibraryInfoEntry> libraries;
 
+    /**
+     * Instantiates a new library info.
+     * 
+     * @param ic the ic
+     * @param lst the lst
+     */
     public LibraryInfo(I18nControlAbstract ic, ArrayList<LibraryInfoEntry> lst)
     {
         super(ic);
@@ -54,6 +65,9 @@ public class LibraryInfo extends AboutPanel
     }
 
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
         this.setLayout(new BorderLayout());
@@ -76,6 +90,11 @@ public class LibraryInfo extends AboutPanel
     }
 
 
+    /**
+     * Generate page.
+     * 
+     * @return the string
+     */
     public String generatePage()
     {
         StringBuffer sb = new StringBuffer();
@@ -94,11 +113,17 @@ public class LibraryInfo extends AboutPanel
 
 
 
+    /** 
+     * getTabName
+     */
     public String getTabName()
     {
         return this.ic.getMessage("LIBRARIES");
     }
 
+    /** 
+     * getTabPanel
+     */
     public JPanel getTabPanel()
     {
         return this;

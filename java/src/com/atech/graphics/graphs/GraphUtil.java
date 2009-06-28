@@ -17,6 +17,7 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  * This is a replacement for AbstractGraphView using JFreeChart. It contains
  * parts common to all graphs.
@@ -25,31 +26,98 @@ import com.atech.utils.ATDataAccessAbstract;
  */
 public abstract class GraphUtil //extends JPanel
 {
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = -1579716091265096686L;
+    
+    /**
+     * The background color.
+     */
     Color backgroundColor = Color.WHITE;
+    
+    /**
+     * The chart.
+     */
     JFreeChart chart;
 
+    /**
+     * The chart panel.
+     */
     ChartPanel chartPanel;
+    
+    /**
+     * The m_da.
+     */
     protected ATDataAccessAbstract m_da = null; //DataAccess.getInstance();
+    
+    /**
+     * The rendering hints.
+     */
     protected RenderingHints renderingHints;
 
+    /**
+     * The m_ic.
+     */
     protected I18nControlAbstract m_ic; // = I18nControl.getInstance();
+    
+    /**
+     * The config.
+     */
     GraphConfigProperties config = null;
+    
+    /**
+     * The empty_tzi.
+     */
     TimeZone empty_tzi;
     private static Shape shapes[];
     
+    /**
+     * The Constant SHAPE_SQUARE.
+     */
     public static final int SHAPE_SQUARE = 0;
+    
+    /**
+     * The Constant SHAPE_CIRCLE.
+     */
     public static final int SHAPE_CIRCLE = 1;
+    
+    /**
+     * The Constant SHAPE_TRIANGLE_UP.
+     */
     public static final int SHAPE_TRIANGLE_UP = 2;
+    
+    /**
+     * The Constant SHAPE_RHOMB.
+     */
     public static final int SHAPE_RHOMB = 3;
+    
+    /**
+     * The Constant SHAPE_RECTANGLE.
+     */
     public static final int SHAPE_RECTANGLE = 4;
+    
+    /**
+     * The Constant SHAPE_TRIANGLE_DOWN.
+     */
     public static final int SHAPE_TRIANGLE_DOWN = 5;
+    
+    /**
+     * The Constant SHAPE_ELIPSE.
+     */
     public static final int SHAPE_ELIPSE = 6;
+    
+    /**
+     * The Constant SHAPE_TRIANGLE_RIGHT.
+     */
     public static final int SHAPE_TRIANGLE_RIGHT = 7;
+    
+    /**
+     * The Constant SHAPE_RECTANGLE_UP.
+     */
     public static final int SHAPE_RECTANGLE_UP = 8;
+    
+    /**
+     * The Constant SHAPE_TRIANGLE_DOWN_RIGHT.
+     */
     public static final int SHAPE_TRIANGLE_DOWN_RIGHT = 9;
     
     
@@ -74,6 +142,9 @@ public abstract class GraphUtil //extends JPanel
     }
 
     
+    /**
+     * Inits the local.
+     */
     public abstract void initLocal();
 
     
@@ -101,12 +172,22 @@ public abstract class GraphUtil //extends JPanel
     }
     
     
+    /**
+     * Gets the empty time zone.
+     * 
+     * @return the empty time zone
+     */
     public TimeZone getEmptyTimeZone()
     {
         return this.empty_tzi;
     }
     
     
+    /**
+     * Gets the rendering hints.
+     * 
+     * @return the rendering hints
+     */
     public RenderingHints getRenderingHints()
     {
         return this.renderingHints;
@@ -224,6 +305,13 @@ public abstract class GraphUtil //extends JPanel
 
 
     
+    /**
+     * Gets the color.
+     * 
+     * @param key the key
+     * 
+     * @return the color
+     */
     public Color getColor(int key)
     {
         return new Color(key);

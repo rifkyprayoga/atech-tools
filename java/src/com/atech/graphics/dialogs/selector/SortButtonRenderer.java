@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -42,18 +43,49 @@ import javax.swing.table.TableCellRenderer;
 public class SortButtonRenderer extends JButton implements TableCellRenderer
 {
     private static final long serialVersionUID = -4547134261004989810L;
+    
+    /**
+     * The Constant NONE.
+     */
     public static final int NONE = 0;
+    
+    /**
+     * The Constant DOWN.
+     */
     public static final int DOWN = 1;
+    
+    /**
+     * The Constant UP.
+     */
     public static final int UP = 2;
 
+    /**
+     * The pushed column.
+     */
     int pushedColumn;
+    
+    /**
+     * The state.
+     */
     Hashtable<Integer, Integer> state;
+    
+    /**
+     * The up button.
+     */
     JButton downButton, upButton;
     // SelectorAbstractDialog m_selDialog = null;
     // JDialog m_selDialog = null;
+    /**
+     * The m_sel dialog.
+     */
     ResortableColumns m_selDialog = null;
 
     // public SortButtonRenderer(SelectorAbstractDialog selDialog)
+    /**
+     * Instantiates a new sort button renderer.
+     * 
+     * @param selDialog the sel dialog
+     */
     public SortButtonRenderer(ResortableColumns selDialog)
     {
         pushedColumn = 0;
@@ -102,6 +134,9 @@ public class SortButtonRenderer extends JButton implements TableCellRenderer
 
     }
 
+    /** 
+     * getTableCellRendererComponent
+     */
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
             int row, int column)
     {
@@ -131,16 +166,31 @@ public class SortButtonRenderer extends JButton implements TableCellRenderer
         return button;
     }
 
+    /**
+     * Sets the pressed column.
+     * 
+     * @param col the new pressed column
+     */
     public void setPressedColumn(int col)
     {
         pushedColumn = col;
     }
 
+    /**
+     * Gets the pressed column.
+     * 
+     * @return the pressed column
+     */
     public int getPressedColumn()
     {
         return pushedColumn;
     }
 
+    /**
+     * Sets the selected column.
+     * 
+     * @param col the new selected column
+     */
     public void setSelectedColumn(int col)
     {
         if (col < 0)
@@ -166,6 +216,13 @@ public class SortButtonRenderer extends JButton implements TableCellRenderer
         state.put(new Integer(col), value);
     }
 
+    /**
+     * Gets the state.
+     * 
+     * @param col the col
+     * 
+     * @return the state
+     */
     public int getState(int col)
     {
         int retValue;

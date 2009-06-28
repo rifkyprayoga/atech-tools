@@ -26,6 +26,7 @@ import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccess;
 import com.atech.utils.ATDataAccessAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -61,38 +62,107 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 {
 
     private static final long serialVersionUID = 46466618138619321L;
+    
+    /**
+     * The ic.
+     */
     protected I18nControlAbstract ic = null;
+    
+    /**
+     * The m_da.
+     */
     protected ATDataAccessAbstract m_da = null;
 
     /*
      * Globaly used variables
      */
+    /**
+     * The panel.
+     */
     JPanel panel;
+    
+    /**
+     * The label_title.
+     */
     JLabel label, label_title;
+    
+    /**
+     * The button_help.
+     */
     JButton button, button_next, button_help;
+    
+    /**
+     * The font_normal_b.
+     */
     Font font_big, font_normal, font_normal_b;
 
+    /**
+     * The label_date.
+     */
     JLabel label_date;
 
+    /**
+     * The progress_current.
+     */
     JProgressBar progress_full, progress_current;
 
+    /**
+     * The tree.
+     */
     CheckNodeTree tree;
 
+    /**
+     * The m_error.
+     */
     int m_error = 0;
+    
+    /**
+     * The last action.
+     */
     int lastAction = 0; // no event
 
+    /**
+     * The count_of_backup_elements.
+     */
     protected int count_of_backup_elements = 0;
+    
+    /**
+     * The done_backup_elements.
+     */
     protected int done_backup_elements = -1;
 
+    /**
+     * The label_current_progress.
+     */
     JLabel label_total_progress, label_current_progress;
+    
+    /**
+     * The tf_file.
+     */
     protected JTextField tf_file;
     
     
+    /**
+     * The backuprestore_root.
+     */
     protected BackupRestoreCollection backuprestore_root;
+    
+    /**
+     * The ht_backup_objects.
+     */
     protected Hashtable<String, BackupRestoreObject> ht_backup_objects;
 
+    /**
+     * The my_parent.
+     */
     protected Container my_parent = null;
 
+    /**
+     * Instantiates a new restore selector dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     */
     public RestoreSelectorDialog(JDialog parent, ATDataAccessAbstract da)
     {
         super(parent, "", true);
@@ -104,6 +174,12 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         init();
     }
 
+    /**
+     * Instantiates a new restore selector dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     */
     public RestoreSelectorDialog(JFrame parent, ATDataAccessAbstract da)
     {
         super(parent, "", true);
@@ -114,6 +190,9 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         init();
     }
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
 
@@ -132,6 +211,9 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         this.m_da.addComponent(this);
     }
 
+    /**
+     * Show dialog.
+     */
     public void showDialog()
     {
         this.setVisible(true);
@@ -139,6 +221,11 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 
     /*
      * Displays title for dialog
+     */
+    /**
+     * Show title.
+     * 
+     * @param backup the backup
      */
     public void showTitle(boolean backup)
     {
@@ -148,6 +235,9 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 
     /*
      * Displays GUI
+     */
+    /**
+     * Cmd update.
      */
     public void cmdUpdate()
     {
@@ -167,7 +257,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 
         showTitle(true);
 
-        JLabel label = new JLabel(ic.getMessage("RESTORE_SELECTOR_DESC"));
+        label = new JLabel(ic.getMessage("RESTORE_SELECTOR_DESC"));
         label.setBounds(25, 70, 400, 190);
         label.setFont(this.font_normal);
         panel.add(label);
@@ -232,11 +322,18 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 
     }
 
-
     
+    /**
+     * Cmd next step.
+     */
     public abstract void cmdNextStep();
     
     
+    /**
+     * Gets the browse startup directory.
+     * 
+     * @return the browse startup directory
+     */
     public String getBrowseStartupDirectory()
     {
         return ".";
@@ -244,6 +341,9 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
     
     
     
+    /** 
+     * actionPerformed
+     */
     public void actionPerformed(ActionEvent e)
     {
         String cmd = e.getActionCommand();
@@ -325,6 +425,9 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 
 
 
+    /**
+     * The help_id.
+     */
     String help_id = null;
 
     /**

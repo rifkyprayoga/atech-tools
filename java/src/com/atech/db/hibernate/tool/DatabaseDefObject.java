@@ -1,6 +1,7 @@
 package com.atech.db.hibernate.tool;
 
-/*
+// TODO: Auto-generated Javadoc
+/**
  * This file is part of ATech Tools library.
  * 
  * <one line to give the library's name and a brief idea of what it does.>
@@ -32,13 +33,46 @@ package com.atech.db.hibernate.tool;
 public class DatabaseDefObject
 {
 
+    /**
+     * The name.
+     */
     public String name = null;
+    
+    /**
+     * The driver.
+     */
     public String driver = null;
+    
+    /**
+     * The url.
+     */
     public String url = null;
+    
+    /**
+     * The port.
+     */
     public String port = null;
+    
+    /**
+     * The dialect.
+     */
     public String dialect = null;
+    
+    /**
+     * The short_dialect.
+     */
     public String short_dialect = null;
 
+    /**
+     * Instantiates a new database def object.
+     * 
+     * @param name the name
+     * @param driver the driver
+     * @param url the url
+     * @param port the port
+     * @param dialect the dialect
+     * @param sh_dialect the sh_dialect
+     */
     public DatabaseDefObject(String name, String driver, String url, String port, String dialect, String sh_dialect)
     {
         this.name = name;
@@ -49,6 +83,9 @@ public class DatabaseDefObject
         this.short_dialect = sh_dialect;
     }
 
+    /** 
+     * toString
+     */
     @Override
     public String toString()
     {

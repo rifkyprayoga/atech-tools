@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Random;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.mapping.Column;
 import org.hibernate.mapping.RootClass;
 import org.hibernate.mapping.Table;
@@ -21,6 +20,7 @@ import org.hibernate.mapping.Value;
 import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.db.hibernate.HibernateUtil;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -56,12 +56,25 @@ import com.atech.db.hibernate.HibernateUtil;
 public abstract class ImportTool extends ImportExportAbstract
 {
 
+    /**
+     * The class def.
+     */
     public Hashtable<String, String> classDef = null;
 
     //Configuration m_cfg = null;
-    Session m_session = null;
+    /**
+     * The m_session.
+     */
+    //Session m_session = null;
+    
+    /**
+     * The restore_file.
+     */
     protected File restore_file = null;
     //protected BufferedReader file_reader;
+    /**
+     * The hibernate_util.
+     */
     protected HibernateUtil hibernate_util = null;
     
 /*
@@ -71,12 +84,23 @@ public abstract class ImportTool extends ImportExportAbstract
     }
 */
     
-    public ImportTool(HibernateConfiguration hib_conf)
+    /**
+ * Instantiates a new import tool.
+ * 
+ * @param hib_conf the hib_conf
+ */
+public ImportTool(HibernateConfiguration hib_conf)
     {
         super(hib_conf);
         createHibernateUtil();
     }
     
+    /**
+     * Instantiates a new import tool.
+     * 
+     * @param hib_conf the hib_conf
+     * @param res the res
+     */
     public ImportTool(HibernateConfiguration hib_conf, RestoreFileInfo res)
     {
         super(hib_conf);
@@ -86,6 +110,11 @@ public abstract class ImportTool extends ImportExportAbstract
     }
     
     
+    /**
+     * Sets the restore file info.
+     * 
+     * @param res the new restore file info
+     */
     public void setRestoreFileInfo(RestoreFileInfo res)
     {
         this.statusSetMaxEntry(res.element_count);
@@ -94,12 +123,18 @@ public abstract class ImportTool extends ImportExportAbstract
     
     
     
+    /**
+     * Instantiates a new import tool.
+     */
     public ImportTool()
     {
         super();
     }
     
 
+    /**
+     * Creates the hibernate util.
+     */
     public void createHibernateUtil()
     {
         this.hibernate_util = new HibernateUtil(this.hibernate_conf, HibernateConfiguration.DB_CONTEXT_FULL, false);
@@ -109,6 +144,9 @@ public abstract class ImportTool extends ImportExportAbstract
     
     
     
+    /**
+     * Process configuration.
+     */
     public void processConfiguration()
     {
         //System.out.println("Debug Configuration:");
@@ -132,6 +170,13 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Gets the root class.
+     * 
+     * @param cls_name the cls_name
+     * 
+     * @return the root class
+     */
     public RootClass getRootClass(String cls_name)
     {
         Iterator<?> it = this.m_cfg.getClassMappings();
@@ -150,6 +195,11 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Explore root class.
+     * 
+     * @param rc the rc
+     */
     public void exploreRootClass(RootClass rc)
     {
         System.out.println("Class Name: " + rc.getClassName());
@@ -174,6 +224,11 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Explore column.
+     * 
+     * @param cl the cl
+     */
     public void exploreColumn(Column cl)
     {
 
@@ -217,6 +272,11 @@ public abstract class ImportTool extends ImportExportAbstract
      */
 
 
+    /**
+     * Export class.
+     * 
+     * @param cls_name the cls_name
+     */
     public void exportClass(String cls_name)
     {
         // String cls = "ggc.core.db.hibernate.DayValueH";
@@ -286,6 +346,14 @@ public abstract class ImportTool extends ImportExportAbstract
     
     
 
+    /**
+     * Gets the data from column for object.
+     * 
+     * @param obj the obj
+     * @param column_name the column_name
+     * 
+     * @return the data from column for object
+     */
     public String getDataFromColumnForObject(Object obj, String column_name)
     {
 
@@ -342,6 +410,13 @@ public abstract class ImportTool extends ImportExportAbstract
      * (InvocationTargetException e) { System.out.println(e); } return result; }
      */
 
+    /**
+     * Gets the columns names.
+     * 
+     * @param cls_name the cls_name
+     * 
+     * @return the columns names
+     */
     public ArrayList<String> getColumnsNames(String cls_name)
     {
         RootClass rc = getRootClass(cls_name);
@@ -362,6 +437,13 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Gets the data.
+     * 
+     * @param clas_name the clas_name
+     * 
+     * @return the data
+     */
     public List<?> getData(String clas_name)
     {
         Query q = getSession().createQuery("select smth from " + clas_name + " as smth");
@@ -370,6 +452,13 @@ public abstract class ImportTool extends ImportExportAbstract
         // return null;
     }
 
+    /**
+     * Gets the int.
+     * 
+     * @param input the input
+     * 
+     * @return the int
+     */
     public int getInt(String input)
     {
 
@@ -383,6 +472,13 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Gets the short.
+     * 
+     * @param input the input
+     * 
+     * @return the short
+     */
     public short getShort(String input)
     {
 
@@ -396,6 +492,13 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Gets the long.
+     * 
+     * @param input the input
+     * 
+     * @return the long
+     */
     public long getLong(String input)
     {
 
@@ -409,6 +512,13 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Gets the float.
+     * 
+     * @param input the input
+     * 
+     * @return the float
+     */
     public float getFloat(String input)
     {
 
@@ -424,6 +534,13 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Gets the string.
+     * 
+     * @param input the input
+     * 
+     * @return the string
+     */
     public String getString(String input)
     {
 
@@ -441,6 +558,11 @@ public abstract class ImportTool extends ImportExportAbstract
     }
 
     
+    /**
+     * Clear existing data.
+     * 
+     * @param class_name the class_name
+     */
     public void clearExistingData(String class_name)
     {
         Query q = getSession().createQuery("delete from " + class_name );

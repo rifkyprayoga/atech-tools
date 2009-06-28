@@ -10,6 +10,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.EventListenerList;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -51,18 +52,46 @@ import javax.swing.event.EventListenerList;
 
 public class AbstractCellEditor implements CellEditor {
 
+    /**
+     * The listener list.
+     */
     protected EventListenerList listenerList = new EventListenerList();
 
+    /** 
+     * getCellEditorValue
+     */
     public Object getCellEditorValue() { return null; }
+    
+    /** 
+     * isCellEditable
+     */
     public boolean isCellEditable(EventObject e) { return true; }
+    
+    /** 
+     * shouldSelectCell
+     */
     public boolean shouldSelectCell(EventObject anEvent) { return false; }
+    
+    /** 
+     * stopCellEditing
+     */
     public boolean stopCellEditing() { return true; }
+    
+    /** 
+     * cancelCellEditing
+     */
     public void cancelCellEditing() {}
 
+    /** 
+     * addCellEditorListener
+     */
     public void addCellEditorListener(CellEditorListener l) {
 	listenerList.add(CellEditorListener.class, l);
     }
 
+    /** 
+     * removeCellEditorListener
+     */
     public void removeCellEditorListener(CellEditorListener l) {
 	listenerList.remove(CellEditorListener.class, l);
     }

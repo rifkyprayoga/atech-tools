@@ -36,6 +36,7 @@ import javax.swing.plaf.ColorUIResource;
 import com.atech.graphics.components.JDecimalTextField;
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -68,14 +69,34 @@ import com.atech.i18n.I18nControlAbstract;
 
 public class ATSwingUtils
 {
-    public Color color_background, color_foreground;
+    
+    /**
+     * The color_background.
+     */
+    public Color color_background;
+    
+    /**
+     * The color_foreground.
+     */
+    public Color color_foreground;
+    
+    /**
+     * The border_line.
+     */
     LineBorder border_line;
+    
+    /**
+     * The fonts.
+     */
     static Font[] fonts;
 
 
-    public static I18nControlAbstract i18n_control = null;
+    private static I18nControlAbstract i18n_control = null;
 
     // LF
+    /**
+     * The available l f_full.
+     */
     Hashtable<String, String> availableLF_full = null;
     //Object[] availableLF = null;
     // Object[] availableLang = null;
@@ -85,12 +106,20 @@ public class ATSwingUtils
     //String subSelectedLF = null;
 
     
+    /**
+     * Sets the i18n control.
+     * 
+     * @param ic the new i18n control
+     */
     public static void setI18nControl(I18nControlAbstract ic)
     {
         ATSwingUtils.i18n_control = ic;
     }
     
     
+    /**
+     * Inits the library.
+     */
     public static void initLibrary()
     {
         loadFonts();
@@ -103,12 +132,34 @@ public class ATSwingUtils
     // ****** Fonts *****
     // ********************************************************
 
+    /**
+     * The Constant FONT_BIG_BOLD.
+     */
     public static final int FONT_BIG_BOLD = 0;
+    
+    /**
+     * The Constant FONT_NORMAL.
+     */
     public static final int FONT_NORMAL = 1;
+    
+    /**
+     * The Constant FONT_NORMAL_BOLD.
+     */
     public static final int FONT_NORMAL_BOLD = 2;
+    
+    /**
+     * The Constant FONT_NORMAL_P2.
+     */
     public static final int FONT_NORMAL_P2 = 3;
+    
+    /**
+     * The Constant FONT_NORMAL_BOLD_P2.
+     */
     public static final int FONT_NORMAL_BOLD_P2 = 4;
 
+    /**
+     * Load fonts.
+     */
     public static void loadFonts()
     {
         if (fonts!=null)
@@ -123,6 +174,13 @@ public class ATSwingUtils
         fonts[4] = new Font("SansSerif", Font.BOLD, 14);
     }
 
+    /**
+     * Gets the font.
+     * 
+     * @param font_id the font_id
+     * 
+     * @return the font
+     */
     public static Font getFont(int font_id)
     {
         return fonts[font_id];
@@ -167,6 +225,12 @@ public class ATSwingUtils
     // ****** GUI *****
     // ********************************************************
 
+    /**
+     * Center j dialog.
+     * 
+     * @param dialog the dialog
+     * @param parent the parent
+     */
     public static void centerJDialog(JDialog dialog, Container parent)
     {
 
@@ -256,6 +320,9 @@ public class ATSwingUtils
     // ********************************************************
     // ****** Colors *****
     // ********************************************************
+    /**
+     * Load colors.
+     */
     public void loadColors()
     {
         ColorUIResource cui = (ColorUIResource) UIManager.getLookAndFeel().getDefaults().get("textText");
@@ -267,6 +334,11 @@ public class ATSwingUtils
         this.border_line = new LineBorder(this.color_foreground);
     }
 
+    /**
+     * Gets the months array.
+     * 
+     * @return the months array
+     */
     public String[] getMonthsArray()
     {
         return null;
@@ -318,6 +390,13 @@ public class ATSwingUtils
     }
       */
 
+    /**
+     * Gets the date string.
+     * 
+     * @param date the date
+     * 
+     * @return the date string
+     */
     public String getDateString(int date)
     {
 
@@ -339,6 +418,13 @@ public class ATSwingUtils
 
     }
 
+    /**
+     * Gets the time string.
+     * 
+     * @param time the time
+     * 
+     * @return the time string
+     */
     public String getTimeString(int time)
     {
 
@@ -350,20 +436,53 @@ public class ATSwingUtils
 
     }
 
+    /**
+     * Gets the date time string.
+     * 
+     * @param date the date
+     * 
+     * @return the date time string
+     */
     public String getDateTimeString(long date)
     {
         return getDateTimeString(date, 1);
     }
 
+    /**
+     * Gets the date time as date string.
+     * 
+     * @param date the date
+     * 
+     * @return the date time as date string
+     */
     public String getDateTimeAsDateString(long date)
     {
         return getDateTimeString(date, 2);
     }
 
+    /**
+     * The Constant DATE_TIME_ATECH_DATETIME.
+     */
     public static final int DATE_TIME_ATECH_DATETIME = 1;
+    
+    /**
+     * The Constant DATE_TIME_ATECH_DATE.
+     */
     public static final int DATE_TIME_ATECH_DATE = 2;
+    
+    /**
+     * The Constant DATE_TIME_ATECH_TIME.
+     */
     public static final int DATE_TIME_ATECH_TIME = 3;
 
+    /**
+     * Gets the aT date time from gc.
+     * 
+     * @param gc the gc
+     * @param type the type
+     * 
+     * @return the aT date time from gc
+     */
     public long getATDateTimeFromGC(GregorianCalendar gc, int type)
     {
         long dt = 0L;
@@ -391,6 +510,18 @@ public class ATSwingUtils
         return dt;
     }
 
+    /**
+     * Gets the aT date time from parts.
+     * 
+     * @param day the day
+     * @param month the month
+     * @param year the year
+     * @param hour the hour
+     * @param minute the minute
+     * @param type the type
+     * 
+     * @return the aT date time from parts
+     */
     public long getATDateTimeFromParts(int day, int month, int year, int hour, int minute, int type)
     {
         long dt = 0L;
@@ -418,6 +549,13 @@ public class ATSwingUtils
         return dt;
     }
 
+    /**
+     * Gets the date from at date.
+     * 
+     * @param data the data
+     * 
+     * @return the date from at date
+     */
     public long getDateFromATDate(long data)
     {
         // 200701011222
@@ -432,6 +570,13 @@ public class ATSwingUtils
         return d2;
     }
 
+    /**
+     * Gets the date time as time string.
+     * 
+     * @param date the date
+     * 
+     * @return the date time as time string
+     */
     public String getDateTimeAsTimeString(long date)
     {
         return getDateTimeString(date, 3);
@@ -441,10 +586,29 @@ public class ATSwingUtils
     // ret_type = 2 (Date)
     // ret_type = 3 (Time)
 
+    /**
+     * The Constant DT_DATETIME.
+     */
     public final static int DT_DATETIME = 1;
+    
+    /**
+     * The Constant DT_DATE.
+     */
     public final static int DT_DATE = 2;
+    
+    /**
+     * The Constant DT_TIME.
+     */
     public final static int DT_TIME = 3;
 
+    /**
+     * Gets the date time string.
+     * 
+     * @param dt the dt
+     * @param ret_type the ret_type
+     * 
+     * @return the date time string
+     */
     public String getDateTimeString(long dt, int ret_type)
     {
 
@@ -519,6 +683,14 @@ public class ATSwingUtils
         }
     */
 
+    /**
+     * Gets the date time string.
+     * 
+     * @param date the date
+     * @param time the time
+     * 
+     * @return the date time string
+     */
     public String getDateTimeString(int date, int time)
     {
 
@@ -526,6 +698,14 @@ public class ATSwingUtils
 
     }
 
+    /**
+     * Gets the leading zero.
+     * 
+     * @param number the number
+     * @param places the places
+     * 
+     * @return the leading zero
+     */
     public String getLeadingZero(int number, int places)
     {
 
@@ -540,12 +720,22 @@ public class ATSwingUtils
 
     }
 
+    /**
+     * Gets the start year.
+     * 
+     * @return the start year
+     */
     public int getStartYear()
     {
         // FIX set in Db
         return 1800;
     }
 
+    /**
+     * Not implemented.
+     * 
+     * @param source the source
+     */
     public static void notImplemented(String source)
     {
         System.out.println("Not Implemented: " + source);
@@ -553,12 +743,27 @@ public class ATSwingUtils
         // source);
     }
 
+    /**
+     * Not implemented.
+     * 
+     * @param parent the parent
+     * @param source the source
+     */
     public static void notImplemented(java.awt.Component parent, String source)
     {
         System.out.println("Not Implemented: " + source);
         JOptionPane.showMessageDialog(parent, "Not Implemented: \n" + source);
     }
 
+    /**
+     * Creates the menu.
+     * 
+     * @param name the name
+     * @param tool_tip the tool_tip
+     * @param bar the bar
+     * 
+     * @return the j menu
+     */
     public JMenu createMenu(String name, String tool_tip, JMenuBar bar)
     {
         JMenu item = new JMenu(ATSwingUtils.i18n_control.getMessageWithoutMnemonic(name));
@@ -574,6 +779,17 @@ public class ATSwingUtils
         return item;
     }
 
+    /**
+     * Creates the menu item.
+     * 
+     * @param menu the menu
+     * @param name the name
+     * @param tip the tip
+     * @param action_command the action_command
+     * @param icon_small the icon_small
+     * 
+     * @return the j menu item
+     */
     public JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, String icon_small)
     {
 
@@ -604,6 +820,20 @@ public class ATSwingUtils
     // ********************************************************
     
     
+    /**
+     * Gets the numeric text field.
+     * 
+     * @param columns the columns
+     * @param decimal_places the decimal_places
+     * @param value the value
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * 
+     * @return the numeric text field
+     */
     public static JDecimalTextField getNumericTextField(int columns, int decimal_places, Object value, int x, int y, int width, int height, Container cont)
     {
         JDecimalTextField tf = new JDecimalTextField(value, decimal_places);
@@ -615,12 +845,37 @@ public class ATSwingUtils
     }
     
 
+    /**
+     * Gets the label.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * 
+     * @return the label
+     */
     public static JLabel getLabel(String text, int x, int y, int width, int height, Container cont)
     {
         return getLabel(text, x, y, width, height, cont, null);
     }
 
     
+    /**
+     * Gets the label.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font_id the font_id
+     * 
+     * @return the label
+     */
     public static JLabel getLabel(String text, int x, int y, int width, int height, Container cont, int font_id)
     {
         return getLabel(text, x, y, width, height, cont, getFont(font_id));
@@ -628,6 +883,19 @@ public class ATSwingUtils
     
     
 
+    /**
+     * Gets the label.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font the font
+     * 
+     * @return the label
+     */
     public static JLabel getLabel(String text, int x, int y, int width, int height, Container cont, Font font)
     {
         JLabel label_1 = new JLabel();
@@ -647,12 +915,38 @@ public class ATSwingUtils
 
     
     
+    /**
+     * Gets the title label.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font_id the font_id
+     * 
+     * @return the title label
+     */
     public static JLabel getTitleLabel(String text, int x, int y, int width, int height, Container cont, int font_id)
     {
         return getTitleLabel(text, x, y, width, height, cont, getFont(font_id));
     }
     
     
+    /**
+     * Gets the title label.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font the font
+     * 
+     * @return the title label
+     */
     public static JLabel getTitleLabel(String text, int x, int y, int width, int height, Container cont, Font font)
     {
         JLabel label_1 = getLabel(text, x, y, width, height, cont, font);
@@ -660,6 +954,19 @@ public class ATSwingUtils
         return label_1;
     } 
     
+    /**
+     * Gets the combo box.
+     * 
+     * @param data the data
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font_id the font_id
+     * 
+     * @return the combo box
+     */
     public static JComboBox getComboBox(Vector<?> data, int x, int y, int width, int height, Container cont, int font_id)
     {
         return ATSwingUtils.getComboBox(data, x, y, width, height, cont, getFont(font_id));
@@ -667,6 +974,19 @@ public class ATSwingUtils
     }
     
 
+    /**
+     * Gets the combo box.
+     * 
+     * @param data the data
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font the font
+     * 
+     * @return the combo box
+     */
     public static JComboBox getComboBox(Vector<?> data, int x, int y, int width, int height, Container cont, Font font)
     {
         JComboBox cb = new JComboBox(data);
@@ -678,13 +998,38 @@ public class ATSwingUtils
     }
     
 
+    /**
+     * Gets the combo box.
+     * 
+     * @param data the data
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font_id the font_id
+     * 
+     * @return the combo box
+     */
     public static JComboBox getComboBox(Object[] data, int x, int y, int width, int height, Container cont, int font_id)
     {
         return ATSwingUtils.getComboBox(data, x, y, width, height, cont, getFont(font_id));
-        
     }
     
 
+    /**
+     * Gets the combo box.
+     * 
+     * @param data the data
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font the font
+     * 
+     * @return the combo box
+     */
     public static JComboBox getComboBox(Object[] data, int x, int y, int width, int height, Container cont, Font font)
     {
         JComboBox cb = new JComboBox(data);
@@ -696,12 +1041,46 @@ public class ATSwingUtils
     }
     
     
+    /**
+     * Gets the button.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font_id the font_id
+     * @param icon_name the icon_name
+     * @param action_cmd the action_cmd
+     * @param al the al
+     * @param da the da
+     * 
+     * @return the button
+     */
     public static JButton getButton(String text, int x, int y, int width, int height, Container cont, int font_id, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da)
     {
         return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da);
     }
     
 
+    /**
+     * Gets the button.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font the font
+     * @param icon_name the icon_name
+     * @param action_cmd the action_cmd
+     * @param al the al
+     * @param da the da
+     * 
+     * @return the button
+     */
     public static JButton getButton(String text, int x, int y, int width, int height, Container cont, Font font, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da)
     {
         JButton button = new JButton(text);
@@ -718,12 +1097,38 @@ public class ATSwingUtils
     
     
     
+    /**
+     * Gets the check box.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font_id the font_id
+     * 
+     * @return the check box
+     */
     public static JCheckBox getCheckBox(String text, int x, int y, int width, int height, Container cont, int font_id)
     {
         return ATSwingUtils.getCheckBox(text, x, y, width, height, cont, getFont(font_id));
     }
     
 
+    /**
+     * Gets the check box.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font the font
+     * 
+     * @return the check box
+     */
     public static JCheckBox getCheckBox(String text, int x, int y, int width, int height, Container cont, Font font)
     {
         JCheckBox chb = new JCheckBox(text);
@@ -737,6 +1142,19 @@ public class ATSwingUtils
     }
     
     
+    /**
+     * Gets the panel.
+     * 
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param layout the layout
+     * @param border the border
+     * @param cont the cont
+     * 
+     * @return the panel
+     */
     public static JPanel getPanel(int x, int y, int width, int height, LayoutManager layout, Border border, Container cont)
     {
         JPanel panel = new JPanel();
@@ -753,6 +1171,18 @@ public class ATSwingUtils
     
     
     
+    /**
+     * Gets the text field.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * 
+     * @return the text field
+     */
     public static JTextField getTextField(String text, int x, int y, int width, int height, Container cont)
     {
         JTextField text_1 = new JTextField();
@@ -769,12 +1199,33 @@ public class ATSwingUtils
     
     
 
+    /**
+     * Adds the component.
+     * 
+     * @param comp the comp
+     * @param posX the pos x
+     * @param posY the pos y
+     * @param width the width
+     * @param height the height
+     * @param parent the parent
+     */
     public static void addComponent(JComponent comp, int posX, int posY, int width, int height, JPanel parent)
     {
         addComponent(comp, posX, posY, width, height, FONT_NORMAL, parent);
     }
 
     
+    /**
+     * Adds the component.
+     * 
+     * @param comp the comp
+     * @param posX the pos x
+     * @param posY the pos y
+     * @param width the width
+     * @param height the height
+     * @param font_id the font_id
+     * @param parent the parent
+     */
     public static void addComponent(JComponent comp, int posX, int posY, int width, int height, int font_id, JPanel parent)
     {
         comp.setBounds(posX, posY, width, height);
@@ -820,6 +1271,8 @@ public class ATSwingUtils
      * @param ic
      * @param da
      * @param c
+     * 
+     * @return 
      */
     public static JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c)
     {

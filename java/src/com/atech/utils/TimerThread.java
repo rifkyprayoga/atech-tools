@@ -2,6 +2,7 @@ package com.atech.utils;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -37,38 +38,68 @@ public class TimerThread extends Thread
 {
 
     private boolean running = true;
+    
+    /**
+     * The lst_jobs.
+     */
     ArrayList<TimerControlAbstract> lst_jobs = new ArrayList<TimerControlAbstract>();
     private boolean started = false;
 
 
+    /**
+     * Instantiates a new timer thread.
+     */
     public TimerThread()
     {
         System.out.println("TimerThread()");
     }
 
 
+    /**
+     * Adds the job.
+     * 
+     * @param tca the tca
+     */
     public void addJob(TimerControlAbstract tca)
     {
         System.out.println("addJob");
         this.lst_jobs.add(tca);
     }
 
+    /**
+     * Removes the job.
+     * 
+     * @param tca the tca
+     */
     public void removeJob(TimerControlAbstract tca)
     {
         System.out.println("removeJob");
         this.lst_jobs.remove(tca);
     }
 
+    /**
+     * Stop timer thread.
+     */
     public void stopTimerThread()
     {
         this.running = false;
     }
 
+    /**
+     * Checks for started.
+     * 
+     * @return true, if successful
+     */
     public boolean hasStarted()
     {
     	return this.started;
     }
     
+    /**
+     * Sets the started.
+     * 
+     * @param started the new started
+     */
     public void setStarted(boolean started)
     {
     	this.started = started;
@@ -77,6 +108,9 @@ public class TimerThread extends Thread
     
     
     
+    /** 
+     * run
+     */
     @Override
     public void run()
     {

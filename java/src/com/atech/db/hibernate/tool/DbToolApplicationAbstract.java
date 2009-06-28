@@ -81,10 +81,12 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     private Hashtable<String, DatabaseSettings> allDatabases;
 
     private boolean m_changed = false;
+    @SuppressWarnings("unused")
     private boolean use_skin_lf = false;
 
     /**
      * Constuctor
+     * @param use_skin_lf_ 
      */
     public DbToolApplicationAbstract(boolean use_skin_lf_)
     {
@@ -395,9 +397,20 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
 
     
     
+    /**
+     * Load Application Specific Settings
+     * 
+     * @param key
+     * @param value
+     */
     public abstract void loadApplicationSpecific(String key, String value);
     
     
+    /**
+     * Save Application Specific Settings
+     * 
+     * @param bw
+     */
     public abstract void saveApplicationSpecific(BufferedWriter bw);
     
     

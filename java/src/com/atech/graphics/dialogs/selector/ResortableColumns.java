@@ -1,5 +1,6 @@
 package com.atech.graphics.dialogs.selector;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -33,5 +34,13 @@ package com.atech.graphics.dialogs.selector;
 
 public interface ResortableColumns
 {
+	
+	/**
+	 * Resort columns.
+	 * 
+	 * @param column the column
+	 * @param way_down the way_down
+	 */
 	void resortColumns(int column, boolean way_down);
+	
 }

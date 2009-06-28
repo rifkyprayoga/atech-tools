@@ -3,6 +3,7 @@ package com.atech.db.hibernate.tool;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+// TODO: Auto-generated Javadoc
 /**
  * This file is part of ATech Tools library.
  * 
@@ -35,9 +36,19 @@ import java.util.Hashtable;
 public class DatabaseDefinitions
 {
 
+    /**
+     * The table of databases.
+     */
     Hashtable<String, String> tableOfDatabases = null;
+    
+    /**
+     * The list of databases.
+     */
     ArrayList<String> listOfDatabases = null;
 
+    /**
+     * The hibernate_main_version.
+     */
     int hibernate_main_version = 3;
 
     /**
@@ -159,6 +170,11 @@ public class DatabaseDefinitions
     };
 
     
+    /**
+     * Gets the list of available databases.
+     * 
+     * @return the list of available databases
+     */
     public ArrayList<String> getListOfAvailableDatabases()
     {
         if (listOfDatabases == null)
@@ -174,6 +190,11 @@ public class DatabaseDefinitions
         return listOfDatabases;
     }
 
+    /**
+     * Gets the table of available databases.
+     * 
+     * @return the table of available databases
+     */
     public Hashtable<String, String> getTableOfAvailableDatabases()
     {
         if (tableOfDatabases == null)
@@ -189,26 +210,61 @@ public class DatabaseDefinitions
         return tableOfDatabases;
     }
 
+    /**
+     * Gets the database name.
+     * 
+     * @param index the index
+     * 
+     * @return the database name
+     */
     public String getDatabaseName(int index)
     {
         return databaseSettings[index];
     }
 
+    /**
+     * Gets the jdbc driver.
+     * 
+     * @param index the index
+     * 
+     * @return the jdbc driver
+     */
     public String getJdbcDriver(int index)
     {
         return databaseSettings[index + 1];
     }
 
+    /**
+     * Gets the jdbc url.
+     * 
+     * @param index the index
+     * 
+     * @return the jdbc url
+     */
     public String getJdbcURL(int index)
     {
         return databaseSettings[index + 2];
     }
 
+    /**
+     * Gets the database port.
+     * 
+     * @param index the index
+     * 
+     * @return the database port
+     */
     public String getDatabasePort(int index)
     {
         return databaseSettings[index + 3];
     }
 
+    /**
+     * Gets the hibernate dialect.
+     * 
+     * @param index the index
+     * 
+     * @return the hibernate dialect
+     */
     public String getHibernateDialect(int index)
     {
         String prefix = "";
@@ -221,6 +277,13 @@ public class DatabaseDefinitions
         return prefix + databaseSettings[index + 4];
     }
 
+    /**
+     * Gets the hibernate dialect without.
+     * 
+     * @param index the index
+     * 
+     * @return the hibernate dialect without
+     */
     public String getHibernateDialectWithout(int index)
     {
         return databaseSettings[index + 4];

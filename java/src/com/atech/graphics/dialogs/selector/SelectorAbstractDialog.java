@@ -46,6 +46,7 @@ import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -88,31 +89,65 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     // CHANGE    this marking is set where you need to implement
 
 
-	protected I18nControlAbstract ic; // = I18nControl.getInstance();
+	/**
+     * The ic.
+     */
+    protected I18nControlAbstract ic; // = I18nControl.getInstance();
 
     //ATDataAccess m_da = null;
     //PISDb m_db = null;
 
 
+    /**
+     * The full_int.
+     */
     public ArrayList<SelectableInterface> full_int; 
 
     //public ArrayList<SelectableInterface> full; 
+    /**
+     * The list.
+     */
     protected ArrayList<SelectableInterface> list; 
+    
+    /**
+     * The m_da.
+     */
     protected ATDataAccessAbstract m_da = null;
 
+    /**
+     * The par_selected.
+     */
     public boolean par_selected = false;
+    
+    /**
+     * The old_value.
+     */
     public boolean old_value = false;
 
 
+    /**
+     * The sort column.
+     */
     public int sortColumn = 0;
+    
+    /**
+     * The ascending.
+     */
     public boolean ascending = true;
 
 
+    /**
+     * The date_selector_type.
+     */
     public int date_selector_type = 0;
 
     //public int indexes 
 
     private boolean help_enabled = true;
+    
+    /**
+     * The use_generic_select.
+     */
     protected boolean use_generic_select = false;    
     
     //
@@ -120,6 +155,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     //
     
 
+    /**
+     * The descriptions.
+     */
     public Hashtable<String,String> descriptions = new Hashtable<String,String>(); 
     
     
@@ -129,15 +167,41 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     public ArrayList<SelectableInterface> full; 
     
     
+    /**
+     * The Constant SELECTOR_ACTION_SELECT.
+     */
     public static final int SELECTOR_ACTION_SELECT = 1;
+    
+    /**
+     * The Constant SELECTOR_ACTION_NEW.
+     */
     public static final int SELECTOR_ACTION_NEW = 2;
+    
+    /**
+     * The Constant SELECTOR_ACTION_EDIT.
+     */
     public static final int SELECTOR_ACTION_EDIT = 4;
+    
+    /**
+     * The Constant SELECTOR_ACTION_CANCEL.
+     */
     public static final int SELECTOR_ACTION_CANCEL = 8;
+    
+    /**
+     * The Constant SELECTOR_ACTION_CANCEL_AND_SELECT.
+     */
     public static final int SELECTOR_ACTION_CANCEL_AND_SELECT = 9;
+    
+    /**
+     * The Constant SELECTOR_ACTION_ALL.
+     */
     public static final int SELECTOR_ACTION_ALL = 15;
     
     
     
+    /**
+     * The column_sorting_enabled.
+     */
     boolean column_sorting_enabled = true;
     
     /**
@@ -146,10 +210,29 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     int allowed_actions = 0;
 
     
+    /**
+     * The Constant SELECTOR_FILTER_TEXT.
+     */
     public static final int SELECTOR_FILTER_TEXT 			= 1;
+    
+    /**
+     * The Constant SELECTOR_FILTER_COMBO.
+     */
     public static final int SELECTOR_FILTER_COMBO 			= 2;
+    
+    /**
+     * The Constant SELECTOR_FILTER_DATE_FROM.
+     */
     public static final int SELECTOR_FILTER_DATE_FROM 		= 3;
+    
+    /**
+     * The Constant SELECTOR_FILTER_DATE_BOTH.
+     */
     public static final int SELECTOR_FILTER_DATE_BOTH 		= 4;
+    
+    /**
+     * The Constant SELECTOR_FILTER_DATE_BOTH_TEXT.
+     */
     public static final int SELECTOR_FILTER_DATE_BOTH_TEXT 	= 5;
     
     //public static final int SELECTOR_ACTION_NEW = 2;
@@ -159,6 +242,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     
     /*
      * Type of filter (textbox, dates, combo, ...)
+     */
+    /**
+     * The filter_type.
      */
     int filter_type = 0;
     
@@ -170,7 +256,14 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     private JDialog parent_dialog = null;
     private int parent_type = 0;
     
+    /**
+     * The Constant PARENT_FRAME.
+     */
     public static final int PARENT_FRAME = 1;
+    
+    /**
+     * The Constant PARENT_DIALOG.
+     */
     public static final int PARENT_DIALOG = 2;
     
     /**
@@ -224,6 +317,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     private ArrayList<SelectableInterface> selected_objects;
     
     
+    /**
+     * The table.
+     */
     protected JTable table;
     
     //
@@ -234,16 +330,44 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
      *  Globaly used variables
      */
     //JTable table;
+    /**
+     * The scroll.
+     */
     JScrollPane scroll;    
     
+    /**
+     * The panel.
+     */
     JPanel panel;
+    
+    /**
+     * The check box2.
+     */
     JCheckBox checkBox1, checkBox2;
+    
+    /**
+     * The text field2.
+     */
     JTextField textField1, textField2; //, textField3, textField4, textField5, textField6,
     //textField7, textField8, textField9;
+    /**
+     * The combo box2.
+     */
     JComboBox comboBox1, comboBox2; //, comboBox3;
+    
+    /**
+     * The button4.
+     */
     JButton button1, button2, button3, button4;
+    
+    /**
+     * The dt_end.
+     */
     DateComponent dt_start, dt_end;
 
+    /**
+     * The font_normal.
+     */
     Font font_normal = null;
 
     //private long selected_id;
@@ -258,14 +382,23 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     //private boolean can_be_selected = true;
     private ColumnSorter columnSorter = null;
 
+    /**
+     * The doc.
+     */
     AbstractDocument doc; 
 
     //PISMain m_parent = null;
 
+    /**
+     * The name.
+     */
     String name;
 
     //private int m_type = 0;
 
+    /**
+     * The last action.
+     */
     public int lastAction = 0;
 
 
@@ -275,35 +408,81 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
 
 
-    public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type) 
+    /**
+ * Instantiates a new selector abstract dialog.
+ * 
+ * @param parent the parent
+ * @param da the da
+ * @param type the type
+ */
+public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type) 
     {
         this(parent, da, type, null, true);
     }
 
     
+    /**
+     * Instantiates a new selector abstract dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     * @param type the type
+     */
     public SelectorAbstractDialog(JDialog parent, ATDataAccessAbstract da, int type) 
     {
         this(parent, da, type, null, true);
     }
     
     
+    /**
+     * Instantiates a new selector abstract dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     * @param type the type
+     * @param with_init the with_init
+     */
     public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type, boolean with_init) 
     {
         this(parent, da, type, null, with_init);
     }
 
     
+    /**
+     * Instantiates a new selector abstract dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     * @param type the type
+     * @param with_init the with_init
+     */
     public SelectorAbstractDialog(JDialog parent, ATDataAccessAbstract da, int type, boolean with_init) 
     {
         this(parent, da, type, null, with_init);
     }
     
 
+    /**
+     * Instantiates a new selector abstract dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     * @param type the type
+     * @param except the except
+     */
     public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type, String except) 
     {
         this(parent, da, type, except, true);
     }
 
+    /**
+     * Instantiates a new selector abstract dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     * @param type the type
+     * @param except the except
+     */
     public SelectorAbstractDialog(JDialog parent, ATDataAccessAbstract da, int type, String except) 
     {
         this(parent, da, type, except, true);
@@ -349,41 +528,16 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     /**
      *   Constructor.
      *   Builds starting UI (all menus with pictures and all other frames)
+     *   
+     *   init must be called at later time
+     *   
      * @param parent 
-     * @param ic 
+     * @param da 
      * @param type 
      * @param except 
      * @param with_init 
      *
      */
-/*    public SelectorAbstractDialog(JFrame parent, I18nControlAbstract ic, int type, String except, boolean with_init) 
-    {
-
-        super(parent, "Selector", true);
-        //String name; 
-
-        font_normal = new Font("SansSerif", Font.PLAIN, 12);
-        this.m_except = except;
-
-        this.ic = ic;
-        this.selector_type = type;
-        
-        this.parent_frame = parent;
-        this.parent_type = SelectorAbstractDialog.PARENT_FRAME;
-
-        m_da.addComponent(this);
-        
-        
-        if (with_init)
-            init();
-
-        //this.setVisible(true);
-        
-    }
-*/
-    
-    // init must be called at later time
-
     public SelectorAbstractDialog(JDialog parent, ATDataAccessAbstract da, int type, String except, boolean with_init)
     {
         super(parent, "Selector", true);
@@ -445,7 +599,16 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 */    
 
     
-    public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type, String except, boolean with_init)
+    /**
+   * Instantiates a new selector abstract dialog.
+   * 
+   * @param parent the parent
+   * @param da the da
+   * @param type the type
+   * @param except the except
+   * @param with_init the with_init
+   */
+  public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type, String except, boolean with_init)
     {
         super(parent, "Selector", true);
 
@@ -503,6 +666,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     */
     
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
 
@@ -719,36 +885,58 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     //--- Methods
     //---
 
+    /**
+     * Show dialog.
+     */
     public void showDialog()
     {
         this.setVisible(true);
     }
     
     
+    /**
+     * Gets the descriptions.
+     * 
+     * @return the descriptions
+     */
     public Hashtable<String,String> getDescriptions()
     {
     	return this.descriptions;
     }
     
     
+    /** 
+     * getHelpButton
+     */
     public JButton getHelpButton()
     {
     	return this.help_button;
     }
     
     
+    /** 
+     * getHelpId
+     */
     public String getHelpId()
     {
     	return help_id;
     }
     
     
+    /** 
+     * getComponent
+     */
     public Component getComponent()
     {
         return this;
     }
     
     
+    /**
+     * Sets the help enabled.
+     * 
+     * @param enabled the new help enabled
+     */
     public void setHelpEnabled(boolean enabled)
     {
         this.help_enabled = enabled;
@@ -757,18 +945,33 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
             m_da.enableHelp(this);
     }
     
+    /**
+     * Sets the selector object.
+     * 
+     * @param obj the new selector object
+     */
     public void setSelectorObject(SelectableInterface obj)
     {
     	this.selector_type_object = obj;
     }
     
     
+    /**
+     * Sets the selector name.
+     * 
+     * @param title the new selector name
+     */
     public void setSelectorName(String title)
     {
         this.name = title;
     }
     
     
+    /**
+     * Sets the help string id.
+     * 
+     * @param id the new help string id
+     */
     public void setHelpStringId(String id)
     {
     	help_id = id;
@@ -776,6 +979,11 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     }
     
     
+    /**
+     * Sets the new item string.
+     * 
+     * @param value the new new item string
+     */
     public void setNewItemString(String value)
     {
     	this.new_item_string = value;
@@ -783,28 +991,55 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     
     
     
+    /**
+     * Checks if is column sorting enabled.
+     * 
+     * @return true, if is column sorting enabled
+     */
     public boolean isColumnSortingEnabled()
     {
     	return column_sorting_enabled;
     	
     }
     
+    /**
+     * Sets the column sorting enabled.
+     * 
+     * @param value the new column sorting enabled
+     */
     public void setColumnSortingEnabled(boolean value)
     {
     	column_sorting_enabled = value;	
     }
     
     
+    /**
+     * Sets the allowed actions.
+     * 
+     * @param value the new allowed actions
+     */
     public void setAllowedActions(int value)
     {
     	this.allowed_actions = value;
     }
     
+    /**
+     * Gets the allowed actions.
+     * 
+     * @return the allowed actions
+     */
     public int getAllowedActions()
     {
     	return this.allowed_actions;
     }
     
+    /**
+     * Checks if is action allowed.
+     * 
+     * @param action the action
+     * 
+     * @return true, if is action allowed
+     */
     public boolean isActionAllowed(int action)
     {
         if ((this.allowed_actions & action) == action)
@@ -814,16 +1049,31 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     }
     
     
+    /**
+     * Sets the filter type.
+     * 
+     * @param value the new filter type
+     */
     public void setFilterType(int value)
     {
     	this.filter_type = value;
     }
     
+    /**
+     * Gets the filter type.
+     * 
+     * @return the filter type
+     */
     public int getFilterType()
     {
     	return this.filter_type;
     }
     
+    /**
+     * Checks if is multiple selection enabled.
+     * 
+     * @return true, if is multiple selection enabled
+     */
     public boolean isMultipleSelectionEnabled()
     {
     	return this.multiple_selection_enabled;
@@ -831,12 +1081,22 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     }
     
     
+    /**
+     * Sets the multiple selection enabled.
+     * 
+     * @param value the new multiple selection enabled
+     */
     public void setMultipleSelectionEnabled(boolean value)
     {
     	this.multiple_selection_enabled = value;
     }
     
     
+    /**
+     * Gets the selector type.
+     * 
+     * @return the selector type
+     */
     public int getSelectorType()
     {
     	return this.selector_type;
@@ -983,6 +1243,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 */
 
 
+    /**
+     * Gets the initial values.
+     */
     public /*abstract*/ void getInitialValues()
     {
 
@@ -1444,7 +1707,7 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         
         //ATDataAccess.getInstance().centerJDialog(this, getInternalParent());
         
-        System.out.println("internalparent: " + getInternalParent());
+        //System.out.println("internalparent: " + getInternalParent());
         
         m_da.centerJDialog(this, this.getParent()); //getInternalParent());
         //m_da.centerJDialog(this); //, getInternalParent());
@@ -1453,6 +1716,11 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
     }
 
+    /**
+     * Gets the internal parent.
+     * 
+     * @return the internal parent
+     */
     public Container getInternalParent()
     {
     	if (this.parent_type == SelectorAbstractDialog.PARENT_FRAME)
@@ -1463,6 +1731,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     
     
     
+    /**
+     * Inits the by filter type.
+     */
     public void initByFilterType()
     {
     	// implement
@@ -1493,6 +1764,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     }
 
     
+    /**
+     * Inits the filter type_ single text.
+     */
     public /*abstract*/ void initFilterType_SingleText()
     {
     	
@@ -1523,11 +1797,17 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     }
     
     
+    /**
+     * Inits the filter type_ combo box.
+     */
     public /*abstract*/ void initFilterType_ComboBox()
     {
     	
     }
     
+    /**
+     * Inits the filter type_ date both.
+     */
     public void initFilterType_DateBoth()
     {
         this.checkBox1 = new JCheckBox();
@@ -1567,6 +1847,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     }
 
     
+    /**
+     * Inits the filter type_ date both_ text.
+     */
     public void initFilterType_DateBoth_Text()
     {
         initFilterType_DateBoth();
@@ -1580,6 +1863,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     
     
 
+    /**
+     * Creates the table.
+     */
     public void createTable()
     {
 
@@ -1660,13 +1946,17 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 
         TableColumnModel cm = table.getColumnModel();
-
+        int cwidth = 0;
 
         for (int i=0; i< selector_type_object.getColumnCount(); i++)
         {
         	//System.out.println("i = " + i + "  " + ic.getMessage(selector_type_object.getColumnName(i+1)));
             cm.getColumn(i).setHeaderValue(ic.getMessage(selector_type_object.getColumnName(i+1)));
-            cm.getColumn(i).setPreferredWidth(selector_type_object.getColumnWidth(i+1, twidth));        
+            
+            cwidth = selector_type_object.getColumnWidth(i+1, twidth);
+            
+            if (cwidth>0)
+                cm.getColumn(i).setPreferredWidth(cwidth);        
         }
 
 
@@ -2130,6 +2420,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         filterEntries();
     }
 
+    /** 
+     * changedUpdate
+     */
     public void changedUpdate(DocumentEvent e) {}
 
 
@@ -2178,7 +2471,10 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
 
     
-    	public void filterEntries()
+    	/**
+     * Filter entries.
+     */
+    public void filterEntries()
         {
             String flt_entry = "";
             int flt_idx= 0;
@@ -2366,30 +2662,55 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     }
 */
 
-    public long getSelectedID()
+    /**
+ * Gets the selected id.
+ * 
+ * @return the selected id
+ */
+public long getSelectedID()
     {
         return this.selected_object.getItemId();
     }
 
 
+    /**
+     * Gets the selected id string.
+     * 
+     * @return the selected id string
+     */
     public String getSelectedIDString()
     {
         return "" + this.selected_object.getItemId();
     }
 
 
+    /**
+     * Gets the selected value.
+     * 
+     * @return the selected value
+     */
     public String getSelectedValue()
     {
         return this.selected_object.getShortDescription();
     }
 
 
+    /**
+     * Gets the selected object.
+     * 
+     * @return the selected object
+     */
     public SelectableInterface getSelectedObject()
     {
         return this.selected_object;
     }
 
 
+    /**
+     * Gets the selected objects.
+     * 
+     * @return the selected objects
+     */
     public ArrayList<SelectableInterface> getSelectedObjects()
     {
         return this.selected_objects;
@@ -2397,12 +2718,22 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
 
 
+    /**
+     * Was action.
+     * 
+     * @return true, if successful
+     */
     public boolean wasAction()
     {
         return (this.selected_object!=null);
     }
 
 
+    /**
+     * Gets the current selected id.
+     * 
+     * @return the current selected id
+     */
     public long getCurrentSelectedID()
     {
 
@@ -2508,6 +2839,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     }
 
 
+    /** 
+     * resortColumns
+     */
     public synchronized void resortColumns(int column, boolean asc)
     {
     	column++;
@@ -2542,6 +2876,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     }
 
 
+    /** 
+     * stateChanged
+     */
     public void stateChanged(javax.swing.event.ChangeEvent ce)
     {
         

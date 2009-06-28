@@ -77,6 +77,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      * Constructor
      * 
      * @param da 
+     * @param do_init 
      */
     public PrintAbstractIText(ATDataAccessAbstract da, boolean do_init)
     {
@@ -93,6 +94,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      * Constructor
      * 
      * @param ic
+     * @param do_init 
      */
     public PrintAbstractIText(I18nControlAbstract ic, boolean do_init)
     {
@@ -126,7 +128,13 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     }
     
     
+    /**
+     * Get Text Size
+     * 
+     * @return
+     */
     public abstract int getTextSize();
+    
     
     /**
      * Get Name

@@ -1,6 +1,7 @@
 package com.atech.db.hibernate.transfer;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -36,12 +37,32 @@ package com.atech.db.hibernate.transfer;
 public interface ImportExportObject
 {
 
+	/**
+	 * Gets the object name.
+	 * 
+	 * @return the object name
+	 */
 	public String getObjectName();
 	
+	/**
+	 * Gets the object class name.
+	 * 
+	 * @return the object class name
+	 */
 	public String getObjectClassName();
 	
+	/**
+	 * Gets the object header.
+	 * 
+	 * @return the object header
+	 */
 	public String getObjectHeader();
 	
+	/**
+	 * Gets the object values.
+	 * 
+	 * @return the object values
+	 */
 	public String getObjectValues();
 	
 }

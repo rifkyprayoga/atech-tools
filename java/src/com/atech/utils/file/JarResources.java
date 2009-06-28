@@ -11,6 +11,7 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -50,6 +51,9 @@ public final class JarResources
 {
 
     // external debug flag
+    /**
+     * The debug on.
+     */
     public boolean debugOn = false;
 
     // jar resource mapping tables

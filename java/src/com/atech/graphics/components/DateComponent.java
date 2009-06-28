@@ -16,6 +16,7 @@ import javax.swing.event.ChangeListener;
 
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  * This file is part of ATech Tools library.
  * 
@@ -50,15 +51,40 @@ public class DateComponent extends JPanel implements ChangeListener
 {
 
     private static final long serialVersionUID = 7815993474415035963L;
+    
+    /**
+     * The m_command.
+     */
     String m_command = "";
+    
+    /**
+     * The m_note.
+     */
     String m_note = "";
+    
+    /**
+     * The ic.
+     */
     I18nControlAbstract ic = null; // I18nControl.getInstance();
 
+    /**
+     * The component_width.
+     */
     int component_width = 188;
+    
+    /**
+     * The component_height.
+     */
     int component_height = 25;
 
+    /**
+     * The year.
+     */
     JSpinner day, month, year;
 
+    /**
+     * The m_lower_year.
+     */
     int m_lower_year = 1970;
 
     // DataAccess m_da;
@@ -273,14 +299,17 @@ public class DateComponent extends JPanel implements ChangeListener
         return 0;
     }
 
-    private String getMonth(String val)
+    
+    /**
+     * Get Month
+     * 
+     * @param val
+     * @return
+     */
+    public String getMonth(String val)
     {
-
         int v = Integer.parseInt(val);
-
-        // String[] ms = m_da.getMonthsArray();
         return months[v - 1];
-
     }
 
     /**
@@ -369,11 +398,17 @@ public class DateComponent extends JPanel implements ChangeListener
 
     }
 
+    /** 
+     * setBackground
+     */
     public void setBackground(Color bg)
     {
         super.setBackground(bg);
     }
 
+    /** 
+     * setEnabled
+     */
     public void setEnabled(boolean isEnabled)
     {
         day.setEnabled(isEnabled);
@@ -381,11 +416,19 @@ public class DateComponent extends JPanel implements ChangeListener
         year.setEnabled(isEnabled);
     }
 
+    /** 
+     * setBounds
+     */
     public void setBounds(int x, int y, int width, int height)
     {
         super.setBounds(x, y, component_width, component_height);
     }
 
+    /**
+     * The main method.
+     * 
+     * @param args the arguments
+     */
     public static void main(String args[])
     {
 
@@ -410,16 +453,31 @@ public class DateComponent extends JPanel implements ChangeListener
         m_command = command;
     }
 
+    /**
+     * Gets the action command.
+     * 
+     * @return the action command
+     */
     public String getActionCommand()
     {
         return m_command;
     }
 
+    /**
+     * Sets the note.
+     * 
+     * @param note the new note
+     */
     public void setNote(String note)
     {
         m_note = note;
     }
 
+    /**
+     * Gets the note.
+     * 
+     * @return the note
+     */
     public String getNote()
     {
         return m_note;

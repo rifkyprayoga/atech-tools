@@ -23,7 +23,8 @@ import javax.swing.tree.TreeSelectionModel;
 
 import com.atech.utils.ATSwingUtils;
 
-/*
+// TODO: Auto-generated Javadoc
+/**
  * This file is part of ATech Tools library.
  * 
  * <one line to give the library's name and a brief idea of what it does.>
@@ -87,6 +88,9 @@ public class DbTool extends JFrame implements TreeSelectionListener
         }
     }
 
+    /**
+     * Instantiates a new db tool.
+     */
     public DbTool()
     {
 
@@ -102,6 +106,11 @@ public class DbTool extends JFrame implements TreeSelectionListener
 
     }
 
+    /**
+     * Instantiates a new db tool.
+     * 
+     * @param intr the intr
+     */
     public DbTool(DbToolApplicationInterface intr)
     {
 
@@ -123,11 +132,17 @@ public class DbTool extends JFrame implements TreeSelectionListener
         menu_items = new Hashtable<String, JMenuItem>();
     }
 
+    /**
+     * Test_for_feature.
+     */
     public void test_for_feature()
     {
 
     }
 
+    /**
+     * Post init.
+     */
     public void postInit()
     {
 
@@ -142,6 +157,9 @@ public class DbTool extends JFrame implements TreeSelectionListener
 
     }
 
+    /**
+     * Creates the gui.
+     */
     public void createGUI()
     {
 
@@ -233,6 +251,9 @@ public class DbTool extends JFrame implements TreeSelectionListener
 
     }
 
+    /**
+     * Creates the menus.
+     */
     public void createMenus()
     {
 
@@ -320,11 +341,17 @@ public class DbTool extends JFrame implements TreeSelectionListener
         */
     }
 
+    /**
+     * Creates the toolbar.
+     */
     public void createToolbar()
     {
 
     }
 
+    /**
+     * Load available database definitions.
+     */
     public void loadAvailableDatabaseDefinitions()
     {
         DatabaseDefinitions dd = new DatabaseDefinitions();
@@ -352,6 +379,9 @@ public class DbTool extends JFrame implements TreeSelectionListener
 
     }
 
+    /**
+     * Creates the panels.
+     */
     public void createPanels()
     {
 
@@ -378,8 +408,19 @@ public class DbTool extends JFrame implements TreeSelectionListener
 
     }
 
+    /**
+     * The Constant PANEL_ROOT.
+     */
     public static final int PANEL_ROOT = 0;
+    
+    /**
+     * The Constant PANEL_DATABASE_ROOT.
+     */
     public static final int PANEL_DATABASE_ROOT = 1;
+    
+    /**
+     * The Constant PANEL_DATABASE.
+     */
     public static final int PANEL_DATABASE = 2;
 
     /**
@@ -443,6 +484,11 @@ public class DbTool extends JFrame implements TreeSelectionListener
 
     }
 
+    /**
+     * The main method.
+     * 
+     * @param args the arguments
+     */
     public static void main(String args[])
     {
         /*DbTool tool =*/new DbTool();

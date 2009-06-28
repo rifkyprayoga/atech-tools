@@ -6,6 +6,7 @@ import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
 import com.atech.i18n.I18nControlAbstract;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -56,6 +57,12 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 	
 	
 	
+	/**
+	 * Instantiates a new backup restore collection.
+	 * 
+	 * @param name the name
+	 * @param ic the ic
+	 */
 	public BackupRestoreCollection(String name, I18nControlAbstract ic)
 	{
 	    this.ic = ic;
@@ -65,6 +72,11 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 	}
 	
 	
+	/**
+	 * Adds the node child.
+	 * 
+	 * @param base the base
+	 */
 	public void addNodeChild(BackupRestoreBase base)
 	{
 		this.children.add(base);
@@ -79,36 +91,64 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 	}
 	
 	
+	/** 
+	 * getNodeChildren
+	 */
 	public ArrayList<CheckBoxTreeNodeInterface>  getNodeChildren()
 	{
 		return this.children_tree;
 	}
 	
 	
+	/**
+	 * Gets the node child.
+	 * 
+	 * @param index the index
+	 * 
+	 * @return the node child
+	 */
 	public BackupRestoreBase getNodeChild(int index)
 	{
 	    return this.children.get(index);
 	}
 	
 	
+	/**
+	 * Removes the node child.
+	 * 
+	 * @param index the index
+	 */
 	public void removeNodeChild(int index)
 	{
 	    this.children_tree.remove(index);
 	    this.children.remove(index);
 	}
 
+    /**
+     * Node child count.
+     * 
+     * @return the int
+     */
     public int nodeChildCount()
     {
         return this.children_tree.size();
     }
 	
 	
+	/**
+	 * Gets the total procents.
+	 * 
+	 * @return the total procents
+	 */
 	public int getTotalProcents()
 	{
 		return (int)(this.total_children * 100);
 	}
 	
 	
+	/** 
+	 * getTargetName
+	 */
 	public String getTargetName()
 	{
 		return this.name;
@@ -116,6 +156,9 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 	
 	//public 
 	
+	/** 
+	 * getClassName
+	 */
 	public String getClassName()
 	{
 	    return "";
@@ -125,13 +168,18 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 	/* 
 	 * getName
 	 */
+	/**
+	 * Gets the name.
+	 * 
+	 * @return the name
+	 */
 	public String getName() 
 	{
 		return this.getTargetName();
 	}
 
 
-	/* 
+	/** 
 	 * isSelected
 	 */
 	public boolean isSelected() 
@@ -140,6 +188,9 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 	}
 
 	
+	/** 
+	 * hasNodeChildren
+	 */
 	public boolean hasNodeChildren()
 	{
 		return (this.children.size()!=0);
@@ -147,11 +198,17 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 	}
 	
 
+	/** 
+	 * toString
+	 */
 	public String toString()
 	{
 		return this.getTargetName();
 	}
 	
+    /** 
+     * Is Collection
+     */
     public boolean isCollection()
     {
         return true;
@@ -159,8 +216,8 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 
 	
 	
-	/* 
-	 * setSelected
+	/** 
+	 * Set Selected
 	 */
     public void setSelected(boolean selected)
     {

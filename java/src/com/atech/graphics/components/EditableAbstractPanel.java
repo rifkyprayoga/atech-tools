@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -41,13 +42,39 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
 {
 
     private static final long serialVersionUID = -7274432500080261833L;
+    
+    /**
+     * The Constant ACTION_ADD.
+     */
     public static final int ACTION_ADD = 0;
+    
+    /**
+     * The Constant ACTION_EDIT.
+     */
     public static final int ACTION_EDIT = 1;
+    
+    /**
+     * The is_editable_panel.
+     */
     public boolean is_editable_panel = true;
+    
+    /**
+     * The ic.
+     */
     protected I18nControlAbstract ic;
+    
+    /**
+     * The options.
+     */
     public static String[] options = null;
     
     
+    /**
+     * Instantiates a new editable abstract panel.
+     * 
+     * @param is_editable the is_editable
+     * @param ic the ic
+     */
     public EditableAbstractPanel(boolean is_editable, I18nControlAbstract ic)
     {
     	super();
@@ -63,6 +90,9 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
     }
     
     
+    /**
+     * The action_type.
+     */
     protected int action_type = ACTION_EDIT;
 
     
@@ -94,10 +124,10 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      * Get Warning string. This method returns warning string for either add or edit.
      * If value returned is null, then no warning message box will be displayed.
      * 
-     * @param action_type type of action (ACTION_ADD, ACTION_EDIT)
+     * @param action_type_ type of action (ACTION_ADD, ACTION_EDIT)
      * @return String value as warning string
      */
-    public abstract String getWarningString(int action_type);
+    public abstract String getWarningString(int action_type_);
     
     
     
@@ -131,6 +161,9 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
     	return this.action_type;
     }
     
+    /** 
+     * setTypeOfAction
+     */
     public void setTypeOfAction(int action_type)
     {
     	this.action_type = action_type;

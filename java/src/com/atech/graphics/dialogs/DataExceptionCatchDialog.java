@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import com.atech.utils.ATDataAccessAbstract;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -45,8 +46,15 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
     private static final long serialVersionUID = -5749317262612446570L;
     private int m_action_done = 0;
     private int m_error = 0;
+    
+    /**
+     * The m_da.
+     */
     ATDataAccessAbstract m_da;
 
+    /**
+     * Instantiates a new data exception catch dialog.
+     */
     public DataExceptionCatchDialog()
     {
     	m_da.addComponent(this);
@@ -62,12 +70,28 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
     }
 
 
+    /**
+     * Inits the dialog.
+     */
     public abstract void initDialog();
     
+    /**
+     * Load data.
+     * 
+     * @return true, if successful
+     */
     public abstract boolean loadData();
 
+    /**
+     * Save data.
+     * 
+     * @return true, if successful
+     */
     public abstract boolean saveData();
 
+    /**
+     * Show title.
+     */
     public abstract void showTitle();
 
     /**
@@ -77,11 +101,21 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
     public abstract void performAction(ActionEvent e);
 
 
+    /**
+     * Gets the error.
+     * 
+     * @return the error
+     */
     public int getError()
     {
         return m_error;
     }
 
+    /**
+     * Sets the error.
+     * 
+     * @param error_code the new error
+     */
     public void setError(int error_code)
     {
         this.m_error = error_code;

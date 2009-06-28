@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -42,18 +43,39 @@ public class TimeZoneUtil
 {
 	
 	//DataAccess m_da = DataAccess.getInstance();
+	/**
+	 * The tzi.
+	 */
 	TimeZone tzi;
 	
+	/**
+	 * The winter_time_change.
+	 */
 	int winter_time_change = 0;
+	
+	/**
+	 * The summer_time_change.
+	 */
 	int summer_time_change = 0;
 
+	/**
+	 * The s_timezoneutil.
+	 */
 	public static TimeZoneUtil s_timezoneutil;
 	
 	private boolean active = false;
 	
+	/**
+	 * The empty_tzi.
+	 */
 	TimeZone empty_tzi;
 	
 	
+	/**
+	 * Gets the single instance of TimeZoneUtil.
+	 * 
+	 * @return single instance of TimeZoneUtil
+	 */
 	public static TimeZoneUtil getInstance()
 	{
 		if (TimeZoneUtil.s_timezoneutil==null)
@@ -75,6 +97,11 @@ public class TimeZoneUtil
 
 	}
 	
+	/**
+	 * Sets the time zone.
+	 * 
+	 * @param time_zone_id the new time zone
+	 */
 	public void setTimeZone(String time_zone_id)
 	{
 		tzi = TimeZone.getTimeZone(time_zone_id);
@@ -96,6 +123,11 @@ public class TimeZoneUtil
 		
 	}
 	
+	/**
+	 * Sets the winter time change.
+	 * 
+	 * @param val the new winter time change
+	 */
 	public void setWinterTimeChange(int val)
 	{
 		this.winter_time_change = val;
@@ -111,18 +143,35 @@ public class TimeZoneUtil
 	}
 	
 
+	/**
+	 * Gets the empty time zone.
+	 * 
+	 * @return the empty time zone
+	 */
 	public TimeZone getEmptyTimeZone()
 	{
 		return this.empty_tzi;
 	}
 	
 	
+	/**
+	 * Sets the summer time change.
+	 * 
+	 * @param val the new summer time change
+	 */
 	public void setSummerTimeChange(int val)
 	{
 		this.summer_time_change = val;
 	}
 	
 	
+	/**
+	 * Sets the values.
+	 * 
+	 * @param timeZoneId the time zone id
+	 * @param winter_time_change the winter_time_change
+	 * @param summer_time_change the summer_time_change
+	 */
 	public void setValues(String timeZoneId, int winter_time_change, int summer_time_change)
 	{
 		setTimeZone(timeZoneId);
@@ -132,11 +181,25 @@ public class TimeZoneUtil
 
 	
 	
+	/**
+	 * Checks if is winter time.
+	 * 
+	 * @param gc the gc
+	 * 
+	 * @return true, if is winter time
+	 */
 	public boolean isWinterTime(GregorianCalendar gc)
 	{
 		return (!tzi.inDaylightTime(gc.getTime()));
 	}
 	
+	/**
+	 * Checks if is summer time.
+	 * 
+	 * @param gc the gc
+	 * 
+	 * @return true, if is summer time
+	 */
 	public boolean isSummerTime(GregorianCalendar gc)
 	{
 		return (tzi.inDaylightTime(gc.getTime()));
@@ -144,6 +207,13 @@ public class TimeZoneUtil
 	
 	
 	
+	/**
+	 * Gets the corrected date time.
+	 * 
+	 * @param atdate the atdate
+	 * 
+	 * @return the corrected date time
+	 */
 	public ATechDate getCorrectedDateTime(ATechDate atdate)
 	{
 		if (!this.active)

@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -45,17 +46,51 @@ public class LicenceInfo extends AboutPanel
 {
 
     private static final long serialVersionUID = 674574877740779181L;
+    
+    /**
+     * The licence_text.
+     */
     String licence_text = null;
+    
+    /**
+     * The licence_html.
+     */
     boolean licence_html = true;
+    
+    /**
+     * The licence_text_id.
+     */
     int licence_text_id = 0;
 
+    /**
+     * The Constant NO_LICENCE.
+     */
     public static final int NO_LICENCE =  0;
+    
+    /**
+     * The Constant LICENCE_LGPL_v3.
+     */
     public static final int LICENCE_LGPL_v3 = 1;
+    
+    /**
+     * The Constant LICENCE_LGPL_v2_1.
+     */
     public static final int LICENCE_LGPL_v2_1 = 2;
+    
+    /**
+     * The Constant LICENCE_GPL_v3.
+     */
     public static final int LICENCE_GPL_v3 = 3;
+    
+    /**
+     * The Constant LICENCE_GPL_v2_0.
+     */
     public static final int LICENCE_GPL_v2_0 = 4;
 
 
+    /**
+     * The files.
+     */
     public String[] files = { "",
         "lgpl-v3.html",
         "lgpl-v2.1.html",
@@ -64,6 +99,12 @@ public class LicenceInfo extends AboutPanel
     };
 
 
+    /**
+     * Instantiates a new licence info.
+     * 
+     * @param ic the ic
+     * @param licence the licence
+     */
     public LicenceInfo(I18nControlAbstract ic, int licence)
     {
         super(ic);
@@ -76,6 +117,13 @@ public class LicenceInfo extends AboutPanel
     }
 
 
+    /**
+     * Instantiates a new licence info.
+     * 
+     * @param ic the ic
+     * @param licence_txt the licence_txt
+     * @param is_html the is_html
+     */
     public LicenceInfo(I18nControlAbstract ic, String licence_txt, boolean is_html)
     {
         super(ic);
@@ -91,6 +139,9 @@ public class LicenceInfo extends AboutPanel
 
 
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
         this.setLayout(new java.awt.BorderLayout());
@@ -112,6 +163,9 @@ public class LicenceInfo extends AboutPanel
 
 
 
+    /**
+     * Load licence text.
+     */
     public void loadLicenceText()
     {
         /*
@@ -151,11 +205,17 @@ public class LicenceInfo extends AboutPanel
     }
 
 
+    /** 
+     * getTabName
+     */
     public String getTabName()
     {
         return this.ic.getMessage("LICENCE");
     }
 
+    /** 
+     * getTabPanel
+     */
     public JPanel getTabPanel()
     {
         return this;

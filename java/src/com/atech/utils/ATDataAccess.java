@@ -22,6 +22,7 @@ import javax.swing.plaf.ColorUIResource;
 import com.atech.db.hibernate.HibernateDb;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -65,6 +66,9 @@ public class ATDataAccess extends ATDataAccessAbstract
     /* 
      * checkPrerequisites
      */
+    /** 
+     * checkPrerequisites
+     */
     @Override
     public void checkPrerequisites()
     {
@@ -75,7 +79,7 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
-    /* 
+    /** 
      * getApplicationName
      */
     @Override
@@ -87,7 +91,7 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
-    /* 
+    /** 
      * getImagesRoot
      */
     @Override
@@ -99,7 +103,7 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
-    /* 
+    /** 
      * loadBackupRestoreCollection
      */
     @Override
@@ -120,9 +124,15 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /**
+     * The m_settings.
+     */
     public Hashtable<String,String> m_settings = null;
 
 
+    /**
+     * The printing_plugin_installed.
+     */
     public boolean printing_plugin_installed = false;
 
 
@@ -137,10 +147,29 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
     // database loading status
-    public static final int DB_NOT_LOADED = 0;
+    /**
+                                              * The Constant DB_NOT_LOADED.
+                                              */
+                                             public static final int DB_NOT_LOADED = 0;
+    
+    /**
+     * The Constant DB_BASE.
+     */
     public static final int DB_BASE = 1;
+    
+    /**
+     * The Constant DB_DIOCESE.
+     */
     public static final int DB_DIOCESE = 2;
+    
+    /**
+     * The Constant DB_DIOCESE_PERSONAL.
+     */
     public static final int DB_DIOCESE_PERSONAL = 3;
+    
+    /**
+     * The Constant DB_LOAD_COMPLETE.
+     */
     public static final int DB_LOAD_COMPLETE = 10;
 
 
@@ -149,6 +178,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /**
+     * The yes_no_combo.
+     */
     public Object[] yes_no_combo = null;
 
 
@@ -156,6 +188,9 @@ public class ATDataAccess extends ATDataAccessAbstract
     // Configuration icons
 
 
+    /**
+     * The config_icons.
+     */
     public ImageIcon config_icons[] = null;
 /*        {
         ATSwingUtils.getImage(new ImageIcon("images/cfg_db.gif"), 
@@ -191,18 +226,27 @@ public class ATDataAccess extends ATDataAccessAbstract
     // 21 = Divorce
 
 
-    public String gender_minus[] = { 
+    /**
+ * The gender_minus.
+ */
+public String gender_minus[] = { 
         m_i18n.getMessage("GENDER_M"),             // 1
         m_i18n.getMessage("GENDER_F")
     };
 
 
+    /**
+     * The gender.
+     */
     public String gender[] = { m_i18n.getMessage("SELECT"),
         m_i18n.getMessage("GENDER_M"),             // 1
         m_i18n.getMessage("GENDER_F")
     };
 
 
+    /**
+     * The contact_types.
+     */
     public String contact_types[] = { 
         m_i18n.getMessage("SELECT"),
         m_i18n.getMessage("PHONE"),
@@ -219,6 +263,9 @@ public class ATDataAccess extends ATDataAccessAbstract
         m_i18n.getMessage("OTHER")
     };
 
+    /**
+     * The contact_icons.
+     */
     public ImageIcon contact_icons[] = { null,
         new ImageIcon("images/c_phone.gif"), //m_i18n.getMessage("PHONE"),
         new ImageIcon("images/c_GSM.gif"), //m_i18n.getMessage("GSM"),
@@ -235,6 +282,9 @@ public class ATDataAccess extends ATDataAccessAbstract
     };
 
 
+    /**
+     * The mass_status.
+     */
     public ImageIcon mass_status[] = { 
 	new ImageIcon("images/dot_green.gif"),
 	new ImageIcon("images/dot_orange.gif"), //m_i18n.getMessage("PHONE"),
@@ -245,6 +295,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /**
+     * The config_types.
+     */
     public String config_types[] = { 
         
         m_i18n.getMessage("DB_SETTINGS"),
@@ -288,6 +341,9 @@ public class ATDataAccess extends ATDataAccessAbstract
     } 
 
 
+    /** 
+     * initSpecial
+     */
     public void initSpecial()
     {
         loadColors();
@@ -315,6 +371,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * getHibernateDb
+     */
     public HibernateDb getHibernateDb()
     {
         return null;
@@ -347,17 +406,26 @@ public class ATDataAccess extends ATDataAccessAbstract
     // ********************************************************
 
 
+    /** 
+     * setDbLoadingStatus
+     */
     public void setDbLoadingStatus(int status)
     {
         this.db_loading_status = status;
     }
 
+    /** 
+     * getDbLoadingStatus
+     */
     public int getDbLoadingStatus()
     {
         return this.db_loading_status;
     }
 
 
+    /** 
+     * isDbLoadedForStatus
+     */
     public boolean isDbLoadedForStatus(int status)
     {
     	if ((this.db_loading_status==status) || 
@@ -374,11 +442,17 @@ public class ATDataAccess extends ATDataAccessAbstract
 
     //JDialog m_dialog = null;
 
+    /** 
+     * getOpenedDialog
+     */
     public JDialog getOpenedDialog()
     {
         return this.m_dialog;
     }
 
+    /** 
+     * setOpenedDialog
+     */
     public void setOpenedDialog(JDialog dialog)
     {
         this.m_dialog = dialog;
@@ -396,6 +470,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * getFont
+     */
     public Font getFont(int font_id)
     {
         return fonts[font_id];
@@ -430,6 +507,9 @@ public class ATDataAccess extends ATDataAccessAbstract
     //public ImageIcon getImageIcon(String image)
 
 
+    /** 
+     * getImage
+     */
     public Image getImage(String filename, Component cmp)
     {
         Image img;
@@ -460,12 +540,18 @@ public class ATDataAccess extends ATDataAccessAbstract
     }
 
     
+    /** 
+     * setParent
+     */
     public void setParent(Container component)
     {
     	this.parent = component;
     }
     
 
+    /** 
+     * getParent
+     */
     public Container getParent()
     {
     	return this.parent;
@@ -476,6 +562,9 @@ public class ATDataAccess extends ATDataAccessAbstract
     // ******           Sorting algorithms                *****    
     // ********************************************************
 
+    /** 
+     * compareUnicodeStrings
+     */
     public int compareUnicodeStrings(String s1, String s2)
     {
         return this.m_collator.compare(s1, s2);
@@ -601,6 +690,9 @@ public class ATDataAccess extends ATDataAccessAbstract
     // ******                    Colors                   *****    
     // ********************************************************
 
+    /** 
+     * loadColors
+     */
     public void loadColors()
     {
     	ColorUIResource cui = (ColorUIResource)UIManager.getLookAndFeel().getDefaults().get("textText");
@@ -723,6 +815,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * getMonthsArray
+     */
     public String[] getMonthsArray()
     {
         return this.months;
@@ -890,6 +985,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 */
 
+    /** 
+     * getDateString
+     */
     public String getDateString(int date)
     {
 
@@ -915,6 +1013,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * getTimeString
+     */
     public String getTimeString(int time)
     {
 
@@ -926,12 +1027,18 @@ public class ATDataAccess extends ATDataAccessAbstract
 
     }
 
+    /** 
+     * getDateTimeString
+     */
     public String getDateTimeString(long date)
     {
         return getDateTimeString(date, 1);
     }
 
 
+    /** 
+     * getDateTimeAsDateString
+     */
     public String getDateTimeAsDateString(long date)
     {
         return getDateTimeString(date, 2);
@@ -939,6 +1046,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * getATDateTimeFromGC
+     */
     public long getATDateTimeFromGC(GregorianCalendar gc, int type)
     {
 	long dt = 0L;
@@ -968,6 +1078,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * getATDateTimeFromParts
+     */
     public long getATDateTimeFromParts(int day, int month, int year, int hour, int minute, int type)
     {
 	long dt = 0L;
@@ -999,6 +1112,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * getDateFromATDate
+     */
     public long getDateFromATDate(long data)
     {
 	// 200701011222
@@ -1015,6 +1131,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * getDateTimeAsTimeString
+     */
     public String getDateTimeAsTimeString(long date)
     {
         return getDateTimeString(date, 3);
@@ -1028,6 +1147,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * getDateTimeString
+     */
     public String getDateTimeString(long dt, int ret_type)
     {
 
@@ -1108,7 +1230,10 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
-    public String getDateTimeString(int date, int time)
+    /** 
+ * getDateTimeString
+ */
+public String getDateTimeString(int date, int time)
     {
 
         return getDateString(date)+" " + getTimeString(time);
@@ -1117,6 +1242,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * getLeadingZero
+     */
     public String getLeadingZero(int number, int places)
     {
 
@@ -1132,6 +1260,9 @@ public class ATDataAccess extends ATDataAccessAbstract
     }
 
 
+    /** 
+     * getStartYear
+     */
     public int getStartYear()
     {
         // FIX set in Db
@@ -1139,6 +1270,11 @@ public class ATDataAccess extends ATDataAccessAbstract
     }
 
 
+    /**
+     * Gets the gender combo.
+     * 
+     * @return the gender combo
+     */
     public Object[] getGenderCombo()
     {
         return gender;
@@ -1158,7 +1294,10 @@ public class ATDataAccess extends ATDataAccessAbstract
     public int user_type = 3;
 */
 
-    public String[] userTypes = {
+    /**
+ * The user types.
+ */
+public String[] userTypes = {
         m_i18n.getMessage("SELECT"),
         m_i18n.getMessage("USER_NORMAL"),
         m_i18n.getMessage("USER_WORKER"),
@@ -1186,6 +1325,11 @@ public class ATDataAccess extends ATDataAccessAbstract
     }
     */
 
+    /**
+     * Not implemented.
+     * 
+     * @param source the source
+     */
     public static void notImplemented(String source)
     {
 	System.out.println("Not Implemented: " + source);
@@ -1193,6 +1337,12 @@ public class ATDataAccess extends ATDataAccessAbstract
     }
 
 
+    /**
+     * Not implemented.
+     * 
+     * @param parent the parent
+     * @param source the source
+     */
     public static void notImplemented(java.awt.Component parent, String source)
     {
 	System.out.println("Not Implemented: " + source);
@@ -1240,6 +1390,14 @@ public class ATDataAccess extends ATDataAccessAbstract
     
 
 
+    /**
+     * Checks if is found.
+     * 
+     * @param text the text
+     * @param search_str the search_str
+     * 
+     * @return true, if is found
+     */
     public static boolean isFound(String text, String search_str)
     {
 
@@ -1285,6 +1443,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * loadSpecialParameters
+     */
     @Override
     public void loadSpecialParameters()
     {
@@ -1309,6 +1470,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * getSelectedLangIndex
+     */
     @Override
     public int getSelectedLangIndex()
     {
@@ -1320,6 +1484,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * setSelectedLangIndex
+     */
     @Override
     public void setSelectedLangIndex(int index)
     {
@@ -1330,6 +1497,9 @@ public class ATDataAccess extends ATDataAccessAbstract
 
 
 
+    /** 
+     * loadPlugIns
+     */
     @Override
     public void loadPlugIns()
     {

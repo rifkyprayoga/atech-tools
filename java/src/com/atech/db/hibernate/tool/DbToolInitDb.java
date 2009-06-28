@@ -2,6 +2,7 @@ package com.atech.db.hibernate.tool;
 
 import com.atech.db.hibernate.HibernateConfiguration;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -36,17 +37,53 @@ import com.atech.db.hibernate.HibernateConfiguration;
 public abstract class DbToolInitDb
 {
 
+    /**
+     * The Constant INIT_TYPE_NONE.
+     */
     public static final int INIT_TYPE_NONE = 0;
+    
+    /**
+     * The Constant INIT_TYPE_INIT_DB.
+     */
     public static final int INIT_TYPE_INIT_DB = 1;
+    
+    /**
+     * The Constant INIT_TYPE_INIT_DB_AND_BASE_IMPORT.
+     */
     public static final int INIT_TYPE_INIT_DB_AND_BASE_IMPORT = 2;
     
     
+    /**
+     * The init_type.
+     */
     int init_type;
+    
+    /**
+     * The hibernate_config.
+     */
     protected HibernateConfiguration hibernate_config;
+    
+    /**
+     * The error_code.
+     */
     int error_code;
+    
+    /**
+     * The error_desc.
+     */
     String error_desc;
+    
+    /**
+     * The error_exception.
+     */
     Exception error_exception;
     
+    /**
+     * Instantiates a new db tool init db.
+     * 
+     * @param config the config
+     * @param init_type_ the init_type_
+     */
     public DbToolInitDb(HibernateConfiguration config, int init_type_)
     {
         this.hibernate_config = config;
@@ -54,12 +91,22 @@ public abstract class DbToolInitDb
     }
 
 
+    /**
+     * Checks if is inits the possible.
+     * 
+     * @return true, if is inits the possible
+     */
     public boolean isInitPossible()
     {
         return (init_type>0);
     }
 
 
+    /**
+     * Db init.
+     * 
+     * @return true, if successful
+     */
     public boolean dbInit()
     {
         if (init_type == INIT_TYPE_NONE)
@@ -85,6 +132,11 @@ public abstract class DbToolInitDb
     }
     
     
+    /**
+     * Gets the error code.
+     * 
+     * @return the error code
+     */
     public int getErrorCode()
     {
         return this.error_code;
@@ -92,16 +144,31 @@ public abstract class DbToolInitDb
     }
     
     
+    /**
+     * Gets the error description.
+     * 
+     * @return the error description
+     */
     public String getErrorDescription()
     {
         return this.error_desc;
     }
     
+    /**
+     * Gets the error exception.
+     * 
+     * @return the error exception
+     */
     public Exception getErrorException()
     {
         return this.error_exception;
     }
     
+    /**
+     * Creates the tables.
+     * 
+     * @return true, if successful
+     */
     public boolean createTables()
     {
         // TODO
@@ -109,6 +176,11 @@ public abstract class DbToolInitDb
     }
     
 
+    /**
+     * Fill data.
+     * 
+     * @return true, if successful
+     */
     public abstract boolean fillData();
     
     

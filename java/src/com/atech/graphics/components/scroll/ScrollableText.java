@@ -2,6 +2,7 @@ package com.atech.graphics.components.scroll;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -35,24 +36,61 @@ import java.util.ArrayList;
 public abstract class ScrollableText
 {
 
+    /**
+     * The texts.
+     */
     ArrayList<String> texts; 
+    
+    /**
+     * The scroll_enabled.
+     */
     boolean scroll_enabled = true;
+    
+    /**
+     * The scroll_active.
+     */
     boolean scroll_active = false;
+    
+    /**
+     * The scroll_lines.
+     */
     int scroll_lines = 0;
 
+    /**
+     * The index_texts.
+     */
     ArrayList<String> index_texts;
+    
+    /**
+     * The starting_number.
+     */
     int starting_number = -1;
 
+    /**
+     * Checks if is scroll enabled.
+     * 
+     * @return true, if is scroll enabled
+     */
     public boolean isScrollEnabled()
     {
         return scroll_enabled;
     }
 
+    /**
+     * Sets the scrolling texts.
+     * 
+     * @param texts the new scrolling texts
+     */
     public void setScrollingTexts(ArrayList<String> texts)
     {
         this.texts = texts;
     }
 
+    /**
+     * Sets the scrolling lines.
+     * 
+     * @param lines the new scrolling lines
+     */
     public void setScrollingLines(int lines)
     {
         this.scroll_lines = lines;
@@ -73,6 +111,9 @@ public abstract class ScrollableText
     }
 
 
+    /**
+     * Scroll.
+     */
     public void scroll()
     {
         this.starting_number++;
@@ -118,6 +159,13 @@ public abstract class ScrollableText
     }
 
 
+    /**
+     * Gets the scroll text nr.
+     * 
+     * @param number the number
+     * 
+     * @return the scroll text nr
+     */
     protected String getScrollTextNr(int number)
     {
         String index = this.index_texts.get(number);
@@ -126,6 +174,9 @@ public abstract class ScrollableText
     }
 
 
+    /**
+     * Paint scroll elements.
+     */
     public abstract void paintScrollElements();
 
     //void scrollAction();

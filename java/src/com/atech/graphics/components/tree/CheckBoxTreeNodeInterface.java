@@ -2,6 +2,7 @@ package com.atech.graphics.components.tree;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -36,10 +37,25 @@ import java.util.ArrayList;
 public interface CheckBoxTreeNodeInterface
 {
 
+    /**
+     * Gets the target name.
+     * 
+     * @return the target name
+     */
     public abstract String getTargetName();
 
+    /**
+     * Gets the node children.
+     * 
+     * @return the node children
+     */
     public abstract ArrayList<CheckBoxTreeNodeInterface> getNodeChildren();
 
+    /**
+     * Checks for node children.
+     * 
+     * @return true, if successful
+     */
     public abstract boolean hasNodeChildren();
     
 }

@@ -1,6 +1,7 @@
 
 package com.atech.graphics.components;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -35,6 +36,11 @@ package com.atech.graphics.components;
 public interface StatusReporterInterface 
 {
 
+    /**
+     * Sets the status.
+     * 
+     * @param status the new status
+     */
     public abstract void setStatus(int status);
 
 }

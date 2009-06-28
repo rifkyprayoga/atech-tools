@@ -84,7 +84,6 @@ public interface BackupRestoreObject extends BackupRestoreBase
     /**
      * dbExportHeader - header for export file
      * 
-     * @param table_version
      * @return
      */
     String dbExportHeader();

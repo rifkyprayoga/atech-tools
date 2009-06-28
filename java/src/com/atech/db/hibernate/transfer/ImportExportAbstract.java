@@ -16,6 +16,7 @@ import org.hibernate.cfg.Configuration;
 import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.utils.ATDataAccess;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -50,26 +51,83 @@ import com.atech.utils.ATDataAccess;
 public abstract class ImportExportAbstract
 {
 
+    /**
+     * The m_cfg.
+     */
     Configuration m_cfg = null;
+    
+    /**
+     * The m_session.
+     */
     Session m_session = null;
+    
+    /**
+     * The status_type.
+     */
     protected int status_type = 0;
+    
+    /**
+     * The status_max_entry.
+     */
     protected int status_max_entry;
 
+    /**
+     * The STATU s_ none.
+     */
     public static int STATUS_NONE = 0;
+    
+    /**
+     * The STATU s_ dot.
+     */
     public static int STATUS_DOT = 1;
+    
+    /**
+     * The STATU s_ procent.
+     */
     public static int STATUS_PROCENT = 2;
+    
+    /**
+     * The STATU s_ special.
+     */
     public static int STATUS_SPECIAL = 3;
 
+    /**
+     * The path_root.
+     */
     protected String path_root = null;
+    
+    /**
+     * The file_2nd_part.
+     */
     protected String file_2nd_part = null;
 
+    /**
+     * The work_giver.
+     */
     BackupRestoreWorkGiver work_giver = null;
+    
+    /**
+     * The hibernate_conf.
+     */
     HibernateConfiguration hibernate_conf = null;
 
+    /**
+     * The bw_file.
+     */
     protected BufferedWriter bw_file = null;
+    
+    /**
+     * The br_file.
+     */
     protected BufferedReader br_file = null;
 
     
+    /**
+     * Instantiates a new import export abstract.
+     * 
+     * @param cfg the cfg
+     * @param some the some
+     */
     public ImportExportAbstract(Configuration cfg, int some)
     {
         this.m_cfg = cfg;
@@ -80,6 +138,11 @@ public abstract class ImportExportAbstract
         // processConfiguration();
     }
 
+    /**
+     * Instantiates a new import export abstract.
+     * 
+     * @param hib_conf the hib_conf
+     */
     public ImportExportAbstract(HibernateConfiguration hib_conf)
     {
         this.hibernate_conf = hib_conf;
@@ -87,45 +150,88 @@ public abstract class ImportExportAbstract
     }
  
     
+    /**
+     * Instantiates a new import export abstract.
+     */
     public ImportExportAbstract()
     {
     }
     
 
+    /**
+     * Gets the session.
+     * 
+     * @return the session
+     */
     public Session getSession()
     {
         m_session.clear();
         return m_session;
     }
 
+    /**
+     * Sets the root path.
+     * 
+     * @param path the new root path
+     */
     public void setRootPath(String path)
     {
         this.path_root = path;
     }
 
+    /**
+     * Gets the root path.
+     * 
+     * @return the root path
+     */
     public String getRootPath()
     {
         return this.path_root;
     }
 
+    /**
+     * Gets the file last part.
+     * 
+     * @return the file last part
+     */
     public String getFileLastPart()
     {
         return this.file_2nd_part;
     }
 
+    /**
+     * Sets the file last part.
+     * 
+     * @param last_part the new file last part
+     */
     public void setFileLastPart(String last_part)
     {
         this.file_2nd_part = last_part;
     }
 
+    /**
+     * Sets the hibernate configuration.
+     * 
+     * @param hconf the new hibernate configuration
+     */
     public void setHibernateConfiguration(HibernateConfiguration hconf)
     {
         this.hibernate_conf = hconf;
     }
     
+    /**
+     * Gets the active session.
+     * 
+     * @return the active session
+     */
     public abstract int getActiveSession();
     
     
+    /**
+     * Println.
+     * 
+     * @param txt the txt
+     */
     public void println(String txt)
     {
         System.out.println(txt);
@@ -133,6 +239,11 @@ public abstract class ImportExportAbstract
 
 
 
+    /**
+     * Open file.
+     * 
+     * @param file the file
+     */
     public void openFile(String file)
     {
         try
@@ -149,6 +260,11 @@ public abstract class ImportExportAbstract
     }
 
     
+    /**
+     * Open file for reading.
+     * 
+     * @param file the file
+     */
     public void openFileForReading(File file)
     {
         try
@@ -165,22 +281,43 @@ public abstract class ImportExportAbstract
     
     
 
+    /**
+     * Sets the type of status.
+     * 
+     * @param type the new type of status
+     */
     public void setTypeOfStatus(int type)
     {
         this.status_type = type;
     }
 
+    /**
+     * Sets the status receiver.
+     * 
+     * @param giver the new status receiver
+     */
     public void setStatusReceiver(BackupRestoreWorkGiver giver)
     {
         this.work_giver = giver;
     }
 
+    /**
+     * Status set max entry.
+     * 
+     * @param max_entry the max_entry
+     */
     public void statusSetMaxEntry(int max_entry)
     {
         //System.out.println("max entries: " + max_entry);
         this.status_max_entry = max_entry;
     }
 
+    /**
+     * Write status.
+     * 
+     * @param every_x_entry the every_x_entry
+     * @param count the count
+     */
     public void writeStatus(int every_x_entry, int count)
     {
         if (this.status_type == ExportTool.STATUS_NONE)
@@ -193,12 +330,24 @@ public abstract class ImportExportAbstract
             this.writeStatusSpecial(every_x_entry, count);
     }
 
+    /**
+     * Write status dots.
+     * 
+     * @param every_x_entry the every_x_entry
+     * @param count the count
+     */
     public void writeStatusDots(int every_x_entry, int count)
     {
         if (count % every_x_entry == 0)
             System.out.println(".");
     }
 
+    /**
+     * Write status procent.
+     * 
+     * @param every_x_entry the every_x_entry
+     * @param count the count
+     */
     public void writeStatusProcent(int every_x_entry, int count)
     {
         if (count % every_x_entry == 0)
@@ -217,6 +366,12 @@ public abstract class ImportExportAbstract
         }
     }
 
+    /**
+     * Write status special.
+     * 
+     * @param every_x_entry the every_x_entry
+     * @param count the count
+     */
     public void writeStatusSpecial(int every_x_entry, int count)
     {
         if (this.status_max_entry <= 0)
@@ -243,6 +398,11 @@ public abstract class ImportExportAbstract
     }
 
     
+    /**
+     * Write to file.
+     * 
+     * @param bro the bro
+     */
     public void writeToFile(BackupRestoreObject bro)
     {
         try
@@ -258,6 +418,11 @@ public abstract class ImportExportAbstract
     
     
     
+    /**
+     * Write to file.
+     * 
+     * @param entry the entry
+     */
     public void writeToFile(String entry)
     {
         try
@@ -272,6 +437,9 @@ public abstract class ImportExportAbstract
 
     }
 
+    /**
+     * Close file.
+     */
     public void closeFile()
     {
         try
@@ -289,6 +457,11 @@ public abstract class ImportExportAbstract
 
     }
 
+    /**
+     * Gets the current date.
+     * 
+     * @return the current date
+     */
     protected String getCurrentDate()
     {
         GregorianCalendar gc = new GregorianCalendar();
@@ -302,6 +475,11 @@ public abstract class ImportExportAbstract
                 + gc.get(GregorianCalendar.SECOND);
     }
 
+    /**
+     * Gets the current date for file.
+     * 
+     * @return the current date for file
+     */
     public String getCurrentDateForFile()
     {
         GregorianCalendar gc = new GregorianCalendar();
@@ -314,6 +492,14 @@ public abstract class ImportExportAbstract
 
     }
 
+    /**
+     * Gets the leading zero.
+     * 
+     * @param number the number
+     * @param places the places
+     * 
+     * @return the leading zero
+     */
     public String getLeadingZero(int number, int places)
     {
         return ATDataAccess.getInstance().getLeadingZero(number, places);

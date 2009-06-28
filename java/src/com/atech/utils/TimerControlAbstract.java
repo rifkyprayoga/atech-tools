@@ -1,5 +1,6 @@
 package com.atech.utils;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -34,15 +35,32 @@ package com.atech.utils;
 public abstract class TimerControlAbstract
 {
 
+    /**
+     * The allowed_change_time.
+     */
     protected int allowed_change_time = 0;
+    
+    /**
+     * The timer_started.
+     */
     protected boolean timer_started = false;
+    
+    /**
+     * The timer_stopped.
+     */
     protected boolean timer_stopped = false;
 
+    /**
+     * Sets the start time.
+     */
     public void setStartTime()
     {
         this.timer_started = true;
     }
 
+    /**
+     * Sets the stop time.
+     */
     public void setStopTime()
     {
         System.out.println("setSTopTime");
@@ -53,21 +71,39 @@ public abstract class TimerControlAbstract
     }
 
 
+    /**
+     * Checks for timer started.
+     * 
+     * @return true, if successful
+     */
     public boolean hasTimerStarted()
     {
         return this.timer_started;
     }
     
     
+    /**
+     * Sets the allowed change time.
+     * 
+     * @param time_seconds the new allowed change time
+     */
     public void setAllowedChangeTime(int time_seconds)
     {
         this.allowed_change_time = time_seconds * 1000;
     }
 
 
+    /**
+     * Stop action.
+     */
     public abstract void stopAction();
 
     
+    /**
+     * Checks for change been too long.
+     * 
+     * @return true, if successful
+     */
     public boolean hasChangeBeenTooLong()
     {
         if (!timer_started)
@@ -93,6 +129,9 @@ public abstract class TimerControlAbstract
 
 
 
+	/**
+	 * Sets the last changed time.
+	 */
 	public void setLastChangedTime()
 	{
         this.timer_started = true;
@@ -100,16 +139,39 @@ public abstract class TimerControlAbstract
 	}
 	
 	
+	/**
+	 * Gets the last changed time.
+	 * 
+	 * @return the last changed time
+	 */
 	public long getLastChangedTime()
 	{
 		return workWith(TimerControlAbstract.DATA_GET, 0L);
 	}
 	
+	/**
+	 * The Constant DATA_GET.
+	 */
 	public static final int DATA_GET = 1;
+	
+	/**
+	 * The Constant DATA_SET.
+	 */
 	public static final int DATA_SET = 2;
 	
+	/**
+	 * The current_time.
+	 */
 	public long current_time = 0L;
 	
+	/**
+	 * Work with.
+	 * 
+	 * @param type the type
+	 * @param data the data
+	 * 
+	 * @return the long
+	 */
 	public synchronized long workWith(int type, long data)
 	{
 		if (type == TimerControlAbstract.DATA_GET)

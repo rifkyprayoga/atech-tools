@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -37,19 +38,51 @@ import java.io.FileReader;
 
 public class RestoreFileInfo
 {
+    
+    /**
+     * The name.
+     */
     public String name = "";
+    
+    /**
+     * The class_name.
+     */
     public String class_name = "";
+    
+    /**
+     * The element_count.
+     */
     public int element_count = 0;
+    
+    /**
+     * The db_version.
+     */
     public String db_version = "";
+    
+    /**
+     * The file.
+     */
     File file;
+    
+    /**
+     * The selected.
+     */
     public boolean selected = false;
 
+    /**
+     * Instantiates a new restore file info.
+     * 
+     * @param file the file
+     */
     public RestoreFileInfo(File file)
     {
         this.file = file;
         processFile();
     }
 
+    /**
+     * Process file.
+     */
     public void processFile()
     {
         this.name = this.file.getName();
@@ -101,6 +134,9 @@ public class RestoreFileInfo
         return data.substring(ind);
     }
 
+    /** 
+     * toString
+     */
     public String toString()
     {
         return "RestoreFileInfo [filename=" + this.name + ",class_name=" + this.class_name + ",db_ver="

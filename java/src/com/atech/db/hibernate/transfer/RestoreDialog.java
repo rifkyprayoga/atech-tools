@@ -30,6 +30,7 @@ import com.atech.utils.ATDataAccess;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.file.UnPackFiles;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -64,44 +65,119 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
 {
 
     private static final long serialVersionUID = -9166774725245737896L;
+    
+    /**
+     * The ic.
+     */
     protected I18nControlAbstract ic = null;
+    
+    /**
+     * The m_da.
+     */
     protected ATDataAccessAbstract m_da = null;
 
 
     /*
      *  Globaly used variables
      */
+    /**
+     * The panel.
+     */
     protected JPanel panel;
+    
+    /**
+     * The label_title.
+     */
     JLabel label, label_title;
+    
+    /**
+     * The button_help.
+     */
     JButton button, button_backup, button_help;
+    
+    /**
+     * The font_normal_b.
+     */
     Font font_big, font_normal, font_normal_b;
     
+    /**
+     * The label_date.
+     */
     JLabel label_date;
 
+    /**
+     * The progress_current.
+     */
     JProgressBar progress_full, progress_current;
     
+    /**
+     * The tree.
+     */
     CheckNodeTree tree;
     
+    /**
+     * The m_error.
+     */
     int m_error = 0;
+    
+    /**
+     * The last action.
+     */
     int lastAction = 0;  // no event
 
+    /**
+     * The count_of_backup_elements.
+     */
     protected int count_of_backup_elements = 0;
+    
+    /**
+     * The done_backup_elements.
+     */
     protected int done_backup_elements = -1;
     
 
+    /**
+     * The label_current_progress.
+     */
     JLabel label_total_progress, label_current_progress; 
     
     
     
 
+    /**
+     * The backuprestore_root.
+     */
     protected BackupRestoreCollection backuprestore_root;
+    
+    /**
+     * The ht_restore_objects.
+     */
     protected Hashtable<String,BackupRestoreObject> ht_restore_objects = new Hashtable<String,BackupRestoreObject>();
+    
+    /**
+     * The restore_files.
+     */
     protected Hashtable<String,RestoreFileInfo> restore_files = new Hashtable<String,RestoreFileInfo>();
     
+    /**
+     * The my_parent.
+     */
     Container my_parent = null;
+    
+    /**
+     * The filename.
+     */
     String filename;
     
     
+    /**
+     * Instantiates a new restore dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     * @param br_coll the br_coll
+     * @param filename the filename
+     */
     public RestoreDialog(JDialog parent, ATDataAccessAbstract da, BackupRestoreCollection br_coll, String filename)
     {
         super(parent, "", true);
@@ -123,6 +199,14 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     }
 
     
+    /**
+     * Instantiates a new restore dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     * @param br_coll the br_coll
+     * @param filename the filename
+     */
     public RestoreDialog(JFrame parent, ATDataAccessAbstract da, BackupRestoreCollection br_coll, String filename)
     {
         super(parent, "", true);
@@ -140,9 +224,15 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     }
     
     
+    /**
+     * Perform restore.
+     */
     public abstract void performRestore();
     
     
+    /**
+     * Inits the.
+     */
     public void init()
     {
         
@@ -174,6 +264,9 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     }
     
     
+    /**
+     * Show dialog.
+     */
     public void showDialog()
     {
         this.setVisible(true);
@@ -193,8 +286,14 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     }
 
 
+    /**
+     * The restore_possible.
+     */
     boolean restore_possible = true;
     
+    /**
+     * Prepare restore.
+     */
     public void prepareRestore()
     {
         cleanRestoreDirectory();
@@ -278,10 +377,10 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         
         showTitle(true);
         
-        JLabel label = new JLabel(ic.getMessage("SELECT_ELEMENTS_TO_RESTORE"));
-        label.setBounds(25, 70, 300, 25);
-        label.setFont(this.font_normal_b);
-        panel.add(label);
+        JLabel label_ = new JLabel(ic.getMessage("SELECT_ELEMENTS_TO_RESTORE"));
+        label_.setBounds(25, 70, 300, 25);
+        label_.setFont(this.font_normal_b);
+        panel.add(label_);
         
         tree = new CheckNodeTree(this.backuprestore_root, CheckNode.DIG_IN_SELECTION);
         
@@ -368,6 +467,9 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     
     
 
+    /** 
+     * setTask
+     */
     public void setTask(String task)
     {
         if (task == null)
@@ -411,6 +513,9 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     }
     
     
+    /**
+     * Unpack restore files.
+     */
     public void unpackRestoreFiles()
     {
         //System.out.println("Filename:" + this.filename);
@@ -458,6 +563,9 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     
     
     
+    /** 
+     * setStatus
+     */
     public void setStatus(int procent)
     {
         //System.out.println("setStatus BRD:" + procent);
@@ -479,6 +587,9 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     
     
 
+    /** 
+     * actionPerformed
+     */
     public void actionPerformed(ActionEvent e)
     {
         String cmd = e.getActionCommand();
@@ -548,6 +659,11 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     
     
     //private void preprocessData(CheckNode node, )
+    /**
+     * Traverse tree.
+     * 
+     * @param cb the cb
+     */
     public void traverseTree(BackupRestoreBase cb)
     {
         
@@ -605,19 +721,22 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     }
 
 
+    /**
+     * The help_id.
+     */
     String help_id = null;
     
-    /* 
+    /** 
      * enableHelp
      */
-    public void enableHelp(String help_id)
+    public void enableHelp(String help_id_)
     {
-        this.help_id = help_id;
+        this.help_id = help_id_;
         m_da.enableHelp(this);
     }
 
 
-    /* 
+    /** 
      * getComponent
      */
     public Component getComponent()
@@ -626,7 +745,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     }
 
 
-    /* 
+    /** 
      * getHelpButton
      */
     public JButton getHelpButton()
@@ -635,7 +754,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     }
 
 
-    /* 
+    /** 
      * getHelpId
      */
     public String getHelpId()

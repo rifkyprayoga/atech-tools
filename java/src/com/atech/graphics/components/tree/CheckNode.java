@@ -6,6 +6,7 @@ import java.util.Enumeration;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class was taken from site http://www.objects.com.au/home/index.html.
  * 
@@ -56,23 +57,59 @@ public class CheckNode extends DefaultMutableTreeNode
 {
 
     private static final long serialVersionUID = -1791091492376349349L;
+    
+    /**
+     * The Constant SINGLE_SELECTION.
+     */
     public final static int SINGLE_SELECTION = 0;
+    
+    /**
+     * The Constant DIG_IN_SELECTION.
+     */
     public final static int DIG_IN_SELECTION = 4;
 
+    /**
+     * The selection mode.
+     */
     protected int selectionMode;
+    
+    /**
+     * The is selected.
+     */
     protected boolean isSelected;
+    
+    /**
+     * The name.
+     */
     protected String name;
 
+    /**
+     * Instantiates a new check node.
+     */
     public CheckNode()
     {
         this(null, null);
     }
 
+    /**
+     * Instantiates a new check node.
+     * 
+     * @param userObject the user object
+     * @param name the name
+     */
     public CheckNode(Object userObject, String name)
     {
         this(userObject, name, true, false);
     }
 
+    /**
+     * Instantiates a new check node.
+     * 
+     * @param userObject the user object
+     * @param name the name
+     * @param allowsChildren the allows children
+     * @param isSelected the is selected
+     */
     public CheckNode(Object userObject, String name, boolean allowsChildren,
             boolean isSelected)
     {
@@ -82,6 +119,14 @@ public class CheckNode extends DefaultMutableTreeNode
         this.name = name;
     }
 
+    /**
+     * Instantiates a new check node.
+     * 
+     * @param userObject the user object
+     * @param name the name
+     * @param allowsChildren the allows children
+     * @param selection_mode the selection_mode
+     */
     public CheckNode(Object userObject, String name, boolean allowsChildren,
             int selection_mode)
     {
@@ -91,16 +136,31 @@ public class CheckNode extends DefaultMutableTreeNode
         this.name = name;
     }
 
+    /**
+     * Sets the selection mode.
+     * 
+     * @param mode the new selection mode
+     */
     public void setSelectionMode(int mode)
     {
         selectionMode = mode;
     }
 
+    /**
+     * Gets the selection mode.
+     * 
+     * @return the selection mode
+     */
     public int getSelectionMode()
     {
         return selectionMode;
     }
 
+    /**
+     * Sets the selected.
+     * 
+     * @param isSelected the new selected
+     */
     public void setSelected(boolean isSelected)
     {
         this.isSelected = isSelected;
@@ -121,11 +181,21 @@ public class CheckNode extends DefaultMutableTreeNode
     }
 
     
+    /**
+     * Gets the name.
+     * 
+     * @return the name
+     */
     public String getName()
     {
         return this.name;
     }
     
+    /**
+     * Checks if is selected.
+     * 
+     * @return true, if is selected
+     */
     public boolean isSelected()
     {
         return isSelected;

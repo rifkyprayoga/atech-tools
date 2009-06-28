@@ -1103,6 +1103,13 @@ public static GregorianCalendar getGregorianCalendar(int format, long dt)
     }
 
 
+    /** 
+     * To String
+     */
+    public String toString()
+    {
+        return this.getDateString() + " " + this.getTimeString();
+    }
 
 
 }

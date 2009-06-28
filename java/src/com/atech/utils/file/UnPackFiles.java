@@ -44,6 +44,7 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -78,9 +79,19 @@ import java.util.zip.ZipFile;
 public class UnPackFiles
 {
     
+    /**
+     * The output_path.
+     */
     String output_path;
     
     
+    /**
+     * Instantiates a new un pack files.
+     * 
+     * @param file the file
+     * @param dump_contents the dump_contents
+     * @param output_path the output_path
+     */
     public UnPackFiles(String file, boolean dump_contents, String output_path)
     {
         
@@ -123,6 +134,14 @@ public class UnPackFiles
         
     }
     
+    /**
+     * Dump file.
+     * 
+     * @param zf the zf
+     * @param ze the ze
+     * 
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public void dumpFile(ZipFile zf, ZipEntry ze) throws IOException
     {
 //        System.out.println(">>>>> " + ze.getName());
@@ -147,6 +166,11 @@ public class UnPackFiles
     
     
     
+    /**
+     * The main method.
+     * 
+     * @param args the arguments
+     */
     public static void main(String args[])
     {
         new UnPackFiles("d:/backup 25.6.2008  13_27_00.zip", true, "./bin");

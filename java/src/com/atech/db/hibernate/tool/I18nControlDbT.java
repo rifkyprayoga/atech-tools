@@ -96,6 +96,9 @@ public class I18nControlDbT extends I18nControlAbstract
     
 
 
+    /**
+     * Init
+     */
     public void init()
     {
         def_language = "en";

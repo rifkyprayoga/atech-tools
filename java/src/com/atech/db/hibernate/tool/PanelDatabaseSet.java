@@ -251,12 +251,22 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
     }
 
     
+    /**
+     * Get Database Settings
+     * 
+     * @return
+     */
     public DatabaseSettings getDatabaseSettings()
     {
         return this.m_database_settings;
     }
     
     
+    /**
+     * Get JDBC URL
+     * 
+     * @return
+     */
     public String getJDBCUrl()
     {
         return this.tf_url.getText();

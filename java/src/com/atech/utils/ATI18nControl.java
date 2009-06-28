@@ -94,6 +94,9 @@ public class ATI18nControl extends I18nControlAbstract
     
 
 
+    /**
+     * Init
+     */
     public void init()
     {
         def_language = "en";

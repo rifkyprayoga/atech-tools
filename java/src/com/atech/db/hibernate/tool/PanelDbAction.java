@@ -3,7 +3,6 @@ package com.atech.db.hibernate.tool;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 import java.sql.DriverManager;
 
 import javax.swing.JButton;
@@ -75,6 +74,7 @@ public class PanelDbAction extends JPanel implements ActionListener
     /**
      * Constructor
      * 
+     * @param pds 
      * @param dia
      */
     public PanelDbAction(PanelDatabaseSet pds, DbTool dia)
@@ -195,7 +195,7 @@ public class PanelDbAction extends JPanel implements ActionListener
         try
         {
             Class.forName(ds.driver_class);
-            Connection con = DriverManager.getConnection(this.pds.getJDBCUrl(), ds.username, ds.password); 
+            /*Connection con_ =*/ DriverManager.getConnection(this.pds.getJDBCUrl(), ds.username, ds.password); 
             System.out.println("Connection Tested !");
             
             JOptionPane.showMessageDialog(m_dialog, ic.getMessage("CONNECTION_SUCCESFULL"), ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE, null);
@@ -210,14 +210,16 @@ public class PanelDbAction extends JPanel implements ActionListener
     }
     
     
+    @SuppressWarnings("unused")
     private void showStatus()
     {
-        
+        // TODO
     }
     
+    @SuppressWarnings("unused")
     private void initDb()
     {
-        
+        // TODO
     }
     
     

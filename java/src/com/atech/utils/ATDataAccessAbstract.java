@@ -47,6 +47,7 @@ import com.atech.i18n.info.LanguageInfo;
 import com.atech.plugin.PlugInClient;
 import com.atech.update.config.UpdateConfiguration;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -87,10 +88,20 @@ public abstract class ATDataAccessAbstract
     // Object[] availableLF = null;
     // Object[] availableLang = null;
 
+    /**
+     * The selected lf.
+     */
     String selectedLF = null;
+    
+    /**
+     * The sub selected lf.
+     */
     String subSelectedLF = null;
 
     // config file
+    /**
+     * The config_db_values.
+     */
     Hashtable<String, String> config_db_values = null;
     // public int selected_db = -1;
     // public int selected_lang = 1;
@@ -100,46 +111,103 @@ public abstract class ATDataAccessAbstract
     // String allDbs[] = null;
 
 
+    /**
+     * The m_settings_ht.
+     */
     public Hashtable<String, String> m_settings_ht = null;
 
+    /**
+     * The path prefix.
+     */
     public static String pathPrefix = ".";
 
-    public Color color_background, color_foreground;
+    /**
+     * The color_background.
+     */
+    public Color color_background; 
+    
+    /**
+     * The color_foreground.
+     */
+    public Color color_foreground;
 
+    /**
+     * The m_lang_info.
+     */
     protected LanguageInfo m_lang_info;
     
     //public boolean printing_plugin_installed = false;
 
+    /**
+     * The m_i18n.
+     */
     protected I18nControlAbstract m_i18n = null; // ATI18nControl.getInstance();
 
 
     private int db_loading_status = 0;
 
+    /**
+     * The options_yes_no.
+     */
     public String[] options_yes_no = null;
     // x public Hashtable typesHT = new Hashtable();
+    /**
+     * The types all.
+     */
     public Object[] typesAll = null;
+    
+    /**
+     * The border_line.
+     */
     public LineBorder border_line;
 
     
+    /**
+     * The plugins.
+     */
     public Hashtable<String,PlugInClient> plugins;
+    
+    /**
+     * The fonts.
+     */
     public Font fonts[] = null;
 
     // Configuration icons
 
+    /**
+     * The m_collator.
+     */
     protected Collator m_collator = null;
+    
+    /**
+     * The parent.
+     */
     protected Container parent = null;
 
     
+    /**
+     * The real_decimal.
+     */
     public static char real_decimal;
+    
+    /**
+     * The false_decimal.
+     */
     public static char false_decimal;
     
     private static boolean decimals_set;
     
     private UpdateConfiguration update_configuration = null;
 
+    /**
+     * The graph_config.
+     */
     protected GraphConfigProperties graph_config = null;
     //private static HibernateDb m_db_hib;
     
+    /**
+     * The special_parameters.
+     */
     protected Hashtable<String, String> special_parameters = null;
     
     /*
@@ -173,6 +241,9 @@ public abstract class ATDataAccessAbstract
      * ImageIcon("images/dot_green.gif"), };
      */
 
+    /**
+     * The days.
+     */
     public String days[] = new String[7];
     /*
      * { m_i18n.getMessage("MONDAY"), m_i18n.getMessage("TUESDAY"),
@@ -199,6 +270,9 @@ public abstract class ATDataAccessAbstract
      * m_i18n.getMessage("USER_EXTERNAL"), m_i18n.getMessage("USER_INTERNAL") };
      */
 
+    
+    
+    
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
@@ -234,12 +308,23 @@ public abstract class ATDataAccessAbstract
 
     
     
+    /**
+     * Inits the special.
+     */
     public abstract void initSpecial();
     
     
+    /**
+     * Gets the hibernate db.
+     * 
+     * @return the hibernate db
+     */
     public abstract HibernateDb getHibernateDb();
     
     
+    /**
+     * Load plug ins.
+     */
     public abstract void loadPlugIns();
     
     
@@ -327,19 +412,37 @@ public abstract class ATDataAccessAbstract
     // ****** (needed to have current window for displaying dialog) *****
     // ********************************************************************
 
+    /**
+     * The components.
+     */
     protected ArrayList<Component> components = new ArrayList<Component>();
 
     
+    /**
+     * Gets the current component parent.
+     * 
+     * @return the current component parent
+     */
     public Component getCurrentComponentParent()
     {
         return this.components.get(this.components.size() - 2);
     }
     
+    /**
+     * Gets the current component.
+     * 
+     * @return the current component
+     */
     public Component getCurrentComponent()
     {
         return this.components.get(this.components.size() - 1);
     }
 
+    /**
+     * Adds the component.
+     * 
+     * @param cmp the cmp
+     */
     public void addComponent(Component cmp)
     {
         //System.out.println("Add: " + this.components);
@@ -347,11 +450,19 @@ public abstract class ATDataAccessAbstract
         //System.out.println("Add: " + this.components);
     }
 
+    /**
+     * List components.
+     */
     public void listComponents()
     {
         System.out.println("Lst: " + this.components);
     }
     
+    /**
+     * Removes the component.
+     * 
+     * @param cmp the cmp
+     */
     public void removeComponent(Component cmp)
     {
         //int curr = 0;
@@ -378,12 +489,29 @@ public abstract class ATDataAccessAbstract
     // ****** Error handling *****
     // ********************************************************
 
+    /**
+     * Creates the error dialog.
+     * 
+     * @param module the module
+     * @param action the action
+     * @param ex the ex
+     * @param err_msg1 the err_msg1
+     */
     public void createErrorDialog(String module, String action, Exception ex,
             String err_msg1)
     {
         createErrorDialog(module, action, ex, err_msg1, null);
     }
 
+    /**
+     * Creates the error dialog.
+     * 
+     * @param module the module
+     * @param action the action
+     * @param ex the ex
+     * @param err_msg1 the err_msg1
+     * @param err_msg2 the err_msg2
+     */
     public void createErrorDialog(String module, String action, Exception ex,
             String err_msg1, String err_msg2)
     {
@@ -501,6 +629,9 @@ public abstract class ATDataAccessAbstract
     // ****** Application Handling *****
     // ********************************************************
 
+    /**
+     * The main_parent.
+     */
     JFrame main_parent = null;
 
     /**
@@ -517,8 +648,16 @@ public abstract class ATDataAccessAbstract
      */
     public abstract String getImagesRoot();
 
+    /**
+     * The main_parent_type.
+     */
     public int main_parent_type = 1;
 
+    /**
+     * Sets the main parent.
+     * 
+     * @param frame the new main parent
+     */
     public void setMainParent(JFrame frame)
     {
         this.main_parent = frame;
@@ -526,6 +665,11 @@ public abstract class ATDataAccessAbstract
         //this.addContainer((Container)this.main_parent);
     }
 
+    /**
+     * Gets the main parent.
+     * 
+     * @return the main parent
+     */
     public JFrame getMainParent()
     {
         return this.main_parent;
@@ -540,24 +684,51 @@ public abstract class ATDataAccessAbstract
     // ****** Help *****
     // ********************************************************
 
+    /**
+     * The help_context.
+     */
     HelpContext help_context = null;
 
+    /**
+     * Gets the help context.
+     * 
+     * @return the help context
+     */
     public HelpContext getHelpContext()
     {
         return this.help_context;
     }
 
+    /**
+     * Sets the help context.
+     * 
+     * @param hc the new help context
+     */
     public void setHelpContext(HelpContext hc)
     {
         this.help_context = hc;
     }
 
+    /**
+     * Enable help.
+     * 
+     * @param hc the hc
+     */
     public void enableHelp(HelpCapable hc)
     {
         this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(), hc.getHelpId(), null);
         this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
     }
 
+    /**
+     * Creates the help button by size.
+     * 
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * 
+     * @return the j button
+     */
     public JButton createHelpButtonBySize(int width, int height, Container comp)
     {
         JButton help_button = new JButton("    "
@@ -571,17 +742,52 @@ public abstract class ATDataAccessAbstract
     }
 
     
+    /**
+     * Creates the help button by bounds.
+     * 
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * 
+     * @return the j button
+     */
     public JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp)
     {
         return createHelpButtonByBounds(x, y, width, height, comp, null);
     }
     
     
+    /**
+     * Creates the help button by bounds.
+     * 
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * @param font_id the font_id
+     * 
+     * @return the j button
+     */
     public JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, int font_id)
     {
         return createHelpButtonByBounds(x, y, width, height, comp, this.getFont(font_id));
     }
 
+    /**
+     * Creates the help button by bounds.
+     * 
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * @param font the font
+     * 
+     * @return the j button
+     */
     public JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, Font font)
     {
         JButton help_button = new JButton("    " + this.getI18nControlInstance().getMessage("HELP"));
@@ -600,6 +806,11 @@ public abstract class ATDataAccessAbstract
     // ****** I18n *****
     // ********************************************************
 
+    /**
+     * Gets the i18n control instance.
+     * 
+     * @return the i18n control instance
+     */
     public I18nControlAbstract getI18nControlInstance()
     {
         return this.m_i18n;
@@ -616,11 +827,24 @@ public abstract class ATDataAccessAbstract
     // ********************************************************
     
     
+    /**
+     * Adds the plug in.
+     * 
+     * @param key the key
+     * @param plugin the plugin
+     */
     public void addPlugIn(String key, PlugInClient plugin)
     {
         this.plugins.put(key, plugin);
     }
     
+    /**
+     * Gets the plug in.
+     * 
+     * @param key the key
+     * 
+     * @return the plug in
+     */
     public PlugInClient getPlugIn(String key)
     {
         return this.plugins.get(key);
@@ -635,17 +859,32 @@ public abstract class ATDataAccessAbstract
     // ****** Config Loader *****
     // ********************************************************
 
+    /**
+     * The config_loaded.
+     */
     public boolean config_loaded = false;
 
+    /**
+     * Was config loaded.
+     * 
+     * @return true, if successful
+     */
     public boolean wasConfigLoaded()
     {
         return this.config_loaded;
     }
 
+    /**
+     * Load property file.
+     * 
+     * @param filename the filename
+     * 
+     * @return the hashtable< string, string>
+     */
     public Hashtable<String, String> loadPropertyFile(String filename)
     {
 
-        Hashtable<String, String> config_db_values = new Hashtable<String, String>();
+        Hashtable<String, String> config_db_values_ = new Hashtable<String, String>();
 
         Properties props = new Properties();
 
@@ -672,13 +911,13 @@ public abstract class ATDataAccessAbstract
             for (Enumeration<Object> en = props.keys(); en.hasMoreElements();)
             {
                 String key = (String) en.nextElement();
-                config_db_values.put(key, props.getProperty(key));
+                config_db_values_.put(key, props.getProperty(key));
             }
         }
         else
             return null;
 
-        return config_db_values;
+        return config_db_values_;
 
     }
 
@@ -686,16 +925,33 @@ public abstract class ATDataAccessAbstract
     // ****** Database Loading Status *****
     // ********************************************************
 
+    /**
+     * Sets the db loading status.
+     * 
+     * @param status the new db loading status
+     */
     public void setDbLoadingStatus(int status)
     {
         this.db_loading_status = status;
     }
 
+    /**
+     * Gets the db loading status.
+     * 
+     * @return the db loading status
+     */
     public int getDbLoadingStatus()
     {
         return this.db_loading_status;
     }
 
+    /**
+     * Checks if is db loaded for status.
+     * 
+     * @param status the status
+     * 
+     * @return true, if is db loaded for status
+     */
     public boolean isDbLoadedForStatus(int status)
     {
         if ((this.db_loading_status == status)
@@ -709,13 +965,26 @@ public abstract class ATDataAccessAbstract
     // ****** Demo stuff *****
     // ********************************************************
 
+    /**
+     * The m_dialog.
+     */
     JDialog m_dialog = null;
 
+    /**
+     * Gets the opened dialog.
+     * 
+     * @return the opened dialog
+     */
     public JDialog getOpenedDialog()
     {
         return this.m_dialog;
     }
 
+    /**
+     * Sets the opened dialog.
+     * 
+     * @param dialog the new opened dialog
+     */
     public void setOpenedDialog(JDialog dialog)
     {
         this.m_dialog = dialog;
@@ -729,15 +998,44 @@ public abstract class ATDataAccessAbstract
     // ****** Fonts *****
     // ********************************************************
 
+    /**
+     * The Constant FONT_BIG_BOLD.
+     */
     public static final int FONT_BIG_BOLD = 0;
+    
+    /**
+     * The Constant FONT_NORMAL.
+     */
     public static final int FONT_NORMAL = 1;
+    
+    /**
+     * The Constant FONT_NORMAL_BOLD.
+     */
     public static final int FONT_NORMAL_BOLD = 2;
+    
+    /**
+     * The Constant FONT_NORMAL_P2.
+     */
     public static final int FONT_NORMAL_P2 = 3;
+    
+    /**
+     * The Constant FONT_NORMAL_BOLD_P2.
+     */
     public static final int FONT_NORMAL_BOLD_P2 = 4;
 
+    /**
+     * The Constant FONT_UPDATE_TREE_HEADER.
+     */
     public static final int FONT_UPDATE_TREE_HEADER = 5;
+    
+    /**
+     * The Constant FONT_UPDATE_TREE_ITEM.
+     */
     public static final int FONT_UPDATE_TREE_ITEM = 6;
 
+    /**
+     * Load fonts.
+     */
     public void loadFonts()
     {
 
@@ -753,6 +1051,13 @@ public abstract class ATDataAccessAbstract
         
     }
 
+    /**
+     * Gets the font.
+     * 
+     * @param font_id the font_id
+     * 
+     * @return the font
+     */
     public Font getFont(int font_id)
     {
         return fonts[font_id];
@@ -779,6 +1084,14 @@ public abstract class ATDataAccessAbstract
 
     // public ImageIcon getImageIcon(String image)
 
+    /**
+     * Gets the image.
+     * 
+     * @param filename the filename
+     * @param cmp the cmp
+     * 
+     * @return the image
+     */
     public Image getImage(String filename, Component cmp)
     {
         Image img;
@@ -808,27 +1121,66 @@ public abstract class ATDataAccessAbstract
         return img;
     }
 
+    /**
+     * Sets the parent.
+     * 
+     * @param component the new parent
+     */
     public void setParent(Container component)
     {
         this.parent = component;
     }
 
+    /**
+     * Gets the parent.
+     * 
+     * @return the parent
+     */
     public Component getParent()
     {
         return this.parent;
     }
 
+    /**
+     * Gets the image icon_22x22.
+     * 
+     * @param name the name
+     * @param comp the comp
+     * 
+     * @return the image icon_22x22
+     */
     public ImageIcon getImageIcon_22x22(String name, Container comp)
     {
         return getImageIcon(name, 22, 22, comp);
     }
 
+    /**
+     * Gets the image icon.
+     * 
+     * @param name the name
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * 
+     * @return the image icon
+     */
     public ImageIcon getImageIcon(String name, int width, int height,
             Container comp)
     {
         return getImageIcon(this.getImagesRoot(), name, width, height, comp);
     }
 
+    /**
+     * Gets the image icon.
+     * 
+     * @param root the root
+     * @param name the name
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * 
+     * @return the image icon
+     */
     public ImageIcon getImageIcon(String root, String name, int width,
             int height, Container comp)
     {
@@ -836,21 +1188,53 @@ public abstract class ATDataAccessAbstract
                 width, height, Image.SCALE_SMOOTH));
     }
 
+    /**
+     * Gets the image icon.
+     * 
+     * @param name the name
+     * @param comp the comp
+     * 
+     * @return the image icon
+     */
     public ImageIcon getImageIcon(String name, Container comp)
     {
         return getImageIcon(this.getImagesRoot(), name);
     }
 
+    /**
+     * Gets the image icon.
+     * 
+     * @param root the root
+     * @param name the name
+     * @param comp the comp
+     * 
+     * @return the image icon
+     */
     public ImageIcon getImageIcon(String root, String name, Component comp)
     {
         return new ImageIcon(getImage(root + name, comp));
     }
 
+    /**
+     * Gets the image icon.
+     * 
+     * @param name the name
+     * 
+     * @return the image icon
+     */
     public ImageIcon getImageIcon(String name)
     {
         return getImageIcon(this.getImagesRoot(), name);
     }
 
+    /**
+     * Gets the image icon.
+     * 
+     * @param root the root
+     * @param name the name
+     * 
+     * @return the image icon
+     */
     public ImageIcon getImageIcon(String root, String name)
     {
         //File f = new File(".");
@@ -867,6 +1251,14 @@ public abstract class ATDataAccessAbstract
     // ****** Sorting algorithms *****
     // ********************************************************
 
+    /**
+     * Compare unicode strings.
+     * 
+     * @param s1 the s1
+     * @param s2 the s2
+     * 
+     * @return the int
+     */
     public int compareUnicodeStrings(String s1, String s2)
     {
         return this.m_collator.compare(s1, s2);
@@ -877,6 +1269,11 @@ public abstract class ATDataAccessAbstract
     // ********************************************************
 
     
+    /**
+     * Center j dialog.
+     * 
+     * @param dialog the dialog
+     */
     public void centerJDialog(Component dialog)
     {
         Component cmp = this.getCurrentComponentParent();
@@ -887,6 +1284,12 @@ public abstract class ATDataAccessAbstract
     }
     
     
+    /**
+     * Center j dialog.
+     * 
+     * @param dialog the dialog
+     * @param _parent the _parent
+     */
     public void centerJDialog(Component dialog, Component /*Container*/ _parent)
     {
 
@@ -993,6 +1396,9 @@ public abstract class ATDataAccessAbstract
     // ********************************************************
     // ****** Colors *****
     // ********************************************************
+    /**
+     * Load colors.
+     */
     public void loadColors()
     {
         ColorUIResource cui = (ColorUIResource) UIManager.getLookAndFeel()
@@ -1066,6 +1472,13 @@ public abstract class ATDataAccessAbstract
     // ****** JFormatted Text Field *****
     // ********************************************************
 
+    /**
+     * Gets the j formated text value int.
+     * 
+     * @param ftf the ftf
+     * 
+     * @return the j formated text value int
+     */
     public int getJFormatedTextValueInt(JFormattedTextField ftf)
     {
         try
@@ -1115,6 +1528,13 @@ public abstract class ATDataAccessAbstract
 
     }
 
+    /**
+     * Gets the j formated text value long.
+     * 
+     * @param ftf the ftf
+     * 
+     * @return the j formated text value long
+     */
     public long getJFormatedTextValueLong(JFormattedTextField ftf)
     {
         try
@@ -1171,6 +1591,13 @@ public abstract class ATDataAccessAbstract
 
     }
 
+    /**
+     * Gets the j formated text value byte.
+     * 
+     * @param ftf the ftf
+     * 
+     * @return the j formated text value byte
+     */
     public byte getJFormatedTextValueByte(JFormattedTextField ftf)
     {
         try
@@ -1218,6 +1645,13 @@ public abstract class ATDataAccessAbstract
 
     }
 
+    /**
+     * Gets the j formated text value short.
+     * 
+     * @param ftf the ftf
+     * 
+     * @return the j formated text value short
+     */
     public short getJFormatedTextValueShort(JFormattedTextField ftf)
     {
         try
@@ -1265,6 +1699,13 @@ public abstract class ATDataAccessAbstract
 
     }
 
+    /**
+     * Gets the j formated text value float.
+     * 
+     * @param ftf the ftf
+     * 
+     * @return the j formated text value float
+     */
     public float getJFormatedTextValueFloat(JFormattedTextField ftf)
     {
         try
@@ -1313,6 +1754,13 @@ public abstract class ATDataAccessAbstract
 
     }
 
+    /**
+     * Gets the j formated text value double.
+     * 
+     * @param ftf the ftf
+     * 
+     * @return the j formated text value double
+     */
     public double getJFormatedTextValueDouble(JFormattedTextField ftf)
     {
         try
@@ -1374,6 +1822,11 @@ public abstract class ATDataAccessAbstract
      */
     // }
 
+    /**
+     * Gets the months array.
+     * 
+     * @return the months array
+     */
     public String[] getMonthsArray()
     {
         return this.months;
@@ -1485,6 +1938,13 @@ public abstract class ATDataAccessAbstract
      * return ""; }
      */
 
+    /**
+     * Gets the date string.
+     * 
+     * @param date the date
+     * 
+     * @return the date string
+     */
     public String getDateString(int date)
     {
 
@@ -1507,6 +1967,13 @@ public abstract class ATDataAccessAbstract
 
     }
 
+    /**
+     * Gets the time string.
+     * 
+     * @param time the time
+     * 
+     * @return the time string
+     */
     public String getTimeString(int time)
     {
 
@@ -1518,20 +1985,53 @@ public abstract class ATDataAccessAbstract
 
     }
 
+    /**
+     * Gets the date time string.
+     * 
+     * @param date the date
+     * 
+     * @return the date time string
+     */
     public String getDateTimeString(long date)
     {
         return getDateTimeString(date, 1);
     }
 
+    /**
+     * Gets the date time as date string.
+     * 
+     * @param date the date
+     * 
+     * @return the date time as date string
+     */
     public String getDateTimeAsDateString(long date)
     {
         return getDateTimeString(date, 2);
     }
 
+    /**
+     * The Constant DATE_TIME_ATECH_DATETIME.
+     */
     public static final int DATE_TIME_ATECH_DATETIME = 1;
+    
+    /**
+     * The Constant DATE_TIME_ATECH_DATE.
+     */
     public static final int DATE_TIME_ATECH_DATE = 2;
+    
+    /**
+     * The Constant DATE_TIME_ATECH_TIME.
+     */
     public static final int DATE_TIME_ATECH_TIME = 3;
 
+    /**
+     * Gets the aT date time from gc.
+     * 
+     * @param gc the gc
+     * @param type the type
+     * 
+     * @return the aT date time from gc
+     */
     public long getATDateTimeFromGC(GregorianCalendar gc, int type)
     {
         long dt = 0L;
@@ -1559,6 +2059,18 @@ public abstract class ATDataAccessAbstract
         return dt;
     }
 
+    /**
+     * Gets the aT date time from parts.
+     * 
+     * @param day the day
+     * @param month the month
+     * @param year the year
+     * @param hour the hour
+     * @param minute the minute
+     * @param type the type
+     * 
+     * @return the aT date time from parts
+     */
     public long getATDateTimeFromParts(int day, int month, int year, int hour,
             int minute, int type)
     {
@@ -1587,6 +2099,13 @@ public abstract class ATDataAccessAbstract
         return dt;
     }
 
+    /**
+     * Gets the date from at date.
+     * 
+     * @param data the data
+     * 
+     * @return the date from at date
+     */
     public long getDateFromATDate(long data)
     {
         // 200701011222
@@ -1601,6 +2120,13 @@ public abstract class ATDataAccessAbstract
         return d2;
     }
 
+    /**
+     * Gets the date time as time string.
+     * 
+     * @param date the date
+     * 
+     * @return the date time as time string
+     */
     public String getDateTimeAsTimeString(long date)
     {
         return getDateTimeString(date, 3);
@@ -1610,10 +2136,29 @@ public abstract class ATDataAccessAbstract
     // ret_type = 2 (Date)
     // ret_type = 3 (Time)
 
+    /**
+     * The Constant DT_DATETIME.
+     */
     public final static int DT_DATETIME = 1;
+    
+    /**
+     * The Constant DT_DATE.
+     */
     public final static int DT_DATE = 2;
+    
+    /**
+     * The Constant DT_TIME.
+     */
     public final static int DT_TIME = 3;
 
+    /**
+     * Gets the date time string.
+     * 
+     * @param dt the dt
+     * @param ret_type the ret_type
+     * 
+     * @return the date time string
+     */
     public String getDateTimeString(long dt, int ret_type)
     {
 
@@ -1684,7 +2229,15 @@ public abstract class ATDataAccessAbstract
 
     }
 */
-    public String getDateTimeString(int date, int time)
+    /**
+ * Gets the date time string.
+ * 
+ * @param date the date
+ * @param time the time
+ * 
+ * @return the date time string
+ */
+public String getDateTimeString(int date, int time)
     {
 
         return getDateString(date) + " " + getTimeString(time);
@@ -1692,6 +2245,11 @@ public abstract class ATDataAccessAbstract
     }
 
     
+    /**
+     * Gets the current date string.
+     * 
+     * @return the current date string
+     */
     public String getCurrentDateString()
     {
         GregorianCalendar gc = new GregorianCalendar();
@@ -1700,6 +2258,11 @@ public abstract class ATDataAccessAbstract
     }
     
     
+    /**
+     * Gets the current time string.
+     * 
+     * @return the current time string
+     */
     public String getCurrentTimeString()
     {
         GregorianCalendar gc = new GregorianCalendar();
@@ -1708,6 +2271,11 @@ public abstract class ATDataAccessAbstract
     }
     
 
+    /**
+     * Gets the current date time string.
+     * 
+     * @return the current date time string
+     */
     public String getCurrentDateTimeString()
     {
         GregorianCalendar gc = new GregorianCalendar();
@@ -1718,6 +2286,11 @@ public abstract class ATDataAccessAbstract
     }
 
     
+    /**
+     * Gets the start year.
+     * 
+     * @return the start year
+     */
     public int getStartYear()
     {
         // FIX set in Db
@@ -1744,6 +2317,11 @@ public abstract class ATDataAccessAbstract
      * }
      */
 
+    /**
+     * Not implemented.
+     * 
+     * @param source the source
+     */
     public static void notImplemented(String source)
     {
         System.out.println("Not Implemented: " + source);
@@ -1751,6 +2329,12 @@ public abstract class ATDataAccessAbstract
         // source);
     }
 
+    /**
+     * Not implemented.
+     * 
+     * @param parent the parent
+     * @param source the source
+     */
     public static void notImplemented(java.awt.Component parent, String source)
     {
         System.out.println("Not Implemented: " + source);
@@ -1764,6 +2348,14 @@ public abstract class ATDataAccessAbstract
     
     
     
+    /**
+     * Gets the leading zero.
+     * 
+     * @param number the number
+     * @param places the places
+     * 
+     * @return the leading zero
+     */
     public String getLeadingZero(int number, int places)
     {
         String nn = "" + number;
@@ -1776,6 +2368,14 @@ public abstract class ATDataAccessAbstract
         return nn;
     }
 
+    /**
+     * Gets the leading zero.
+     * 
+     * @param number the number
+     * @param places the places
+     * 
+     * @return the leading zero
+     */
     public String getLeadingZero(String number, int places)
     {
         number = number.trim();
@@ -1840,6 +2440,15 @@ public abstract class ATDataAccessAbstract
     
 
 
+    /**
+     * Parses the expression.
+     * 
+     * @param in the in
+     * @param expression the expression
+     * @param replace the replace
+     * 
+     * @return the string
+     */
     public String parseExpression(String in, String expression, String replace)
     {
 
@@ -1873,6 +2482,15 @@ public abstract class ATDataAccessAbstract
 
 
 
+    /**
+     * Parses the expression full.
+     * 
+     * @param in the in
+     * @param expression the expression
+     * @param replace the replace
+     * 
+     * @return the string
+     */
     public String parseExpressionFull(String in, String expression, String replace)
     {
 
@@ -1905,6 +2523,13 @@ public abstract class ATDataAccessAbstract
     }
     
     
+    /**
+     * Checks if is empty or unset.
+     * 
+     * @param val the val
+     * 
+     * @return true, if is empty or unset
+     */
     public boolean isEmptyOrUnset(String val)
     {
         if ((val == null) || (val.trim().length()==0))
@@ -1916,6 +2541,14 @@ public abstract class ATDataAccessAbstract
     }
 
     
+    /**
+     * Checks if is found.
+     * 
+     * @param text the text
+     * @param search_str the search_str
+     * 
+     * @return true, if is found
+     */
     public static boolean isFound(String text, String search_str)
     {
 
@@ -1926,6 +2559,14 @@ public abstract class ATDataAccessAbstract
     }
 
 
+    /**
+     * Split string.
+     * 
+     * @param input the input
+     * @param delimiter the delimiter
+     * 
+     * @return the string[]
+     */
     public String[] splitString(String input, String delimiter)
     {
         String res[] = null;
@@ -1958,6 +2599,13 @@ public abstract class ATDataAccessAbstract
     // ********************************************************
     
     
+    /**
+     * Gets the gregorian calendar.
+     * 
+     * @param date the date
+     * 
+     * @return the gregorian calendar
+     */
     public GregorianCalendar getGregorianCalendar(Date date)
     {
         GregorianCalendar gc = new GregorianCalendar();
@@ -1967,6 +2615,14 @@ public abstract class ATDataAccessAbstract
     }
 
     
+    /**
+     * Gets the as localized date string.
+     * 
+     * @param gc_value the gc_value
+     * @param years_digits the years_digits
+     * 
+     * @return the as localized date string
+     */
     public String getAsLocalizedDateString(GregorianCalendar gc_value, int years_digits)
     {
         if (years_digits==2)
@@ -1983,10 +2639,30 @@ public abstract class ATDataAccessAbstract
     }
     
     
+    /**
+     * The Constant GC_COMPARE_DAY.
+     */
     public static final int GC_COMPARE_DAY = 1;
+    
+    /**
+     * The Constant GC_COMPARE_HOUR.
+     */
     public static final int GC_COMPARE_HOUR = 2;
+    
+    /**
+     * The Constant GC_COMPARE_MINUTE.
+     */
     public static final int GC_COMPARE_MINUTE = 3;
 
+    /**
+     * Compare gregorian calendars.
+     * 
+     * @param type the type
+     * @param gc1 the gc1
+     * @param gc2 the gc2
+     * 
+     * @return true, if successful
+     */
     public boolean compareGregorianCalendars(int type, GregorianCalendar gc1, GregorianCalendar gc2)
     {
         boolean found = false;
@@ -2019,6 +2695,13 @@ public abstract class ATDataAccessAbstract
     // ****** Get Values From Object *****
     // ********************************************************
 
+    /**
+     * Gets the float value.
+     * 
+     * @param aValue the a value
+     * 
+     * @return the float value
+     */
     public float getFloatValue(Object aValue)
     {
         float out = 0.0f;
@@ -2094,6 +2777,13 @@ public abstract class ATDataAccessAbstract
         return out;
     }
 
+    /**
+     * Gets the int value.
+     * 
+     * @param aValue the a value
+     * 
+     * @return the int value
+     */
     public int getIntValue(Object aValue)
     {
         int out = 0;
@@ -2130,6 +2820,13 @@ public abstract class ATDataAccessAbstract
         return out;
     }
 
+    /**
+     * Gets the long value.
+     * 
+     * @param aValue the a value
+     * 
+     * @return the long value
+     */
     public long getLongValue(Object aValue)
     {
         long out = 0L;
@@ -2170,11 +2867,26 @@ public abstract class ATDataAccessAbstract
     // ****** Get Values From String *****
     // ********************************************************
 
+    /**
+     * Gets the float value from string.
+     * 
+     * @param aValue the a value
+     * 
+     * @return the float value from string
+     */
     public float getFloatValueFromString(String aValue)
     {
         return this.getFloatValueFromString(aValue, 0.0f);
     }
 
+    /**
+     * Gets the float value from string.
+     * 
+     * @param aValue the a value
+     * @param def_value the def_value
+     * 
+     * @return the float value from string
+     */
     public float getFloatValueFromString(String aValue, float def_value)
     {
         float out = def_value;
@@ -2198,11 +2910,26 @@ public abstract class ATDataAccessAbstract
         return out;
     }
 
+    /**
+     * Gets the int value from string.
+     * 
+     * @param aValue the a value
+     * 
+     * @return the int value from string
+     */
     public int getIntValueFromString(String aValue)
     {
         return this.getIntValueFromString(aValue, 0);
     }
 
+    /**
+     * Gets the int value from string.
+     * 
+     * @param aValue the a value
+     * @param def_value the def_value
+     * 
+     * @return the int value from string
+     */
     public int getIntValueFromString(String aValue, int def_value)
     {
         int out = def_value;
@@ -2220,11 +2947,26 @@ public abstract class ATDataAccessAbstract
         return out;
     }
 
+    /**
+     * Gets the long value from string.
+     * 
+     * @param aValue the a value
+     * 
+     * @return the long value from string
+     */
     public long getLongValueFromString(String aValue)
     {
         return this.getLongValueFromString(aValue, 0L);
     }
 
+    /**
+     * Gets the long value from string.
+     * 
+     * @param aValue the a value
+     * @param def_value the def_value
+     * 
+     * @return the long value from string
+     */
     public long getLongValueFromString(String aValue, long def_value)
     {
         long out = def_value;
@@ -2242,6 +2984,13 @@ public abstract class ATDataAccessAbstract
         return out;
     }
 
+    /**
+     * Checks if is value set.
+     * 
+     * @param val the val
+     * 
+     * @return true, if is value set
+     */
     public boolean isValueSet(String val)
     {
         if ((val == null) || (val.trim().length() == 0) || (val.equals("null")))
@@ -2255,13 +3004,26 @@ public abstract class ATDataAccessAbstract
     // ****** Backup / Restore *****
     // ********************************************************
 
+    /**
+     * The backup_restore_collection.
+     */
     protected BackupRestoreCollection backup_restore_collection = null;
 
+    /**
+     * Checks if is backup restore available.
+     * 
+     * @return true, if is backup restore available
+     */
     public boolean isBackupRestoreAvailable()
     {
         return (this.backup_restore_collection != null);
     }
 
+    /**
+     * Gets the backup restore collection.
+     * 
+     * @return the backup restore collection
+     */
     public BackupRestoreCollection getBackupRestoreCollection()
     {
         // TODO: clone
@@ -2273,6 +3035,13 @@ public abstract class ATDataAccessAbstract
      */
     public abstract void loadBackupRestoreCollection();
 
+    /**
+     * Make i18n keyword.
+     * 
+     * @param input the input
+     * 
+     * @return the string
+     */
     public String makeI18nKeyword(String input)
     {
         String process = input.replaceAll(" ", "_");
@@ -2282,6 +3051,11 @@ public abstract class ATDataAccessAbstract
     }
 
 
+    /**
+     * Gets the update configuration.
+     * 
+     * @return the update configuration
+     */
     public UpdateConfiguration getUpdateConfiguration()
     {
         if (this.update_configuration==null)
@@ -2306,11 +3080,11 @@ public abstract class ATDataAccessAbstract
     public Hashtable<String,String> getConfiguration(String filename)
     {
 
-        Hashtable<String,String> config_db_values = new Hashtable<String,String>();
+        Hashtable<String,String> config_db_values_ = new Hashtable<String,String>();
 
         Properties props = new Properties();
 
-        boolean config_loaded = true;
+        config_loaded = true;
 
         try
         {
@@ -2329,11 +3103,11 @@ public abstract class ATDataAccessAbstract
             for (Enumeration<Object> en = props.keys(); en.hasMoreElements(); )
             {
                 String  key = (String)en.nextElement();
-                config_db_values.put(key, props.getProperty(key));
+                config_db_values_.put(key, props.getProperty(key));
             }
         }
 
-        return config_db_values;
+        return config_db_values_;
         
     }
 
@@ -2367,11 +3141,21 @@ public abstract class ATDataAccessAbstract
      */
     public abstract void loadGraphConfigProperties();
     
+    /**
+     * Gets the graph config properties.
+     * 
+     * @return the graph config properties
+     */
     public GraphConfigProperties getGraphConfigProperties()
     {
         return this.graph_config;
     }
     
+    /**
+     * Sets the graph config properties.
+     * 
+     * @param config the new graph config properties
+     */
     public void setGraphConfigProperties(GraphConfigProperties config)
     {
         this.graph_config = config;
@@ -2379,9 +3163,17 @@ public abstract class ATDataAccessAbstract
     
     
     
+    /**
+     * Load special parameters.
+     */
     public abstract void loadSpecialParameters();
     
     
+    /**
+     * Gets the special parameters.
+     * 
+     * @return the special parameters
+     */
     public Hashtable<String, String> getSpecialParameters()
     {
         return special_parameters;
@@ -2389,18 +3181,38 @@ public abstract class ATDataAccessAbstract
     
     
     
+    /**
+     * Gets the language info.
+     * 
+     * @return the language info
+     */
     public LanguageInfo getLanguageInfo()
     {
         return this.m_lang_info;
     }
  
     
+    /**
+     * Gets the selected lang index.
+     * 
+     * @return the selected lang index
+     */
     public abstract int getSelectedLangIndex();
 
     
+    /**
+     * Sets the selected lang index.
+     * 
+     * @param index the new selected lang index
+     */
     public abstract void setSelectedLangIndex(int index);
  
     
+    /**
+     * Gets the plugins.
+     * 
+     * @return the plugins
+     */
     public Hashtable<String,PlugInClient> getPlugins()
     {
         return this.plugins;

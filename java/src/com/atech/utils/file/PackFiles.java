@@ -10,6 +10,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -44,11 +45,19 @@ import java.util.zip.ZipOutputStream;
 public class PackFiles
 {
 
+    /**
+     * The fix directory.
+     */
     public String fixDirectory = "";
 
     private Hashtable<String,FilesList> filesGroups = new Hashtable<String,FilesList>();
 
 
+    /**
+     * Instantiates a new pack files.
+     * 
+     * @param fixDir the fix dir
+     */
     public PackFiles(String fixDir)
     {
 
@@ -81,6 +90,12 @@ public class PackFiles
 
 
     
+    /**
+     * Zip files in directory.
+     * 
+     * @param directory the directory
+     * @param outname the outname
+     */
     public static void zipFilesInDirectory(File directory, String outname)
     {
         // Create a buffer for reading the files
@@ -131,6 +146,11 @@ public class PackFiles
 
 
 
+    /**
+     * Zip from directories.
+     * 
+     * @param dir the dir
+     */
     public void zipFromDirectories(File dir)
     {
 
@@ -180,6 +200,9 @@ public class PackFiles
     }
 
 
+    /**
+     * Display results.
+     */
     public void displayResults()
     {
 
@@ -196,6 +219,9 @@ public class PackFiles
     }
 
 
+    /**
+     * Zip files.
+     */
     public void zipFiles()
     {
 
@@ -273,7 +299,12 @@ public class PackFiles
 
 
 
-    public static void main(String args[])
+    /**
+ * The main method.
+ * 
+ * @param args the arguments
+ */
+public static void main(String args[])
     {
         
         System.exit(0);

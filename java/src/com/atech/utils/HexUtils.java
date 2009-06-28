@@ -1,5 +1,6 @@
 package com.atech.utils;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -39,6 +40,13 @@ public class HexUtils
     
     
     
+    /**
+     * Reconvert.
+     * 
+     * @param _strHex the _str hex
+     * 
+     * @return the byte[]
+     */
     public byte[] reconvert(String _strHex) {
 
         if (_strHex == null)

@@ -2,6 +2,7 @@ package com.atech.db.hibernate.transfer;
 
 import java.util.Hashtable;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -46,13 +47,34 @@ public abstract class ImportExportDefinition
     public Hashtable<String,Integer> class_defs = null;
 
 
+    /**
+     * The Constant CP_NONE.
+     */
     public static final int CP_NONE = 0;
     
+    /**
+     * The Constant CP_TYPE_SELF.
+     */
     public static final int CP_TYPE_SELF = 1;
+    
+    /**
+     * The Constant CP_TYPE_EXTENDED.
+     */
     public static final int CP_TYPE_EXTENDED = 2;
+    
+    /**
+     * The Constant CP_TYPE_COLLECTIONS.
+     */
     public static final int CP_TYPE_COLLECTIONS = 4;
 
+    /**
+     * The Constant CP_IMPORT_DELETE.
+     */
     public static final int CP_IMPORT_DELETE = 8;
+    
+    /**
+     * The Constant CP_IMPORT_UPDATE.
+     */
     public static final int CP_IMPORT_UPDATE = 16;
 
 
@@ -103,6 +125,9 @@ public abstract class ImportExportDefinition
 
 
 
+    /**
+     * Inits the definitions.
+     */
     public abstract void initDefinitions();
 
 
@@ -115,20 +140,28 @@ public abstract class ImportExportDefinition
     */
 
 
+    /**
+     * Checks if is allowed class.
+     * 
+     * @param cl_name the cl_name
+     * 
+     * @return true, if is allowed class
+     */
     public boolean isAllowedClass(String cl_name)
     {
     	return (this.class_defs.containsKey(cl_name));
     }
 
+    /**
+     * Checks if is unallowed class.
+     * 
+     * @param cl_name the cl_name
+     * 
+     * @return true, if is unallowed class
+     */
     public boolean isUnallowedClass(String cl_name)
     {
     	return (!(this.class_defs.containsKey(cl_name)));
     }
-
-
-
-
-
-
 
 }

@@ -7,6 +7,7 @@ import javax.swing.JScrollPane;
 
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -42,8 +43,18 @@ public class CreditsInfo extends AboutPanel
 {
 
     private static final long serialVersionUID = 7569658856214864210L;
+    
+    /**
+     * The credits.
+     */
     ArrayList<CreditsGroup> credits;
 
+    /**
+     * Instantiates a new credits info.
+     * 
+     * @param ic the ic
+     * @param lst the lst
+     */
     public CreditsInfo(I18nControlAbstract ic, ArrayList<CreditsGroup> lst)
     {
         super(ic);
@@ -52,6 +63,9 @@ public class CreditsInfo extends AboutPanel
     }
 
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
         this.setLayout(new java.awt.BorderLayout());
@@ -73,6 +87,11 @@ public class CreditsInfo extends AboutPanel
     }
 
 
+    /**
+     * Generate page.
+     * 
+     * @return the string
+     */
     public String generatePage()
     {
         StringBuffer sb = new StringBuffer();
@@ -98,11 +117,17 @@ public class CreditsInfo extends AboutPanel
 
 
 
+    /** 
+     * getTabName
+     */
     public String getTabName()
     {
         return this.ic.getMessage("CREDITS");
     }
     
+    /** 
+     * getTabPanel
+     */
     public JPanel getTabPanel()
     {
         return this;

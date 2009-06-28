@@ -14,6 +14,7 @@ import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.tree.TreeCellRenderer;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -51,9 +52,20 @@ import javax.swing.tree.TreeCellRenderer;
 public class CheckRenderer extends JPanel implements TreeCellRenderer
 {
     private static final long serialVersionUID = 3567768460803147725L;
+    
+    /**
+     * The check.
+     */
     protected JCheckBox check;
+    
+    /**
+     * The label.
+     */
     protected TreeLabel label;
 
+    /**
+     * Instantiates a new check renderer.
+     */
     public CheckRenderer()
     {
         setLayout(null);
@@ -63,6 +75,9 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
         label.setForeground(UIManager.getColor("Tree.textForeground"));
     }
 
+    /** 
+     * getTreeCellRendererComponent
+     */
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean isSelected, boolean expanded,
             boolean leaf, int row, boolean hasFocus)
     {
@@ -88,6 +103,9 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
         return this;
     }
 
+    /** 
+     * getPreferredSize
+     */
     public Dimension getPreferredSize()
     {
         Dimension d_check = check.getPreferredSize();
@@ -96,6 +114,9 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
                 : d_check.height));
     }
 
+    /** 
+     * doLayout
+     */
     public void doLayout()
     {
         Dimension d_check = check.getPreferredSize();
@@ -116,6 +137,9 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
         label.setBounds(d_check.width, y_label, d_label.width, d_label.height);
     }
 
+    /** 
+     * setBackground
+     */
     public void setBackground(Color color)
     {
         if (color instanceof ColorUIResource)
@@ -123,16 +147,33 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
         super.setBackground(color);
     }
 
+    /**
+     * The Class TreeLabel.
+     */
     public class TreeLabel extends JLabel
     {
         private static final long serialVersionUID = -4558401204750233731L;
+        
+        /**
+         * The is selected.
+         */
         boolean isSelected;
+        
+        /**
+         * The has focus.
+         */
         boolean hasFocus;
 
+        /**
+         * Instantiates a new tree label.
+         */
         public TreeLabel()
         {
         }
 
+        /** 
+         * setBackground
+         */
         public void setBackground(Color color)
         {
             if (color instanceof ColorUIResource)
@@ -140,6 +181,9 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
             super.setBackground(color);
         }
 
+        /** 
+         * paint
+         */
         public void paint(Graphics g)
         {
             String str;
@@ -173,6 +217,9 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
             super.paint(g);
         }
 
+        /** 
+         * getPreferredSize
+         */
         public Dimension getPreferredSize()
         {
             Dimension retDimension = super.getPreferredSize();
@@ -183,11 +230,21 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
             return retDimension;
         }
 
+        /**
+         * Sets the selected.
+         * 
+         * @param isSelected the new selected
+         */
         public void setSelected(boolean isSelected)
         {
             this.isSelected = isSelected;
         }
 
+        /**
+         * Sets the focus.
+         * 
+         * @param hasFocus the new focus
+         */
         public void setFocus(boolean hasFocus)
         {
             this.hasFocus = hasFocus;

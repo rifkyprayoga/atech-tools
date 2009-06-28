@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -43,8 +44,18 @@ public class FeaturesInfo extends AboutPanel
 {
 
     private static final long serialVersionUID = 7569658856214864210L;
+    
+    /**
+     * The features.
+     */
     ArrayList<FeaturesGroup> features;
 
+    /**
+     * Instantiates a new features info.
+     * 
+     * @param ic the ic
+     * @param lst the lst
+     */
     public FeaturesInfo(I18nControlAbstract ic, ArrayList<FeaturesGroup> lst)
     {
         super(ic);
@@ -53,6 +64,9 @@ public class FeaturesInfo extends AboutPanel
     }
 
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
         this.setLayout(new java.awt.BorderLayout());
@@ -74,6 +88,11 @@ public class FeaturesInfo extends AboutPanel
     }
 
 
+    /**
+     * Generate page.
+     * 
+     * @return the string
+     */
     public String generatePage()
     {
         StringBuffer sb = new StringBuffer();
@@ -99,11 +118,17 @@ public class FeaturesInfo extends AboutPanel
 
 
 
+    /** 
+     * getTabName
+     */
     public String getTabName()
     {
         return this.ic.getMessage("FEATURES");
     }
     
+    /** 
+     * getTabPanel
+     */
     public JPanel getTabPanel()
     {
         return this;

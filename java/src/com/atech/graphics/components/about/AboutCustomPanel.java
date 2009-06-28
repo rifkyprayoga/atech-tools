@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -39,25 +40,53 @@ public class AboutCustomPanel extends JPanel
 {
 	
     private static final long serialVersionUID = 6489212022366149587L;
+    
+    /**
+     * The ic.
+     */
     I18nControlAbstract ic;
+    
+    /**
+     * The tab_name.
+     */
     String tab_name = "";
 
+    /**
+     * Instantiates a new about custom panel.
+     * 
+     * @param ic the ic
+     */
     public AboutCustomPanel(I18nControlAbstract ic)
     {
         this.ic = ic;
         this.tab_name = ic.getMessage("CUSTOM_TAB");
     }
 
+    /**
+     * Gets the tab panel.
+     * 
+     * @return the tab panel
+     */
     public JPanel getTabPanel()
     {
         return this;
     }
 
+    /**
+     * Gets the tab name.
+     * 
+     * @return the tab name
+     */
     public String getTabName()
     {
         return tab_name;
     }
 
+    /**
+     * Sets the tab name.
+     * 
+     * @param name the new tab name
+     */
     public void setTabName(String name)
     {
         this.tab_name = name;

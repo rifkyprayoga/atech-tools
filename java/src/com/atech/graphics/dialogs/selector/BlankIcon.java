@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.Icon;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -45,11 +46,20 @@ public class BlankIcon implements Icon
     private Color fillColor;
     private int size;
 
+    /**
+     * Instantiates a new blank icon.
+     */
     public BlankIcon()
     {
         this(null, 11);
     }
 
+    /**
+     * Instantiates a new blank icon.
+     * 
+     * @param color the color
+     * @param size the size
+     */
     public BlankIcon(Color color, int size)
     {
         // UIManager.getColor("control")
@@ -59,6 +69,9 @@ public class BlankIcon implements Icon
         this.size = size;
     }
 
+    /** 
+     * paintIcon
+     */
     public void paintIcon(Component c, Graphics g, int x, int y)
     {
         if (fillColor != null)
@@ -68,11 +81,17 @@ public class BlankIcon implements Icon
         }
     }
 
+    /** 
+     * getIconWidth
+     */
     public int getIconWidth()
     {
         return size;
     }
 
+    /** 
+     * getIconHeight
+     */
     public int getIconHeight()
     {
         return size;

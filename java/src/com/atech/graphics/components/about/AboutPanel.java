@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -41,15 +42,34 @@ public abstract class AboutPanel extends JPanel
      * 
      */
     private static final long serialVersionUID = -5811159426365329265L;
+    
+    /**
+     * The ic.
+     */
     I18nControlAbstract ic;
 
+    /**
+     * Instantiates a new about panel.
+     * 
+     * @param ic the ic
+     */
     public AboutPanel(I18nControlAbstract ic)
     {
         this.ic = ic;
     }
 
+    /**
+     * Gets the tab panel.
+     * 
+     * @return the tab panel
+     */
     public abstract JPanel getTabPanel();
 
+    /**
+     * Gets the tab name.
+     * 
+     * @return the tab name
+     */
     public abstract String getTabName();
     
 }

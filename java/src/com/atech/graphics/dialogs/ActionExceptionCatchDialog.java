@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import com.atech.help.HelpCapable;
 import com.atech.utils.ATDataAccessAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -67,17 +68,39 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     private static final long serialVersionUID = -5125099590281275283L;
     private int m_action_done = 0;
     private String m_action_id = "unknown";
+    
+    /**
+     * The m_da.
+     */
     ATDataAccessAbstract m_da;
     
+    /**
+     * The error_message.
+     */
     String error_message = null;
+    
+    /**
+     * The error_message_tip.
+     */
     String error_message_tip = null;
+    
+    /**
+     * The base_error_message.
+     */
     String base_error_message = "Unknown exception occured. Please consider sending report to us, so that we can resolve problem";
     //private static Log log = LogFactory.getLog(ActionExceptionCatchDialog.class); 
+    @SuppressWarnings("unused")
     private static Log log = LogFactory.getLog(ActionExceptionCatchDialog.class);
 
     
     private String component_name;
 
+    /**
+     * Constructor 
+     * 
+     * @param da
+     * @param component_name
+     */
     public ActionExceptionCatchDialog(ATDataAccessAbstract da, String component_name)
     {
     	this.m_da = da;
@@ -118,26 +141,38 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     public abstract void performAction(ActionEvent e) throws Exception;
 
 
+    /**
+     * Get Action Id
+     * @return
+     */
     public String getActionId()
     {
         return this.m_action_id;
     }
 
     
+    /**
+     * Sets the action id.
+     * 
+     * @param action_id the new action id
+     */
     public void setActionId(String action_id)
     {
     	this.m_action_id = action_id;
     }
 
 
+    /**
+     * Sets the error messages.
+     * 
+     * @param err_msg the err_msg
+     * @param err_msg_tip the err_msg_tip
+     */
     public void setErrorMessages(String err_msg, String err_msg_tip)
     {
     	this.error_message = err_msg;
     	this.error_message_tip = err_msg_tip;
     }
-    
-    
-    
     
     
     /**

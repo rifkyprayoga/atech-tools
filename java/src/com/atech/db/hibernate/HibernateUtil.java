@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -43,19 +44,39 @@ public class HibernateUtil
 
     //I18nControlAbstract ic = null;
     private Session m_session = null;
+    
+    /**
+     * The hconfig.
+     */
     HibernateConfiguration hconfig;
     private static Log log = LogFactory.getLog(HibernateUtil.class);
+    @SuppressWarnings("unused")
     private int m_errorCode = 0;
+    @SuppressWarnings("unused")
     private String m_errorDesc = "";
+    @SuppressWarnings("unused")
     private String m_addId = "";
 
     
+    /**
+     * Instantiates a new hibernate util.
+     * 
+     * @param hconfig the hconfig
+     * @param type the type
+     */
     public HibernateUtil(HibernateConfiguration hconfig, int type)
     {
         this(hconfig, type, true);
     }
     
     
+    /**
+     * Instantiates a new hibernate util.
+     * 
+     * @param hconfig the hconfig
+     * @param type the type
+     * @param init the init
+     */
     public HibernateUtil(HibernateConfiguration hconfig, int type, boolean init)
     {
         this.hconfig = hconfig;
@@ -90,23 +111,43 @@ public class HibernateUtil
     }
     */
     
+    /**
+     * Sets the session.
+     */
     public void setSession()
     {
         setSession(1);
     }
 
     
+    /**
+     * Sets the session.
+     * 
+     * @param session_nr the new session
+     */
     public void setSession(int session_nr)
     {
         this.m_session = this.hconfig.getSession(session_nr);
     }
     
+    /**
+     * Gets the session.
+     * 
+     * @return the session
+     */
     public Session getSession()
     {
         return this.m_session ;
     }
 
    
+    /**
+     * Adds the.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
     public boolean add(Object obj)
     {
 
@@ -156,6 +197,13 @@ public class HibernateUtil
     // this method is used for direct use with hibernate objects (unlike use
     // with our
     // datalayer classes)
+    /**
+     * Adds the hibernate.
+     * 
+     * @param obj the obj
+     * 
+     * @return the long
+     */
     public long addHibernate(Object obj)
     {
 
@@ -180,6 +228,13 @@ public class HibernateUtil
     }
     
     
+    /**
+     * Edits the.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
     public boolean edit(Object obj)
     {
 
@@ -226,6 +281,13 @@ public class HibernateUtil
     // this method is used for direct use with hibernate objects (unlike use
     // with our
     // datalayer classes)
+    /**
+     * Edits the hibernate.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
     public boolean editHibernate(Object obj)
     {
 
@@ -252,6 +314,13 @@ public class HibernateUtil
     }
     
     
+    /**
+     * Delete.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
     public boolean delete(Object obj)
     {
 
@@ -306,6 +375,13 @@ public class HibernateUtil
     
     
     
+    /**
+     * Delete hibernate.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
     public boolean deleteHibernate(Object obj)
     {
 
@@ -333,6 +409,13 @@ public class HibernateUtil
     
     
     
+    /**
+     * Sets the error.
+     * 
+     * @param code the code
+     * @param desc the desc
+     * @param source the source
+     */
     public void setError(int code, String desc, String source)
     {
         this.m_errorCode = code;

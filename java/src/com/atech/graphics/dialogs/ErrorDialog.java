@@ -36,6 +36,7 @@ import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccess;
 import com.atech.utils.ATDataAccessAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -80,19 +81,35 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
      */
     private static final long serialVersionUID = 202192475384598913L;
     
+    /**
+     * The ic.
+     */
     protected I18nControlAbstract ic; // = I18nControl.getInstance();
+    
+    /**
+     * The da.
+     */
     protected ATDataAccessAbstract da;
 
     //ATDataAccess m_da = null;
     //PISDb m_db = null;
 
 
+    /**
+     * The full_int.
+     */
     public ArrayList<SelectableInterface> full_int; 
 
     //public ArrayList<SelectableInterface> full; 
+    /**
+     * The list.
+     */
     protected ArrayList<SelectableInterface> list; 
 
 
+    /**
+     * The date_selector_type.
+     */
     public int date_selector_type = 0;
 
     //public int indexes 
@@ -102,12 +119,18 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
     //
     // as interface -- start
     //
+    /**
+     * The is_opened.
+     */
     public boolean is_opened = true;
     
 
     //
     // REMOVE
     
+    /**
+     * The descriptions.
+     */
     public Hashtable<String,String> descriptions = new Hashtable<String,String>(); 
     
     
@@ -115,6 +138,9 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
     
     
     
+    /**
+     * The column_sorting_enabled.
+     */
     boolean column_sorting_enabled = true;
     
     /**
@@ -165,40 +191,110 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
      *  Globaly used variables
      */
     //JTable table;
+    /**
+     * The scroll.
+     */
     JScrollPane scroll;    
     
+    /**
+     * The panel.
+     */
     JPanel panel;
+    
+    /**
+     * The check box2.
+     */
     JCheckBox checkBox1, checkBox2;
+    
+    /**
+     * The text field2.
+     */
     JTextField textField1, textField2; //, textField3, textField4, textField5, textField6,
     //textField7, textField8, textField9;
+    /**
+     * The combo box2.
+     */
     JComboBox comboBox1, comboBox2; //, comboBox3;
+    
+    /**
+     * The button4.
+     */
     JButton button1, button2, button3, button4;
+    
+    /**
+     * The dt_end.
+     */
     DateComponent dt_start, dt_end;
 
+    /**
+     * The font_normal_bold.
+     */
     Font font_normal, font_normal_bold;
 
+    /**
+     * The doc.
+     */
     AbstractDocument doc; 
 
+    /**
+     * The name.
+     */
     String name;
 
+    /**
+     * The last action.
+     */
     public int lastAction = 0;
 
 
+    /**
+     * The exception.
+     */
     Exception exception;
+    
+    /**
+     * The error_message.
+     */
     String error_message;
+    
+    /**
+     * The error_message_sollution.
+     */
     String error_message_sollution;
     
 
 // CHANGE
 
 
-    public ErrorDialog(JFrame parent, ATDataAccessAbstract da, String application,
+    /**
+ * Instantiates a new error dialog.
+ * 
+ * @param parent the parent
+ * @param da the da
+ * @param application the application
+ * @param module the module
+ * @param action the action
+ * @param exception the exception
+ * @param error_message the error_message
+ */
+public ErrorDialog(JFrame parent, ATDataAccessAbstract da, String application,
 	           String module, String action, Exception exception, String error_message) 
     {
     	this(parent, da, application, module, action, exception, error_message, null);
     }
 
     
+    /**
+     * Instantiates a new error dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     * @param application the application
+     * @param module the module
+     * @param action the action
+     * @param exception the exception
+     * @param error_message the error_message
+     */
     public ErrorDialog(JDialog parent, ATDataAccessAbstract da, String application,
 	           String module, String action, Exception exception, String error_message) 
     {
@@ -206,6 +302,18 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
     }
     
     
+    /**
+     * Instantiates a new error dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     * @param application the application
+     * @param module the module
+     * @param action the action
+     * @param exception the exception
+     * @param error_message the error_message
+     * @param extended_error_message the extended_error_message
+     */
     public ErrorDialog(JFrame parent, ATDataAccessAbstract da, String application,
     		           String module, String action, Exception exception, String error_message,
     		           String extended_error_message) 
@@ -226,6 +334,18 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
 
     
     
+    /**
+     * Instantiates a new error dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     * @param application the application
+     * @param module the module
+     * @param action the action
+     * @param exception the exception
+     * @param error_message the error_message
+     * @param extended_error_message the extended_error_message
+     */
     public ErrorDialog(JDialog parent, ATDataAccessAbstract da, String application,
 	           String module, String action, Exception exception, String error_message,
 	           String extended_error_message) 
@@ -246,6 +366,9 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
 
     
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
 
@@ -283,18 +406,33 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
     //--- Methods
     //---
 
+    /**
+     * Gets the descriptions.
+     * 
+     * @return the descriptions
+     */
     public Hashtable<String,String> getDescriptions()
     {
     	return this.descriptions;
     }
     
     
+    /**
+     * Gets the help button.
+     * 
+     * @return the help button
+     */
     public JButton getHelpButton()
     {
     	return this.help_button;
     }
     
     
+    /**
+     * Gets the help id.
+     * 
+     * @return the help id
+     */
     public String getHelpId()
     {
     	return help_id;
@@ -302,12 +440,22 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
     
     
     
+    /**
+     * Sets the selector name.
+     * 
+     * @param title the new selector name
+     */
     public void setSelectorName(String title)
     {
         this.name = title;
     }
     
     
+    /**
+     * Sets the help string id.
+     * 
+     * @param id the new help string id
+     */
     public void setHelpStringId(String id)
     {
     	help_id = id;
@@ -317,28 +465,55 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
     
     
     
+    /**
+     * Checks if is column sorting enabled.
+     * 
+     * @return true, if is column sorting enabled
+     */
     public boolean isColumnSortingEnabled()
     {
     	return column_sorting_enabled;
     	
     }
     
+    /**
+     * Sets the column sorting enabled.
+     * 
+     * @param value the new column sorting enabled
+     */
     public void setColumnSortingEnabled(boolean value)
     {
     	column_sorting_enabled = value;	
     }
     
     
+    /**
+     * Sets the allowed actions.
+     * 
+     * @param value the new allowed actions
+     */
     public void setAllowedActions(int value)
     {
     	this.allowed_actions = value;
     }
     
+    /**
+     * Gets the allowed actions.
+     * 
+     * @return the allowed actions
+     */
     public int getAllowedActions()
     {
     	return this.allowed_actions;
     }
     
+    /**
+     * Checks if is action allowed.
+     * 
+     * @param action the action
+     * 
+     * @return true, if is action allowed
+     */
     public boolean isActionAllowed(int action)
     {
         if ((this.allowed_actions & action) == action)
@@ -495,17 +670,17 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
         log.error("Error dialog opened: Ex: " + this.exception, this.exception);
 
         
-        JList list = new JList(this.exception.getStackTrace());
+        JList list_ = new JList(this.exception.getStackTrace());
         
         //list.setComponents(this.exception.getStackTrace());
         //list.setBounds(20, 240, 300, 160);
         //panel.add(list);
         
-        JScrollPane scroll = new JScrollPane(list,
+        JScrollPane scroll_ = new JScrollPane(list_,
                                              ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, 
                                              ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scroll.setBounds(30, 250, 445, 145);
-        panel.add(scroll);
+        scroll_.setBounds(30, 250, 445, 145);
+        panel.add(scroll_);
         
         
         this.setBounds(100, 80, 520, 440);
@@ -572,6 +747,11 @@ public class ErrorDialog extends JDialog implements ActionListener //, ItemListe
 
 
 
+    /**
+     * Was action.
+     * 
+     * @return true, if successful
+     */
     public boolean wasAction()
     {
         return (this.selected_object!=null);

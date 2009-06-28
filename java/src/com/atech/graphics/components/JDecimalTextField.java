@@ -10,6 +10,7 @@ import javax.swing.text.NumberFormatter;
 
 import com.atech.utils.ATDataAccessAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -47,6 +48,12 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
     private static final long serialVersionUID = -742112156331004021L;
 
 
+    /**
+     * Instantiates a new j decimal text field.
+     * 
+     * @param value the value
+     * @param decimal_places the decimal_places
+     */
     public JDecimalTextField(Object value, int decimal_places)
     {
         super();
@@ -75,6 +82,11 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
     }
 
     
+    /**
+     * Gets the current value.
+     * 
+     * @return the current value
+     */
     public Object getCurrentValue()
     {
         try
@@ -89,17 +101,26 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
     }
     
 
+    /** 
+     * setBounds
+     */
     public void setBounds(int x, int y, int width, int height)
     {
         super.setBounds(x, y, width, height);
     }
 
 
+    /** 
+     * keyPressed
+     */
     public void keyPressed(KeyEvent arg0)
     {
     }
 
 
+    /** 
+     * keyReleased
+     */
     public void keyReleased(KeyEvent ke)
     {
         if ((ke.getKeyCode() == KeyEvent.VK_PERIOD) ||
@@ -114,6 +135,9 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
     }
 
 
+    /** 
+     * keyTyped
+     */
     public void keyTyped(KeyEvent arg0)
     {
     }

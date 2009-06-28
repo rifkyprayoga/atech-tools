@@ -10,6 +10,7 @@ import javax.swing.SpinnerNumberModel;
 import com.atech.i18n.I18nControlAbstract;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -45,18 +46,38 @@ public class TimeComponent extends JPanel
 {
 
     private static final long serialVersionUID = -7073902375512649375L;
+    
+    /**
+     * The ic.
+     */
     I18nControlAbstract ic = null;
 
+    /**
+     * The component_width.
+     */
     int component_width = 188;
+    
+    /**
+     * The component_height.
+     */
     int component_height = 25;
 
+    /**
+     * The year.
+     */
     JSpinner day, month, year;
 
+    /**
+     * The minute.
+     */
     JSpinner hour, minute;
 
 
 
 
+    /**
+     * Constructor
+     */
     public TimeComponent()
     {
 
@@ -88,6 +109,11 @@ public class TimeComponent extends JPanel
 
 
 
+    /**
+     * Set the time 
+     * 
+     * @param date
+     */
     public void setTime(int date)
     {
 
@@ -101,6 +127,11 @@ public class TimeComponent extends JPanel
     }
 
 
+    /**
+     * Gets the time.
+     * 
+     * @return the time
+     */
     public int getTime()
     {
 
@@ -111,14 +142,46 @@ public class TimeComponent extends JPanel
 
     }
 
+    /**
+     * Gets the time string.
+     * 
+     * @return the time string
+     */
+    public String getTimeString()
+    {
+
+        StringBuffer sb = new StringBuffer();
+        String h = "" + ((SpinnerNumberModel)hour.getModel()).getNumber().intValue();
+        String m = "" + ((SpinnerNumberModel)minute.getModel()).getNumber().intValue();
+        
+        if (h.length()==1)
+            sb.append("0");
+        
+        sb.append(h);
+        sb.append(":");
+        
+        if (m.length()==1)
+            sb.append("0");
+        
+        sb.append(m);
+        
+        return sb.toString();
+
+    }
 
 
+    /** 
+     * setBackground
+     */
     public void setBackground(Color bg)
     {
         super.setBackground(bg);
     }
 
 
+    /** 
+     * setEnabled
+     */
     public void setEnabled(boolean isEnabled)
     {
         hour.setEnabled(isEnabled);
@@ -128,6 +191,9 @@ public class TimeComponent extends JPanel
 
 
 
+    /** 
+     * setBounds
+     */
     public void setBounds(int x, int y, int width, int height)
     {
         super.setBounds(x,y,component_width,component_height);

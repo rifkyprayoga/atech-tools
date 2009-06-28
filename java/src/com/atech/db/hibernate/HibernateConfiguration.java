@@ -15,6 +15,7 @@ import com.atech.db.hibernate.check.DbCheckAbstract;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -48,66 +49,164 @@ import com.atech.utils.ATDataAccessAbstract;
 
 public abstract class HibernateConfiguration extends DbCheckAbstract
 {
+    
+    /**
+     * The ic.
+     */
     I18nControlAbstract ic = null;
     private Log log = LogFactory.getLog(HibernateConfiguration.class);
 
+    /**
+     * The m_da.
+     */
     protected ATDataAccessAbstract m_da = null;
 
     private String loading_db_str = "Loading Db Configuration #";
     private String cfg_file_missing_str = "Configuration file is missing. Make sure path to file is correct ";
     private String cfg_file_error_read_exc = "Error reading DB Config::Exception:";
 
+    /**
+     * The db_num.
+     */
     public int db_num = 0;
+    
+    /**
+     * The db_hib_dialect.
+     */
     public String db_hib_dialect = null; 
+    
+    /**
+     * The db_driver_class.
+     */
     public String db_driver_class = null;
+    
+    /**
+     * The db_conn_name.
+     */
     public String db_conn_name = null;
+    
+    /**
+     * The db_conn_url.
+     */
     public String db_conn_url = null;
+    
+    /**
+     * The db_conn_username.
+     */
     public String db_conn_username = null;
+    
+    /**
+     * The db_conn_password.
+     */
     public String db_conn_password = null;
+    
+    /**
+     * The data_loaded.
+     */
     public boolean data_loaded = false;
 
+    /**
+     * The str_ldo.
+     */
     public String str_ldo = null;
+    
+    /**
+     * The m_cfg.
+     */
     protected Configuration m_cfg;
+    
+    /**
+     * The session_factory.
+     */
     protected SessionFactory session_factory = null;
+    
+    /**
+     * The sessions.
+     */
     protected Hashtable<String,Session> sessions = null;
 
+    /**
+     * The Constant DB_CONTEXT_NONE.
+     */
     public static final int DB_CONTEXT_NONE = 0;
+    
+    /**
+     * The Constant DB_CONTEXT_FULL.
+     */
     public static final int DB_CONTEXT_FULL = 1;
+    
+    /**
+     * The Constant DB_CONTEXT_DBINFO.
+     */
     public static final int DB_CONTEXT_DBINFO = 2;
     
+    /**
+     * The db_context_selected.
+     */
     protected int db_context_selected = HibernateConfiguration.DB_CONTEXT_NONE;
     
     
 
+    /**
+     * Instantiates a new hibernate configuration.
+     */
     public HibernateConfiguration()
     {
         this(-1);
     }
 
+    /**
+     * Instantiates a new hibernate configuration.
+     * 
+     * @param val the val
+     */
     public HibernateConfiguration(boolean val)
     {
         loadConfiguration(-1);
     }
     
     
+    /**
+     * Instantiates a new hibernate configuration.
+     * 
+     * @param sel_db the sel_db
+     */
     public HibernateConfiguration(int sel_db)
     {
         loadConfiguration(sel_db);
     }
 
     
+    /**
+     * Instantiates a new hibernate configuration.
+     * 
+     * @param ic the ic
+     */
     public HibernateConfiguration(I18nControlAbstract ic)
     {
         this(ic, null);
     }
     
     
+    /**
+     * Instantiates a new hibernate configuration.
+     * 
+     * @param ic the ic
+     * @param da the da
+     */
     public HibernateConfiguration(I18nControlAbstract ic, ATDataAccessAbstract da)
     {
         this(ic, -1, da);
     }
 
 
+    /**
+     * Instantiates a new hibernate configuration.
+     * 
+     * @param ic the ic
+     * @param sel_db the sel_db
+     * @param da the da
+     */
     public HibernateConfiguration(I18nControlAbstract ic, int sel_db, ATDataAccessAbstract da)
     {
     	this.ic = ic;
@@ -117,6 +216,9 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     }
 
 
+    /**
+     * Inits the i18n.
+     */
     public void initI18n()
     {
     	this.loading_db_str = setI18nVariable("LOADING_DB_CONFIGURATION", this.loading_db_str);
@@ -125,6 +227,14 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     }
 
 
+    /**
+     * Sets the i18n variable.
+     * 
+     * @param key the key
+     * @param original_value the original_value
+     * 
+     * @return the string
+     */
     public String setI18nVariable(String key, String original_value)
     {
     	if (!ic.getMessage(key).equals(key)) 
@@ -134,12 +244,22 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     }
 
     
+    /**
+     * Gets the connection name.
+     * 
+     * @return the connection name
+     */
     public String getConnectionName()
     {
         return this.db_conn_name;
     }
     
     
+    /**
+     * Gets the hibernate dialect.
+     * 
+     * @return the hibernate dialect
+     */
     public String getHibernateDialect()
     {
         return this.db_hib_dialect;
@@ -212,6 +332,9 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     }
 
 
+    /**
+     * Load configuration.
+     */
     public void loadConfiguration()
     {
         loadConfiguration(-1);
@@ -219,6 +342,11 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
 
 
 
+    /**
+     * Does configuration exist.
+     * 
+     * @return true, if successful
+     */
     public boolean doesConfigurationExist()
     {
         //System.out.println(this.getConfigurationFile());
@@ -230,6 +358,11 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
 
 
 
+    /**
+     * Gets the configuration.
+     * 
+     * @return the configuration
+     */
     public Configuration getConfiguration()
     {
         Configuration cfg = this.getCustomConfiguration(this.getResourceFiles());
@@ -237,6 +370,9 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         return cfg;
     }
 
+    /** 
+     * getDbInfoConfiguration
+     */
     public Configuration getDbInfoConfiguration()
     {
         Configuration cfg = this.getCustomConfiguration(this.getDbInfoResource());
@@ -305,6 +441,9 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
      */
     public abstract int getNumberOfSessions();
     
+    /**
+     * Creates the session factory.
+     */
     public void createSessionFactory()
     {
         this.session_factory = m_cfg.buildSessionFactory();
@@ -317,11 +456,26 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         
     }
     
+    /**
+     * Gets the session.
+     * 
+     * @param num the num
+     * 
+     * @return the session
+     */
     public Session getSession(int num)
     {
         return getSession(num, false);
     }
     
+    /**
+     * Gets the session.
+     * 
+     * @param num the num
+     * @param dont_clear the dont_clear
+     * 
+     * @return the session
+     */
     public Session getSession(int num, boolean dont_clear)
     {
         if (this.session_factory==null)
@@ -335,6 +489,9 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         return s;
     }
     
+    /**
+     * Reset configuration.
+     */
     public void resetConfiguration()
     {
         closeSessions();
@@ -342,6 +499,9 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     }
     
     
+    /**
+     * Close sessions.
+     */
     public void closeSessions()
     {
         if (this.sessions!=null)
@@ -362,6 +522,9 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     }
     
     
+    /**
+     * Close db.
+     */
     public void closeDb()
     {
         
@@ -382,6 +545,11 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     }
     
     
+    /**
+     * Re init configuration.
+     * 
+     * @param type the type
+     */
     public void reInitConfiguration(int type)
     {
         if (this.db_context_selected == type)

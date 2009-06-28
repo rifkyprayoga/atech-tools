@@ -1,5 +1,6 @@
 package com.atech.graphics.components.about;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -35,11 +36,21 @@ public class FeaturesEntry
 {
     private String content;
 
+    /**
+     * Instantiates a new features entry.
+     * 
+     * @param content the content
+     */
     public FeaturesEntry(String content)
     {
         this.content = content;
     }
 
+    /**
+     * Gets the hTML code.
+     * 
+     * @return the hTML code
+     */
     public String getHTMLCode()
     {
             return "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#990033\">" + this.content + "</font></td></tr></table>"; //+

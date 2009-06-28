@@ -14,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -60,9 +61,19 @@ public class DbCheckReport
     
     private String filename = "";
     private boolean file_exists = false;
+    
+    /**
+     * The ic.
+     */
     I18nControlAbstract ic;
     private boolean can_be_started = false;
     
+    /**
+     * Instantiates a new db check report.
+     * 
+     * @param filename the filename
+     * @param ic the ic
+     */
     public DbCheckReport(String filename, I18nControlAbstract ic)
     {
         this.ic = ic;
@@ -71,6 +82,9 @@ public class DbCheckReport
         evaluateInfo();
     }
     
+    /**
+     * Read file info.
+     */
     public void readFileInfo()
     {
         try
@@ -120,6 +134,9 @@ public class DbCheckReport
     }
     
     
+    /**
+     * Evaluate info.
+     */
     public void evaluateInfo()
     {
         try
@@ -152,12 +169,20 @@ public class DbCheckReport
     
     
     
+    /**
+     * Can application start.
+     * 
+     * @return true, if successful
+     */
     public boolean canApplicationStart()
     {
         return this.can_be_started;
     }
     
 
+    /**
+     * Show error.
+     */
     public void showError()
     {
         String ver_desc = "";
@@ -180,9 +205,3 @@ public class DbCheckReport
     }
     
 }
-
-
-
-
-
-

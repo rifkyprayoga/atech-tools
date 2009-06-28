@@ -14,6 +14,7 @@ import javax.swing.JTabbedPane;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATSwingUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -49,8 +50,20 @@ public class AboutDialog extends javax.swing.JDialog
 {
 	
     private static final long serialVersionUID = 2523155552647312422L;
+    
+    /**
+     * The m_ic.
+     */
     protected I18nControlAbstract m_ic = null;
+    
+    /**
+     * The about_image.
+     */
     protected String about_image = null;
+    
+    /**
+     * The m_utils.
+     */
     ATSwingUtils m_utils = null;
 
     private boolean display_properties = true;
@@ -69,6 +82,9 @@ public class AboutDialog extends javax.swing.JDialog
     private ArrayList<LibraryInfoEntry> libraries = null;
     private ArrayList<FeaturesGroup> features = null;
 
+    /**
+     * The title.
+     */
     String title;
 
     
@@ -81,6 +97,18 @@ public class AboutDialog extends javax.swing.JDialog
 
     // tabs: about, credits, licence, libs (cst), settings
 
+    /**
+     * Instantiates a new about dialog.
+     * 
+     * @param parent the parent
+     * @param modal the modal
+     * @param ic the ic
+     * @param about_text the about_text
+     * @param libs the libs
+     * @param type_licence the type_licence
+     * @param custom the custom
+     * @param show_settings the show_settings
+     */
     public AboutDialog(JFrame parent, boolean modal, I18nControlAbstract ic,
                        String about_text, ArrayList<LibraryInfoEntry> libs, int type_licence, String custom, boolean show_settings)
     {
@@ -107,6 +135,13 @@ public class AboutDialog extends javax.swing.JDialog
 
 
 
+    /**
+     * Instantiates a new about dialog.
+     * 
+     * @param parent the parent
+     * @param modal the modal
+     * @param ic the ic
+     */
     public AboutDialog(javax.swing.JFrame parent, boolean modal, I18nControlAbstract ic)
     {
         super(parent, modal);
@@ -161,6 +196,9 @@ public class AboutDialog extends javax.swing.JDialog
     }
 
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
 
@@ -217,24 +255,40 @@ public class AboutDialog extends javax.swing.JDialog
 
 
 
+    /**
+     * Show about.
+     */
     public void showAbout()
     {
         this.setVisible(true);
     }
 
 
+    /**
+     * Sets the display properties.
+     * 
+     * @param display the new display properties
+     */
     public void setDisplayProperties(boolean display)
     {
         this.display_properties = display;
     }
 
 
+    /**
+     * Sets the display dialog centered.
+     * 
+     * @param display the new display dialog centered
+     */
     public void setDisplayDialogCentered(boolean display)
     {
         this.display_dialog_centered = display;
     }
 
 
+    /** 
+     * setSize
+     */
     public void setSize(int width, int height)
     {
         super.setSize(width, height);
@@ -247,6 +301,9 @@ public class AboutDialog extends javax.swing.JDialog
 
     }
 
+    /** 
+     * setTitle
+     */
     public void setTitle(String title)
     {
         this.title = title;
@@ -254,23 +311,43 @@ public class AboutDialog extends javax.swing.JDialog
     }
 
 
+    /**
+     * Sets the licence type.
+     * 
+     * @param licence_type the new licence type
+     */
     public void setLicenceType(int licence_type)
     {
         this.licence_type = licence_type;
     }
 
 
+    /**
+     * Sets the credits.
+     * 
+     * @param lst the new credits
+     */
     public void setCredits(ArrayList<CreditsGroup> lst)
     {
         this.credits = lst;
     }
 
+    /**
+     * Sets the libraries.
+     * 
+     * @param lie the new libraries
+     */
     public void setLibraries(ArrayList<LibraryInfoEntry> lie)
     {
         this.libraries = lie;
     }
 
 
+    /**
+     * Sets the features.
+     * 
+     * @param lie the new features
+     */
     public void setFeatures(ArrayList<FeaturesGroup> lie)
     {
         this.features = lie;
@@ -278,9 +355,22 @@ public class AboutDialog extends javax.swing.JDialog
     
     
     
+    /**
+     * The Constant PLACEMENT_BEFORE_STATIC_TABS.
+     */
     public static final int PLACEMENT_BEFORE_STATIC_TABS = 1;
+    
+    /**
+     * The Constant PLACEMENT_AFTER_STATIC_TABS.
+     */
     public static final int PLACEMENT_AFTER_STATIC_TABS = 2;
 
+    /**
+     * Adds the custom panel.
+     * 
+     * @param place the place
+     * @param panel the panel
+     */
     public void addCustomPanel(int place, AboutCustomPanel panel)
     {
         if (place == AboutDialog.PLACEMENT_BEFORE_STATIC_TABS)
@@ -326,6 +416,9 @@ public class AboutDialog extends javax.swing.JDialog
     }
 
 
+    /**
+     * Creates the about.
+     */
     public void createAbout()
     {
 
@@ -366,6 +459,9 @@ public class AboutDialog extends javax.swing.JDialog
 
 
 
+    /**
+     * Creates the system properties.
+     */
     public void createSystemProperties()
     {
 
@@ -416,11 +512,19 @@ public class AboutDialog extends javax.swing.JDialog
 
 
 
+    /**
+     * Inits the custom.
+     */
     public void initCustom()
     {
     }
 
 
+    /**
+     * Adds the about tab.
+     * 
+     * @param panel the panel
+     */
     public void addAboutTab(JPanel panel)
     {
 

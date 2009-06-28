@@ -8,6 +8,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.TreePath;
 
 
+// TODO: Auto-generated Javadoc
 /*
  * %W% %E%
  *
@@ -97,9 +98,23 @@ public class TreeTableModelAdapter extends AbstractTableModel
 {
 
     private static final long serialVersionUID = 7964220491055736055L;
+    
+    /**
+     * The tree.
+     */
     JTree tree;
+    
+    /**
+     * The tree table model.
+     */
     TreeTableModel treeTableModel;
 
+    /**
+     * Instantiates a new tree table model adapter.
+     * 
+     * @param treeTableModel the tree table model
+     * @param tree the tree
+     */
     public TreeTableModelAdapter(TreeTableModel treeTableModel, JTree tree) 
     {
         this.tree = tree;
@@ -119,41 +134,69 @@ public class TreeTableModelAdapter extends AbstractTableModel
 
     // Wrappers, implementing TableModel interface. 
 
+    /** 
+     * getColumnCount
+     */
     public int getColumnCount() 
     {
         return treeTableModel.getColumnCount();
     }
 
+    /** 
+     * getColumnName
+     */
     public String getColumnName(int column) 
     {
         return treeTableModel.getColumnName(column);
     }
 
+    /** 
+     * getColumnClass
+     */
     public Class<?> getColumnClass(int column) 
     {
         return treeTableModel.getColumnClass(column);
     }
 
+    /** 
+     * getRowCount
+     */
     public int getRowCount() 
     {
         return tree.getRowCount();
     }
 
+    /**
+     * Node for row.
+     * 
+     * @param row the row
+     * 
+     * @return the object
+     */
     protected Object nodeForRow(int row) 
     {
         TreePath treePath = tree.getPathForRow(row);
         return treePath.getLastPathComponent();         
     }
 
+    /** 
+     * getValueAt
+     */
     public Object getValueAt(int row, int column) 
     {
         return treeTableModel.getValueAt(nodeForRow(row), column);
     }
 
+    /** 
+     * isCellEditable
+     */
     public boolean isCellEditable(int row, int column) {
         return treeTableModel.isCellEditable(nodeForRow(row), column); 
     }
 
+    /** 
+     * setValueAt
+     */
     public void setValueAt(Object value, int row, int column) {
         treeTableModel.setValueAt(value, nodeForRow(row), column);
     }

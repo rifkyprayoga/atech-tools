@@ -1,5 +1,6 @@
 package com.atech.graphics.components.about;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -33,20 +34,67 @@ package com.atech.graphics.components.about;
 
 public class LibraryInfoEntry
 {
+    
+    /**
+     * The name.
+     */
     public String name;
+    
+    /**
+     * The version_used.
+     */
     public String version_used;
+    
+    /**
+     * The link_to.
+     */
     public String link_to;
+    
+    /**
+     * The licence_type.
+     */
     public String licence_type;
+    
+    /**
+     * The description.
+     */
     public String description;
+    
+    /**
+     * The copyright.
+     */
     public String copyright = null;
+    
+    /**
+     * The copyright2.
+     */
     public String copyright2 = null;
 
 
+    /**
+     * Instantiates a new library info entry.
+     * 
+     * @param name the name
+     * @param ver_used the ver_used
+     * @param link the link
+     * @param licence_type the licence_type
+     * @param desc the desc
+     */
     public LibraryInfoEntry(String name, String ver_used, String link, String licence_type, String desc)
     {
         this(name, ver_used, link, licence_type, desc, null);
     }
 
+    /**
+     * Instantiates a new library info entry.
+     * 
+     * @param name the name
+     * @param ver_used the ver_used
+     * @param link the link
+     * @param licence_type the licence_type
+     * @param desc the desc
+     * @param copyright the copyright
+     */
     public LibraryInfoEntry(String name, String ver_used, String link, String licence_type, String desc, String copyright)
     {
         this.name = name;
@@ -58,12 +106,20 @@ public class LibraryInfoEntry
     }
     
 
+    /**
+     * Sets the copy right notice2.
+     * 
+     * @param notice the new copy right notice2
+     */
     public void setCopyRightNotice2(String notice)
     {
         this.copyright2 = notice;
     }
 
 
+    /**
+     * Process link.
+     */
     public void processLink()
     {
         if (!this.link_to.startsWith("http://"))
@@ -81,6 +137,11 @@ public class LibraryInfoEntry
     }
 
 
+    /**
+     * Gets the hTML code.
+     * 
+     * @return the hTML code
+     */
     public String getHTMLCode()
     {
         processLink();

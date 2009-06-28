@@ -19,6 +19,7 @@ import org.hibernate.mapping.Value;
 
 import com.atech.db.hibernate.HibernateConfiguration;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -54,11 +55,22 @@ public abstract class ExportTool extends ImportExportAbstract
 {
 
 
+    /**
+     * Instantiates a new export tool.
+     * 
+     * @param cfg the cfg
+     * @param some the some
+     */
     public ExportTool(Configuration cfg, int some)
     {
         super(cfg, some);
     }
 
+    /**
+     * Instantiates a new export tool.
+     * 
+     * @param hib_conf the hib_conf
+     */
     public ExportTool(HibernateConfiguration hib_conf)
     {
         super(hib_conf);
@@ -67,6 +79,9 @@ public abstract class ExportTool extends ImportExportAbstract
     
 
 
+    /**
+     * Process configuration.
+     */
     public void processConfiguration()
     {
         System.out.println("Debug Configuration:");
@@ -91,6 +106,13 @@ public abstract class ExportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Gets the root class.
+     * 
+     * @param cls_name the cls_name
+     * 
+     * @return the root class
+     */
     public RootClass getRootClass(String cls_name)
     {
         Iterator<?> it = this.m_cfg.getClassMappings();
@@ -110,6 +132,11 @@ public abstract class ExportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Explore root class.
+     * 
+     * @param rc the rc
+     */
     public void exploreRootClass(RootClass rc)
     {
         System.out.println("Class Name: " + rc.getClassName());
@@ -133,6 +160,11 @@ public abstract class ExportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Explore column.
+     * 
+     * @param cl the cl
+     */
     public void exploreColumn(Column cl)
     {
 
@@ -176,11 +208,19 @@ public abstract class ExportTool extends ImportExportAbstract
      */
 
 
+    /**
+     * Export.
+     */
     public void export()
     {
         exportClass("ggc.core.db.hibernate.DayValueH");
     }
 
+    /**
+     * Export class.
+     * 
+     * @param cls_name the cls_name
+     */
     public void exportClass(String cls_name)
     {
         // String cls = "ggc.core.db.hibernate.DayValueH";
@@ -254,6 +294,13 @@ public abstract class ExportTool extends ImportExportAbstract
     }
 
 
+    /**
+     * Write header.
+     * 
+     * @param class_name the class_name
+     * @param columns the columns
+     * @param db_version the db_version
+     */
     public void writeHeader(String class_name, String columns, String db_version)
     {
 
@@ -282,6 +329,12 @@ public abstract class ExportTool extends ImportExportAbstract
 
 
     
+    /**
+     * Write header.
+     * 
+     * @param bro the bro
+     * @param db_version the db_version
+     */
     public void writeHeader(BackupRestoreObject bro, String db_version)
     {
 
@@ -315,6 +368,14 @@ public abstract class ExportTool extends ImportExportAbstract
     
 
 
+    /**
+     * Gets the data from column for object.
+     * 
+     * @param obj the obj
+     * @param column_name the column_name
+     * 
+     * @return the data from column for object
+     */
     public String getDataFromColumnForObject(Object obj, String column_name)
     {
 
@@ -372,6 +433,13 @@ public abstract class ExportTool extends ImportExportAbstract
      * (InvocationTargetException e) { System.out.println(e); } return result; }
      */
 
+    /**
+     * Gets the columns names.
+     * 
+     * @param cls_name the cls_name
+     * 
+     * @return the columns names
+     */
     public ArrayList<String> getColumnsNames(String cls_name)
     {
         RootClass rc = getRootClass(cls_name);
@@ -392,6 +460,13 @@ public abstract class ExportTool extends ImportExportAbstract
 
     }
 
+    /**
+     * Gets the data.
+     * 
+     * @param clas_name the clas_name
+     * 
+     * @return the data
+     */
     public List<?> getData(String clas_name)
     {
         Query q = getSession().createQuery(

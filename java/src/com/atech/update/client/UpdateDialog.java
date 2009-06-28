@@ -571,6 +571,9 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     }
 
     
+    /**
+     * Check Server
+     */
     public void checkServer()
     {
         
@@ -669,6 +672,9 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     }
     
     
+    /**
+     * Run Update
+     */
     public void runUpdate()
     {
         

@@ -1,5 +1,6 @@
 package com.atech.db.hibernate.transfer;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -36,18 +37,19 @@ package com.atech.db.hibernate.transfer;
 public interface BackupRestoreWorkGiver //extends BackupRestoreBase 
 {
 
-	//public String getTargetName();
-    
-    public void setStatus(int procents);
+    /**
+	 * Sets the status.
+	 * 
+	 * @param procents the new status
+	 */
+	public void setStatus(int procents);
 	
+	/**
+	 * Sets the task.
+	 * 
+	 * @param task_name the new task
+	 */
 	public void setTask(String task_name);
     
-    
-	// old
-	//public String getObjectClassName();
-	
-	//public String getObjectHeader();
-	
-	//public String getObjectValues();
 	
 }
