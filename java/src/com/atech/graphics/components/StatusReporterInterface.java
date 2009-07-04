@@ -42,5 +42,11 @@ public interface StatusReporterInterface
      * @param status the new status
      */
     public abstract void setStatus(int status);
+    
+    
+    /**
+     * Set reading finished
+     */
+    public abstract void setReadingFinished();
 
 }
