@@ -4,7 +4,13 @@ Changes file for atech-tools
 See Authors for more description on developers
 --------------------------------------------------
 
-0.3.10 (current)
+0.3.12
+
+0.3.11 [10.7.2009]
+    * Some changed for Plugin Framework v2
+    * TranslationTool changes
+
+0.3.10 [10.6.2009]
     * plugins extended with executeCommandDialogReturn
     * TranslationTool Db context, some admin classes
     * PlugInClient class changed (isActive() and isActiveWarning methods added)

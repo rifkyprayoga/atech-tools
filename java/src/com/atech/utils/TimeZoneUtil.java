@@ -162,6 +162,7 @@ public class TimeZoneUtil
 	public void setSummerTimeChange(int val)
 	{
 		this.summer_time_change = val;
+		checkActive();
 	}
 	
 	

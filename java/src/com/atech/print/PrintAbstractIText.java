@@ -209,7 +209,9 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
 
         // step1
         File fl = new File(PrintAbstractIText.print_root + this.getName());
-        Document document = new Document(PageSize.A4, 40, 40, 40, 40);
+        Document document = new Document(PageSize.A4, 30, 30, 40, 20);
+        
+        // fixme
 
         try 
         {
