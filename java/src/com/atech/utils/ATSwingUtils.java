@@ -27,7 +27,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -1299,10 +1301,93 @@ public class ATSwingUtils
         // return action;
     }
  
+
+    
+    /**
+     * Gets the numeric text field.
+     * 
+     * @param value 
+     * @param min 
+     * @param max 
+     * @param step 
+     * @param x 
+     * @param y 
+     * @param width 
+     * @param height 
+     * @param cont 
+     * 
+     * 
+     * @return the numeric text field
+     */
+    public static JSpinner getJSpinner(float value, int min, int max, float step, int x, int y, int width, int height, Container cont)
+    {
+        JSpinner sp = new JSpinner();
+        sp.setBounds(x, y, width, height);
+        
+        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step); 
+        sp.setModel(model);
+        
+        cont.add(sp);
+
+        return sp;
+    }
+    
+    
+    /**
+     * Gets the numeric text field.
+     * 
+     * @param value 
+     * @param min 
+     * @param max 
+     * @param step 
+     * @param x 
+     * @param y 
+     * @param width 
+     * @param height 
+     * @param cont 
+     * 
+     * 
+     * @return the numeric text field
+     */
+    public static JSpinner getJSpinner(float value, float min, float max, float step, int x, int y, int width, int height, Container cont)
+    {
+        JSpinner sp = new JSpinner();
+        sp.setBounds(x, y, width, height);
+        
+        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step); 
+        sp.setModel(model);
+        
+        cont.add(sp);
+
+        return sp;
+    }
     
     
     
     
+    /**
+     * Show Error Dialog
+     * 
+     * @param cont
+     * @param message
+     * @param ic
+     */
+    public static void showErrorDialog(Container cont, String message, I18nControlAbstract ic)
+    {
+        JOptionPane.showMessageDialog(cont, ic.getMessage(message), ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * Show Warning Dialog
+     * 
+     * @param cont
+     * @param message
+     * @param ic
+     */
+    public static void showWarningDialog(Container cont, String message, I18nControlAbstract ic)
+    {
+        JOptionPane.showMessageDialog(cont, ic.getMessage(message), ic.getMessage("WARNING"), JOptionPane.WARNING_MESSAGE);
+    }
     
     
     

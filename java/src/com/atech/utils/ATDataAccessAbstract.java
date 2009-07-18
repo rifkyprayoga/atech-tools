@@ -2940,8 +2940,7 @@ public String getDateTimeString(int date, int time)
         }
         catch (Exception ex)
         {
-            log.error("Error on parsing string to get int [" + aValue + "]:"
-                    + ex, ex);
+            log.error("Error on parsing string to get int [" + aValue + "]:" + ex, ex);
         }
 
         return out;
@@ -2977,8 +2976,7 @@ public String getDateTimeString(int date, int time)
         }
         catch (Exception ex)
         {
-            log.error("Error on parsing string to get long [" + aValue + "]:"
-                    + ex, ex);
+            log.error("Error on parsing string to get long [" + aValue + "]:" + ex, ex);
         }
 
         return out;
@@ -3030,11 +3028,13 @@ public String getDateTimeString(int date, int time)
         return this.backup_restore_collection;
     }
     
+    
     /**
      * Load Backup Restore Collection
      */
     public abstract void loadBackupRestoreCollection();
 
+    
     /**
      * Make i18n keyword.
      * 
@@ -3141,6 +3141,7 @@ public String getDateTimeString(int date, int time)
      */
     public abstract void loadGraphConfigProperties();
     
+    
     /**
      * Gets the graph config properties.
      * 
@@ -3150,6 +3151,7 @@ public String getDateTimeString(int date, int time)
     {
         return this.graph_config;
     }
+
     
     /**
      * Sets the graph config properties.
@@ -3160,7 +3162,6 @@ public String getDateTimeString(int date, int time)
     {
         this.graph_config = config;
     }
-    
     
     
     /**
@@ -3178,7 +3179,6 @@ public String getDateTimeString(int date, int time)
     {
         return special_parameters;
     }
-    
     
     
     /**

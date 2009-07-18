@@ -52,7 +52,7 @@ public class DecimalHandler
         
         String decs = "#0.";
         
-        for(int i=1; i<max_decimal; i++)
+        for(int i=1; i<=max_decimal; i++)
         {
             decs += "0";
             this.formaters.add(new DecimalFormat(decs));
