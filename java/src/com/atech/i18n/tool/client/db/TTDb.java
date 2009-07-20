@@ -105,6 +105,8 @@ public class TTDb extends HibernateDb // implements DbCheckInterface HibernateDb
         //System.out.println("GGCDb");
         //System.out.println("m_da: " + m_da);
         //System.out.println("m_da.getSettings(): " + m_da.getSettings());
+        
+        
         //createDatabase();
         
         m_loadStatus = DB_CONFIG_LOADED;

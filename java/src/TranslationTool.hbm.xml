@@ -9,7 +9,7 @@
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
         <property name="name" type="string"  length="10" not-null="true" />    
-        <property name="desc" type="string"  length="255"/>    
+        <property name="description" type="string"  length="255"/>    
     </class>
 
 
@@ -28,7 +28,7 @@
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
         <property name="name" type="string"  length="40" not-null="true" />    
-        <property name="desc" type="string"  length="255"/>    
+        <property name="description" type="string"  length="255"/>    
     </class>
 
 
@@ -37,7 +37,7 @@
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
         <property name="name" type="string"  length="40" not-null="true" />    
-        <property name="desc" type="string"  length="255"/>    
+        <property name="description" type="string"  length="255"/>    
         <property name="app_id" type="long" not-null="true" />    
 		
     </class>
@@ -47,7 +47,7 @@
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
         <property name="name" type="string"  length="40" not-null="true" />    
-        <property name="desc" type="string"  length="255"/>    
+        <property name="description" type="string"  length="255"/>    
         <property name="module_id" type="long" not-null="true" />    
     </class>
 
@@ -62,6 +62,8 @@
 
         <property name="keyword" type="string" length="255"/>    
         <property name="value" type="text" />    
+        <property name="linked_var" type="long" />
+        <property name="description" type="string"  length="255"/>    
         <property name="changed" type="long" />    
     </class>
 
