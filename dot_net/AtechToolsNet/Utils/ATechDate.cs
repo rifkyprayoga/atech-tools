@@ -60,46 +60,46 @@ public class ATechDate
     /**
      * The Constant FORMAT_DATE_ONLY.
      */
-    public static const int FORMAT_DATE_ONLY            = 1;
+    public const int FORMAT_DATE_ONLY            = 1;
     
     /**
      * The Constant FORMAT_TIME_ONLY_MIN.
      */
-    public static const int FORMAT_TIME_ONLY_MIN        = 2;
+    public const int FORMAT_TIME_ONLY_MIN        = 2;
     
     /**
      * The Constant FORMAT_TIME_ONLY_S.
      */
-    public static const int FORMAT_TIME_ONLY_S          = 3;
+    public const int FORMAT_TIME_ONLY_S          = 3;
     
     /**
      * The Constant FORMAT_TIME_ONLY_MS.
      */
-    public static const int FORMAT_TIME_ONLY_MS         = 4;
+    public const int FORMAT_TIME_ONLY_MS         = 4;
     
     /**
      * The Constant FORMAT_DATE_AND_TIME_MIN.
      */
-    public static const int FORMAT_DATE_AND_TIME_MIN    = 5;
+    public const int FORMAT_DATE_AND_TIME_MIN    = 5;
     
     /**
      * The Constant FORMAT_DATE_AND_TIME_S.
      */
-    public static const int FORMAT_DATE_AND_TIME_S      = 6;
+    public const int FORMAT_DATE_AND_TIME_S      = 6;
     
     /**
      * The Constant FORMAT_DATE_AND_TIME_MS.
      */
-    public static const int FORMAT_DATE_AND_TIME_MS     = 7;
+    public const int FORMAT_DATE_AND_TIME_MS     = 7;
 
 
-    public static const int DATETIME_YEAR = 1;
-    public static const int DATETIME_MONTH = 2;
-    public static const int DATETIME_DAY_OF_MONTH = 3;
-    public static const int DATETIME_HOUR_OF_DAY = 4;
-    public static const int DATETIME_MINUTE = 5;
-    public static const int DATETIME_SECOND = 6;
-    public static const int DATETIME_MILISECOND = 7;
+    public const int DATETIME_YEAR = 1;
+    public const int DATETIME_MONTH = 2;
+    public const int DATETIME_DAY_OF_MONTH = 3;
+    public const int DATETIME_HOUR_OF_DAY = 4;
+    public const int DATETIME_MINUTE = 5;
+    public const int DATETIME_SECOND = 6;
+    public const int DATETIME_MILISECOND = 7;
 
 
 

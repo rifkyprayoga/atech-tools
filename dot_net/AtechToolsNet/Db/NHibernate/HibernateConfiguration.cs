@@ -125,17 +125,17 @@ public abstract class HibernateConfiguration : DbCheckAbstract
     /**
      * The Constant DB_CONTEXT_NONE.
      */
-    public static const int DB_CONTEXT_NONE = 0;
+    public const int DB_CONTEXT_NONE = 0;
     
     /**
      * The Constant DB_CONTEXT_FULL.
      */
-    public static const int DB_CONTEXT_FULL = 1;
+    public const int DB_CONTEXT_FULL = 1;
     
     /**
      * The Constant DB_CONTEXT_DBINFO.
      */
-    public static const int DB_CONTEXT_DBINFO = 2;
+    public const int DB_CONTEXT_DBINFO = 2;
     
     /**
      * The db_context_selected.
@@ -235,8 +235,8 @@ public abstract class HibernateConfiguration : DbCheckAbstract
      */
     public String SetI18nVariable(String key, String original_value)
     {
-    	if (!ic.getMessage(key).Equals(key)) 
-    	    return ic.getMessage(key);
+    	if (!ic.GetMessage(key).Equals(key)) 
+    	    return ic.GetMessage(key);
     	else
     	    return original_value;
     }
@@ -247,9 +247,12 @@ public abstract class HibernateConfiguration : DbCheckAbstract
      * 
      * @return the connection name
      */
-    public String GetConnectionName()
+    public String ConnectionName
     {
-        return this.db_conn_name;
+        get
+        {
+            return this.db_conn_name;
+        }
     }
     
     
@@ -258,9 +261,12 @@ public abstract class HibernateConfiguration : DbCheckAbstract
      * 
      * @return the hibernate dialect
      */
-    public String GetHibernateDialect()
+    public String HibernateDialect
     {
-        return this.db_hib_dialect;
+        get
+        {
+            return this.db_hib_dialect;
+        }
     }
 
 
@@ -428,7 +434,7 @@ public abstract class HibernateConfiguration : DbCheckAbstract
      * 
      * @return 
      */
-    public abstract String GetConfigurationFile();
+    public abstract String ConfigurationFile { get; }
     
     /**
      * Get Resource Files
@@ -442,7 +448,7 @@ public abstract class HibernateConfiguration : DbCheckAbstract
      * 
      * @return 
      */
-    public abstract int GetNumberOfSessions();
+    public abstract int NumberOfSessions { get; }
     
     /**
      * Creates the session factory.
@@ -579,6 +585,12 @@ public abstract class HibernateConfiguration : DbCheckAbstract
     }
     
     
+    public abstract string DbName { get; }
+
+
+
+
+
 }
 
 

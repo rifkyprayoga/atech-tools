@@ -32,6 +32,8 @@
 using System;
 using log4net;
 using System.Text;
+using System.IO;
+using ATechTools.Util;
 namespace ATechTools.Db.NHibernate.Check
 {
 
@@ -47,7 +49,7 @@ public class DbCheck
     
     ATDataAccessAbstract da = null;
     
-    UpdateConfiguration upd_conf;
+//    UpdateConfiguration upd_conf;
     
     private ILog log = LogManager.GetLogger(typeof(DbCheck));
 
@@ -56,9 +58,9 @@ public class DbCheck
     private String version_db = "0";
     private String version_db_required = "0";
     
-    //private String report_file = "db_info.txt";
+    private String report_file = "db_info.txt";
     
-    private boolean get_successful = false;
+    private bool get_successful = false;
     private HibernateConfiguration hc = null; 
     
     /**
@@ -110,8 +112,10 @@ public class DbCheck
      */
     public void readUpdateSystemData()
     {
+        /*
         this.version_db_required = "" + this.upd_conf.db_version_required;
         this.db_config_instance_class = this.upd_conf.db_config_class;
+         */
     }
     
     /**
@@ -196,7 +200,7 @@ public class DbCheck
         StringBuilder sb1 = new StringBuilder();
         
         sb.Append("DbInfo for ");
-        sb.Append(this.hc.getDbName());
+        sb.Append(this.hc.DbName);
         sb.Append(": ");
         
         if (this.get_successful)
@@ -226,14 +230,16 @@ public class DbCheck
         
         try
         {
-        
-            BufferedWriter bw = new BufferedWriter(new FileWriter(this.hc.getDbInfoReportFilename()));
-            bw.write(sb.toString());
-            bw.close();
+
+            StreamWriter s = File.CreateText(report_file);
+
+            s.Write(sb.ToString());
+            s.Close();
+
         }
         catch(Exception ex)
         {
-            log.error("Error writing report to file: " + ex, ex);
+            log.Error("Error writing report to file: " + ex, ex);
         }
         
     }
@@ -247,14 +253,15 @@ public class DbCheck
      */
     public static void main(String[] args)
     {
+        /*
         if (args.length==0)
         {
-            /*DbCheck dbc =*/ new DbCheck();
+            new DbCheck();
         }
         else
         {
-            /*DbCheck dbc =*/ new DbCheck(args[0], args[1]);
-        }
+            new DbCheck(args[0], args[1]);
+        }*/
     }
 
     

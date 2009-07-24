@@ -33,6 +33,11 @@
 using System;
 using log4net;
 using NHibernate.Util;
+using System.Collections.Generic;
+using ATechTools.I18n;
+using ATechTools.Db.NHibernate;
+using System.ComponentModel;
+using System.Text;
 namespace ATechTools.Util
 {
 
@@ -44,7 +49,7 @@ public abstract class ATDataAccessAbstract
     private ILog log = LogManager.GetLogger(typeof(ATDataAccessAbstract));
 
     // LF
-    // Hashtable<String,String> availableLF_full = null;
+    // Dictionary<String,String> availableLF_full = null;
     // Object[] availableLF = null;
     // Object[] availableLang = null;
 
@@ -62,7 +67,7 @@ public abstract class ATDataAccessAbstract
     /**
      * The config_db_values.
      */
-    Hashtable<String, String> config_db_values = null;
+    Dictionary<String, String> config_db_values = null;
     // public int selected_db = -1;
     // public int selected_lang = 1;
     // public String selected_LF_Class = null; // class
@@ -74,7 +79,7 @@ public abstract class ATDataAccessAbstract
     /**
      * The m_settings_ht.
      */
-    public Hashtable<String, String> m_settings_ht = null;
+    public Dictionary<String, String> m_settings_ht = null;
 
     /**
      * The path prefix.
@@ -84,17 +89,17 @@ public abstract class ATDataAccessAbstract
     /**
      * The color_background.
      */
-    public Color color_background; 
+    //public Color color_background; 
     
     /**
      * The color_foreground.
      */
-    public Color color_foreground;
+    //public Color color_foreground;
 
     /**
      * The m_lang_info.
      */
-    protected LanguageInfo m_lang_info;
+    //protected LanguageInfo m_lang_info;
     
     //public boolean printing_plugin_installed = false;
 
@@ -110,7 +115,7 @@ public abstract class ATDataAccessAbstract
      * The options_yes_no.
      */
     public String[] options_yes_no = null;
-    // x public Hashtable typesHT = new Hashtable();
+    // x public Dictionary typesHT = new Dictionary();
     /**
      * The types all.
      */
@@ -125,24 +130,24 @@ public abstract class ATDataAccessAbstract
     /**
      * The plugins.
      */
-    public Hashtable<String,PlugInClient> plugins;
+    //public Dictionary<String,PlugInClient> plugins;
     
     /**
      * The fonts.
      */
-    public Font fonts[] = null;
+    //public Font[] fonts = null;
 
     // Configuration icons
 
     /**
      * The m_collator.
      */
-    protected Collator m_collator = null;
+    //protected Collator m_collator = null;
     
     /**
      * The parent.
      */
-    protected Container parent = null;
+    //protected Container parent = null;
 
     
     /**
@@ -155,20 +160,20 @@ public abstract class ATDataAccessAbstract
      */
     public static char false_decimal;
     
-    private static boolean decimals_set;
+    private static bool decimals_set;
     
-    private UpdateConfiguration update_configuration = null;
+    //private UpdateConfiguration update_configuration = null;
 
     /**
      * The graph_config.
      */
-    protected GraphConfigProperties graph_config = null;
+    //protected GraphConfigProperties graph_config = null;
     //private static HibernateDb m_db_hib;
     
     /**
      * The special_parameters.
      */
-    protected Hashtable<String, String> special_parameters = null;
+    protected Dictionary<String, String> special_parameters = null;
     
     /*
      * ABS REMOVED
@@ -252,15 +257,15 @@ public abstract class ATDataAccessAbstract
         this.m_i18n = ic;
         loadArraysTranslation();
         checkPrerequisites();
-        loadFonts();
-        m_settings_ht = new Hashtable<String, String>();
-        plugins = new Hashtable<String,PlugInClient>();
-        this.m_collator = this.m_i18n.getCollationDefintion();
-        loadPlugIns();
-        loadBackupRestoreCollection();
+        //loadFonts();
+        m_settings_ht = new Dictionary<String, String>();
+        //plugins = new Dictionary<String,PlugInClient>();
+        //this.m_collator = this.m_i18n.getCollationDefintion();
+        //loadPlugIns();
+        //loadBackupRestoreCollection();
         
-        if (!ATDataAccessAbstract.decimals_set)
-            initDecimals();
+        //if (!ATDataAccessAbstract.decimals_set)
+        //    initDecimals();
 
 
 //        initSpecial();
@@ -320,27 +325,27 @@ public abstract class ATDataAccessAbstract
     public void loadArraysTranslation()
     {
         // months
-        months[0] = m_i18n.getMessage("JANUARY");
-        months[1] = m_i18n.getMessage("FEBRUARY");
-        months[2] = m_i18n.getMessage("MARCH");
-        months[3] = m_i18n.getMessage("APRIL");
-        months[4] = m_i18n.getMessage("MAY");
-        months[5] = m_i18n.getMessage("JUNE");
-        months[6] = m_i18n.getMessage("JULY");
-        months[7] = m_i18n.getMessage("AUGUST");
-        months[8] = m_i18n.getMessage("SEPTEMBER");
-        months[9] = m_i18n.getMessage("OCTOBER");
-        months[10] = m_i18n.getMessage("NOVEMBER");
-        months[11] = m_i18n.getMessage("DECEMBER");
+        months[0] = m_i18n.GetMessage("JANUARY");
+        months[1] = m_i18n.GetMessage("FEBRUARY");
+        months[2] = m_i18n.GetMessage("MARCH");
+        months[3] = m_i18n.GetMessage("APRIL");
+        months[4] = m_i18n.GetMessage("MAY");
+        months[5] = m_i18n.GetMessage("JUNE");
+        months[6] = m_i18n.GetMessage("JULY");
+        months[7] = m_i18n.GetMessage("AUGUST");
+        months[8] = m_i18n.GetMessage("SEPTEMBER");
+        months[9] = m_i18n.GetMessage("OCTOBER");
+        months[10] = m_i18n.GetMessage("NOVEMBER");
+        months[11] = m_i18n.GetMessage("DECEMBER");
 
         // days
-        days[0] = m_i18n.getMessage("MONDAY");
-        days[1] = m_i18n.getMessage("TUESDAY");
-        days[2] = m_i18n.getMessage("WEDNESDAY");
-        days[3] = m_i18n.getMessage("THURSDAY");
-        days[4] = m_i18n.getMessage("FRIDAY");
-        days[5] = m_i18n.getMessage("SATURDAY");
-        days[6] = m_i18n.getMessage("SUNDAY");
+        days[0] = m_i18n.GetMessage("MONDAY");
+        days[1] = m_i18n.GetMessage("TUESDAY");
+        days[2] = m_i18n.GetMessage("WEDNESDAY");
+        days[3] = m_i18n.GetMessage("THURSDAY");
+        days[4] = m_i18n.GetMessage("FRIDAY");
+        days[5] = m_i18n.GetMessage("SATURDAY");
+        days[6] = m_i18n.GetMessage("SUNDAY");
 
     }
 
@@ -348,6 +353,8 @@ public abstract class ATDataAccessAbstract
     
     private void initDecimals()
     {
+        // FIXME
+        /*
         DecimalFormatSymbols dfs = new DecimalFormat().getDecimalFormatSymbols();
         
         ATDataAccessAbstract.real_decimal = dfs.getDecimalSeparator();
@@ -362,6 +369,7 @@ public abstract class ATDataAccessAbstract
         
         
         ATDataAccessAbstract.decimals_set = true;
+         */
     }
     
     
@@ -375,7 +383,7 @@ public abstract class ATDataAccessAbstract
     /**
      * The components.
      */
-    protected ArrayList<Component> components = new ArrayList<Component>();
+//    protected ArrayList<Component> components = new ArrayList<Component>();
 
     
     /**
@@ -383,47 +391,45 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the current component parent
      */
-    public Component getCurrentComponentParent()
+/*    public Component getCurrentComponentParent()
     {
         return this.components.get(this.components.size() - 2);
-    }
+    } */
     
     /**
      * Gets the current component.
      * 
      * @return the current component
      */
-    public Component getCurrentComponent()
+/*    public Component getCurrentComponent()
     {
         return this.components.get(this.components.size() - 1);
-    }
+    } */
 
     /**
      * Adds the component.
      * 
      * @param cmp the cmp
      */
-    public void addComponent(Component cmp)
+/*    public void addComponent(Component cmp)
     {
-        //Console.WriteLine("Add: " + this.components);
         this.components.add(cmp);
-        //Console.WriteLine("Add: " + this.components);
-    }
+    } */
 
     /**
      * List components.
      */
-    public void listComponents()
+/*    public void listComponents()
     {
         Console.WriteLine("Lst: " + this.components);
-    }
+    } */
     
     /**
      * Removes the component.
      * 
      * @param cmp the cmp
      */
-    public void removeComponent(Component cmp)
+/*    public void removeComponent(Component cmp)
     {
         //int curr = 0;
         ArrayList<Component> cmps_new = new ArrayList<Component>();
@@ -443,7 +449,7 @@ public abstract class ATDataAccessAbstract
 
         this.components = cmps_new;
         // Console.WriteLine("Remove: " + this.components);
-    }
+    } */
 
     // ********************************************************
     // ****** Error handling *****
@@ -475,9 +481,9 @@ public abstract class ATDataAccessAbstract
     public void createErrorDialog(String module, String action, Exception ex,
             String err_msg1, String err_msg2)
     {
-
-        
-        if (this.getCurrentComponentParent() is JFrame)
+        log.Warn("createErrorDialog not implemented yet !");
+        // FIXME
+/*        if (this.getCurrentComponentParent() is JFrame)
         {
             new ErrorDialog((JFrame)this.getCurrentComponentParent(),
                     this, "GGC", module, action, ex, err_msg1, err_msg2);
@@ -487,7 +493,7 @@ public abstract class ATDataAccessAbstract
              new ErrorDialog((JDialog)this.getCurrentComponentParent(),
                         this, "GGC", module, action, ex, err_msg1, err_msg2);
         }
-        
+  */      
         
         
         /*
@@ -592,21 +598,21 @@ public abstract class ATDataAccessAbstract
     /**
      * The main_parent.
      */
-    JFrame main_parent = null;
+//    JFrame main_parent = null;
 
     /**
      * Get Application Name
      * 
      * @return
      */
-    public abstract String getApplicationName();
+    public abstract String ApplicationName { get; }
 
     /**
      * Get Images Root (Must have ending back-slash)
      * 
      * @return
      */
-    public abstract String getImagesRoot();
+    public abstract String ImagesRoot { get; }
 
     /**
      * The main_parent_type.
@@ -618,10 +624,10 @@ public abstract class ATDataAccessAbstract
      * 
      * @param frame the new main parent
      */
-    public void setMainParent(JFrame frame)
+    public void setMainParent(object frame)
     {
-        this.main_parent = frame;
-        this.addComponent(this.main_parent);
+//        this.main_parent = frame;
+//        this.addComponent(this.main_parent);
         //this.addContainer((Container)this.main_parent);
     }
 
@@ -630,10 +636,10 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the main parent
      */
-    public JFrame getMainParent()
+/*    public JFrame getMainParent()
     {
         return this.main_parent;
-    }
+    } */
 
     /**
      * Check Prerequisites
@@ -647,24 +653,24 @@ public abstract class ATDataAccessAbstract
     /**
      * The help_context.
      */
-    HelpContext help_context = null;
+//    HelpContext help_context = null;
 
     /**
      * Gets the help context.
      * 
      * @return the help context
      */
-    public HelpContext getHelpContext()
+/*    public HelpContext getHelpContext()
     {
         return this.help_context;
-    }
+    }*/
 
     /**
      * Sets the help context.
      * 
      * @param hc the new help context
      */
-    public void setHelpContext(HelpContext hc)
+/*    public void setHelpContext(HelpContext hc)
     {
         this.help_context = hc;
     }
@@ -674,7 +680,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @param hc the hc
      */
-    public void enableHelp(HelpCapable hc)
+/*    public void enableHelp(HelpCapable hc)
     {
         this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(), hc.getHelpId(), null);
         this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
@@ -689,7 +695,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the j button
      */
-    public JButton createHelpButtonBySize(int width, int height, Container comp)
+/*    public JButton createHelpButtonBySize(int width, int height, Container comp)
     {
         JButton help_button = new JButton("    "
                 + this.getI18nControlInstance().getMessage("HELP"));
@@ -713,7 +719,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the j button
      */
-    public JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp)
+/*    public JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp)
     {
         return createHelpButtonByBounds(x, y, width, height, comp, null);
     }
@@ -731,7 +737,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the j button
      */
-    public JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, int font_id)
+/*    public JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, int font_id)
     {
         return createHelpButtonByBounds(x, y, width, height, comp, this.getFont(font_id));
     }
@@ -748,7 +754,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the j button
      */
-    public JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, Font font)
+/*    public JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, Font font)
     {
         JButton help_button = new JButton("    " + this.getI18nControlInstance().getMessage("HELP"));
         help_button.setBounds(x, y, width, height);
@@ -793,11 +799,11 @@ public abstract class ATDataAccessAbstract
      * @param key the key
      * @param plugin the plugin
      */
-    public void addPlugIn(String key, PlugInClient plugin)
+/*    public void addPlugIn(String key, PlugInClient plugin)
     {
         this.plugins.put(key, plugin);
     }
-    
+  */  
     /**
      * Gets the plug in.
      * 
@@ -805,11 +811,11 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the plug in
      */
-    public PlugInClient getPlugIn(String key)
+/*    public PlugInClient getPlugIn(String key)
     {
         return this.plugins.get(key);
     }
-    
+  */  
     
     
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -822,14 +828,14 @@ public abstract class ATDataAccessAbstract
     /**
      * The config_loaded.
      */
-    public boolean config_loaded = false;
+    public bool config_loaded = false;
 
     /**
      * Was config loaded.
      * 
      * @return true, if successful
      */
-    public boolean wasConfigLoaded()
+    public bool wasConfigLoaded()
     {
         return this.config_loaded;
     }
@@ -841,12 +847,12 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the hashtable< string, string>
      */
-    public Hashtable<String, String> loadPropertyFile(String filename)
+    public Dictionary<String, String> loadPropertyFile(String filename)
     {
 
-        Hashtable<String, String> config_db_values_ = new Hashtable<String, String>();
+        Dictionary<String, String> config_db_values_ = new Dictionary<String, String>();
 
-        Properties props = new Properties();
+        PropertiesFile props = new PropertiesFile();
 
         this.config_loaded = true;
 
@@ -855,8 +861,9 @@ public abstract class ATDataAccessAbstract
             //File f = new File(".");
             //Console.WriteLine("File: " + f.getCanonicalPath());
 
-            FileInputStream in = new FileInputStream(filename);
-            props.load(in);
+            if (!props.LoadFile(filename))
+                throw new Exception("File not found !");
+
         }
         catch (Exception ex)
         {
@@ -867,12 +874,7 @@ public abstract class ATDataAccessAbstract
 
         if (this.config_loaded)
         {
-
-            for (Enumeration<Object> en = props.keys(); en.hasMoreElements();)
-            {
-                String key = (String) en.nextElement();
-                config_db_values_.put(key, props.getProperty(key));
-            }
+            config_db_values_ = props.CloneProperties();
         }
         else
             return null;
@@ -912,7 +914,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return true, if is db loaded for status
      */
-    public boolean isDbLoadedForStatus(int status)
+    public bool isDbLoadedForStatus(int status)
     {
         if ((this.db_loading_status == status)
                 || (this.db_loading_status > status))
@@ -921,34 +923,6 @@ public abstract class ATDataAccessAbstract
             return false;
     }
 
-    // ********************************************************
-    // ****** Demo stuff *****
-    // ********************************************************
-
-    /**
-     * The m_dialog.
-     */
-    JDialog m_dialog = null;
-
-    /**
-     * Gets the opened dialog.
-     * 
-     * @return the opened dialog
-     */
-    public JDialog getOpenedDialog()
-    {
-        return this.m_dialog;
-    }
-
-    /**
-     * Sets the opened dialog.
-     * 
-     * @param dialog the new opened dialog
-     */
-    public void setOpenedDialog(JDialog dialog)
-    {
-        this.m_dialog = dialog;
-    }
 
     // ********************************************************
     // ****** Help stuff *****
@@ -961,44 +935,44 @@ public abstract class ATDataAccessAbstract
     /**
      * The Constant FONT_BIG_BOLD.
      */
-    public static const int FONT_BIG_BOLD = 0;
+    public const int FONT_BIG_BOLD = 0;
     
     /**
      * The Constant FONT_NORMAL.
      */
-    public static const int FONT_NORMAL = 1;
+    public const int FONT_NORMAL = 1;
     
     /**
      * The Constant FONT_NORMAL_BOLD.
      */
-    public static const int FONT_NORMAL_BOLD = 2;
+    public const int FONT_NORMAL_BOLD = 2;
     
     /**
      * The Constant FONT_NORMAL_P2.
      */
-    public static const int FONT_NORMAL_P2 = 3;
+    public const int FONT_NORMAL_P2 = 3;
     
     /**
      * The Constant FONT_NORMAL_BOLD_P2.
      */
-    public static const int FONT_NORMAL_BOLD_P2 = 4;
+    public const int FONT_NORMAL_BOLD_P2 = 4;
 
     /**
      * The Constant FONT_UPDATE_TREE_HEADER.
      */
-    public static const int FONT_UPDATE_TREE_HEADER = 5;
+    public const int FONT_UPDATE_TREE_HEADER = 5;
     
     /**
      * The Constant FONT_UPDATE_TREE_ITEM.
      */
-    public static const int FONT_UPDATE_TREE_ITEM = 6;
+    public const int FONT_UPDATE_TREE_ITEM = 6;
 
     /**
      * Load fonts.
      */
     public void loadFonts()
     {
-
+        /*
         fonts = new Font[7];
         fonts[0] = new Font("SansSerif", Font.BOLD, 22);
         fonts[1] = new Font("SansSerif", Font.PLAIN, 12);
@@ -1008,7 +982,7 @@ public abstract class ATDataAccessAbstract
 
         fonts[5] = new Font("SansSerif", Font.BOLD, 12);
         fonts[6] = new Font("SansSerif", Font.PLAIN, 12);
-        
+        */
     }
 
     /**
@@ -1087,7 +1061,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @param component the new parent
      */
-    public void setParent(Container component)
+/*    public void setParent(Container component)
     {
         this.parent = component;
     }
@@ -1097,7 +1071,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the parent
      */
-    public Component getParent()
+/*    public Component getParent()
     {
         return this.parent;
     }
@@ -1110,7 +1084,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the image icon_22x22
      */
-    public ImageIcon getImageIcon_22x22(String name, Container comp)
+/*    public ImageIcon getImageIcon_22x22(String name, Container comp)
     {
         return getImageIcon(name, 22, 22, comp);
     }
@@ -1125,7 +1099,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the image icon
      */
-    public ImageIcon getImageIcon(String name, int width, int height,
+/*    public ImageIcon getImageIcon(String name, int width, int height,
             Container comp)
     {
         return getImageIcon(this.getImagesRoot(), name, width, height, comp);
@@ -1142,7 +1116,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the image icon
      */
-    public ImageIcon getImageIcon(String root, String name, int width,
+/*    public ImageIcon getImageIcon(String root, String name, int width,
             int height, Container comp)
     {
         return new ImageIcon(getImage(root + name, comp).getScaledInstance(
@@ -1157,7 +1131,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the image icon
      */
-    public ImageIcon getImageIcon(String name, Container comp)
+/*    public ImageIcon getImageIcon(String name, Container comp)
     {
         return getImageIcon(this.getImagesRoot(), name);
     }
@@ -1171,7 +1145,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the image icon
      */
-    public ImageIcon getImageIcon(String root, String name, Component comp)
+/*    public ImageIcon getImageIcon(String root, String name, Component comp)
     {
         return new ImageIcon(getImage(root + name, comp));
     }
@@ -1183,31 +1157,31 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the image icon
      */
-    public ImageIcon getImageIcon(String name)
-    {
-        return getImageIcon(this.getImagesRoot(), name);
-    }
+    /*    public ImageIcon getImageIcon(String name)
+        {
+            return getImageIcon(this.getImagesRoot(), name);
+        }
 
-    /**
-     * Gets the image icon.
-     * 
-     * @param root the root
-     * @param name the name
-     * 
-     * @return the image icon
-     */
-    public ImageIcon getImageIcon(String root, String name)
-    {
-        //File f = new File(".");
+        /**
+         * Gets the image icon.
+         * 
+         * @param root the root
+         * @param name the name
+         * 
+         * @return the image icon
+         */
+    /*    public ImageIcon getImageIcon(String root, String name)
+        {
+            //File f = new File(".");
         
-        //Console.WriteLine("Start path: " + f.getAbsolutePath());
-        //Console.WriteLine("Image: " + root + name);
+            //Console.WriteLine("Start path: " + f.getAbsolutePath());
+            //Console.WriteLine("Image: " + root + name);
         
-        //Console.WriteLine("parent: " + this.getCurrentComponentParent());
+            //Console.WriteLine("parent: " + this.getCurrentComponentParent());
         
-        return new ImageIcon(getImage(root + name, this.getCurrentComponentParent()));
-    }
-
+            return new ImageIcon(getImage(root + name, this.getCurrentComponentParent()));
+        }
+    */
     // ********************************************************
     // ****** Sorting algorithms *****
     // ********************************************************
@@ -1220,7 +1194,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the int
      */
-    public int compareUnicodeStrings(String s1, String s2)
+/*    public int compareUnicodeStrings(String s1, String s2)
     {
         return this.m_collator.compare(s1, s2);
     }
@@ -1235,7 +1209,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @param dialog the dialog
      */
-    public void centerJDialog(Component dialog)
+/*    public void centerJDialog(Component dialog)
     {
         Component cmp = this.getCurrentComponentParent();
         
@@ -1251,7 +1225,7 @@ public abstract class ATDataAccessAbstract
      * @param dialog the dialog
      * @param _parent the _parent
      */
-    public void centerJDialog(Component dialog, Component /*Container*/ _parent)
+/*    public void centerJDialog(Component dialog, Component  _parent)
     {
 
         Rectangle rec = _parent.getBounds();
@@ -1281,7 +1255,7 @@ public abstract class ATDataAccessAbstract
          * if (parent is JDialog) { //centerJDialog(dialog,
          * (JDialog)parent); } else Console.WriteLine("CenterJDialog failed");
          */
-    }
+    //}
 
     /*
      * public void centerJDialog(JDialog dialog, JComponent parent) {
@@ -1310,7 +1284,7 @@ public abstract class ATDataAccessAbstract
     /*
      * public void loadAvailableLFs() {
      * 
-     * availableLF_full = new Hashtable<String,String>();
+     * availableLF_full = new Dictionary<String,String>();
      * UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
      * 
      * availableLF = new Object[info.length+1];
@@ -1360,7 +1334,7 @@ public abstract class ATDataAccessAbstract
     /**
      * Load colors.
      */
-    public void loadColors()
+/*    public void loadColors()
     {
         ColorUIResource cui = (ColorUIResource) UIManager.getLookAndFeel()
                 .getDefaults().get("textText");
@@ -1374,7 +1348,7 @@ public abstract class ATDataAccessAbstract
 
         this.border_line = new LineBorder(this.color_foreground);
     }
-
+    */
     // ********************************************************
     // ****** Languages *****
     // ********************************************************
@@ -1433,341 +1407,6 @@ public abstract class ATDataAccessAbstract
     // ****** JFormatted Text Field *****
     // ********************************************************
 
-    /**
-     * Gets the j formated text value int.
-     * 
-     * @param ftf the ftf
-     * 
-     * @return the j formated text value int
-     */
-    public int getJFormatedTextValueInt(JFormattedTextField ftf)
-    {
-        try
-        {
-            ftf.commitEdit();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Exception on commit value:" + ex);
-        }
-
-        Object o = ftf.getValue();
-
-        if (o is Int32)
-        {
-            // Console.WriteLine("Amount(long): " +
-            // this.amountField.getValue());
-            Int32 l = (Int32) o;
-            return l.intValue();
-        }
-        else if (o is Int64)
-        {
-            Int64 l = (Int64) o;
-            return l.intValue();
-        }
-        else if (o is Byte)
-        {
-            Byte b = (Byte) o;
-            return b.intValue();
-        }
-        else if (o is Short)
-        {
-            Short s = (Short) o;
-            return s.intValue();
-        }
-        else if (o is Float)
-        {
-            Float f = (Float) o;
-            return f.intValue();
-        }
-        else
-        // if (o is Double)
-        {
-            Double d = (Double) o;
-            return d.intValue();
-        }
-
-    }
-
-    /**
-     * Gets the j formated text value long.
-     * 
-     * @param ftf the ftf
-     * 
-     * @return the j formated text value long
-     */
-    public long getJFormatedTextValueInt64(JFormattedTextField ftf)
-    {
-        try
-        {
-            ftf.commitEdit();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Exception on commit value:" + ex);
-        }
-
-        Object o = ftf.getValue();
-
-        if (o is Int64)
-        {
-            Int64 l = (Int64) o;
-            return l.longValue();
-        }
-        else if (o is Int32)
-        {
-            Int32 l = (Int32) o;
-            return l.longValue();
-        }
-        else if (o is Byte)
-        {
-            Byte b = (Byte) o;
-            return b.longValue();
-        }
-        else if (o is Short)
-        {
-            Short s = (Short) o;
-            return s.longValue();
-        }
-        else if (o is Float)
-        {
-            Float f = (Float) o;
-            return f.longValue();
-        }
-        else
-        // if (o is Double)
-        {
-            // Console.WriteLine("Amount(double): " +
-            // this.amountField.getValue());
-            Double d = (Double) o;
-            return d.longValue();
-        }
-
-        // java.lang.Byte;
-        // java.lang.Double
-        // java.lang.Float;
-        // java.lang.Int32;
-        // java.lang.Int64;
-        // java.lang.Short;
-
-    }
-
-    /**
-     * Gets the j formated text value byte.
-     * 
-     * @param ftf the ftf
-     * 
-     * @return the j formated text value byte
-     */
-    public byte getJFormatedTextValueByte(JFormattedTextField ftf)
-    {
-        try
-        {
-            ftf.commitEdit();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Exception on commit value:" + ex);
-        }
-
-        Object o = ftf.getValue();
-
-        if (o is Byte)
-        {
-            Byte b = (Byte) o;
-            return Convert.ToByte(b);
-        }
-        else if (o is Int16)
-        {
-            Int16 s = (Int16) o;
-            return Convert.ToByte(s);
-        }
-        else if (o is Int32)
-        {
-            Int32 l = (Int32) o;
-            return l.byteValue();
-        }
-        else if (o is Int64)
-        {
-            Int64 l = (Int64) o;
-            return l.byteValue();
-        }
-        else if (o is Float)
-        {
-            Float f = (Float) o;
-            return f.byteValue();
-        }
-        else
-        // if (o is Double)
-        {
-            Double d = (Double) o;
-            return d.byteValue();
-        }
-
-    }
-
-    /**
-     * Gets the j formated text value short.
-     * 
-     * @param ftf the ftf
-     * 
-     * @return the j formated text value short
-     */
-    public short getJFormatedTextValueShort(JFormattedTextField ftf)
-    {
-        try
-        {
-            ftf.commitEdit();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Exception on commit value:" + ex);
-        }
-
-        Object o = ftf.getValue();
-
-        if (o is Short)
-        {
-            Short s = (Short) o;
-            return s.shortValue();
-        }
-        else if (o is Byte)
-        {
-            Byte b = (Byte) o;
-            return b.shortValue();
-        }
-        else if (o is Int32)
-        {
-            Int32 l = (Int32) o;
-            return l.shortValue();
-        }
-        else if (o is Int64)
-        {
-            Int64 l = (Int64) o;
-            return l.shortValue();
-        }
-        else if (o is Float)
-        {
-            Float f = (Float) o;
-            return f.shortValue();
-        }
-        else
-        // if (o is Double)
-        {
-            Double d = (Double) o;
-            return d.shortValue();
-        }
-
-    }
-
-    /**
-     * Gets the j formated text value float.
-     * 
-     * @param ftf the ftf
-     * 
-     * @return the j formated text value float
-     */
-    public float getJFormatedTextValueFloat(JFormattedTextField ftf)
-    {
-        try
-        {
-            ftf.commitEdit();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Exception on commit value:" + ex + "\nValue:" + ftf.getValue());
-            ex.printStackTrace();
-        }
-
-        Object o = ftf.getValue();
-
-        if (o is Float)
-        {
-            Float f = (Float) o;
-            return f.floatValue();
-        }
-        else if (o is Double)
-        {
-            Double d = (Double) o;
-            return d.floatValue();
-        }
-        else if (o is Int64)
-        {
-            Int64 l = (Int64) o;
-            return l.floatValue();
-        }
-        else if (o is Int32)
-        {
-            Int32 l = (Int32) o;
-            return l.floatValue();
-        }
-        else if (o is Byte)
-        {
-            Byte b = (Byte) o;
-            return b.floatValue();
-        }
-        else
-        // if (o is Short)
-        {
-            Short s = (Short) o;
-            return s.floatValue();
-        }
-
-    }
-
-    /**
-     * Gets the j formated text value double.
-     * 
-     * @param ftf the ftf
-     * 
-     * @return the j formated text value double
-     */
-    public double getJFormatedTextValueDouble(JFormattedTextField ftf)
-    {
-        try
-        {
-            ftf.commitEdit();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Exception on commit value:" + ex);
-        }
-
-        Object o = ftf.getValue();
-
-        if (o is Double)
-        {
-            Double d = (Double) o;
-            return d.doubleValue();
-        }
-        else if (o is Float)
-        {
-            Float f = (Float) o;
-            return f.doubleValue();
-        }
-        else if (o is Int64)
-        {
-            Int64 l = (Int64) o;
-            return l.doubleValue();
-        }
-        else if (o is Int32)
-        {
-            Int32 l = (Int32) o;
-            return l.doubleValue();
-        }
-        else if (o is Byte)
-        {
-            Byte b = (Byte) o;
-            return b.doubleValue();
-        }
-        else
-        // if (o is Short)
-        {
-            Short s = (Short) o;
-            return s.doubleValue();
-        }
-
-    }
 
     /*
      * 
@@ -1818,7 +1457,7 @@ public abstract class ATDataAccessAbstract
      * yes_no_combo[0] = m_i18n.getMessage("OPTION_YES"); yes_no_combo[1] =
      * m_i18n.getMessage("OPTION_NO");
      * 
-     * Hashtable ht = m_db.getProductType(-1);
+     * Dictionary ht = m_db.getProductType(-1);
      * 
      * typesAll = new Object[ht.size()];
      * 
@@ -1970,281 +1609,6 @@ public abstract class ATDataAccessAbstract
         return getDateTimeString(date, 2);
     }
 
-    /**
-     * The Constant DATE_TIME_ATECH_DATETIME.
-     */
-    public static const int DATE_TIME_ATECH_DATETIME = 1;
-    
-    /**
-     * The Constant DATE_TIME_ATECH_DATE.
-     */
-    public static const int DATE_TIME_ATECH_DATE = 2;
-    
-    /**
-     * The Constant DATE_TIME_ATECH_TIME.
-     */
-    public static const int DATE_TIME_ATECH_TIME = 3;
-
-    /**
-     * Gets the aT date time from gc.
-     * 
-     * @param gc the gc
-     * @param type the type
-     * 
-     * @return the aT date time from gc
-     */
-    public long getATDateTimeFromGC(GregorianCalendar gc, int type)
-    {
-        long dt = 0L;
-
-        if (type == DATE_TIME_ATECH_DATETIME)
-        {
-            dt += gc.get(GregorianCalendar.YEAR) * 100000000L;
-            dt += (gc.get(GregorianCalendar.MONTH) + 1) * 1000000L;
-            dt += gc.get(GregorianCalendar.DAY_OF_MONTH) * 10000L;
-            dt += gc.get(GregorianCalendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(GregorianCalendar.MINUTE);
-        }
-        else if (type == DATE_TIME_ATECH_DATE)
-        {
-            dt += gc.get(GregorianCalendar.YEAR) * 10000L;
-            dt += (gc.get(GregorianCalendar.MONTH) + 1) * 100L;
-            dt += gc.get(GregorianCalendar.DAY_OF_MONTH);
-        }
-        else if (type == DATE_TIME_ATECH_TIME)
-        {
-            dt += gc.get(GregorianCalendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(GregorianCalendar.MINUTE);
-        }
-
-        return dt;
-    }
-
-    /**
-     * Gets the aT date time from parts.
-     * 
-     * @param day the day
-     * @param month the month
-     * @param year the year
-     * @param hour the hour
-     * @param minute the minute
-     * @param type the type
-     * 
-     * @return the aT date time from parts
-     */
-    public long getATDateTimeFromParts(int day, int month, int year, int hour,
-            int minute, int type)
-    {
-        long dt = 0L;
-
-        if (type == DATE_TIME_ATECH_DATETIME)
-        {
-            dt += year * 100000000L;
-            dt += month * 1000000L;
-            dt += day * 10000L;
-            dt += hour * 100L;
-            dt += minute;
-        }
-        else if (type == DATE_TIME_ATECH_DATE)
-        {
-            dt += year * 10000L;
-            dt += month * 100L;
-            dt += day;
-        }
-        else if (type == DATE_TIME_ATECH_TIME)
-        {
-            dt += hour * 100L;
-            dt += minute;
-        }
-
-        return dt;
-    }
-
-    /**
-     * Gets the date from at date.
-     * 
-     * @param data the data
-     * 
-     * @return the date from at date
-     */
-    public long getDateFromATDate(long data)
-    {
-        // 200701011222
-        int d2 = (int) (data / 10000);
-
-        // long dd = data%10000;
-        // data -= dd;
-
-        // Console.WriteLine("D2: " +d2);
-
-        // Console.WriteLine(data);
-        return d2;
-    }
-
-    /**
-     * Gets the date time as time string.
-     * 
-     * @param date the date
-     * 
-     * @return the date time as time string
-     */
-    public String getDateTimeAsTimeString(long date)
-    {
-        return getDateTimeString(date, 3);
-    }
-
-    // ret_type = 1 (Date and time)
-    // ret_type = 2 (Date)
-    // ret_type = 3 (Time)
-
-    /**
-     * The Constant DT_DATETIME.
-     */
-    public const static int DT_DATETIME = 1;
-    
-    /**
-     * The Constant DT_DATE.
-     */
-    public const static int DT_DATE = 2;
-    
-    /**
-     * The Constant DT_TIME.
-     */
-    public const static int DT_TIME = 3;
-
-    /**
-     * Gets the date time string.
-     * 
-     * @param dt the dt
-     * @param ret_type the ret_type
-     * 
-     * @return the date time string
-     */
-    public String getDateTimeString(long dt, int ret_type)
-    {
-
-        // Console.WriteLine("DT process: " + dt);
-        /*
-         * int y = (int)(dt/10000000L); dt -= y10000000L;
-         * 
-         * int m = (int)(dt/1000000L); dt -= m1000000L;
-         * 
-         * int d = (int)(dt/10000L); dt -= d10000L;
-         * 
-         * int h = (int)(dt/100L); dt -= h100L;
-         * 
-         * int min = (int)dt;
-         */
-
-        // 200612051850
-        int y = (int) (dt / 100000000L);
-        dt -= y * 100000000L;
-
-        int m = (int) (dt / 1000000L);
-        dt -= m * 1000000L;
-
-        int d = (int) (dt / 10000L);
-        dt -= d * 10000L;
-
-        int h = (int) (dt / 100L);
-        dt -= h * 100L;
-
-        int min = (int) dt;
-
-        if (ret_type == DT_DATETIME)
-        {
-            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y
-                    + "  " + getLeadingZero(h, 2) + ":"
-                    + getLeadingZero(min, 2);
-        }
-        else if (ret_type == DT_DATE)
-        {
-            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y;
-        }
-        else
-            return getLeadingZero(h, 2) + ":" + getLeadingZero(min, 2);
-
-    }
-/*
-    public String getGCObjectFromDateTimeInt64(long dt)
-    {
-
-        int y = (int) (dt / 100000000L);
-        dt -= y * 100000000L;
-
-        int m = (int) (dt / 1000000L);
-        dt -= m * 1000000L;
-
-        int d = (int) (dt / 10000L);
-        dt -= d * 10000L;
-
-        int h = (int) (dt / 100L);
-        dt -= h * 100L;
-
-        int min = (int) dt;
-
-        GregorianCalendar gc1 = new GregorianCalendar();
-        // gc1.set(GregorianCalendar.
-
-        return null;
-
-    }
-*/
-    /**
- * Gets the date time string.
- * 
- * @param date the date
- * @param time the time
- * 
- * @return the date time string
- */
-public String getDateTimeString(int date, int time)
-    {
-
-        return getDateString(date) + " " + getTimeString(time);
-
-    }
-
-    
-    /**
-     * Gets the current date string.
-     * 
-     * @return the current date string
-     */
-    public String getCurrentDateString()
-    {
-        GregorianCalendar gc = new GregorianCalendar();
-        return gc.get(Calendar.DAY_OF_MONTH) + "."
-                + (gc.get(Calendar.MONTH) + 1) + "." + gc.get(Calendar.YEAR);
-    }
-    
-    
-    /**
-     * Gets the current time string.
-     * 
-     * @return the current time string
-     */
-    public String getCurrentTimeString()
-    {
-        GregorianCalendar gc = new GregorianCalendar();
-        return gc.get(Calendar.HOUR_OF_DAY) + ":"
-                + gc.get(Calendar.MINUTE) + ":" + gc.get(Calendar.SECOND);
-    }
-    
-
-    /**
-     * Gets the current date time string.
-     * 
-     * @return the current date time string
-     */
-    public String getCurrentDateTimeString()
-    {
-        GregorianCalendar gc = new GregorianCalendar();
-        return gc.get(Calendar.DAY_OF_MONTH) + "."
-                + (gc.get(Calendar.MONTH) + 1) + "." + gc.get(Calendar.YEAR) + "  " 
-                + gc.get(Calendar.HOUR_OF_DAY) + ":"
-                + gc.get(Calendar.MINUTE) + ":" + gc.get(Calendar.SECOND);
-    }
 
     
     /**
@@ -2296,10 +1660,10 @@ public String getDateTimeString(int date, int time)
      * @param parent the parent
      * @param source the source
      */
-    public static void notImplemented(java.awt.Component parent, String source)
+    public static void notImplemented(IContainer parent, String source)
     {
         Console.WriteLine("Not Implemented: " + source);
-        JOptionPane.showMessageDialog(parent, "Not Implemented: \n" + source);
+//        JOptionPane.showMessageDialog(parent, "Not Implemented: \n" + source);
     }
 
 
@@ -2321,7 +1685,7 @@ public String getDateTimeString(int date, int time)
     {
         String nn = "" + number;
 
-        while (nn.length() < places)
+        while (nn.Length < places)
         {
             nn = "0" + nn;
         }
@@ -2339,9 +1703,9 @@ public String getDateTimeString(int date, int time)
      */
     public String getLeadingZero(String number, int places)
     {
-        number = number.trim();
+        number = number.Trim();
 
-        while (number.length() < places)
+        while (number.Length < places)
         {
             number = "0" + number;
         }
@@ -2365,30 +1729,30 @@ public String getDateTimeString(int date, int time)
     {
 
         int idx;
-        if ((idx = input.indexOf(replace)) == -1)
+        if ((idx = input.IndexOf(replace)) == -1)
         {
             return input;
         }
 
-        boolean finished = false;
+        bool finished = false;
         
         while(!finished)
         {
-        
-            StringBuffer returning = new StringBuffer();
+
+            StringBuilder returning = new StringBuilder();
     
             while (idx != -1)
             {
-                returning.Append(input.substring(0, idx));
+                returning.Append(input.Substring(0, idx));
                 returning.Append(replacement);
-                input = input.substring(idx + replace.length());
-                idx = input.indexOf(replace);
+                input = input.Substring(idx + replace.Length);
+                idx = input.IndexOf(replace);
             }
             returning.Append(input);
             
-            input = returning.toString();
+            input = returning.ToString();
             
-            if ((idx = returning.indexOf(replace))==-1)
+            if ((idx = input.IndexOf(replace))==-1)
             {
                 finished = true;
             }
@@ -2670,7 +2034,7 @@ public String getDateTimeString(int date, int time)
         // Console.WriteLine("getFloatValue: ");
 
         if (aValue == null)
-            return out;
+            return outx;
 
         // Console.WriteLine("getFloatValue: NOT NULL");
 
@@ -2745,40 +2109,9 @@ public String getDateTimeString(int date, int time)
      * 
      * @return the int value
      */
-    public int getIntValue(Object aValue)
+    public int GetIntValue(Object aValue)
     {
-        int out = 0;
-
-        if (aValue == null)
-            return out;
-
-        if (aValue is Int32)
-        {
-            try
-            {
-                Int32 i = (Int32) aValue;
-                out = i.intValue();
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-        else if (aValue is String)
-        {
-            String s = (String) aValue;
-            if (s.length() > 0)
-            {
-                try
-                {
-                    out = Int32.parseInt(s);
-                }
-                catch (Exception ex)
-                {
-                }
-            }
-        }
-
-        return out;
+        return Convert.ToInt32(aValue);
     }
 
     /**
@@ -2790,38 +2123,7 @@ public String getDateTimeString(int date, int time)
      */
     public long getInt64Value(Object aValue)
     {
-        long out = 0L;
-
-        if (aValue == null)
-            return out;
-
-        if (aValue is Int64)
-        {
-            try
-            {
-                Int64 i = (Int64) aValue;
-                out = i.longValue();
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-        else if (aValue is String)
-        {
-            String s = (String) aValue;
-            if (s.length() > 0)
-            {
-                try
-                {
-                    out = Int64.parseInt64(s);
-                }
-                catch (Exception ex)
-                {
-                }
-            }
-        }
-
-        return out;
+        return Convert.ToInt64(aValue);
     }
 
     // ********************************************************
@@ -2850,25 +2152,20 @@ public String getDateTimeString(int date, int time)
      */
     public float getFloatValueFromString(String aValue, float def_value)
     {
-        float out = def_value;
+        float outx = def_value;
         
         try
         {
-            if ((aValue==null) || (aValue.trim().length()==0))
-                return def_value;
-
-            // parse float, doesn't look in locale for decimal sign
-            aValue = aValue.replace(",", ".");
-            
-            out = Float.parseFloat(aValue);
+            outx = Convert.ToFloat(aValue);
         }
         catch (Exception ex)
         {
             log.error("Error on parsing string to get float [" + aValue + "]:"
                     + ex, ex);
+
         }
 
-        return out;
+        return outx;
     }
 
     /**
@@ -2893,18 +2190,18 @@ public String getDateTimeString(int date, int time)
      */
     public int getIntValueFromString(String aValue, int def_value)
     {
-        int out = def_value;
+        int outx = def_value;
 
         try
         {
-            out = Int32.parseInt(aValue);
+            outx = Convert.ToInt32(aValue);
         }
         catch (Exception ex)
         {
             log.error("Error on parsing string to get int [" + aValue + "]:" + ex, ex);
         }
 
-        return out;
+        return outx;
     }
 
     /**
@@ -2929,18 +2226,18 @@ public String getDateTimeString(int date, int time)
      */
     public long getInt64ValueFromString(String aValue, long def_value)
     {
-        long out = def_value;
+        long outx = def_value;
 
         try
         {
-            out = Int64.parseInt64(aValue);
+            outx = Convert.ToInt64(aValue);
         }
         catch (Exception ex)
         {
             log.error("Error on parsing string to get long [" + aValue + "]:" + ex, ex);
         }
 
-        return out;
+        return outx;
     }
 
     /**
@@ -2950,7 +2247,7 @@ public String getDateTimeString(int date, int time)
      * 
      * @return true, if is value set
      */
-    public boolean isValueSet(String val)
+    public bool isValueSet(String val)
     {
         if ((val == null) || (val.trim().length() == 0) || (val.equals("null")))
             return false;
@@ -3038,19 +2335,18 @@ public String getDateTimeString(int date, int time)
      * @param filename
      * @return
      */    
-    public Hashtable<String,String> getConfiguration(String filename)
+    public Dictionary<String,String> getConfiguration(String filename)
     {
 
-        Hashtable<String,String> config_db_values_ = new Hashtable<String,String>();
+        Dictionary<String,String> config_db_values_ = new Dictionary<String,String>();
 
-        Properties props = new Properties();
+        PropertiesFile props = new PropertiesFile();
 
         config_loaded = true;
 
         try
         {
-            FileInputStream in = new FileInputStream(filename);
-            props.load(in);
+            config_loaded = props.LoadFile(filename);
         }
         catch (Exception ex)
         {
@@ -3060,12 +2356,7 @@ public String getDateTimeString(int date, int time)
 
         if (config_loaded)
         {
-
-            for (Enumeration<Object> en = props.keys(); en.hasMoreElements(); )
-            {
-                String  key = (String)en.nextElement();
-                config_db_values_.put(key, props.getProperty(key));
-            }
+            config_db_values_ = props.PropertiesCollection;
         }
 
         return config_db_values_;
@@ -3079,7 +2370,7 @@ public String getDateTimeString(int date, int time)
      * @param value
      * @return
      */
-    public boolean isOptionEnabled(String value)
+    public bool isOptionEnabled(String value)
     {
         
         if (value==null)
@@ -3094,35 +2385,6 @@ public String getDateTimeString(int date, int time)
     }    
     
     
-    // 
-    // Graph Config Properties
-
-    /**
-     * Load Graph Config Properties
-     */
-    public abstract void loadGraphConfigProperties();
-    
-    
-    /**
-     * Gets the graph config properties.
-     * 
-     * @return the graph config properties
-     */
-    public GraphConfigProperties getGraphConfigProperties()
-    {
-        return this.graph_config;
-    }
-
-    
-    /**
-     * Sets the graph config properties.
-     * 
-     * @param config the new graph config properties
-     */
-    public void setGraphConfigProperties(GraphConfigProperties config)
-    {
-        this.graph_config = config;
-    }
     
     
     /**
@@ -3136,7 +2398,7 @@ public String getDateTimeString(int date, int time)
      * 
      * @return the special parameters
      */
-    public Hashtable<String, String> getSpecialParameters()
+    public Dictionary<String, String> getSpecialParameters()
     {
         return special_parameters;
     }
@@ -3147,7 +2409,7 @@ public String getDateTimeString(int date, int time)
      * 
      * @return the language info
      */
-    public LanguageInfo getLanguageInfo()
+/*    public LanguageInfo getLanguageInfo()
     {
         return this.m_lang_info;
     }
@@ -3174,10 +2436,10 @@ public String getDateTimeString(int date, int time)
      * 
      * @return the plugins
      */
-    public Hashtable<String,PlugInClient> getPlugins()
+  /*  public Dictionary<String,PlugInClient> getPlugins()
     {
         return this.plugins;
-    }
+    } */
     
     
     

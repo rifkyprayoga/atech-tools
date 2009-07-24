@@ -31,6 +31,8 @@
 
 
 using System;
+using NHibernate.Cfg;
+using System.Reflection;
 namespace ATechTools.Db.NHibernate.Check
 {
 
@@ -42,38 +44,38 @@ namespace ATechTools.Db.NHibernate.Check
          * 
          * @return 
          */
-        public boolean isCheckEnabled();
+        bool isCheckEnabled();
 
         /**
          * Get DbInfo Resource
          * 
          * @return 
          */
-        public String[] getDbInfoResource();
+        String[] getDbInfoResource();
 
         /**
          * Get DbInfo Configuration
          * 
          * @return 
          */
-        public Configuration getDbInfoConfiguration();
+        Configuration getDbInfoConfiguration();
 
         /**
          * Get Db Name
          * 
          * @return
          */
-        public String getDbName();
+        String DbName { get; }
 
         /**
          * Get DbInfo Report Filename
          * 
          * @return
          */
-        public String getDbInfoReportFilename();
+        String DbInfoReportFilename { get; }
 
 
-        public abstract Assembly GetResourceAssembly(string resName);
+        abstract Assembly GetResourceAssembly(string resName);
 
 
     }

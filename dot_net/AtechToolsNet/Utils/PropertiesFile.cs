@@ -19,6 +19,12 @@ namespace ATechTools.Util
         private static char[] delim = { '=' };
         private Dictionary<string, string> entries;
 
+        public Dictionary<string, string> PropertiesCollection
+        {
+            get { return entries; }
+            set { entries = value; }
+        }
+
 
 
 
@@ -68,6 +74,21 @@ namespace ATechTools.Util
 
 
             return false;
+
+        }
+
+
+
+        public Dictionary<string, string> CloneProperties()
+        {
+            Dictionary<string, string> nw = new Dictionary<string, string>();
+
+            foreach (string key in this.entries.Keys)
+            {
+                nw.Add(key, this.entries[key]);
+            }
+
+            return nw;
 
         }
 

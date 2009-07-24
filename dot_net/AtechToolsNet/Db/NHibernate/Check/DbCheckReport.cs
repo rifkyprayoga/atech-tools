@@ -32,6 +32,7 @@
 
 using System;
 using log4net;
+using ATechTools.I18n;
 namespace ATechTools.Db.NHibernate.Check
 {
 
@@ -47,16 +48,16 @@ public class DbCheckReport
     private int db_version_required = 0;
     
     
-    private boolean info_read_ok = false;
+    private bool info_read_ok = false;
     
     private String filename = "";
-    private boolean file_exists = false;
+    private bool file_exists = false;
     
     /**
      * The ic.
      */
     I18nControlAbstract ic;
-    private boolean can_be_started = false;
+    private bool can_be_started = false;
     
     /**
      * Instantiates a new db check report.
@@ -77,6 +78,7 @@ public class DbCheckReport
      */
     public void readFileInfo()
     {
+        /*
         try
         {
             File f = new File(this.filename);
@@ -94,7 +96,7 @@ public class DbCheckReport
             
             while((line = br.readLine()) != null)
             {
-                if (line.contains("|"))
+                if (line.Contains("|"))
                 {
                     res = line;
                     break;
@@ -110,7 +112,7 @@ public class DbCheckReport
             this.version_db = strtok.nextToken();
             this.version_db_required = strtok.nextToken();
             
-            if (stat.equals("OK"))
+            if (stat == "OK")
             {
                 this.info_read_ok = true;
             }
@@ -118,9 +120,9 @@ public class DbCheckReport
         }
         catch(Exception ex)
         {
-            log.error("Error reading report: " + ex, ex);
+            log.Error("Error reading report: " + ex, ex);
         }
-        
+        */
     }
     
     
@@ -129,14 +131,15 @@ public class DbCheckReport
      */
     public void evaluateInfo()
     {
+        /*
         try
         {
-            this.db_version = Int32.parseInt(this.version_db);
-            this.db_version_required = Int32.parseInt(this.version_db_required);
+            this.db_version = Convert.ToInt32(this.version_db);
+            this.db_version_required = Convert.ToInt32(this.version_db_required);
             
             if (!this.file_exists)
             {
-                log.warn("Db Report file not found !");
+                log.Warn("Db Report file not found !");
                 this.can_be_started = true;
             }
             else
@@ -151,9 +154,9 @@ public class DbCheckReport
         }
         catch(Exception ex)
         {
-            log.error("Evaluate info exception: " + ex, ex);
-            ex.printStackTrace();
-        }
+            log.Error("Evaluate info exception: " + ex, ex);
+            Console.WriteLine(ex.StackTrace);
+        }*/
     }
     
     
@@ -164,7 +167,7 @@ public class DbCheckReport
      * 
      * @return true, if successful
      */
-    public boolean canApplicationStart()
+    public bool canApplicationStart()
     {
         return this.can_be_started;
     }
@@ -175,6 +178,7 @@ public class DbCheckReport
      */
     public void showError()
     {
+        /*
         String ver_desc = "";
         
         if (this.db_version < this.db_version_required)
@@ -191,7 +195,7 @@ public class DbCheckReport
         String s = String.format(ic.getMessage("DB_HEADER"), this.version_db, this.version_db_required, ic.getMessage(ver_desc));
         
         JOptionPane.showMessageDialog(null, s, ic.getMessage("DB_ERROR_ON_LOAD"), JOptionPane.ERROR_MESSAGE);
-        
+        */
     }
     
 }

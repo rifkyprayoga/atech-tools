@@ -41,6 +41,7 @@
 using System;
 using log4net;
 using System.Text;
+using System.Collections.Generic;
 namespace ATechTools.I18n
 {
 
@@ -49,7 +50,7 @@ public abstract class I18nControlAbstract
 {
 
     private ILog s_logger = LogManager.GetLogger(typeof(I18nControlAbstract));
-    private Collator langaugeCollator = null;
+    //private Collator langaugeCollator = null;
 
 
     /**
@@ -61,7 +62,7 @@ public abstract class I18nControlAbstract
     /**
      * The resource bundles.
      */
-    Hashtable<String,String> resourceBundles;
+    Dictionary<String,String> resourceBundles;
 
 
     /**
@@ -82,13 +83,13 @@ public abstract class I18nControlAbstract
     /**
      * The selected_language_locale.
      */
-    public Locale selected_language_locale = null;
+//    public Locale selected_language_locale = null;
     
     
     /**
      * The selected_language_locale.
      */
-    public Locale selected_language_locale_real = null;
+//    public Locale selected_language_locale_real = null;
 
 
     /**
@@ -108,7 +109,7 @@ public abstract class I18nControlAbstract
     /**
  * The lcls.
  */
-protected Locale[] lcls = null;
+//protected Locale[] lcls = null;
 /*	{
         Locale.ENGLISH,
         Locale.GERMAN,
@@ -118,7 +119,7 @@ protected Locale[] lcls = null;
 */
 
 
-    protected Locale[] lcls_real = null;
+//    protected Locale[] lcls_real = null;
 
 
 //    static private I18nControl m_i18n = null;   // This is handle to unique 
@@ -234,7 +235,7 @@ protected Locale[] lcls = null;
      *
      *  @param lcl locale that will choose which language will be set
      */ 
-    public void setLanguage(Locale lcl)
+    public void setLanguage(object lcl)
     {
         //Console.WriteLine("setLanguage(Locale): " + lcl);
         /* C#
@@ -280,10 +281,10 @@ protected Locale[] lcls = null;
      * 
      * @return the selected language locale
      */
-    public Locale getSelectedLanguageLocale()
+/* c#    public Locale getSelectedLanguageLocale()
     {
         return this.selected_language_locale;
-    }
+    } */
 
 
 
@@ -329,7 +330,7 @@ protected Locale[] lcls = null;
     public String GetMessageHTML(String msg)
     {
 
-        String mm = this.getMessage(msg);
+        String mm = this.GetMessage(msg);
 
         return Htmlize(mm);
 
@@ -351,7 +352,7 @@ protected Locale[] lcls = null;
      */
     public String GetString(String msg)
     {
-        return this.getMessage(msg);
+        return this.GetMessage(msg);
     }
 
 
@@ -508,7 +509,7 @@ protected Locale[] lcls = null;
      * 
      * @return true, if successful
      */
-    public boolean HasMnemonic(String msg_id)
+    public bool HasMnemonic(String msg_id)
     {
         try
         {
@@ -518,7 +519,7 @@ protected Locale[] lcls = null;
                return true;
 
         }
-        catch (Exception e)
+        catch //(Exception e)
         {
         }
 
@@ -605,7 +606,7 @@ protected Locale[] lcls = null;
             if (msg==null)
                 return "null";
             
-            String ret = res.getString(msg);
+            String ret = res.GetString(msg);
 
             if (ret==null)
             {
@@ -634,7 +635,7 @@ protected Locale[] lcls = null;
      *  @param msg id of message we want
      *  @return value for code, or same code back
      */    
-    public String getMessage(String msg)
+    public String GetMessage(String msg)
     {
         return GetMessageFromCatalog(msg);
     }
@@ -686,10 +687,10 @@ protected Locale[] lcls = null;
      * 
      * @return the collation defintion
      */
-    public Collator GetCollationDefintion()
+/* c#    public Collator GetCollationDefintion()
     {
         return this.langaugeCollator;
-    }
+    }*/
    
 
 }

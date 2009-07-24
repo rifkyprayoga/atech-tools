@@ -33,6 +33,8 @@ using System;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Util;
+using NHibernate.Tool.hbm2ddl;
+using ATechTools.Util;
 
 
 
@@ -45,50 +47,33 @@ public abstract class HibernateDb : HibernateUtil
     /**
      * The Constant DB_CONFIG_LOADED.
      */
-    public static const int DB_CONFIG_LOADED = 1;
+    public const int DB_CONFIG_LOADED = 1;
     
     /**
      * The Constant DB_INITIALIZED.
      */
-    public static const int DB_INITIALIZED = 2;
+    public const int DB_INITIALIZED = 2;
     
     /**
      * The Constant DB_STARTED.
      */
-    public static const int DB_STARTED = 3;
+    public const int DB_STARTED = 3;
 
 
     /**
      * The Constant DB_STARTED.
      */
-    public static const int DB_CLOSED = 3;
+    public const int DB_CLOSED = 3;
 
 
-    private boolean debug = true;
+    private bool debug = true;
 //x    private boolean db_debug = false;
     
     private ILog log = LogManager.GetLogger(typeof(HibernateDb));
     
-    /**
-     * The m_session.
-     */
-    protected Session m_session = null;
     
-    /**
-     * The sessions.
-     */
-    protected SessionFactory sessions = null;
     
-    /**
-     * The m_error code.
-     */
-    protected int m_errorCode = 0;
     
-    /**
-     * The m_error desc.
-     */
-    protected String m_errorDesc = "";
-    private String m_addId = "";
 
 
     //private Configuration m_cfg = null;
@@ -115,7 +100,7 @@ public abstract class HibernateDb : HibernateUtil
      */
     public HibernateDb(ATDataAccessAbstract da)
     {
-        config = createConfiguration();
+        config = CreateHibernateConfiguration();
         m_da = da;
         m_loadStatus = DB_CONFIG_LOADED;
     }
@@ -126,7 +111,7 @@ public abstract class HibernateDb : HibernateUtil
      */
     public HibernateDb()
     {
-        config = createConfiguration();
+        config = CreateHibernateConfiguration();
         m_loadStatus = DB_CONFIG_LOADED;
 //	debugConfig();
     }
@@ -236,43 +221,13 @@ public abstract class HibernateDb : HibernateUtil
     }
 
 
-    /**
-     * Gets the session.
-     * 
-     * @return the session
-     */
-    public ISession GetSession()
-    {
-        m_session.clear();
-        return m_session;
-    }
 
 
-    /**
-     * Creates the database.
-     */
-    public void CreateDatabase()
-    {
-        //new SchemaExport(this.getConfiguration()).create(true, true);
-    }
 
     
-    /**
-     * Gets the application db name.
-     * 
-     * @return the application db name
-     */
-    public abstract String GetApplicationDbName();
     
     
 
-    // *************************************************************
-    // ****              DB HANDLING METHODS                    ****
-    // *************************************************************
-
-    //---
-    //---  BASIC METHODS (Hibernate and DataLayer processing)
-    //---
 
 
 
@@ -304,7 +259,7 @@ public abstract class HibernateDb : HibernateUtil
      */
     public String changeCase(String inp)
     {
-
+        /*
         StringTokenizer stok = new StringTokenizer(inp, " ");
 
         bool first = true;
@@ -320,6 +275,9 @@ public abstract class HibernateDb : HibernateUtil
         }
 
         return outp;
+         */
+
+        // FIXME
 
     }
 

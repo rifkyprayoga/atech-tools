@@ -38,11 +38,11 @@ namespace ATechTools.Db.NHibernate.Check
 
 
 
-public class DbInfoH : Serializable
+public class DbInfoH //: Serializable
 {
 
-    private IdT _id;
-    public virtual IdT Id { get { return _id; } set { _id = value; } }
+    private long _id;
+    public virtual long Id { get { return _id; } set { _id = value; } }
 
     private string _key;
     public virtual string Key
