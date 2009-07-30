@@ -1254,7 +1254,7 @@ public class ATSwingUtils
 
         if (tool_tip != null)
         {
-            item.setToolTipText(tool_tip);
+            item.setToolTipText(ic.getMessage(tool_tip));
         }
 
         return item;
@@ -1286,7 +1286,7 @@ public class ATSwingUtils
         
         if (tip != null)
         {
-            mi.setToolTipText(tip);
+            mi.setToolTipText(ic.getMessage(tip));
         }
 
         if (icon_small != null)
