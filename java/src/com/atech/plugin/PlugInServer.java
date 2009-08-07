@@ -1,6 +1,7 @@
 package com.atech.plugin;
 
 import java.awt.Container;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import javax.swing.JDialog;
@@ -323,6 +324,8 @@ public abstract class PlugInServer
         return null;
     }
 
+    
+    public abstract void actionPerformed(ActionEvent ae);
     
     
 }

@@ -2654,6 +2654,9 @@ public String getDateTimeString(int date, int time)
      */
     public static final int GC_COMPARE_MINUTE = 3;
 
+    
+    public static final int GC_COMPARE_SECOND = 4;
+    
     /**
      * Compare gregorian calendars.
      * 
@@ -2673,17 +2676,26 @@ public String getDateTimeString(int date, int time)
             found = true;
             
         if ((type == ATDataAccessAbstract.GC_COMPARE_HOUR) ||
-            (type == ATDataAccessAbstract.GC_COMPARE_MINUTE))
+            (type == ATDataAccessAbstract.GC_COMPARE_MINUTE) ||
+            (type == ATDataAccessAbstract.GC_COMPARE_SECOND))
         {
             if (gc1.get(GregorianCalendar.HOUR_OF_DAY)!=gc2.get(GregorianCalendar.HOUR_OF_DAY))
                 found = false;
         }
 
-        if (type == ATDataAccessAbstract.GC_COMPARE_MINUTE)
+        if ((type == ATDataAccessAbstract.GC_COMPARE_MINUTE) ||
+            (type == ATDataAccessAbstract.GC_COMPARE_SECOND))
         {
             if (gc1.get(GregorianCalendar.MINUTE)!=gc2.get(GregorianCalendar.MINUTE))
                 found = false;
         }
+
+        if (type == ATDataAccessAbstract.GC_COMPARE_SECOND)
+        {
+            if (gc1.get(GregorianCalendar.SECOND)!=gc2.get(GregorianCalendar.SECOND))
+                found = false;
+        }
+        
         
 
         return found;
