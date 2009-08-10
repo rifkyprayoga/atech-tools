@@ -3,6 +3,8 @@ package com.atech.utils;
 
 import java.util.GregorianCalendar;
 
+import org.jfree.util.Log;
+
 import com.atech.i18n.I18nControlAbstract;
 
 // TODO: Auto-generated Javadoc
@@ -1102,6 +1104,84 @@ public static GregorianCalendar getGregorianCalendar(int format, long dt)
 
     }
 
+    
+    public boolean equals(Object o)
+    {
+        if (o instanceof ATechDate)
+        {
+            ATechDate o1 = (ATechDate)o;
+            
+            if (this.atech_datetime_type!=o1.atech_datetime_type)
+                return false;
+            
+            
+            switch(this.atech_datetime_type)
+            {
+                case ATechDate.FORMAT_DATE_ONLY:
+                    {
+                        if ((this.day_of_month != o1.day_of_month) ||
+                            (this.month != o1.month) ||
+                            (this.year != o1.year))
+                            return false;
+                        else
+                            return true;
+                    } 
+
+                case ATechDate.FORMAT_DATE_AND_TIME_S:
+                    {
+                        if ((this.day_of_month != o1.day_of_month) ||
+                                (this.month != o1.month) ||
+                                (this.year != o1.year) ||
+                                (this.hour_of_day != o1.hour_of_day) ||
+                                (this.minute != o1.minute) ||
+                                (this.second != o1.second))
+                                return false;
+                            else
+                                return true;
+                        
+                    } 
+
+                case ATechDate.FORMAT_DATE_AND_TIME_MS:
+                    {
+                        if ((this.day_of_month != o1.day_of_month) ||
+                            (this.month != o1.month) ||
+                            (this.year != o1.year) ||
+                            (this.hour_of_day != o1.hour_of_day) ||
+                            (this.minute != o1.minute) ||
+                            (this.second != o1.second) ||
+                            (this.msecond != o1.msecond))
+                            return false;
+                        else
+                            return true;
+                        
+                    } 
+
+                case ATechDate.FORMAT_DATE_AND_TIME_MIN:
+                    {
+                        if ((this.day_of_month != o1.day_of_month) ||
+                                (this.month != o1.month) ||
+                                (this.year != o1.year) ||
+                                (this.hour_of_day != o1.hour_of_day) ||
+                                (this.minute != o1.minute))
+                                return false;
+                            else
+                                return true;
+
+                    } 
+
+                default:
+                    Log.error("Equals for this type is not implemented !");
+                    return false;
+            }
+            
+        }
+        else
+            return false;
+            
+    }
+    
+    
+    
 
     /** 
      * To String

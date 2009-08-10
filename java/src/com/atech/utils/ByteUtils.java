@@ -32,9 +32,123 @@ package com.atech.utils;
 */
 
 
-public class HexUtils extends ByteUtils
+public class ByteUtils
 {
+    
+    public static final int BIT_ORDER_BIG_ENDIAN = 1;
+    public static final int BIT_ORDER_LITTLE_ENDIAN = 2;
+    
+    
+    protected int byte_order = BIT_ORDER_BIG_ENDIAN;
+    protected byte[] byte_arr = null;
+    
+    public void readByteArray(byte[] array)
+    {
+        this.byte_arr = array;
+    }
+    
+    
+    public byte getByteFromArray(int offset)
+    {
+        return getByte(this.byte_arr, offset);
+    }
+    
+    
+    public byte getByte(byte[] arr, int offset)
+    {
+        return arr[offset];
+    }
+    
+    
+    public int getIntFromArray(int offset)
+    {
+        return getInt(this.byte_arr, offset);
+    }
 
+    
+    public int getInt(byte[] arr, int offset)
+    {
+        int val = 0;
+        
+        if (this.byte_order==ByteUtils.BIT_ORDER_BIG_ENDIAN)
+        {
+            val += (arr[offset] << 8) & 0xff00;
+            val = (val + (arr[offset+1] & 0xff));
+        }
+        else
+        {
+            val += (arr[offset+1] << 8) & 0xff00;
+            val = (val + (arr[offset] & 0xff));
+        }
+
+        return val;
+        
+    }
+    
+    
+    public String getStringFromArray(int offset, int size)
+    {
+        return getString(this.byte_arr, offset, size);
+    }
+    
+    
+    
+    public String getString(byte[] arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+            
+            for(int i=0; i<size; i++)
+            {
+                destinationArray[i] = (char)arr[offset+i];
+            }
+            
+            
+//            System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); //, 0, size);
+            return str;
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+    
+    
+    public String getAsciiFromArray(int offset, int size)
+    {
+        return getAscii(this.byte_arr, offset, size);
+    }
+    
+    
+    
+    public String getAscii(byte[] arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+            
+            for(int i=0; i<size; i++)
+            {
+                //byte b = (byte)(arr[offset+i] +  0x41);
+                destinationArray[i] = (char)((arr[offset+i] +  0x41));
+            }
+            
+            
+//            System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); //, 0, size);
+            return str;
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+    
+    
     
     public byte[] getByteSubArray(byte[] arr, int start, int end, int length)
     {
