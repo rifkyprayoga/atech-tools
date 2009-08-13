@@ -153,7 +153,7 @@ public abstract class HibernateDb : HibernateUtil
      * 
      * @return true, if is db started
      */
-    public boolean isDbStarted()
+    public bool isDbStarted()
     {
         return(this.m_loadStatus == DB_STARTED);
     }
@@ -278,7 +278,7 @@ public abstract class HibernateDb : HibernateUtil
          */
 
         // FIXME
-
+        return null;
     }
 
     /**
@@ -309,7 +309,7 @@ public abstract class HibernateDb : HibernateUtil
     public void showByte(byte[] inp)
     {
 
-        for (int i=0;i<inp.length; i++)
+        for (int i=0;i<inp.Length; i++)
         {
             Console.WriteLine((char)inp[i] + " " + inp[i]);
         }

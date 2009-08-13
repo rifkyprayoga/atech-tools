@@ -44,21 +44,21 @@ namespace ATechTools.Db.NHibernate.Check
          * 
          * @return 
          */
-        bool isCheckEnabled();
+        bool IsCheckEnabled();
 
         /**
          * Get DbInfo Resource
          * 
          * @return 
          */
-        String[] getDbInfoResource();
+        String[] GetDbInfoResource();
 
         /**
          * Get DbInfo Configuration
          * 
          * @return 
          */
-        Configuration getDbInfoConfiguration();
+        Configuration GetDbInfoConfiguration();
 
         /**
          * Get Db Name
@@ -75,7 +75,7 @@ namespace ATechTools.Db.NHibernate.Check
         String DbInfoReportFilename { get; }
 
 
-        abstract Assembly GetResourceAssembly(string resName);
+        Assembly GetResourceAssembly(string resName);
 
 
     }

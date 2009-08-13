@@ -33,6 +33,7 @@
 using System;
 using System.Reflection;
 using System.Collections.Generic;
+using NHibernate.Cfg;
 namespace ATechTools.Db.NHibernate.Check
 {
 
@@ -74,7 +75,7 @@ namespace ATechTools.Db.NHibernate.Check
 
 
 
-        public Assembly GetResourceAssembly(string resName)
+        public virtual Assembly GetResourceAssembly(string resName)
         { 
             if (this.ResourceAssemblies.ContainsKey(resName))
             {
@@ -85,6 +86,14 @@ namespace ATechTools.Db.NHibernate.Check
                 return this.GetType().Assembly;
             }
         }
+
+
+        public abstract string DbName { get; }
+
+
+        //public String DbInfoReportFilename { get; }
+
+        public abstract String DbInfoReportFilename { get; }
 
 
 

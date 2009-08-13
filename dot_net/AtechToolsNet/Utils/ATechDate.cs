@@ -387,7 +387,7 @@ public class ATechDate
      * 
      * @return the time string
      */
-    public static String getTimeString(int type, GregorianCalendar gc)
+    public static String getTimeString(int type, DateTime gc)
     {
         ATechDate dt = new ATechDate(type, gc);
         return dt.getTimeString();
@@ -417,7 +417,7 @@ public class ATechDate
      * 
      * @return the date time string
      */
-    public static String getDateTimeString(int type, GregorianCalendar gc)
+    public static String getDateTimeString(int type, DateTime gc)
     {
         ATechDate dt = new ATechDate(type, gc);
         return dt.getDateTimeString();
@@ -446,7 +446,7 @@ public class ATechDate
      * 
      * @return the date string
      */
-    public static String getDateString(int type, GregorianCalendar gc)
+    public static String getDateString(int type, DateTime gc)
     {
         ATechDate dt = new ATechDate(type, gc);
         return dt.getDateString();
@@ -803,8 +803,8 @@ public class ATechDate
     // ret_type = 2 (Date)
     // ret_type = 3 (Time)
 
-    private static const int DT_DATETIME = 1;
-    private static const int DT_DATE = 2;
+    private const int DT_DATETIME = 1;
+    private const int DT_DATE = 2;
     //private const static int DT_TIME = 3;
 
 
@@ -1118,7 +1118,7 @@ public class ATechDate
      * 
      * @return true, if is leap year
      */
-    public boolean isLeapYear(int _year)
+    public bool isLeapYear(int _year)
     {
         if (_year%4!=0)
         {

@@ -36,6 +36,7 @@ using ATechTools.Db.NHibernate;
 using NHibernate;
 using NHibernate.Cfg;
 using System;
+using NHibernate.Tool.hbm2ddl;
 public class HibernateUtil
 {
 
@@ -123,7 +124,7 @@ public class HibernateUtil
      */
     public ISession GetSession()
     {
-        return this.m_session ;
+        return this.HibernateConfiguration.GetSession(1);
     }
 
 
@@ -149,9 +150,9 @@ public class HibernateUtil
     public bool Add(Object obj)
     {
 
-        if (obj is DatabaseObjectHibernate)
+        if (obj is DatabaseObjectNHibernate)
         {
-            DatabaseObjectHibernate doh = (DatabaseObjectHibernate)obj;
+            DatabaseObjectNHibernate doh = (DatabaseObjectNHibernate)obj;
 
             log.Debug(doh.ObjectName + "::DbAdd");
 
@@ -232,9 +233,9 @@ public class HibernateUtil
     public bool Edit(Object obj)
     {
 
-        if (obj is DatabaseObjectHibernate)
+        if (obj is DatabaseObjectNHibernate)
         {
-            DatabaseObjectHibernate doh = (DatabaseObjectHibernate)obj;
+            DatabaseObjectNHibernate doh = (DatabaseObjectNHibernate)obj;
 
             log.Debug(doh.ObjectName + "::DbEdit");
 
@@ -313,9 +314,9 @@ public class HibernateUtil
     public bool Delete(Object obj)
     {
 
-        if (obj is DatabaseObjectHibernate)
+        if (obj is DatabaseObjectNHibernate)
         {
-            DatabaseObjectHibernate doh = (DatabaseObjectHibernate)obj;
+            DatabaseObjectNHibernate doh = (DatabaseObjectNHibernate)obj;
 
             log.Debug(doh.ObjectName + "::DbDelete");
 
@@ -403,9 +404,9 @@ public class HibernateUtil
     public bool Get(Object obj)
     {
 
-        if (obj is DatabaseObjectHibernate)
+        if (obj is DatabaseObjectNHibernate)
         {
-            DatabaseObjectHibernate doh = (DatabaseObjectHibernate)obj;
+            DatabaseObjectNHibernate doh = (DatabaseObjectNHibernate)obj;
 
             log.Debug(doh.ObjectName + "::DbGet");
 
@@ -457,7 +458,7 @@ public class HibernateUtil
 
 
 
-    public string ApplicationDbName { get; }
+    public string ApplicationDbName { get; set; }
 
 
 

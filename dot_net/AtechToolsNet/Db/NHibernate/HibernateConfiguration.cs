@@ -40,6 +40,8 @@ using System.Collections.Generic;
 using System.IO;
 using ATechTools.Db.NHibernate.Check;
 using System.Reflection;
+using System.Xml;
+using System.Text;
 
 
 namespace ATechTools.Db.NHibernate
@@ -70,37 +72,73 @@ public abstract class HibernateConfiguration : DbCheckAbstract
     /**
      * The db_hib_dialect.
      */
-    public String db_hib_dialect = null; 
+    private String db_hib_dialect = null;
+
+    public String DbHibernateDialect
+    {
+        get { return db_hib_dialect; }
+        set { db_hib_dialect = value; }
+    } 
     
     /**
      * The db_driver_class.
      */
-    public String db_driver_class = null;
+    private String db_driver_class = null;
+
+    public String DbDriverClass
+    {
+        get { return db_driver_class; }
+        set { db_driver_class = value; }
+    }
     
     /**
      * The db_conn_name.
      */
-    public String db_conn_name = null;
+    private String db_conn_name = null;
+
+    public String DbConnectionName
+    {
+        get { return db_conn_name; }
+        set { db_conn_name = value; }
+    }
     
     /**
      * The db_conn_url.
      */
-    public String db_conn_url = null;
+    private String db_conn_url = null;
+
+    public String DbConnectionUrl
+    {
+        get { return db_conn_url; }
+        set { db_conn_url = value; }
+    }
     
     /**
      * The db_conn_username.
      */
-    public String db_conn_username = null;
+    private String db_conn_username = null;
+
+    public String DbConnectionUsername
+    {
+        get { return db_conn_username; }
+        set { db_conn_username = value; }
+    }
     
     /**
      * The db_conn_password.
      */
-    public String db_conn_password = null;
+    private String db_conn_password = null;
+
+    public String DbConnectionPassword
+    {
+        get { return db_conn_password; }
+        set { db_conn_password = value; }
+    }
     
     /**
      * The data_loaded.
      */
-    public boolean data_loaded = false;
+    public bool data_loaded = false;
 
     /**
      * The str_ldo.
@@ -158,7 +196,7 @@ public abstract class HibernateConfiguration : DbCheckAbstract
      * 
      * @param val the val
      */
-    public HibernateConfiguration(boolean val)
+    public HibernateConfiguration(bool val)
     {
         LoadConfiguration(-1);
     }
@@ -287,13 +325,13 @@ public abstract class HibernateConfiguration : DbCheckAbstract
             
             if (!DoesConfigurationExist())
             {
-                log.Error(this.cfg_file_missing_str + "(" + this.GetConfigurationFile() + ").");
+                log.Error(this.cfg_file_missing_str + "(" + this.ConfigurationFile + ").");
                 config_found = false;
                 LoadDefaultDatabase(config_found);
                 return;
             }
 
-            props.LoadFile(this.GetConfigurationFile());
+            props.LoadFile(this.ConfigurationFile);
 
 
     	    if (sel_db==-1)
@@ -324,6 +362,8 @@ public abstract class HibernateConfiguration : DbCheckAbstract
                 data_loaded = true;
             }
 
+            m_cfg = GetConfiguration();
+            CreateSessionFactory();
 
         }
         catch (Exception ex)
@@ -331,7 +371,8 @@ public abstract class HibernateConfiguration : DbCheckAbstract
             Console.WriteLine(cfg_file_error_read_exc + " " + ex);
             Console.WriteLine(ex.StackTrace);
         }
-        
+
+
     }
 
 
@@ -354,7 +395,7 @@ public abstract class HibernateConfiguration : DbCheckAbstract
     {
         //Console.WriteLine(this.getConfigurationFile());
         
-        FileInfo f = new FileInfo(this.GetConfigurationFile());
+        FileInfo f = new FileInfo(this.ConfigurationFile);
         return (f.Exists);
     }
 
@@ -376,48 +417,167 @@ public abstract class HibernateConfiguration : DbCheckAbstract
     /** 
      * getDbInfoConfiguration
      */
-    public Configuration GetDbInfoConfiguration()
+    /*public Configuration GetDbInfoConfiguration()
     {
         Configuration cfg = this.GetCustomConfiguration(this.GetDbInfoResource());
         this.db_context_selected = HibernateConfiguration.DB_CONTEXT_DBINFO;
         return cfg;
-    }
+    }*/
     
     
 
     private Configuration GetCustomConfiguration(String[] res_files)
     {
-        Configuration cfg = new Configuration();
-
-        Dictionary<string, string> props = new Dictionary<string, string>();
-
-        props.Add("hibernate.dialect", db_hib_dialect);
-        props.Add("hibernate.connection.driver_class", db_driver_class);
-        props.Add("hibernate.connection.url", db_conn_url);
-        props.Add("hibernate.connection.username", db_conn_username);
-        props.Add("hibernate.connection.password", db_conn_password);
-        props.Add("hibernate.connection.charSet", "utf-8");
-        props.Add("hibernate.use_outer_join", "true");
-
-        cfg.Properties = props;
-
-        for(int i=0; i<res_files.Length; i++)
+        try
         {
-            cfg.AddResource(res_files[i], GetResourceAssembly(res_files[i]));
-        }
-        
-        //  .setProperty("hibernate.show_sql", "true")
-        //  .setProperty("hibernate.c3p0.min_size", "5")
-        //  .setProperty("hibernate.c3p0.max_size", "20")
-        //  .setProperty("hibernate.c3p0.timeout", "1800")
-        //  .setProperty("hibernate.c3p0.max_statements", "50"); */
-        
-        //cfg.setProperty("hibernate.cglib.use_reflection_optimizer", "false");
+            //Configuration cfg = new Configuration();
 
-        this.m_cfg = cfg;
-        
-        return cfg;
+            Dictionary<string, string> props = new Dictionary<string, string>();
+
+            /*
+            props.Add("hibernate.dialect", db_hib_dialect);
+            props.Add("hibernate.connection.driver_class", db_driver_class);
+            props.Add("hibernate.connection.url", db_conn_url);
+            props.Add("hibernate.connection.provider", "NHibernate.Connection.DriverConnectionProvider");
+
+            if ((db_conn_username != null) && (db_conn_username.Length > 0))
+                props.Add("hibernate.connection.username", db_conn_username);
+
+            if ((db_conn_password != null) && (db_conn_password.Length > 0))
+                props.Add("hibernate.connection.password", db_conn_password);
+
+            props.Add("hibernate.connection.charSet", "utf-8");
+            props.Add("hibernate.use_outer_join", "true");
+            */
+
+            props.Add("dialect", db_hib_dialect);  //  hibernate.dialect
+            props.Add("connection.driver_class", db_driver_class);
+            props.Add("connection.connection_string", db_conn_url);
+
+            props.Add("connection.provider", "NHibernate.Connection.DriverConnectionProvider");
+
+            if ((db_conn_username != null) && (db_conn_username.Length > 0))
+                props.Add("connection.username", db_conn_username);
+
+            if ((db_conn_password != null) && (db_conn_password.Length > 0))
+                props.Add("connection.password", db_conn_password);
+
+            props.Add("connection.charSet", "utf-8");
+            //props.Add("use_outer_join", "true");
+
+            props.Add("proxyfactory.factory_class", "NHibernate.ByteCode.LinFu.ProxyFactoryFactory, NHibernate.ByteCode.LinFu");
+
+            //proxyfactory.factory_class
+            //log.Debug("Dialect: " + db_hib_dialect);
+
+            //cfg.Properties = props;
+
+            //cfg.AddProperties(props);
+            //cfg.Configure(
+            
+
+
+            //XmlWriter x = new XmlTextWriter();
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("<nhibernate>");
+
+            foreach(KeyValuePair<string,string> kvp in props)
+            {
+                sb.Append("<add key=\"");
+                sb.Append(kvp.Key);
+                sb.Append("\" value=\"");
+                sb.Append(kvp.Value);
+                sb.Append("\" />");
+
+                sb.AppendLine();
+            }
+            sb.Append("</nhibernate>");
+
+
+            //new StringReader(sb.ToString());
+
+            //cfg.SetProperties(props);
+
+            //cfg.Configure(new XmlTextReader(new StringReader(sb.ToString())));
+
+            //Configuration cfg = new Configuration(
+
+
+
+            /*
+    <add
+      key="hibernate.dialect"
+      value="NHibernate.Dialect.MsSql2000Dialect"
+    />
+    <add
+      key="hibernate.connection.driver_class"
+      value="NHibernate.Driver.SqlClientDriver"
+    />
+    <add
+      key="hibernate.connection.connection_string"
+      value="Server=localhost;initial catalog=nhibernate;Integrated Security=SSPI"
+    />*/
+
+            Console.WriteLine("Properties: " + props.ToString());
+
+
+            Configuration cfg = new Configuration()
+                .SetProperties(props)
+                .AddResource(res_files[0], this.GetResourceAssembly(res_files[0]));
+
+
+            //Configuration 
+            /*
+            for (int i = 0; i < res_files.Length; i++)
+            {
+                .AddResource(res_files[i], this.GetResourceAssembly(res_files[i]));
+                //cfg.AddResource(res_files[i], this.GetResourceAssembly(res_files[i]));
+            }*/
+
+            //  .setProperty("hibernate.show_sql", "true")
+            //  .setProperty("hibernate.c3p0.min_size", "5")
+            //  .setProperty("hibernate.c3p0.max_size", "20")
+            //  .setProperty("hibernate.c3p0.timeout", "1800")
+            //  .setProperty("hibernate.c3p0.max_statements", "50"); */
+
+            //cfg.setProperty("hibernate.cglib.use_reflection_optimizer", "false");
+
+            this.m_cfg = cfg;
+
+            return cfg;
+        }
+        catch (Exception ex)
+        {
+            log.Error("Problem creating NHibernate Configuration: " + ex.Message, ex);
+            return null;
+        }
+
+
+
     }
+
+
+
+
+
+
+    private Dictionary<string, string> GetDatabaseSpecificSettings(string dialect_name)
+    {
+        Dictionary<string, string> sett = new Dictionary<string, string>();
+
+        if (dialect_name == "")
+        {
+
+        }
+
+        return sett;
+
+    }
+
+
+    public abstract Dictionary<string, string> GetUsersDatabaseSpecificSettings(string dialect_name);
 
 
 
@@ -455,10 +615,11 @@ public abstract class HibernateConfiguration : DbCheckAbstract
      */
     public void CreateSessionFactory()
     {
+
         this.session_factory = m_cfg.BuildSessionFactory();
         this.sessions = new Dictionary<String,ISession>();
         
-        for(int i=1; i<=this.GetNumberOfSessions(); i++)
+        for(int i=1; i<=this.NumberOfSessions; i++)
         {
             //int iid = this.session_factory.OpenSession();
             this.sessions.Add("" +i, this.session_factory.OpenSession() );
@@ -516,7 +677,7 @@ public abstract class HibernateConfiguration : DbCheckAbstract
     {
         if (this.sessions!=null)
         {
-            for(int i=1; i<=this.GetNumberOfSessions(); i++)
+            for(int i=1; i<=this.NumberOfSessions; i++)
             {
                 ISession s = this.sessions["" +i];
                 s.Close();
@@ -538,7 +699,7 @@ public abstract class HibernateConfiguration : DbCheckAbstract
     public void CloseDb()
     {
         
-        if (this.GetHibernateDialect() == "org.hibernate.dialect.HSQLDialect")
+        if (this.db_hib_dialect == "org.hibernate.dialect.HSQLDialect")
         {
             try
             {
@@ -585,7 +746,7 @@ public abstract class HibernateConfiguration : DbCheckAbstract
     }
     
     
-    public abstract string DbName { get; }
+    //public abstract string DbName { get; }
 
 
 

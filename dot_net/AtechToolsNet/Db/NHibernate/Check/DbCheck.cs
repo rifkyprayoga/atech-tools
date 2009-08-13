@@ -47,7 +47,7 @@ public class DbCheck
     // 3. make check
     // 4. display if error found
     
-    ATDataAccessAbstract da = null;
+    //ATDataAccessAbstract da = null;
     
 //    UpdateConfiguration upd_conf;
     

@@ -124,7 +124,7 @@ public abstract class ATDataAccessAbstract
     /**
      * The border_line.
      */
-    public LineBorder border_line;
+    //public LineBorder border_line;
 
     
     /**
@@ -992,10 +992,10 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the font
      */
-    public Font getFont(int font_id)
+    /*public Font getFont(int font_id)
     {
         return fonts[font_id];
-    }
+    }*/
 
     // ********************************************************
     // ****** Parent handling (for UIs) *****
@@ -1592,7 +1592,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the date time string
      */
-    public String getDateTimeString(long date)
+/*    public String getDateTimeString(long date)
     {
         return getDateTimeString(date, 1);
     }
@@ -1604,7 +1604,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the date time as date string
      */
-    public String getDateTimeAsDateString(long date)
+  /*  public String getDateTimeAsDateString(long date)
     {
         return getDateTimeString(date, 2);
     }
@@ -1777,7 +1777,10 @@ public abstract class ATDataAccessAbstract
     public String parseExpression(String inp, String expression, String replace)
     {
 
-        StringBuffer buffer;
+        return inp.Replace(expression, replace);
+
+        /*
+        StringBuilder buffer;
 
         int idx=inp.indexOf(expression);
         
@@ -1802,7 +1805,7 @@ public abstract class ATDataAccessAbstract
         buffer.Append(inp);
 
         return buffer.toString();
-
+        */
     }
 
 
@@ -1816,34 +1819,10 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the string
      */
-    public String parseExpressionFull(String inp, String expression, String replace)
+    public string ParseExpressionFull(String inp, String expression, String replace)
     {
 
-        String buffer;
-
-        int idx=inp.indexOf(expression);
-        
-        if (replace==null)
-            replace ="";
-        
-        if (idx==-1)
-            return inp;
-
-        buffer = "";
-        
-        if (idx!=-1)
-        {
-            
-            buffer = inp.substring(0,idx) + replace + inp.substring(idx+expression.length());
-            
-            idx=inp.indexOf(expression);
-
-            if (idx!=-1) 
-                buffer = parseExpressionFull(buffer,expression,replace);
-
-        }
-
-        return buffer;
+        return inp.Replace(expression, replace);
 
     }
     
@@ -1855,9 +1834,9 @@ public abstract class ATDataAccessAbstract
      * 
      * @return true, if is empty or unset
      */
-    public boolean isEmptyOrUnset(String val)
+    public bool isEmptyOrUnset(String val)
     {
-        if ((val == null) || (val.trim().length()==0))
+        if ((val == null) || (val.Trim().Length==0))
         {
             return true;
         }
@@ -1874,13 +1853,12 @@ public abstract class ATDataAccessAbstract
      * 
      * @return true, if is found
      */
-    public static boolean isFound(String text, String search_str)
+    public static bool isFound(String text, String search_str)
     {
-
-        if ((search_str.trim().length() == 0) || (text.trim().length() == 0))
+        if ((search_str.Trim().Length == 0) || (text.Trim().Length == 0))
             return true;
 
-        return text.trim().indexOf(search_str.trim()) != -1;
+        return text.Trim().IndexOf(search_str.Trim()) != -1;
     }
 
 
@@ -1892,30 +1870,21 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the string[]
      */
-    public String[] splitString(String input, String delimiter)
+    public string[] SplitString(String input, String delimiter)
     {
-        String[] res = null;
+        string[] sep = new string[1];
+        sep[0] = delimiter;
 
-        if (!input.contains(delimiter))
+        if (!input.Contains(delimiter))
         {
-            res = new String[1];
+            String[] res = new String[1];
             res[0] = input;
+            return res; 
         }
         else
         {
-            StringTokenizer strtok = new StringTokenizer(input, delimiter);
-
-            res = new String[strtok.countTokens()];
-            int i = 0;
-
-            while (strtok.hasMoreTokens())
-            {
-                res[i] = strtok.nextToken().trim();
-                i++;
-            }
+            return input.Split(sep, StringSplitOptions.None);
         }
-
-        return res;
 
     }
 
@@ -1924,21 +1893,7 @@ public abstract class ATDataAccessAbstract
     // ********************************************************
     
     
-    /**
-     * Gets the gregorian calendar.
-     * 
-     * @param date the date
-     * 
-     * @return the gregorian calendar
-     */
-    public GregorianCalendar getGregorianCalendar(Date date)
-    {
-        GregorianCalendar gc = new GregorianCalendar();
-        gc.setTime(date);
-
-        return gc;
-    }
-
+ 
     
     /**
      * Gets the as localized date string.
@@ -1948,7 +1903,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the as localized date string
      */
-    public String getAsLocalizedDateString(GregorianCalendar gc_value, int years_digits)
+ /*   public String getAsLocalizedDateString(GregorianCalendar gc_value, int years_digits)
     {
         if (years_digits==2)
         {
@@ -1962,22 +1917,22 @@ public abstract class ATDataAccessAbstract
             return df.format(gc_value.getTime());
         }
     }
-    
+   */ 
     
     /**
      * The Constant GC_COMPARE_DAY.
      */
-    public static const int GC_COMPARE_DAY = 1;
+    public const int GC_COMPARE_DAY = 1;
     
     /**
      * The Constant GC_COMPARE_HOUR.
      */
-    public static const int GC_COMPARE_HOUR = 2;
+    public const int GC_COMPARE_HOUR = 2;
     
     /**
      * The Constant GC_COMPARE_MINUTE.
      */
-    public static const int GC_COMPARE_MINUTE = 3;
+    public const int GC_COMPARE_MINUTE = 3;
 
     /**
      * Compare gregorian calendars.
@@ -1988,28 +1943,25 @@ public abstract class ATDataAccessAbstract
      * 
      * @return true, if successful
      */
-    public boolean compareGregorianCalendars(int type, GregorianCalendar gc1, GregorianCalendar gc2)
+    public bool CompareDateTime(int type, DateTime dt1, DateTime dt2)
     {
-        boolean found = false;
-        
-        if ((gc1.get(GregorianCalendar.DAY_OF_MONTH)==gc2.get(GregorianCalendar.DAY_OF_MONTH)) && 
-            (gc1.get(GregorianCalendar.MONTH)==gc2.get(GregorianCalendar.MONTH)) &&
-            (gc1.get(GregorianCalendar.YEAR)==gc2.get(GregorianCalendar.YEAR)))
+        bool found = false;
+
+        if ((dt1.Day == dt2.Day) && (dt1.Month == dt2.Month) && (dt1.Year == dt2.Year))
             found = true;
             
         if ((type == ATDataAccessAbstract.GC_COMPARE_HOUR) ||
             (type == ATDataAccessAbstract.GC_COMPARE_MINUTE))
         {
-            if (gc1.get(GregorianCalendar.HOUR_OF_DAY)!=gc2.get(GregorianCalendar.HOUR_OF_DAY))
+            if (dt1.Hour!=dt2.Hour)
                 found = false;
         }
 
         if (type == ATDataAccessAbstract.GC_COMPARE_MINUTE)
         {
-            if (gc1.get(GregorianCalendar.MINUTE)!=gc2.get(GregorianCalendar.MINUTE))
+            if (dt1.Minute != dt2.Minute)
                 found = false;
         }
-        
 
         return found;
     }
@@ -2027,79 +1979,11 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the float value
      */
-    public float getFloatValue(Object aValue)
+    public float getFloatValue(object aValue)
     {
-        float outx = 0.0f;
 
-        // Console.WriteLine("getFloatValue: ");
+        return Convert.ToSingle(aValue);
 
-        if (aValue == null)
-            return outx;
-
-        // Console.WriteLine("getFloatValue: NOT NULL");
-
-        if (aValue is Float)
-        {
-            try
-            {
-                Float f = (Float) aValue;
-                outx = f.floatValue();
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-        else if (aValue is Double)
-        {
-            try
-            {
-                Double f = (Double) aValue;
-                outx = f.floatValue();
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-        else if (aValue is Int32)
-        {
-            try
-            {
-                Int32 f = (Int32) aValue;
-                outx = f.floatValue();
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-        else if (aValue is Int64)
-        {
-            try
-            {
-                Int64 f = (Int64) aValue;
-                outx = f.floatValue();
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-        else if (aValue is String)
-        {
-            String s = (String) aValue;
-            if (s.length() > 0)
-            {
-                try
-                {
-                    s = s.replace(",", ".");
-                    outx = Float.parseFloat(s);
-                }
-                catch (Exception ex)
-                {
-                    log.error("parse Float Exception [" + s + ": " + ex);
-                }
-            }
-        }
-
-        return outx;
     }
 
     /**
@@ -2156,11 +2040,11 @@ public abstract class ATDataAccessAbstract
         
         try
         {
-            outx = Convert.ToFloat(aValue);
+            outx = Convert.ToSingle(aValue);
         }
         catch (Exception ex)
         {
-            log.error("Error on parsing string to get float [" + aValue + "]:"
+            log.Error("Error on parsing string to get float [" + aValue + "]:"
                     + ex, ex);
 
         }
@@ -2198,7 +2082,7 @@ public abstract class ATDataAccessAbstract
         }
         catch (Exception ex)
         {
-            log.error("Error on parsing string to get int [" + aValue + "]:" + ex, ex);
+            log.Error("Error on parsing string to get int [" + aValue + "]:" + ex, ex);
         }
 
         return outx;
@@ -2234,7 +2118,7 @@ public abstract class ATDataAccessAbstract
         }
         catch (Exception ex)
         {
-            log.error("Error on parsing string to get long [" + aValue + "]:" + ex, ex);
+            log.Error("Error on parsing string to get long [" + aValue + "]:" + ex, ex);
         }
 
         return outx;
@@ -2249,7 +2133,7 @@ public abstract class ATDataAccessAbstract
      */
     public bool isValueSet(String val)
     {
-        if ((val == null) || (val.trim().length() == 0) || (val.equals("null")))
+        if ((val == null) || (val.Trim().Length == 0) || (val=="null"))
             return false;
         else
             return true;
@@ -2260,17 +2144,18 @@ public abstract class ATDataAccessAbstract
     // ****** Backup / Restore *****
     // ********************************************************
 
+    #region Backup Restore [Not Implementes]
     /**
      * The backup_restore_collection.
      */
-    protected BackupRestoreCollection backup_restore_collection = null;
+/*    protected BackupRestoreCollection backup_restore_collection = null;
 
     /**
      * Checks if is backup restore available.
      * 
      * @return true, if is backup restore available
      */
-    public boolean isBackupRestoreAvailable()
+/*    public boolean isBackupRestoreAvailable()
     {
         return (this.backup_restore_collection != null);
     }
@@ -2280,7 +2165,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the backup restore collection
      */
-    public BackupRestoreCollection getBackupRestoreCollection()
+/*    public BackupRestoreCollection getBackupRestoreCollection()
     {
         // TODO: clone
         return this.backup_restore_collection;
@@ -2290,9 +2175,10 @@ public abstract class ATDataAccessAbstract
     /**
      * Load Backup Restore Collection
      */
-    public abstract void loadBackupRestoreCollection();
+    //  public abstract void loadBackupRestoreCollection();
 
-    
+    #endregion
+
     /**
      * Make i18n keyword.
      * 
@@ -2302,19 +2188,19 @@ public abstract class ATDataAccessAbstract
      */
     public String makeI18nKeyword(String input)
     {
-        String process = input.replaceAll(" ", "_");
-        process = process.toUpperCase();
+        String process = input.Replace(" ", "_");
+        process = process.ToUpper();
 
         return process;
     }
 
-
+    #region Update Configuration [Not Implementes]
     /**
      * Gets the update configuration.
      * 
      * @return the update configuration
      */
-    public UpdateConfiguration getUpdateConfiguration()
+    /*public UpdateConfiguration getUpdateConfiguration()
     {
         if (this.update_configuration==null)
         {
@@ -2326,15 +2212,15 @@ public abstract class ATDataAccessAbstract
     
 
     //public abstract String getUpdateConfigurationFile();
-    
-    
+    */
+    #endregion
     
     /**
      * Get Configuration - reads properties file and read all entries
      * 
      * @param filename
      * @return
-     */    
+     */
     public Dictionary<String,String> getConfiguration(String filename)
     {
 
@@ -2376,9 +2262,9 @@ public abstract class ATDataAccessAbstract
         if (value==null)
             return false;
         
-        String val = value.toUpperCase();
+        String val = value.ToUpper();
         
-        if (val.equals("ENABLED") || val.equals("YES") || val.equals("TRUE") || val.equals("1"))
+        if (val == "ENABLED" || val == "YES" || val=="TRUE" || val=="1")
             return true;
         else
             return false;

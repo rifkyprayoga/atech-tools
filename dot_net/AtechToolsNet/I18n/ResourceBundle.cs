@@ -11,7 +11,10 @@ namespace ATechTools.I18n
 
 
 
-
+        public string GetString(string key)
+        {
+            return this.Get(key);
+        }
 
 
 
