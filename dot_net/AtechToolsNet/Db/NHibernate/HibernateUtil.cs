@@ -42,7 +42,10 @@ public class HibernateUtil
 
     //I18nControlAbstract ic = null;
     private ISession m_session = null;
-    
+
+    private bool is_running = false;
+
+
 
 
     /**
@@ -128,6 +131,18 @@ public class HibernateUtil
     }
 
 
+    public ISession GetNewSession()
+    {
+        return this.HibernateConfiguration.SessionFactory.OpenSession();
+    }
+
+
+    public void DisposeSession(ISession sess)
+    {
+        sess.Close();
+    }
+
+
     /**
      * Gets the session.
      * 
@@ -199,25 +214,36 @@ public class HibernateUtil
      * 
      * @return the long
      */
-    public long AddHibernate(Object obj)
+    public object AddHibernate(Object obj)
     {
 
         log.Info("addHibernate::" + obj.ToString());
 
+        //ITransaction tx = null;
+        ISession sess = null;
         try
         {
-            ISession sess = GetSession();
-            ITransaction tx = sess.BeginTransaction();
+            sess = GetNewSession();
+            //sess.FlushMode = FlushMode.Never;
 
-            Int64 val = (Int64) sess.Save(obj);
-            tx.Commit();
+            //tx = sess.BeginTransaction();
+
+            object val = sess.Save(obj);
+            //tx.Commit();
 
             return val;
         }
         catch (Exception ex)
         {
+            //if (tx != null)
+            //    tx.Rollback();
+
             log.Error("Exception on addHibernate: " + ex, ex);
             return -1;
+        }
+        finally 
+        {
+            sess.Close();
         }
 
     }

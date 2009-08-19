@@ -40,13 +40,17 @@ namespace ATechTools.Db.NHibernate.Check
     public abstract class DbCheckAbstract : DbCheckInterface
     {
 
-        private Dictionary<string, Assembly> ResourceAssemblies = new Dictionary<string, Assembly>();
+        public Dictionary<string, Assembly> ResourceAssemblies = new Dictionary<string, Assembly>();
 
 
         public DbCheckAbstract()
         { 
             this.ResourceAssemblies.Add("DbInfo.hbm.xml", this.GetType().Assembly);
+            this.LoadUserResourceAssemblyInformation();
         }
+
+
+        public abstract void LoadUserResourceAssemblyInformation();
 
 
         /**
@@ -79,10 +83,12 @@ namespace ATechTools.Db.NHibernate.Check
         { 
             if (this.ResourceAssemblies.ContainsKey(resName))
             {
+                Console.WriteLine("Get Resource Assembly found: " + this.ResourceAssemblies[resName]);
                 return this.ResourceAssemblies[resName];
             }
             else
             {
+                Console.WriteLine("Get Resource Assembly: " + this.GetType().Assembly);
                 return this.GetType().Assembly;
             }
         }

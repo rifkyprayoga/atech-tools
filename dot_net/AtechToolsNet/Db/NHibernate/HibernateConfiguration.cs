@@ -153,7 +153,13 @@ public abstract class HibernateConfiguration : DbCheckAbstract
     /**
      * The session_factory.
      */
-    protected ISessionFactory session_factory = null;
+    private ISessionFactory session_factory = null;
+
+    public ISessionFactory SessionFactory
+    {
+        get { return session_factory; }
+        set { session_factory = value; }
+    }
     
     /**
      * The sessions.
@@ -196,9 +202,8 @@ public abstract class HibernateConfiguration : DbCheckAbstract
      * 
      * @param val the val
      */
-    public HibernateConfiguration(bool val)
+    public HibernateConfiguration(bool val) : this(-1)
     {
-        LoadConfiguration(-1);
     }
     
     
@@ -207,7 +212,7 @@ public abstract class HibernateConfiguration : DbCheckAbstract
      * 
      * @param sel_db the sel_db
      */
-    public HibernateConfiguration(int sel_db)
+    public HibernateConfiguration(int sel_db) : base()
     {
         LoadConfiguration(sel_db);
     }
@@ -243,7 +248,7 @@ public abstract class HibernateConfiguration : DbCheckAbstract
      * @param sel_db the sel_db
      * @param da the da
      */
-    public HibernateConfiguration(I18nControlAbstract ic, int sel_db, ATDataAccessAbstract da)
+    public HibernateConfiguration(I18nControlAbstract ic, int sel_db, ATDataAccessAbstract da) : base()
     {
     	this.ic = ic;
         this.m_da = da; 
@@ -347,11 +352,13 @@ public abstract class HibernateConfiguration : DbCheckAbstract
 
             if (db_num == 0)
             {
+                log.Info("Load Default Database");
                 LoadDefaultDatabase(config_found);
             }
             else
             {
-                db_conn_name = props.Get("DB"+db_num+"_CONN_NAME");
+                log.Info("Load Database #" + db_num + " from Config file");
+                db_conn_name = props.Get("DB" + db_num + "_CONN_NAME");
                 db_hib_dialect = props.Get("DB"+db_num+"_HIBERNATE_DIALECT");
 
                 db_driver_class = props.Get("DB"+db_num+"_CONN_DRIVER_CLASS");
@@ -450,6 +457,9 @@ public abstract class HibernateConfiguration : DbCheckAbstract
             props.Add("hibernate.use_outer_join", "true");
             */
 
+            props.Add("session.name", "Test");
+            props.Add("session_name", "Test");
+            props.Add("session_factory.name", "Test");
             props.Add("dialect", db_hib_dialect);  //  hibernate.dialect
             props.Add("connection.driver_class", db_driver_class);
             props.Add("connection.connection_string", db_conn_url);
@@ -478,7 +488,7 @@ public abstract class HibernateConfiguration : DbCheckAbstract
 
 
             //XmlWriter x = new XmlTextWriter();
-
+/*
             StringBuilder sb = new StringBuilder();
 
             sb.Append("<nhibernate>");
@@ -494,7 +504,7 @@ public abstract class HibernateConfiguration : DbCheckAbstract
                 sb.AppendLine();
             }
             sb.Append("</nhibernate>");
-
+*/
 
             //new StringReader(sb.ToString());
 
@@ -520,12 +530,20 @@ public abstract class HibernateConfiguration : DbCheckAbstract
       value="Server=localhost;initial catalog=nhibernate;Integrated Security=SSPI"
     />*/
 
-            Console.WriteLine("Properties: " + props.ToString());
+//            Console.WriteLine("Properties: " + props.ToString());
 
+
+//            Console.WriteLine(this.GetResourceAssembly(res_files[0]));
 
             Configuration cfg = new Configuration()
-                .SetProperties(props)
-                .AddResource(res_files[0], this.GetResourceAssembly(res_files[0]));
+                .SetProperties(props);
+
+            for (int i = 0; i < res_files.Length; i++)
+            {
+                cfg.AddResource(res_files[i], this.GetResourceAssembly(res_files[i]));
+            }
+            
+                //.AddResource(res_files[0], this.GetResourceAssembly(res_files[0]));
 
 
             //Configuration 
@@ -617,6 +635,8 @@ public abstract class HibernateConfiguration : DbCheckAbstract
     {
 
         this.session_factory = m_cfg.BuildSessionFactory();
+        
+        
         this.sessions = new Dictionary<String,ISession>();
         
         for(int i=1; i<=this.NumberOfSessions; i++)
@@ -656,8 +676,12 @@ public abstract class HibernateConfiguration : DbCheckAbstract
         
         if (!dont_clear)
             s.Clear();
-        
+
         return s;
+        
+        //return this.SessionFactory.OpenSession();
+
+        
     }
     
     /**
