@@ -7,9 +7,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.Collator;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -921,6 +924,62 @@ public abstract class ATDataAccessAbstract
 
     }
 
+    
+    /**
+     * Load property file that is codepage specific (this java doesn't do, so we need to do this manually)
+     * 
+     * @param filename the filename
+     * @param codepage 
+     * 
+     * @return the hashtable< string, string>
+     */
+    public Hashtable<String, String> loadPropertyFile(String filename, String codepage)
+    {
+
+        Hashtable<String, String> config_db_values_ = new Hashtable<String, String>();
+
+        //Properties props = new Properties();
+
+        this.config_loaded = true;
+
+        try
+        {
+            //File f = new File(".");
+            //System.out.println("File: " + f.getCanonicalPath());
+
+            //FileInputStream in = new FileInputStream(new File(filename), "UTF8"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename),codepage));
+            
+            String line = null;
+            
+            while ((line = br.readLine())!=null)
+            {
+                line = line.trim();
+                
+                if ((line.contains("=")) && (!line.startsWith(";") || !line.startsWith("#")))
+                {
+                    config_db_values_.put(line.substring(0, line.indexOf("=")), line.substring(line.indexOf("=")+1));
+                }
+                
+            }
+            
+            
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Error loading config file (" + filename + "): "
+                    + ex);
+            this.config_loaded = false;
+            ex.printStackTrace();
+            return null;
+        }
+
+        return config_db_values_;
+
+    }
+    
+    
+    
     // ********************************************************
     // ****** Database Loading Status *****
     // ********************************************************
