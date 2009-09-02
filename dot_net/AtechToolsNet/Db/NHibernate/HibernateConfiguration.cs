@@ -350,6 +350,9 @@ public abstract class HibernateConfiguration : DbCheckAbstract
     	    //Console.WriteLine("Loading Db #" + db_num);
     	    log.Info(loading_db_str + db_num);
 
+            Console.WriteLine("Load Db: " + db_num);
+
+
             if (db_num == 0)
             {
                 log.Info("Load Default Database");
