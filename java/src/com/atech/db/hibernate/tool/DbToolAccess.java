@@ -480,9 +480,10 @@ public class DbToolAccess extends ATDataAccessAbstract
     public boolean getCorrectInterface(Class<?> c) // Object o)
     {
         Class<?>[] theInterfaces = c.getInterfaces();
-        for (int i = 0; i < theInterfaces.length; i++)
+
+        for (Class<?> theInterface : theInterfaces)
         {
-            String interfaceName = theInterfaces[i].getName();
+            String interfaceName = theInterface.getName();
 
             if (interfaceName.equals("com.atech.db.tool.DbToolApplicationInterface"))
             {
@@ -491,7 +492,6 @@ public class DbToolAccess extends ATDataAccessAbstract
             }
             else
                 return false;
-
         }
 
         return false;

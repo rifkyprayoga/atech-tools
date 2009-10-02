@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.atech.utils.ATSwingUtils;
+
 /**
  * This file is part of ATech Tools library.
  * 
@@ -79,13 +81,22 @@ public class PanelRoot extends JPanel implements ActionListener
     private void createPanel()
     {
 
-        this.setSize(420, 460);
+        this.setSize(500, 460);
         this.setLayout(null);
 
         Font fnt_18 = new Font("Times New Roman", Font.BOLD, 18);
 
-        label = new JLabel("Database Root");
+        
+        ATSwingUtils.initLibrary();
+        
+        ATSwingUtils.getTitleLabel(ic.getMessage("DB_TOOL"), 0, 35, 500, 40, this, ATSwingUtils.FONT_BIG_BOLD);
+        
+        
+//        label = new JLabel("Database Root");
 
+        
+//`        DB_TOOL
+        
         // label = new JLabel(ic.getMessage("CONFIGURATION"));
         label.setBounds(0, 35, 420, 40);
         label.setFont(font_big);
@@ -115,7 +126,7 @@ public class PanelRoot extends JPanel implements ActionListener
                 button.setActionCommand("add_");
                 this.add(button);
         */
-        button = new JButton(ic.getMessage("ADD_"));
+        button = new JButton(ic.getMessage("ADD_DB"));
         button.setBounds(110, 220, 170, 25);
         button.setFont(font_normal);
         button.setActionCommand("add_p");
