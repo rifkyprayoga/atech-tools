@@ -27,7 +27,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
@@ -1064,8 +1066,8 @@ public class ATSwingUtils
     {
         return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da);
     }
-    
 
+    
     /**
      * Gets the button.
      * 
@@ -1085,9 +1087,50 @@ public class ATSwingUtils
      */
     public static JButton getButton(String text, int x, int y, int width, int height, Container cont, Font font, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da)
     {
-        JButton button = new JButton(text);
+        return ATSwingUtils.getButton(text, x, y, width, height, cont, font, icon_name, action_cmd, al, da, null);
+    }
+    
+
+    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, int font_id, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size)
+    {
+        return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da, icon_size);
+    }
+    
+    
+    
+    /**
+     * Gets the button.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font the font
+     * @param icon_name the icon_name
+     * @param action_cmd the action_cmd
+     * @param al the al
+     * @param da the da
+     * 
+     * @return the button
+     */
+    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, Font font, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size)
+    {
+        JButton button = null;
+        
+        if ((text==null) || (text.trim().length()==0))
+            button = new JButton();            
+        else
+            button = new JButton(text);
+        
         if (icon_name !=null)
-            button.setIcon(da.getImageIcon_22x22(icon_name, cont));
+        {
+            if (icon_size==null)
+                button.setIcon(da.getImageIcon_22x22(icon_name, cont));
+            else
+                button.setIcon(da.getImageIcon(icon_name, icon_size[0], icon_size[1], cont));
+        }
         button.setActionCommand(action_cmd);
         button.setFont(font);
         button.setBounds(x, y, width, height);
@@ -1389,6 +1432,34 @@ public class ATSwingUtils
         JOptionPane.showMessageDialog(cont, ic.getMessage(message), ic.getMessage("WARNING"), JOptionPane.WARNING_MESSAGE);
     }
     
+
+    /**
+     * Gets the text area (is JScrollPane)
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * 
+     * @return the text field
+     */
+    public static JTextArea getTextArea(String text, int x, int y, int width, int height, Container cont)
+    {
+        JTextArea jta = new JTextArea();
+        
+        if (text!=null)
+            jta.setText(text);
+        
+        JScrollPane scp = new JScrollPane(jta);
+        scp.setBounds(x, y, width, height);
+        
+        
+        cont.add(scp);
+        
+        return jta;
+    }
     
     
 }
