@@ -18,6 +18,7 @@ import com.atech.db.hibernate.tool.DbToolTreeRoot;
 import com.atech.i18n.tool.simple.data.TranslationData;
 import com.atech.utils.ATDataAccessAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -54,47 +55,114 @@ public class DataAccessTT extends ATDataAccessAbstract
 
     // LF
     // Hashtable<String,String> availableLF_full = null;
+    /**
+     * The available lf.
+     */
     Object[] availableLF = null;
+    
+    /**
+     * The available lang.
+     */
     Object[] availableLang = null;
 
+    /**
+     * The selected lf.
+     */
     String selectedLF = null;
+    
+    /**
+     * The sub selected lf.
+     */
     String subSelectedLF = null;
 
     // Config file
+    /**
+     * The config_db_values.
+     */
     Hashtable<String, String> config_db_values = null;
+    
+    /**
+     * The selected_db.
+     */
     public int selected_db = -1;
+    
+    /**
+     * The selected_lang.
+     */
     public int selected_lang = 1;
+    
+    /**
+     * The selected_ l f_ class.
+     */
     public String selected_LF_Class = null; // class
+    
+    /**
+     * The selected_ l f_ name.
+     */
     public String selected_LF_Name = null; // name
+    
+    /**
+     * The skin lf selected.
+     */
     public String skinLFSelected = null;
+    
+    /**
+     * The all dbs.
+     */
     String allDbs[] = null;
 
+    /**
+     * The s_path prefix.
+     */
     public static String s_pathPrefix = "./";
 
+    /**
+     * The m_i18n.
+     */
     public I18nControlTT m_i18n = I18nControlTT.getInstance();
 
     private static DataAccessTT s_da = null; // This is handle to unique
     // singelton instance
 
     // public GGCDb m_db = null;
+    /**
+     * The m_main.
+     */
     public Component m_main = null;
 
-    public Font fonts[] = null;
 
+    /**
+     * The m_databases_treeroot.
+     */
     public DbToolTreeRoot m_databases_treeroot = null;
     // public GGCTreeRoot m_meals_treeroot = null;
 
+    /**
+     * The m_date.
+     */
     public Date m_date = null;
     // public HbA1cValues m_HbA1c = null;
     // public DailyValues m_dvalues = null;
 
+    /**
+     * The m_table of databases.
+     */
     public Hashtable<String, DatabaseDefObject> m_tableOfDatabases = new Hashtable<String, DatabaseDefObject>();
     // public ArrayList m_listOfDatabases = null;
 
+    /**
+     * The m_available databases.
+     */
     public Object[] m_availableDatabases = null;
 
+    /**
+     * The list of classes.
+     */
     public ArrayList<DbToolApplicationInterface> listOfClasses = new ArrayList<DbToolApplicationInterface>();
 
+    /**
+     * The m_data defs.
+     */
     public DatabaseDefinitions m_dataDefs = null;
 
     // ********************************************************
@@ -144,6 +212,13 @@ public class DataAccessTT extends ATDataAccessAbstract
         return s_da;
     }
 
+    /**
+     * Creates the instance.
+     * 
+     * @param main the main
+     * 
+     * @return the data access tt
+     */
     public static DataAccessTT createInstance(Component main)
     {
         if (s_da == null)
@@ -159,6 +234,11 @@ public class DataAccessTT extends ATDataAccessAbstract
      * static public DataAccess getInstance() { return m_da; }
      */
 
+    /**
+     * Gets the available databases.
+     * 
+     * @return the available databases
+     */
     public Object[] getAvailableDatabases()
     {
         // System.out.println("getAvailableDatabases() " +
@@ -166,11 +246,22 @@ public class DataAccessTT extends ATDataAccessAbstract
         return m_availableDatabases;
     }
 
+    /**
+     * Creates the available databases.
+     * 
+     * @param number the number
+     */
     public void createAvailableDatabases(int number)
     {
         m_availableDatabases = new Object[number];
     }
 
+    /**
+     * Adds the available database.
+     * 
+     * @param index the index
+     * @param obj the obj
+     */
     public void addAvailableDatabase(int index, DatabaseDefObject obj)
     {
         m_availableDatabases[index] = obj;
@@ -203,6 +294,9 @@ public class DataAccessTT extends ATDataAccessAbstract
     //public static final int FONT_NORMAL = 1;
     //public static final int FONT_NORMAL_BOLD = 2;
 
+    /** 
+     * loadFonts
+     */
     public void loadFonts()
     {
         fonts = new Font[3];
@@ -211,6 +305,9 @@ public class DataAccessTT extends ATDataAccessAbstract
         fonts[2] = new Font("SansSerif", Font.BOLD, 12);
     }
 
+    /** 
+     * getFont
+     */
     public Font getFont(int font_id)
     {
         return fonts[font_id];
@@ -220,6 +317,11 @@ public class DataAccessTT extends ATDataAccessAbstract
     // ****** Parent handling (for UIs) *****
     // ********************************************************
 
+    /**
+     * Sets the parent.
+     * 
+     * @param main the new parent
+     */
     public void setParent(Component main)
     {
         m_main = main;
@@ -277,11 +379,19 @@ public class DataAccessTT extends ATDataAccessAbstract
     // ****** Languages *****
     // ********************************************************
 
-    public ArrayList<DbToolApplicationInterface> getApplicationDatas()
+    /**
+ * Gets the application datas.
+ * 
+ * @return the application datas
+ */
+public ArrayList<DbToolApplicationInterface> getApplicationDatas()
     {
         return listOfClasses;
     }
 
+    /**
+     * Load application data.
+     */
     public void loadApplicationData()
     {
 
@@ -299,6 +409,13 @@ public class DataAccessTT extends ATDataAccessAbstract
 
     }
 
+    /**
+     * Process directory.
+     * 
+     * @param root the root
+     * @param f the f
+     * @param display the display
+     */
     public void processDirectory(String root, File f, boolean display)
     {
         File fl[] = f.listFiles();
@@ -360,10 +477,17 @@ public class DataAccessTT extends ATDataAccessAbstract
         }
     }
 
+    /**
+     * Gets the correct interface.
+     * 
+     * @param c the c
+     * 
+     * @return the correct interface
+     */
     public boolean getCorrectInterface(Class<?> c) // Object o)
     {
         Class<?>[] theInterfaces = c.getInterfaces();
-        for (int i = 0; i < theInterfaces.length; i++)
+        for (int i = 0; i < theInterfaces.length; )
         {
             String interfaceName = theInterfaces[i].getName();
 
@@ -386,6 +510,9 @@ public class DataAccessTT extends ATDataAccessAbstract
     // ********************************************************
 
     // public void loadCo
+    /**
+     * Load config.
+     */
     public void loadConfig(/* DbToolApplicationInterface dtai */)
     {
 
@@ -453,6 +580,11 @@ public class DataAccessTT extends ATDataAccessAbstract
          */
     }
 
+    /**
+     * Gets the list of databases.
+     * 
+     * @return the list of databases
+     */
     public ArrayList<DatabaseSettings> getListOfDatabases()
     {
 
@@ -481,6 +613,9 @@ public class DataAccessTT extends ATDataAccessAbstract
          */
     }
 
+    /**
+     * Save config.
+     */
     public void saveConfig()
     {
 
@@ -554,11 +689,21 @@ public class DataAccessTT extends ATDataAccessAbstract
 
     }
 
+    /**
+     * Gets the available dbs.
+     * 
+     * @return the available dbs
+     */
     public String[] getAvailableDbs()
     {
         return allDbs;
     }
 
+    /**
+     * Gets the selected db index.
+     * 
+     * @return the selected db index
+     */
     public int getSelectedDbIndex()
     {
         for (int i = 0; i < allDbs.length; i++)
@@ -569,6 +714,9 @@ public class DataAccessTT extends ATDataAccessAbstract
         return 0;
     }
 
+    /** 
+     * getMonthsArray
+     */
     public String[] getMonthsArray()
     {
 
@@ -591,27 +739,11 @@ public class DataAccessTT extends ATDataAccessAbstract
 
     }
 
-    public String getDateString(int date)
-    {
+   
 
-        // 20051012
-
-        int year = date / 10000;
-        int months = date - (year * 10000);
-
-        months = months / 100;
-
-        int days = date - (year * 10000) - (months * 100);
-
-        if (year == 0)
-        {
-            return getLeadingZero(days, 2) + "/" + getLeadingZero(months, 2);
-        } else
-            return getLeadingZero(days, 2) + "/" + getLeadingZero(months, 2)
-                    + "/" + year;
-
-    }
-
+    /** 
+     * getTimeString
+     */
     public String getTimeString(int time)
     {
 
@@ -625,6 +757,11 @@ public class DataAccessTT extends ATDataAccessAbstract
 
 
 
+    /**
+     * Not implemented.
+     * 
+     * @param source the source
+     */
     public static void notImplemented(String source)
     {
         System.out.println("Not Implemented: " + source);
@@ -635,6 +772,13 @@ public class DataAccessTT extends ATDataAccessAbstract
     // --- Array Utils
     // ---
 
+    /**
+     * Gets the array list from hashtable values.
+     * 
+     * @param table the table
+     * 
+     * @return the array list from hashtable values
+     */
     public ArrayList<String> getArrayListFromHashtableValues(
             Hashtable<String, String> table)
     {
@@ -648,6 +792,13 @@ public class DataAccessTT extends ATDataAccessAbstract
         return al;
     }
 
+    /**
+     * Gets the array of database settings.
+     * 
+     * @param table the table
+     * 
+     * @return the array of database settings
+     */
     public ArrayList<DatabaseSettings> getArrayOfDatabaseSettings(
             Hashtable<String, DatabaseSettings> table)
     {
@@ -668,6 +819,9 @@ public class DataAccessTT extends ATDataAccessAbstract
         return al;
     }
 
+    /** 
+     * checkPrerequisites
+     */
     @Override
     public void checkPrerequisites()
     {
@@ -675,6 +829,9 @@ public class DataAccessTT extends ATDataAccessAbstract
         
     }
 
+    /** 
+     * getApplicationName
+     */
     @Override
     public String getApplicationName()
     {
@@ -682,28 +839,43 @@ public class DataAccessTT extends ATDataAccessAbstract
         return null;
     }
 
+    /** 
+     * getHibernateDb
+     */
     @Override
     public HibernateDb getHibernateDb()
     {
         return null;
     }
 
+    /** 
+     * getImagesRoot
+     */
     @Override
     public String getImagesRoot()
     {
         return "/icons/simple_translation_tool/";
     }
 
+    /** 
+     * initSpecial
+     */
     @Override
     public void initSpecial()
     {
     }
 
+    /** 
+     * loadBackupRestoreCollection
+     */
     @Override
     public void loadBackupRestoreCollection()
     {
     }
 
+    /** 
+     * loadGraphConfigProperties
+     */
     @Override
     public void loadGraphConfigProperties()
     {
@@ -730,6 +902,9 @@ public class DataAccessTT extends ATDataAccessAbstract
         // TODO Auto-generated method stub
     }
 
+    /** 
+     * getSelectedLangIndex
+     */
     @Override
     public int getSelectedLangIndex()
     {
@@ -737,6 +912,9 @@ public class DataAccessTT extends ATDataAccessAbstract
         return 0;
     }
 
+    /** 
+     * setSelectedLangIndex
+     */
     @Override
     public void setSelectedLangIndex(int index)
     {
@@ -744,6 +922,9 @@ public class DataAccessTT extends ATDataAccessAbstract
         
     }
 
+    /** 
+     * loadPlugIns
+     */
     @Override
     public void loadPlugIns()
     {
@@ -755,7 +936,10 @@ public class DataAccessTT extends ATDataAccessAbstract
   //  TTDb tdb;
     
     
-    public void startDb()
+    /**
+   * Start db.
+   */
+  public void startDb()
     {
 //        tdb = new TTDb(this);
         
@@ -763,6 +947,9 @@ public class DataAccessTT extends ATDataAccessAbstract
     }
     
     
+    /**
+     * The status.
+     */
     public String[] status = { "Not translated", "Must be checked", "Translated" };
     
     
@@ -776,8 +963,16 @@ public class DataAccessTT extends ATDataAccessAbstract
         return null;
     }*/
     
+    /**
+     * The translation_data.
+     */
     public TranslationData translation_data;
     
+    /**
+     * Gets the translation data.
+     * 
+     * @return the translation data
+     */
     public TranslationData getTranslationData()
     {
         return translation_data;

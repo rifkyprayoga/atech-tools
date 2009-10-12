@@ -24,23 +24,54 @@ import com.atech.i18n.tool.simple.util.DataAccessTT;
 import com.atech.utils.ATSwingUtils;
 
 /**
- * @author Andy
+ *  This file is part of ATech Tools library.
+ *  
+ *  
+ *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
+ *  
+ *  
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
  *
- */
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ *  
+ *  
+ *  For additional information about this project please visit our project site on 
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  andyrozman@users.sourceforge.net or andy@atech-software.com
+ *  
+ *  @author Andy
+ *
+*/
 public class TranslationTool extends JFrame implements ActionListener
 {
     
+    private static final long serialVersionUID = 8072388083288536444L;
     Hashtable<String,JMenu> menus = null; 
     DataAccessTT m_da = DataAccessTT.getInstance();
     I18nControlAbstract m_ic = null;
     String m_version = "0.0.1";
     DataListProcessor dlp;
     
-    JLabel module, group;
+    JLabel module, group, index, keyword;
+    JLabel[] statuses;
     JButton priority;
     JTextArea jt_source, jt_desc, jt_mine;
     JComboBox cmb_status;
     
+    
+    /**
+     * Constructor
+     */
     public TranslationTool()
     {
         super();
@@ -54,11 +85,34 @@ public class TranslationTool extends JFrame implements ActionListener
         this.dlp = new DataListProcessor("");
         this.dlp.moveFirst();
         this.readData();
+
+        if (!this.dlp.wasMasterFileRead())
+        {
+            showTypesDialog("Master file was not read correctly.", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+//            init();
         
-        this.setSize(520, 640);
-        this.setVisible(true);
+            this.setSize(520, 640);
+            this.setVisible(true);
+        }
     }
 
+    
+    private void showTypesDialog(String msg, int type)
+    {
+        String type_desc = "";
+        
+        if (type ==JOptionPane.ERROR_MESSAGE)
+            type_desc = "Error";
+        else if (type ==JOptionPane.WARNING_MESSAGE)
+            type_desc = "Warning";
+        
+        JOptionPane.showMessageDialog(this, msg, type_desc, type);
+        
+    }
+    
     
     private void init()
     {
@@ -80,8 +134,28 @@ public class TranslationTool extends JFrame implements ActionListener
         ATSwingUtils.getLabel("Group Priority:", 330, 50, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         priority = ATSwingUtils.getButton("x", 430, 50, 40, 25, panel, ATSwingUtils.FONT_NORMAL, null, "show_group_info", this, m_da);
         
+
+        ATSwingUtils.getLabel("Index:", 30, 75, 60, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        index = ATSwingUtils.getLabel("0000", 80, 75, 120, 25, panel, ATSwingUtils.FONT_NORMAL);
         
-        int yst = 120;
+        ATSwingUtils.getLabel("Key:", 140, 75, 40, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        keyword = ATSwingUtils.getLabel("No id", 180, 75, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
+        //keyword.setBackground(Color.blue);
+        
+
+        statuses = new JLabel[3];
+
+        ATSwingUtils.getLabel("Not translated:", 30, 100, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        statuses[0] = ATSwingUtils.getLabel("0000", 130, 100, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
+        
+        ATSwingUtils.getLabel("Need to be checked:", 180, 100, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        statuses[1] = ATSwingUtils.getLabel("0000", 310, 100, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
+        
+        ATSwingUtils.getLabel("Translated:", 360, 100, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        statuses[2] = ATSwingUtils.getLabel("0000", 450, 100, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
+        
+        
+        int yst = 150;
         
         ATSwingUtils.getLabel("Master Text File Translation", 30, yst, 300, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         jt_source = ATSwingUtils.getTextArea("Text Master File", 30, yst+30, 450, 60, panel);
@@ -100,6 +174,8 @@ public class TranslationTool extends JFrame implements ActionListener
 
         
         
+        
+        
         cmb_status = ATSwingUtils.getComboBox(m_da.status, 330, yst+295, 150, 25, panel, ATSwingUtils.FONT_NORMAL);
         
         int[] sz = { 40, 40 } ;
@@ -115,9 +191,17 @@ public class TranslationTool extends JFrame implements ActionListener
     }
     
     
+    /**
+     * Read Data
+     */
     public void readData()
     {
         DataEntry de = this.dlp.getCurrentEntry();
+        
+        if (de==null)
+            return;
+        
+        //System.out.println("master translation: " + de.master_file_translation);
         
         this.jt_source.setText(de.master_file_translation);
         
@@ -129,9 +213,25 @@ public class TranslationTool extends JFrame implements ActionListener
         this.jt_mine.setText(de.target_translation);
         
         this.cmb_status.setSelectedIndex(de.status);
+        
+        this.index.setText((dlp.current_index+1) + "");
+        this.keyword.setText(de.key);
+        
+        this.dlp.resetStatus();
+        
+        int[] st = this.dlp.getStatuses();
+        
+        this.statuses[0].setText("" + st[0]);
+        this.statuses[1].setText("" + st[1]);
+        this.statuses[2].setText("" + st[2]);
+        
+        
     }
     
 
+    /**
+     * Save Data
+     */
     public void saveData()
     {
         DataEntry de = this.dlp.getCurrentEntry();
@@ -153,10 +253,12 @@ public class TranslationTool extends JFrame implements ActionListener
                     		null, this.m_da.status, this.m_da.status[2]);
                     
                     de.status = st;
+                    this.dlp.resetStatus();
                 }
                 else
                 {
                     de.status = DataEntry.STATUS_TRANSLATED;
+                    this.dlp.resetStatus();
                 }
             }
             
@@ -167,6 +269,7 @@ public class TranslationTool extends JFrame implements ActionListener
             if (de.status != this.cmb_status.getSelectedIndex())
             {
                 de.status = this.cmb_status.getSelectedIndex();
+                this.dlp.resetStatus();
             }
         }
         
@@ -214,6 +317,9 @@ public class TranslationTool extends JFrame implements ActionListener
     }
 
 
+    /** 
+     * Action Performed
+     */
     public void actionPerformed(ActionEvent e)
     {
         // TODO Auto-generated method stub

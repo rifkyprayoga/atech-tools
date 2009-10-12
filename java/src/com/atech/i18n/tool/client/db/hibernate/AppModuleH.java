@@ -5,8 +5,14 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+// TODO: Auto-generated Javadoc
 /** @author Hibernate CodeGenerator */
 public class AppModuleH implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -207868912611454629L;
 
     /** identifier field */
     private long id;
@@ -20,7 +26,10 @@ public class AppModuleH implements Serializable {
     /** persistent field */
     private long app_id;
 
-    /** full constructor */
+    /** full constructor 
+     * @param name 
+     * @param desc 
+     * @param app_id */
     public AppModuleH(String name, String desc, long app_id) {
         this.name = name;
         this.desc = desc;
@@ -31,50 +40,98 @@ public class AppModuleH implements Serializable {
     public AppModuleH() {
     }
 
-    /** minimal constructor */
+    /** minimal constructor 
+     * @param name 
+     * @param app_id */
     public AppModuleH(String name, long app_id) {
         this.name = name;
         this.app_id = app_id;
     }
 
+    /**
+     * Gets the id.
+     * 
+     * @return the id
+     */
     public long getId() {
         return this.id;
     }
 
+    /**
+     * Sets the id.
+     * 
+     * @param id the new id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     * Gets the name.
+     * 
+     * @return the name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Sets the name.
+     * 
+     * @param name the new name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the desc.
+     * 
+     * @return the desc
+     */
     public String getDesc() {
         return this.desc;
     }
 
+    /**
+     * Sets the desc.
+     * 
+     * @param desc the new desc
+     */
     public void setDesc(String desc) {
         this.desc = desc;
     }
 
+    /**
+     * Gets the app_id.
+     * 
+     * @return the app_id
+     */
     public long getApp_id() {
         return this.app_id;
     }
 
+    /**
+     * Sets the app_id.
+     * 
+     * @param app_id the new app_id
+     */
     public void setApp_id(long app_id) {
         this.app_id = app_id;
     }
 
+    /** 
+     * toString
+     */
     public String toString() {
         return new ToStringBuilder(this)
             .append("id", getId())
             .toString();
     }
 
+    /** 
+     * equals
+     */
     public boolean equals(Object other) {
         if ( !(other instanceof AppModuleH) ) return false;
         AppModuleH castOther = (AppModuleH) other;
@@ -83,6 +140,9 @@ public class AppModuleH implements Serializable {
             .isEquals();
     }
 
+    /** 
+     * hashCode
+     */
     public int hashCode() {
         return new HashCodeBuilder()
             .append(getId())

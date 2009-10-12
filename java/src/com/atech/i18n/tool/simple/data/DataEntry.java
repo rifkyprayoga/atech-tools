@@ -9,12 +9,13 @@ public class DataEntry
     
     
     
-    String key = null;
+    public String key = null;
     DataEntryRaw group = null;
     public String master_file_translation;
     public String description = null;
     public String target_translation = "";
     public int status = 0;
+    public long invalidated = 0L;
     
     public DataEntry(String _key, String mast_translation)
     {

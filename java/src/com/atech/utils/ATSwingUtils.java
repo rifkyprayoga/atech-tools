@@ -1091,6 +1091,21 @@ public class ATSwingUtils
     }
     
 
+    /**
+     * @param text
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param cont
+     * @param font_id
+     * @param icon_name
+     * @param action_cmd
+     * @param al
+     * @param da
+     * @param icon_size
+     * @return
+     */
     public static JButton getButton(String text, int x, int y, int width, int height, Container cont, int font_id, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size)
     {
         return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da, icon_size);
@@ -1112,6 +1127,7 @@ public class ATSwingUtils
      * @param action_cmd the action_cmd
      * @param al the al
      * @param da the da
+     * @param icon_size 
      * 
      * @return the button
      */

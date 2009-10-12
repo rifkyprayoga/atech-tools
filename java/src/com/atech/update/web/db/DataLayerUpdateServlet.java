@@ -19,6 +19,7 @@ import com.atech.update.web.data.ComponentVersion;
 import com.atech.update.web.data.ComponentVersionSpecial;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  Application:   GGC - GNU Gluco Control
  *  Plug-in:       GGC PlugIn Base (base class for all plugins)
@@ -52,18 +53,49 @@ import com.atech.update.web.data.ComponentVersionSpecial;
 public class DataLayerUpdateServlet 
 {
 
+    /**
+     * The apps.
+     */
     public Hashtable<String,Application> apps = null;
+    
+    /**
+     * The apps_ids.
+     */
     public Hashtable<Long,Application> apps_ids = null;
     
+    /**
+     * The components.
+     */
     public Hashtable<Long,ComponentElement> components = null;
     
+    /**
+     * The jdbc_url.
+     */
     protected String jdbc_url = null;
+    
+    /**
+     * The db_class_name.
+     */
     protected String db_class_name = null;
+    
+    /**
+     * The m_connection.
+     */
     Connection m_connection = null;
     
+    /**
+     * The username.
+     */
     protected String username = null;
+    
+    /**
+     * The password.
+     */
     protected String password = null;
     
+    /**
+     * The s_dl.
+     */
     public static DataLayerUpdateServlet s_dl;
     
     //public static final String DB_CLASS_MS_ACCESS_MDB_TOOLS = "mdbtools.jdbc.Driver";
@@ -72,6 +104,11 @@ public class DataLayerUpdateServlet
     //public static final String URL_MS_ACCESS_JDBC_ODBC_BRIDGE = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=%FILENAME%";
     
 
+    /**
+     * Gets the single instance of DataLayerUpdateServlet.
+     * 
+     * @return single instance of DataLayerUpdateServlet
+     */
     public static DataLayerUpdateServlet getInstance()
     {
         if (DataLayerUpdateServlet.s_dl==null)
@@ -92,6 +129,9 @@ public class DataLayerUpdateServlet
     }
 
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
         this.loadComponents();
@@ -106,6 +146,9 @@ public class DataLayerUpdateServlet
     }
 
     
+    /**
+     * Load applications.
+     */
     public void loadApplications()
     {
         
@@ -140,6 +183,13 @@ public class DataLayerUpdateServlet
         
     }
     
+    /**
+     * Gets the application.
+     * 
+     * @param name the name
+     * 
+     * @return the application
+     */
     public Application getApplication(String name)
     {
         
@@ -151,6 +201,9 @@ public class DataLayerUpdateServlet
     }
     
     
+    /**
+     * Load application versions.
+     */
     public void loadApplicationVersions()
     {
 //        Hashtable<Long,Application> components = new Hashtable<Long,Application>(); 
@@ -183,6 +236,9 @@ public class DataLayerUpdateServlet
     }
     
 
+    /**
+     * Load application components.
+     */
     public void loadApplicationComponents()
     {
         ArrayList<ApplicationComponent> lst = new ArrayList<ApplicationComponent>();
@@ -219,6 +275,9 @@ public class DataLayerUpdateServlet
     }
     
     
+    /**
+     * Load application version components.
+     */
     public void loadApplicationVersionComponents()
     {
         ArrayList<ApplicationVersionComponent> lst = new ArrayList<ApplicationVersionComponent>();
@@ -259,6 +318,9 @@ public class DataLayerUpdateServlet
     }
     
     
+    /**
+     * Process dependencies.
+     */
     public void processDependencies()
     {
         // TODO
@@ -276,6 +338,9 @@ public class DataLayerUpdateServlet
         
     }
     
+    /**
+     * Load application groups.
+     */
     public void loadApplicationGroups()
     {
         ArrayList<ApplicationGroup> groups = new ArrayList<ApplicationGroup>();
@@ -313,6 +378,9 @@ public class DataLayerUpdateServlet
     
     
 
+    /**
+     * Load components.
+     */
     public void loadComponents()
     {
         components = new Hashtable<Long,ComponentElement>();
@@ -343,6 +411,9 @@ public class DataLayerUpdateServlet
     
     
     
+    /**
+     * Load component versions.
+     */
     public void loadComponentVersions()
     {
         
@@ -387,6 +458,11 @@ public class DataLayerUpdateServlet
     
     
     
+    /**
+     * Gets the component version specials.
+     * 
+     * @return the component version specials
+     */
     public ArrayList<ComponentVersionSpecial> getComponentVersionSpecials()
     {
         
@@ -445,6 +521,8 @@ public class DataLayerUpdateServlet
      * Set JDBC Connection 
      * @param db_class_name class name for database
      * @param _jdbc_url full jdbc url, if user and password used, they must be part of url
+     * @param user 
+     * @param pass 
      */
     public void setJDBCConnection(String db_class_name, String _jdbc_url, String user, String pass)
     {
@@ -529,11 +607,19 @@ public class DataLayerUpdateServlet
     }
     
 
+    /**
+     * Show debug.
+     */
     public void showDebug()
     {
         
     }
     
+    /**
+     * The main method.
+     * 
+     * @param args the arguments
+     */
     public static void main(String[] args)
     {
         DataLayerUpdateServlet dlus = new DataLayerUpdateServlet();

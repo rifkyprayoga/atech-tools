@@ -8,11 +8,19 @@ import javax.swing.JLabel;
 import com.atech.graphics.components.EditableAbstractPanel;
 import com.atech.i18n.tool.client.DataAccessTT;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PanelAGroupView.
+ */
 public class PanelAGroupView extends EditableAbstractPanel
 {
 
+    private static final long serialVersionUID = -1006849834169661138L;
     private JLabel jLabel = null;
 
+    /**
+     * Instantiates a new panel a group view.
+     */
     public PanelAGroupView()
     {
         super(false, DataAccessTT.getInstance().getI18nControlInstance());
@@ -36,19 +44,28 @@ public class PanelAGroupView extends EditableAbstractPanel
     }
 
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
         
     }
     
     
+    /** 
+     * getWarningString
+     */
     @Override
-    public String getWarningString(int action_type)
+    public String getWarningString(int _action_type)
     {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** 
+     * hasDataChanged
+     */
     @Override
     public boolean hasDataChanged()
     {
@@ -56,6 +73,9 @@ public class PanelAGroupView extends EditableAbstractPanel
         return false;
     }
 
+    /** 
+     * saveData
+     */
     @Override
     public boolean saveData()
     {
@@ -63,6 +83,9 @@ public class PanelAGroupView extends EditableAbstractPanel
         return false;
     }
 
+    /** 
+     * setData
+     */
     @Override
     public void setData(Object object)
     {
@@ -70,6 +93,9 @@ public class PanelAGroupView extends EditableAbstractPanel
         
     }
 
+    /** 
+     * setParent
+     */
     @Override
     public void setParent(Object object)
     {
@@ -77,6 +103,9 @@ public class PanelAGroupView extends EditableAbstractPanel
         
     }
 
+    /** 
+     * setParentRoot
+     */
     @Override
     public void setParentRoot(Object object)
     {

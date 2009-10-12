@@ -11,7 +11,6 @@ import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.tool.client.DataAccessTT;
 import com.atech.i18n.tool.client.db.hibernate.ApplicationH;
-import com.atech.i18n.tool.client.db.hibernate.LanguageH;
 
 /**
  *  Application:   GGC - GNU Gluco Control

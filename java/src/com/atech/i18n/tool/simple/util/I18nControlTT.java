@@ -96,6 +96,9 @@ public class I18nControlTT extends I18nControlAbstract
     
 
 
+    /**
+     * 
+     */
     public void init()
     {
         def_language = "en";

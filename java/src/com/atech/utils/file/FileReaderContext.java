@@ -1,9 +1,5 @@
 package com.atech.utils.file;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.Hashtable;
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -31,69 +27,38 @@ import java.util.Hashtable;
  *  andyrozman@users.sourceforge.net or andy@atech-software.com
  *  
  *  @author Andy
- * @param <K> 
- * @param <V> 
  *
 */
 
-
-public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
+public abstract class FileReaderContext
 {
 
-    //private String master_file_name = "GGC_en.properties";
-    
-    private static final long serialVersionUID = 8988247925694117522L;
     /**
-     * Filename
-     */
-    public String filename;
-    
-    /**
-     * Constructor
+     * Get File Description
      * 
-     * @param _filename
+     * @return
      */
-    public FileReaderHashtable(String _filename)
-    {
-        this.filename = _filename;
-        readFile();
-    }
+    public abstract String getFileDescription();
     
+    /**
+     * Get File Extension
+     * 
+     * @return
+     */
+    public abstract String getFileExtension();
     
-    
+    /**
+     * Has Special Selector Dialog
+     * 
+     * @return
+     */
+    public abstract boolean hasSpecialSelectorDialog();
+
     /**
      * Read File
-     */
-    public void readFile()
-    {
-        try
-        {
-            BufferedReader br = new BufferedReader(new FileReader(this.filename));
-            String line = null;
-            
-            while((line = br.readLine()) != null)
-            {
-                processFileEntry(line);
-            }
-            
-            br.close();
-            
-        }
-        catch(Exception ex)
-        {
-            System.out.println("FileReaderList: Error reading file: " + this.filename);
-        }
-    }
-    
-    
-    /**
-     * Process File Entry
      * 
-     * @param line
+     * @param filename
      */
-    public abstract void processFileEntry(String line);
+    public abstract void readFile(String filename);
     
-
 }
-
-

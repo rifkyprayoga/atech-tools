@@ -9,7 +9,6 @@ import com.atech.db.hibernate.DatabaseObjectHibernate;
 import com.atech.db.hibernate.transfer.BackupRestoreObject;
 import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
 import com.atech.i18n.I18nControlAbstract;
-import com.atech.i18n.tool.client.DataAccessTT;
 import com.atech.i18n.tool.client.db.hibernate.TranslatorH;
 
 /**
@@ -383,10 +382,11 @@ public class TranslatorO extends TranslatorH implements BackupRestoreObject, Dat
      */
     public void dbImport(int table_version, String value_entry, Object[] parameters) throws Exception
     {
+        /*
         DataAccessTT da = DataAccessTT.getInstance();
 
         value_entry = DataAccessTT.getInstance().replaceExpression(value_entry, "||", "| |");
-        String[] arr = da.splitString(value_entry, "|");
+        String[] arr = da.splitString(value_entry, "|");*/
   /*      
         this.setId(da.getLongValueFromString(arr[0]));
         this.setName(arr[1]);

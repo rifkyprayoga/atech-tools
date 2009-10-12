@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import com.atech.utils.ATDataAccess;
 
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -39,6 +40,9 @@ import com.atech.utils.ATDataAccess;
 public abstract class ATechConverter
 {
 
+    /**
+     * The m_da.
+     */
     ATDataAccess m_da = ATDataAccess.getInstance();
     
     /**
@@ -63,15 +67,21 @@ public abstract class ATechConverter
     public String[] bg_units = { "mg/dl", "mmol/l" };
     
     
+    /**
+     * The decimal_formaters.
+     */
     public static Hashtable<Integer, DecimalFormat> decimal_formaters = null;
 
 
     private int TYPE_1 = 1;
+    @SuppressWarnings("unused")
     private int TYPE_2 = 2;
 
     private int TYPE_1_TYPE = 1;
+    @SuppressWarnings("unused")
     private int TYPE_2_TYPE = 1;
 
+    @SuppressWarnings("unused")
     private int TYPE_1_TYPE_PRECISSION = 0;
     private int TYPE_2_TYPE_PRECISSION = 1;
     
@@ -79,14 +89,29 @@ public abstract class ATechConverter
     private float TYPE1_TO_TYPE2_FACTOR = 0.0f;
     private float TYPE2_TO_TYPE1_FACTOR = 0.0f;
     
+    /**
+     * The Constant BASETYPE_INT.
+     */
     public final static int BASETYPE_INT = 1;
+    
+    /**
+     * The Constant BASETYPE_FLOAT.
+     */
     public final static int BASETYPE_FLOAT = 2;
     
     
     
+    /**
+     * The configured_type.
+     */
     public int configured_type = 1;
     
     
+    /**
+     * Creates the decimal formaters.
+     * 
+     * @param max_decs the max_decs
+     */
     public static void createDecimalFormaters(int max_decs)
     {
         decimal_formaters = new Hashtable<Integer, DecimalFormat>();
@@ -103,27 +128,61 @@ public abstract class ATechConverter
     }
 
     
+    /**
+     * Gets the formated float.
+     * 
+     * @param value the value
+     * @param decimals the decimals
+     * 
+     * @return the formated float
+     */
     public static String getFormatedFloat(float value, int decimals)
     {
         return decimal_formaters.get(decimals).format(value);
     }
     
+    /**
+     * Gets the formated double.
+     * 
+     * @param value the value
+     * @param decimals the decimals
+     * 
+     * @return the formated double
+     */
     public static String getFormatedDouble(double value, int decimals)
     {
         return decimal_formaters.get(decimals).format(value);
     }
     
+    /**
+     * Gets the configured type.
+     * 
+     * @return the configured type
+     */
     public int getConfiguredType()
     {
         return this.configured_type;
     }
     
+    /**
+     * Sets the configured type.
+     * 
+     * @param type the new configured type
+     */
     public void setConfiguredType(int type)
     {
         this.configured_type = type;
     }
     
     
+    /**
+     * Instantiates a new a tech converter.
+     * 
+     * @param type1_type the type1_type
+     * @param type2_type the type2_type
+     * @param type1_2_type2 the type1_2_type2
+     * @param type2_2_type1 the type2_2_type1
+     */
     public ATechConverter(int type1_type, int type2_type, float type1_2_type2, float type2_2_type1)
     {
         this.TYPE_1_TYPE = type1_type;
@@ -186,7 +245,7 @@ public abstract class ATechConverter
     /**
      * Get BG Value By Type
      * 
-     * @param type
+     * @param input_type 
      * @param bg_value
      * @return
      */
@@ -208,7 +267,7 @@ public abstract class ATechConverter
      * 
      * @param input_type
      * @param output_type
-     * @param bg_value
+     * @param value
      * @return
      */
     public float getBGValueByType(int input_type, int output_type, float value)

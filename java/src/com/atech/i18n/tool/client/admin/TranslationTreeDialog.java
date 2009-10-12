@@ -394,6 +394,7 @@ public class TranslationTreeDialog extends JDialog implements TreeSelectionListe
     public static int PANEL_ADD_ITEM = 3;
 
     
+    @SuppressWarnings("unused")
     private void displayPanel(int special_action)
     {
 
@@ -465,6 +466,7 @@ public class TranslationTreeDialog extends JDialog implements TreeSelectionListe
     }
 
 
+    @SuppressWarnings("unused")
     private Object mouse_selected_object = null;
 
     /**
@@ -735,6 +737,7 @@ public class TranslationTreeDialog extends JDialog implements TreeSelectionListe
      */
     public void actionPerformed(ActionEvent ae)
     {
+        @SuppressWarnings("unused")
         String command = ae.getActionCommand();
 /*
         if (command.equals("close"))

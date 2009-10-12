@@ -9,12 +9,20 @@ import javax.swing.JTextField;
 import com.atech.graphics.components.EditableAbstractPanel;
 import com.atech.i18n.tool.client.DataAccessTT;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PanelAModuleEdit.
+ */
 public class PanelAModuleEdit extends EditableAbstractPanel
 {
 
+    private static final long serialVersionUID = 8248532563528657646L;
     private JLabel jLabel = null;
     private JTextField jTextField = null;
 
+    /**
+     * Instantiates a new panel a module edit.
+     */
     public PanelAModuleEdit()
     {
         super(true, DataAccessTT.getInstance().getI18nControlInstance());
@@ -39,19 +47,28 @@ public class PanelAModuleEdit extends EditableAbstractPanel
     }
 
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
         
     }
     
     
+    /** 
+     * getWarningString
+     */
     @Override
-    public String getWarningString(int action_type)
+    public String getWarningString(int _action_type)
     {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** 
+     * hasDataChanged
+     */
     @Override
     public boolean hasDataChanged()
     {
@@ -59,6 +76,9 @@ public class PanelAModuleEdit extends EditableAbstractPanel
         return false;
     }
 
+    /** 
+     * saveData
+     */
     @Override
     public boolean saveData()
     {
@@ -66,6 +86,9 @@ public class PanelAModuleEdit extends EditableAbstractPanel
         return false;
     }
 
+    /** 
+     * setData
+     */
     @Override
     public void setData(Object object)
     {
@@ -73,6 +96,9 @@ public class PanelAModuleEdit extends EditableAbstractPanel
         
     }
 
+    /** 
+     * setParent
+     */
     @Override
     public void setParent(Object object)
     {
@@ -80,6 +106,9 @@ public class PanelAModuleEdit extends EditableAbstractPanel
         
     }
 
+    /** 
+     * setParentRoot
+     */
     @Override
     public void setParentRoot(Object object)
     {

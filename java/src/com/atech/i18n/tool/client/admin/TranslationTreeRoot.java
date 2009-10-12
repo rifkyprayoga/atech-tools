@@ -7,29 +7,30 @@ import com.atech.i18n.tool.client.db.datalayer.AppModuleO;
 
 
 
+// TODO: Auto-generated Javadoc
 /**
- *  Application:   GGC - GNU Gluco Control
- *
- *  See AUTHORS for copyright information.
+ * Application:   GGC - GNU Gluco Control
  * 
- *  This program is free software; you can redistribute it and/or modify it under
- *  the terms of the GNU General Public License as published by the Free Software
- *  Foundation; either version 2 of the License, or (at your option) any later
- *  version.
+ * See AUTHORS for copyright information.
  * 
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- *  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- *  details.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
  * 
- *  You should have received a copy of the GNU General Public License along with
- *  this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- *  Place, Suite 330, Boston, MA 02111-1307 USA
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- *  Filename:     GGCTreeRoot
- *  Description:  Used for holding tree information for nutrition and meals
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
  * 
- *  Author: andyrozman {andy@atech-software.com}  
+ * Filename:     GGCTreeRoot
+ * Description:  Used for holding tree information for nutrition and meals
+ * 
+ * Author: andyrozman {andy@atech-software.com}
  */
 
 
@@ -37,13 +38,13 @@ public class TranslationTreeRoot
 {
 
     
+    /**
+     * The list.
+     */
     ArrayList<AppModuleO> list = null;
     
     /**
-     * Constructor
-     * 
-     * @param type
-     * @param db
+     * Constructor.
      */
     public TranslationTreeRoot()
     {
@@ -52,9 +53,9 @@ public class TranslationTreeRoot
 
     
     /**
-     * Debug - printout
+     * Debug - printout.
      * 
-     * @param text
+     * @param text the text
      */
     public void debug(String text)
     {
@@ -64,6 +65,10 @@ public class TranslationTreeRoot
 
     /**
      * Returns the child of parent at index index in the parent's child array.
+     * 
+     * @param index the index
+     * 
+     * @return the child
      */
     public AppModuleO getChild(int index) 
     {
@@ -74,6 +79,8 @@ public class TranslationTreeRoot
 
     /**
      * Returns the number of children of parent.
+     * 
+     * @return the child count
      */
     public int getChildCount() 
     {
@@ -83,6 +90,10 @@ public class TranslationTreeRoot
 
     /**
      * Returns the index of child in parent.
+     * 
+     * @param child the child
+     * 
+     * @return the index of child
      */
     public int getIndexOfChild(Object child) 
     {
@@ -90,6 +101,9 @@ public class TranslationTreeRoot
     }
     
     
+    /** 
+     * toString
+     */
     public String toString()
     {
         return "TRANSLATION_ADMIN";

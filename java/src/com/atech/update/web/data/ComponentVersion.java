@@ -6,50 +6,106 @@ import java.util.Hashtable;
 
 import com.atech.utils.ATDataAccess;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentVersion.
+ */
 public class ComponentVersion
 {
     
+    /**
+     * The id.
+     */
     public long id = 0L;
     
+    /**
+     * The component_id.
+     */
     public long component_id = 0L;
     
+    /**
+     * The version.
+     */
     public long version = 0L;
     
+    /**
+     * The version_desc.
+     */
     public String version_desc = null;
     
+    /**
+     * The files.
+     */
     public String files = null;
     
+    /**
+     * The dependencies.
+     */
     public String dependencies = null;
     
+    /**
+     * The platforms_specific.
+     */
     public boolean platforms_specific = false;
     
+    /**
+     * The platforms_type.
+     */
     public int platforms_type = 1;
     
+    /**
+     * The platforms_suported.
+     */
     public String platforms_suported = null;
     
+    /**
+     * The comment.
+     */
     public String comment = null;
     
+    /**
+     * The component_version_special.
+     */
     public ArrayList<ComponentVersionSpecial> component_version_special = null;
     
+    /**
+     * The version_dependencies.
+     */
     public Hashtable<Long,Long> version_dependencies = new Hashtable<Long,Long>(); 
     
+    /**
+     * The Constant SQL_SELECT.
+     */
     public static final String SQL_SELECT = "select id, component_id, version_desc, version, files, comment, " +
             " dependencies, platforms_specific, platforms_type, platforms_supported from component_version";
 
 
     
     
+    /**
+     * Instantiates a new component version.
+     */
     public ComponentVersion()
     {
     }
  
     
+    /**
+     * Instantiates a new component version.
+     * 
+     * @param rs the rs
+     */
     public ComponentVersion(ResultSet rs)
     {
         loadDbEntry(rs);
     }
     
     
+    /**
+     * Load db entry.
+     * 
+     * @param rs the rs
+     */
     public void loadDbEntry(ResultSet rs) 
     {
         try
@@ -72,6 +128,9 @@ public class ComponentVersion
     }
     
     
+    /**
+     * Resolve dependencies.
+     */
     public void resolveDependencies()
     {
         String[] elements = this.dependencies.split(";");
@@ -88,6 +147,11 @@ public class ComponentVersion
     
     
     
+    /**
+     * Load component version special.
+     * 
+     * @param lst the lst
+     */
     public void loadComponentVersionSpecial(ArrayList<ComponentVersionSpecial> lst)
     {
         for(int i=0; i<lst.size(); i++)
@@ -102,6 +166,11 @@ public class ComponentVersion
     }
     
     
+    /**
+     * Adds the component version special.
+     * 
+     * @param cvs the cvs
+     */
     public void addComponentVersionSpecial(ComponentVersionSpecial cvs)
     {
         if (this.component_version_special ==null)

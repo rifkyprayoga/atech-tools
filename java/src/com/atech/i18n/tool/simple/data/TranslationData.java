@@ -3,24 +3,63 @@ package com.atech.i18n.tool.simple.data;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.OutputStreamWriter;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ *  This file is part of ATech Tools library.
+ *  
+ *  
+ *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
+ *  
+ *  
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ *  
+ *  
+ *  For additional information about this project please visit our project site on 
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  andyrozman@users.sourceforge.net or andy@atech-software.com
+ *  
+ *  @author Andy
+ *
+*/
 public class TranslationData
 {
     
+    /**
+     * The list_tra.
+     */
     public ArrayList<DataEntry> list_tra = null;
+    
+    /**
+     * The dt_tra.
+     */
     public Hashtable<String,DataEntry> dt_tra = null;
 
+    /**
+     * The statuses_info.
+     */
+    public int statuses_info[] = { 0, 0, 0};
     
-    
+    /**
+     * Instantiates a new translation data.
+     */
     public TranslationData()
     {
         list_tra = new ArrayList<DataEntry>();
@@ -29,6 +68,11 @@ public class TranslationData
     }
 
     
+    /**
+     * Adds the translation data.
+     * 
+     * @param de the de
+     */
     public void addTranslationData(DataEntry de)
     {
         this.list_tra.add(de);
@@ -36,17 +80,34 @@ public class TranslationData
     }
     
 
+    /**
+     * Checks if is empty.
+     * 
+     * @return true, if is empty
+     */
     public boolean isEmpty()
     {
         return (this.list_tra.size()==0);
     }
     
+    /**
+     * Gets the.
+     * 
+     * @param key the key
+     * 
+     * @return the data entry
+     */
     public DataEntry get(String key)
     {
         return this.dt_tra.get(key);
     }
 
 
+    /**
+     * Elements.
+     * 
+     * @return the enumeration< data entry>
+     */
     public Enumeration<DataEntry> elements()
     {
         return this.dt_tra.elements();
@@ -54,29 +115,54 @@ public class TranslationData
     }
     
     
+    /**
+     * Contains key.
+     * 
+     * @param key the key
+     * 
+     * @return true, if successful
+     */
     public boolean containsKey(String key)
     {
         return this.dt_tra.containsKey(key);
     }
     
     
+    /**
+     * Gets the.
+     * 
+     * @param index the index
+     * 
+     * @return the data entry
+     */
     public DataEntry get(int index)
     {
         return this.list_tra.get(index);
     }
     
     
+    /**
+     * Size.
+     * 
+     * @return the int
+     */
     public int size()
     {
         return this.list_tra.size();
     }
     
+    /**
+     * Save.
+     */
     public void save()
     {
         saveTranslation();
         saveSettings();
     }
     
+    /**
+     * Save translation.
+     */
     public void saveTranslation()
     {
         try
@@ -93,7 +179,8 @@ public class TranslationData
                 DataEntry de = this.list_tra.get(i);
                 
                 bw.write(de.key + "=");
-                
+ 
+                //  TODO: if no translation - English
                 bw.write(getTranslationEncoded(de.target_translation));
                 
                 /*
@@ -126,9 +213,40 @@ public class TranslationData
         System.out.println("TranslationData.saveTranslation() NOT FULLY implemented !");
     }
     
+    /**
+     * Save settings.
+     */
     public void saveSettings()
     {
         System.out.println("TranslationData.saveSettings() NOT implemented !");
+    }
+    
+    
+    /**
+     * Reset status.
+     */
+    public void resetStatus()
+    {
+        //System.out.println("reset status");
+        this.statuses_info[0] = 0;
+        this.statuses_info[1] = 0;
+        this.statuses_info[2] = 0;
+
+        for(int i=0; i<this.list_tra.size(); i++)
+        {
+            DataEntry de = this.list_tra.get(i);
+            this.statuses_info[de.status] = this.statuses_info[de.status]+1;
+        }
+    }
+    
+    /**
+     * Gets the statuses.
+     * 
+     * @return the statuses
+     */
+    public int[] getStatuses()
+    {
+        return this.statuses_info;
     }
     
     

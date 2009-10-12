@@ -9,7 +9,6 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -2714,6 +2713,9 @@ public String getDateTimeString(int date, int time)
     public static final int GC_COMPARE_MINUTE = 3;
 
     
+    /**
+     * 
+     */
     public static final int GC_COMPARE_SECOND = 4;
     
     /**

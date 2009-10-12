@@ -116,6 +116,11 @@ public class ATechUpdateList extends HttpServlet
   }
 
     
+    /**
+     * @param request
+     * @param parameter
+     * @return
+     */
     public String getParameter(HttpServletRequest request, String parameter)
     {
         String param = request.getParameter(parameter);
@@ -129,6 +134,9 @@ public class ATechUpdateList extends HttpServlet
     
     
     
+    /**
+     * @param _error_id
+     */
     public void setError(int _error_id)
     {
         System.out.println("setError (current=" + this.error_id + ",new=" + _error_id);

@@ -6,24 +6,59 @@ import java.util.Hashtable;
 
 import com.atech.update.web.db.DataLayerUpdateServlet;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApplicationVersion.
+ */
 public class ApplicationVersion
 {
+    
+    /**
+     * The id.
+     */
     public long id = 0L;
     
+    /**
+     * The application_id.
+     */
     public long application_id = 0L;
 
+    /**
+     * The version.
+     */
     public String version = null;
     
+    /**
+     * The version_num.
+     */
     public long version_num = 0;
     
+    /**
+     * The db_version.
+     */
     public int db_version = 0;
  
     
+    /**
+     * The groups.
+     */
     public ArrayList<ApplicationGroup> groups = new ArrayList<ApplicationGroup>();
+    
+    /**
+     * The main_components.
+     */
     public ArrayList<ApplicationVersionComponent> main_components = new ArrayList<ApplicationVersionComponent>();
     
+    /**
+     * The comp_dependencies.
+     */
     public Hashtable<Long,Long> comp_dependencies = new Hashtable<Long,Long>(); 
     
+    /**
+     * Load groups.
+     * 
+     * @param groups_in the groups_in
+     */
     public void loadGroups(ArrayList<ApplicationGroup> groups_in)
     {
         for(int i=0; i<groups_in.size(); i++)
@@ -33,6 +68,12 @@ public class ApplicationVersion
         }
     }
     
+    /**
+     * Load application version components.
+     * 
+     * @param list the list
+     * @param dl the dl
+     */
     public void loadApplicationVersionComponents(ArrayList<ApplicationVersionComponent> list, DataLayerUpdateServlet dl)
     {
         for(int i=0; i<list.size(); i++)
@@ -48,6 +89,12 @@ public class ApplicationVersion
     }
 
     
+    /**
+     * Refresh internal dependencies.
+     * 
+     * @param dl the dl
+     */
+    @SuppressWarnings("unchecked")
     public void refreshInternalDependencies(DataLayerUpdateServlet dl)
     {
         Hashtable<Long,Long> deps = (Hashtable<Long,Long>)this.comp_dependencies.clone();
@@ -73,6 +120,12 @@ public class ApplicationVersion
     }
     
     
+    /**
+     * Refresh dependencies.
+     * 
+     * @param deps the deps
+     * @param deps_old the deps_old
+     */
     public void refreshDependencies(Hashtable<Long,Long> deps, Hashtable<Long,Long> deps_old)
     {
         if ((deps==null) || (deps.size()==0))

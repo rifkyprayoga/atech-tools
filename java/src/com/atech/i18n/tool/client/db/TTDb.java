@@ -1,26 +1,13 @@
 package com.atech.i18n.tool.client.db;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
-import java.util.Iterator;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.Settings;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.db.hibernate.HibernateDb;
-import com.atech.graphics.dialogs.selector.SelectableInterface;
 import com.atech.i18n.tool.client.DataAccessTT;
-import com.atech.utils.ATechDate;
 
 
 /**
@@ -69,6 +56,7 @@ public class TTDb extends HibernateDb // implements DbCheckInterface HibernateDb
     //TTDbConfig hib_config = null;
 
     private Configuration m_cfg = null;
+    @SuppressWarnings("unused")
     private DataAccessTT m_da;
 
     private int m_loadStatus = 0;
@@ -230,11 +218,13 @@ public class TTDb extends HibernateDb // implements DbCheckInterface HibernateDb
 
     }
 
+    @SuppressWarnings("unused")
     private void logException(String source, Exception ex)
     {
         log.error(source + "::Exception: " + ex.getMessage(), ex);
     }
 
+    @SuppressWarnings("unused")
     private void logDebug(String source, String action)
     {
         log.debug(source + " - " + action);

@@ -9,7 +9,6 @@ import javax.swing.tree.TreePath;
 
 import com.atech.i18n.tool.client.db.datalayer.AppGroupO;
 import com.atech.i18n.tool.client.db.datalayer.AppModuleO;
-import com.atech.i18n.tool.client.db.hibernate.AppGroupH;
 
 /**
  *  Application:   GGC - GNU Gluco Control

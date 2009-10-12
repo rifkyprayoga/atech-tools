@@ -4,16 +4,23 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import com.atech.graphics.components.EditableAbstractPanel;
 import com.atech.i18n.tool.client.DataAccessTT;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PanelAModuleView.
+ */
 public class PanelAModuleView extends EditableAbstractPanel
 {
 
+    private static final long serialVersionUID = 8250422143124123044L;
     private JLabel jLabel = null;
 
+    /**
+     * Instantiates a new panel a module view.
+     */
     public PanelAModuleView()
     {
         super(false, DataAccessTT.getInstance().getI18nControlInstance());
@@ -37,19 +44,28 @@ public class PanelAModuleView extends EditableAbstractPanel
     }
 
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
         
     }
     
     
+    /** 
+     * getWarningString
+     */
     @Override
-    public String getWarningString(int action_type)
+    public String getWarningString(int _action_type)
     {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** 
+     * hasDataChanged
+     */
     @Override
     public boolean hasDataChanged()
     {
@@ -57,6 +73,9 @@ public class PanelAModuleView extends EditableAbstractPanel
         return false;
     }
 
+    /** 
+     * saveData
+     */
     @Override
     public boolean saveData()
     {
@@ -64,6 +83,9 @@ public class PanelAModuleView extends EditableAbstractPanel
         return false;
     }
 
+    /** 
+     * setData
+     */
     @Override
     public void setData(Object object)
     {
@@ -71,6 +93,9 @@ public class PanelAModuleView extends EditableAbstractPanel
         
     }
 
+    /** 
+     * setParent
+     */
     @Override
     public void setParent(Object object)
     {
@@ -78,6 +103,9 @@ public class PanelAModuleView extends EditableAbstractPanel
         
     }
 
+    /** 
+     * setParentRoot
+     */
     @Override
     public void setParentRoot(Object object)
     {

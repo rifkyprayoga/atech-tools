@@ -18,18 +18,40 @@ import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.info.LanguageInfo;
 import com.atech.utils.ATDataAccessAbstract;
 
-/*
- * ConfigurationDialog - Configuration Main
+/**
+ *  This file is part of ATech Tools library.
+ *  
+ *  ConfigurationDialog - Configuration Main
  * 
- * This is main dialog for configurations, from here all configuration is done.
- * It should be used only from within ConfigurationDialog.
- * 
- * This class is part of PIS (Parish Information System) package.
- * 
- * @author Andy (Aleksander) Rozman {andy@triera.net}
- * 
- * @version 1.0
+ *  This is main dialog for configurations, from here all configuration is done.
+ *  It should be used only from within ConfigurationDialog.
+ *  
+ *  Copyright (C) 2005  Andy (Aleksander) Rozman (Atech-Software)
+ *  
+ *  
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ *  
+ *  
+ *  For additional information about this project please visit our project site on 
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  andyrozman@users.sourceforge.net or andy@atech-software.com
+ *  
+ *  @author Andy
+ *
  */
+
 
 public class LanguageCfgPanel extends JDialog implements ActionListener, /*ListSelectionListener,*/ ItemListener
 {

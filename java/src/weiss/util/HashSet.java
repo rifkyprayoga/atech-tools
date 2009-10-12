@@ -252,6 +252,7 @@ public class HashSet extends AbstractCollection implements Set
         public Object  element;   // the element
         public boolean isActive;  // false if marked deleted
 
+        @SuppressWarnings("unused")
         public HashEntry( Object e )
         {
             this( e, true );

@@ -15,18 +15,40 @@ import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.tool.client.admin.TranslationTreeDialog;
 import com.atech.utils.ATSwingUtils;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class TranslationTool.
+ * 
  * @author Andy
- *
  */
 public class TranslationTool extends JFrame implements ActionListener
 {
     
+    private static final long serialVersionUID = 2609056469152378167L;
+
+    /**
+     * The menus.
+     */
     Hashtable<String,JMenu> menus = null; 
+    
+    /**
+     * The m_da.
+     */
     DataAccessTT m_da = DataAccessTT.getInstance();
+    
+    /**
+     * The m_ic.
+     */
     I18nControlAbstract m_ic = null;
+    
+    /**
+     * The m_version.
+     */
     String m_version = "0.0.1";
     
+    /**
+     * Instantiates a new translation tool.
+     */
     public TranslationTool()
     {
         super();
@@ -100,7 +122,9 @@ public class TranslationTool extends JFrame implements ActionListener
     
     
     /**
-     * @param args
+     * The main method.
+     * 
+     * @param args the args
      */
     public static void main(String[] args)
     {
@@ -115,6 +139,9 @@ public class TranslationTool extends JFrame implements ActionListener
     }
 
 
+    /** 
+     * actionPerformed
+     */
     public void actionPerformed(ActionEvent e)
     {
         // TODO Auto-generated method stub
@@ -126,7 +153,7 @@ public class TranslationTool extends JFrame implements ActionListener
         }
         else if (cmd.equals("adm_translation"))
         {
-            TranslationTreeDialog ttd = new TranslationTreeDialog(this, m_da, 1);
+            /*TranslationTreeDialog ttd =*/ new TranslationTreeDialog(this, m_da, 1);
         }
         else
             System.out.println("Unknown command: " + cmd);

@@ -13,6 +13,9 @@ import com.atech.i18n.tool.client.DataAccessTT;
 import com.atech.i18n.tool.client.db.hibernate.AppGroupH;
 
 
+/**
+ *
+ */
 public class AppGroupO extends AppGroupH implements BackupRestoreObject, DatabaseObjectHibernate
 {
 
@@ -430,6 +433,9 @@ public class AppGroupO extends AppGroupH implements BackupRestoreObject, Databas
  
     /**
      * Returns the child of parent at index index in the parent's child array.
+     * 
+     * @param index 
+     * @return 
      */
     public Object getChild(int index) 
     {
@@ -439,6 +445,7 @@ public class AppGroupO extends AppGroupH implements BackupRestoreObject, Databas
 
     /**
      * Returns the number of children of parent.
+     * @return 
      */
     public int getChildCount() 
     {
@@ -447,6 +454,9 @@ public class AppGroupO extends AppGroupH implements BackupRestoreObject, Databas
 
     /**
      * Returns the index of child in parent.
+     * 
+     * @param child 
+     * @return 
      */
     public int getIndexOfChild(Object child) 
     {

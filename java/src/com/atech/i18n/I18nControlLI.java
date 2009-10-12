@@ -1,8 +1,6 @@
 package com.atech.i18n;
 
 
-import java.text.Collator;
-import java.util.Hashtable;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -53,79 +51,22 @@ import com.atech.i18n.info.LanguageInfo;
 public class I18nControlLI extends I18nControlAbstract
 {
 
+    @SuppressWarnings("unused")
     private static Log s_logger = LogFactory.getLog(I18nControlLI.class); 
-    private Collator langaugeCollator = null;
+    //private Collator langaugeCollator = null;
 
+    /**
+     * 
+     */
     public static I18nControlLI s_i18n = null;
     
 
-    /**
-     *  Resource bundle identificator
-     */
-    ResourceBundle res;
+   
 
 
-    /**
-     * The resource bundles.
-     */
-    Hashtable<String,String> resourceBundles;
 
+  
 
-    /**
-     * The lang_file_root.
-     */
-    public String lang_file_root = null;
-
-    /**
-     * The def_language.
-     */
-    public String def_language = "en";
-
-    /**
-     * The selected_language.
-     */
-    public String selected_language = null;
-    
-    /**
-     * The selected_language_locale.
-     */
-    public Locale selected_language_locale = null;
-    
-    
-    /**
-     * The selected_language_locale.
-     */
-    public Locale selected_language_locale_real = null;
-
-
-    /**
-     * The languages.
-     */
-    protected String languages[] = null;
-/*
-    }
-	{
-        "English",
-        "German",
-        "Slovene",
-        "Simp. Chinese"
-    };
-*/
-
-    /**
- * The lcls.
- */
-protected Locale lcls[] = null;
-/*	{
-        Locale.ENGLISH,
-        Locale.GERMAN,
-        new Locale("SI"),
-        Locale.SIMPLIFIED_CHINESE
-    };
-*/
-
-
-    protected Locale lcls_real[] = null;
 
     
     LanguageInfo m_lang_info = null;

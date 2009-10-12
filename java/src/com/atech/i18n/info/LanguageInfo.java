@@ -7,22 +7,37 @@ import java.util.Properties;
 
 import com.atech.i18n.I18nControlAbstract;
 
+// TODO: Auto-generated Javadoc
 /**
- *  Parish Information System (PIS)
- *  ===============================
- * 
- *  Name:          LanguageInfo
- *  Description:   This class reads Language information and helps with creation of Help and usage of corrent
- *                 language.
- *  Copyright:     Copyright (c) 2005-2008 by Andy (ATech Software Ltd.)
+ *  This file is part of ATech Tools library.
  *  
- *  This class is part of PIS/ZIS (Parish Information System) software. PIS is termed as proprietary
- *  (non-free) software and it's use must abide by rules of Licence, which is distributed with 
- *  this software and also displayed within install software. 
- * 
- *  @author      Andy (Aleksander) Rozman {andy@atech-software.com}
- *  @version     1.0
- */
+ *  GraphViewInterface - This class must be implemented for use with GraphViewer or GraphViewerPanel
+ *  
+ *  Copyright (C) 2005  Andy (Aleksander) Rozman (Atech-Software)
+ *  
+ *  
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ *  
+ *  
+ *  For additional information about this project please visit our project site on 
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  andyrozman@users.sourceforge.net or andy@atech-software.com
+ *  
+ *  @author Andy
+ *
+*/
 
 
 public abstract class LanguageInfo
@@ -31,51 +46,66 @@ public abstract class LanguageInfo
     private I18nControlAbstract m_i18n = null; //I18nControl.getInstance();
 
     /**
-     * 
+     * The lp_version.
      */
     public String lp_version = null;
+    
     /**
-     * 
+     * The lp_release.
      */
     public String lp_release = null;
+    
     /**
-     * 
+     * The lp_langs_with_help.
      */
     public int lp_langs_with_help = 0;
+    
     /**
-     * 
+     * The lp_langs_without_help.
      */
     public int lp_langs_without_help = 0;
+    
     /**
-     * 
+     * The langs.
      */
     public String langs;
 
     
+    /**
+     * The lang_root.
+     */
     public String lang_root;
     
     
     /**
-     * 
+     * The default_help.
      */
     public String default_help = null;
 
     /**
-     * 
+     * The available lang.
      */
     public Object availableLang[] = null;
+    
     /**
-     * 
+     * The available lang web.
      */
     public Object availableLangWeb[] = null;
+    
     /**
-     * 
+     * The available lang locale.
      */
     public String availableLangLocale[] = null;
     //public String 
 
+    /**
+     * The langs_ht.
+     */
     Hashtable<String,LanguageInstance> langs_ht = null;
 
+    /**
+     * The available real locale.
+     */
     public Locale[] availableRealLocale = null;
     
     
@@ -91,6 +121,11 @@ public abstract class LanguageInfo
     
     
     
+    /**
+     * Instantiates a new language info.
+     * 
+     * @param ic the ic
+     */
     public LanguageInfo(I18nControlAbstract ic)
     {
         this.m_i18n =  ic;
@@ -98,7 +133,7 @@ public abstract class LanguageInfo
     
 
     /**
-     * Load data
+     * Load data.
      */
     public void loadData()
     {
@@ -201,9 +236,11 @@ public abstract class LanguageInfo
     
     
     /**
-     * Find language in locale list
-     * @param loc
-     * @return
+     * Find language in locale list.
+     * 
+     * @param loc the loc
+     * 
+     * @return the int
      */
     public int findInLocale(String loc)
     {
@@ -225,9 +262,11 @@ public abstract class LanguageInfo
 
     
     /**
-     * Get help path for naguage
-     * @param lang
-     * @return
+     * Get help path for naguage.
+     * 
+     * @param lang the lang
+     * 
+     * @return the help path for language
      */
     public String getHelpPathForLanguage(String lang)
     {
@@ -293,21 +332,46 @@ public abstract class LanguageInfo
         return getJarBaseName() + "-" + this.lp_version + ".jar";
     }
 
+    /**
+     * Gets the jar base name.
+     * 
+     * @return the jar base name
+     */
     public abstract String getJarBaseName();
     
     
+    /**
+     * Gets the help set name.
+     * 
+     * @return the help set name
+     */
     public abstract String getHelpSetName();
     
     
+    /**
+     * Gets the langauge config file.
+     * 
+     * @return the langauge config file
+     */
     public abstract String getLangaugeConfigFile();
 
 
     
+    /**
+     * Gets the selected language.
+     * 
+     * @return the selected language
+     */
     public String getSelectedLanguage()
     {
         return this.selected_language;
     }
     
+    /**
+     * Sets the selected language.
+     * 
+     * @param lang the new selected language
+     */
     public void setSelectedLanguage(String lang)
     {
         this.selected_language = lang;
@@ -316,12 +380,22 @@ public abstract class LanguageInfo
 
     //public 
     
+    /**
+     * Gets the selected language locale.
+     * 
+     * @return the selected language locale
+     */
     public Locale getSelectedLanguageLocale()
     {
         return this.available_languages.get(this.selected_language).locale;
     }
 
 
+    /**
+     * Gets the language root.
+     * 
+     * @return the language root
+     */
     public String getLanguageRoot()
     {
         return this.lang_root;

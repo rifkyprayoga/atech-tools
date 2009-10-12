@@ -38,6 +38,9 @@ import com.atech.misc.converter.DecimalHandler;
 public class Rounding
 {
 
+    /**
+     * 
+     */
     public static DecimalHandler decimal_handler = new DecimalHandler(3);
     
     /**

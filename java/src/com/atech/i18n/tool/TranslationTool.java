@@ -12,6 +12,11 @@ import javax.swing.JFrame;
 public class TranslationTool extends JFrame
 {
     
+    private static final long serialVersionUID = 2644133874899117924L;
+
+    /**
+     * Constructor
+     */
     public TranslationTool()
     {
         super();

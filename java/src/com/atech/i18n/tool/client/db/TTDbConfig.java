@@ -6,6 +6,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
+/**
+ *
+ */
 public class TTDbConfig extends HibernateConfiguration
 {
 

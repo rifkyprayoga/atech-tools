@@ -5,8 +5,11 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+// TODO: Auto-generated Javadoc
 /** @author Hibernate CodeGenerator */
 public class AppTranslationTemplateH implements Serializable {
+
+    private static final long serialVersionUID = -2090941848769505152L;
 
     /** identifier field */
     private long id;
@@ -29,7 +32,14 @@ public class AppTranslationTemplateH implements Serializable {
     /** nullable persistent field */
     private long changed;
 
-    /** full constructor */
+    /** full constructor 
+     * @param module_id 
+     * @param app_id 
+     * @param lang_id 
+     * @param keyword 
+     * @param value 
+     * @param changed 
+     */
     public AppTranslationTemplateH(long module_id, long app_id, long lang_id, String keyword, String value, long changed) {
         this.module_id = module_id;
         this.app_id = app_id;
@@ -43,75 +53,154 @@ public class AppTranslationTemplateH implements Serializable {
     public AppTranslationTemplateH() {
     }
 
-    /** minimal constructor */
+    /** minimal constructor 
+     * @param module_id 
+     * @param app_id 
+     * @param lang_id */
     public AppTranslationTemplateH(long module_id, long app_id, long lang_id) {
         this.module_id = module_id;
         this.app_id = app_id;
         this.lang_id = lang_id;
     }
 
+    /**
+     * Gets the id.
+     * 
+     * @return the id
+     */
     public long getId() {
         return this.id;
     }
 
+    /**
+     * Sets the id.
+     * 
+     * @param id the new id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     * Gets the module_id.
+     * 
+     * @return the module_id
+     */
     public long getModule_id() {
         return this.module_id;
     }
 
+    /**
+     * Sets the module_id.
+     * 
+     * @param module_id the new module_id
+     */
     public void setModule_id(long module_id) {
         this.module_id = module_id;
     }
 
+    /**
+     * Gets the app_id.
+     * 
+     * @return the app_id
+     */
     public long getApp_id() {
         return this.app_id;
     }
 
+    /**
+     * Sets the app_id.
+     * 
+     * @param app_id the new app_id
+     */
     public void setApp_id(long app_id) {
         this.app_id = app_id;
     }
 
+    /**
+     * Gets the lang_id.
+     * 
+     * @return the lang_id
+     */
     public long getLang_id() {
         return this.lang_id;
     }
 
+    /**
+     * Sets the lang_id.
+     * 
+     * @param lang_id the new lang_id
+     */
     public void setLang_id(long lang_id) {
         this.lang_id = lang_id;
     }
 
+    /**
+     * Gets the keyword.
+     * 
+     * @return the keyword
+     */
     public String getKeyword() {
         return this.keyword;
     }
 
+    /**
+     * Sets the keyword.
+     * 
+     * @param keyword the new keyword
+     */
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * Gets the value.
+     * 
+     * @return the value
+     */
     public String getValue() {
         return this.value;
     }
 
+    /**
+     * Sets the value.
+     * 
+     * @param value the new value
+     */
     public void setValue(String value) {
         this.value = value;
     }
 
+    /**
+     * Gets the changed.
+     * 
+     * @return the changed
+     */
     public long getChanged() {
         return this.changed;
     }
 
+    /**
+     * Sets the changed.
+     * 
+     * @param changed the new changed
+     */
     public void setChanged(long changed) {
         this.changed = changed;
     }
 
+    /** 
+     * toString
+     */
     public String toString() {
         return new ToStringBuilder(this)
             .append("id", getId())
             .toString();
     }
 
+    /** 
+     * equals
+     */
     public boolean equals(Object other) {
         if ( !(other instanceof AppTranslationTemplateH) ) return false;
         AppTranslationTemplateH castOther = (AppTranslationTemplateH) other;
@@ -120,6 +209,9 @@ public class AppTranslationTemplateH implements Serializable {
             .isEquals();
     }
 
+    /** 
+     * hashCode
+     */
     public int hashCode() {
         return new HashCodeBuilder()
             .append(getId())

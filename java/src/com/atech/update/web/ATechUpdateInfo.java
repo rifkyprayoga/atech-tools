@@ -188,6 +188,10 @@ public class ATechUpdateInfo extends HttpServlet
                 */
   }
 
+    /**
+     * @param app
+     * @return
+     */
     public ApplicationVersion getCurrentVersion(Application app)
     {
         for(int i=0; i<app.versions.size(); i++)
@@ -200,6 +204,11 @@ public class ATechUpdateInfo extends HttpServlet
     }
     
     
+    /**
+     * @param aver
+     * @param app
+     * @return
+     */
     public boolean isLatestVersion(ApplicationVersion aver, Application app)
     {
         ApplicationVersion av = app.versions.get(app.versions.size()-1);
@@ -212,6 +221,10 @@ public class ATechUpdateInfo extends HttpServlet
     }
 
     
+    /**
+     * @param app
+     * @return
+     */
     public ApplicationVersion getLatestVersion(Application app)
     {
         ApplicationVersion av = app.versions.get(app.versions.size()-1);
@@ -219,6 +232,11 @@ public class ATechUpdateInfo extends HttpServlet
     }
     
     
+    /**
+     * @param aver
+     * @param app
+     * @return
+     */
     public boolean isThereNeverVersionForOtherDb(ApplicationVersion aver, Application app)
     {
         ApplicationVersion av = app.versions.get(app.versions.size()-1);
@@ -229,8 +247,17 @@ public class ATechUpdateInfo extends HttpServlet
     
     
     
+    /**
+     * Checks if is there never version for same db.
+     * 
+     * @param aver the aver
+     * @param app the app
+     * 
+     * @return the int
+     */
     public int isThereNeverVersionForSameDb(ApplicationVersion aver, Application app)
     {
+        @SuppressWarnings("unused")
         boolean newer = false;
         
         for(int i=app.versions.size()-1; i>0; i--)
@@ -248,6 +275,14 @@ public class ATechUpdateInfo extends HttpServlet
     //public boolean doWeisNewerForDb
     
     
+    /**
+     * Gets the parameter.
+     * 
+     * @param request the request
+     * @param parameter the parameter
+     * 
+     * @return the parameter
+     */
     public String getParameter(HttpServletRequest request, String parameter)
     {
         String param = request.getParameter(parameter);
@@ -261,6 +296,9 @@ public class ATechUpdateInfo extends HttpServlet
     
     
     
+    /**
+     * @param _error_id
+     */
     public void setError(int _error_id)
     {
         System.out.println("setError (current=" + this.error_id + ",new=" + _error_id);

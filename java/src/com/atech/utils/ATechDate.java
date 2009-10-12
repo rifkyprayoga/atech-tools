@@ -1105,6 +1105,9 @@ public static GregorianCalendar getGregorianCalendar(int format, long dt)
     }
 
     
+    /** 
+     * equals
+     */
     public boolean equals(Object o)
     {
         if (o instanceof ATechDate)

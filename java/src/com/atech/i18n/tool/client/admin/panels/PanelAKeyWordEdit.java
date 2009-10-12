@@ -7,13 +7,20 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import javax.swing.JTextField;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PanelAKeyWordEdit.
+ */
 public class PanelAKeyWordEdit extends EditableAbstractPanel
 {
     
-    
+    private static final long serialVersionUID = 5708024079414667402L;
     private JLabel jLabel = null;
     private JTextField jTextField = null;
 
+    /**
+     * Instantiates a new panel a key word edit.
+     */
     public PanelAKeyWordEdit()
     {
         super(true, DataAccessTT.getInstance().getI18nControlInstance());
@@ -38,19 +45,28 @@ public class PanelAKeyWordEdit extends EditableAbstractPanel
     }
 
 
+    /**
+     * Inits the.
+     */
     public void init()
     {
         
     }
     
     
+    /** 
+     * getWarningString
+     */
     @Override
-    public String getWarningString(int action_type)
+    public String getWarningString(int _action_type)
     {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** 
+     * hasDataChanged
+     */
     @Override
     public boolean hasDataChanged()
     {
@@ -58,6 +74,9 @@ public class PanelAKeyWordEdit extends EditableAbstractPanel
         return false;
     }
 
+    /** 
+     * saveData
+     */
     @Override
     public boolean saveData()
     {
@@ -65,6 +84,9 @@ public class PanelAKeyWordEdit extends EditableAbstractPanel
         return false;
     }
 
+    /** 
+     * setData
+     */
     @Override
     public void setData(Object object)
     {
@@ -72,6 +94,9 @@ public class PanelAKeyWordEdit extends EditableAbstractPanel
         
     }
 
+    /** 
+     * setParent
+     */
     @Override
     public void setParent(Object object)
     {
@@ -79,6 +104,9 @@ public class PanelAKeyWordEdit extends EditableAbstractPanel
         
     }
 
+    /** 
+     * setParentRoot
+     */
     @Override
     public void setParentRoot(Object object)
     {

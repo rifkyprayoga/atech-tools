@@ -4,8 +4,8 @@ package com.atech.utils;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  ByteUtils - Utils for working with bytes and bytes array
+ *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -35,37 +35,86 @@ package com.atech.utils;
 public class ByteUtils
 {
     
+    /**
+     * The Constant BIT_ORDER_BIG_ENDIAN.
+     */
     public static final int BIT_ORDER_BIG_ENDIAN = 1;
+    
+    /**
+     * The Constant BIT_ORDER_LITTLE_ENDIAN.
+     */
     public static final int BIT_ORDER_LITTLE_ENDIAN = 2;
     
     
+    /**
+     * The byte_order.
+     */
     protected int byte_order = BIT_ORDER_BIG_ENDIAN;
+    
+    /**
+     * The byte_arr.
+     */
     protected byte[] byte_arr = null;
     
+    /**
+     * Read byte array.
+     * 
+     * @param array the array
+     */
     public void readByteArray(byte[] array)
     {
         this.byte_arr = array;
     }
     
     
+    /**
+     * Gets the byte from array.
+     * 
+     * @param offset the offset
+     * 
+     * @return the byte from array
+     */
     public byte getByteFromArray(int offset)
     {
         return getByte(this.byte_arr, offset);
     }
     
     
+    /**
+     * Gets the byte.
+     * 
+     * @param arr the arr
+     * @param offset the offset
+     * 
+     * @return the byte
+     */
     public byte getByte(byte[] arr, int offset)
     {
         return arr[offset];
     }
     
     
+    /**
+     * Gets the int from array.
+     * 
+     * @param offset the offset
+     * 
+     * @return the int from array
+     */
     public int getIntFromArray(int offset)
     {
         return getInt(this.byte_arr, offset);
     }
 
     
+    /**
+     * Gets the int.
+     * 
+     * @param arr the arr
+     * @param offset the offset
+     * 
+     * @return the int
+     */
     public int getInt(byte[] arr, int offset)
     {
         int val = 0;
@@ -86,6 +135,14 @@ public class ByteUtils
     }
     
     
+    /**
+     * Gets the string from array.
+     * 
+     * @param offset the offset
+     * @param size the size
+     * 
+     * @return the string from array
+     */
     public String getStringFromArray(int offset, int size)
     {
         return getString(this.byte_arr, offset, size);
@@ -93,6 +150,15 @@ public class ByteUtils
     
     
     
+    /**
+     * Gets the string.
+     * 
+     * @param arr the arr
+     * @param offset the offset
+     * @param size the size
+     * 
+     * @return the string
+     */
     public String getString(byte[] arr, int offset, int size)
     {
         try
@@ -117,6 +183,14 @@ public class ByteUtils
     }
     
     
+    /**
+     * Gets the ascii from array.
+     * 
+     * @param offset the offset
+     * @param size the size
+     * 
+     * @return the ascii from array
+     */
     public String getAsciiFromArray(int offset, int size)
     {
         return getAscii(this.byte_arr, offset, size);
@@ -124,6 +198,15 @@ public class ByteUtils
     
     
     
+    /**
+     * Gets the ascii.
+     * 
+     * @param arr the arr
+     * @param offset the offset
+     * @param size the size
+     * 
+     * @return the ascii
+     */
     public String getAscii(byte[] arr, int offset, int size)
     {
         try
@@ -150,6 +233,16 @@ public class ByteUtils
     
     
     
+    /**
+     * Gets the byte sub array.
+     * 
+     * @param arr the arr
+     * @param start the start
+     * @param end the end
+     * @param length the length
+     * 
+     * @return the byte sub array
+     */
     public byte[] getByteSubArray(byte[] arr, int start, int end, int length)
     {
         byte[] arr_out = new byte[length];
@@ -166,6 +259,13 @@ public class ByteUtils
     
     
     
+    /**
+     * Gets the correct hex value.
+     * 
+     * @param inp the inp
+     * 
+     * @return the correct hex value
+     */
     public String getCorrectHexValue(byte inp)
     {
         String hx = Integer.toHexString((char)inp);
@@ -188,6 +288,11 @@ public class ByteUtils
     }
     
     
+    /**
+     * Show byte array hex.
+     * 
+     * @param arr the arr
+     */
     public void showByteArrayHex(byte[] arr)
     {
         System.out.print("Byte array: ");
@@ -203,6 +308,11 @@ public class ByteUtils
         
     }
     
+    /**
+     * Show byte array.
+     * 
+     * @param arr the arr
+     */
     public void showByteArray(byte[] arr)
     {
         System.out.println("Byte array: ");

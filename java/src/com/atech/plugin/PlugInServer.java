@@ -325,6 +325,11 @@ public abstract class PlugInServer
     }
 
     
+    /**
+     * Action Performed
+     * 
+     * @param ae
+     */
     public abstract void actionPerformed(ActionEvent ae);
     
     
