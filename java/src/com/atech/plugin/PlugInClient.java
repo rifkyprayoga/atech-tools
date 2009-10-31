@@ -568,6 +568,18 @@ public abstract class PlugInClient implements ActionListener
     }
     
     
+    /**
+     * This is method which can be used by server side to do certain action. Mainly this will be used
+     * to run refreshes and such actions. This needs to be implemented by Client side, if you wish to use
+     * it.
+     * 
+     * @param action_type
+     */
+    public void executeReturnAction(int action_type)
+    {
+    }
+    
+    
     
     
 }

@@ -62,8 +62,8 @@ public abstract class PlugInServer
     protected String selected_lang = "en";
     protected ATDataAccessAbstract m_da;
     protected boolean backup_restore_enabled = false;
-    PlugInClient client;
-    HibernateDb db;
+    protected PlugInClient client;
+    protected HibernateDb db;
     
     /**
      * Constructor
