@@ -16,10 +16,12 @@ public class DataListProcessor
     
     MasterFileReader mfr = null;
     
-    public boolean master_file_read = false;
+    private boolean master_file_read = false;
     public boolean translation_file_read = false;
-    public int current_index;
+    private int current_index;
     
+    private boolean main_configuration_read = false;
+    private boolean user_configuration_read = false;
     
     
     public DataListProcessor(String _main_config)
@@ -31,6 +33,7 @@ public class DataListProcessor
         //System.out.println("this.m_da.translation_data" + this.m_da.translation_data);
         
         readConfiguration(_main_config);
+        readUserConfiguration();
         
         
         readMasterFile();
@@ -54,7 +57,16 @@ public class DataListProcessor
     {
         System.out.println("DataListProcessor.readConfiguration() NOT implemented !");
         //PropertiesFile pp = new PropertiesFile("GGC_en.properties");
+        this.main_configuration_read = false;
     }
+    
+    public void readUserConfiguration()
+    {
+        System.out.println("DataListProcessor.readUserConfiguration() NOT implemented !");
+        this.user_configuration_read = false;
+    }
+    
+    
     
     
     
@@ -62,8 +74,19 @@ public class DataListProcessor
     {
         mfr = new MasterFileReader("files/master_files/" + master_file_name + ".properties");
         master_file_read = mfr.wasFileRead();
+        
+        //is_master_file_mf = mfr.is_master_file;
+        
+        System.out.println("Master File: " + mfr.isMasterFile());
+        
+        
     }
 
+    
+    public boolean isMasterFileMasterFile()
+    {
+        return this.mfr.isMasterFile();
+    }
     
     public void readMasterFileConfig()
     {
@@ -194,7 +217,7 @@ public class DataListProcessor
 
     private void processTranslationData(boolean check_status)
     {
-        System.out.println("DataListProcessor.processTranslationData() NOT implemented !");
+        //System.out.println("DataListProcessor.processTranslationData() NOT implemented !");
         
         for(int i=0; i<this.tra_data.size(); i++)
         {
@@ -288,6 +311,14 @@ public class DataListProcessor
             return true;
         }
     }
+    
+    
+    public int getCurrentIndex()
+    {
+        return this.current_index;
+    }
+    
+    
     
     public boolean movePrevUntranslated()
     {

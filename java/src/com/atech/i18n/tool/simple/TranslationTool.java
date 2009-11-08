@@ -52,6 +52,24 @@ import com.atech.utils.ATSwingUtils;
  *  @author Andy
  *
 */
+
+
+
+/*
+
+TO-DO:
+// 0.3
+ - read main configuration
+ - read user configuration
+ - user config: more header types
+ - save trsnaltion (with header and sub header)
+
+
+
+ */
+
+
+
 public class TranslationTool extends JFrame implements ActionListener
 {
     
@@ -59,10 +77,10 @@ public class TranslationTool extends JFrame implements ActionListener
     Hashtable<String,JMenu> menus = null; 
     DataAccessTT m_da = DataAccessTT.getInstance();
     I18nControlAbstract m_ic = null;
-    String m_version = "0.0.1";
+    String m_version = "0.3";
     DataListProcessor dlp;
     
-    JLabel module, group, index, keyword;
+    JLabel module, group, index, keyword, sub_group;
     JLabel[] statuses;
     JButton priority;
     JTextArea jt_source, jt_desc, jt_mine;
@@ -71,8 +89,9 @@ public class TranslationTool extends JFrame implements ActionListener
     
     /**
      * Constructor
+     * @param config_filename main configuration filename
      */
-    public TranslationTool()
+    public TranslationTool(String config_filename)
     {
         super();
 
@@ -86,14 +105,20 @@ public class TranslationTool extends JFrame implements ActionListener
         this.dlp.moveFirst();
         this.readData();
 
-        if (!this.dlp.wasMasterFileRead())
+        
+        
+        if (!this.m_da.isMasterFileMasterFile())
+        {
+            showTypesDialog("Master file is not real master file.", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (!this.dlp.wasMasterFileRead())
         {
             showTypesDialog("Master file was not read correctly.", JOptionPane.ERROR_MESSAGE);
         }
         else
         {
 //            init();
-        
+            this.readModuleInfo();
             this.setSize(520, 640);
             this.setVisible(true);
         }
@@ -108,6 +133,8 @@ public class TranslationTool extends JFrame implements ActionListener
             type_desc = "Error";
         else if (type ==JOptionPane.WARNING_MESSAGE)
             type_desc = "Warning";
+        else if (type ==JOptionPane.INFORMATION_MESSAGE)
+            type_desc = "Info";
         
         JOptionPane.showMessageDialog(this, msg, type_desc, type);
         
@@ -127,35 +154,41 @@ public class TranslationTool extends JFrame implements ActionListener
         ATSwingUtils.initLibrary();
         
         
-        ATSwingUtils.getLabel("Module:", 30, 20, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        module = ATSwingUtils.getLabel("Unknown module", 110, 20, 120, 25, panel, ATSwingUtils.FONT_NORMAL);
+        ATSwingUtils.getLabel("Module:", 30, 20, 125, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        module = ATSwingUtils.getLabel("Unknown module", 110, 20, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
+        
         ATSwingUtils.getLabel("Group:", 30, 50, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        group = ATSwingUtils.getLabel("Unknown group", 110, 50, 120, 25, panel, ATSwingUtils.FONT_NORMAL);
-        ATSwingUtils.getLabel("Group Priority:", 330, 50, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        priority = ATSwingUtils.getButton("x", 430, 50, 40, 25, panel, ATSwingUtils.FONT_NORMAL, null, "show_group_info", this, m_da);
+        group = ATSwingUtils.getLabel("Unknown group", 110, 50, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
+
+        ATSwingUtils.getLabel("Subgroup:", 30, 75, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        sub_group = ATSwingUtils.getLabel("Unknown group", 110, 75, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
+        
+        
+        ATSwingUtils.getLabel("Group Priority:", 310, 75, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        priority = ATSwingUtils.getButton("x", 410, 75, 60, 25, panel, ATSwingUtils.FONT_NORMAL, null, "show_group_info", this, m_da);
         
 
-        ATSwingUtils.getLabel("Index:", 30, 75, 60, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        index = ATSwingUtils.getLabel("0000", 80, 75, 120, 25, panel, ATSwingUtils.FONT_NORMAL);
+        ATSwingUtils.getLabel("Index:", 30, 100, 60, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        index = ATSwingUtils.getLabel("0000", 80, 100, 120, 25, panel, ATSwingUtils.FONT_NORMAL);
         
-        ATSwingUtils.getLabel("Key:", 140, 75, 40, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        keyword = ATSwingUtils.getLabel("No id", 180, 75, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
+        ATSwingUtils.getLabel("Key:", 140, 100, 40, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        keyword = ATSwingUtils.getLabel("No id", 180, 100, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
         //keyword.setBackground(Color.blue);
         
 
         statuses = new JLabel[3];
 
-        ATSwingUtils.getLabel("Not translated:", 30, 100, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        statuses[0] = ATSwingUtils.getLabel("0000", 130, 100, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
+        ATSwingUtils.getLabel("Not translated:", 30, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        statuses[0] = ATSwingUtils.getLabel("0000", 130, 125, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
         
-        ATSwingUtils.getLabel("Need to be checked:", 180, 100, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        statuses[1] = ATSwingUtils.getLabel("0000", 310, 100, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
+        ATSwingUtils.getLabel("Need to be checked:", 180, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        statuses[1] = ATSwingUtils.getLabel("0000", 310, 125, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
         
-        ATSwingUtils.getLabel("Translated:", 360, 100, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        statuses[2] = ATSwingUtils.getLabel("0000", 450, 100, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
+        ATSwingUtils.getLabel("Translated:", 360, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        statuses[2] = ATSwingUtils.getLabel("0000", 450, 125, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
         
         
-        int yst = 150;
+        int yst = 175;
         
         ATSwingUtils.getLabel("Master Text File Translation", 30, yst, 300, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         jt_source = ATSwingUtils.getTextArea("Text Master File", 30, yst+30, 450, 60, panel);
@@ -189,6 +222,20 @@ public class TranslationTool extends JFrame implements ActionListener
         
         this.add(panel);
     }
+
+    
+    /**
+     * Read Module Info
+     */
+    public void readModuleInfo()
+    {
+        String md = this.m_da.getTranslationConfig().getSetting("MODULE", "Unknown module");
+        md += " [";
+        md += this.m_da.getTranslationConfig().getSetting("MODULE_VERSION", "???");
+        md += "]";
+            
+        module.setText(md); 
+    }
     
     
     /**
@@ -214,8 +261,13 @@ public class TranslationTool extends JFrame implements ActionListener
         
         this.cmb_status.setSelectedIndex(de.status);
         
-        this.index.setText((dlp.current_index+1) + "");
+        this.index.setText((dlp.getCurrentIndex()+1) + "");
         this.keyword.setText(de.key);
+        
+        this.group.setText(de.getGroupInfo());
+        this.sub_group.setText(de.getSubGroupInfo());
+        
+        this.priority.setText("" + de.getPriority());
         
         this.dlp.resetStatus();
         
@@ -306,9 +358,14 @@ public class TranslationTool extends JFrame implements ActionListener
      */
     public static void main(String[] args)
     {
-        new TranslationTool();
-        // TODO Auto-generated method stub
-
+        if (args.length!=1)
+        {
+            System.out.println("You need to specify one parameter: config file, with full path !");
+        }
+        else
+        {
+            new TranslationTool(args[0]);
+        }
     }
 
     private void cmdQuit()
@@ -322,7 +379,6 @@ public class TranslationTool extends JFrame implements ActionListener
      */
     public void actionPerformed(ActionEvent e)
     {
-        // TODO Auto-generated method stub
         String cmd = e.getActionCommand();
         
         if (cmd.equals("exit"))
@@ -331,6 +387,7 @@ public class TranslationTool extends JFrame implements ActionListener
         }
         else if (cmd.equals("about"))
         {
+            // FIXME
             System.out.println("No About !!!!");
         }
         else if (cmd.equals("copy_text"))
@@ -354,6 +411,10 @@ public class TranslationTool extends JFrame implements ActionListener
         else if (cmd.equals("save"))
         {
             this.dlp.saveTranslation();
+        }
+        else if (cmd.equals("show_group_info"))
+        {
+            showTypesDialog(this.m_da.getTranslationConfig().getPrioritiesLegend(), JOptionPane.INFORMATION_MESSAGE);
         }
         else
             System.out.println("Unknown command: " + cmd);

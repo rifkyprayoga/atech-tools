@@ -38,6 +38,10 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
 
     private static final long serialVersionUID = 1402194555133545330L;
  
+    private boolean is_master_file_xa = false;
+    private TranslationConfiguration m_config = null;
+    
+    
     /**
      * The m_da.
      */
@@ -51,6 +55,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
     public MasterFileReader(String filename)
     {
         super(filename);
+        System.out.println("MasterFileReader: " + this);
     }
 
     /** 
@@ -62,7 +67,11 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
         
         this.m_da = DataAccessTT.getInstance();
         //System.out.println("m_da: " + m_da);
+        this.m_config = this.m_da.getTranslationConfig();
     }
+    
+    DataEntryRaw group = null;
+    DataEntryRaw sub_group = null;
     
     
     /** 
@@ -75,8 +84,58 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
         line = line.trim();
         if (line.startsWith("#"))
         { 
+            if (line.contains("!S!"))
+            {
+                String desc = line.substring(line.indexOf("!S!") + 4).trim();
+                String[] s = m_da.splitString(desc, "=");
+                m_config.put(s[0], s[1]);
+            }
+            else if (line.contains("!MASTER_FILE!"))
+            {
+                this.is_master_file_xa= true;
+                
+                System.out.println("Master file: " + this.is_master_file_xa);
+                m_da.setIsMasterFileMasterFile(true);
+            }
+            else if (line.contains("!G!"))
+            {
+                String desc = line.substring(line.indexOf("!G!") + 4).trim();
+                int pri = 0;
+                
+                if (desc.contains("["))
+                {
+                    try
+                    {
+                        pri = Integer.parseInt(desc.substring(desc.indexOf("[")+1, desc.indexOf("]")));
+                        desc = desc.substring(0, desc.indexOf("[")).trim();
+                    }
+                    catch(Exception ex)
+                    {
+                        System.out.println("Ex: " + ex);
+                    }
+                    
+                }
+
+                System.out.println("Group: Desc=" + desc +",Priority=" + pri);
+                
+                this.group = new DataEntryRaw(DataEntryRaw.DATA_ENTRY_GROUP, desc, pri);
+                this.sub_group = null;
+                this.add(group);
+            }
+            else if (line.contains("!SG!"))
+            {
+                String desc = line.substring(line.indexOf("!SG!") + 4).trim();
+                System.out.println("Sub Group: Desc=" + desc);
+                this.sub_group = new DataEntryRaw(DataEntryRaw.DATA_ENTRY_SUBGROUP, desc, group );
+                this.add(sub_group);
+            }
+                
+            
             // comments
             // TODO
+            
+            
+            
             
             
             
@@ -90,9 +149,12 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
             String key = line.substring(0, idx);
             String val = line.substring(idx+1);
             
-            this.add(new DataEntryRaw(DataEntryRaw.DATA_ENTRY_TRANSLATION, key));
+            DataEntryRaw der = new DataEntryRaw(DataEntryRaw.DATA_ENTRY_TRANSLATION, key, group, sub_group);
             
-            DataEntry de = new DataEntry(key, val);
+            this.add(der);
+            
+            DataEntry de = new DataEntry(key, val, der);
+            
             
             m_da.getTranslationData().addTranslationData(de);
         }
@@ -100,4 +162,12 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
         
     }
 
+    
+    public boolean isMasterFile()
+    {
+        return this.is_master_file_xa;
+    }
+    
+    
+    
 }
