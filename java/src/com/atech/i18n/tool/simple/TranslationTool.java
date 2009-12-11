@@ -1,10 +1,8 @@
-/**
- * 
- */
 package com.atech.i18n.tool.simple;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Hashtable;
 
 import javax.swing.JButton;
@@ -20,13 +18,16 @@ import javax.swing.JTextArea;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.tool.simple.data.DataEntry;
 import com.atech.i18n.tool.simple.data.DataListProcessor;
+import com.atech.i18n.tool.simple.util.BackupRunner;
 import com.atech.i18n.tool.simple.util.DataAccessTT;
+import com.atech.i18n.tool.simple.util.TTAboutDialog;
 import com.atech.utils.ATSwingUtils;
 
 /**
  *  This file is part of ATech Tools library.
  *  
- *  
+ *  Application: Simple Translation Tool
+ *  TranslationTool - Main class of application
  *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
@@ -59,12 +60,14 @@ import com.atech.utils.ATSwingUtils;
 
 TO-DO:
 // 0.3
- - read main configuration
- - read user configuration
- - user config: more header types
- - save trsnaltion (with header and sub header)
-
-
+ + read main configuration (0.4)
+ + read user configuration (0.6)
+ + user config: more header types (0.7)
+ + save translation: + in right order (0.5)
+                     + with correct header and sub header (0.8)
++ about (0.9)
++ auto backup
++ exit - ask (0.8.5)
 
  */
 
@@ -77,7 +80,7 @@ public class TranslationTool extends JFrame implements ActionListener
     Hashtable<String,JMenu> menus = null; 
     DataAccessTT m_da = DataAccessTT.getInstance();
     I18nControlAbstract m_ic = null;
-    String m_version = "0.3";
+    public static String m_version = "1.0";
     DataListProcessor dlp;
     
     JLabel module, group, index, keyword, sub_group;
@@ -98,16 +101,22 @@ public class TranslationTool extends JFrame implements ActionListener
         m_da = DataAccessTT.createInstance(this);
         m_ic = m_da.getI18nControlInstance();
         //m_da.startDb();
+        checkPaths();
         
         init();
         
-        this.dlp = new DataListProcessor("");
+        this.dlp = new DataListProcessor(config_filename);
         this.dlp.moveFirst();
         this.readData();
-
         
         
-        if (!this.m_da.isMasterFileMasterFile())
+        // config read error
+        
+        if (!dlp.wasConfigurationRead())
+        {
+            showTypesDialog("Configuration file invalid !", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (!this.m_da.isMasterFileMasterFile())
         {
             showTypesDialog("Master file is not real master file.", JOptionPane.ERROR_MESSAGE);
         }
@@ -115,9 +124,15 @@ public class TranslationTool extends JFrame implements ActionListener
         {
             showTypesDialog("Master file was not read correctly.", JOptionPane.ERROR_MESSAGE);
         }
+        else if (!this.dlp.wasUserConfigRead())
+        {
+            showTypesDialog("User config not read correctly.", JOptionPane.ERROR_MESSAGE);
+        } 
         else
         {
-//            init();
+            BackupRunner br = new BackupRunner(this.dlp);
+            br.start();
+            
             this.readModuleInfo();
             this.setSize(520, 640);
             this.setVisible(true);
@@ -221,8 +236,26 @@ public class TranslationTool extends JFrame implements ActionListener
         ATSwingUtils.getButton("", 430, yst+330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "door2.png", "exit", this, m_da, sz);
         
         this.add(panel);
+        //this.setLayout(null);
     }
 
+    
+    
+    private void checkPaths()
+    {
+    	String[] paths = { "./files/", "./files/master_files/", "./files/translation/", "./files/translation/backup/"};
+    	
+    	for (int i=0; i<paths.length; i++)
+    	{
+	    	File f = new File(paths[i]);
+	    	if (!f.exists())
+	    		f.mkdir();
+    	}
+    	
+    	
+    }
+    
+    
     
     /**
      * Read Module Info
@@ -383,12 +416,31 @@ public class TranslationTool extends JFrame implements ActionListener
         
         if (cmd.equals("exit"))
         {
+            
+          //Custom button text
+            Object[] options = {"Save and Quit",
+                                "Just Quit",
+                                };
+            int n = JOptionPane.showOptionDialog(this,
+                "Would you like to save all translations that were\n"
+                + "changed in this session?",
+                "Exiting",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+            
+            System.out.println("Exit: code=" + n);
+            
+            if (n==0)
+                this.dlp.saveTranslation();
+
             cmdQuit();
         }
         else if (cmd.equals("about"))
         {
-            // FIXME
-            System.out.println("No About !!!!");
+            new TTAboutDialog(this);
         }
         else if (cmd.equals("copy_text"))
         {
@@ -406,6 +458,20 @@ public class TranslationTool extends JFrame implements ActionListener
             this.saveData();
 
             if (this.dlp.movePrev())
+                this.readData();
+        }
+        else if (cmd.equals("next_untranslated"))
+        {
+            this.saveData();
+
+            if (this.dlp.moveNextUntranslated())
+                this.readData();
+        }
+        else if (cmd.equals("prev_untranslated"))
+        {
+            this.saveData();
+
+            if (this.dlp.movePrevUntranslated())
                 this.readData();
         }
         else if (cmd.equals("save"))

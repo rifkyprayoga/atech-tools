@@ -3,8 +3,9 @@ package com.atech.i18n.tool.simple.data;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  Application: Simple Translation Tool
+ *  DataEntry - Data Entry in application
+ *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -28,28 +29,85 @@ package com.atech.i18n.tool.simple.data;
  *  
  *  @author Andy
  *
- */
+*/
 
 
 public class DataEntry
 {
     
+    /**
+     * Status: Untranslated
+     */
     public static final int STATUS_UNTRANSLATED = 0;
+
+    
+    /**
+     * Status: Need Check
+     */
     public static final int STATUS_NEED_CHECK = 1;
+    
+    
+    /**
+     * Status: Translated
+     */
     public static final int STATUS_TRANSLATED = 2;
     
     
-    
+    /**
+     * Key
+     */
     public String key = null;
+    
+    
+    /**
+     * Group
+     */
     DataEntryRaw group = null;
+    
+    
+    /**
+     * Master File Translation
+     */
     public String master_file_translation;
+    
+    
+    /**
+     * Description 
+     */
     public String description = null;
+
+    
+    /**
+     * Target translation 
+     */
     public String target_translation = "";
+    
+    
+    /**
+     * Status of translation 
+     */
     public int status = 0;
+    
+    
+    /**
+     * Invalidated
+     */
     public long invalidated = 0L;
     
+    
+    /**
+     * Data Entry Raw
+     */
     public DataEntryRaw der;
     
+    
+    /**
+     * Constructor
+     * 
+     * @param _key
+     * @param mast_translation
+     * @param _der
+     */
     public DataEntry(String _key, String mast_translation, DataEntryRaw _der)
     {
         this.key = _key;
@@ -77,8 +135,9 @@ public class DataEntry
         return this.der.getSubGroupInfo();
     }
     
+    
     /**
-     * get Priority
+     * Get Priority
      * 
      * @return
      */

@@ -5,15 +5,22 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Enumeration;
+import java.util.GregorianCalendar;
 import java.util.Hashtable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-// TODO: Auto-generated Javadoc
+import com.atech.i18n.tool.simple.util.DataAccessTT;
+
+
 /**
  *  This file is part of ATech Tools library.
  *  
- *  
+ *  Application: Simple Translation Tool
+ *  TranslationData - Collection of translation entries
  *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
@@ -38,9 +45,12 @@ import java.util.Hashtable;
  *  
  *  @author Andy
  *
-*/
+ */
+
 public class TranslationData
 {
+
+    private static Log log = LogFactory.getLog(TranslationData.class);
     
     /**
      * The list_tra.
@@ -56,6 +66,9 @@ public class TranslationData
      * The statuses_info.
      */
     public int statuses_info[] = { 0, 0, 0};
+    
+    
+    DataAccessTT m_da = DataAccessTT.getInstance();
     
     /**
      * Instantiates a new translation data.
@@ -154,16 +167,40 @@ public class TranslationData
     /**
      * Save.
      */
-    public void save()
+/*    public void save()
     {
         saveTranslation();
         saveSettings();
+    } */
+
+    /**
+     * Save
+     * 
+     * @param dlp 
+     */
+    public void save(DataListProcessor dlp)
+    {
+        saveTranslation(dlp, false, null);
+        saveSettings(dlp, false, null);
     }
+    
+    /**
+     * Save Backup
+     * 
+     * @param dlp 
+     */
+    public void saveBackup(DataListProcessor dlp)
+    {
+        GregorianCalendar gc = new GregorianCalendar();
+        saveTranslation(dlp, true, gc);
+        saveSettings(dlp, true, gc);
+    }
+
     
     /**
      * Save translation.
      */
-    public void saveTranslation()
+    public void saveTranslation_Old()
     {
         try
         {
@@ -212,13 +249,174 @@ public class TranslationData
         
         System.out.println("TranslationData.saveTranslation() NOT FULLY implemented !");
     }
+
     
     /**
-     * Save settings.
+     * Save Translation
+     * 
+     * @param dlp
+     * @param backup
      */
-    public void saveSettings()
+    public void saveTranslation(DataListProcessor dlp, boolean backup, GregorianCalendar gc)
     {
-        System.out.println("TranslationData.saveSettings() NOT implemented !");
+        
+        String add_path = "";
+        String filename = dlp.getTargetFileRoot();
+        
+        if (backup)
+        {
+            add_path = "backup/";
+            filename += "_" + getDateTimeFilename(gc);
+            log.debug("Save Translation (backup: " + m_da.getCurrentDateTimeString() + ")");
+        }
+        else
+        {
+            log.debug("Save Translation");
+        }
+        
+        try
+        {
+            //BufferedWriter bw = new BufferedWriter(new FileWriter("./files/translation/GGC_si.properties"));
+        
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("./files/translation/" + add_path + filename + ".properties")),"ASCII"));
+            //String unicode = "Unicode: \u30e6\u30eb\u30b3\u30fc\u30c9";
+            //byte[] bytes = String.getBytes("US_ASCII");
+
+            MasterFileReader mfr = dlp.mfr;
+            
+            //dlp.getHeader();
+            
+            for(int i=0; i<mfr.size(); i++)
+            {
+                DataEntryRaw der = mfr.get(i);
+                
+                String v = der.getValue();
+                
+                if (v==null)
+                {
+                    if (der.type==DataEntryRaw.DATA_ENTRY_HEADER)
+                    {
+                        bw.write(dlp.getFullHeader());
+                        //bw.write("#\n#\n#  Header is still missing !!!\n#\n#\n#\n");
+                    }
+                    else if (der.type==DataEntryRaw.DATA_ENTRY_TRANSLATION)
+                    {
+                        String key = der.value_str;
+                        
+                        DataEntry de = this.get(key);
+                        
+                        bw.write(de.key + "=");
+         
+                        if ((de.target_translation==null) || (de.target_translation.trim().length()==0))
+                        {
+                            bw.write(getTranslationEncoded(de.master_file_translation));
+                        }
+                        else
+                        {
+                            bw.write(getTranslationEncoded(de.target_translation));
+                        }
+                        
+                        bw.newLine();
+                        bw.flush();
+                    }
+                    
+                }
+                else
+                    bw.write(v);
+                
+            }
+            
+            
+            
+            /*
+            for(int i=0; i<this.list_tra.size(); i++)
+            {
+                DataEntry de = this.list_tra.get(i);
+                
+                bw.write(de.key + "=");
+ 
+                //  TODO: if no translation - English
+                bw.write(getTranslationEncoded(de.target_translation));
+                
+                bw.newLine();
+                bw.flush();
+                //bw.write(de.target_translation.getBytes("US_ASCII"));
+                
+                
+                //+ de.target_translation + "\n");
+                
+            } */
+            
+            bw.close();
+            
+        }
+        catch(Exception ex)
+        {
+            log.error("TranslationData.saveTranslation(). Exception: "+ ex, ex);
+            ex.printStackTrace();
+        }
+        
+        
+        //System.out.println("TranslationData.saveTranslation() NOT FULLY implemented !");
+    }
+    
+    
+    private String getDateTimeFilename(GregorianCalendar gc)
+    {
+        return "" + gc.get(Calendar.YEAR) + "_" + m_da.getLeadingZero(gc.get(Calendar.MONTH), 2) + "_" + m_da.getLeadingZero(gc.get(Calendar.DAY_OF_MONTH), 2) + "_" + m_da.getLeadingZero(gc.get(Calendar.HOUR_OF_DAY), 2) + "_" + m_da.getLeadingZero(gc.get(Calendar.MINUTE), 2);   
+
+    }
+    
+    
+    /**
+     * Save settings
+     * 
+     * @param dlp 
+     * @param backup 
+     */
+    public void saveSettings(DataListProcessor dlp, boolean backup, GregorianCalendar gc)
+    {
+        
+        String add_path = "";
+        String filename = dlp.getTargetFileRoot();
+        
+        if (backup)
+        {
+            add_path = "backup/";
+            filename += "_" + getDateTimeFilename(gc);
+            log.debug("Save Settings (backup: " + m_da.getCurrentDateTimeString() + ")");
+        }
+        else
+        {
+            log.debug("Save Settings");
+        }
+        
+        try
+        {
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("./files/translation/" + add_path + filename + ".config")),"ASCII"));
+            
+            for(int i=0; i<this.list_tra.size(); i++)
+            {
+                DataEntry de = this.list_tra.get(i);
+                
+                if (de.invalidated>0)
+                    bw.write(de.key + "__INVALIDATED=" + de.invalidated+ "\n");
+                
+                bw.write(de.key + "__STATUS=" + de.status);
+                bw.newLine();
+                bw.flush();
+            }
+            
+            bw.close();
+            
+        }
+        catch(Exception ex)
+        {
+            log.error("TranslationData.saveTranslation(). Exception: "+ ex, ex);
+            //ex.printStackTrace();
+        }
+        
+        //System.out.println("TranslationData.saveSettings() NOT implemented !");
     }
     
     

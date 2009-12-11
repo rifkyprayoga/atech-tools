@@ -16,8 +16,9 @@ import com.atech.utils.ATDataAccessAbstract;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  Application: Simple Translation Tool
+ *  DataAccessTT - Data Access class
+ *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -41,7 +42,7 @@ import com.atech.utils.ATDataAccessAbstract;
  *  
  *  @author Andy
  *
-*/
+ */
 
 
 public class DataAccessTT extends ATDataAccessAbstract
@@ -81,7 +82,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     // public GGCTreeRoot m_meals_treeroot = null;
 
 
-    public TranslationConfiguration translation_config = new TranslationConfiguration(); 
+    private TranslationConfiguration translation_config = new TranslationConfiguration(); 
 
     
     /**
@@ -506,15 +507,35 @@ public class DataAccessTT extends ATDataAccessAbstract
     private boolean is_master_file_master_file;
     
     
+    /**
+     * Is Master File really master file
+     * 
+     * @return
+     */
     public boolean isMasterFileMasterFile()
     {
         return this.is_master_file_master_file;
     }
     
+    /**
+     * Set is Master File really master file
+     * 
+     * @param val
+     */
     public void setIsMasterFileMasterFile(boolean val)
     {
         this.is_master_file_master_file = val; 
     }
     
+
+    /**
+     * Get Max Decimals that will be used by DecimalHandler
+     * 
+     * @return
+     */
+    public int getMaxDecimalsUsedByDecimalHandler()
+    {
+        return 1;
+    }
     
 }

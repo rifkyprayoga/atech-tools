@@ -1,8 +1,45 @@
 package com.atech.i18n.tool.simple.data;
 
+import java.io.File;
 import java.util.Enumeration;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atech.i18n.tool.simple.util.DataAccessTT;
+import com.atech.utils.Rounding;
+import com.atech.utils.file.PropertiesFile;
+
+/**
+ *  This file is part of ATech Tools library.
+ *  
+ *  Application: Simple Translation Tool
+ *  DataListProcessor - Main processor file
+ *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
+ *  
+ *  
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ *  
+ *  
+ *  For additional information about this project please visit our project site on 
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  andyrozman@users.sourceforge.net or andy@atech-software.com
+ *  
+ *  @author Andy
+ *
+*/
 
 
 public class DataListProcessor
@@ -10,20 +47,32 @@ public class DataListProcessor
 
     DataAccessTT m_da = DataAccessTT.getInstance();
     TranslationData tra_data;
+    private static Log log = LogFactory.getLog(DataListProcessor.class);
     
     
     private String master_file_name = "GGC_en";
+    private String module_id = "";
+    private String master_file_root = "";
     
     MasterFileReader mfr = null;
     
     private boolean master_file_read = false;
-    public boolean translation_file_read = false;
+    //private boolean translation_file_read = false;
     private int current_index;
     
     private boolean main_configuration_read = false;
     private boolean user_configuration_read = false;
     
+    private PropertiesFile user_config = null;
+    //private PropertiesFile master_config = null;
+    private int backup_time = 5;
     
+    
+    /**
+     * Constructor 
+     * 
+     * @param _main_config
+     */
     public DataListProcessor(String _main_config)
     {
 
@@ -43,57 +92,163 @@ public class DataListProcessor
         readTranslationTarget();
         readTranslationTargetConfig();
         
-        System.out.println(this.tra_data.size());
+        //System.out.println(this.tra_data.size());
     }
 
     
+    /**
+     * Was Master File Read 
+     * 
+     * @return
+     */
     public boolean wasMasterFileRead()
     {
         return this.master_file_read;
     }
     
     
+    /**
+     * Read Configuration
+     * 
+     * @param main_config
+     */
     public void readConfiguration(String main_config)
     {
-        System.out.println("DataListProcessor.readConfiguration() NOT implemented !");
-        //PropertiesFile pp = new PropertiesFile("GGC_en.properties");
-        this.main_configuration_read = false;
-    }
-    
-    public void readUserConfiguration()
-    {
-        System.out.println("DataListProcessor.readUserConfiguration() NOT implemented !");
-        this.user_configuration_read = false;
-    }
-    
-    
-    
-    
-    
-    public void readMasterFile()
-    {
-        mfr = new MasterFileReader("files/master_files/" + master_file_name + ".properties");
-        master_file_read = mfr.wasFileRead();
+        log.debug("Reading application configuration !");
         
-        //is_master_file_mf = mfr.is_master_file;
+        PropertiesFile pp = new PropertiesFile(main_config);
         
-        System.out.println("Master File: " + mfr.isMasterFile());
+        master_file_root = pp.get("MASTER_FILE_ROOT");
+        master_file_name = master_file_root + "_" + pp.get("MASTER_FILE_LANGUAGE"); 
+        module_id = pp.get("MODULE_ID");
         
+        this.main_configuration_read = pp.wasFileRead();
         
+        if (!this.main_configuration_read)
+        {
+            log.error("Problem reading main configuration (file=" + main_config + ")");
+        }
     }
 
     
+    /**
+     * Was Configuration Read
+     * 
+     * @return
+     */
+    public boolean wasConfigurationRead()
+    {
+        return this.main_configuration_read;
+    }
+    
+    
+    /**
+     * Read User Configuration
+     */
+    public void readUserConfiguration()
+    {
+        log.debug("Reading user configuration !");
+        String name = null;
+  //      System.out.println("DataListProcessor.readUserConfiguration() NOT implemented !");
+        
+        name = "./config/TranslatorSettings.config";
+        if (new File(name).exists())
+        {
+            log.debug("Found TranslatorSettings.config !");
+        }
+        else
+        {
+            log.warn("Not found TranslatorSettings.config, reading default instead !");
+            name = "./config/TranslatorSettings.config_default";
+        }
+        
+        user_config = new PropertiesFile(name);
+        
+//        System.out.println("DataListProcessor.readConfiguration() NOT implemented !");
+        
+        this.user_configuration_read = this.user_config.wasFileRead();
+        
+        if (user_config.containsKey("AUTOBACKUP_TIME"))
+        {
+            try
+            {
+                int tm = Integer.parseInt(user_config.get("AUTOBACKUP_TIME"));
+                this.backup_time = tm;
+            }
+            catch(Exception ex)
+            {}
+        }
+        
+        
+        log.debug("   File was read: " + this.user_configuration_read);
+        
+/*        
+        #
+        #  Main header (this is main header, which will be used, if we haven't created custom headers for each
+        #       module this one will be used, if we haven't created this one (not required), default will be used)
+        #
+            
+        #  HEADER_1=              
+        #  HEADER_2=                       ***************************************************
+        #  HEADER_2=                       ***                                             ***
+        #  HEADER_3=                       ***************************************************
+        #  HEADER_4=                       ***************************************************
+        #  HEADER_4=                       ***************************************************
+
+
+        %$%MODULE_NAME%$%
+        %$%MODULE_VERSION%$%
+        %$%LANGUAGE%$%
+        %$%AUTHOR%$%
+  */      
+        
+    }
+    
+    
+    public boolean wasUserConfigRead()
+    {
+        return this.user_configuration_read;
+    }
+    
+    
+    /**
+     * Read Master File
+     */
+    public void readMasterFile()
+    {
+        log.debug("Reading master file: " + this.master_file_name + " !");
+        mfr = new MasterFileReader("files/master_files/" + master_file_name + ".properties");
+        master_file_read = mfr.wasFileRead();
+        
+        log.debug("   Is Master file: " + mfr.isMasterFile());
+        log.debug("   Was file read: " + mfr.wasFileRead());
+        
+        //System.out.println("Master File: " + mfr.isMasterFile());
+    }
+
+    
+    /**
+     * Is file treated as Master file, really master file
+     * 
+     * @return
+     */
     public boolean isMasterFileMasterFile()
     {
         return this.mfr.isMasterFile();
     }
     
+    /**
+     * Read Master File Config
+     */
     public void readMasterFileConfig()
     {
         //System.out.println("DataListProcessor.readMasterFileConfig() NOT implemented !");
-        
+        log.debug("Read master file config ");
+
         PropertiesFile pp = new PropertiesFile("files/master_files/" + master_file_name + ".config");
-        
+
+        log.debug("   Was file read: " + pp.wasFileRead());
+
         //this.translation_file_read = pp.file_read;
         int idx = -1;
         String key_sub;
@@ -132,10 +287,13 @@ public class DataListProcessor
     
     private void readTranslationTarget()
     {
-        PropertiesFile pp = new PropertiesFile("files/translation/" + "GGC_si.properties");
+        log.debug("Read Translation Target");
+
+        PropertiesFile pp = new PropertiesFile("files/translation/" + getTargetFileRoot() + ".properties");
         
-        this.translation_file_read = pp.file_read;
+        // x this.translation_file_read = pp.wasFileRead();
         
+        log.debug("   Was file read: " + pp.wasFileRead());
         
         for(Enumeration<String> en = pp.keys(); en.hasMoreElements(); )
         {
@@ -153,19 +311,195 @@ public class DataListProcessor
         
     }
 
+    /**
+     * Get Full Header
+     * 
+     * @return
+     */
+    public String getFullHeader()
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append(getHeader());
+        sb.append(getStatus());
+        sb.append(getSubHeaderFull());
+        sb.append(getCollationRules());
+        
+        return sb.toString();
+    }
     
     
+    
+    private String getHeader()
+    {
+        StringBuffer sb = new StringBuffer();
+        
+        sb.append("#\n");
+        sb.append("#  ######################################################################\n"); 
+        sb.append("#  ###" + getTextLineCenter("GNU Glucose Control", 64) + "###\n");
+        		//"                      GNU Glucose Control                       ###\n");  
+        sb.append("#  ######################################################################\n");
+        sb.append("#  ###    Language: " + getTextLine(this.user_config.get("TRANSLATION_LANGUAGE"), 50) + "###\n"); 
+        sb.append("#  ###    Created by: " + getTextLine(this.user_config.get("TRANSLATOR_NAME") + " (" + this.user_config.get("TRANSLATOR_EMAIL") + ")", 48) + "###\n");
+        sb.append("#  ###    Version: " + getTextLine(m_da.getTranslationConfig().get("MODULE_VERSION"), 51) + "###\n");
+        sb.append("#  ###    Last change: " + getTextLine(m_da.getCurrentDateTimeString(), 47) + "###\n");
+        sb.append("#  ######################################################################\n"); 
+        sb.append("#\n");
+        
+        return sb.toString();
+    }
+    
+
+    private String getStatus()
+    {
+        int[] st = this.tra_data.getStatuses();
+        
+
+        int all = st[0] + st[1] + st[2];
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append("#\n");  
+        sb.append("#  Translation status:\n"); 
+        sb.append("#     Words/expressions:    " + all + "\n"); 
+        sb.append("#     Not translated:       " + st[0] + "  (" + getProcents(st[0], all) + " %)\n"); 
+        sb.append("#     Need to be checked:   " + st[1] + "  (" + getProcents(st[1], all) + " %)\n#\n");
+        sb.append("#     Translated:           " + st[2] + "  (" + getProcents(st[2], all) + " %)\n#\n");
+        
+        return sb.toString();
+        
+    }
+
+    
+    private String getCollationRules()
+    {
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append("#\n#  Collation Rules - In unicode we can create special rules for sorting where we specify\n");
+        sb.append("#     sorting order of special characters. This will be used by tree's and special tables.\n");
+        sb.append("#     For english this is left empty. For all other (that have non-standard, non english\n");
+        sb.append("#     charcters) we need to set this if we want sorting to be done correctly.\n#\n");
+        sb.append("COLLATION_RULES=");
+        sb.append(this.user_config.get("COLLATION_RULES") + "\n");
+        
+        
+        return sb.toString();
+        
+    }
+    
+    private String getProcents(int number, int max)
+    {
+        float f = (float) (number*1.0f)/(max * 1.0f);
+        f *= 100;
+
+        return Rounding.specialRoundingString(f, "1");
+    }
+
+    
+    /**
+     * Get Sub Header Full
+     * 
+     * @return
+     */
+    public String getSubHeaderFull()
+    {
+        StringBuffer sb = new StringBuffer();
+
+        String hh = getSubHeader("");
+
+        if (hh!=null)
+            sb.append(hh);
+        
+        hh = getSubHeader(this.module_id + "_");
+        
+        if (hh!=null)
+            sb.append(hh);
+        
+        return sb.toString();
+    }
+    
+    
+    private String getSubHeader(String part)
+    {
+        boolean end = true; 
+        
+        //System.out.println("" + this.user_config);
+        
+        int i=1;
+        String header = "";
+        while (end)
+        {
+            
+            //System.out.println("Read HEADER_COMMENT_" +part+ i + " !");
+            
+            if (this.user_config.containsKey("HEADER_COMMENT_" +part+ i))
+            {
+                header += "#  " + this.user_config.get("HEADER_COMMENT_" +part+ i) + "\n";
+                i++;
+            }
+            else
+                end = false;
+        }
+        
+        if (header.trim().length()==0)
+            return null;
+        else
+            return header.trim();
+        
+    }
+    
+    
+    
+    private String getTextLineCenter(String text, int length)
+    {
+        int start = (int)(text.length()/2);
+        int x = (int)(length/2);
+        
+        start = x - start;
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append(getTextLine("", start));
+        sb.append(getTextLine(text, (length-start)));
+        
+        return sb.toString();
+    }
+    
+    
+    private String getTextLine(String text, int length)
+    {
+        StringBuffer sb = new StringBuffer();
+        
+        for(int i=text.length(); i<length; i++)
+        {
+            sb.append(" ");
+        }
+        
+        return text + sb.toString();
+    }
+    
+    
+    /**
+     * Get Target File Root
+     * 
+     * @return
+     */
+    public String getTargetFileRoot()
+    {
+        return this.master_file_root + "_" + this.user_config.get("TRANSLATION_LANGUAGE_SHORT");
+    }
+    
+    
+// this.master_file_root + "_" + this.user_config.get("TRANSLATION_LANGUAGE_SHORT")    
     
     
     private void readTranslationTargetConfig()
     {
-        System.out.println("DataListProcessor.readTranslationTargetConfig() NOT implemented !");
+        log.debug("Read Translation Target Config");
 
-        PropertiesFile pp = new PropertiesFile("files/translation/" + "GGC_si" + ".config");
+        PropertiesFile pp = new PropertiesFile("files/translation/" + getTargetFileRoot() + ".config");
         
-        this.translation_file_read = pp.file_read;
+        //this.translation_file_read = pp.wasFileRead();
+        log.debug("   Was file read: " + pp.wasFileRead());
 
-        if (!pp.file_read)
+        if (!pp.wasFileRead())
         {
             this.processTranslationData(true);
             return;
@@ -207,10 +541,7 @@ public class DataListProcessor
             {
                 System.out.println("This key type is unknown !!!");
             }
-            
         }
-    
-        //this.processTranslationData(false);
     
     }
     
@@ -240,16 +571,29 @@ public class DataListProcessor
         
     }
     
+    /**
+     * Reset Status
+     */
     public void resetStatus()
     {
         this.tra_data.resetStatus();
     }
     
+    /**
+     * Get Statuses
+     * 
+     * @return
+     */
     public int[] getStatuses()
     {
         return this.tra_data.getStatuses();
     }
     
+    /**
+     * Get Current Entry
+     * 
+     * @return
+     */
     public DataEntry getCurrentEntry()
     {
         if (this.tra_data.size()==0)
@@ -259,6 +603,11 @@ public class DataListProcessor
     }
     
     
+    /**
+     * Move First
+     * 
+     * @return
+     */
     public boolean moveFirst()
     {
         current_index = 0;
@@ -266,6 +615,11 @@ public class DataListProcessor
     }
     
     
+    /**
+     * Move Next
+     * 
+     * @return
+     */
     public boolean moveNext()
     {
         if (this.tra_data.isEmpty())
@@ -285,16 +639,40 @@ public class DataListProcessor
             
     }
     
+    /**
+     * Move to Next Untranslated
+     * 
+     * @return
+     */
     public boolean moveNextUntranslated()
     {
         if (this.tra_data.isEmpty())
             return false;
-
-        System.out.println("DataListProcessor.moveNextUntranslated()");
-        return false;
+        
+        boolean found = false;
+        
+        for(int i=this.current_index+1; i<this.tra_data.size(); i++)
+        {
+            DataEntry de = this.tra_data.get(i);
+            
+            if ((de.status==DataEntry.STATUS_NEED_CHECK) || (de.status==DataEntry.STATUS_UNTRANSLATED))
+            {
+                this.current_index = i;
+                found = true;
+                break;
+            }
+        }
+        
+        // no turn arround
+        return found;
     }
     
     
+    /**
+     * Move Previous
+     * 
+     * @return
+     */
     public boolean movePrev()
     {
         if (this.tra_data.isEmpty())
@@ -313,28 +691,72 @@ public class DataListProcessor
     }
     
     
+    /**
+     * Get Current Index
+     * 
+     * @return
+     */
     public int getCurrentIndex()
     {
         return this.current_index;
     }
     
     
-    
+    /**
+     * Move to Previous Untranslated
+     * 
+     * @return
+     */
     public boolean movePrevUntranslated()
     {
-        if (this.tra_data.isEmpty())
+        if ((this.tra_data.isEmpty()) || (this.current_index==0))
             return false;
-
-        System.out.println("DataListProcessor.movePrevUntranslated()");
-        return false;
+        
+        boolean found = false;
+        
+        for(int i=this.current_index-1; i >=0; i--)
+        {
+            DataEntry de = this.tra_data.get(i);
+            
+            if ((de.status==DataEntry.STATUS_NEED_CHECK) || (de.status==DataEntry.STATUS_UNTRANSLATED))
+            {
+                this.current_index = i;
+                found = true;
+                break;
+            }
+        }
+        
+        // no turn arround
+        return found;
     }
     
     
+    /**
+     * Save Translation
+     */
     public void saveTranslation()
     {
-        this.tra_data.save();
+        this.tra_data.save(this);
+    }
+    
+    /**
+     * Save Translation
+     */
+    public void saveTranslationBackup()
+    {
+        this.tra_data.saveBackup(this);
+    }
+    
+
+    /**
+     * Returns backup time
+     * 
+     * @return time in minutes for backup action
+     */
+    public int getBackupTime()
+    {
+        return this.backup_time;
     }
     
     
-
 }

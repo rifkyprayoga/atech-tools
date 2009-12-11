@@ -43,6 +43,11 @@ public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
     //private String master_file_name = "GGC_en.properties";
     
     private static final long serialVersionUID = 8988247925694117522L;
+    
+    protected boolean file_read = false;
+    
+    
+    
     /**
      * Filename
      */
@@ -71,6 +76,8 @@ public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
             BufferedReader br = new BufferedReader(new FileReader(this.filename));
             String line = null;
             
+            this.file_read = true;
+            
             while((line = br.readLine()) != null)
             {
                 processFileEntry(line);
@@ -82,6 +89,7 @@ public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
         catch(Exception ex)
         {
             System.out.println("FileReaderList: Error reading file: " + this.filename);
+            this.file_read = false;
         }
     }
     
@@ -94,6 +102,17 @@ public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
     public abstract void processFileEntry(String line);
     
 
+    /**
+     * Was File Read 
+     * 
+     * @return
+     */
+    public boolean wasFileRead()
+    {
+        return this.file_read;
+    }
+    
+    
 }
 
 

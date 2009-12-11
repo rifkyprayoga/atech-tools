@@ -46,6 +46,7 @@ import com.atech.help.HelpCapable;
 import com.atech.help.HelpContext;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.info.LanguageInfo;
+import com.atech.misc.converter.DecimalHandler;
 import com.atech.plugin.PlugInClient;
 import com.atech.update.config.UpdateConfiguration;
 
@@ -187,6 +188,9 @@ public abstract class ATDataAccessAbstract
     protected Container parent = null;
 
     
+    protected DecimalHandler decimal_handler = null;
+    
+    
     /**
      * The real_decimal.
      */
@@ -300,6 +304,7 @@ public abstract class ATDataAccessAbstract
         this.m_collator = this.m_i18n.getCollationDefintion();
         loadPlugIns();
         loadBackupRestoreCollection();
+        this.decimal_handler = new DecimalHandler(this.getMaxDecimalsUsedByDecimalHandler());
         
         if (!ATDataAccessAbstract.decimals_set)
             initDecimals();
@@ -308,6 +313,9 @@ public abstract class ATDataAccessAbstract
 //        initSpecial();
     }
 
+    
+    
+    
     
     
     /**
@@ -2588,7 +2596,7 @@ public String getDateTimeString(int date, int time)
      * 
      * @return true, if is empty or unset
      */
-    public boolean isEmptyOrUnset(String val)
+    public static boolean isEmptyOrUnset(String val)
     {
         if ((val == null) || (val.trim().length()==0))
         {
@@ -2598,6 +2606,26 @@ public String getDateTimeString(int date, int time)
             return false;
     }
 
+    
+    /**
+     * Checks if is true
+     * 
+     * @param val the val
+     * 
+     * @return true, if is empty or unset
+     */
+/*    public static boolean isOptionEnabled(String val)
+    {
+        if ((val == null) || (val.trim().length()==0))
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+  */  
+    
+    
     
     /**
      * Checks if is found.
@@ -3191,7 +3219,7 @@ public String getDateTimeString(int date, int time)
      * @param value
      * @return
      */
-    public boolean isOptionEnabled(String value)
+    public static boolean isOptionEnabled(String value)
     {
         
         if (value==null)
@@ -3289,6 +3317,41 @@ public String getDateTimeString(int date, int time)
     public Hashtable<String,PlugInClient> getPlugins()
     {
         return this.plugins;
+    }
+    
+ 
+    
+    /**
+     * Get Max Decimals that will be used by DecimalHandler
+     * 
+     * @return
+     */
+    public abstract int getMaxDecimalsUsedByDecimalHandler();
+    
+    
+    
+    // ********************************************************
+    // ****** Component Id *****
+    // ********************************************************
+
+    private long component_id_last=0L;
+
+    /**
+     * Get New Component Id
+     * 
+     * @return
+     */
+    public String getNewComponentId()
+    {
+        component_id_last++;
+        return "" + this.component_id_last;
+    }
+ 
+    
+    
+    public DecimalHandler getDecimalHandler()
+    {
+        return this.decimal_handler;
     }
     
     

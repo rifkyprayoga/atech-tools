@@ -1,18 +1,18 @@
 package com.atech.i18n;
 
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.text.Collator;
 import java.text.RuleBasedCollator;
-import java.util.Hashtable;
 import java.util.Locale;
 import java.util.MissingResourceException;
-import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.atech.i18n.mgr.LanguageInstance;
+import com.atech.i18n.mgr.LanguageManager;
 
 /**
  *  This file is part of ATech Tools library.
@@ -50,142 +50,27 @@ import org.apache.commons.logging.LogFactory;
  *  of variables half of work is done. Next half is way to create this class. You need to make constructor. Sample
  *  constructor for Singelton is in this source file.
  */
-public abstract class I18nControlAbstract
+
+/**
+ * This is I18nControl class used with conjunction with LanguageManager 
+ */
+
+public class I18nControlLangMgr extends I18nControlAbstract
 {
 
-    private static Log s_logger = LogFactory.getLog(I18nControlAbstract.class); 
+    private static Log s_logger = LogFactory.getLog(I18nControlLangMgr.class); 
     private Collator langaugeCollator = null;
-
-
-    /**
-     *  Resource bundle identificator
-     */
-    ResourceBundle res;
-
-
-    /**
-     * The resource bundles.
-     */
-    Hashtable<String,String> resourceBundles;
-
-
-    /**
-     * The lang_file_root.
-     */
-    public String lang_file_root = null;
-
-    /**
-     * The def_language.
-     */
-    public String def_language = "en";
-
-    /**
-     * The selected_language.
-     */
-    public String selected_language = null;
+    protected LanguageManager language_manager = null;
+    private I18nControlRunner i18ncontrol_runner; 
     
-    /**
-     * The selected_language_locale.
-     */
-    public Locale selected_language_locale = null;
+    //protected abstract String getLanguageConfigFile();
     
-    
-    /**
-     * The selected_language_locale.
-     */
-    public Locale selected_language_locale_real = null;
-
-
-    /**
-     * The languages.
-     */
-    protected String languages[] = null;
-/*
-    }
-	{
-        "English",
-        "German",
-        "Slovene",
-        "Simp. Chinese"
-    };
-*/
-
-    /**
- * The lcls.
- */
-protected Locale lcls[] = null;
-/*	{
-        Locale.ENGLISH,
-        Locale.GERMAN,
-        new Locale("SI"),
-        Locale.SIMPLIFIED_CHINESE
-    };
-*/
-
-
-    protected Locale lcls_real[] = null;
-
-
-//    static private I18nControl m_i18n = null;   // This is handle to unique 
-                                                    // singelton instance
-                                               
-
-    //   Constructor:  I18nControl
-    /**
-     *
-     *  This is I18nControl constructor; Since classes use Singleton Pattern,
-     *  constructor is protected and can be accessed only with getInstance() 
-     *  method. 
-     *  This constructor should be implemented by implementing class<br><br>
-     *
-     */ 
-/*    private I18nControlAbstract()
+    public I18nControlLangMgr(LanguageManager lm, I18nControlRunner icr)
     {
-        setLanguage("EN");
-    } 
-*/    
-
-
-    
-    //  Method:       getInstance
-    //  Author:       Andy
-    /**
-     *
-     *  This method returns reference to OmniI18nControl object created, or if no 
-     *  object was created yet, it creates one.<br><br>
-     *  This method should be implemented by implementing class, if we want to use singelton<br><br>
-     *
-     *  @return Reference to OmniI18nControl object
-     * 
-     */ 
-/*    static public I18nControlAbstract getInstance()
-    {
-        if (m_i18n == null)
-            m_i18n = new I18nControlAbstract();
-        return m_i18n;
+        this.i18ncontrol_runner = icr;
+        this.language_manager = lm;
+        this.initLibrary();
     }
-*/
-
-
-
-
-
-    //  Method:       deleteInstance
-    /**
-     *
-     *  This method sets handle to OmniI18NControl to null and deletes the instance. <br><br>
-     *
-     */ 
-/*    public void deleteInstance()
-    {
-        m_i18n=null;
-    }
-*/
-
-    
-    protected abstract String getLanguageConfigFile();
-    
-    
 
     //  Method:       setLanguage (String language)
     /**
@@ -208,37 +93,16 @@ protected Locale lcls[] = null;
     /**
      * Init - This method is used to set default language and language root file
      */
-    public abstract void init();
+    public void init()
+    {
+        this.lang_file_root = this.i18ncontrol_runner.getLanguageFileRoot();
+        this.def_language = this.language_manager.getDefaultLanguage();
+    }
     
     
     public String getSelectedLanguage()
     {
-
-        if (this.selected_language!=null)
-            return this.selected_language;
-        
-        try
-        {
-            Properties props = new Properties();
-    
-            FileInputStream in = new FileInputStream(getLanguageConfigFile());
-            props.load(in);
-    
-            String tempLang = (String)props.get("SELECTED_LANG");
-    
-            if (tempLang != null)
-                this.selected_language = tempLang;
-            
-            return this.selected_language;
-            //System.out.println("selected language: " + this.selected_language);
-        }
-        catch(Exception ex)
-        {
-            System.out.println("I18nControl: Configuration file not found. Using default langauge ('en')");
-            s_logger.warn("Configuration file not found. Using default langauge ('en')");
-            return null;
-        }
-        
+        return this.language_manager.getSelectedLanguage();
     }
     
     
@@ -280,7 +144,7 @@ protected Locale lcls[] = null;
      *
      *  @param lcl locale that will choose which language will be set
      */ 
-    public void setLanguage(Locale lcl)
+/*    public void setLanguage(Locale lcl)
     {
         //System.out.println("setLanguage(Locale): " + lcl);
 
@@ -318,13 +182,80 @@ protected Locale lcls[] = null;
         this.selected_language_locale = lcl;
 
     }
+*/
 
+ 
+    
+    public void setLanguage(LanguageInstance li)
+    {
+        String prefix = "";
+        Locale lcl = null;
+        
+        
+//        Locale l = new Locale(language);
+//        selected_language = language;
+//        setLanguage(l);
+//        createCollationDefintion();
+        
+        if (li.is_translation_tool)
+        {
+            prefix = "../";
+            
+            if (!(new File(prefix + "" + lang_file_root + li.name + ".properties").exists())) 
+            {
+                prefix = "";
+                lcl = new Locale(this.def_language);
+            }
+            else
+            {
+                lcl = new Locale(li.name);
+            }
+            
+        }
+        
+        
+        //System.out.println("setLanguage(Locale): " + lcl);
 
+        try
+        {
+            //System.out.println("setLang: " + lang_file_root);
+            res = ResourceBundle.getBundle(prefix + "" + lang_file_root, lcl);
+        }
+        catch (MissingResourceException mre)
+        {
+            System.out.println("Couldn't find resource file(1): " + lang_file_root + "_" + selected_language + ".properties");
+            try
+            {
+                res = ResourceBundle.getBundle(lang_file_root, new Locale(this.def_language));
+            }
+            catch(MissingResourceException ex)
+            {
+                System.out.println("Exception on reading resource file. Exiting application.");
+                //System.exit(2);
+            }
+        }
+        catch (Exception mre)
+        {
+            System.out.println("Exception on reading resource file. Exiting application.");
+            System.out.println("Exception: " + mre);
+            mre.printStackTrace();
+            System.exit(2);
+        }
+        
+        this.selected_language_locale = lcl;
+
+        createCollationDefintion();
+    }
+    
+    
+    
+    
+    
     
     public void initLibrary()
     {
         init();
-        getSelectedLanguage();
+        //getSelectedLanguage();
         setLanguage();
     }
     
@@ -346,10 +277,15 @@ protected Locale lcls[] = null;
      */
     public void setLanguage() 
     {
+        LanguageInstance li = this.language_manager.getSelectedLanguageInstance();
+        
+        setLanguage(li);
+        
+        /*
         if (selected_language!=null)
             setLanguage(selected_language);
         else
-            setLanguage(def_language);
+            setLanguage(def_language);*/
     }
 
 
@@ -753,83 +689,13 @@ protected Locale lcls[] = null;
     {
         return this.langaugeCollator;
     }
-   
-    
-    
-    /**
-     * Get Partitial Translation
-     * 
-     * @param keyword
-     * @param default_delim
-     * @return
-     */
-    public String getPartitialTranslation(String keyword, String default_delim)
-    {
-    
-        StringTokenizer strtok = new StringTokenizer(keyword, default_delim);
-        StringBuffer sb = new StringBuffer();
-        
-        
-        while(strtok.hasMoreTokens())
-        {
-            String k = strtok.nextToken();
-            
-            char[] chars = { ',', '(', ')' };
-            boolean checked = false;
-            int i =0;
-            
-            while (!checked)
-            {
-                checked = checkStartEnd(k, chars[i], sb);
-                i++;
-                
-                if (i == chars.length)
-                    break;
-            }
-            
-            //boolean found = checkStartEnd(k, ',', sb);
-            
-            //if (!found
-            
-            if (!checked)
-            sb.append(this.getMessage(k));
-            
-            sb.append(" ");
-        }
-    
-        return sb.toString();
-    
-    }
-    
-    
-    private boolean checkStartEnd(String key, char char_el, StringBuffer sb)
-    {
-        if (key.charAt(0)==char_el)
-        {
-            sb.append(char_el);
-            
-            key = key.substring(1,key.length());
-            
-            sb.append(this.getMessage(key));
-            return true;
-        }
-        else if (key.charAt(key.length()-1)==char_el)
-        {
-            
-            key = key.substring(0,key.length()-1);
-            
-            sb.append(this.getMessage(key));
-            sb.append(char_el);
-            return true;
-            
-        }
-        
-        return false;
-    
-    }
 
-    
-    
-    
+    @Override
+    protected String getLanguageConfigFile()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+   
 
 }

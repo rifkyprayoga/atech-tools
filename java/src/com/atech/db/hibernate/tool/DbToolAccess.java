@@ -939,4 +939,16 @@ public class DbToolAccess extends ATDataAccessAbstract
 
     }
 
+    
+    /**
+     * Get Max Decimals that will be used by DecimalHandler
+     * 
+     * @return
+     */
+    public int getMaxDecimalsUsedByDecimalHandler()
+    {
+        return 1;
+    }
+    
+    
 }

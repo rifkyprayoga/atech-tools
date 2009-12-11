@@ -86,15 +86,13 @@ public class I18nControlTT extends I18nControlAbstract
      */ 
     private I18nControlTT()
     {
-        init();
-        getSelectedLanguage();
-        setLanguage();
-
-
-//        setLanguage("EN");
+        this.initLibrary();
     } 
     
 
+    
+    
+    
 
     /**
      * 
@@ -143,6 +141,18 @@ public class I18nControlTT extends I18nControlAbstract
 
 
 
+
+
+
+    @Override
+    protected String getLanguageConfigFile()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+/*
     private void getSelectedLanguage()
     {
         this.selected_language = this.def_language;
@@ -165,20 +175,10 @@ public class I18nControlTT extends I18nControlAbstract
             s_logger.warn("Configuration file not found. Using default langauge ('en')");
         }
 */
-    }
+//    }
 
 
 
-    /**
-     * This method sets the language according to the preferences.<br>
-     */
-    public void setLanguage() 
-    {
-        if (selected_language!=null)
-            setLanguage(selected_language);
-        else
-            setLanguage(def_language);
-    }
 
 
 

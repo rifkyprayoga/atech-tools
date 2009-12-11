@@ -1,12 +1,15 @@
 package com.atech.i18n.tool.simple.util;
 
+import java.util.Hashtable;
+
 import com.atech.i18n.I18nControlAbstract;
 
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  Application: Simple Translation Tool
+ *  I18nControlTT - for translation (this one is fake)
+ *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -32,12 +35,6 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
-/**
- *  This is abstract class for controling I18N. You need to extend this class, and set all variables. With setting 
- *  of variables half of work is done. Next half is way to create this class. You need to make constructor. Sample
- *  constructor for Singelton is in this source file.
- */
 public class I18nControlTT extends I18nControlAbstract
 {
 
@@ -90,7 +87,7 @@ public class I18nControlTT extends I18nControlAbstract
         getSelectedLanguage();
         setLanguage();
 
-
+        loadWords();
 //        setLanguage("EN");
     } 
     
@@ -142,7 +139,7 @@ public class I18nControlTT extends I18nControlAbstract
     }
 
 
-
+/*
     private void getSelectedLanguage()
     {
         this.selected_language = this.def_language;
@@ -165,7 +162,7 @@ public class I18nControlTT extends I18nControlAbstract
             s_logger.warn("Configuration file not found. Using default langauge ('en')");
         }
 */
-    }
+  //  }
 
 
 
@@ -182,7 +179,42 @@ public class I18nControlTT extends I18nControlAbstract
 
 
 
+    @Override
+    protected String getLanguageConfigFile()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
+
+    Hashtable<String, String> words = new Hashtable<String, String>(); 
+    
+    
+    private void loadWords()
+    {
+        this.words.put("LICENCE", "Licence");
+        this.words.put("ABOUT", "About...");
+        this.words.put("SYSTEM_PROPERTIES", "System properties");
+        
+        this.words.put("PROPERTY", "Property");
+        this.words.put("VALUE", "Value");
+        this.words.put("ABOUT", "About...");
+        this.words.put("ABOUT", "About...");
+        this.words.put("ABOUT", "About...");
+        
+        
+    }
+
+    
+    public String getMessage(String key)
+    {
+        if (this.words.containsKey(key))
+            return this.words.get(key);
+        else
+            return key.toUpperCase();
+    }
+    
+    
 
 
 }

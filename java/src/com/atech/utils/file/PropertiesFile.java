@@ -1,7 +1,8 @@
-package com.atech.i18n.tool.simple.data;
+package com.atech.utils.file;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
 
@@ -42,10 +43,7 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
 {
 
     private static final long serialVersionUID = 4486922769091769152L;
-    /**
-     * The file_read.
-     */
-    public boolean file_read = false;
+    private boolean in_jar = false;
     
     
     /**
@@ -71,8 +69,19 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
                 return;
     
             Properties props = new Properties();
-            FileInputStream in = new FileInputStream(filename);
-            props.load(in);
+            
+            if (in_jar)
+            {
+               InputStream fin = getClass().getResourceAsStream(filename);
+               props.load(fin);
+               fin.close();
+            }
+            else
+            {
+                FileInputStream in = new FileInputStream(filename);
+                props.load(in);
+                in.close();
+            }
 
             file_read = true;            
             /*
@@ -95,6 +104,8 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
         catch(Exception ex)
         {
             System.out.println("PropertiesFile: Error reading file: " + this.filename);
+            ex.printStackTrace();
+            file_read = false;
         }
     }
     
@@ -116,4 +127,7 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
     }
 
 
+    
+    
+    
 }

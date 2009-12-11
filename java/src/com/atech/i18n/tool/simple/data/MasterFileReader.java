@@ -3,11 +3,11 @@ package com.atech.i18n.tool.simple.data;
 import com.atech.i18n.tool.simple.util.DataAccessTT;
 import com.atech.utils.file.FileReaderList;
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
- *  
+ *  Application: Simple Translation Tool
+ *  MasterFileReader - Master File reader
  *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
@@ -32,7 +32,8 @@ import com.atech.utils.file.FileReaderList;
  *  
  *  @author Andy
  *
-*/
+ */
+
 public class MasterFileReader extends FileReaderList<DataEntryRaw>
 {
 
@@ -48,18 +49,18 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
     DataAccessTT m_da = null;
     
     /**
-     * Instantiates a new master file reader.
+     * Instantiates a new master file reader
      * 
      * @param filename the filename
      */
     public MasterFileReader(String filename)
     {
         super(filename);
-        System.out.println("MasterFileReader: " + this);
+        System.out.println("MasterFileReader: " + this + ", filename=" + filename);
     }
 
     /** 
-     * specialInit
+     * Special Init
      */
     public void specialInit()
     {
@@ -94,7 +95,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
             {
                 this.is_master_file_xa= true;
                 
-                System.out.println("Master file: " + this.is_master_file_xa);
+                //System.out.println("Master file: " + this.is_master_file_xa);
                 m_da.setIsMasterFileMasterFile(true);
             }
             else if (line.contains("!G!"))
@@ -116,7 +117,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
                     
                 }
 
-                System.out.println("Group: Desc=" + desc +",Priority=" + pri);
+                //System.out.println("Group: Desc=" + desc +",Priority=" + pri);
                 
                 this.group = new DataEntryRaw(DataEntryRaw.DATA_ENTRY_GROUP, desc, pri);
                 this.sub_group = null;
@@ -125,21 +126,11 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
             else if (line.contains("!SG!"))
             {
                 String desc = line.substring(line.indexOf("!SG!") + 4).trim();
-                System.out.println("Sub Group: Desc=" + desc);
+                //System.out.println("Sub Group: Desc=" + desc);
                 this.sub_group = new DataEntryRaw(DataEntryRaw.DATA_ENTRY_SUBGROUP, desc, group );
                 this.add(sub_group);
             }
                 
-            
-            // comments
-            // TODO
-            
-            
-            
-            
-            
-            
-            
         }
         else if (line.contains("="))
         {
@@ -163,6 +154,11 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
     }
 
     
+    /**
+     * Is Master File
+     * 
+     * @return
+     */
     public boolean isMasterFile()
     {
         return this.is_master_file_xa;

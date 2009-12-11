@@ -3,8 +3,9 @@ package com.atech.i18n.tool.simple.data;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  Application: Simple Translation Tool
+ *  DataEntryRaw - Data Entry Raw (as read from file)
+ *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -28,7 +29,7 @@ package com.atech.i18n.tool.simple.data;
  *  
  *  @author Andy
  *
- */
+*/
 
 public class DataEntryRaw
 {
@@ -183,5 +184,29 @@ public class DataEntryRaw
             return "-1";
     }
 
+    
+    /**
+     * Get Value
+     * 
+     * @return
+     */
+    public String getValue()
+    {
+        if ((this.type==DATA_ENTRY_HEADER) ||
+            (this.type==DATA_ENTRY_TRANSLATION))
+        {
+            return null;
+        }
+        else if (this.type==DATA_ENTRY_GROUP)
+        {
+            return "\n#\n#   " + this.value_str + "  [" + this.priority + "]\n#\n";
+        }
+        else  // subgroup
+        {
+            return "\n#   " + this.value_str + "\n";
+        }
+    }
+    
+    
     
 }

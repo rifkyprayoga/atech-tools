@@ -246,6 +246,30 @@ public class I18nControlLI extends I18nControlAbstract
 
 
 
+    @Override
+    protected String getLanguageConfigFile()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+
+
+
+
+    @Override
+    public void init()
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+
+
+
 
 
 

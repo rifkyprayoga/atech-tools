@@ -204,14 +204,14 @@ public class AboutDialog extends javax.swing.JDialog
 
         m_utils = new ATSwingUtils();
 
-        title = m_ic.getMessage("ABOUT");
+        title = "About"; //m_ic.getMessage("ABOUT");
 
         // tabbed
-        tabbed_pane = new javax.swing.JTabbedPane();
+        tabbed_pane = new JTabbedPane();
 
 
-        main_panel = new javax.swing.JPanel();
-        main_panel.setLayout(new java.awt.BorderLayout());
+        main_panel = new JPanel();
+        main_panel.setLayout(new BorderLayout());
 
         
 
@@ -228,7 +228,7 @@ public class AboutDialog extends javax.swing.JDialog
         getRootPane().getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(escape, "ESCAPE");
         getRootPane().getActionMap().put("ESCAPE", escapeAction);
 
-        this.close_button = new JButton(m_ic.getMessage("CLOSE"));
+        this.close_button = new JButton("Close"); //m_ic.getMessage("CLOSE"));
         this.close_button.addActionListener(new java.awt.event.ActionListener() 
             {
                 public void actionPerformed(java.awt.event.ActionEvent evt) 

@@ -140,7 +140,7 @@ public class ATI18nControl extends I18nControlAbstract
     }
 
 
-
+/*
     private void getSelectedLanguage()
     {
         this.selected_language = this.def_language;
@@ -163,7 +163,7 @@ public class ATI18nControl extends I18nControlAbstract
             s_logger.warn("Configuration file not found. Using default langauge ('en')");
         }
 */
-    }
+  //  }
 
 
 
@@ -176,6 +176,15 @@ public class ATI18nControl extends I18nControlAbstract
             setLanguage(selected_language);
         else
             setLanguage(def_language);
+    }
+
+
+
+    @Override
+    protected String getLanguageConfigFile()
+    {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 

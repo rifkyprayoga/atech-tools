@@ -14,6 +14,7 @@ import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.graphics.components.StatusReporterInterface;
 import com.atech.graphics.dialogs.TransferDialog;
 import com.atech.i18n.I18nControlAbstract;
+import com.atech.utils.ATDataAccessLMAbstract;
 
 
 /**
@@ -71,6 +72,9 @@ public abstract class PlugInClient implements ActionListener
     protected HibernateDb db;
     protected ArrayList<TransferDialog> transfer_objects = null;
 
+    protected ATDataAccessLMAbstract da_parent = null;
+    
+    
     /**
      * Constructor
      * 
@@ -102,6 +106,28 @@ public abstract class PlugInClient implements ActionListener
         initPlugin();
     }
 
+    
+    
+    /**
+     * Constructor
+     * 
+     * @param parent 
+     * @param da 
+     */
+    public PlugInClient(Container parent, ATDataAccessLMAbstract da)
+    {
+        this.parent = parent;
+        this.da_parent = da;
+        
+        System.out.println("da_parent: " + this.da_parent);
+        System.out.println("da_parent (LM): " + this.da_parent.getLanguageManager());
+        
+        this.ic = da.getI18nControlInstance();
+        checkIfInstalled();
+        initPlugin();
+    }
+    
+    
     /**
      * Constructor
      */

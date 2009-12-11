@@ -9,7 +9,6 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,10 +49,15 @@ import org.apache.commons.logging.LogFactory;
  *  of variables half of work is done. Next half is way to create this class. You need to make constructor. Sample
  *  constructor for Singelton is in this source file.
  */
-public abstract class I18nControlAbstract
+
+
+/**
+ * This is I18nControl for use with Language Tool
+ */
+public abstract class I18nControlLangToolAbstract
 {
 
-    private static Log s_logger = LogFactory.getLog(I18nControlAbstract.class); 
+    private static Log s_logger = LogFactory.getLog(I18nControlLangToolAbstract.class); 
     private Collator langaugeCollator = null;
 
 
@@ -754,82 +758,5 @@ protected Locale lcls[] = null;
         return this.langaugeCollator;
     }
    
-    
-    
-    /**
-     * Get Partitial Translation
-     * 
-     * @param keyword
-     * @param default_delim
-     * @return
-     */
-    public String getPartitialTranslation(String keyword, String default_delim)
-    {
-    
-        StringTokenizer strtok = new StringTokenizer(keyword, default_delim);
-        StringBuffer sb = new StringBuffer();
-        
-        
-        while(strtok.hasMoreTokens())
-        {
-            String k = strtok.nextToken();
-            
-            char[] chars = { ',', '(', ')' };
-            boolean checked = false;
-            int i =0;
-            
-            while (!checked)
-            {
-                checked = checkStartEnd(k, chars[i], sb);
-                i++;
-                
-                if (i == chars.length)
-                    break;
-            }
-            
-            //boolean found = checkStartEnd(k, ',', sb);
-            
-            //if (!found
-            
-            if (!checked)
-            sb.append(this.getMessage(k));
-            
-            sb.append(" ");
-        }
-    
-        return sb.toString();
-    
-    }
-    
-    
-    private boolean checkStartEnd(String key, char char_el, StringBuffer sb)
-    {
-        if (key.charAt(0)==char_el)
-        {
-            sb.append(char_el);
-            
-            key = key.substring(1,key.length());
-            
-            sb.append(this.getMessage(key));
-            return true;
-        }
-        else if (key.charAt(key.length()-1)==char_el)
-        {
-            
-            key = key.substring(0,key.length()-1);
-            
-            sb.append(this.getMessage(key));
-            sb.append(char_el);
-            return true;
-            
-        }
-        
-        return false;
-    
-    }
-
-    
-    
-    
 
 }
