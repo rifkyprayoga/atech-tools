@@ -126,10 +126,13 @@ public class GraphViewer extends JDialog
         ChartPanel cp = gvi.getChartPanel();
         panel.add(cp, BorderLayout.CENTER);
         
-        GraphViewControlerInterface gvcont = this.gvi.getControler();
+        AbstractGraphViewControler gvcont = (AbstractGraphViewControler)this.gvi.getControler();
         
         if (gvcont!=null)
+        {
             panel.add(gvcont.getPanel(), BorderLayout.SOUTH);
+            m_da.enableHelp(gvcont);
+        }
         
         this.getContentPane().add(panel);
         this.setTitle(this.gvi.getTitle());
@@ -137,7 +140,7 @@ public class GraphViewer extends JDialog
         
         //cp.repaint();
         //gvi.repaint();
-
+        
         m_da.centerJDialog(this);
         this.setVisible(true);
         

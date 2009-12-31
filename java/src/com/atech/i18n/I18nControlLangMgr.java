@@ -199,6 +199,10 @@ public class I18nControlLangMgr extends I18nControlAbstract
         
         if (li.is_translation_tool)
         {
+            // FIXME
+            
+            System.out.println("This code is buggy. Fix it.");
+            
             prefix = "../";
             
             if (!(new File(prefix + "" + lang_file_root + li.name + ".properties").exists())) 
@@ -212,10 +216,16 @@ public class I18nControlLangMgr extends I18nControlAbstract
             }
             
         }
+        else
+        {
+            lcl = new Locale(li.name);
+        }
         
         
         //System.out.println("setLanguage(Locale): " + lcl);
 
+        
+        System.out.println("Trying to load: " + prefix + "" + lang_file_root + ",lcl=" + lcl);
         try
         {
             //System.out.println("setLang: " + lang_file_root);
@@ -278,6 +288,9 @@ public class I18nControlLangMgr extends I18nControlAbstract
     public void setLanguage() 
     {
         LanguageInstance li = this.language_manager.getSelectedLanguageInstance();
+        
+        System.out.println("setLanguage: " + li);
+        
         
         setLanguage(li);
         

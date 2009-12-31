@@ -295,14 +295,17 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
 
     private void calcDateAndUpdateFields()
     {
+        gc_end = this.getEndCalendar();
         calcStartDate();
     }
 
     private void calcStartDate()
     {
-        if (iRadioGroupState == DateRangeData.RANGE_CUSTOM)
+/*        if (iRadioGroupState == DateRangeData.RANGE_CUSTOM)
+        {
             return;
-
+        }
+*/
         // if (gc_start==null)
         gc_start = (GregorianCalendar) gc_end.clone();
 
@@ -314,6 +317,20 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         case DateRangeData.RANGE_THREE_MONTHS:
             gc_start.add(Calendar.MONTH, -3);
             break;
+        case DateRangeData.RANGE_CUSTOM:
+        {
+            GregorianCalendar gc = this.getStartCalendar();
+            
+            if (gc_end.before(gc))
+            {
+                gc.setTimeInMillis(gc_end.getTimeInMillis());
+            }
+            
+            gc_start.setTimeInMillis(gc.getTimeInMillis());
+            
+        } break;
+            
+            
         case DateRangeData.RANGE_ONE_MONTH:
         default:
             gc_start.add(Calendar.MONTH, -1);
@@ -333,7 +350,8 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
     public DateRangeData getDateRangeData()
     {
         DateRangeData drd = new DateRangeData();
-        drd.setRange(this.iRadioGroupState, this.gc_start, this.gc_end);
+        //drd.setRange(this.iRadioGroupState, this.gc_start, this.gc_end);
+        drd.setRange(this.iRadioGroupState, this.getStartCalendar(), this.getEndCalendar());
         
         return drd;
     }

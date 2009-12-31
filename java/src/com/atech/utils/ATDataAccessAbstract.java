@@ -1165,8 +1165,10 @@ public abstract class ATDataAccessAbstract
         InputStream is = this.getClass().getResourceAsStream(filename);
 
         if (is == null)
+        {
             System.out.println("Error reading image: " + filename);
-
+        }
+        
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try
         {
@@ -1278,7 +1280,8 @@ public abstract class ATDataAccessAbstract
      */
     public ImageIcon getImageIcon(String root, String name, Component comp)
     {
-        return new ImageIcon(getImage(root + name, comp));
+        Image i = getImage(root + name, comp);
+        return new ImageIcon(i);
     }
 
     /**

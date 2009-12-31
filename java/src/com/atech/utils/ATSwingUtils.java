@@ -768,7 +768,7 @@ public class ATSwingUtils
      * 
      * @return the j menu
      */
-    public JMenu createMenu(String name, String tool_tip, JMenuBar bar)
+    public static JMenu createMenu(String name, String tool_tip, JMenuBar bar)
     {
         JMenu item = new JMenu(ATSwingUtils.i18n_control.getMessageWithoutMnemonic(name));
         item.setMnemonic(i18n_control.getMnemonic(name));
@@ -783,6 +783,75 @@ public class ATSwingUtils
         return item;
     }
 
+
+    
+    /**
+     * Creates the menu.
+     * 
+     * @param name the name
+     * @param tool_tip the tool_tip
+     * @param bar the bar
+     * 
+     * @return the j menu
+     */
+    public static JMenu createMenu(String name, String tool_tip, JMenuBar bar, I18nControlAbstract ic)
+    {
+        JMenu item = new JMenu(ic.getMessageWithoutMnemonic(name));
+        item.setMnemonic(ic.getMnemonic(name));
+
+        if (tool_tip != null)
+        {
+            item.setToolTipText(tool_tip);
+        }
+
+        bar.add(item);
+
+        return item;
+    }
+    
+    
+    /**
+     * Creates the menu.
+     * 
+     * @param name the name
+     * @param tool_tip the tool_tip
+     * @param bar the bar
+     * 
+     * @return the j menu
+     */
+    public static JMenu createMenu(String name, String tool_tip, JMenu menu)
+    {
+        return ATSwingUtils.createMenu(name, tool_tip, menu, ATSwingUtils.i18n_control);
+    }
+    
+
+    /**
+     * Creates the menu.
+     * 
+     * @param name the name
+     * @param tool_tip the tool_tip
+     * @param bar the bar
+     * 
+     * @return the j menu
+     */
+    public static JMenu createMenu(String name, String tool_tip, JMenu menu, I18nControlAbstract ic)
+    {
+        JMenu item = new JMenu(ic.getMessageWithoutMnemonic(name));
+        item.setMnemonic(ic.getMnemonic(name));
+
+        if (tool_tip != null)
+        {
+            item.setToolTipText(tool_tip);
+        }
+
+//        bar.add(item);
+
+        menu.add(item);
+        return item;
+    }
+    
+    
+    
     /**
      * Creates the menu item.
      * 

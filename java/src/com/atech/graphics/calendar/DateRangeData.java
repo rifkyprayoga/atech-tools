@@ -1,5 +1,6 @@
 package com.atech.graphics.calendar; 
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -73,7 +74,7 @@ public class DateRangeData
     {
         this.gc_end = new GregorianCalendar();
         GregorianCalendar gc = new GregorianCalendar();
-        gc.set(GregorianCalendar.MONTH, -1);
+        gc.add(GregorianCalendar.MONTH, -1);
         this.gc_start = gc;
     }
     
@@ -107,7 +108,7 @@ public class DateRangeData
         {
             this.gc_end = gc2;
             GregorianCalendar gc = (GregorianCalendar)gc2.clone();
-            gc.set(GregorianCalendar.DAY_OF_MONTH, -7);
+            gc.add(GregorianCalendar.DAY_OF_MONTH, -7);
             this.gc_start = gc;
             
         }
@@ -115,7 +116,7 @@ public class DateRangeData
         {
             this.gc_end = gc2;
             GregorianCalendar gc = (GregorianCalendar)gc2.clone();
-            gc.set(GregorianCalendar.MONTH, -1);
+            gc.add(GregorianCalendar.MONTH, -1);
             this.gc_start = gc;
             
         }
@@ -123,7 +124,7 @@ public class DateRangeData
         {
             this.gc_end = gc2;
             GregorianCalendar gc = (GregorianCalendar)gc2.clone();
-            gc.set(GregorianCalendar.MONTH, -3);
+            gc.add(GregorianCalendar.MONTH, -3);
             this.gc_start = gc;
         }
         else if (type==RANGE_CUSTOM)
@@ -172,5 +173,16 @@ public class DateRangeData
     }
     
 
+    public String toString()
+    {
+        return "DateRangeData [start=" + getGCInfo(gc_start) +  ", end= "+ getGCInfo(gc_end);
+    }
+    
+    
+    private String getGCInfo(GregorianCalendar gc)
+    {
+        return "" + gc.get(Calendar.DAY_OF_MONTH ) + "."+ gc.get(Calendar.MONTH) + "."+ gc.get(Calendar.YEAR) + " "+ gc.get(Calendar.HOUR_OF_DAY ) + ":" + gc.get(Calendar.MINUTE );        
+    }
+    
 
 }
