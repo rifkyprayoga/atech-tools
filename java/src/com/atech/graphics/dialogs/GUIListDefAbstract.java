@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 
 import com.atech.i18n.I18nControlAbstract;
 
@@ -19,10 +20,13 @@ public abstract class GUIListDefAbstract
     protected String translation_root = null;
     
     protected JTable table;
-    protected ArrayList full_list;
-    protected ArrayList active_list;
+    protected AbstractTableModel model;
+    //protected ArrayList full_list;
+    //protected ArrayList active_list;
     
-    protected String[] filter_options = null;
+    protected String[] filter_options_combo1 = null;
+    protected String[] filter_options_combo2 = null;
+    
     //protected boolean filter_enabled = false;
     protected String[] filter_texts = null;
     protected int filter_type = FILTER_NONE;
@@ -31,7 +35,9 @@ public abstract class GUIListDefAbstract
     public static final int FILTER_NONE = 0;
     public static final int FILTER_COMBO = 1;
     public static final int FILTER_COMBO_AND_TEXT = 2;
+    public static final int FILTER_COMBO_TWICE = 3;
     
+    public GUIListDialog parent_dialog;
     
     // ic, translation root
     public abstract void init();
@@ -61,9 +67,14 @@ public abstract class GUIListDefAbstract
     
     
     
-    public String[] getFilterOptions()
+    public String[] getFilterOptionsCombo1()
     {
-        return this.filter_options;
+        return this.filter_options_combo1;
+    }    
+
+    public String[] getFilterOptionsCombo2()
+    {
+        return this.filter_options_combo2;
     }    
     
     
@@ -78,6 +89,12 @@ public abstract class GUIListDefAbstract
     }
     
     
+    public void setParentInstance(GUIListDialog _parent_dialog)
+    {
+        this.parent_dialog = _parent_dialog;
+    }
+    
+    
     public String[] getFilterTexts()
     {
         return this.filter_texts;
@@ -85,6 +102,8 @@ public abstract class GUIListDefAbstract
     
     public abstract void setFilterCombo(String val);
 
+    public abstract void setFilterCombo_2(String val);
+    
     public abstract void setFilterText(String val);
     
     public ArrayList<ButtonDef> getButtonDefinitions()

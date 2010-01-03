@@ -38,7 +38,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
@@ -53,7 +52,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.Document;
 
@@ -94,35 +92,29 @@ import com.atech.utils.ATSwingUtils;
 public class GUIListDialog extends JDialog implements ActionListener, HelpCapable, ItemListener, DocumentListener
 {
 
+    private static final long serialVersionUID = -4836539817944656937L;
     private ATDataAccessAbstract m_da = null;
     private I18nControlAbstract m_ic = null;
 
 //x    private boolean m_actionDone = false;
 
 //x    private JTextField tfName;
-    private JComboBox cb_template = null;
-    private JTable t_stocks = null;
+    //private JComboBox cb_template = null;
+    private JTable table = null;
+    
+    
+    private JComboBox cb_filter1 = null, cb_filter2=null;
+    
+    
 //x    private String[] schemes_names = null;
 
     private String sel_combo = null;
+    private String sel_combo2 = null;
     
     
     GregorianCalendar gc = null;
     GUIListDefAbstract definition;
     JTextField tf_filter;
-    
-    /**
-     * Filter Type
-     */
-    public String[] filter_types = 
-    {
-        m_ic.getMessage("FILTER_VISIBLE"),
-        m_ic.getMessage("FILTER_ALL")
-    };
-
-    @SuppressWarnings("unused")
-    //private ArrayList<DoctorH> list_full;
-    //private ArrayList<DoctorH> active_list = new ArrayList<DoctorH>();
     
     
     JButton help_button;
@@ -142,6 +134,8 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         this.m_ic = da.getI18nControlInstance();
         
         this.definition = def;
+        
+        this.definition.setParentInstance(this);
         
         this.setSize(this.definition.getWindowSize());
         m_da.centerJDialog(this, frame);
@@ -186,11 +180,11 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
             ATSwingUtils.getLabel(this.definition.getFilterTexts()[0], 
                 40, y, 150, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
             
-            JComboBox cb = ATSwingUtils.getComboBox(this.definition.getFilterOptions(), 
+            cb_filter1 = ATSwingUtils.getComboBox(this.definition.getFilterOptionsCombo1(), 
                 200, y, 220, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
             
-            sel_combo = this.definition.getFilterOptions()[0];
-            cb.addItemListener(this);
+            sel_combo = this.definition.getFilterOptionsCombo1()[0];
+            cb_filter1.addItemListener(this);
 
             
             if (this.definition.getFilterType()==GUIListDefAbstract.FILTER_COMBO_AND_TEXT)
@@ -207,7 +201,22 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
                 AbstractDocument doc = (AbstractDocument)styledDoc;
                 doc.addDocumentListener(this);
                 
+            }
+            else if (this.definition.getFilterType()==GUIListDefAbstract.FILTER_COMBO_TWICE)
+            {
+                //cb_filter1   
+                y += 30;
                 
+                ATSwingUtils.getLabel(this.definition.getFilterTexts()[1], 
+                    40, y, 150, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+                
+                //tf_filter = ATSwingUtils.getTextField("", 200, y, 220, 25, panel);
+
+                cb_filter2 = ATSwingUtils.getComboBox(this.definition.getFilterOptionsCombo2(), 
+                    200, y, 220, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+
+                sel_combo2 = this.definition.getFilterOptionsCombo2()[0];
+                cb_filter2.addItemListener(this);
                 
             }
             
@@ -227,10 +236,10 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
             
         
         
-        this.t_stocks = this.definition.getJTable();        
+        this.table = this.definition.getJTable();        
         Rectangle r = this.definition.getTableSize(y + 40);
         
-        JScrollPane scp = new JScrollPane(this.t_stocks);
+        JScrollPane scp = new JScrollPane(this.table);
         scp.setBounds(r);
         panel.add(scp);
             
@@ -254,7 +263,7 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         
         JButton b = ATSwingUtils.getButton("   " + m_ic.getMessage("CLOSE"), 
             pos_x, r.y + r.height + 20, 120, 30, panel, 
-            ATSwingUtils.FONT_NORMAL , "exit.png", "close", 
+            ATSwingUtils.FONT_NORMAL , null /*Im"exit.png"*/, "close", 
             this, m_da, pic_size);
         b.setHorizontalAlignment(JButton.LEFT);
         
@@ -268,8 +277,42 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
     }
 
 
-    private void populateList()
+    public String[] getAllFilterValues()
     {
+        String[] filters = null;
+        
+        if (this.definition.hasFilter())
+        {
+            
+            if (this.definition.getFilterType()==GUIListDefAbstract.FILTER_COMBO)
+            {
+                filters = new String[1];
+            }
+            else if ((this.definition.getFilterType()==GUIListDefAbstract.FILTER_COMBO_AND_TEXT) ||
+                    (this.definition.getFilterType()==GUIListDefAbstract.FILTER_COMBO_TWICE))
+            {
+                filters = new String[2];
+            }
+            
+
+            // fix this if needed
+            
+            filters[0] = (String)this.cb_filter1.getSelectedItem();
+            
+            if (this.definition.getFilterType()==GUIListDefAbstract.FILTER_COMBO_AND_TEXT)
+            {
+                filters[1] = this.tf_filter.getText();
+            }
+            else if (this.definition.getFilterType()==GUIListDefAbstract.FILTER_COMBO_TWICE)
+            {
+                filters[1] = (String)this.cb_filter2.getSelectedItem();
+            }
+            
+            
+            
+        }
+        
+        return filters;
     }
     
     
@@ -318,13 +361,27 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
 
     public void itemStateChanged(ItemEvent e)
     {
-        String s = (String)e.getItem();
-        
-        if (!s.equals(sel_combo))
+        if (e.getSource().equals(this.cb_filter1))
         {
-            sel_combo = s;
-            this.definition.setFilterCombo(s);
+            String s = (String)e.getItem();
+            
+            if (!s.equals(sel_combo))
+            {
+                sel_combo = s;
+                this.definition.setFilterCombo(s);
+            }
+        } 
+        else if (e.getSource().equals(this.cb_filter2))
+        {
+            String s = (String)e.getItem();
+            
+            if (!s.equals(sel_combo2))
+            {
+                sel_combo2 = s;
+                this.definition.setFilterCombo_2(s);
+            }
         }
+        
     }
 
 
@@ -347,5 +404,10 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         this.definition.setFilterText(this.tf_filter.getText());
     }
 
+    
+    public JTable getTable()
+    {
+        return this.table;
+    }
 
 }

@@ -128,6 +128,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
     {
         ic = I18nControlDbT.getInstance();
         ATSwingUtils.setI18nControl(ic);
+        ATSwingUtils.initLibrary();
 
         menu_items = new Hashtable<String, JMenuItem>();
     }
@@ -260,7 +261,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
         menus = new Hashtable<String, JMenu>();
         menu_bar = new JMenuBar();
 
-        JMenu menu = sw_utils.createMenu("FILE", null, menu_bar);
+        JMenu menu = ATSwingUtils.createMenu("FILE", null, menu_bar);
 
         menus.put("file", menu);
 
