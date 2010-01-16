@@ -157,6 +157,19 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         File f = new File(print_root + getName());
         return f.getAbsolutePath();
     }
+
+
+    /**
+     * Returns Name of report with Full Path
+     * 
+     * @return
+     */
+    public String getRelativeNameWithPath()
+    {
+        return print_root + getName();
+    }
+    
+    
     
     /**
      * Returns report name as File instance

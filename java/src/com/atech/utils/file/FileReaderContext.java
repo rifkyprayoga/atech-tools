@@ -1,5 +1,7 @@
 package com.atech.utils.file;
 
+import javax.swing.JPanel;
+
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -60,5 +62,9 @@ public abstract class FileReaderContext
      * @param filename
      */
     public abstract void readFile(String filename);
+ 
+    
+    
+    public abstract JPanel getFileDownloadPanel();
     
 }

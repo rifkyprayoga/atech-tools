@@ -64,7 +64,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
     private boolean m_actionDone = false;
 
     protected JTextField tfName;
-    protected JComboBox cb_template = null;
+    protected JComboBox cb_template = null, cb_template_2 = null;
     // x private String[] schemes_names = null;
 
     protected DateComponent dc_to, dc_from;
@@ -98,6 +98,15 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
 
 //    private int master_type = 1;
 
+    
+    public PrintDialogRange(JFrame frame, int type, ATDataAccessAbstract da, boolean _enable_help)
+    {
+        this(frame, type, da, da.getI18nControlInstance(), _enable_help);
+    }
+    // Exception
+    
+    
+    
     /**
      * Constructor 
      * 
@@ -106,7 +115,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
      * @param da 
      * @param _enable_help 
      */
-    public PrintDialogRange(JFrame frame, int type, ATDataAccessAbstract da, boolean _enable_help) // throws
+    public PrintDialogRange(JFrame frame, int type, ATDataAccessAbstract da, I18nControlAbstract ic, boolean _enable_help) // throws
                                                                    // Exception
     {
         super(da, "printing_dialog");
@@ -118,7 +127,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
         this.setLayout(null);
 
         this.m_da = da;
-        this.m_ic = da.getI18nControlInstance();
+        this.m_ic = ic;
         ATSwingUtils.initLibrary();
         this.enable_help = _enable_help;
         
@@ -138,7 +147,6 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
 
     private void initRange() // throws Exception
     {
-
         setSize(350, 420);
         this.m_da.centerJDialog(this);
 
@@ -164,23 +172,40 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
         cb_template.setBounds(40, 105, 230, 25);
         panel.add(cb_template);
 
-
+        int start_y = 155;
+        
+        if (this.weHaveSecondaryType())
+        {
+            label = ATSwingUtils.getLabel(this.getSecondaryTypeDescription(), 
+                                          40, start_y, 180, 25, 
+                                          panel, ATSwingUtils.FONT_NORMAL_BOLD);
+            start_y += 25;
+            
+            cb_template_2 = ATSwingUtils.getComboBox(this.getSecondaryTypes(), 
+                                                     40, start_y, 230, 25, 
+                                                     panel, ATSwingUtils.FONT_NORMAL);
+            start_y += 25;
+            
+        }
+        
+        
+        
         label = new JLabel(m_ic.getMessage("SELECT_STARTING_RANGE") + ":");
         label.setFont(this.font_normal_bold);
-        label.setBounds(40, 155, 180, 25);
+        label.setBounds(40, start_y, 180, 25);
         panel.add(label);
 
         dc_from = new DateComponent(m_ic);
-        dc_from.setBounds(40, 180, 120, 25);
+        dc_from.setBounds(40, start_y + 25, 120, 25);
         panel.add(dc_from);
 
         label = new JLabel(m_ic.getMessage("SELECT_ENDING_RANGE") + ":");
         label.setFont(this.font_normal_bold);
-        label.setBounds(40, 225, 180, 25);
+        label.setBounds(40, start_y + 70, 180, 25);
         panel.add(label);
 
         dc_to = new DateComponent(m_ic);
-        dc_to.setBounds(40, 250, 120, 25);
+        dc_to.setBounds(40, start_y + 95, 120, 25);
         panel.add(dc_to);
 
         JButton button = new JButton("   " + m_ic.getMessage("OK"));
@@ -188,7 +213,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
         button.setActionCommand("ok");
         button.addActionListener(this);
         button.setIcon(m_da.getImageIcon_22x22("ok.png", this));
-        button.setBounds(40, 340, 125, 25);
+        button.setBounds(40, start_y + 185, 125, 25);
         panel.add(button);
 
         button = new JButton("   " + m_ic.getMessage("CANCEL"));
@@ -196,57 +221,17 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
         button.setActionCommand("cancel");
         button.setIcon(m_da.getImageIcon_22x22("cancel.png", this));
         button.addActionListener(this);
-        button.setBounds(175, 340, 125, 25);
+        button.setBounds(175, start_y + 185, 125, 25);
         panel.add(button);
 
-        help_button = m_da.createHelpButtonByBounds(185, 310, 115, 25, this);
+        help_button = m_da.createHelpButtonByBounds(185, start_y + 155, 115, 25, this);
         panel.add(help_button);
 
         if (this.enable_help)
             m_da.enableHelp(this);
 
-        /*
-         * new JButton(m_ic.getMessage("CANCEL"));
-         * button.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
-         * button.setActionCommand("cancel"); button.addActionListener(this);
-         * button.setBounds(190, 240, 110, 25); panel.add(button);
-         */
-
     }
 
-    /*
-     * Invoked when an action occurs.
-     */
-    /*
-     * public void actionPerformed(ActionEvent e) { String action =
-     * e.getActionCommand();
-     * 
-     * if (action.equals("cancel")) { m_actionDone = false; this.dispose(); }
-     * else if (action.equals("ok")) { int yr =
-     * ((Integer)sl_year.getValue()).intValue(); int mnth =
-     * ((Integer)sl_month.getValue()).intValue();
-     * 
-     * 
-     * MonthlyValues mv = m_da.getDb().getMonthlyValues(yr, mnth);
-     * 
-     * if (this.cb_template.getSelectedIndex()==0) { PrintSimpleMonthlyReport
-     * psm = new PrintSimpleMonthlyReport(mv); displayPDF(psm.getName());
-     * 
-     * } else { PrintExtendedMonthlyReport psm = new
-     * PrintExtendedMonthlyReport(mv); displayPDF(psm.getName()); }
-     * 
-     * 
-     * / if (this.tfName.getText().trim().equals("")) {
-     * JOptionPane.showMessageDialog(this, m_ic.getMessage("TYPE_NAME_BEFORE"),
-     * m_ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE); return; }
-     * m_actionDone = true;
-     */
-    /*
-     * this.dispose(); } else
-     * System.out.println("PrintingDialog: Unknown command: " + action);
-     * 
-     * }
-     */
 
     /**
      * performAction
@@ -265,38 +250,6 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
             this.startPrintingAction();
         }
             
-            /*
-            {
-
-                System.out.println(this.dc_from.getDate() + " " + this.dc_to.getDate());
-                
-                DayValuesData dvd = m_da.getDb().getDayValuesData(this.dc_from.getDate(), this.dc_to.getDate()); //.getMonthlyValues(yr, mnth);
-                
-                
-                PrintAbstract pa = null;
-                
-                if (this.cb_template.getSelectedIndex() == 0)
-                {
-                    pa = new PrintFoodMenuBase(dvd);
-                }
-                else if (this.cb_template.getSelectedIndex() == 1)
-                {
-                    pa = new PrintFoodMenuExt1(dvd);
-                }
-                else if (this.cb_template.getSelectedIndex() == 2)
-                {
-                    pa = new PrintFoodMenuExt2(dvd);
-                }
-                else if (this.cb_template.getSelectedIndex() == 3)
-                {
-                    pa = new PrintFoodMenuExt3(dvd);
-                }
-                
-                
-                
-                displayPDF(pa.getNameWithPath());
-            }
-        } */
     }
 
     /**
@@ -307,15 +260,12 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
      */
     public void displayPDF(String name) throws Exception
     {
-        //Thread.sleep(2000);
         
-        //File f = new File(".");
-        //File f2 = f.getParentFile();
         
-        //System.out.println("Parent: " + f2);
+        System.out.println("Name: " + name);
         
         //File fl = new File(".." + File.separator + "data" + File.separator + "temp" + File.separator);
-        File file = new File(name);
+        //File file = new File(name);
 
         String pdf_viewer = this.getPdfViewer(); 
         //m_da.getSettings().getPdfVieverPath().replace('\\', '/');
@@ -329,6 +279,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
             throw new Exception(m_ic.getMessage("PRINTING_SETTINGS_NOT_SET"));
         }
 
+        
         File acr = new File(pdf_viewer);
 
         if (!acr.exists())
@@ -338,28 +289,48 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
 
         try
         {
-            if (System.getProperty("os.name").toUpperCase().contains("WIN"))
+            String exec_path = "";
+            String par = this.getPdfViewerParameters().trim();
+            
+            if (par.length()>0)
             {
-                //System.out.println("Windows found");
-                Runtime.getRuntime().exec(
-                    acr.getAbsoluteFile() + " \"" + file.getAbsolutePath() + "\"");
-//                Runtime.getRuntime().exec(
-//                    acr.getAbsoluteFile() + " \"" + fl.getAbsolutePath() + File.separator + name + "\"");
+                if (par.contains("%PDF_FILE%"))
+                {
+                    exec_path = acr.getAbsoluteFile() + " " + par.replace("%PDF_FILE%", name);
+                }
+                else
+                {
+                    exec_path = acr.getAbsoluteFile() + " " + par + " " + name;
+                }
+                
             }
             else
             {
-                //System.out.println("Non-Windows found");
-                Runtime.getRuntime().exec(
-                    acr.getAbsoluteFile() + " " + file.getAbsolutePath() );
-//                Runtime.getRuntime().exec(
-//                    acr.getAbsoluteFile() + " " + fl.getAbsolutePath() + File.separator + name);
+                exec_path = acr.getAbsoluteFile() + " " + name;
             }
             
+            
+            
+            
+            
             /*
-            Runtime.getRuntime().exec(
-                acr.getAbsoluteFile() + " \"" + fl.getAbsolutePath() + File.separator + name + "\""); */
-            //System.out.println(pdf_viewer + " " + file_path + File.separator + name);
-            System.out.println(pdf_viewer + " " + file.getAbsolutePath());
+            if (System.getProperty("os.name").toUpperCase().contains("WIN"))
+            {
+                //System.out.println("Windows found");
+                //exec_path = acr.getAbsoluteFile() + " \"" + file.getAbsolutePath() + "\""; 
+                exec_path = acr.getAbsoluteFile() + " " + name;
+            }
+            else
+            {
+//                System.out.println("Non-Windows found");
+                exec_path = acr.getAbsoluteFile() + " " + name;
+                //exec_path = acr.getAbsoluteFile() + name; //" '" + file.getCanonicalPath() + "'";
+            }*/
+
+            Runtime.getRuntime().exec(exec_path);
+            
+            System.out.println("Exec path: " + exec_path);  //pdf_viewer + " \"" + file.getAbsolutePath() + "\"");
+            
         }
         catch (RuntimeException ex)
         {
@@ -459,6 +430,30 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
         return res;
     }
 
+    
+    /**
+     * We have Secondary Type choice 
+     * 
+     * @return
+     */
+    public boolean weHaveSecondaryType()
+    {
+        return false;
+    }
+ 
+    
+    public String getSecondaryTypeDescription()
+    {
+        return null;
+    }
+    
+    
+    public String[] getSecondaryTypes()
+    {
+        return null;
+    }
+    
+    
     // ****************************************************************
     // ****** HelpCapable Implementation *****
     // ****************************************************************
@@ -518,6 +513,15 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
      * @throws Exception 
      */
     public abstract void startPrintingAction() throws Exception;
+ 
+    
+    /**
+     * Get Pdf Viewer paramaters. If you want name of file we are reading in this
+     * parameters, you need to add %PDF_FILE% variable into string. This one is
+     * then resolved
+     */
+    public abstract String getPdfViewerParameters();
+    
     
     
 }
