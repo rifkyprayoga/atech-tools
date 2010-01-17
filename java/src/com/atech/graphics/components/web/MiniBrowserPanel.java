@@ -261,8 +261,8 @@ public class MiniBrowserPanel extends JPanel
         catch (Exception e)
         {
             // Show error messsage.
-            showError("Unable to load page");
-            e.printStackTrace();
+            showError("Unable to load page: \n" + pageUrl);
+            //e.printStackTrace();
         }
         finally
         {

@@ -58,10 +58,14 @@ import com.atech.i18n.mgr.LanguageManager;
 public class I18nControlLangMgr extends I18nControlAbstract
 {
 
-    private static Log s_logger = LogFactory.getLog(I18nControlLangMgr.class); 
+    private static Log log = LogFactory.getLog(I18nControlLangMgr.class); 
     private Collator langaugeCollator = null;
     protected LanguageManager language_manager = null;
-    private I18nControlRunner i18ncontrol_runner; 
+    private I18nControlRunner i18ncontrol_runner;
+    
+    
+    
+    
     
     //protected abstract String getLanguageConfigFile();
     
@@ -201,7 +205,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         {
             // FIXME
             
-            System.out.println("This code is buggy. Fix it.");
+            log.error("TODO: This code is buggy. Fix it.");
             
             prefix = "../";
             
@@ -225,7 +229,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         //System.out.println("setLanguage(Locale): " + lcl);
 
         
-        System.out.println("Trying to load: " + prefix + "" + lang_file_root + ",lcl=" + lcl);
+//        System.out.println("Trying to load: " + prefix + "" + lang_file_root + ",lcl=" + lcl);
         try
         {
             //System.out.println("setLang: " + lang_file_root);
@@ -233,22 +237,22 @@ public class I18nControlLangMgr extends I18nControlAbstract
         }
         catch (MissingResourceException mre)
         {
-            System.out.println("Couldn't find resource file(1): " + lang_file_root + "_" + selected_language + ".properties");
+            log.error("Couldn't find resource file(1): " + lang_file_root + "_" + selected_language + ".properties");
             try
             {
                 res = ResourceBundle.getBundle(lang_file_root, new Locale(this.def_language));
             }
             catch(MissingResourceException ex)
             {
-                System.out.println("Exception on reading resource file. Exiting application.");
+                log.error("Exception on reading resource file. Exiting application.");
                 //System.exit(2);
             }
         }
         catch (Exception mre)
         {
-            System.out.println("Exception on reading resource file. Exiting application.");
-            System.out.println("Exception: " + mre);
-            mre.printStackTrace();
+            log.error("Exception on reading resource file. Exiting application.");
+            log.error("Exception: " + mre, mre);
+            //mre.printStackTrace();
             System.exit(2);
         }
         
@@ -622,7 +626,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
 
             if (ret==null)
             {
-                s_logger.warn("I18nControl(" + this.selected_language +"): Couldn't find message: " + msg);
+                log.warn("I18nControl(" + this.selected_language +"): Couldn't find message: " + msg);
                 return returnSameValue(msg);
             }
             else
@@ -682,7 +686,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
             catch(Exception ex)
             {
                 //System.out.println("Exception creating collator: " + ex);
-                s_logger.error("Exception creating collator: " + ex, ex);
+                log.error("Exception creating collator: " + ex, ex);
                 //log.error("Exception creating collator: " + ex, ex);
                 this.langaugeCollator = Collator.getInstance(Locale.ENGLISH);
             }
