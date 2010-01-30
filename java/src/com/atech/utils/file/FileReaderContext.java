@@ -32,7 +32,7 @@ import javax.swing.JPanel;
  *
 */
 
-public abstract class FileReaderContext
+public interface FileReaderContext
 {
 
     /**
@@ -40,31 +40,31 @@ public abstract class FileReaderContext
      * 
      * @return
      */
-    public abstract String getFileDescription();
+    public String getFileDescription();
     
     /**
      * Get File Extension
      * 
      * @return
      */
-    public abstract String getFileExtension();
+    public String getFileExtension();
     
     /**
      * Has Special Selector Dialog
      * 
      * @return
      */
-    public abstract boolean hasSpecialSelectorDialog();
+    public boolean hasSpecialSelectorDialog();
 
     /**
      * Read File
      * 
      * @param filename
      */
-    public abstract void readFile(String filename);
+    public void readFile(String filename);
  
     
     
-    public abstract JPanel getFileDownloadPanel();
+    public JPanel getFileDownloadPanel();
     
 }
