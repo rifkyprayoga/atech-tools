@@ -753,6 +753,25 @@ public abstract class ATDataAccessAbstract
 
     
     /**
+     * Creates the help button by size.
+     * 
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * 
+     * @return the j button
+     */
+    public JButton createHelpIconBySize(int width, int height, Container comp)
+    {
+        JButton help_button = new JButton();
+        help_button.setPreferredSize(new Dimension(width, height));
+        help_button.setIcon(this.getImageIcon_22x22("help.png", comp));
+        return help_button;
+    }
+    
+    
+    
+    /**
      * Creates the help button by bounds.
      * 
      * @param x the x
@@ -766,6 +785,23 @@ public abstract class ATDataAccessAbstract
     public JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp)
     {
         return createHelpButtonByBounds(x, y, width, height, comp, null);
+    }
+    
+
+    /**
+     * Creates the help button by bounds.
+     * 
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * 
+     * @return the j button
+     */
+    public JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp)
+    {
+        return createHelpIconByBounds(x, y, width, height, comp, null);
     }
     
     
@@ -786,6 +822,24 @@ public abstract class ATDataAccessAbstract
         return createHelpButtonByBounds(x, y, width, height, comp, this.getFont(font_id));
     }
 
+    
+    /**
+     * Creates the help button by bounds.
+     * 
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * @param font_id the font_id
+     * 
+     * @return the j button
+     */
+    public JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp, int font_id)
+    {
+        return createHelpIconByBounds(x, y, width, height, comp, this.getFont(font_id));
+    }
+    
     /**
      * Creates the help button by bounds.
      * 
@@ -811,6 +865,30 @@ public abstract class ATDataAccessAbstract
     }
     
     
+    /**
+     * Creates the help button by bounds.
+     * 
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * @param font the font
+     * 
+     * @return the j button
+     */
+    public JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp, Font font)
+    {
+        JButton help_button = new JButton();
+        help_button.setBounds(x, y, width, height);
+        help_button.setIcon(this.getImageIcon_22x22("help.png", comp));
+        
+        if (font!=null)
+            help_button.setFont(font);
+        
+        return help_button;
+    }
+
     
     // ********************************************************
     // ****** I18n *****
