@@ -268,6 +268,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
     
     public void initLibrary()
     {
+        this.initAdditional();
         init();
         //getSelectedLanguage();
         setLanguage();
@@ -714,5 +715,14 @@ public class I18nControlLangMgr extends I18nControlAbstract
         return null;
     }
    
+    
+    public void initAdditional()
+    {
+    }
+    
+    
+
+    
+    
 
 }

@@ -122,7 +122,7 @@ public class DayPanel extends JPanel implements CalendarListener
     private void doLayoutButtons()
     {
         int firstday = cMod.getFirstDayInMonth() - 1;
-        int numdays = firstday + cMod.getNumDaysInMonth();
+        //int numdays = firstday + cMod.getNumDaysInMonth();
         int numdays_m = cMod.getNumDaysInMonth();
         int curday = firstday + cMod.getDay();
 
@@ -132,22 +132,30 @@ public class DayPanel extends JPanel implements CalendarListener
 
 //        System.out.println("year: " + cMod.getYear() + " first: " + firstday + " num_days: " + numdays + ", num_days_m: " + numdays_m + ", curr_day=" + curday);
 
-        if (((numdays_m==31) && (firstday>4)) ||
-            ((numdays_m==30) && (firstday>5)))
+        int entries = numdays_m + firstday;
+        
+        if (entries>35) 
+        //(((numdays_m==31) && (firstday>4)) || ((numdays_m==30) && (firstday>5)))
         {
+//            System.out.println("7x7");
             setLayout(this.m_grid77);
         }
-        else if (((numdays_m==28) && (firstday==0)))  
+        else if (entries==28) 
+        //(((numdays_m==28) && (firstday==0)) || ((numdays_m==28) && (firstday==1)) )  
         {
+            //System.out.println("7x5");
             setLayout(this.m_grid57);
         }
-        else if ((numdays_m==29) && (firstday==0))
+        else if (entries==29) 
+        //(((numdays_m==29) && (firstday==0)) || ((numdays_m==28) && (firstday==1)))
         {
+            //System.out.println("7x6");
             setLayout(this.m_grid67); 
             special = true;
         }
         else
         {
+            //System.out.println("7x6");
             setLayout(this.m_grid67);
         }
 
@@ -157,7 +165,7 @@ public class DayPanel extends JPanel implements CalendarListener
             JLabel label = new JLabel(this.m_days[i]);
             
             if (i==0)
-        	label.setForeground(Color.red);
+                label.setForeground(Color.red);
             
             label.setHorizontalTextPosition(SwingConstants.CENTER);
             label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -165,19 +173,22 @@ public class DayPanel extends JPanel implements CalendarListener
         }
 
 
-
+        //for (int i = 0; i < firstday; i++)
         for (int i = 0; i < firstday; i++) 
         {
             add(new JLabel(""));
         }
 
-        int lbl = 0;
+        //int lbl = 0;
         JButton b = null;
         int curr_day = curday-1;
         
-        for (int i = firstday; i < numdays; i++) 
+        //for (int i = firstday; i < numdays; i++)
+        
+        for (int i = 1; i <= numdays_m; i++)
         {
-            add(b = createButton(++lbl));
+            //add(b = createButton(++lbl));
+            add(b = createButton(i));
             
             if (i==curr_day)
             {
@@ -185,7 +196,7 @@ public class DayPanel extends JPanel implements CalendarListener
                 b.setFont(this.font_bold); //new Font("Dialog", Font.BOLD, 12));
             }
         }
-        
+      
         
         if (special)
         {

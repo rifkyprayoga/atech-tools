@@ -334,6 +334,20 @@ public class ATechDate
             this.second = (int)date;
 
         }
+        else if (type == ATechDate.FORMAT_TIME_ONLY_S)
+        {
+
+            this.hour_of_day = (int)(date/10000L);
+            date -= this.hour_of_day*10000L;
+
+            this.minute = (int)(date/100L);
+            date -= this.minute*100L;
+            
+            this.second = (int)date;
+            
+            checkAndCorrectValues();
+
+        }
         else if (type == ATechDate.FORMAT_TIME_ONLY_MIN)
         {
 

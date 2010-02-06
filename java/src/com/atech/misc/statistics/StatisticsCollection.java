@@ -263,6 +263,17 @@ public class StatisticsCollection
         return this.decimal_handler.getDecimalAsString(this.getItemStatisticsValue(index), dec_places);
     }
     
+    /**
+     * Gets the item statistic value as int.
+     * 
+     * @param index the index
+     * 
+     * @return the item statistic value as int
+     */
+    public String getItemStatisticValueAsStringInt(int index)
+    {
+        return "" + (int)this.getItemStatisticsValue(index);
+    }
     
     
 }

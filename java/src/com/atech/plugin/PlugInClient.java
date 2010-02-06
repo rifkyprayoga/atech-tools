@@ -119,8 +119,8 @@ public abstract class PlugInClient implements ActionListener
         this.parent = parent;
         this.da_parent = da;
         
-        System.out.println("da_parent: " + this.da_parent);
-        System.out.println("da_parent (LM): " + this.da_parent.getLanguageManager());
+        //System.out.println("da_parent: " + this.da_parent);
+        //System.out.println("da_parent (LM): " + this.da_parent.getLanguageManager());
         
         this.ic = da.getI18nControlInstance();
         checkIfInstalled();
