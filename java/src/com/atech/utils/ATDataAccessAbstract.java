@@ -435,6 +435,8 @@ public abstract class ATDataAccessAbstract
      */
     public Component getCurrentComponentParent()
     {
+        System.out.println("Size: " + this.components.size());
+        
         return this.components.get(this.components.size() - 2);
     }
     

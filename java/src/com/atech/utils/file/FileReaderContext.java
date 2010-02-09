@@ -1,6 +1,7 @@
 package com.atech.utils.file;
 
-import javax.swing.JPanel;
+import javax.swing.JDialog;
+import javax.swing.filechooser.FileFilter;
 
 /**
  *  This file is part of ATech Tools library.
@@ -42,6 +43,15 @@ public interface FileReaderContext
      */
     public String getFileDescription();
     
+    
+    /**
+     * Get File Description
+     * 
+     * @return
+     */
+    public String getFullFileDescription();
+    
+    
     /**
      * Get File Extension
      * 
@@ -65,6 +75,17 @@ public interface FileReaderContext
  
     
     
-    public JPanel getFileDownloadPanel();
+    
+    
+    
+    public FileFilter getFileFilter();
+    
+    
+    public abstract void goToNextDialog(JDialog current_dialog);
+    
+    
+    
+    
+    
     
 }
