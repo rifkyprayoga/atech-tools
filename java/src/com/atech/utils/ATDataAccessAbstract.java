@@ -883,7 +883,7 @@ public abstract class ATDataAccessAbstract
     {
         JButton help_button = new JButton();
         help_button.setBounds(x, y, width, height);
-        help_button.setIcon(this.getImageIcon_22x22("help.png", comp));
+        help_button.setIcon(this.getImageIcon("help.png", (int)(width*0.88), (int)(height*0.88), comp));
         
         if (font!=null)
             help_button.setFont(font);

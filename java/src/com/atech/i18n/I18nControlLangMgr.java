@@ -294,7 +294,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
     {
         LanguageInstance li = this.language_manager.getSelectedLanguageInstance();
         
-        System.out.println("setLanguage: " + li);
+        //System.out.println("setLanguage: " + li);
         
         
         setLanguage(li);

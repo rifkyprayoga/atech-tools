@@ -145,7 +145,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
     }
 
 
-    private void initRange() // throws Exception
+    protected void initRange() // throws Exception
     {
         setSize(350, 420);
         this.m_da.centerJDialog(this);

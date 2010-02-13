@@ -1160,6 +1160,20 @@ public class ATSwingUtils
     }
     
 
+    public static JButton getIconButton(int x, int y, int width, int height, String tooltip, String icon_name, int icon_width, int icon_height, String action_cmd, ActionListener al, Container cont, ATDataAccessAbstract da)
+    {
+        JButton button = new JButton(da.getImageIcon(icon_name, icon_width, icon_height, cont));
+        button.addActionListener(al);
+        button.setActionCommand(action_cmd);
+        button.setToolTipText(tooltip);
+        button.setBounds(x, y, width, height);
+        cont.add(button, null);
+        
+        return button;
+    }
+    
+    
+    
     /**
      * @param text
      * @param x

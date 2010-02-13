@@ -78,7 +78,7 @@ import com.atech.utils.ATSwingUtils;
 
 // fix this
 
-public abstract class PrintDialogMonth extends ActionExceptionCatchDialog // extends
+public abstract class PrintDialogMonth extends PrintDialogRange //ActionExceptionCatchDialog // extends
 // JDialog
 // implements
 // ActionListener
@@ -137,7 +137,7 @@ public abstract class PrintDialogMonth extends ActionExceptionCatchDialog // ext
     public PrintDialogMonth(JFrame frame, int type, ATDataAccessAbstract da) // throws
                                                                    // Exception
     {
-        super(da, "printing_dialog");
+        super(frame, type, da, false);
         // super(frame, "", true);
         /*
          * Rectangle rec = frame.getBounds(); int x = rec.x + (rec.width / 2);
@@ -455,7 +455,7 @@ public abstract class PrintDialogMonth extends ActionExceptionCatchDialog // ext
      * @param name name must be full path to file name (not just name as it was in previous versions)
      * @throws Exception
      */
-    public void displayPDF(String name) throws Exception
+/*    public void displayPDF(String name) throws Exception
     {
         //Thread.sleep(2000);
         
@@ -508,7 +508,7 @@ public abstract class PrintDialogMonth extends ActionExceptionCatchDialog // ext
             Runtime.getRuntime().exec(
                 acr.getAbsoluteFile() + " \"" + fl.getAbsolutePath() + File.separator + name + "\""); */
             //System.out.println(pdf_viewer + " " + file_path + File.separator + name);
-            System.out.println(pdf_viewer + " " + file.getAbsolutePath());
+  /*          System.out.println(pdf_viewer + " " + file.getAbsolutePath());
         }
         catch (RuntimeException ex)
         {
@@ -524,7 +524,7 @@ public abstract class PrintDialogMonth extends ActionExceptionCatchDialog // ext
 
         }
     }
-
+*/
     /**
      * Display PDF External (static method)
      * 
