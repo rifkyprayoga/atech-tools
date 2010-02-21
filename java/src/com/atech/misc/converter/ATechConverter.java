@@ -3,8 +3,6 @@ package com.atech.misc.converter;
 import java.text.DecimalFormat;
 import java.util.Hashtable;
 
-import com.atech.utils.ATDataAccess;
-
 
 // TODO: Auto-generated Javadoc
 /**
@@ -40,54 +38,28 @@ import com.atech.utils.ATDataAccess;
 public abstract class ATechConverter
 {
 
-    /**
-     * The m_da.
-     */
-    ATDataAccess m_da = ATDataAccess.getInstance();
-    
-    /**
-     * BG: mg/dL
-     */
-    public static final int BG_MGDL = 1;
-
-    /**
-     * BG: mmol/L
-     */
-    public static final int BG_MMOL = 2;
-
-    /**
-     * Which BG unit is used: BG_MGDL = mg/dl, BG_MMOL = mmol/l
-     */
-    public int m_BG_unit = BG_MGDL;
-    
-
-    /**
-     * BG Units
-     */
-    public String[] bg_units = { "mg/dl", "mmol/l" };
-    
+    boolean m_debug = false;
     
     /**
      * The decimal_formaters.
      */
     public static Hashtable<Integer, DecimalFormat> decimal_formaters = null;
+    
+    private Hashtable<Integer,String> units = null;
 
+    private int unit_1 = 1;
+    private int unit_2 = 2;
 
-    private int TYPE_1 = 1;
-    @SuppressWarnings("unused")
-    private int TYPE_2 = 2;
+    private int unit1_type = 1;
+    private int unit2_type = 1;
 
-    private int TYPE_1_TYPE = 1;
-    @SuppressWarnings("unused")
-    private int TYPE_2_TYPE = 1;
-
-    @SuppressWarnings("unused")
-    private int TYPE_1_TYPE_PRECISSION = 0;
-    private int TYPE_2_TYPE_PRECISSION = 1;
+    private int unit1_type_precission = 0;
+    private int unit2_type_precission = 1;
     
     
-    private float TYPE1_TO_TYPE2_FACTOR = 0.0f;
-    private float TYPE2_TO_TYPE1_FACTOR = 0.0f;
+    private float unit1_to_unit2_factor = 0.0f;
+    private float unit2_to_unit1_factor = 0.0f;
+    
     
     /**
      * The Constant BASETYPE_INT.
@@ -107,6 +79,289 @@ public abstract class ATechConverter
     public int configured_type = 1;
     
     
+    
+    
+    /**
+     * Instantiates a new a tech converter.
+     * 
+     * @param type1_type the type1_type
+     * @param type2_type the type2_type
+     * @param type1_2_type2 the type1_2_type2
+     * @param type2_2_type1 the type2_2_type1
+     */
+    public ATechConverter(int U1, int U2, int U1_type, int U2_type, String U1_unit, String U2_unit, float convert_1_to_2, float convert_2_to_1, int dec_precission_U1, int dec_precission_U2)
+    {
+        units = new Hashtable<Integer,String>();
+        this.unit_1 = U1;
+        this.unit_2 = U2;
+        this.unit1_type = U1_type;
+        this.unit2_type = U2_type;
+        this.units.put(U1, U1_unit);
+        this.units.put(U2, U2_unit);
+        this.unit1_to_unit2_factor = convert_1_to_2;
+        this.unit2_to_unit1_factor = convert_2_to_1;
+        this.unit1_type_precission = dec_precission_U1;
+        this.unit2_type_precission = dec_precission_U2;
+        
+        createDecimalFormaters(Math.max(this.unit1_type_precission, this.unit2_type_precission));
+    }
+    
+    
+    /**
+     * Get BG Value By Type
+     * 
+     * @param input_type
+     * @param output_type
+     * @param value
+     * @return
+     */
+    public float getValueByType(int input_type, int output_type, float value)
+    {
+
+        if (input_type == output_type)
+            return value;
+        
+
+        float factor_to_source = 0.0f;
+        float factor_to_target = 0.0f;
+        @SuppressWarnings("unused")
+        int source_type = 0;
+        int source_precission = 0;
+        int target_precission = 0;
+        int target_type = 0;
+        
+        if (output_type == this.unit_1)
+        {
+            target_type = this.unit1_type;
+            target_precission = unit1_type_precission;
+            source_type = this.unit_2;
+            source_precission = unit2_type_precission; 
+            factor_to_target = unit2_to_unit1_factor;
+            factor_to_source = unit1_to_unit2_factor;
+        }
+        else
+        {
+            target_type = this.unit2_type;
+            target_precission = unit2_type_precission;
+            source_type = this.unit_1;
+            source_precission = unit1_type_precission; 
+            factor_to_target = unit1_to_unit2_factor;
+            factor_to_source = unit2_to_unit1_factor;
+        }
+        
+        String input_v = getFormatedFloat(value, source_precission);
+        
+        debug("input_v: " + input_v);
+        
+        float val = value * factor_to_target;
+        
+        if (target_type== BASETYPE_INT)
+        {
+            int vali = (int)val;
+            
+            float step = getStep(target_type, target_precission);
+            
+            for(float i=vali-step; i<(vali+20); i+=step)
+            {
+                float v2 = i *  factor_to_source;
+                String s = getFormatedFloat(v2, source_precission);
+                
+                debug("Compare[s]: i=" + i + "val: " + input_v + " ?= " + s);
+                debug("Compare[f]: i=" + i + "val: " + vali + " ?= " + v2);
+                
+                if (s.equals(input_v))
+                    return i;
+                
+            }
+            
+            return 0.0f;
+        }
+        else // UNIT_FLOAT
+        {
+            float vali = (float)val;
+            
+            float step = getStep(target_type, target_precission);
+            
+            for(float i=vali-step; i<(vali+20); i+=step)
+            {
+                i = getDecimaledFloat(i, target_precission);
+                float v2 = i *  factor_to_source;
+
+                String s = getFormatedFloat(v2, source_precission);
+                
+                debug("Compare[s]: i=" + i + "val: " + input_v + " ?= " + s);
+                debug("Compare[f]: i=" + i + "val: " + vali + " ?= " + v2);
+                
+                if (s.equals(input_v))
+                {
+                    return i;
+                }
+            }
+            return 0.0f;
+        }
+           
+
+    }
+
+    private void debug(String value)
+    {
+        if (m_debug)
+            System.out.println(value);
+    }
+    
+    
+    public float getDecimaledFloat(float num, int precission)
+    {
+        return Float.parseFloat(getFormatedFloat(num, precission));
+    }
+    
+    
+    
+    public float getStep(int unit_type, int precission)
+    {
+        if (unit_type== BASETYPE_INT)
+        {
+            return 1;
+        }
+        else if (unit_type== BASETYPE_FLOAT)
+        {
+            if (precission==0)
+                return 1;
+            else
+            {   
+                String s = "0.";
+                for(int i=0; i<precission; i++)
+                {
+                    if (i==(precission-1))
+                        s += "1";
+                    else
+                        s += "0";
+                }
+                
+                
+                return Float.parseFloat(s);
+            }
+                
+                
+                //return Float.parseFloat(ATechConverter.getFormatedFloat(0.0000000000001f, precission));
+                //1.0f / (1.0f * precission * precission);
+        }
+        else
+            return 1;
+    }
+    
+
+    /*
+    public float getBGValueByTypeXAX(int input_type, int output_type, float value)
+    {
+
+        if (input_type == output_type)
+            return value;
+        else
+        {
+
+            int precission = 0;
+            float factor = 0.0f;
+            int source_type = 0;
+            int source_type_precission = 0;
+            
+            if (output_type == this.unit_1)
+            {
+                precission = unit1_type_precission;
+                factor = unit2_to_unit1_factor;
+                source_type = this.unit_2;
+                source_type_precission = unit2_type_precission; 
+            }
+            else
+            {
+                precission = unit2_type_precission;
+                factor = unit1_to_unit2_factor;
+                
+            }
+            
+            
+            
+            if (output_type == this.unit_1)
+            {
+                // get formated value for unit_1
+                String input_v = getFormatedFloat(value, this.unit1_type_precission);
+                
+                float val = value * this.unit2_to_unit1_factor;
+                
+                
+                if (this.unit1_type== BASETYPE_INT)
+                {
+                    int vali = (int)val;
+                    
+                    float step = getStep(this.unit1_type, this.unit1_type_precission);
+                    
+                    for(float i=vali-step; i<(vali+20); i+=step)
+                    {
+                        
+                        float v2 = i *  this.unit1_to_unit2_factor;
+                        //int v2i = (int)v2;
+                        String s = getFormatedFloat(v2, this.unit2_type_precission);
+                        
+                        System.out.println("Compare[s]: i=" + i + "val: " + input_v + " ?= " + s);
+                        System.out.println("Compare[f]: i=" + i + "val: " + vali + " ?= " + v2);
+                        
+                        if (input_v.equals(s))
+                            return i;
+
+                        //if (v2==vali)
+
+                        //System.out.println("Compare: i=" + i + "val: " + vali + " ?= " + v2);
+                    }
+                    
+                    return 0.0f;
+                }
+                else // UNIT_FLOAT
+                {
+                    return 0.0f;
+                }
+            }
+            else  // unit_2
+            {
+                System.out.println("Error: N/A");
+                //return bg_value * DataAccess.MMOL_TO_MGDL_FACTOR;
+                return 0.0f;
+            }
+        }
+        //return value;
+
+    } */
+    
+    
+    private int getDifferentType(int type)
+    {
+        if (type==this.unit_1)
+            return this.unit_2;
+        else
+            return this.unit_2;
+    }
+    
+    
+    public String getUnit(int unit)
+    {
+        if (this.units.contains(unit))
+            return this.units.get(unit);
+        else
+            return "";
+    }
+    
+    
+    /**
+     * Get Value Different
+     * 
+     * @param type
+     * @param value
+     * @return
+     */
+    public float getValueDifferent(int type, float value)
+    {
+        return this.getValueByType(type, getDifferentType(type), value); 
+    }
+
     /**
      * Creates the decimal formaters.
      * 
@@ -173,187 +428,6 @@ public abstract class ATechConverter
     {
         this.configured_type = type;
     }
-    
-    
-    /**
-     * Instantiates a new a tech converter.
-     * 
-     * @param type1_type the type1_type
-     * @param type2_type the type2_type
-     * @param type1_2_type2 the type1_2_type2
-     * @param type2_2_type1 the type2_2_type1
-     */
-    public ATechConverter(int type1_type, int type2_type, float type1_2_type2, float type2_2_type1)
-    {
-        this.TYPE_1_TYPE = type1_type;
-        this.TYPE_2_TYPE = type2_type;
-        this.TYPE1_TO_TYPE2_FACTOR = type1_2_type2;
-        this.TYPE2_TO_TYPE1_FACTOR = type2_2_type1;
-        
-        createDecimalFormaters(2);
-    }
-    
-    
-    
-    
-    /**
-     * Depending on the return value of <code>getBGMeasurmentType()</code>,
-     * either return the mg/dl or the mmol/l value of the database's value.
-     * Default is mg/dl.
-     * 
-     * @param dbValue
-     *            - The database's value (in float)
-     * @return the BG in either mg/dl or mmol/l
-     */
-    public float getDisplayedBG(float dbValue)
-    {
-        /*switch (this.configured_type)
-        {
-        case TYPE1:
-            // this POS should return a float rounded to 3 decimal places,
-            // if I understand the docu correctly
-            return (new BigDecimal(dbValue * MGDL_TO_MMOL_FACTOR, new MathContext(3, RoundingMode.HALF_UP))
-                    .floatValue());
-        case TYPE2:
-        default:
-            return dbValue;
-        }*/
-        return 0.0f;
-    }
-
-    /**
-     * Get BG Value
-     * 
-     * @param bg_value
-     * @return
-     */
-    public float getBGValue(float bg_value)
-    {
-/*        switch (this.m_BG_unit)
-        {
-        case BG_MMOL:
-            return (bg_value * MGDL_TO_MMOL_FACTOR);
-        case BG_MGDL:
-        default:
-            return bg_value;
-        } */
-        
-        return 0.0f;
-
-    }
-
-    /**
-     * Get BG Value By Type
-     * 
-     * @param input_type 
-     * @param bg_value
-     * @return
-     */
-    public float getBGValueByType(int input_type, float bg_value)
-    {
-        /*switch (input_type)
-        {
-        case BG_MMOL:
-            return (bg_value * MGDL_TO_MMOL_FACTOR);
-        case BG_MGDL:
-        default:
-            return bg_value;
-        }*/
-        return 0.0f;
-    }
-
-    /**
-     * Get BG Value By Type
-     * 
-     * @param input_type
-     * @param output_type
-     * @param value
-     * @return
-     */
-    public float getBGValueByType(int input_type, int output_type, float value)
-    {
-
-        if (input_type == output_type)
-            return value;
-        else
-        {
-            if (output_type == TYPE_1)
-            {
-                String input_v = getFormatedFloat(value, TYPE_2_TYPE_PRECISSION);
-                
-                float val = value * this.TYPE2_TO_TYPE1_FACTOR;
-                
-                if (TYPE_1_TYPE== BASETYPE_INT)
-                {
-                    int vali = (int)val;
-                    
-                    float step = 0.001f;
-                    
-                    //if (TYPE_2_TYPE== BASETYPE_INT)
-                    {
-                        step = 1;
-                    }
-                    
-                    for(float i=vali-step; i<(vali+20); i+=step)
-                    {
-                        
-                        float v2 = i *  this.TYPE1_TO_TYPE2_FACTOR;
-                        //int v2i = (int)v2;
-                        String s = getFormatedFloat(v2, TYPE_2_TYPE_PRECISSION);
-                        
-                        System.out.println("Compare[s]: i=" + i + "val: " + input_v + " ?= " + s);
-                        System.out.println("Compare[f]: i=" + i + "val: " + vali + " ?= " + v2);
-                        
-                        if (input_v.equals(s))
-                            return i;
-
-                        //if (v2==vali)
-
-                        //System.out.println("Compare: i=" + i + "val: " + vali + " ?= " + v2);
-                    }
-                    
-                    return 0.0f;
-                }
-                else
-                {
-                    return 0.0f;
-                }
-            }
-            else
-            {
-                System.out.println("Error: N/A");
-                //return bg_value * DataAccess.MMOL_TO_MGDL_FACTOR;
-                return 0.0f;
-            }
-        }
-        //return value;
-
-    }
-
-    /**
-     * Get BG Value Different
-     * 
-     * @param type
-     * @param bg_value
-     * @return
-     */
-    /*public float getBGValueDifferent(int type, float bg_value)
-    {
-
-        if (type == DataAccess.BG_MGDL)
-        {
-            return bg_value * DataAccess.MGDL_TO_MMOL_FACTOR;
-        }
-        else
-        {
-            return bg_value * DataAccess.MMOL_TO_MGDL_FACTOR;
-        }
-
-    }*/
-    
-    
-    
-    
     
     
     
