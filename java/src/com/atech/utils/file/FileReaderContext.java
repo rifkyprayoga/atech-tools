@@ -58,6 +58,7 @@ public interface FileReaderContext
      * @return
      */
     public String getFileExtension();
+
     
     /**
      * Has Special Selector Dialog
@@ -66,6 +67,7 @@ public interface FileReaderContext
      */
     public boolean hasSpecialSelectorDialog();
 
+    
     /**
      * Read File
      * 
@@ -74,18 +76,20 @@ public interface FileReaderContext
     public void readFile(String filename);
  
     
-    
-    
-    
-    
+    /**
+     * Get File Filter
+     * 
+     * @return
+     */
     public FileFilter getFileFilter();
     
     
+    /**
+     * Go To Next Dialog
+     * 
+     * @param current_dialog
+     */
     public abstract void goToNextDialog(JDialog current_dialog);
-    
-    
-    
-    
     
     
 }
