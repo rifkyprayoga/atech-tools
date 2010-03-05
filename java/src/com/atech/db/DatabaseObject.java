@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.hibernate.Session;
+
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -45,9 +47,6 @@ public interface DatabaseObject
     String getObjectUniqueId();
     
     
-    boolean isNewEntry();
-    
-    
     /**
      * DbAdd - Add this object to database
      * 
@@ -55,7 +54,7 @@ public interface DatabaseObject
      * @throws Exception (HibernateException) with error
      * @return id in type of String
      */
-    boolean addElement(Connection conn);// throws SQLException;
+    boolean addElement(Connection conn);
 
 
     /**
@@ -65,8 +64,7 @@ public interface DatabaseObject
      * @throws Exception (HibernateException) with error
      * @return true if action done or Exception if not
      */
-    boolean editElement(Connection conn); // throws SQLException;
-
+    public boolean editElement(Connection conn);
 
     /**
      * DbDelete - Delete this object in database
@@ -75,7 +73,7 @@ public interface DatabaseObject
      * @throws Exception (HibernateException) with error
      * @return true if action done or Exception if not
      */
-    boolean deleteElement(Connection conn); // throws SQLException;
+    public boolean deleteElement(Connection conn);
 
 
     /**
@@ -85,7 +83,7 @@ public interface DatabaseObject
      * @throws Exception (HibernateException) with error
      * @return true if action done or Exception if not
      */
-    boolean hasElementChildren(Connection conn) throws SQLException;
+    public boolean hasElementChildren(Connection conn) ;
 
 
     /**
@@ -95,7 +93,7 @@ public interface DatabaseObject
      * @throws Exception (HibernateException) with error
      * @return true if action done or Exception if not
      */
-    boolean getElement(Connection conn) throws SQLException;
+    public boolean getElement(Connection conn);
     
 
     /**
@@ -105,9 +103,6 @@ public interface DatabaseObject
      */
     String getObjectName();
 
-    
-    void getData(ResultSet rs) throws SQLException;
-    
 
     /**
      * isDebugMode - returns debug mode of object
@@ -117,7 +112,11 @@ public interface DatabaseObject
     boolean isDebugMode();
 
 
+    public boolean isNewEntry();
 
+    
+    public void getData(ResultSet rs) throws SQLException;
+    
     /**
      * getAction - returns action that should be done on object
      *    0 = no action

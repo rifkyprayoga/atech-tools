@@ -324,6 +324,88 @@ public class ByteUtils
         
     }
     
+
+    
+    public void showByteArrayAsString(byte[] arr)
+    {
+        System.out.println("Byte array as String: ");
+        
+        StringBuffer sb = new StringBuffer();
+        
+        for(int i=0; i<arr.length; i++)
+        {
+            sb.append((char)arr[i]);
+            //System.out.print(arr[i] + " ");
+        }
+
+        System.out.println(sb.toString());
+    }
+    
+
+    
+    public String getDebugByteArrayHex(byte[] arr)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Byte array [Hex]: ");
+        //System.out.print("Byte array: ");
+        
+        for(int i=0; i<arr.length; i++)
+        {
+            sb.append(getCorrectHexValue(arr[i]) + " ");
+            //System.out.print(getCorrectHexValue(arr[i]) + " ");
+            //getCorrectHexValue(arr[i]);
+            //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+        }
+        
+        sb.append("\n");
+        //System.out.print("\n");
+        
+        return sb.toString();
+        
+    }
+    
+    /**
+     * Show byte array.
+     * 
+     * @param arr the arr
+     */
+    public String getDebugByteArray(byte[] arr)
+    {
+        StringBuilder sb = new StringBuilder();
+        //System.out.println("Byte array: ");
+     
+        sb.append("Byte array: ");
+        
+        for(int i=0; i<arr.length; i++)
+        {
+            sb.append(arr[i] + " ");
+            //System.out.print(arr[i] + " ");
+        }
+        
+        return sb.toString();
+    }
+    
+
+    
+    public String getDebugByteArrayAsString(byte[] arr)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Byte array as Str: ");
+        
+        //System.out.println("Byte array as String: ");
+        
+        for(int i=0; i<arr.length; i++)
+        {
+            sb.append((char)arr[i]);
+            //System.out.print(arr[i] + " ");
+        }
+
+        
+        return sb.toString();
+    }
+    
+    
+    
     
     
     /**
