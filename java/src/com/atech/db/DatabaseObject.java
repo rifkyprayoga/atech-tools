@@ -58,9 +58,9 @@ public interface DatabaseObject
 
 
     /**
-     * DbEdit - Edit this object in database
+     * editElement - Edit this object in database
      * 
-     * @param sess Hibernate Session object
+     * @param conn 
      * @throws Exception (HibernateException) with error
      * @return true if action done or Exception if not
      */

@@ -38,6 +38,7 @@ import javax.swing.plaf.ColorUIResource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.atech.db.ext.ExtendedHandler;
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.graphics.dialogs.ErrorDialog;
@@ -205,6 +206,11 @@ public abstract class ATDataAccessAbstract
     
     private UpdateConfiguration update_configuration = null;
 
+    
+    
+    protected Hashtable<String, ExtendedHandler> extended_handlers = new Hashtable<String, ExtendedHandler>();
+    
+    
     /**
      * The graph_config.
      */
@@ -304,6 +310,7 @@ public abstract class ATDataAccessAbstract
         this.m_collator = this.m_i18n.getCollationDefintion();
         loadPlugIns();
         loadBackupRestoreCollection();
+        loadExtendedHandlers();
         this.decimal_handler = new DecimalHandler(this.getMaxDecimalsUsedByDecimalHandler());
         
         if (!ATDataAccessAbstract.decimals_set)
@@ -3437,6 +3444,27 @@ public String getDateTimeString(int date, int time)
         return this.decimal_handler;
     }
     
+ 
+    /**
+     * Load Extended Handlers. Database tables can contain extended field, which is of type text and can
+     *    contain a lot of other data, stored in this field, this is hanlder for that field. Each table, 
+     *    would use different handler.
+     */
+    public void loadExtendedHandlers()
+    {
+    }
+    
+    
+    /**
+     * Get Extended Handler. Returns extended handler
+     * 
+     * @param key 
+     * @return 
+     */
+    public ExtendedHandler getExtendedHandler(String key)
+    {
+        return this.extended_handlers.get(key);
+    }
     
     
 }
