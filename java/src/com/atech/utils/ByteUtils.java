@@ -1,5 +1,6 @@
 package com.atech.utils;
 
+
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -134,6 +135,15 @@ public class ByteUtils
         
     }
     
+
+    // endian is here not supported
+    public int getByteFromIntsAsInt(int num1, int num2)
+    {
+        int k = num1 << 4 | num2 & 0xf;
+        return k;
+    }
+    
+    
     
     /**
      * Gets the string from array.
@@ -258,6 +268,11 @@ public class ByteUtils
     }
     
     
+    public String getCorrectHexValue(int inp)
+    {
+        return getCorrectHexValue((byte)inp);
+    }
+
     
     /**
      * Gets the correct hex value.
@@ -307,6 +322,33 @@ public class ByteUtils
         System.out.print("\n");
         
     }
+
+    
+    /**
+     * Show byte array hex.
+     * 
+     * @param arr the arr
+     */
+    public String getByteArrayHex(byte[] arr)
+    {
+        //System.out.print("Byte array: ");
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append("[ ");
+        
+        for(int i=0; i<arr.length; i++)
+        {
+            sb.append(getCorrectHexValue(arr[i]) + " ");
+            //getCorrectHexValue(arr[i]);
+            //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+        }
+        
+        sb.append("]");
+
+        return sb.toString();
+    }
+    
+    
     
     /**
      * Show byte array.
