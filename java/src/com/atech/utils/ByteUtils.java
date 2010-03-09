@@ -302,6 +302,37 @@ public class ByteUtils
         return null;
     }
     
+
+    
+    /**
+     * Gets the correct hex value.
+     * 
+     * @param inp the inp
+     * 
+     * @return the correct hex value
+     */
+    public String getCorrectHexValue(int inp)
+    {
+        String hx = Integer.toHexString((char)inp);
+        
+        if (hx.length()==0)
+            return "00";
+        else if (hx.length()==1)
+            return "0" + hx;
+        else if (hx.length()==2)
+            return hx;
+        else if (hx.length()==4)
+            return hx.substring(2);
+        else
+            System.out.println("HEX ERROR !!!!!!!!!!!!!!!!");
+        
+        //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+
+        
+        return null;
+    }
+    
+    
     
     /**
      * Show byte array hex.
@@ -500,6 +531,94 @@ public class ByteUtils
         return buffer;
         
     }
+    
+    
+    public static byte[] cloneByteArray(byte[] ba)
+    {
+        byte[] b = new byte[ba.length];
+        
+        for(int i=0; i<b.length; i++)
+        {
+            b[i] = ba[i];
+        }
+        
+        return b;
+    }
+    
+
+    
+    public static int[] cloneIntArray(int[] ba)
+    {
+        int[] b = new int[ba.length];
+        
+        for(int i=0; i<b.length; i++)
+        {
+            b[i] = ba[i];
+        }
+        
+        return b;
+    }
+    
+    
+    
+    public int[] makePackedBCD(String s)
+    {
+        //Contract.preNonNull(s, "numericString");
+        //Contract.pre(isEven(s.length()), "numericString must have an even number of characters");
+        s = s.toLowerCase();
+        for(int i = 0; i < s.length(); i++)
+        {
+            char c = s.charAt(i);
+            //Contract.pre(Character.isDigit(c) || c >= 'a' && c <= 'f', "numericString '" + s + "' must be hex digits only.");
+        }
+
+        int ai[] = makeIntArray(s);
+        int ai1[] = new int[ai.length / 2];
+        for(int j = 0; j < ai1.length; j++)
+        {
+            char c1 = (char)ai[j * 2];
+            char c2 = (char)ai[j * 2 + 1];
+            int k = c1 - (Character.isDigit(c1) ? 48 : 87);
+            int l = c2 - (Character.isDigit(c2) ? 48 : 87);
+            ai1[j] = getByteAsInt(k, l);
+        }
+
+        return ai1;
+    }
+    
+    
+    public int[] makeIntArray(String s)
+    {
+        if(s != null)
+        {
+            int ai[] = new int[s.length()];
+            for(int i = 0; i < ai.length; i++)
+                ai[i] = s.charAt(i);
+
+            return ai;
+        } else
+        {
+            return null;
+        }
+    }
+
+    public int[] concatIntArrays(int ai[], int ai1[])
+    {
+        int ai2[] = new int[ai.length + ai1.length];
+        System.arraycopy(ai, 0, ai2, 0, ai.length);
+        System.arraycopy(ai1, 0, ai2, ai.length, ai1.length);
+        return ai2;
+    }
+    
+    
+    public int getByteAsInt(int i, int j)
+    {
+        //Contract.pre(i >= 0 && i <= 15, "highNibble value of " + i + " is out of expected range 0.." + 15);
+        //Contract.pre(j >= 0 && j <= 15, "lowNibble value of " + j + " is out of expected range 0.." + 15);
+        return ( i << 4 | j & 0xf);
+        //Contract.post(k >= 0 && k <= 255, "value of " + k + " is out of expected range 0.." + 255);
+    }
+    
     
     
 }
