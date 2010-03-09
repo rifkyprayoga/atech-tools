@@ -268,10 +268,6 @@ public class ByteUtils
     }
     
     
-    public String getCorrectHexValue(int inp)
-    {
-        return getCorrectHexValue((byte)inp);
-    }
 
     
     /**
