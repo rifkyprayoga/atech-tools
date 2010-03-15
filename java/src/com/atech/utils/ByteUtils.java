@@ -1,6 +1,7 @@
 package com.atech.utils;
 
 
+
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -613,6 +614,27 @@ public class ByteUtils
         //Contract.pre(j >= 0 && j <= 15, "lowNibble value of " + j + " is out of expected range 0.." + 15);
         return ( i << 4 | j & 0xf);
         //Contract.post(k >= 0 && k <= 255, "value of " + k + " is out of expected range 0.." + 255);
+    }
+    
+    
+    public byte[] convertIntArrayToByteArray(int[] arr_in)
+    {
+        if(arr_in != null)
+        {
+            byte arr_out[] = new byte[arr_in.length];
+
+            for(int i = 0; i < arr_in.length; i++)
+            {
+                arr_out[i] = (byte)arr_in[i];
+            }
+
+            return arr_out;
+        } 
+        else
+        {
+            return null;
+        }
+        
     }
     
     
