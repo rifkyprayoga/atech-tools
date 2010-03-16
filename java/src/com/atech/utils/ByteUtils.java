@@ -1,5 +1,7 @@
 package com.atech.utils;
 
+import java.util.ArrayList;
+
 
 
 // TODO: Auto-generated Javadoc
@@ -637,6 +639,26 @@ public class ByteUtils
         
     }
     
+    
+    public int[] getIntArrayFromAL(ArrayList<Integer> list)
+    {
+        int[] out = new int[list.size()];
+        
+        for(int i=0; i<list.size(); i++)
+        {
+            out[i] = list.get(i);
+        }
+        
+        return out;
+    }
+    
+    public void addIntArrayToAL(ArrayList<Integer> list, int[] array)
+    {
+        for(int i=0; i<array.length; i++)
+        {
+            list.add(array[i]);
+        }
+    }
     
     
 }
