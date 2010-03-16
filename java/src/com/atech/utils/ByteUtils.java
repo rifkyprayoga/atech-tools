@@ -638,6 +638,15 @@ public class ByteUtils
         }
         
     }
+
+    
+    
+    public int convertIntsToUnsignedShort(int i, int j)
+    {
+        //int k = (i & 0xff) << 8 | j & 0xff;
+        return (((i & 0xff) << 8) | (j & 0xff));
+    }
+    
     
     
     public int[] getIntArrayFromAL(ArrayList<Integer> list)
