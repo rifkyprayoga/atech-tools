@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
@@ -64,8 +65,16 @@ public abstract class GUIListDefAbstract
     public abstract Dimension getWindowSize();
     
     public abstract Rectangle getTableSize(int pos_y);
+  
     
-    
+    /**
+     * In this method you can add additional custom elements for this lister  
+     * 
+     * @param main_panel 
+     */
+    public void additionalGUIInit(JPanel main_panel)
+    {
+    }
     
     public String[] getFilterOptionsCombo1()
     {

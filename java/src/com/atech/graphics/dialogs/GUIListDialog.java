@@ -272,7 +272,7 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         help_button.setHorizontalAlignment(JButton.LEFT);
         panel.add(help_button);
         
-        
+        this.definition.additionalGUIInit(panel);
 
     }
 
