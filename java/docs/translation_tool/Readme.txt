@@ -1,7 +1,7 @@
 
          ***********************************************************
          ***                Translation Tool                     ***
-         ***                  Version 0.1                        ***
+         ***                  Version 1.0                        ***
          ***********************************************************
          
 
@@ -11,7 +11,7 @@ TABLE OF CONTENTS
 1. Introduction
 2. Quick description of how application works
 3. Quick How To
-4. Description of different configuration
+4. Description of different configuration files
 
 
 
@@ -88,19 +88,56 @@ Internal directory structure:
 4. Description of different files
 ==========================================
 
-4.1 module configuration file
+
+4.1. Module configuration file
+-------------------------------
+
+This is configuration file for specific module (or whole application). It contains just few 
+settings about main configuration file. It is required for translation. This file will be 
+probably accompanied with startup files for staring TT with this configuration file. 
 
 
-4.2 master file
+4.2. Master file
+-----------------
+
+This is main file which we translate. We can replace this file without problems. When we start 
+application again, file will be read, and new translation keywords will be added to our translation 
+file. 
 
 
-4.3 master configuration file
+4.3. Master configuration file
+--------------------------------
+
+Configuration file contains descriptions about keywords (this won't be filled in most cases since
+it is quite a lot of work. Most important configuration setting here is, from when *new* 
+translation is (in case that translation for some keyword changes, then there will be entry here, so
+that we know that we need to refresh translation.
 
 
-4.4 translation files (also config)
+4.4. Translation files (also config)
+-------------------------------------
+
+It contains all keywords from our master file, even if they are not translated. In first read 
+configuration file is created with tags if words are created. As we translate this tags are 
+changed.
 
 
-4.5 TranslatorSettings.config
+4.5. TranslatorSettings.config
+-------------------------------
 
+This is file that person translating needs to change. This are mostly settings that will be written 
+to translation file or setting for TT.
 
+TRANSLATOR_NAME : Name of translator (you)
+TRANSLATOR_EMAIL : Email of translator (you can write here ggc@atech-software.com), if you are
+                   unwilling to answer to mails about your translation
+TRANSLATION_LANGUAGE: Long name for language (for example for french here would be French)
+TRANSLATION_LANGUAGE_SHORT: Short (2 letter code for translation, french would be fr)
+AUTOBACKUP_TIME: How often do you want to have backup done (time in minutes)
+COLLATION_RULES: You need to define collation rules for langauge, this is order in which letters
+                 are in alphabet (see TranslatorSettings.config_default for sample) 
 
+HEADER_COMMENT_X: Header comments
+HEADER_COMMENT_<MODULE_ID>_X: Module specific header (module id is in Module configuration file 
+                              see 4.1) 
+    

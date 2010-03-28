@@ -124,8 +124,10 @@ public class DayPanel extends JPanel implements CalendarListener
         int firstday = cMod.getFirstDayInMonth() - 1;
         //int numdays = firstday + cMod.getNumDaysInMonth();
         int numdays_m = cMod.getNumDaysInMonth();
-        int curday = firstday + cMod.getDay();
+        //int curday = firstday + cMod.getDay();
 
+        int current_day = cMod.getDay();
+        
         boolean special = false;
         
         removeAll();
@@ -181,7 +183,7 @@ public class DayPanel extends JPanel implements CalendarListener
 
         //int lbl = 0;
         JButton b = null;
-        int curr_day = curday-1;
+        //int curr_day = curday-1;
         
         //for (int i = firstday; i < numdays; i++)
         
@@ -190,7 +192,9 @@ public class DayPanel extends JPanel implements CalendarListener
             //add(b = createButton(++lbl));
             add(b = createButton(i));
             
-            if (i==curr_day)
+            //if (i==curr_day)
+            
+            if (i==current_day)
             {
                 b.setBorder(BorderFactory.createLineBorder(Color.black, 1));
                 b.setFont(this.font_bold); //new Font("Dialog", Font.BOLD, 12));

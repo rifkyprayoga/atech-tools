@@ -652,7 +652,7 @@ public class ATechDate
     public static long convertATDate(long dt, int input_format, int output_format)
     {
         ATechDate atd = new ATechDate(input_format, dt);
-        return atd.getATDateTimeAsLong();
+        return atd.getATDateTimeAsLong(output_format);
     }
     
     

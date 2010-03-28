@@ -47,6 +47,7 @@ import com.atech.help.HelpCapable;
 import com.atech.help.HelpContext;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.info.LanguageInfo;
+import com.atech.misc.converter.ATechConverter;
 import com.atech.misc.converter.DecimalHandler;
 import com.atech.plugin.PlugInClient;
 import com.atech.update.config.UpdateConfiguration;
@@ -209,6 +210,8 @@ public abstract class ATDataAccessAbstract
     
     
     protected Hashtable<String, ExtendedHandler> extended_handlers = new Hashtable<String, ExtendedHandler>();
+    protected Hashtable<String, ATechConverter> converters = new Hashtable<String, ATechConverter>();
+    protected Hashtable<String,String> sorters = new Hashtable<String,String>(); 
     
     
     /**
@@ -890,7 +893,7 @@ public abstract class ATDataAccessAbstract
     {
         JButton help_button = new JButton();
         help_button.setBounds(x, y, width, height);
-        help_button.setIcon(this.getImageIcon("help.png", (int)(width*0.88), (int)(height*0.88), comp));
+        help_button.setIcon(this.getImageIcon("help.png", (int)(height*0.88), (int)(height*0.88), comp));
         
         if (font!=null)
             help_button.setFont(font);
@@ -3439,11 +3442,20 @@ public String getDateTimeString(int date, int time)
  
     
     
+    /**
+     * Get Decimal Handler
+     * 
+     * @return
+     */
     public DecimalHandler getDecimalHandler()
     {
         return this.decimal_handler;
     }
+
     
+    // ********************************************************
+    // ******             Extended Handlers               *****
+    // ********************************************************
  
     /**
      * Load Extended Handlers. Database tables can contain extended field, which is of type text and can
@@ -3465,6 +3477,58 @@ public String getDateTimeString(int date, int time)
     {
         return this.extended_handlers.get(key);
     }
+
+    
+    // ********************************************************
+    // ******                 Convertors                  *****
+    // ********************************************************
+    
+    
+    /**
+     * Load Converters - Loads ATechConverter instances
+     */
+    public void loadConverters()
+    {
+    }
+    
+    
+    /**
+     * Get Extended Handler. Returns extended handler
+     * 
+     * @param key 
+     * @return 
+     */
+    public ATechConverter getConverter(String key)
+    {
+        return this.converters.get(key);
+    }
+    
+
+    // ********************************************************
+    // ******                  Sorters                    *****
+    // ********************************************************
+    
+    
+    public void loadSorters()
+    {
+    }
+    
+    
+    public String getSortSetting(String key)
+    {
+        return this.sorters.get(key);
+    }
+    
+    public void setSortSetting(String key, String value)
+    {
+        if (this.sorters.containsKey(key))
+        {
+            this.sorters.remove(key);
+        }
+
+        this.sorters.put(key, value);
+    }
+    
     
     
 }
