@@ -1,5 +1,8 @@
 package com.atech.i18n.tool.simple.data;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atech.i18n.tool.simple.util.DataAccessTT;
 import com.atech.utils.file.FileReaderList;
 
@@ -41,6 +44,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
  
     private boolean is_master_file_xa = false;
     private TranslationConfiguration m_config = null;
+    private static Log log = LogFactory.getLog(MasterFileReader.class);
     
     
     /**
@@ -56,7 +60,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
     public MasterFileReader(String filename)
     {
         super(filename);
-        System.out.println("MasterFileReader: " + this + ", filename=" + filename);
+        log.debug("MasterFileReader: " + this + ", filename=" + filename);
     }
 
     /** 
@@ -67,7 +71,6 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
         this.add(new DataEntryRaw(1));
         
         this.m_da = DataAccessTT.getInstance();
-        //System.out.println("m_da: " + m_da);
         this.m_config = this.m_da.getTranslationConfig();
     }
     
@@ -81,7 +84,6 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
     @Override
     public void processFileEntry(String line)
     {
-        //System.out.println("Process: " + line);
         line = line.trim();
         if (line.startsWith("#"))
         { 
@@ -95,7 +97,6 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
             {
                 this.is_master_file_xa= true;
                 
-                //System.out.println("Master file: " + this.is_master_file_xa);
                 m_da.setIsMasterFileMasterFile(true);
             }
             else if (line.contains("!G!"))
@@ -112,13 +113,11 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
                     }
                     catch(Exception ex)
                     {
-                        System.out.println("Ex: " + ex);
+                        log.error("Exception on reading prioroty from master file. Ex: " + ex, ex);
                     }
                     
                 }
 
-                //System.out.println("Group: Desc=" + desc +",Priority=" + pri);
-                
                 this.group = new DataEntryRaw(DataEntryRaw.DATA_ENTRY_GROUP, desc, pri);
                 this.sub_group = null;
                 this.add(group);
@@ -126,7 +125,6 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
             else if (line.contains("!SG!"))
             {
                 String desc = line.substring(line.indexOf("!SG!") + 4).trim();
-                //System.out.println("Sub Group: Desc=" + desc);
                 this.sub_group = new DataEntryRaw(DataEntryRaw.DATA_ENTRY_SUBGROUP, desc, group );
                 this.add(sub_group);
             }

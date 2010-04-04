@@ -15,7 +15,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atech.i18n.I18nControlAbstract;
+import com.atech.i18n.tool.simple.data.ConfigurationEntry;
 import com.atech.i18n.tool.simple.data.DataEntry;
 import com.atech.i18n.tool.simple.data.DataListProcessor;
 import com.atech.i18n.tool.simple.util.BackupRunner;
@@ -76,11 +80,12 @@ TO-DO:
 public class TranslationTool extends JFrame implements ActionListener
 {
     
-    private static final long serialVersionUID = 8072388083288536444L;
+    private static Log log = LogFactory.getLog(TranslationTool.class);
+	private static final long serialVersionUID = 8072388083288536444L;
     Hashtable<String,JMenu> menus = null; 
     DataAccessTT m_da = DataAccessTT.getInstance();
     I18nControlAbstract m_ic = null;
-    public static String m_version = "1.0";
+    public static String m_version = "1.2";
     DataListProcessor dlp;
     
     JLabel module, group, index, keyword, sub_group;
@@ -100,7 +105,6 @@ public class TranslationTool extends JFrame implements ActionListener
 
         m_da = DataAccessTT.createInstance(this);
         m_ic = m_da.getI18nControlInstance();
-        //m_da.startDb();
         checkPaths();
         
         init();
@@ -243,7 +247,7 @@ public class TranslationTool extends JFrame implements ActionListener
     
     private void checkPaths()
     {
-    	String[] paths = { "./files/", "./files/master_files/", "./files/translation/", "./files/translation/backup/"};
+    	String[] paths = { "../files/", "../files/master_files/", "../files/translation/", "../files/translation/backup/"};
     	
     	for (int i=0; i<paths.length; i++)
     	{
@@ -391,6 +395,21 @@ public class TranslationTool extends JFrame implements ActionListener
      */
     public static void main(String[] args)
     {
+    	//TranslationToolConfigSelector ttcs = 
+    	new TranslationToolConfigSelector();
+    
+    	/*
+    	if (ttcs.wasAction())
+    	{
+    		ConfigurationEntry ce = ttcs.getSelectedItem();
+    		
+    		new TranslationTool(ce.config_file);
+    	}
+    	
+		System.exit(0); */
+    	
+    	
+    	/*
         if (args.length!=1)
         {
             System.out.println("You need to specify one parameter: config file, with full path !");
@@ -398,7 +417,7 @@ public class TranslationTool extends JFrame implements ActionListener
         else
         {
             new TranslationTool(args[0]);
-        }
+        }*/
     }
 
     private void cmdQuit()
@@ -431,7 +450,7 @@ public class TranslationTool extends JFrame implements ActionListener
                 options,
                 options[0]);
             
-            System.out.println("Exit: code=" + n);
+            log.debug("Exit: code=" + n);
             
             if (n==0)
                 this.dlp.saveTranslation();

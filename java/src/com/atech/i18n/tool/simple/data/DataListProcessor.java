@@ -79,11 +79,8 @@ public class DataListProcessor
         tra_data = new TranslationData();
         this.m_da.translation_data = tra_data ;
 
-        //System.out.println("this.m_da.translation_data" + this.m_da.translation_data);
-        
         readConfiguration(_main_config);
         readUserConfiguration();
-        
         
         readMasterFile();
         readMasterFileConfig();
@@ -91,8 +88,6 @@ public class DataListProcessor
         this.tra_data = m_da.getTranslationData(); 
         readTranslationTarget();
         readTranslationTargetConfig();
-        
-        //System.out.println(this.tra_data.size());
     }
 
     
@@ -121,7 +116,7 @@ public class DataListProcessor
         master_file_root = pp.get("MASTER_FILE_ROOT");
         master_file_name = master_file_root + "_" + pp.get("MASTER_FILE_LANGUAGE"); 
         module_id = pp.get("MODULE_ID");
-        
+                
         this.main_configuration_read = pp.wasFileRead();
         
         if (!this.main_configuration_read)
@@ -149,9 +144,8 @@ public class DataListProcessor
     {
         log.debug("Reading user configuration !");
         String name = null;
-  //      System.out.println("DataListProcessor.readUserConfiguration() NOT implemented !");
         
-        name = "./config/TranslatorSettings.config";
+        name = "../config/TranslatorSettings.config";
         if (new File(name).exists())
         {
             log.debug("Found TranslatorSettings.config !");
@@ -159,12 +153,10 @@ public class DataListProcessor
         else
         {
             log.warn("Not found TranslatorSettings.config, reading default instead !");
-            name = "./config/TranslatorSettings.config_default";
+            name = "../config/TranslatorSettings.config_default";
         }
         
         user_config = new PropertiesFile(name);
-        
-//        System.out.println("DataListProcessor.readConfiguration() NOT implemented !");
         
         this.user_configuration_read = this.user_config.wasFileRead();
         
@@ -217,7 +209,7 @@ public class DataListProcessor
     public void readMasterFile()
     {
         log.debug("Reading master file: " + this.master_file_name + " !");
-        mfr = new MasterFileReader("files/master_files/" + master_file_name + ".properties");
+        mfr = new MasterFileReader("../files/master_files/" + master_file_name + ".properties");
         master_file_read = mfr.wasFileRead();
         
         log.debug("   Is Master file: " + mfr.isMasterFile());
@@ -245,7 +237,7 @@ public class DataListProcessor
         //System.out.println("DataListProcessor.readMasterFileConfig() NOT implemented !");
         log.debug("Read master file config ");
 
-        PropertiesFile pp = new PropertiesFile("files/master_files/" + master_file_name + ".config");
+        PropertiesFile pp = new PropertiesFile("../files/master_files/" + master_file_name + ".config");
 
         log.debug("   Was file read: " + pp.wasFileRead());
 
@@ -275,7 +267,7 @@ public class DataListProcessor
             }
             else
             {
-                System.out.println("This key type is unknown !!!");
+                log.warn("This key type is unknown !!!");
             }
             
         }
@@ -289,7 +281,7 @@ public class DataListProcessor
     {
         log.debug("Read Translation Target");
 
-        PropertiesFile pp = new PropertiesFile("files/translation/" + getTargetFileRoot() + ".properties");
+        PropertiesFile pp = new PropertiesFile("../files/translation/" + getTargetFileRoot() + ".properties");
         
         // x this.translation_file_read = pp.wasFileRead();
         
@@ -421,14 +413,10 @@ public class DataListProcessor
     {
         boolean end = true; 
         
-        //System.out.println("" + this.user_config);
-        
         int i=1;
         String header = "";
         while (end)
         {
-            
-            //System.out.println("Read HEADER_COMMENT_" +part+ i + " !");
             
             if (this.user_config.containsKey("HEADER_COMMENT_" +part+ i))
             {
@@ -494,7 +482,7 @@ public class DataListProcessor
     {
         log.debug("Read Translation Target Config");
 
-        PropertiesFile pp = new PropertiesFile("files/translation/" + getTargetFileRoot() + ".config");
+        PropertiesFile pp = new PropertiesFile("../files/translation/" + getTargetFileRoot() + ".config");
         
         //this.translation_file_read = pp.wasFileRead();
         log.debug("   Was file read: " + pp.wasFileRead());
@@ -539,7 +527,7 @@ public class DataListProcessor
             }
             else
             {
-                System.out.println("This key type is unknown !!!");
+                log.warn("This key type is unknown !!!");
             }
         }
     
@@ -548,8 +536,6 @@ public class DataListProcessor
 
     private void processTranslationData(boolean check_status)
     {
-        //System.out.println("DataListProcessor.processTranslationData() NOT implemented !");
-        
         for(int i=0; i<this.tra_data.size(); i++)
         {
          

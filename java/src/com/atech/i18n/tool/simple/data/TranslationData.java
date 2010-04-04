@@ -200,13 +200,13 @@ public class TranslationData
     /**
      * Save translation.
      */
-    public void saveTranslation_Old()
+    public void saveTranslation_Oldxxx()
     {
         try
         {
             //BufferedWriter bw = new BufferedWriter(new FileWriter("./files/translation/GGC_si.properties"));
         
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("./files/translation/GGC_si.properties")),"ASCII"));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("../files/translation/GGC_si.properties")),"ASCII"));
             //String unicode = "Unicode: \u30e6\u30eb\u30b3\u30fc\u30c9";
             //byte[] bytes = String.getBytes("US_ASCII");
 
@@ -242,12 +242,8 @@ public class TranslationData
         }
         catch(Exception ex)
         {
-            System.out.println("TranslationData.saveTranslation(). Exception: "+ ex);
-            ex.printStackTrace();
+            log.error("TranslationData.saveTranslation(). Exception: "+ ex, ex);
         }
-        
-        
-        System.out.println("TranslationData.saveTranslation() NOT FULLY implemented !");
     }
 
     
@@ -278,7 +274,7 @@ public class TranslationData
         {
             //BufferedWriter bw = new BufferedWriter(new FileWriter("./files/translation/GGC_si.properties"));
         
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("./files/translation/" + add_path + filename + ".properties")),"ASCII"));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("../files/translation/" + add_path + filename + ".properties")),"ASCII"));
             //String unicode = "Unicode: \u30e6\u30eb\u30b3\u30fc\u30c9";
             //byte[] bytes = String.getBytes("US_ASCII");
 
@@ -353,11 +349,7 @@ public class TranslationData
         catch(Exception ex)
         {
             log.error("TranslationData.saveTranslation(). Exception: "+ ex, ex);
-            ex.printStackTrace();
         }
-        
-        
-        //System.out.println("TranslationData.saveTranslation() NOT FULLY implemented !");
     }
     
     
@@ -393,7 +385,7 @@ public class TranslationData
         
         try
         {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("./files/translation/" + add_path + filename + ".config")),"ASCII"));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("../files/translation/" + add_path + filename + ".config")),"ASCII"));
             
             for(int i=0; i<this.list_tra.size(); i++)
             {
@@ -413,10 +405,7 @@ public class TranslationData
         catch(Exception ex)
         {
             log.error("TranslationData.saveTranslation(). Exception: "+ ex, ex);
-            //ex.printStackTrace();
         }
-        
-        //System.out.println("TranslationData.saveSettings() NOT implemented !");
     }
     
     
@@ -425,7 +414,6 @@ public class TranslationData
      */
     public void resetStatus()
     {
-        //System.out.println("reset status");
         this.statuses_info[0] = 0;
         this.statuses_info[1] = 0;
         this.statuses_info[2] = 0;
@@ -468,10 +456,6 @@ public class TranslationData
                 sb.append("\\u" + charToHex(value.charAt(i)).toUpperCase());
             else
                 sb.append(value.charAt(i));
-            
-            //System.out.println(bb[i]);
-            //System.out.println(isNotRegularAscii(value.charAt(i)));
-            //System.out.println(charToHex(value.charAt(i)));
         }
         
         return sb.toString();

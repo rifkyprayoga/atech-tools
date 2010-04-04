@@ -55,7 +55,7 @@ Internal directory structure:
 ================
 
 1. Now first you need to download TT package. This file contains atech-tools library, with
-   working version of TT (0.4.3 or latest) and some startup files. (when application tool
+   working version of TT (0.4.2 or latest) and some startup files. (when application tool
    changes there will be new version of this file). Unpack this into some directory.
    
 2. Secondly you need configuration files for application you are translation. This is so
