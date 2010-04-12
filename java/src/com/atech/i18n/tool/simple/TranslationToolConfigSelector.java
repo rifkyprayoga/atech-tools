@@ -2,7 +2,6 @@ package com.atech.i18n.tool.simple;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Vector;
@@ -10,7 +9,6 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -113,7 +111,7 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
             public boolean accept(File f)
             {
                 if (f.isDirectory())
-                    return true;
+                    return false;
                 
                 return (f.getName().toLowerCase().endsWith(".config"));
             }
@@ -161,8 +159,6 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 		try
 		{
 	
-//			System.out.println("File: " + file.getParent() + File.separator + file.getName());
-			
 			PropertiesFile pf = new PropertiesFile(file.getParent() + File.separator + file.getName());
 			pf.readFile();
 			
@@ -173,15 +169,11 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 			if (pf.containsKey("MODULE_DESCRIPTION"))
 			{
 				mod_desc = pf.get("MODULE_DESCRIPTION");
-				
-			//	System.out.println("Mod desc: " + pf.get("MODULE_DESCRIPTION"));
-				
 			}
 			
 			if (pf.containsKey("MASTER_FILE_ROOT"))
 			{
 				file_name = pf.get("MASTER_FILE_ROOT");
-				//System.out.println("Master file root: " + pf.get("MASTER_FILE_ROOT"));
 			}
 
 			if (pf.containsKey("MASTER_FILE_LANGUAGE"))
@@ -194,43 +186,17 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 			{
 				ConfigurationEntry ce = new ConfigurationEntry(this.config_path + file.getName(), mod_desc, file_name, def_language);
 				
-//				System.out.println(this.master_path + ce.getMasterFile());
-				
 				File f = new File(this.master_path + ce.getMasterFile());
-				
-//				System.out.println("GIoll: " + f.exists());
 				
 				if (f.exists())
 					return ce;
 				else
 					return null;
-				
 			}
 			else
 				return null;
 			
 			
-			
-			
-			
-			
-				
-			
-			/*
-			br = new BufferedReader(new FileReader(file));
-		
-			String line = null;
-			
-			while((line=br.readLine())!=null)
-			{
-				if (line.contains("MODULE_DESCRIPTION"))
-				{
-					String s = line.substring("MODULE_DESCRIPTION=".length()); 
-//					System.out.println(s);
-					return s;
-				}
-				
-			}*/
 		
 		}
 		catch(Exception ex)
@@ -242,7 +208,7 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 	}
 	
 	
-	
+/*	
 	public String getFileDescription(File file)
 	{
 		BufferedReader br=null;
@@ -271,7 +237,7 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 				}
 				
 			}*/
-		
+	/*	
 		}
 		catch(Exception ex)
 		{
@@ -288,7 +254,7 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 		}
 		
 		return null;
-	}
+	}*/
 
 
 	public void actionPerformed(ActionEvent ae) 

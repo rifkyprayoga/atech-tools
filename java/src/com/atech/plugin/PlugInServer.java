@@ -14,6 +14,7 @@ import com.atech.graphics.components.StatusReporterInterface;
 import com.atech.graphics.dialogs.TransferDialog;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.ATDataAccessLMAbstract;
 
 
 /**
@@ -101,6 +102,18 @@ public abstract class PlugInServer
     
     
     /**
+     * Constructor
+     * 
+     * @param cont
+     * @param da
+     */
+    public PlugInServer(Container cont, ATDataAccessLMAbstract da)
+    {
+        init(cont, da, null);
+    }
+    
+    
+    /**
      * Init PlugIn
      * 
      * @param cont
@@ -118,6 +131,27 @@ public abstract class PlugInServer
         this.db = db_in;
         initPlugIn();
     }
+
+    
+    /**
+     * Init PlugIn
+     * 
+     * @param cont
+     * @param selected_lang_in
+     * @param da
+     * @param client_in
+     * @param db_in
+     */
+    public void init(Container cont, ATDataAccessLMAbstract da, PlugInClient client_in)
+    {
+        this.parent = cont;
+        //this.selected_lang = selected_lang_in;
+        this.m_da = da;
+        this.client = client_in;
+        this.db = da.getHibernateDb();
+        initPlugIn();
+    }
+    
     
     
     /**

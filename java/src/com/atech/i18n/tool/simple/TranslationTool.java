@@ -19,7 +19,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atech.i18n.I18nControlAbstract;
-import com.atech.i18n.tool.simple.data.ConfigurationEntry;
 import com.atech.i18n.tool.simple.data.DataEntry;
 import com.atech.i18n.tool.simple.data.DataListProcessor;
 import com.atech.i18n.tool.simple.util.BackupRunner;
@@ -85,7 +84,11 @@ public class TranslationTool extends JFrame implements ActionListener
     Hashtable<String,JMenu> menus = null; 
     DataAccessTT m_da = DataAccessTT.getInstance();
     I18nControlAbstract m_ic = null;
-    public static String m_version = "1.2";
+    
+    /**
+     * Version of TT
+     */
+    public static String m_version = "1.2.2";
     DataListProcessor dlp;
     
     JLabel module, group, index, keyword, sub_group;
@@ -325,11 +328,16 @@ public class TranslationTool extends JFrame implements ActionListener
     {
         DataEntry de = this.dlp.getCurrentEntry();
         
-        if (!de.target_translation.equals(this.jt_mine.getText()))
+        System.out.println("Save Data");
+        
+        
+        if (!de.target_translation.equals(this.jt_mine.getText()))  // translation not same
         {
             // changed
             de.target_translation = this.jt_mine.getText(); 
             
+            
+            // not translated
             if (this.cmb_status.getSelectedIndex()==0)
             {
                 if (de.target_translation.equals(de.master_file_translation))
@@ -350,10 +358,19 @@ public class TranslationTool extends JFrame implements ActionListener
                     this.dlp.resetStatus();
                 }
             }
+            else
+            {
+                // status not zero
+                de.status = this.cmb_status.getSelectedIndex();
+                this.dlp.resetStatus();
+            }
             
         }
         else
         {
+            
+            
+            
             // same
             if (de.status != this.cmb_status.getSelectedIndex())
             {
@@ -373,9 +390,24 @@ public class TranslationTool extends JFrame implements ActionListener
         JMenu menu = ATSwingUtils.createMenu("File", "File", m_ic);
         
         ATSwingUtils.createMenuItem(menu, "Exit", "Exit Application", "exit", this, null, m_ic, m_da, this);
-        
+
         menus.put("FILE", menu);
         mbar.add(menu);
+        
+        
+        menu = ATSwingUtils.createMenu("Tools", "Tools", m_ic);
+
+        ATSwingUtils.createMenuItem(menu, "Copy translations", "Copy translations", "copy_translations", this, null, m_ic, m_da, this);
+        menu.addSeparator();
+        ATSwingUtils.createMenuItem(menu, "Properties...", "Properties", "properties", this, null, m_ic, m_da, this);
+        
+        
+        menus.put("TOOLS", menu);
+        mbar.add(menu);
+        
+        
+        
+        
         
         
         menu = ATSwingUtils.createMenu("Help", "Help", m_ic);
@@ -500,6 +532,10 @@ public class TranslationTool extends JFrame implements ActionListener
         else if (cmd.equals("show_group_info"))
         {
             showTypesDialog(this.m_da.getTranslationConfig().getPrioritiesLegend(), JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if (cmd.equals("copy_translations"))
+        {
+            System.out.println("!!! Copy Translations !!!");
         }
         else
             System.out.println("Unknown command: " + cmd);

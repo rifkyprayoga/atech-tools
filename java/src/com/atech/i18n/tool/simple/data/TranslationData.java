@@ -247,6 +247,9 @@ public class TranslationData
     }
 
     
+    private boolean debug_write = false;
+    
+    
     /**
      * Save Translation
      * 
@@ -298,6 +301,11 @@ public class TranslationData
                     else if (der.type==DataEntryRaw.DATA_ENTRY_TRANSLATION)
                     {
                         String key = der.value_str;
+                     
+                        // FIXME
+                        if (key.equals("BG"))
+                            this.debug_write = true;
+                        
                         
                         DataEntry de = this.get(key);
                         
@@ -319,6 +327,9 @@ public class TranslationData
                 }
                 else
                     bw.write(v);
+                
+                // FIXME
+                this.debug_write = false;
                 
             }
             
@@ -480,7 +491,22 @@ public class TranslationData
     private boolean isNotRegularAscii(char c)
     {
         byte hi = (byte) (c >>> 8);
-        return (hi!=0);
+        
+        if (debug_write)
+        {
+            //Character cc = new Character(c);
+            
+            System.out.println("Char: " + c);
+            
+            System.out.println("Is Letter: " + Character.isLetter(c));
+            System.out.println("Get Numeric: " + Character.getNumericValue(c));
+            
+            
+            System.out.println("Hi: " + hi + " Is not reg: " + (hi!=0) + "\n");
+            System.out.println("Returned: " + ((Character.getNumericValue(c)==-1) && Character.isLetter(c)));
+        }
+        
+        return (hi!=0) || ((Character.getNumericValue(c)==-1) && Character.isLetter(c));
     }
     
     private String charToHex(char c) 
