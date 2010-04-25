@@ -2,8 +2,8 @@ package com.atech.i18n;
 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.text.Collator;
 import java.text.RuleBasedCollator;
 import java.util.Locale;
@@ -247,7 +247,11 @@ public class I18nControlLangMgr extends I18nControlAbstract
             
             if (lt_found)
             {
-                res = new PropertyResourceBundle(new FileReader(file_path)); 
+                // 1.5
+                res = new PropertyResourceBundle(new FileInputStream(file_path)); 
+                
+                // 1.6 supports this, while 1.5 doesn't
+                //res = new PropertyResourceBundle(new FileReader(file_path)); 
             }
             else
             {
