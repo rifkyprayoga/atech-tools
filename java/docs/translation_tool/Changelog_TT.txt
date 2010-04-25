@@ -3,15 +3,15 @@ Change log for Translation Tool
 ===============================
 
 
-1.2.2 [12.4.2010]
+1.2.2 [12.4.2010] [atech-tools 0.4.3]
    * Fixed saving of status data
 
 
-1.2.1 [12.4.2010]
+1.2.1 [12.4.2010] [atech-tools 0.4.3]
    * Fixed saving of special characters
 
 
-1.2 [1.4.2010]
-   * Initial release
+1.2 [1.4.2010] [atech-tools 0.4.1]
+   * Initial release for end users
 
 
