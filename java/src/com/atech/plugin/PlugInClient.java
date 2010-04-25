@@ -477,6 +477,20 @@ public abstract class PlugInClient implements ActionListener
     }
     
     
+    /**
+     * Get Return Object (getting data from plugin - synch)
+     * 
+     * @param ret_obj_id
+     * @param parameters 
+     * @return
+     */
+    public Object getReturnObject(int ret_obj_id, Object[] parameters)
+    {
+        if (this.m_server==null)
+            return null;
+        else
+            return this.m_server.getReturnObject(ret_obj_id, parameters);
+    }
     
     
     /**

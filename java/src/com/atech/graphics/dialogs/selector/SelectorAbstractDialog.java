@@ -3,12 +3,14 @@ package com.atech.graphics.dialogs.selector;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
@@ -1906,17 +1908,17 @@ public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type)
 
                                public Object getValueAt(int rowIndex, int columnIndex) 
                                {
-                                   //String result= "";
-
-                                   //Post pst = list.get(rowIndex);
-
                                    SelectableInterface sel = list.get(rowIndex);
-
                                    return sel.getColumnValue(columnIndex+1);
 
                                }
+                               
                            });  // table
 
+        
+        //AbstractTableModel atm = new AbstractTableModel();
+        //atm.
+        
 
         table.addMouseListener(new MouseListener()
         {
@@ -1938,6 +1940,20 @@ public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type)
             public void mouseReleased(MouseEvent  me) {}
             
         });
+        
+        
+        table.addMouseMotionListener(new MouseMotionAdapter()
+        { 
+            public void mouseMoved(MouseEvent e)
+            { 
+                Point p = e.getPoint(); 
+                int row = table.rowAtPoint(p); 
+                int column = table.columnAtPoint(p); 
+                table.setToolTipText(String.valueOf(table.getModel().getValueAt(row,column))); 
+            }//end MouseMoved 
+        }); // end MouseMotionAdapter         
+        
+        
         
         //int procent = (int)((panel.getWidth()-50)/100);
 

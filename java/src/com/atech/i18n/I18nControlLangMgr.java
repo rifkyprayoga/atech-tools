@@ -72,6 +72,12 @@ public class I18nControlLangMgr extends I18nControlAbstract
     
     //protected abstract String getLanguageConfigFile();
     
+    /**
+     * Constructor
+     * 
+     * @param lm
+     * @param icr
+     */
     public I18nControlLangMgr(LanguageManager lm, I18nControlRunner icr)
     {
         this.i18ncontrol_runner = icr;
@@ -148,6 +154,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
      *
      *  This method sets language for control instance. If none is found, english is defaulted.
      *  if none is found, application will exit.<br><br>
+     * @param li 
      *
      *  @param lcl locale that will choose which language will be set
      */ 
@@ -192,7 +199,11 @@ public class I18nControlLangMgr extends I18nControlAbstract
 */
 
  
-    
+    /**
+     * Set Language
+     * 
+     * @param li 
+     */
     public void setLanguage(LanguageInstance li)
     {
         String prefix = "";
@@ -232,7 +243,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
 //        System.out.println("Trying to load: " + prefix + "" + lang_file_root + ",lcl=" + lcl);
         try
         {
-            System.out.println("setLang(): " + li.name);
+            //System.out.println("setLang(): " + li.name);
             
             if (lt_found)
             {
@@ -738,6 +749,9 @@ public class I18nControlLangMgr extends I18nControlAbstract
     }
    
     
+    /**
+     * Init Aditional
+     */
     public void initAdditional()
     {
     }

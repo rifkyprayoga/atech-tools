@@ -299,6 +299,17 @@ public abstract class PlugInServer
      * @return
      */
     public abstract Object getReturnObject(int ret_obj_id);
+
+    
+    /**
+     * Get Return Object
+     * 
+     * @param ret_obj_id
+     * @param parameters 
+     * @return
+     */
+    public abstract Object getReturnObject(int ret_obj_id, Object[] parameters);
+    
     
     
     /**
