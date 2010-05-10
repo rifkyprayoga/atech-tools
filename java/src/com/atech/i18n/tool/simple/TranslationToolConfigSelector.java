@@ -22,8 +22,8 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 	private static final long serialVersionUID = 810806669693361400L;
 	public ConfigurationEntry ce = null;
 	public JComboBox cb_selector = null;
-	private String config_path = null;
-	private String master_path = null;
+	private String config_path = "../config/";
+	private String master_path = "../files/master_files/";
 	Vector<ConfigurationEntry> configuration_files = null;
 
 	public TranslationToolConfigSelector()
@@ -31,9 +31,6 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 		//super((JDialog)null, "Translation Tool Config Selector", true);
 		setTitle("Translation Tool Config Selector");
 		this.setModal(true);
-		
-		config_path = "../config/";
-		master_path = "../files/master_files/";
 		
 		if (this.checkConfigFiles())
 		{
@@ -46,6 +43,12 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 	        		                            "both to correct location and restart application.\n" 
 	        		, "Error", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	
+	public TranslationToolConfigSelector(boolean process)
+	{
+        this.checkConfigFiles();
 	}
 	
 	
@@ -286,6 +289,13 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 	{
 		return this.ce;
 	}
+	
+
+	public Vector<ConfigurationEntry> getConfigurationFiles()
+	{
+	    return configuration_files;
+	}
+	
 	
 	
 }

@@ -303,20 +303,33 @@ public class TranslationData
                         String key = der.value_str;
                      
                         // FIXME
-                        if (key.equals("BG"))
+                        if (key.equals("TIME"))
                             this.debug_write = true;
                         
                         
                         DataEntry de = this.get(key);
                         
+                        if (debug_write)
+                            System.out.println("De: " + de);
+                        
+                        
                         bw.write(de.key + "=");
          
                         if ((de.target_translation==null) || (de.target_translation.trim().length()==0))
                         {
+                            if (debug_write)
+                            {
+                                System.out.println("Trage Translation is null: " + de);
+                            }
                             bw.write(getTranslationEncoded(de.master_file_translation));
                         }
                         else
                         {
+                            if (debug_write)
+                            {
+                                System.out.println("Transtaltion: " + de);
+                                System.out.println(de.target_translation);
+                            }
                             bw.write(getTranslationEncoded(de.target_translation));
                         }
                         
@@ -492,6 +505,7 @@ public class TranslationData
     {
         byte hi = (byte) (c >>> 8);
         
+        /*
         if (debug_write)
         {
             //Character cc = new Character(c);
@@ -504,7 +518,7 @@ public class TranslationData
             
             System.out.println("Hi: " + hi + " Is not reg: " + (hi!=0) + "\n");
             System.out.println("Returned: " + ((Character.getNumericValue(c)==-1) && Character.isLetter(c)));
-        }
+        }*/
         
         return (hi!=0) || ((Character.getNumericValue(c)==-1) && Character.isLetter(c));
     }

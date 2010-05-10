@@ -123,6 +123,7 @@ public class LanguageManager
     /**
      * Instantiates a new language manager.
      * 
+     * @param lmr 
      */
     public LanguageManager(LanguageManagerRunner lmr)
     {
@@ -433,6 +434,11 @@ public class LanguageManager
     }
     
 
+    /**
+     * Get Selected Language Instance
+     * 
+     * @return
+     */
     public LanguageInstance getSelectedLanguageInstance()
     {
         return this.available_languages.get(this.selected_language);
@@ -474,6 +480,8 @@ public class LanguageManager
     
     /**
      * Get I18nControl (main)
+     * 
+     * @param icr 
      * 
      * @return
      */

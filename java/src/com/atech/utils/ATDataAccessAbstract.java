@@ -445,7 +445,7 @@ public abstract class ATDataAccessAbstract
      */
     public Component getCurrentComponentParent()
     {
-        System.out.println("Size: " + this.components.size());
+        //System.out.println("Size: " + this.components.size());
         
         return this.components.get(this.components.size() - 2);
     }
@@ -1342,6 +1342,7 @@ public abstract class ATDataAccessAbstract
     public ImageIcon getImageIcon(String root, String name, int width,
             int height, Container comp)
     {
+        
         return new ImageIcon(getImage(root + name, comp).getScaledInstance(
                 width, height, Image.SCALE_SMOOTH));
     }
@@ -3509,16 +3510,31 @@ public String getDateTimeString(int date, int time)
     // ********************************************************
     
     
+    /**
+     * Load Sorters
+     */
     public void loadSorters()
     {
     }
     
     
+    /**
+     * Get Sort Settings
+     * 
+     * @param key 
+     * @return 
+     */
     public String getSortSetting(String key)
     {
         return this.sorters.get(key);
     }
     
+    /**
+     * Set Sort Settings
+     * 
+     * @param key
+     * @param value
+     */
     public void setSortSetting(String key, String value)
     {
         if (this.sorters.containsKey(key))

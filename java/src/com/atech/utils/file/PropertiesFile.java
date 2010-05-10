@@ -4,9 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Properties;
-
-import com.atech.utils.file.FileReaderHashtable;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -55,6 +54,20 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
     {
         super(filename);
     }
+    
+
+    /**
+     * Instantiates a new properties file.
+     * 
+     * @param data 
+     * @param filename the filename
+     */
+    public PropertiesFile(Hashtable<String,String> data)
+    {
+        super();
+        this.putAll(data);
+    }
+    
     
     
     /** 

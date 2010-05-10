@@ -2,6 +2,7 @@ package com.atech.i18n.tool.simple.data;
 
 import java.io.File;
 import java.util.Enumeration;
+import java.util.Hashtable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,9 +51,9 @@ public class DataListProcessor
     private static Log log = LogFactory.getLog(DataListProcessor.class);
     
     
-    private String master_file_name = "GGC_en";
-    private String module_id = "";
-    private String master_file_root = "";
+    protected String master_file_name = "GGC_en";
+    protected String module_id = "";
+    protected String master_file_root = "";
     
     MasterFileReader mfr = null;
     
@@ -90,6 +91,36 @@ public class DataListProcessor
         readTranslationTargetConfig();
     }
 
+    
+    public DataListProcessor(Hashtable<String,String> settings)
+    {
+        tra_data = new TranslationData();
+        this.m_da.translation_data = tra_data ;
+
+        readDeveloperConfiguration(settings);
+        
+        readMasterFile();
+        readMasterFileConfig();
+        
+        this.tra_data = m_da.getTranslationData(); 
+        readTranslationTarget();
+        readTranslationTargetConfig();
+    }
+    
+    
+    private void readDeveloperConfiguration(Hashtable<String,String> settings)
+    {
+        /*
+        master_file_root = pp.get("MASTER_FILE_ROOT");
+        master_file_name = master_file_root + "_" + pp.get("MASTER_FILE_LANGUAGE"); 
+        module_id = pp.get("MODULE_ID");
+        */
+        
+        user_config = new PropertiesFile(settings);
+
+    }
+    
+    
     
     /**
      * Was Master File Read 
@@ -208,16 +239,30 @@ public class DataListProcessor
      */
     public void readMasterFile()
     {
-        log.debug("Reading master file: " + this.master_file_name + " !");
-        mfr = new MasterFileReader("../files/master_files/" + master_file_name + ".properties");
+        //readMasterFile(this.master_file_name);
+        mfr = readMasterFile(this.master_file_name);
         master_file_read = mfr.wasFileRead();
+    }
+
+
+    /**
+     * Read Master File
+     */
+    public MasterFileReader readMasterFile(String master_file_name)
+    {
+        log.debug("Reading master file: " + master_file_name + " !");
+        mfr = new MasterFileReader("../files/master_files/" + master_file_name + ".properties");
+        //master_file_read = mfr.wasFileRead();
         
         log.debug("   Is Master file: " + mfr.isMasterFile());
         log.debug("   Was file read: " + mfr.wasFileRead());
-        
+    
+        return mfr;
         //System.out.println("Master File: " + mfr.isMasterFile());
     }
-
+    
+    
+    
     
     /**
      * Is file treated as Master file, really master file
@@ -506,7 +551,12 @@ public class DataListProcessor
                 key_sub = key.substring(0, idx);
 
                 DataEntry de = this.tra_data.get(key_sub);
-                de.status = Integer.parseInt(pp.get(key));
+
+                if (de!=null)
+                {
+//                    System.out.println("De: "+ de);
+                    de.status = Integer.parseInt(pp.get(key));
+                }
             }
             else if (key.contains("__INVALIDATED"))
             {
@@ -514,14 +564,17 @@ public class DataListProcessor
                 key_sub = key.substring(0, idx);
 
                 DataEntry de = this.tra_data.get(key_sub);
-                
-                long inv = Long.parseLong(pp.get(key));
-                
-                if ((de.invalidated!=0) && (de.invalidated!=inv))
+
+                if (de!=null)
                 {
-                    if (de.status!=DataEntry.STATUS_UNTRANSLATED)
+                    long inv = Long.parseLong(pp.get(key));
+                    
+                    if ((de.invalidated!=0) && (de.invalidated!=inv))
                     {
-                        de.status = DataEntry.STATUS_NEED_CHECK;
+                        if (de.status!=DataEntry.STATUS_UNTRANSLATED)
+                        {
+                            de.status = DataEntry.STATUS_NEED_CHECK;
+                        }
                     }
                 }
             }

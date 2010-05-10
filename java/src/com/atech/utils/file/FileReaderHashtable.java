@@ -65,6 +65,15 @@ public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
     }
     
     
+    /**
+     * Empty Constructor
+     */
+    public FileReaderHashtable()
+    {
+    }
+
+    
+    
     
     /**
      * Read File

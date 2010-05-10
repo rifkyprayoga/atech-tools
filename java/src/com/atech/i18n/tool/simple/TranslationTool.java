@@ -285,11 +285,6 @@ public class TranslationTool extends JFrame implements ActionListener
     {
         DataEntry de = this.dlp.getCurrentEntry();
         
-        if (de==null)
-            return;
-        
-        //System.out.println("master translation: " + de.master_file_translation);
-        
         this.jt_source.setText(de.master_file_translation);
         
         if (de.description==null)
@@ -298,6 +293,7 @@ public class TranslationTool extends JFrame implements ActionListener
             this.jt_desc.setText(de.description);
         
         this.jt_mine.setText(de.target_translation);
+//        System.out.println("De Target Translation:" + de.target_translation);
         
         this.cmb_status.setSelectedIndex(de.status);
         
@@ -316,7 +312,6 @@ public class TranslationTool extends JFrame implements ActionListener
         this.statuses[0].setText("" + st[0]);
         this.statuses[1].setText("" + st[1]);
         this.statuses[2].setText("" + st[2]);
-        
         
     }
     
