@@ -55,7 +55,7 @@ public class TimeComponent extends JPanel
     /**
      * The component_width.
      */
-    int component_width = 188;
+    int component_width = 90;
     
     /**
      * The component_height.

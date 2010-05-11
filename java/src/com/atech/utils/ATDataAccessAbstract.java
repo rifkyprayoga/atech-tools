@@ -951,6 +951,20 @@ public abstract class ATDataAccessAbstract
     }
     
     
+    /**
+     * Checks if plugin is available
+     * 
+     * @param key
+     * @return
+     */
+    public boolean isPluginAvailable(String key)
+    {
+        if (this.plugins==null)
+            return false;
+        
+        return this.plugins.containsKey(key);
+    }
+    
     
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
