@@ -122,6 +122,12 @@ public class ComponentEntry implements ComponentInterface
 	 */
 	public int platform_specific_type = 0;
 
+	
+	/**
+	 * Platform Supported
+	 */
+	public String platform_supported = "";	
+	
 	/**
 	 * Files Java Specific
 	 */

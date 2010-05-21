@@ -65,6 +65,16 @@ public class UpdateConfiguration
      */
     public Hashtable<String,ComponentGroup> groups = new Hashtable<String,ComponentGroup>();
 	
+    
+    public String product_id = "";
+    
+    public String version_name = "";
+    
+    public int version_numeric = 0;
+    
+    public String version_description = "";
+    
+    
     /**
      * Root.
      */
@@ -310,6 +320,7 @@ public class UpdateConfiguration
 
 		if (found)
 		{
+		    getCoreData();
 		    getDbData();
 		    getDbApplicationData();
 		    getApplicationData();
@@ -329,6 +340,30 @@ public class UpdateConfiguration
 		}
 		
 	}
+	
+	
+	private void getCoreData()
+	{
+	    this.product_id = cfg.get("PRODUCT_ID");
+        this.root = cfg.get("ROOT");
+
+        if (cfg.containsKey("VERSION_NUMERIC"))
+            this.version_numeric = Integer.parseInt(cfg.get("VERSION_NUMERIC"));
+        else
+            this.version_numeric = 0;
+        
+        if (cfg.containsKey("VERSION_NAME"))
+            this.version_name = cfg.get("VERSION_NAME");
+        else
+            this.version_name = "0.0.0";
+        
+        if (cfg.containsKey("VERSION_DESCRIPTION"))
+            this.version_description = cfg.get("VERSION_DESCRIPTION");
+        else
+            this.version_name = "No description.";
+        
+	}
+	
 	
 
 	/**
@@ -423,6 +458,8 @@ public class UpdateConfiguration
 
 			ce.platform_specific = StartupUtil.isOptionEnabled(cfg.get("COMPONENT_" + i + "_PLATFORM_SPECIFIC"));
 
+			ce.platform_supported = cfg.get("COMPONENT_" + i + "_PLATFORM_SUPPORTED");
+			
 			if (ce.platform_specific)
 			{
 			    ce.platform_specific_type = getIntParameter("COMPONENT_" + i + "_PLATFORM_SPECIFIC_TYPE"); 
