@@ -1,4 +1,4 @@
-package com.atech.servlets.db;
+package com.atech.web.jsp;
 
 
 
@@ -12,8 +12,9 @@ import java.util.Hashtable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atech.servlets.util.DataAccessWeb;
-import com.atech.servlets.util.I18nWebControl;
+import com.atech.web.db.AppDbWebAbstract;
+import com.atech.web.util.DataAccessWeb;
+import com.atech.web.util.I18nWebControl;
 
 
 /**

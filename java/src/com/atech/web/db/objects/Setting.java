@@ -1,4 +1,4 @@
-package com.atech.servlets.datalayer;
+package com.atech.web.db.objects;
 
 /**
  *  This file is part of ATech Tools library.
@@ -31,50 +31,57 @@ package com.atech.servlets.datalayer;
 */
 
 
-public class User 
+public class Setting  
 {
-    public long id;
-    public String username;
-    public String password;
-    public String real_name;
-    public String description;
-    public int user_type;
-    public long user_access;
-    public int user_group;
-    
-    public boolean debug = true;
 
-    public boolean default_user = false;
 
-    
-    public User()
+    private long id;
+
+    private String property;
+
+    private String value;
+
+    /** full constructor */
+    public Setting(String property, String value) 
+    {
+        this.property = property;
+        this.value = value;
+    }
+
+    /** default constructor */
+    public Setting() 
     {
     }
 
-
-    /*
-    public User(UserH uh)
+    public long getId() 
     {
-
-        this.setId(uh.getId());
-        this.setUsername(uh.getUsername());
-        this.setPassword(uh.getPassword());
-        this.setReal_desc(uh.getReal_desc());
-        this.setReal_name(uh.getReal_name());
-        this.setUser_type(uh.getUser_type());
-        this.setUser_type_id(uh.getUser_type_id());
-        this.setUser_access(uh.getUser_access());
-
-        //setSearchContext();
-
+        return this.id;
     }
-*/
-    
-    
 
+    public void setId(long id) 
+    {
+        this.id = id;
+    }
 
+    public String getProperty() 
+    {
+        return this.property;
+    }
+
+    public void setProperty(String property) 
+    {
+        this.property = property;
+    }
+
+    public String getValue() 
+    {
+        return this.value;
+    }
+
+    public void setValue(String value) 
+    {
+        this.value = value;
+    }
 
 
 }
-
-

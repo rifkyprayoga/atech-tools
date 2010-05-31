@@ -1,78 +1,81 @@
-package com.atech.servlets.db;
+package com.atech.web.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLWarning;
-import java.util.GregorianCalendar;
-import java.util.StringTokenizer;
+import java.sql.SQLException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-import com.atech.servlets.util.DataAccessWeb;
-import com.atech.servlets.util.I18nWebControl;
+import com.atech.db.hibernate.DatabaseObjectHibernate;
+import com.atech.web.jsp.AppContextAbstract;
+import com.atech.web.util.DataAccessWeb;
+import com.atech.web.util.I18nWebControl;
 
 /**
- *  This file is part of ATech Tools library.
- *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
- *  
- *  
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
- *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
- *  
- *  
- *  For additional information about this project please visit our project site on 
- *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
- *  andyrozman@users.sourceforge.net or andy@atech-software.com
- *  
- *  @author Andy
- *
-*/
+ * This file is part of ATech Tools library.
+ * 
+ * <one line to give the library's name and a brief idea of what it does.>
+ * Copyright (C) 2007 Andy (Aleksander) Rozman (Atech-Software)
+ * 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ * 
+ * For additional information about this project please visit our project site
+ * on http://atech-tools.sourceforge.net/ or contact us via this emails:
+ * andyrozman@users.sourceforge.net or andy@atech-software.com
+ * 
+ * @author Andy
+ * 
+ */
 
-
-public abstract class AppDbWeb extends AppDbWebAbstract
+public abstract class AppDbWebHibernate extends AppDbWebAbstract
 {
 
-    Connection m_connection;
-    // Statement stmt;
+    @SuppressWarnings("unused")
+    private static Log log = LogFactory.getLog(AppDbWebHibernate.class);
 
-    private static Log log = LogFactory.getLog(AppDbWeb.class);
+    private Session m_session = null;
 
+    SessionFactory m_session_factory = null;
 
-
-    public AppDbWeb(DataAccessWeb daw)
+    /**
+     * Constructor
+     * 
+     * @param daw
+     */
+    public AppDbWebHibernate(DataAccessWeb daw, AppContextAbstract aca)
     {
-        super(daw);
-        //this.m_session_factory = sess_fact;
-        //m_session = this.m_session_factory.openSession();
+        super(daw, aca);
+        // FIXME
+        // this.m_session_factory = sess_fact;
+        m_session = this.m_session_factory.openSession();
 
-        //this.da = daw;
+        // this.da = daw;
 
-        createConnection();
-        
-//        loadSettings();
-//        loadUsers();
+        loadSettings();
+        loadUsers();
 
-        //System.out.println("PIS_Web Loaded: " + pis_web_version);
+        // System.out.println("PIS_Web Loaded: " + pis_web_version);
     }
 
     public void setI18nWebControl(I18nWebControl ic)
     {
         this.ic = ic;
-//        initComboSystem();
+        initComboSystem();
         initWeekDays();
         initMonths();
     }
@@ -81,77 +84,6 @@ public abstract class AppDbWeb extends AppDbWebAbstract
     {
     }
 
-    
-    public Connection getConnection()
-    {
-        return this.m_connection;
-    }
-    
-    
-    protected void createConnection()
-    {
-        try
-        {
-            log.debug("Creating Connection for Context !");
-            
-            // Load the database driver
-            Class.forName(getSetting("JDBC_DRIVER")) ;
-    
-            //DriverManager.registerDriver("org.postgresql.Driver");
-    
-            String username = getSetting("JDBC_USERNAME");
-            String pass = getSetting("JDBC_PASSWORD");
-            
-            if (username!=null)
-            {
-                if (pass==null)
-                    pass = "";
-
-                this.m_connection = DriverManager.getConnection(getSetting("JDBC_URL"), username, pass);
-            }
-            else
-            {
-                // Get a connection to the database
-                this.m_connection = DriverManager.getConnection( getSetting("JDBC_URL"));
-            }
-    
-            // Print all warnings
-            for( SQLWarning warn = this.m_connection.getWarnings(); warn != null; warn = warn.getNextWarning() )
-               {
-                System.out.println( "SQL Warning:" ) ;
-                System.out.println( "State  : " + warn.getSQLState()  ) ;
-                System.out.println( "Message: " + warn.getMessage()   ) ;
-                System.out.println( "Error  : " + warn.getErrorCode() ) ;
-               }
-            
-        }
-        catch(Exception ex)
-        {
-            log.error("Error on createConnection. Ex: " + ex, ex);
-        }
-        
-    }
-    
-    
-    private String getSetting(String key)
-    {
-        String ret = null;
-        if (this.daw.getSettings().containsKey(key))
-        {
-            String v = this.daw.getSettings().get(key);
-            
-            if (v!=null)
-            {
-                if (v.trim().length()>=0)
-                    ret=v.trim();
-            }
-        }
-        
-        
-        return ret;
-    }
-    
-    
     public void displayError(String source, Exception ex)
     {
 
@@ -165,12 +97,48 @@ public abstract class AppDbWeb extends AppDbWebAbstract
 
     }
 
+    /**
+     * Get Session
+     * 
+     * @return
+     */
+    public Session getSession()
+    {
+        // TO-DO
+        m_session.clear();
+        return m_session;
+    }
 
     // /
     // / WEB METHODS
     // /
 
+    /*
+     * public void loadSettings(); { Query q =getSession().createQuery(
+     * "select pst from com.atech.inf_sys.pis.db.hibernate.config.SettingsH as pst"
+     * );
+     * 
+     * Iterator it = q.iterate();
+     * 
+     * while (it.hasNext()) { SettingsH st = (SettingsH )it.next();
+     * this.config.put(st.getProperty(), st.getValue()); } }
+     */
 
+    /*
+     * public void loadUsers() { this.users = new ArrayList<UserH>();
+     * 
+     * System.out.println("Load Users");
+     * 
+     * 
+     * Query q =getSession().createQuery(
+     * "select pst from com.atech.inf_sys.pis.db.hibernate.config.UserH as pst"
+     * );
+     * 
+     * Iterator it = q.iterate();
+     * 
+     * while (it.hasNext()) { UserH st = (UserH)it.next(); this.users.add(st); }
+     * }
+     */
 
     public String getMessage(String key)
     {
@@ -203,10 +171,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
 
     public boolean add(Object obj)
     {
-        return false;
 
-/*        
-        
         // if (debug)
         // System.out.println("add");
 
@@ -245,6 +210,12 @@ public abstract class AppDbWeb extends AppDbWebAbstract
                 setError(1, ex.getMessage(), doh.getObjectName());
                 System.out.println("Exception on add: " + ex);
                 ex.printStackTrace();
+                /*
+                 * Exception eee = ex.getNextException();
+                 * 
+                 * if (eee!=null) { eee.printStackTrace();
+                 * System.out.println(eee); }
+                 */
 
                 // System.exit(1);
                 return false;
@@ -263,14 +234,12 @@ public abstract class AppDbWeb extends AppDbWebAbstract
             System.out.println("Internal error on add: " + obj);
             return false;
         }
-*/
+
     }
 
     public boolean edit(Object obj)
     {
-        return false;
-        
-/*
+
         // System.out.println("edit");
         Session sess = getSession();
 
@@ -305,14 +274,12 @@ public abstract class AppDbWeb extends AppDbWebAbstract
             System.out.println("Internal error on edit: " + obj);
             return false;
         }
-*/
+
     }
 
     public boolean get(Object obj)
     {
-        return false;
-        
-/*
+
         Session sess = getSession();
 
         if (obj instanceof DatabaseObjectHibernate)
@@ -346,13 +313,12 @@ public abstract class AppDbWeb extends AppDbWebAbstract
             System.out.println("Internal error on get: " + obj);
             return false;
         }
-*/
+
     }
 
     public boolean delete(Object obj)
     {
-        return false;
-/*
+
         if (obj instanceof DatabaseObjectHibernate)
         {
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
@@ -386,9 +352,29 @@ public abstract class AppDbWeb extends AppDbWebAbstract
             System.out.println("Internal error on delete: " + obj);
             return false;
         }
-*/
+
     }
 
+    public String addGetId()
+    {
+        return this.m_addId;
+    }
+
+    public int getErrorCode()
+    {
+        return this.m_errorCode;
+    }
+
+    public String getErrorDescription()
+    {
+        return this.m_errorDesc;
+    }
+
+    public void setError(int code, String desc, String source)
+    {
+        this.m_errorCode = code;
+        this.m_errorDesc = source + " : " + desc;
+    }
 
     // *************************************************************
     // **** DAY AND MONTH HANDLING ****
@@ -445,7 +431,5 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         this.months = sb_mon.toString();
 
     }
-
-
 
 }

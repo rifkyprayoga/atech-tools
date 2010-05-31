@@ -58,14 +58,12 @@ Internal directory structure:
    working version of TT (0.4.2 or latest) and some startup files. (when application tool
    changes there will be new version of this file). Unpack this into some directory.
    
-2. Secondly you need configuration files for application you are translation. This is so
+2. Secondly you need configuration files for application you are translating. This is so
    called Language Base Pack for certain application (<AppShortName>_Lang_Base_<version>.zip). 
    You will need to download this file just once, if not differently specified by developer.
-   This will contain configuration and startup files for application with different of this 
-   files (we will create this startup files for Windows, linux/Unix and Mac). Unpack this into
-   same directories as file from step 1. You will get also some new documentation specific
-   to application you are developing for. In this documentation you will also get list of files
-   that are specific for different OS. 
+   This will contain configuration files for application. Unpack this into same directories 
+   as files from step 1. You will get also some new documentation specific to application you 
+   are developing.  
    
 3. Actual language files. This file (<AppShortName>_LangPack_<version_of_lang_pack>.zip. This 
    archive contains language files (master files and optional config files) and also latest 

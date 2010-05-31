@@ -1,4 +1,4 @@
-package com.atech.servlets.util;
+package com.atech.web.util;
 
 import java.awt.Color;
 import java.util.ArrayList;

@@ -1,8 +1,9 @@
 
-package com.atech.servlets.db;
+package com.atech.web.jsp;
 
-import com.atech.servlets.util.DataAccessWeb;
-import com.atech.servlets.util.I18nWebControl;
+import com.atech.web.db.AppDbWebAbstract;
+import com.atech.web.util.DataAccessWeb;
+import com.atech.web.util.I18nWebControl;
 
 /**
  *  This file is part of ATech Tools library.

@@ -1,4 +1,4 @@
-package com.atech.servlets.db;
+package com.atech.web.db;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -9,9 +9,10 @@ import java.util.StringTokenizer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atech.servlets.datalayer.User;
-import com.atech.servlets.util.DataAccessWeb;
-import com.atech.servlets.util.I18nWebControl;
+import com.atech.web.db.objects.User;
+import com.atech.web.jsp.AppContextAbstract;
+import com.atech.web.util.DataAccessWeb;
+import com.atech.web.util.I18nWebControl;
 
 /**
  *  This file is part of ATech Tools library.
@@ -53,7 +54,7 @@ public abstract class AppDbWebAbstract
     protected boolean debug = false;
 
     private static Log log = LogFactory.getLog(AppDbWebAbstract.class);
-
+    protected AppContextAbstract m_context;
     //public Session m_session = null;
 
     protected int m_errorCode = 0;
@@ -87,11 +88,11 @@ public abstract class AppDbWebAbstract
 
     // 0.6 - Phase 4 (finish)
 
-    public AppDbWebAbstract(DataAccessWeb daw_)
+    public AppDbWebAbstract(DataAccessWeb daw_, AppContextAbstract context_)
     {
         
         this.daw = daw_;
-        
+        this.m_context = context_;
         /*
         this.m_session_factory = sess_fact;
         m_session = this.m_session_factory.openSession();
@@ -99,12 +100,19 @@ public abstract class AppDbWebAbstract
         this.da = daw;
         */
         
+        this.initializeDb();
+        
         loadSettings();
         loadUsers();
 
         //System.out.println("PIS_Web Loaded: " + pis_web_version);
     }
 
+    public abstract void initializeDb();
+    
+    public abstract void destroyDb();
+    
+    
     public void setI18nWebControl(I18nWebControl ic)
     {
         this.ic = ic;

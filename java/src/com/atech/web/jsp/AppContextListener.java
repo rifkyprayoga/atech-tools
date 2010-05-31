@@ -1,5 +1,5 @@
 
-package com.atech.servlets;
+package com.atech.web.jsp;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -12,7 +12,6 @@ import javax.servlet.ServletContextListener;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atech.servlets.db.AppContextAbstract;
 import com.atech.utils.file.PropertiesFile;
 
 /**
@@ -62,8 +61,8 @@ public class AppContextListener implements ServletContextListener
     
     public void contextInitialized(ServletContextEvent event) 
     {
+        System.out.println("contextInitialized");
         initalizeContexts();
-        //System.out.println("contextInitialized");
         //HibernatePISUtil.getSessionFactory(); // Just call the static initializer of that class    
     }
 
@@ -83,13 +82,19 @@ public class AppContextListener implements ServletContextListener
      */
     public void initalizeContexts()
     {
+    	System.out.println("initalizeContexts() .1");
         log.debug("initalizeContexts()");
+    	System.out.println("initalizeContexts() .2");
         
-        File f = new File("ATechFramework.config");
+        File f = new File("../conf/ATechFramework.config");
+        
+        System.out.println("f: " + f.getAbsolutePath());
         
         if (f.exists())
         {
-            PropertiesFile pf = new PropertiesFile("ATechFramework.config");
+        	System.out.println("Configuration file found.");
+        	log.info("Configuration file found.");
+            PropertiesFile pf = new PropertiesFile("../conf/ATechFramework.config");
             pf.readFile();
             
             if (pf.containsKey("CONTEXTS_COUNT"))
@@ -106,7 +111,10 @@ public class AppContextListener implements ServletContextListener
             	
         }
         else
+        {
+        	System.out.println("No configuration file found. No contexts loaded !");
             log.warn("No configuration file found. No contexts loaded !");
+        }
     }
     
     

@@ -1,4 +1,4 @@
-package com.atech.servlets.util;
+package com.atech.web.util;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -41,6 +41,8 @@ import org.apache.commons.logging.LogFactory;
 public class I18nWebControl
 {
 
+	public String base_lang_file = null;
+	
     /**
      * Resource bundle identificator
      */
@@ -58,6 +60,7 @@ public class I18nWebControl
      */
     public I18nWebControl(String lang, String base_i18n_name)
     {
+    	this.base_lang_file = base_i18n_name;
         setLanguage(lang);
         // setLanguage(DataAccess.getSelectedLocale());
         // DataAccess.getInstance().setI18n(this);
@@ -111,29 +114,28 @@ public class I18nWebControl
             System.out.println("Set Langugae");
 
             // ResourceBundle.
-            res = ResourceBundle.getBundle("PISWeb", new Locale(lang));
+            res = ResourceBundle.getBundle(this.base_lang_file, new Locale(lang));
 
             // ResourceBundle.getB
 
-            log.debug("PIS Language " + lang + " loaded.");
+            log.debug(this.base_lang_file + " Language " + lang + " loaded.");
         }
         catch (Exception ex) // MissingResourceException mre)
         {
             // System.out.println(mre.
             System.out.println("Exception load1: " + ex.getMessage() + "\n" + ex.getStackTrace());
 
-            log.debug("PIS Language " + lang + " could NOT be loaded. Trying default (SI).");
-            System.out.println("Couldn't find resource file(1): PIS_xx.properties (for Locale " + lang + ")");
+            log.debug(this.base_lang_file + " Language " + lang + " could NOT be loaded. Trying default (SI).");
+            System.out.println("Couldn't find resource file(1): " + this.base_lang_file + "_xx.properties (for Locale " + lang + ")");
             try
             {
-                res = ResourceBundle.getBundle("PISWeb", new Locale("SI"));
+                res = ResourceBundle.getBundle(this.base_lang_file, new Locale("SI"));
                 log.debug("PIS Language SI loaded.");
             }
             catch (Exception ex2)
             {
-                log.debug("Default PIS Language (SI)" + lang + " could NOT be loaded.");
-                System.out
-                        .println("Exception on reading default resource file (ZIS_SI.properties). Exiting application.");
+                log.debug("Default " + this.base_lang_file + " Language (SI)" + lang + " could NOT be loaded.");
+                System.out.println("Exception on reading default resource file (ZIS_SI.properties). Exiting application.");
                 System.exit(2);
             }
         }
