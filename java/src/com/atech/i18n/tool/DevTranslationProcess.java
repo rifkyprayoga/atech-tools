@@ -3,7 +3,6 @@
  */
 package com.atech.i18n.tool;
 
-import javax.swing.JFrame;
 
 /**
  * @author Andy

@@ -4,7 +4,6 @@ import java.util.Hashtable;
 
 import com.atech.i18n.tool.simple.data.DataListProcessor;
 import com.atech.i18n.tool.simple.data.MasterFileReader;
-import com.atech.i18n.tool.simple.data.TranslationData;
 
 public class DevTranslationProcessor extends DataListProcessor
 {

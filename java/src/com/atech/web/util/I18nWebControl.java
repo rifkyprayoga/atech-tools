@@ -79,10 +79,9 @@ public class I18nWebControl
      */
     public void setLanguage(String language, String country)
     {
-
-        Locale l = new Locale(language, country);
-        // setLanguage(l);
-
+    	log.warn("setLanguage(String language, String country) not implemented.");
+        //Locale l = new Locale(language, country);
+        //setLanguage(l);
     }
 
     // Method: setLanguage (Locale)

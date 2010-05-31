@@ -54,7 +54,8 @@ public class DuplicateMasterFileKeywordsFinder
     }
     
     
-    private void checkForDuplicates()
+    @SuppressWarnings("unchecked")
+	private void checkForDuplicates()
     {
         ArrayList<String> lst_cp = (ArrayList<String>)this.list_keywords.clone();
         

@@ -6,9 +6,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.atech.web.db.objects.User;
 import com.atech.web.jsp.AppContextAbstract;
 import com.atech.web.util.DataAccessWeb;
@@ -53,7 +50,7 @@ public abstract class AppDbWebAbstract
 
     protected boolean debug = false;
 
-    private static Log log = LogFactory.getLog(AppDbWebAbstract.class);
+//    private static Log log = LogFactory.getLog(AppDbWebAbstract.class);
     protected AppContextAbstract m_context;
     //public Session m_session = null;
 
@@ -423,7 +420,7 @@ public abstract class AppDbWebAbstract
     ArrayList<String> list = null; 
 
     // sort by (my pis)
-    list = new ArrayList();
+    list = new ArrayList<String>();
     list.add(ic.getMessage("DATE_AND_TIME"));
     list.add(ic.getMessage("DATE"));
     list.add(ic.getMessage("TIME"));
@@ -432,7 +429,7 @@ public abstract class AppDbWebAbstract
     sort_by_cb.put("MY_PIS", list);
 
     // sort by (news)
-    list = new ArrayList();
+    list = new ArrayList<String>();
     list.add(ic.getMessage("DATE"));
     list.add(ic.getMessage("DATE_OF_EXPIRE"));
     list.add(ic.getMessage("SUBJECT2"));
@@ -440,7 +437,7 @@ public abstract class AppDbWebAbstract
 
 
     // sort by (weekly news)
-    list = new ArrayList();
+    list = new ArrayList<String>();
     list.add(ic.getMessage("DATE"));
     list.add(ic.getMessage("SUB_TITLE"));
 
@@ -882,7 +879,7 @@ public abstract class AppDbWebAbstract
     // **** U T I L S ****
     // *************************************************************
 
-    private long getLongFromString(String id_str)
+	public long getLongFromString(String id_str)
     {
 
         long id = 0;

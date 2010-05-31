@@ -565,11 +565,13 @@ public class ByteUtils
         //Contract.preNonNull(s, "numericString");
         //Contract.pre(isEven(s.length()), "numericString must have an even number of characters");
         s = s.toLowerCase();
+        
+        /*
         for(int i = 0; i < s.length(); i++)
         {
             char c = s.charAt(i);
             //Contract.pre(Character.isDigit(c) || c >= 'a' && c <= 'f', "numericString '" + s + "' must be hex digits only.");
-        }
+        }*/
 
         int ai[] = makeIntArray(s);
         int ai1[] = new int[ai.length / 2];

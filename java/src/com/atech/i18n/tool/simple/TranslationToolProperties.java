@@ -2,10 +2,17 @@ package com.atech.i18n.tool.simple;
 
 import javax.swing.JDialog;
 
+/**
+ * 
+ */
+
 public class TranslationToolProperties extends JDialog
 {
 
-    public TranslationToolProperties()
+	private static final long serialVersionUID = -3182857146387143355L;
+
+
+	public TranslationToolProperties()
     {
         initDialog();
         loadData();
