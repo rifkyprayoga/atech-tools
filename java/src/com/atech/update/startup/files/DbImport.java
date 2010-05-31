@@ -79,7 +79,7 @@ public class DbImport extends DbApplicationAbstract
     @Override
     public String getClassName()
     {
-        return this.upd_conf.db_app_db_import_class;
+        return this.upd_conf.db_apps.get("db_import").app_class;
     }
 
 

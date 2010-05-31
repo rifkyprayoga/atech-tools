@@ -3029,6 +3029,54 @@ public String getDateTimeString(int date, int time)
         return out;
     }
 
+    
+    /**
+     * Gets the int value.
+     * 
+     * @param aValue the a value
+     * 
+     * @return the int value
+     */
+    public boolean getBooleanValue(Object aValue)
+    {
+        boolean out = false;
+
+        if (aValue == null)
+            return out;
+
+/*        if (aValue instanceof Integer)
+        {
+            try
+            {
+                Integer i = (Integer) aValue;
+                out = i.intValue();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        else*/
+        if (aValue instanceof String)
+        {
+            String s = (String) aValue;
+            if (s.length() > 0)
+            {
+                if (s.equals("1") || s.equalsIgnoreCase("true"))
+                    out = true;
+            }
+        }
+        else if (aValue instanceof Boolean)
+        {
+            Boolean b = (Boolean)aValue;
+            return b.booleanValue();
+        }
+
+        return out;
+    }
+    
+    
+    
+    
     /**
      * Gets the long value.
      * 

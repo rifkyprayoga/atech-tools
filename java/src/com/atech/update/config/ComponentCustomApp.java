@@ -87,7 +87,23 @@ public class ComponentCustomApp //implements ComponentInterface
         this.needs_jdbc = StartupUtil.isOptionEnabled(needs_jdbc);
 	}
 
+
+    /**
+     * Constructor
+     */
+    public ComponentCustomApp()
+    {
+    }
+
 	
+    public String toString()
+    {
+        return "ComponentCustomApp [id=" + this.id + ", filename=" + this.filename + ", main_class=" + this.main_class +
+            ", binary_needed=" + this.binary_needed + ", needs_jdbc=" + this.needs_jdbc + 
+            ", special_parameters=" + this.special_parameters + "]";
+    }
+    
+    
 	
 }
 

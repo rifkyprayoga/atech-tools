@@ -79,7 +79,7 @@ public class DbInit extends DbApplicationAbstract
     @Override
     public String getClassName()
     {
-        return this.upd_conf.db_app_db_init_class;
+        return this.upd_conf.db_apps.get("db_init").app_class;
     }
 
 

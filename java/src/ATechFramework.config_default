@@ -1,0 +1,66 @@
+#
+#  Atech Web Framework
+#
+
+CONTEXTS_COUNT=1
+
+
+
+CONTEXT_1_NAME=Test_Portal
+
+CONTEXT_1_TITLE=Test Portal
+
+#
+#  Context Language. We can set MULTILANGUAGE to either true or false (1 or 0). If we set to:
+#    TRUE: Then we load all languages, and we NEED to set AVAILABLE_LANGUAGES. All languages
+#       are available to user, and they must be called with getI18n(String=short lang name)
+#    FALSE: User can't change language durring running. Variable LANGUAGE must be set !
+#
+#    All language files must be present in main jar file (if we specify multilanguage, with
+#      en,si setting, we must have TestPortal_en.properties and TestPortal_si.properties
+#      files.
+#
+CONTEXT_1_MULTILANGUAGE=False
+
+CONTEXT_1_BASE_LANG=TestPortal
+
+CONTEXT_1_LANGUAGE=si
+
+CONTEXT_1_AVAILABLE_LANGUAGES=si,en,hr
+
+
+#
+#  DB_TYPE - Type of database
+#     1 - Pure JDBC, 2 - Hibernate
+#
+CONTEXT_1_DB_TYPE=1
+
+
+#
+#  AppContextInterface instance
+#
+CONTEXT_1_MAIN_CLASS=
+
+#
+#  JDBC Driver 
+#  See: com.atech.db.hibernate.tool.DatabaseDefinitions class for more info
+#
+CONTEXT_1_JDBC_DRIVER=
+
+
+#
+#  JDBC URL
+#
+CONTEXT_1_JDBC_URL=
+
+
+#
+#  JDBC Username (leave empty if username is part of JDBC URL)
+#
+CONTEXT_1_JDBC_USERNAME=
+
+
+#
+#  JDBC Password (leave empty if password is part of JDBC URL)
+#
+CONTEXT_1_JDBC_PASSWORD=

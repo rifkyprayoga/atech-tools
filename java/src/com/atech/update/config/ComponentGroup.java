@@ -57,6 +57,16 @@ public class ComponentGroup implements ComponentInterface
 	 */
 	public Hashtable<String,ComponentEntry> children_id;
 	
+	
+	/**
+	 * Constructor
+	 */
+	public ComponentGroup()
+	{
+        this.children = new ArrayList<ComponentEntry>();
+        this.children_id = new Hashtable<String,ComponentEntry>();
+	}
+	
 
 	/**
 	 * Constructor
@@ -145,7 +155,15 @@ public class ComponentGroup implements ComponentInterface
     {
         return true;
     }
-	
+
+    
+    public String toString()
+    {
+        return "ComponentGroup [id=" + this.id + ", name=" + this.name + "]";
+    }
+    
+    
+    
 }
 
 

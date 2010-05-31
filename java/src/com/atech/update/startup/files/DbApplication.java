@@ -79,7 +79,7 @@ public class DbApplication extends DbApplicationAbstract
     @Override
     public String getClassName()
     {
-        return this.upd_conf.db_app_db_application_class;
+        return this.upd_conf.db_apps.get("db_application").app_class;
     }
 
 

@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.hibernate.Session;
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -50,7 +48,7 @@ public interface DatabaseObject
     /**
      * DbAdd - Add this object to database
      * 
-     * @param sess Hibernate Session object
+     * @param conn Connection object 
      * @throws Exception (HibernateException) with error
      * @return id in type of String
      */
@@ -60,7 +58,7 @@ public interface DatabaseObject
     /**
      * editElement - Edit this object in database
      * 
-     * @param conn 
+     * @param conn Connection object 
      * @throws Exception (HibernateException) with error
      * @return true if action done or Exception if not
      */
@@ -69,7 +67,7 @@ public interface DatabaseObject
     /**
      * DbDelete - Delete this object in database
      * 
-     * @param sess Hibernate Session object
+     * @param conn Connection object 
      * @throws Exception (HibernateException) with error
      * @return true if action done or Exception if not
      */
@@ -79,7 +77,7 @@ public interface DatabaseObject
     /**
      * DbHasChildren - Shows if this entry has any children object, this is needed for delete
      * 
-     * @param sess Hibernate Session object
+     * @param conn Connection object 
      * @throws Exception (HibernateException) with error
      * @return true if action done or Exception if not
      */
@@ -89,7 +87,7 @@ public interface DatabaseObject
     /**
      * DbGet - Loads this object. Id must be set.
      * 
-     * @param sess Hibernate Session object
+     * @param conn Connection object 
      * @throws Exception (HibernateException) with error
      * @return true if action done or Exception if not
      */

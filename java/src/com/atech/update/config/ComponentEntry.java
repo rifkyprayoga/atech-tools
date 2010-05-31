@@ -1,5 +1,6 @@
 package com.atech.update.config;
 
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 import com.atech.update.startup.os.StartupOSAbstract;
@@ -239,5 +240,56 @@ public class ComponentEntry implements ComponentInterface
         
         return sb.toString();
     }
+    
+    
+    public String toString()
+    {
+        StringBuffer sb = new StringBuffer();
+        
+        sb.append("ComponentEntry [");
+        sb.append("id=" + this.id);
+        sb.append(", group=" + this.group);
+        sb.append(", name=" + this.name);
+        sb.append(", version=" + this.version);
+        sb.append(", version_num=" + this.version_num);
+        sb.append(", root_dir=" + this.root_dir);
+        sb.append(", files=" + this.root_dir);
+        
+        if (this.platform_specific)
+        {
+            sb.append("\n");
+            sb.append("   platform_specific=" + this.platform_specific);
+            sb.append(", platform_specific_type=" + this.platform_specific_type);
+            sb.append(", platforms_supported=" + this.platform_supported);
+            
+            if (this.platform_specific_type==ComponentEntry.PLATFORM_SPECIFIC_FULL)
+            {
+                sb.append("\n");
+                sb.append(" jars [");
+                
+                int i=0;
+                
+                for(Enumeration<String> en = this.files_java_specific.keys(); en.hasMoreElements(); )
+                {
+                    String key = en.nextElement();
+                    if (i>0)
+                        sb.append(";");
+                    
+                    sb.append(key + "=" + this.files_java_specific.get(key));
+                    
+                    i++;
+                }
+                
+                
+            }
+        }
+        
+        sb.append("]");
+        
+        return sb.toString();
+        
+    }
+    
+    
     
 }

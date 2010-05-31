@@ -1,37 +1,8 @@
-/*
- * GGC - GNU Gluco Control
- * 
- * A pure java app to help you manage your diabetes.
- * 
- * See AUTHORS for copyright information.
- * 
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- * 
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
- * Filename: PrintingDialog
- * 
- * Purpose: This is printing selector, for printing. For selecting type of
- * printing and date (month and year).
- * 
- * Author: andyrozman {andy@atech-software.com}
- */
 package com.atech.print;
 
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.io.File;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -46,10 +17,41 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import com.atech.graphics.components.DateComponent;
-import com.atech.graphics.dialogs.ActionExceptionCatchDialog;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
+
+
+/**
+ *  This file is part of ATech Tools library.
+ *  
+ *  <one line to give the library's name and a brief idea of what it does.>
+ *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  
+ *  
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ *  
+ *  
+ *  For additional information about this project please visit our project site on 
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  andyrozman@users.sourceforge.net or andy@atech-software.com
+ *  
+ *  @author Andy
+ *
+*/
+
 
 /**
  *  Application:   GGC - GNU Gluco Control

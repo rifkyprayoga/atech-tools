@@ -179,28 +179,28 @@ public class StartupFilesCreator
         //System.out.println("Create Files DbTool: ");
 
 	    
-	    if (this.uc.db_app_db_tool)
+	    if (this.uc.db_apps.get("db_tool").enabled)
 	        createFile(new DbTool(this.uc, this.os_abstract));
 	    
         //System.out.println("Create Files Ch: ");
         
-	    if (this.uc.db_app_db_check)
+	    if (this.uc.db_apps.get("db_check").enabled)
 	        createFile(new DbCheck(this.uc, this.os_abstract));
 	    
         //System.out.println("Create Files App: ");
 	    
-        if (this.uc.db_app_db_application)
+        if (this.uc.db_apps.get("db_application").enabled)
             createFile(new DbApplication(this.uc, this.os_abstract));
 	    
         //System.out.println("Create Files Db Init: ");
         
         
-        if (this.uc.db_app_db_init)
+        if (this.uc.db_apps.get("db_init").enabled)
             createFile(new DbInit(this.uc, this.os_abstract));
 
         //System.out.println("Create Files Dm Impo: ");
         
-        if (this.uc.db_app_db_import)
+        if (this.uc.db_apps.get("db_import").enabled)
             createFile(new DbImport(this.uc, this.os_abstract));
 
         //System.out.println("Create Files Bef Custom: ");

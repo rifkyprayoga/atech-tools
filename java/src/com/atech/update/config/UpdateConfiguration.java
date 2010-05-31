@@ -43,22 +43,24 @@ import com.atech.update.startup.StartupUtil;
 public class UpdateConfiguration
 {
     
-    //StartupUtil m_da = null;
     
     /**
      * Configuration
      */
 	Hashtable<String,String> cfg;
+
 	
 	/**
 	 * Components.
 	 */
-	ArrayList<ComponentEntry> components;
+	ArrayList<ComponentEntry> components = new ArrayList<ComponentEntry>();
+	
 	
     /**
      * Components HashTable.
      */
     public Hashtable<String,ComponentEntry> components_ht = new Hashtable<String,ComponentEntry>();
+    
     
     /**
      * Group.
@@ -66,12 +68,27 @@ public class UpdateConfiguration
     public Hashtable<String,ComponentGroup> groups = new Hashtable<String,ComponentGroup>();
 	
     
+    /**
+     * Product Id
+     */
     public String product_id = "";
     
+    
+    /**
+     * Version Name
+     */
     public String version_name = "";
     
+    
+    /**
+     * Version Numeric
+     */
     public int version_numeric = 0;
     
+    
+    /**
+     * Version Description
+     */
     public String version_description = "";
     
     
@@ -79,6 +96,7 @@ public class UpdateConfiguration
      * Root.
      */
 	public String root = ""; 
+	
 	
 	/**
 	 * Java Executable.
@@ -121,51 +139,23 @@ public class UpdateConfiguration
      */
     public String db_config_class = "";
     
+    
+    /**
+     * Db Update Site Version
+     */
+    public int db_update_site_version = 0;
+    
     /**
      * JDBC Files.
      */
     public String jdbc_files = "";
     
-    /**
-     * Db App: Do we want DbTool.
-     */
-    public boolean db_app_db_tool = false;
     
     /**
-     * Db App: Do we want DbCheck.
+     * Applications.
      */
-    public boolean db_app_db_check = false;
+    public Hashtable<String,ComponentDbApp> db_apps = new Hashtable<String,ComponentDbApp>(); 
     
-    /**
-     * Db App: Do we want Db Application.
-     */
-    public boolean db_app_db_application = false;
-
-    /**
-     * Db Application class.
-     */
-    public String db_app_db_application_class = "";
-    
-    /**
-     * Db App: Do we want DbCheck.
-     */
-    public boolean db_app_db_init = false;
-    
-    /**
-     * DbInit Class.
-     */
-    public String db_app_db_init_class = "";
-
-    /**
-     * Db App: Do we want DbImport.
-     */
-    public boolean db_app_db_import = false;
-    
-    /**
-     * DbImport Class.
-     */
-    public String db_app_db_import_class = "";
-
 
 	/** The needed_params. */
 	private String[] needed_params = {
@@ -195,6 +185,17 @@ public class UpdateConfiguration
 		Hashtable<String,String> cfg_1 = StartupUtil.getConfiguration("StartupConfig.properties");
 		init(cfg_1.get("UPDATE_CONFIG"), cfg_1.get("JAVA_EXE"));
 	}
+
+	
+    /**
+     * Constructor
+     * 
+     * @param as_empty
+     */
+    public UpdateConfiguration(boolean as_empty)
+    {
+    }
+	
 	
 	
 	/**
@@ -372,6 +373,7 @@ public class UpdateConfiguration
 	private void getDbData()
 	{
 	    this.db_update_site = cfg.get("DB_UPDATE_SITE");
+        this.db_update_site_version  = Integer.parseInt(cfg.get("DB_UPDATE_SITE_VERSION"));
 	    this.db_version_required = Integer.parseInt(cfg.get("DB_VERSION_REQUIRED"));
 	    this.db_enabled = StartupUtil.isOptionEnabled(cfg.get("DB_ENABLED"));
 	    this.db_config_class = cfg.get("DB_CONFIGURATION_CLASS");
@@ -383,6 +385,31 @@ public class UpdateConfiguration
 	 */
 	private void getDbApplicationData()
 	{
+	    
+	    ComponentDbApp cda = new ComponentDbApp("db_check");
+	    cda.enabled = StartupUtil.isOptionEnabled(cfg.get("DB_CHECK"));
+	    this.db_apps.put("db_check", cda);
+	    
+        cda = new ComponentDbApp("db_tool");
+        cda.enabled = StartupUtil.isOptionEnabled(cfg.get("DB_TOOL"));
+        this.db_apps.put("db_tool", cda);
+	    
+        cda = new ComponentDbApp("db_application");
+        cda.enabled = StartupUtil.isOptionEnabled(cfg.get("DB_APPLICATION"));
+        cda.app_class = cfg.get("DB_APPLICATION_CLASS");
+        this.db_apps.put("db_application", cda);
+
+        cda = new ComponentDbApp("db_init");
+        cda.enabled = StartupUtil.isOptionEnabled(cfg.get("DB_INIT"));
+        cda.app_class = cfg.get("DB_INIT_CLASS");
+        this.db_apps.put("db_init", cda);
+        
+        cda = new ComponentDbApp("db_import");
+        cda.enabled = StartupUtil.isOptionEnabled(cfg.get("DB_IMPORT"));
+        cda.app_class = cfg.get("DB_IMPORT_CLASS");
+        this.db_apps.put("db_import", cda);
+        
+	    /*
         this.db_app_db_check = StartupUtil.isOptionEnabled(cfg.get("DB_CHECK"));
         this.db_app_db_tool = StartupUtil.isOptionEnabled(cfg.get("DB_TOOL"));
         
@@ -394,6 +421,7 @@ public class UpdateConfiguration
     
         this.db_app_db_import = StartupUtil.isOptionEnabled(cfg.get("DB_IMPORT"));
         this.db_app_db_import_class = cfg.get("DB_IMPORT_CLASS");
+        */
 	}
 	
 	

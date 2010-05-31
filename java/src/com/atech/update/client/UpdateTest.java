@@ -1,5 +1,7 @@
 package com.atech.update.client;
 
+import java.io.File;
+
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.update.config.UpdateConfigurationXml;
 
@@ -14,6 +16,7 @@ public class UpdateTest
         UpdateConfigurationXml ucx = new UpdateConfigurationXml();
         
         ucx.writeXml(uc);
+        ucx.readXml(new File("test_create.xml"), new UpdateConfiguration(true));
         
         
     }
