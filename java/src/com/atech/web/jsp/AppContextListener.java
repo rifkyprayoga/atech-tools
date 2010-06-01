@@ -61,13 +61,13 @@ public class AppContextListener implements ServletContextListener
     
     public void contextInitialized(ServletContextEvent event) 
     {
-        System.out.println("contextInitialized");
         initalizeContexts();
-        //HibernatePISUtil.getSessionFactory(); // Just call the static initializer of that class    
     }
 
     public void contextDestroyed(ServletContextEvent event) 
     {
+    	log.debug("contextDestroyed");
+    	
         if (contexts!=null)
         {
             for(Enumeration<AppContextAbstract> en = this.contexts.elements(); en.hasMoreElements(); )
@@ -82,17 +82,12 @@ public class AppContextListener implements ServletContextListener
      */
     public void initalizeContexts()
     {
-    	System.out.println("initalizeContexts() .1");
         log.debug("initalizeContexts()");
-    	System.out.println("initalizeContexts() .2");
         
         File f = new File("../conf/ATechFramework.config");
         
-        System.out.println("f: " + f.getAbsolutePath());
-        
         if (f.exists())
         {
-        	System.out.println("Configuration file found.");
         	log.info("Configuration file found.");
             PropertiesFile pf = new PropertiesFile("../conf/ATechFramework.config");
             pf.readFile();
@@ -100,7 +95,7 @@ public class AppContextListener implements ServletContextListener
             if (pf.containsKey("CONTEXTS_COUNT"))
             {
                 int cntx_cnt = Integer.parseInt(pf.get("CONTEXTS_COUNT"));
-                System.out.println("Found " + cntx_cnt + " contexts !");
+                log.debug("Found " + cntx_cnt + " contexts !");
                 Hashtable<String, Hashtable<String,String>> parameters = loadParameters(cntx_cnt, pf);
                 
                 this.createContexts(parameters);
@@ -112,7 +107,6 @@ public class AppContextListener implements ServletContextListener
         }
         else
         {
-        	System.out.println("No configuration file found. No contexts loaded !");
             log.warn("No configuration file found. No contexts loaded !");
         }
     }
@@ -150,6 +144,7 @@ public class AppContextListener implements ServletContextListener
     
     private void createContexts(Hashtable<String, Hashtable<String,String>> params)
     {
+        contexts = new Hashtable<String,AppContextAbstract>();
         
         for(Enumeration<String> en=params.keys(); en.hasMoreElements(); )
         {
@@ -159,6 +154,7 @@ public class AppContextListener implements ServletContextListener
             
             try
             {
+            	
                 Class<?> cls = Class.forName(p1.get("MAIN_CLASS"));
                 
                 Method[] mths = cls.getDeclaredMethods();
@@ -179,16 +175,15 @@ public class AppContextListener implements ServletContextListener
                 }
                 
                 //Method method = cls.getMethod("createInstance", java.util.Hashtable.class); //cls); //new Hashtable<String,String>()); //cls); //new Class[0]);
-                method.invoke(null, p1); //cls, new Object[0]);
+                AppContextAbstract aca = (AppContextAbstract)method.invoke(null, p1); //cls, new Object[0]);
+                
+                this.contexts.put(key, aca);
             }
             catch(Exception ex)
             {
-                System.out.println("Problem with init... Ex.: " + ex);
-                ex.printStackTrace();
+                log.error("Problem with init... Ex.: " + ex, ex);
             }
-            
         }
-        
     }
     
     

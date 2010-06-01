@@ -49,10 +49,9 @@ public class I18nWebControl
     ResourceBundle res;
     private static Log log = LogFactory.getLog(I18nWebControl.class);
 
-    // Constructor: OmniI18nControl
     /**
      * 
-     * This is OmniI18nControl constructor; Since classes use Singleton Pattern,
+     * This is I18nWebControl constructor; Since classes use Singleton Pattern,
      * constructor is protected and can be accessed only with getInstance()
      * method.<br>
      * <br>
@@ -100,32 +99,18 @@ public class I18nWebControl
 
         try
         {
-
-            // ResourceBundle.get
-            /*
-             * try { File d = new File(".");
-             * 
-             * System.out.println(d.getCanonicalPath()); } catch(Exception ex){
-             * 
-             * }
-             */
-
-            System.out.println("Set Langugae");
-
             // ResourceBundle.
             res = ResourceBundle.getBundle(this.base_lang_file, new Locale(lang));
-
-            // ResourceBundle.getB
 
             log.debug(this.base_lang_file + " Language " + lang + " loaded.");
         }
         catch (Exception ex) // MissingResourceException mre)
         {
             // System.out.println(mre.
-            System.out.println("Exception load1: " + ex.getMessage() + "\n" + ex.getStackTrace());
+            //System.out.println("Exception load1: " + ex.getMessage() + "\n" + ex.getStackTrace());
 
             log.debug(this.base_lang_file + " Language " + lang + " could NOT be loaded. Trying default (SI).");
-            System.out.println("Couldn't find resource file(1): " + this.base_lang_file + "_xx.properties (for Locale " + lang + ")");
+            //System.out.println("Couldn't find resource file(1): " + this.base_lang_file + "_xx.properties (for Locale " + lang + ")");
             try
             {
                 res = ResourceBundle.getBundle(this.base_lang_file, new Locale("SI"));
@@ -134,7 +119,7 @@ public class I18nWebControl
             catch (Exception ex2)
             {
                 log.debug("Default " + this.base_lang_file + " Language (SI)" + lang + " could NOT be loaded.");
-                System.out.println("Exception on reading default resource file (ZIS_SI.properties). Exiting application.");
+                //System.out.println("Exception on reading default resource file (ZIS_SI.properties). Exiting application.");
                 System.exit(2);
             }
         }

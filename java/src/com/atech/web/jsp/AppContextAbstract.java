@@ -165,8 +165,7 @@ public abstract class AppContextAbstract implements AppContextInterface
     
     protected void initLanguage()
     {
-        
-        // single support for now
+        // FIXME - single support for now
         possible_i18n = new Hashtable<String,I18nWebControl>(); 
         
         if (this.params.containsKey("LANGUAGE"))
@@ -184,11 +183,13 @@ public abstract class AppContextAbstract implements AppContextInterface
         else
             log.error("Context: Base Lang parameter not found. Possible problem in configuration !");
         
-        
-        
     }
     
     
+    public void disposeContext()
+    {
+    	this.dbWeb.destroyDb();
+    }
     
 }
 

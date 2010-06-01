@@ -75,7 +75,15 @@ public abstract class AppDbWeb extends AppDbWebAbstract
     
     public void destroyDb()
     {
-    	// FIXME
+    	try
+    	{
+    		this.closeDb();
+    		DriverManager.deregisterDriver(DriverManager.getDriver(getSetting("JDBC_URL")));
+    	}
+    	catch(Exception ex)
+    	{
+    		log.warn("Error destroying db connection. Ex: "+ex);
+    	}
     }
     
     
@@ -90,6 +98,15 @@ public abstract class AppDbWeb extends AppDbWebAbstract
 
     public void closeDb()
     {
+    	try
+    	{
+    		if ((this.m_connection!=null) && (!this.m_connection.isClosed()))
+    			this.m_connection.close();
+    	}
+    	catch(Exception ex)
+    	{
+    		log.warn("Error closing database. Ex: "+ex);
+    	}
     }
 
     
