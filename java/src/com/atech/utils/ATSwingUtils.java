@@ -162,6 +162,12 @@ public class ATSwingUtils
     public static final int FONT_NORMAL_BOLD_P2 = 4;
 
     /**
+     * The Constant FONT_NORMAL_BOLD_P2.
+     */
+    public static final int FONT_NORMAL_SMALLER = 5;
+    
+    
+    /**
      * Load fonts.
      */
     public static void loadFonts()
@@ -170,12 +176,14 @@ public class ATSwingUtils
             return;
         
         
-        fonts = new Font[5];
+        fonts = new Font[6];
         fonts[0] = new Font("SansSerif", Font.BOLD, 22);
         fonts[1] = new Font("SansSerif", Font.PLAIN, 12);
         fonts[2] = new Font("SansSerif", Font.BOLD, 12);
         fonts[3] = new Font("SansSerif", Font.PLAIN, 14);
         fonts[4] = new Font("SansSerif", Font.BOLD, 14);
+        fonts[5] = new Font("SansSerif", Font.PLAIN, 11);
+        
     }
 
     /**
