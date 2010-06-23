@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 import java.util.Hashtable;
 
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -83,11 +82,16 @@ public abstract class ATechConverter
     
     /**
      * Instantiates a new a tech converter.
-     * 
-     * @param type1_type the type1_type
-     * @param type2_type the type2_type
-     * @param type1_2_type2 the type1_2_type2
-     * @param type2_2_type1 the type2_2_type1
+     * @param U1 
+     * @param U2 
+     * @param U1_type 
+     * @param U2_type 
+     * @param U1_unit 
+     * @param U2_unit 
+     * @param convert_1_to_2 
+     * @param convert_2_to_1 
+     * @param dec_precission_U1 
+     * @param dec_precission_U2 
      */
     public ATechConverter(int U1, int U2, int U1_type, int U2_type, String U1_unit, String U2_unit, float convert_1_to_2, float convert_2_to_1, int dec_precission_U1, int dec_precission_U2)
     {
@@ -210,13 +214,27 @@ public abstract class ATechConverter
     }
     
     
+    /**
+     * Get Decimaled Float
+     * 
+     * @param num
+     * @param precission
+     * @return
+     */
     public float getDecimaledFloat(float num, int precission)
     {
-        return Float.parseFloat(getFormatedFloat(num, precission));
+        return Float.parseFloat(getFormatedFloat(num, precission).replace(',', '.'));
     }
     
     
     
+    /**
+     * Get Step
+     * 
+     * @param unit_type
+     * @param precission
+     * @return
+     */
     public float getStep(int unit_type, int precission)
     {
         if (unit_type== BASETYPE_INT)
@@ -341,6 +359,12 @@ public abstract class ATechConverter
     }
     
     
+    /**
+     * Get Unit
+     * 
+     * @param unit
+     * @return
+     */
     public String getUnit(int unit)
     {
         if (this.units.contains(unit))
