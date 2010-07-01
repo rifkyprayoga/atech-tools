@@ -58,31 +58,30 @@ New methods :
 public abstract class DbToolApplicationAbstract implements DbToolApplicationInterface
 {
 
-    private int selected_db = 0;
-    private String selected_lang = "en";
+    protected int selected_db = 0;
+    protected String selected_lang = "en";
 
 
-    Hashtable<String,String> config_db_values = null;
+    protected Hashtable<String,String> config_db_values = null;
 
 
     // LF
-    String selected_LF_Class = "com.l2fprod.gui.plaf.skin.SkinLookAndFeel"; // class
-    String selected_LF_Name = "SkinLF"; // name
-    String skinLFSelected = "blueMetalthemepack.zip";
+    protected String selected_LF_Class = "com.l2fprod.gui.plaf.skin.SkinLookAndFeel"; // class
+    protected String selected_LF_Name = "SkinLF"; // name
+    protected String skinLFSelected = "blueMetalthemepack.zip";
 
-    Object[] availableLF = null;
-    Object[] availableLFClass = null;
-    Hashtable<String,String> availableLF_full = null;
-    int skinlf_LF = 0;
+    protected Object[] availableLF = null;
+    protected Object[] availableLFClass = null;
+    protected Hashtable<String,String> availableLF_full = null;
+    protected int skinlf_LF = 0;
 
 
-    private Hashtable<String, DatabaseSettings> staticDatabases;
-    private Hashtable<String, DatabaseSettings> customDatabases;
-    private Hashtable<String, DatabaseSettings> allDatabases;
+    protected Hashtable<String, DatabaseSettings> staticDatabases;
+    protected Hashtable<String, DatabaseSettings> customDatabases;
+    protected Hashtable<String, DatabaseSettings> allDatabases;
 
-    private boolean m_changed = false;
-    @SuppressWarnings("unused")
-    private boolean use_skin_lf = false;
+    protected boolean m_changed = false;
+    protected boolean use_skin_lf = false;
 
     /**
      * Constuctor
@@ -94,10 +93,17 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         this.staticDatabases = new Hashtable<String, DatabaseSettings>();
         this.customDatabases = new Hashtable<String, DatabaseSettings>();
         this.allDatabases = new Hashtable<String, DatabaseSettings>();
+        initDefaults();
         initStaticDbs();
         loadAvailableLFs();
     }
 
+    
+    /**
+     * init Defaults - set default language, default SkinLF skin, default selected LF Class
+     */
+    public abstract void initDefaults();
+    
 
     /**
      * Get Selected Language
@@ -144,10 +150,14 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
             availableLFClass[i] = className;
         }     
 
-        availableLF_full.put("SkinLF", "com.l2fprod.gui.plaf.skin.SkinLookAndFeel");
-        availableLF[i] = "SkinLF";
-        availableLFClass[i] = "com.l2fprod.gui.plaf.skin.SkinLookAndFeel";
-        skinlf_LF = i;
+        
+        if (this.use_skin_lf)
+        {
+            availableLF_full.put("SkinLF", "com.l2fprod.gui.plaf.skin.SkinLookAndFeel");
+            availableLF[i] = "SkinLF";
+            availableLFClass[i] = "com.l2fprod.gui.plaf.skin.SkinLookAndFeel";
+            skinlf_LF = i;
+        }
     }
 
 
@@ -170,6 +180,26 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return this.availableLFClass;
     }
 
+    
+    /**
+     * Get LF Data
+     * 
+     * @return
+     */
+    public String[] getLFData() 
+    {
+        this.loadConfig();
+        
+        String out[] = new String[2];
+        
+        out[0] = this.selected_LF_Class;
+        out[1] = this.skinLFSelected;
+
+        return out;
+    } 
+    
+    
+    
 
     /**
      * Get Selected LF Index
@@ -198,6 +228,7 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
      */
     public void setSelectedLF(int index, String skin)
     {
+        System.out.println("Selected LF SelectedLFIndex: " + this.getSelectedLFIndex());
 
         if (this.getSelectedLFIndex()!=index)  // .getSkinLFIndex()
         {
@@ -205,6 +236,9 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
             this.selected_LF_Name = (String)this.availableLF[index]; // name
             this.m_changed = true;
         }
+        
+        System.out.println("Selected LF Class: " + this.selected_LF_Class);
+        
         
 
         if (!skin.equals(this.skinLFSelected))
@@ -369,17 +403,11 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
 
             // we don't have config, we try to create basic one
 
-            System.out.println("DbToolApplicationGGC: Config file not found. Creating new config file with default settings.");
+            System.out.println("DbToolApplicationAbstract: Config file not found. Creating new config file with default settings.");
 
             try
             {
-                addDatabaseSetting("DB0_CONN_NAME", "Internal Database");
-                addDatabaseSetting("DB0_DB_NAME", "HypersonicSQL File");
-                addDatabaseSetting("DB0_CONN_DRIVER_CLASS", "org.hsqldb.jdbcDriver");
-                addDatabaseSetting("DB0_CONN_URL", "jdbc:hsqldb:file:../data/ggc_db");
-                addDatabaseSetting("DB0_CONN_USERNAME", "sa");
-                addDatabaseSetting("DB0_CONN_PASSWORD", "");
-                addDatabaseSetting("DB0_HIBERNATE_DIALECT", "org.hibernate.dialect.HSQLDialect");
+                addDefaultApplicationDatabase();
             }
             catch (Exception ex)
             {
@@ -395,6 +423,22 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
 
     }
 
+    
+    /**
+     * Add Default Application Database (you need to add all settings).
+     * 
+     * <pre>
+     *    addDatabaseSetting("DB0_CONN_NAME", "Internal Database");
+     *    addDatabaseSetting("DB0_DB_NAME", "HypersonicSQL File");
+     *    addDatabaseSetting("DB0_CONN_DRIVER_CLASS", "org.hsqldb.jdbcDriver");
+     *    addDatabaseSetting("DB0_CONN_URL", "jdbc:hsqldb:file:../data/ggc_db");
+     *    addDatabaseSetting("DB0_CONN_USERNAME", "sa");
+     *    addDatabaseSetting("DB0_CONN_PASSWORD", "");
+     *    addDatabaseSetting("DB0_HIBERNATE_DIALECT", "org.hibernate.dialect.HSQLDialect");
+     * </pre>
+     */
+    public abstract void addDefaultApplicationDatabase();
+    
     
     
     /**
@@ -428,6 +472,15 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
 
     }
 
+    
+    /**
+     * Get Config File Comment - Comment in configuration, stating which application it is
+     *   for example: "GGC_Config (Settings for GGC)"
+     * @return
+     */
+    public abstract String getConfigFileComment();
+    
+    
 
     /**
      * Save Config
@@ -444,7 +497,7 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
             BufferedWriter bw = new BufferedWriter(new FileWriter(getApplicationDatabaseConfig()));
 
             bw.write("#\n" +
-                     "# GGC_Config (Settings for GGC)\n" + 
+                     "# " + getConfigFileComment() + "\n" + 
                      "#" + getCurrentTimeAsUserReadableString() + "\n" + 
                      "#\n"+
                      "# Don't edit by hand\n" +
@@ -554,7 +607,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         for (int i=0; i<this.allDatabases.size(); i++)
         {
             arr[i] = this.allDatabases.get("" + i).name;
-
         }
 
         return arr;
@@ -573,11 +625,9 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         for (int i=0; i<this.allDatabases.size(); i++)
         {
             arr[i] = i + " - " + this.allDatabases.get("" + i).name;
-
         }
 
         return arr;
-
     }
 
 
@@ -589,7 +639,7 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
      */
     public DatabaseSettings getDatabase(int index)
     {
-        return null;
+        return this.allDatabases.get("" + index);
     }
 
     
@@ -600,7 +650,7 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
      */
     public DatabaseSettings getSelectedDatabase()
     {
-        return null;
+        return this.allDatabases.get("" + this.selected_db);
     }
 
     

@@ -1,5 +1,6 @@
 package com.atech.i18n.mgr;
 
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Locale;
 
@@ -114,7 +115,7 @@ public class LanguageManager
     
     private String selected_language = null;
     
-    private Hashtable<String,LanguageInstance> available_languages;
+    private Hashtable<String, LanguageInstance> available_languages;
     
     
     private LanguageManagerRunner language_manager_runnner = null;
@@ -130,6 +131,7 @@ public class LanguageManager
         this.language_manager_runnner = lmr;
         loadData();
         loadSelectedLanguageData();
+        this.loadStaticData();
     }
     
 
@@ -490,7 +492,53 @@ public class LanguageManager
         return new I18nControlLangMgr(this, icr);
         
     }
+
     
+    public String[] av_lang_array = null;
+    int av_lang_array_selected = 0;
+    
+    public void loadStaticData()
+    {
+        
+        av_lang_array = new String[this.available_languages.size()];
+        int i=0;
+        String sel_name = this.available_languages.get(this.selected_language).name;
+        
+        for(Enumeration<String> en = this.available_languages.keys(); en.hasMoreElements(); )
+        {
+            LanguageInstance li = this.available_languages.get(en.nextElement());
+            this.av_lang_array[i]= li.name;
+            
+            if (li.name.equals(sel_name))
+                this.av_lang_array_selected = i;
+            
+            i++;
+        }
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    public String[] getAvailableLanguages()
+    {
+        return this.av_lang_array;
+    }
+
+    
+    public int getSelectedLanguageFromArray()
+    {
+        return this.av_lang_array_selected;
+    }
+    
+    
+    public String getLanguageConfigFile()
+    {
+        return this.language_manager_runnner.getTranslationToolConfigFile();
+    }
     
     
 }

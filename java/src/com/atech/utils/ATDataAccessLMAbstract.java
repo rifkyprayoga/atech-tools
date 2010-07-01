@@ -62,6 +62,8 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
      * constructor is protected and can be accessed only with getInstance()
      * method.<br>
      * <br>
+     * @param lm 
+     * @param icr 
      * @param ic 
      * 
      */

@@ -13,5 +13,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/log4j-1.2.15"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jfreechart-1.0.10"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/dom4j-1.6.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/SkinLF-6.7"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

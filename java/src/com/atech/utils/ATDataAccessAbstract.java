@@ -40,9 +40,11 @@ import org.apache.commons.logging.LogFactory;
 
 import com.atech.db.ext.ExtendedHandler;
 import com.atech.db.hibernate.HibernateDb;
+import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.graphics.dialogs.ErrorDialog;
 import com.atech.graphics.graphs.GraphConfigProperties;
+import com.atech.gui_fw.config.AbstractConfigurationContext;
 import com.atech.help.HelpCapable;
 import com.atech.help.HelpContext;
 import com.atech.i18n.I18nControlAbstract;
@@ -88,32 +90,44 @@ public abstract class ATDataAccessAbstract
 
     private static Log log = LogFactory.getLog(ATDataAccessAbstract.class);
 
-    // LF
-    // Hashtable<String,String> availableLF_full = null;
-    // Object[] availableLF = null;
-    // Object[] availableLang = null;
 
+
+    /**
+     * Configuration Context
+     */
+    public AbstractConfigurationContext configuration_context = null;
+    
+    
+    public DbToolApplicationAbstract db_tool_app = null;
+
+    public String[] user_types = null;
+    
+    public long current_user_id;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * The selected lf.
      */
-    String selectedLF = null;
+//    String selectedLF = null;
     
     /**
      * The sub selected lf.
      */
-    String subSelectedLF = null;
+//    String subSelectedLF = null;
 
     // config file
     /**
      * The config_db_values.
      */
     Hashtable<String, String> config_db_values = null;
-    // public int selected_db = -1;
-    // public int selected_lang = 1;
-    // public String selected_LF_Class = null; // class
-    // public String selected_LF_Name = null; // name
-    // public String skinLFSelected = null;
-    // String allDbs[] = null;
 
 
     /**
@@ -225,6 +239,15 @@ public abstract class ATDataAccessAbstract
      */
     protected Hashtable<String, String> special_parameters = null;
     
+
+    
+    
+    
+    
+    
+    
+    
+    
     /*
      * ABS REMOVED
      * 
@@ -314,6 +337,12 @@ public abstract class ATDataAccessAbstract
         loadPlugIns();
         loadBackupRestoreCollection();
         loadExtendedHandlers();
+        loadUserTypes();
+        
+        this.loadConfigurationContexts();
+        this.loadDbApplicationContext();
+        
+        
         this.decimal_handler = new DecimalHandler(this.getMaxDecimalsUsedByDecimalHandler());
         
         if (!ATDataAccessAbstract.decimals_set)
@@ -2404,14 +2433,14 @@ public abstract class ATDataAccessAbstract
     }
 */
     /**
- * Gets the date time string.
- * 
- * @param date the date
- * @param time the time
- * 
- * @return the date time string
- */
-public String getDateTimeString(int date, int time)
+     * Gets the date time string.
+     * 
+     * @param date the date
+     * @param time the time
+     * 
+     * @return the date time string
+     */
+    public String getDateTimeString(int date, int time)
     {
 
         return getDateString(date) + " " + getTimeString(time);
@@ -3606,6 +3635,93 @@ public String getDateTimeString(int date, int time)
 
         this.sorters.put(key, value);
     }
+    
+ 
+
+    /**
+     * 
+     * 
+     * 
+     * NEED TO IMPLEMENT IN USING CLASSES
+     * 
+     */
+    public void loadConfigurationContexts()
+    {
+    }
+    
+    
+    public AbstractConfigurationContext getConfigurationContext()
+    {
+        return this.configuration_context;
+    }
+    
+    
+    /**
+     * 
+     * 
+     * 
+     * NEED TO IMPLEMENT IN USING CLASSES
+     * 
+     */
+    public void loadDbApplicationContext()
+    {
+        System.out.println("ATDataAccessAbstract:loadDbApplicationContext: ");
+    }
+    
+ 
+    public DbToolApplicationAbstract getDbToolAbstract()
+    {
+        return this.db_tool_app; 
+    } 
+ 
+    
+    public long getCurrentUserId()
+    {
+        return this.current_user_id;
+    }
+    
+    
+    public void setCurrentUserId(long user_id)
+    {
+        this.current_user_id = user_id;
+    }
+    
+    
+    public void debugArray(Object[] arr, String name)
+    {
+        if (arr==null)
+        {
+            System.out.println(name + " is null");
+        }
+        else if (arr.length==0)
+        {
+            System.out.println(name + " length is 0");
+        }
+        else
+        {
+            for(int i=0; i<arr.length; i++)
+            {
+                System.out.println(i+ ": " + arr[i] );
+            }
+            
+        }
+    }
+ 
+    
+    public void loadUserTypes()
+    {
+        this.user_types = new String[5];
+        
+        this.user_types[0] = this.m_i18n.getMessage("SELECT");
+        this.user_types[1] = m_i18n.getMessage("USER_NORMAL");
+        this.user_types[2] = m_i18n.getMessage("USER_WORKER");
+        this.user_types[3] = m_i18n.getMessage("USER_ADMINISTRATOR");
+        this.user_types[4] = m_i18n.getMessage("USER_SUPERADMIN");
+        
+        
+        
+    }
+    
     
     
     
