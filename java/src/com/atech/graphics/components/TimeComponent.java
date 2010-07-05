@@ -2,10 +2,15 @@ package com.atech.graphics.components;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.atech.i18n.I18nControlAbstract;
 
@@ -42,10 +47,11 @@ import com.atech.i18n.I18nControlAbstract;
 */
 
 
-public class TimeComponent extends JPanel
+public class TimeComponent extends JPanel implements ChangeListener
 {
 
     private static final long serialVersionUID = -7073902375512649375L;
+    private String action_command = null;
     
     /**
      * The ic.
@@ -73,7 +79,7 @@ public class TimeComponent extends JPanel
     JSpinner hour, minute;
 
 
-
+    ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
 
     /**
      * Constructor
@@ -91,11 +97,13 @@ public class TimeComponent extends JPanel
         SpinnerNumberModel listHourModel = new SpinnerNumberModel(0,0,23,1);
         hour = new JSpinner(listHourModel);
         hour.setEditor(new JSpinner.NumberEditor(hour, "00"));
+        hour.addChangeListener(this);
         hour.setFont(font_normal);
 
         SpinnerNumberModel listMinModel = new SpinnerNumberModel(0,0,59,1);
         minute = new JSpinner(listMinModel);
         minute.setEditor(new JSpinner.NumberEditor(minute, "00"));
+        minute.addChangeListener(this);
         minute.setFont(font_normal);
 
 
@@ -107,7 +115,26 @@ public class TimeComponent extends JPanel
     }
 
 
-
+    /**
+     * Set Action Command
+     * 
+     * @param act_command
+     */
+    public void setActionCommand(String act_command)
+    {
+        this.action_command = act_command;
+    }
+    
+    /**
+     * Get Action Command
+     * 
+     * @return
+     */
+    public String getActionCommand()
+    {
+        return this.action_command;
+    }
+    
 
     /**
      * Set the time 
@@ -200,7 +227,57 @@ public class TimeComponent extends JPanel
     }
 
 
+    /**
+     * Add Action Listener
+     * 
+     * @param al
+     */
+    public void addActionListener(ActionListener al)
+    {
+        this.listeners.add(al);
+    }
+    
+    /**
+     * Remove Action Listener
+     * 
+     * @param al
+     */
+    public void removeActionListener(ActionListener al)
+    {
+        this.listeners.remove(al);
+    }
 
+
+
+
+
+
+
+
+    public void stateChanged(ChangeEvent e)
+    {
+        ActionEvent ae = new ActionEvent(e.getSource(), (int) serialVersionUID, this.action_command);
+        ae.setSource(e.getSource());
+        notifyListeners(ae);
+    }
+    
+    
+    /**
+     * Notify Listeners
+     * 
+     * @param e
+     */
+    public void notifyListeners(ActionEvent e)
+    {
+        for (int i = 0; i < listeners.size(); i++) 
+        {
+            ActionListener l = listeners.get(i);
+            l.actionPerformed(e);
+        }
+    }
+    
+    
+    
 
 }
 
