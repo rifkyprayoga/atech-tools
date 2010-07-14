@@ -37,6 +37,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using System;
 using NHibernate.Tool.hbm2ddl;
+using NHibernate.SqlCommand;
 public class HibernateUtil
 {
 
@@ -538,7 +539,19 @@ public class HibernateUtil
      */
     public void CreateDatabase()
     {
+        string kw = NHibernate.Cfg.Environment.Hbm2ddlKeyWords;
+        
+            //Template t = Template.
+
+
+        //NHibernate.Cfg.Environment.Hbm2ddlKeyWords.Insert(NHibernate.Cfg.Environment.Hbm2ddlKeyWords.Length, ",Primary");
         new SchemaExport(this.HibernateConfiguration.GetConfiguration()).Create(true, true);
+    }
+
+
+    public void UpdateDatabase()
+    {
+        new SchemaUpdate(this.HibernateConfiguration.GetConfiguration()).Execute(true, true);
     }
 
 
