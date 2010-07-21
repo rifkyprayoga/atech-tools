@@ -76,17 +76,17 @@ public class TranslationTool extends JFrame implements ActionListener
         
         JMenu menu = ATSwingUtils.createMenu("FILE", "FILE_TIP", m_ic);
         
-        ATSwingUtils.createMenuItem(menu, "LOGIN", "LOGIN_DESC", "login", this, null, m_ic, m_da, this);
-        ATSwingUtils.createMenuItem(menu, "LOGOUT", "LOGOUT_DESC", "logout", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "LOGIN", "LOGIN_DESC", "login", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
+        ATSwingUtils.createMenuItem(menu, "LOGOUT", "LOGOUT_DESC", "logout", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
         menu.addSeparator();
-        ATSwingUtils.createMenuItem(menu, "EXIT", "EXIT_DESC", "exit", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "EXIT", "EXIT_DESC", "exit", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
         
         menus.put("FILE", menu);
         mbar.add(menu);
         
         menu = ATSwingUtils.createMenu("TRANSLATOR", "FILE_TIP", m_ic);
         
-        ATSwingUtils.createMenuItem(menu, "TRANSLATE", "TRANSLATE_DESC", "tr_translate", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "TRANSLATE", "TRANSLATE_DESC", "tr_translate", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
         //ATSwingUtils.createMenuItem(menu, "LOGOUT", "LOGOUT_DESC", "logout", this, null, m_ic, m_da, this);
         //menu.addSeparator();
         //ATSwingUtils.createMenuItem(menu, "EXIT", "EXIT_DESC", "exit", this, null, m_ic, m_da, this);
@@ -97,13 +97,13 @@ public class TranslationTool extends JFrame implements ActionListener
         
         menu = ATSwingUtils.createMenu("ADMIN", "ADMIN_DESC", m_ic);
         
-        ATSwingUtils.createMenuItem(menu, "USER_MGMT", "USER_MGMT_DESC", "adm_user", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "USER_MGMT", "USER_MGMT_DESC", "adm_user", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
         menu.addSeparator();
-        ATSwingUtils.createMenuItem(menu, "TRANSLATION_MGMT", "TRANSLATION_MGMT_DESC", "adm_translation", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "TRANSLATION_MGMT", "TRANSLATION_MGMT_DESC", "adm_translation", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
         menu.addSeparator();
-        ATSwingUtils.createMenuItem(menu, "LANGUAGES_MGMT", "LANGUAGES_MGMT_DESC", "adm_lang", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "LANGUAGES_MGMT", "LANGUAGES_MGMT_DESC", "adm_lang", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
         menu.addSeparator();
-        ATSwingUtils.createMenuItem(menu, "EXPORTS", "EXIT_DESC", "adm_exports", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "EXPORTS", "EXIT_DESC", "adm_exports", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
         
         menus.put("ADMIN", menu);
         mbar.add(menu);
@@ -111,7 +111,7 @@ public class TranslationTool extends JFrame implements ActionListener
         
         menu = ATSwingUtils.createMenu("HELP", "ADMIN_DESC", m_ic);
         
-        ATSwingUtils.createMenuItem(menu, "ABOUT", "ABOUT_DESC", "about", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "ABOUT", "ABOUT_DESC", "about", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
 
         menus.put("HELP", menu);
         mbar.add(menu);

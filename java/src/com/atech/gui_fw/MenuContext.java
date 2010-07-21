@@ -1,0 +1,30 @@
+package com.atech.gui_fw;
+
+import java.util.ArrayList;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+
+public class MenuContext
+{
+
+    public ArrayList<MenuContext> children = null;
+    
+    
+    public static final int MENU_TYPE_NONE = 0;
+    public static final int MENU_TYPE_MENU = 1;
+    public static final int MENU_TYPE_ITEM = 2;
+    
+    public int menu_type = 0;
+    
+    public JMenu menu = null;
+    public JMenuItem menu_item = null;
+    
+    public String parent_name = null;
+    public int required_access_level = 0;
+    public boolean access_level_traverse = false;
+    public boolean access_level_invisible = false;
+    
+    
+    
+}

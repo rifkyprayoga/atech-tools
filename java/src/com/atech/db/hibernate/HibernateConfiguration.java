@@ -392,11 +392,18 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
                             .setProperty("hibernate.connection.password", db_conn_password)
                             .setProperty("hibernate.connection.charSet", "utf-8")
                             .setProperty("hibernate.use_outer_join", "true");
+        
+        if (this.getMappingLocation()!=null)
+        {
+            cfg.setProperty("mappingLocations", this.getMappingLocation());
+        }
+        
 
         for(int i=0; i<res_files.length; i++)
         {
             cfg.addResource(res_files[i]);
         }
+        
         
         //  .setProperty("hibernate.show_sql", "true")
         //  .setProperty("hibernate.c3p0.min_size", "5")
@@ -455,6 +462,13 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         }
         
     }
+    
+    
+    public String getMappingLocation()
+    {
+        return null;
+    }
+    
     
     /**
      * Gets the session.

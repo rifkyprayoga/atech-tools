@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    
+    <!-- ***************** PisDb::Config SCHEMA  ******************* -->
+
+
+    <class name="com.atech.db.hibernate.hdb_object.SettingsH" table="cfg_settings" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
+        </id>            
+        <property name="key" column="el_key" type="string"  length="44" not-null="true" />    
+        <property name="value" column="el_value" type="string"  length="255"/>    
+        <property name="type" type="int"  />    <!-- 1-string, 2-int, 3=float -->
+        <property name="description" type="string" length="255" />   
+        <property name="group_id"  type="long" not-null="true" />
+        <property name="person_id"  type="long" not-null="true" />
+        <property name="extended" type="text"  not-null="false"  /> 
+        <property name="comment" type="string" length="255" not-null="false"  /> 
+    </class>
+
+
+    <class name="com.atech.db.hibernate.hdb_object.SettingsGroupH" table="cfg_sett_group">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
+        </id>            
+        <property name="name" type="string"  length="100" not-null="true" />    
+        <property name="description" type="string" length="255" />   
+        <property name="extended" type="text"  not-null="false"  /> 
+        <property name="comment" type="string" length="255" not-null="false"  /> 
+    </class>
+
+
+
+</hibernate-mapping>

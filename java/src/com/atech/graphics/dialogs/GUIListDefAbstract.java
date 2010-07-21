@@ -40,6 +40,8 @@ public abstract class GUIListDefAbstract
     
     public GUIListDialog parent_dialog;
     
+    protected String[] def_parameters;
+    
     // ic, translation root
     public abstract void init();
     
@@ -120,5 +122,9 @@ public abstract class GUIListDefAbstract
         return button_defs;
     }
     
+    public String[] getDefaultParameters()
+    {
+        return def_parameters;
+    }
     
 }

@@ -92,16 +92,15 @@ public abstract class HibernateDb
 
 
     //private Configuration m_cfg = null;
-    @SuppressWarnings("unused")
-    private ATDataAccessAbstract m_da; 
+    protected ATDataAccessAbstract m_da; 
 
-    private int m_loadStatus = 0;
+    protected int m_loadStatus = 0;
 
 
     /**
      * The config.
      */
-    HibernateConfiguration config = null;
+    protected HibernateConfiguration config = null;
 
     
 

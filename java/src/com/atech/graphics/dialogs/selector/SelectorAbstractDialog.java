@@ -237,10 +237,6 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
      */
     public static final int SELECTOR_FILTER_DATE_BOTH_TEXT 	= 5;
     
-    //public static final int SELECTOR_ACTION_NEW = 2;
-    //public static final int SELECTOR_ACTION_EDIT = 4;
-    //public static final int SELECTOR_ACTION_CANCEL = 8;
-    //public static final int SELECTOR_ACTION_ALL = 15;
     
     /*
      * Type of filter (textbox, dates, combo, ...)
@@ -282,7 +278,7 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     /**
      * Selector type
      */
-    private int selector_type;
+    protected int selector_type;
     
     /**
      * Selector Type object 
@@ -331,72 +327,17 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     /*
      *  Globaly used variables
      */
-    //JTable table;
-    /**
-     * The scroll.
-     */
     JScrollPane scroll;    
-    
-    /**
-     * The panel.
-     */
     JPanel panel;
-    
-    /**
-     * The check box2.
-     */
     JCheckBox checkBox1, checkBox2;
-    
-    /**
-     * The text field2.
-     */
-    JTextField textField1, textField2; //, textField3, textField4, textField5, textField6,
-    //textField7, textField8, textField9;
-    /**
-     * The combo box2.
-     */
+    JTextField textField1, textField2; 
     JComboBox comboBox1, comboBox2; //, comboBox3;
-    
-    /**
-     * The button4.
-     */
     JButton button1, button2, button3, button4;
-    
-    /**
-     * The dt_end.
-     */
     DateComponent dt_start, dt_end;
-
-    /**
-     * The font_normal.
-     */
     Font font_normal = null;
-
-    //private long selected_id;
-    //private String selected_txt;
-
-    //private SelectableInterface select_typeObj;
-    //private int select_type;
-    //private String selected_id_str = "";
-    //private Selectable selected_Object;
-    //private ArrayList<Selectable> selected_ObjectS;
-
-    //private boolean can_be_selected = true;
     private ColumnSorter columnSorter = null;
-
-    /**
-     * The doc.
-     */
     AbstractDocument doc; 
-
-    //PISMain m_parent = null;
-
-    /**
-     * The name.
-     */
     String name;
-
-    //private int m_type = 0;
 
     /**
      * The last action.
@@ -411,13 +352,13 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
 
     /**
- * Instantiates a new selector abstract dialog.
- * 
- * @param parent the parent
- * @param da the da
- * @param type the type
- */
-public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type) 
+     * Instantiates a new selector abstract dialog.
+     * 
+     * @param parent the parent
+     * @param da the da
+     * @param type the type
+     */
+    public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type) 
     {
         this(parent, da, type, null, true);
     }
@@ -624,23 +565,10 @@ public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type)
   
         this.parent_frame = parent;
         this.parent_type = SelectorAbstractDialog.PARENT_FRAME;
-    /*    
-        if (m_da.getCurrentComponent()!=parent)
-        {
-            System.out.println("current!=parent");
-            m_da.addComponent(parent);
-        }
-        else
-        {
-            System.out.println("current==parent");
-        }
-      */  
         m_da.addComponent(this);
         
         if (with_init)
             init();
-        
-        
     }
     
     
@@ -871,6 +799,15 @@ public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type)
         getInitialValues();
         cmdSelector();
     	
+    }
+
+    
+    public void refresh()
+    {
+        getFullData();
+        setSorterOnFullData();
+        getInitialValues();
+        ((AbstractTableModel)this.table.getModel()).fireTableDataChanged();
     }
     
     
@@ -1774,7 +1711,7 @@ public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type)
     	
         JLabel label = new JLabel(this.descriptions.get("DESC_1")+":");  
         label.setFont(this.font_normal);
-        label.setBounds(35,60,200,25);
+        label.setBounds(35,65,200,25);
         panel.add(label, null);
 
 	    textField1 = new JTextField();
@@ -2411,6 +2348,14 @@ public SelectorAbstractDialog(JFrame parent, ATDataAccessAbstract da, int type)
     }
 */
 
+    
+    public void closeDialog()
+    {
+        this.m_da.removeComponent(this);
+        this.dispose();
+    }
+    
+    
     // Document Event
 
     /**
@@ -2971,8 +2916,7 @@ public long getSelectedID()
                         int index = this.table.getSelectedRow();
                         SelectableInterface si = this.list.get(index);
                         this.selected_object = si;
-                        m_da.removeComponent(this);
-                        this.dispose();
+                        this.closeDialog();
                     }
                     //checkAndExecuteActionEdit(si);
                 }
@@ -3021,7 +2965,7 @@ public long getSelectedID()
         //selected_id = -1;
         //selected_txt = "";
         lastAction = 0;
-        this.dispose();
+        this.closeDialog();
     }
     
     

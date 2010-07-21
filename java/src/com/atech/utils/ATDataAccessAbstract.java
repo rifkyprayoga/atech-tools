@@ -40,6 +40,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.atech.db.ext.ExtendedHandler;
 import com.atech.db.hibernate.HibernateDb;
+import com.atech.db.hibernate.hdb_object.User;
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.graphics.dialogs.ErrorDialog;
@@ -104,9 +105,12 @@ public abstract class ATDataAccessAbstract
     
     public long current_user_id;
     
+    public boolean demo_version = false;
     
     
+    protected User logged_user = null;
     
+    protected ArrayList<User> all_users = null;
     
     
     
@@ -127,7 +131,7 @@ public abstract class ATDataAccessAbstract
     /**
      * The config_db_values.
      */
-    Hashtable<String, String> config_db_values = null;
+    protected Hashtable<String, String> config_db_values = null;
 
 
     /**
@@ -242,10 +246,11 @@ public abstract class ATDataAccessAbstract
 
     
     
+    protected HibernateDb hib_db = null;
     
     
-    
-    
+    public String contact_types[] = null;
+    public ImageIcon contact_icons[] = null;
     
     
     /*
@@ -782,7 +787,7 @@ public abstract class ATDataAccessAbstract
      */
     public JButton createHelpButtonBySize(int width, int height, Container comp)
     {
-        JButton help_button = new JButton("    "
+        JButton help_button = new JButton(" "
                 + this.getI18nControlInstance().getMessage("HELP"));
         help_button.setPreferredSize(new Dimension(width, height));
         help_button.setIcon(this.getImageIcon_22x22("help.png", comp));
@@ -895,7 +900,7 @@ public abstract class ATDataAccessAbstract
      */
     public JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, Font font)
     {
-        JButton help_button = new JButton("    " + this.getI18nControlInstance().getMessage("HELP"));
+        JButton help_button = new JButton("  " + this.getI18nControlInstance().getMessage("HELP"));
         help_button.setBounds(x, y, width, height);
         help_button.setIcon(this.getImageIcon_22x22("help.png", comp));
         
@@ -1604,15 +1609,11 @@ public abstract class ATDataAccessAbstract
      */
     public void loadColors()
     {
-        ColorUIResource cui = (ColorUIResource) UIManager.getLookAndFeel()
-                .getDefaults().get("textText");
-        this.color_foreground = new Color(cui.getRed(), cui.getGreen(), cui
-                .getBlue(), cui.getAlpha());
+        ColorUIResource cui = (ColorUIResource)UIManager.getLookAndFeel().getDefaults().get("textText");
+        this.color_foreground = new Color(cui.getRed(), cui.getGreen(), cui.getBlue(), cui.getAlpha());
 
-        ColorUIResource cui2 = (ColorUIResource) UIManager.getLookAndFeel()
-                .getDefaults().get("Label.background");
-        this.color_background = new Color(cui2.getRed(), cui2.getGreen(), cui2
-                .getBlue(), cui2.getAlpha());
+        ColorUIResource cui2 = (ColorUIResource) UIManager.getLookAndFeel().getDefaults().get("Label.background");
+        this.color_background = new Color(cui2.getRed(), cui2.getGreen(), cui2.getBlue(), cui2.getAlpha());
 
         this.border_line = new LineBorder(this.color_foreground);
     }
@@ -3721,6 +3722,196 @@ public abstract class ATDataAccessAbstract
         
         
     }
+    
+ 
+    public void loadContactTypes()
+    {
+        
+    }
+    
+    
+    
+    /**
+     * Is Demo Version
+     * 
+     * @return
+     */
+    public boolean isDemoVersion()
+    {
+        return this.demo_version;
+    }
+    
+    
+    // ********************************************************
+    // ******                Login/Logout                 *****    
+    // ********************************************************
+
+    /**
+     * Sets the user.
+     * 
+     * @param us the new user
+     */
+    public void setUser(User us)
+    {
+        this.logged_user = us;
+        this.processLogin();
+    }
+
+    /**
+     * Gets the user.
+     * 
+     * @return the user
+     */
+    public User getUser()
+    {
+        return this.logged_user;
+    }
+
+
+    /**
+     * Gets the all users.
+     * 
+     * @return the all users
+     */
+    public ArrayList<User> getAllUsers()
+    {
+        if (this.all_users==null)
+        {
+            this.all_users = new ArrayList<User>();
+        }
+    
+        return this.all_users;
+    }
+
+
+    /**
+     * Process login.
+     */
+    public void processLogin()
+    {
+    //this.m_main.processLogin();
+    }
+ 
+    
+    
+    public int getSelectedContactTypePart(String value)
+    {
+
+        int i=0;
+
+
+
+        boolean found = false;
+
+        for (i=0; i<contact_types.length ;i++)
+        {
+            if (value.startsWith(contact_types[i]))
+            {
+                found = true;
+                break;
+            }
+
+        }
+
+        //System.out.println(value +  " found: " + found + " " + i);
+
+        if (found)
+            return i;
+        else
+            return 0;
+
+    }
+
+
+
+    public int getSelectedConfigTypePart(String value)
+    {
+
+        int i=0;
+
+
+
+        boolean found = false;
+
+        for (i=0; i<contact_types.length ;i++)
+        {
+            if (value.startsWith(contact_types[i]))
+            {
+                found = true;
+                break;
+            }
+
+        }
+
+        //System.out.println(value +  " found: " + found + " " + i);
+
+        if (found)
+            return i;
+        else
+            return 0;
+
+    }
+
+
+
+
+
+/*
+    public int getSelectedType(String value)
+    {
+
+//        Object array[] = getTypesArray(type);
+        int i=1;
+
+
+
+        boolean found = false;
+
+        for (i=1; i<events.length ;i++)
+        {
+            if (value.equals(events[i]))
+            {
+                found = true;
+                break;
+            }
+
+        }
+
+        System.out.println(value +  " found: " + found + " " + i);
+
+        if (found)
+            return i;
+        else
+            return 0;
+
+    }
+*/
+    
+ 
+    public static final int DIALOG_INFO = 1;
+    public static final int DIALOG_WARNING = 2;
+    public static final int DIALOG_ERROR = 3;
+    
+    
+    
+    public void showDialog(Container cont, int type, String message)
+    {
+        if (type==DIALOG_INFO)
+        {
+            JOptionPane.showMessageDialog(cont, message, this.getI18nControlInstance().getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if (type==DIALOG_WARNING)
+        {
+            JOptionPane.showMessageDialog(cont, message, this.getI18nControlInstance().getMessage("WARNING"), JOptionPane.WARNING_MESSAGE);
+        }
+        else if (type==DIALOG_ERROR)
+        {
+            JOptionPane.showMessageDialog(cont, message, this.getI18nControlInstance().getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
+    
     
     
     

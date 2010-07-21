@@ -164,7 +164,7 @@ public class MainAppFrame extends JFrame //implements ActionListener
         this.app_context.setFrame(this);
         
         
-        this.app_context.initDataAccess();
+        //this.app_context.initDataAccess();
         
         setLookAndFeel(this.app_context.getDataAccess().getDbToolAbstract().getLFData());
         
@@ -213,6 +213,11 @@ public class MainAppFrame extends JFrame //implements ActionListener
         
         this.setSoftwareMode();
   */      
+
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new CloseListener());
+        
+        
         this.app_context.createMenus();
 
         this.app_context.createToolBar();
@@ -491,7 +496,7 @@ public class MainAppFrame extends JFrame //implements ActionListener
 
     // System.out.println("FIIIIIIIIIIIIIIIIIIIIIIXXXX this");
     // }
-    private void close()
+    public void close()
     {
 /*
         if (m_da != null)
@@ -634,7 +639,7 @@ public class MainAppFrame extends JFrame //implements ActionListener
         @Override
         public void windowClosing(WindowEvent e)
         {
-            close();
+            app_context.quitApplication();
         }
     }
 
@@ -655,6 +660,9 @@ public class MainAppFrame extends JFrame //implements ActionListener
 
     public void actionPerformed(ActionEvent e)
     {
+        
+        
+        
     }
     
 

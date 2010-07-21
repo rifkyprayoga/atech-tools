@@ -19,6 +19,7 @@ import com.atech.app.AbstractApplicationContext;
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.hdb_object.User;
 import com.atech.gui_fw.MainAppFrame;
+import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.info.LanguageInfo;
 
@@ -43,8 +44,6 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     Hashtable<String,String> config_db_values = null;
    
     // login
-    private User loggedUser = null;
-    private ArrayList<User> allUsers = null;
 
     
 
@@ -241,6 +240,8 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     {
         super(aac.getLanguageManager(), aac.getI18nControlRunner());
         
+        this.hib_db = aac.getDb();
+        
         //this.m_app_context = aac;
         
         //     public ATDataAccessLMAbstract(LanguageManager lm, I18nControlRunner icr)
@@ -298,9 +299,13 @@ public class DataAccessApp extends ATDataAccessLMAbstract
                 main.getSplash().setSplashProgress(18, aac.getI18nControl().getMessage("CREATE_DATABASE_INSTANCE"));
 
             s_app_context = aac;
-            aac.initDb();
+            //aac.setFrame(main);
+            //aac.initDb();
             
             //MDODb db = new MDODb();
+            
+            
+            
             m_da = new DataAccessApp(aac);
             m_da.setParent(main);
             m_da.setMainParent(main);
@@ -493,7 +498,7 @@ public void setDbLoadingStatus(int status)
      * 
      * @return the lF data
      */
-    public static String[] getLFData()
+/*    public static String[] getLFData()
     {
         String out[] = new String[2];
 
@@ -516,7 +521,10 @@ public void setDbLoadingStatus(int status)
             return null;
         }
     }
-
+*/
+    
+    
+    
     // ********************************************************
     // ******                    Colors                   *****    
     // ********************************************************
@@ -594,18 +602,24 @@ public void setDbLoadingStatus(int status)
     {
         String locale = "SI";
 
+        
+            
+        
         try
         {
             Properties props = new Properties();
 
-            FileInputStream in = new FileInputStream(pathPrefix  + "/data/MSP_Config.properties");
+            //this.
+            
+            FileInputStream in = new FileInputStream(s_app_context.getDbToolApplication().getApplicationDatabaseConfig()); //pathPrefix  + "/data/MSP_Config.properties");
             props.load(in);
 
-            int sel_lang = 1;
+            //int sel_lang = 1;
+            String sel_lang = "si";
 
             if (props.containsKey("SELECTED_LANG"))
             {
-                sel_lang = Integer.parseInt((String)props.get("SELECTED_LANG"));
+                sel_lang = (String)props.get("SELECTED_LANG"); //Integer.parseInt((String)props.get("SELECTED_LANG"));
                 System.out.println("Sel lang: " + sel_lang);
             }
 
@@ -613,21 +627,46 @@ public void setDbLoadingStatus(int status)
             //props = new Properties();
             props.clear();
 
-            in = null;
-            in = new FileInputStream(pathPrefix  + "/data/lang/MSP_Languages.properties");
-            props.load(in);
-
-            if (props.containsKey("LANG_" + sel_lang + "_LOCALE"))
+            
+            try
             {
-                locale = (String)props.get("LANG_" + sel_lang + "_LOCALE");
-            }
+            
+                in = null;
+                in = new FileInputStream(pathPrefix  + "/data/lang/MDO_Languages.properties");
+                props.load(in);
 
-//            System.out.println("Locale: " + locale);
+            
+                int av_langs = Integer.parseInt((String)props.get("AVAILABLE_LANGUAGES"));
+            
+                for(int i=1; i<= av_langs; i++)
+                {
+                    
+                    if (props.containsKey("LANG_" + i))
+                    {
+                     
+                        String l = (String)props.get("LANG_" + i);
+                        
+                        if (l.equals(sel_lang))
+                        {
+                            if (props.containsKey("LANG_" + i + "_LOCALE"))
+                            {
+                                locale = (String)props.get("LANG_" + i + "_LOCALE");
+                            }
+                        }
+                    }    
+                }
+                
+            
+            } 
+            catch(Exception ex)
+            {
+                System.out.println("Error reading Language Manager file. " + ex);
+            }
 
         }
         catch(Exception ex)
         {
-            System.out.println("DataAccess::getSelectedLocale::Exception> " + ex);
+            System.out.println("DataAccessApp::getSelectedLocale::Exception> " + ex);
         }
 
         return locale;
@@ -639,25 +678,6 @@ public void setDbLoadingStatus(int status)
     // ******                Login/Logout                 *****    
     // ********************************************************
 
-    /**
-     * Sets the user.
-     * 
-     * @param us the new user
-     */
-    public void setUser(User us)
-    {
-	this.loggedUser = us;
-    }
-
-    /**
-     * Gets the user.
-     * 
-     * @return the user
-     */
-    public User getUser()
-    {
-	return this.loggedUser;
-    }
 
 
     /**
@@ -667,12 +687,12 @@ public void setDbLoadingStatus(int status)
      */
     public ArrayList<User> getAllUsers()
     {
-    	if (this.allUsers==null)
+    	if (this.all_users==null)
     	{
-//    	    this.allUsers = m_db.getUsers();
+    	    this.all_users = s_app_context.getUsers();
     	}
     
-    	return this.allUsers;
+    	return this.all_users;
     }
 
 
@@ -681,7 +701,14 @@ public void setDbLoadingStatus(int status)
      */
     public void processLogin()
     {
-	//this.m_main.processLogin();
+        if (this.logged_user==null)
+        {
+            s_app_context.setLoadingStatus(0);
+        }
+        else
+        {
+            s_app_context.setLoadingStatus(this.logged_user.getUser_access());
+        }
     }
 
 
@@ -1275,28 +1302,32 @@ public void setDbLoadingStatus(int status)
  
 
 
+    /**
+     * The Constant USER_NORMAL.
+     */
+    public static final int USER_GUEST = 1;
 
 
 
     /**
      * The Constant USER_NORMAL.
      */
-    public static final int USER_NORMAL = 1;
+    public static final int USER_NORMAL = 2;
     
     /**
      * The Constant USER_WORKER.
      */
-    public static final int USER_WORKER = 2;
+    public static final int USER_WORKER = 3;
     
     /**
      * The Constant USER_ADMINISTRATOR.
      */
-    public static final int USER_ADMINISTRATOR = 3;
+    public static final int USER_ADMINISTRATOR = 4;
     
     /**
      * The Constant USER_SUPERADMINISTRATOR.
      */
-    public static final int USER_SUPERADMINISTRATOR = 4;
+    public static final int USER_SUPERADMINISTRATOR = 5;
 
     /**
      * The user_type.
@@ -1465,8 +1496,7 @@ public void setDbLoadingStatus(int status)
     @Override
     public HibernateDb getHibernateDb()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return DataAccessApp.s_app_context.getDb();
     }
 
 
@@ -1596,6 +1626,23 @@ public void setDbLoadingStatus(int status)
     }
 
 
+    /**
+     * Enable help.
+     * 
+     * @param hc the hc
+     */
+    public void enableHelp(HelpCapable hc)
+    {
+        if (s_app_context.isHelpEnabled())
+        {
+            this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(), hc.getHelpId(), null);
+            this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
+        }
+    }
+    
+    
+    
+    
 
 }
 

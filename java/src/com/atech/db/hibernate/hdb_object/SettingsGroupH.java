@@ -6,28 +6,16 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class SettingsH implements Serializable {
+public class SettingsGroupH implements Serializable {
 
     /** identifier field */
     private long id;
 
     /** persistent field */
-    private String key;
-
-    /** nullable persistent field */
-    private String value;
-
-    /** nullable persistent field */
-    private int type;
+    private String name;
 
     /** nullable persistent field */
     private String description;
-
-    /** persistent field */
-    private long group_id;
-
-    /** persistent field */
-    private long person_id;
 
     /** nullable persistent field */
     private String extended;
@@ -36,26 +24,20 @@ public class SettingsH implements Serializable {
     private String comment;
 
     /** full constructor */
-    public SettingsH(String key, String value, int type, String description, long group_id, long person_id, String extended, String comment) {
-        this.key = key;
-        this.value = value;
-        this.type = type;
+    public SettingsGroupH(String name, String description, String extended, String comment) {
+        this.name = name;
         this.description = description;
-        this.group_id = group_id;
-        this.person_id = person_id;
         this.extended = extended;
         this.comment = comment;
     }
 
     /** default constructor */
-    public SettingsH() {
+    public SettingsGroupH() {
     }
 
     /** minimal constructor */
-    public SettingsH(String key, long group_id, long person_id) {
-        this.key = key;
-        this.group_id = group_id;
-        this.person_id = person_id;
+    public SettingsGroupH(String name) {
+        this.name = name;
     }
 
     public long getId() {
@@ -66,28 +48,12 @@ public class SettingsH implements Serializable {
         this.id = id;
     }
 
-    public String getKey() {
-        return this.key;
+    public String getName() {
+        return this.name;
     }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getValue() {
-        return this.value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public int getType() {
-        return this.type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -96,22 +62,6 @@ public class SettingsH implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public long getGroup_id() {
-        return this.group_id;
-    }
-
-    public void setGroup_id(long group_id) {
-        this.group_id = group_id;
-    }
-
-    public long getPerson_id() {
-        return this.person_id;
-    }
-
-    public void setPerson_id(long person_id) {
-        this.person_id = person_id;
     }
 
     public String getExtended() {
@@ -137,8 +87,8 @@ public class SettingsH implements Serializable {
     }
 
     public boolean equals(Object other) {
-        if ( !(other instanceof SettingsH) ) return false;
-        SettingsH castOther = (SettingsH) other;
+        if ( !(other instanceof SettingsGroupH) ) return false;
+        SettingsGroupH castOther = (SettingsGroupH) other;
         return new EqualsBuilder()
             .append(this.getId(), castOther.getId())
             .isEquals();

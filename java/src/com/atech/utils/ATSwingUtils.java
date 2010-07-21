@@ -793,26 +793,41 @@ public class ATSwingUtils
 
 
     
+    public static JMenu createMenu(String name, String tool_tip, JMenuBar bar, I18nControlAbstract ic)
+    {
+        return createMenu(name, tool_tip, bar, ic, -1);
+    }
+    
+    
+    
     /**
      * Creates the menu.
      * 
      * @param name the name
      * @param tool_tip the tool_tip
      * @param bar the bar
+     * @param ic 
+     * @param font_id 
      * 
      * @return the j menu
      */
-    public static JMenu createMenu(String name, String tool_tip, JMenuBar bar, I18nControlAbstract ic)
+    public static JMenu createMenu(String name, String tool_tip, JMenuBar bar, I18nControlAbstract ic, int font_id)
     {
         JMenu item = new JMenu(ic.getMessageWithoutMnemonic(name));
         item.setMnemonic(ic.getMnemonic(name));
-
-        if (tool_tip != null)
+        
+        
+        
+        if (font_id!=-1)
+            item.setFont(getFont(font_id));
+        
+        if ((tool_tip!=null) && (tool_tip.trim().length()>0))
         {
-            item.setToolTipText(tool_tip);
+            item.setToolTipText(ic.getMessage(tool_tip));
         }
 
-        bar.add(item);
+        if (bar!=null)
+            bar.add(item);
 
         return item;
     }
@@ -823,6 +838,7 @@ public class ATSwingUtils
      * 
      * @param name the name
      * @param tool_tip the tool_tip
+     * @param menu 
      * @param bar the bar
      * 
      * @return the j menu
@@ -838,6 +854,8 @@ public class ATSwingUtils
      * 
      * @param name the name
      * @param tool_tip the tool_tip
+     * @param menu 
+     * @param ic 
      * @param bar the bar
      * 
      * @return the j menu
@@ -847,9 +865,9 @@ public class ATSwingUtils
         JMenu item = new JMenu(ic.getMessageWithoutMnemonic(name));
         item.setMnemonic(ic.getMnemonic(name));
 
-        if (tool_tip != null)
+        if ((tool_tip!=null) && (tool_tip.trim().length()>0))
         {
-            item.setToolTipText(tool_tip);
+            item.setToolTipText(ic.getMessage(tool_tip));
         }
 
 //        bar.add(item);
@@ -1409,6 +1427,13 @@ public class ATSwingUtils
 
         return item;
     }
+
+    
+    public static JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c)
+    {
+        return createMenuItem(menu, name, tip, action_command, al, icon_small, ic, da,c, -1);
+    }
+    
     
     
     /**
@@ -1426,13 +1451,16 @@ public class ATSwingUtils
      * 
      * @return 
      */
-    public static JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c)
+    public static JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c, int font_id)
     {
         JMenuItem mi = new JMenuItem(ic.getMessageWithoutMnemonic(name));
         mi.setMnemonic(ic.getMnemonic(name));
         
         mi.setActionCommand(action_command);
         mi.addActionListener(al);
+        
+        if (font_id!=-1)
+            mi.setFont(getFont(font_id));
         
         if (tip != null)
         {

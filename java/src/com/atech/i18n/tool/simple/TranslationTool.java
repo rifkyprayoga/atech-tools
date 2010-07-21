@@ -384,7 +384,7 @@ public class TranslationTool extends JFrame implements ActionListener
         
         JMenu menu = ATSwingUtils.createMenu("File", "File", m_ic);
         
-        ATSwingUtils.createMenuItem(menu, "Exit", "Exit Application", "exit", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "Exit", "Exit Application", "exit", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
 
         menus.put("FILE", menu);
         mbar.add(menu);
@@ -392,9 +392,9 @@ public class TranslationTool extends JFrame implements ActionListener
         
         menu = ATSwingUtils.createMenu("Tools", "Tools", m_ic);
 
-        ATSwingUtils.createMenuItem(menu, "Copy translations", "Copy translations", "copy_translations", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "Copy translations", "Copy translations", "copy_translations", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
         menu.addSeparator();
-        ATSwingUtils.createMenuItem(menu, "Properties...", "Properties", "properties", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "Properties...", "Properties", "properties", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
         
         
         menus.put("TOOLS", menu);
@@ -407,7 +407,7 @@ public class TranslationTool extends JFrame implements ActionListener
         
         menu = ATSwingUtils.createMenu("Help", "Help", m_ic);
         
-        ATSwingUtils.createMenuItem(menu, "About", "About Software", "about", this, null, m_ic, m_da, this);
+        ATSwingUtils.createMenuItem(menu, "About", "About Software", "about", this, null, m_ic, m_da, this, ATSwingUtils.FONT_NORMAL);
 
         menus.put("HELP", menu);
         mbar.add(menu);

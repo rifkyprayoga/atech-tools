@@ -32,6 +32,7 @@ package com.atech.graphics.dialogs;
 
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -149,6 +150,8 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         //populateList();
         
         //this.cb_template.setSelectedIndex(type-1);
+        
+        processDefaultParameters();
 
         this.setVisible(true);
     }
@@ -260,14 +263,17 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
             b.setHorizontalAlignment(JButton.LEFT);
         }
         
+        Dimension d = this.definition.getWindowSize();
+        
+        pos_x = d.width - 40 - 220 - 10;
         
         JButton b = ATSwingUtils.getButton("   " + m_ic.getMessage("CLOSE"), 
-            pos_x, r.y + r.height + 20, 120, 30, panel, 
+            pos_x, r.y + r.height + 20, 110, 30, panel, 
             ATSwingUtils.FONT_NORMAL , null /*Im"exit.png"*/, "close", 
             this, m_da, pic_size);
         b.setHorizontalAlignment(JButton.LEFT);
         
-        help_button = m_da.createHelpButtonByBounds(pos_x - 120 - 20, r.y + r.height + 20, 120, 30, 
+        help_button = m_da.createHelpButtonByBounds(pos_x + 110 + 10, r.y + r.height + 20, 110, 30, 
                                                     panel, ATSwingUtils.FONT_NORMAL);
         help_button.setHorizontalAlignment(JButton.LEFT);
         panel.add(help_button);
@@ -314,6 +320,34 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         
         return filters;
     }
+    
+    
+    private void processDefaultParameters()
+    {
+        
+        if (this.definition.hasFilter())
+        {
+            
+            if (this.definition.getFilterType()==GUIListDefAbstract.FILTER_COMBO)
+            {
+                this.cb_filter1.setSelectedItem(this.definition.def_parameters[0]);
+            }
+            else if (this.definition.getFilterType()==GUIListDefAbstract.FILTER_COMBO_AND_TEXT)
+            {
+                this.cb_filter1.setSelectedItem(this.definition.def_parameters[0]);
+            }
+            else if (this.definition.getFilterType()==GUIListDefAbstract.FILTER_COMBO_TWICE)
+            {
+                this.cb_filter1.setSelectedItem(this.definition.def_parameters[0]);
+                this.cb_filter2.setSelectedItem(this.definition.def_parameters[1]);
+            }
+        }
+        
+        
+        
+    }
+    
+    
     
     
     /**

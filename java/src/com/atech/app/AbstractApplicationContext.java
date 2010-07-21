@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import javax.swing.JMenu;
@@ -13,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 import com.atech.db.hibernate.HibernateDb;
+import com.atech.db.hibernate.hdb_object.User;
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.gui_fw.CustomDataAccess;
 import com.atech.gui_fw.MainAppFrame;
@@ -38,6 +40,7 @@ public abstract class AbstractApplicationContext implements ActionListener
     protected Hashtable<String, JMenu> menus = null;
     protected Hashtable<String, JMenuItem> actions = null;
     protected DbToolApplicationAbstract dbtool_app = null;
+    protected Hashtable<String,String> help_keywords = new Hashtable<String,String>(); 
     
     /**
      * Constructor
@@ -49,22 +52,39 @@ public abstract class AbstractApplicationContext implements ActionListener
         this.developer_editon = dev_edition;
         //initDataAccess();        
         initContext();
+        
+        
+        
     }
     
     
+    /**
+     * Set Frame
+     * 
+     * @param frame_
+     */
     public void setFrame(MainAppFrame frame_)
     {
         this.frame = frame_;
         this.initDataAccess();
+        this.loadPlugIns();
     }
     
     
+    /**
+     * Get Frame
+     * 
+     * @return
+     */
     public MainAppFrame getFrame()
     {
         return this.frame;
     }
     
     
+    /**
+     * Init Context
+     */
     public abstract void initContext();
     
     
@@ -95,6 +115,7 @@ public abstract class AbstractApplicationContext implements ActionListener
     {
         //System.out.println("init Da6ta ACcess");
         this.data_access = DataAccessApp.createInstance(this.frame, this);
+        this.initDb();
         this.m_ic = this.data_access.getI18nControlInstance();
         this.menu_bar = new JMenuBar();
         
@@ -117,6 +138,13 @@ public abstract class AbstractApplicationContext implements ActionListener
     public abstract void createToolBar();
 
     public abstract String getTitle();
+    
+    public void setLoadingStatus(int status)
+    {
+        this.setMenusByDbLoad(status);
+        this.setToolbarByDbLoad(status);
+    }
+    
     
     
     /**
@@ -248,9 +276,42 @@ public abstract class AbstractApplicationContext implements ActionListener
     
     public abstract JPanel getMainPanel();
     
+    
     public CustomDataAccess getCustomDataAccess()
     {
         return this.custom_da;
     }
+    
+    
+    /**
+     * Get Users
+     * 
+     * @return
+     */
+    public ArrayList<User> getUsers()
+    {
+        return new ArrayList<User>();
+    }
+    
+
+    public abstract void quitApplication();
+    
+    
+    public abstract void loadHelpKeywords();
+
+    
+    public String getHelpKeyword(String key, String not_found_default)
+    {
+        if (help_keywords.containsKey(key))
+        {
+            return help_keywords.get(key);
+        }
+        else
+            return not_found_default;
+    }
+    
+    
+    public abstract void loadPlugIns();
+    
     
 }

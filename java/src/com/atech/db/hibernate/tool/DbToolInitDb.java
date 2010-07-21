@@ -1,5 +1,9 @@
 package com.atech.db.hibernate.tool;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
+
 import com.atech.db.hibernate.HibernateConfiguration;
 
 // TODO: Auto-generated Javadoc
@@ -37,6 +41,9 @@ import com.atech.db.hibernate.HibernateConfiguration;
 public abstract class DbToolInitDb
 {
 
+    private static Log log = LogFactory.getLog(DbToolInitDb.class); 
+    
+    
     /**
      * The Constant INIT_TYPE_NONE.
      */
@@ -109,6 +116,8 @@ public abstract class DbToolInitDb
      */
     public boolean dbInit()
     {
+        System.out.println("dbInit: " + init_type);
+        
         if (init_type == INIT_TYPE_NONE)
         {
             return false;
@@ -171,8 +180,37 @@ public abstract class DbToolInitDb
      */
     public boolean createTables()
     {
-        // TODO
-        return false;
+        try
+        {
+            new SchemaExport(this.hibernate_config.getConfiguration()).create(true, true);
+        }
+        catch(Exception ex)
+        {
+            log.error("createTables exception: " + ex, ex);
+            return false;
+        }
+
+        return true;
+    }
+
+    
+    /**
+     * Drop Tables
+     * 
+     * @return
+     */
+    public boolean dropTables()
+    {
+        try
+        {
+            new SchemaExport(this.hibernate_config.getConfiguration()).drop(true, true);
+        }
+        catch(Exception ex)
+        {
+            return false;
+        }
+
+        return true;
     }
     
 

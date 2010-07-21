@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    
+    <!-- ***************** PisDb::Config SCHEMA  ******************* -->
+
+    <!--  User -->
+    <class name="com.atech.db.hibernate.hdb_object.UserH" table="usr_user" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
+        </id>            
+        <property name="username" type="string" length="100" not-null="true"/>    
+        <property name="password"  column="pwd" type="string" length="100" not-null="true"/>
+        <property name="real_name" type="string" length="100" />
+        <property name="real_desc" type="string" length="255" />
+        <property name="user_type" type="int" not-null="true"/> <!-- Not used mostly -->
+        <property name="user_type_id" type="long"  not-null="false"  /> 
+        <property name="user_access" type="int"  not-null="false"  />  <!-- 1=Guest, 2 = Normal user, 3 = Worker, 4= Administrator, 5=Super admin  -->
+        <property name="extended" type="text"  not-null="false"  /> 
+        <property name="comment" type="string" length="255" not-null="false"  /> 
+        
+    </class>
+
+
+
+
+</hibernate-mapping>

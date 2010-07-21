@@ -1,16 +1,12 @@
 package com.atech.db.hibernate.hdb_object;
 
 import java.io.Serializable;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class UserH implements Serializable 
-{
-
-    private static final long serialVersionUID = -6212741017853083042L;
+public class UserH implements Serializable {
 
     /** identifier field */
     private long id;
@@ -36,15 +32,14 @@ public class UserH implements Serializable
     /** nullable persistent field */
     private int user_access;
 
-    /** full constructor 
-     * @param username 
-     * @param password 
-     * @param real_name 
-     * @param real_desc 
-     * @param user_type 
-     * @param user_type_id 
-     * @param user_access */
-    public UserH(String username, String password, String real_name, String real_desc, int user_type, long user_type_id, int user_access) {
+    /** nullable persistent field */
+    private String extended;
+
+    /** nullable persistent field */
+    private String comment;
+
+    /** full constructor */
+    public UserH(String username, String password, String real_name, String real_desc, int user_type, long user_type_id, int user_access, String extended, String comment) {
         this.username = username;
         this.password = password;
         this.real_name = real_name;
@@ -52,29 +47,22 @@ public class UserH implements Serializable
         this.user_type = user_type;
         this.user_type_id = user_type_id;
         this.user_access = user_access;
+        this.extended = extended;
+        this.comment = comment;
     }
 
     /** default constructor */
-    public UserH() 
-    {
+    public UserH() {
     }
 
-    /** 
-     * minimal constructor
-     *  
-     * @param username 
-     * @param password 
-     * @param user_type 
-     */
-    public UserH(String username, String password, int user_type) 
-    {
+    /** minimal constructor */
+    public UserH(String username, String password, int user_type) {
         this.username = username;
         this.password = password;
         this.user_type = user_type;
     }
 
-    public long getId() 
-    {
+    public long getId() {
         return this.id;
     }
 
@@ -136,6 +124,22 @@ public class UserH implements Serializable
 
     public void setUser_access(int user_access) {
         this.user_access = user_access;
+    }
+
+    public String getExtended() {
+        return this.extended;
+    }
+
+    public void setExtended(String extended) {
+        this.extended = extended;
+    }
+
+    public String getComment() {
+        return this.comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String toString() {

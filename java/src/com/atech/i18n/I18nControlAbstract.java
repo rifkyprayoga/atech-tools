@@ -829,7 +829,86 @@ protected Locale lcls[] = null;
     }
 
     
-    
+    /**
+     *  Get Name
+     *   
+     *  Helper method to get message that is name from Bundle. If name is found in 
+     *  bundle, we use it, or else we reformat input string.
+     * 
+     *  @param msg id of message we want
+     *  @return value for code, or same code back
+     */    
+    public String getName(String msg)
+    {
+
+        //String nm = getMessageFromCatalog(msg);
+        String nm = getMessage(msg);
+
+        if (nm.equals(msg))
+        {
+            nm = nm.replace('_', ' ');
+
+            nm = changeCase(nm);
+
+            return nm;
+
+        }
+        else
+            return nm;
+        
+        
+    }
+
+
+
+    /**
+     * @param in
+     * @return
+     */
+    public String changeCase(String in)
+    {
+
+        StringTokenizer stok = new StringTokenizer(in, " ");
+
+        boolean first = true;
+        String out = "";
+
+        while (stok.hasMoreTokens())
+        {
+
+
+            if (!first)
+            {
+                out += " ";
+            }
+
+            //String tmp = stok.nextToken();
+
+            out += changeCaseWord(stok.nextToken());
+
+            first = false;
+        }
+
+        return out;
+    }
+
+
+    /**
+     * Change case of word (something -> Something)
+     * 
+     * @param in
+     * @return
+     */
+    public String changeCaseWord(String in)
+    {
+        String t = "";
+
+        t = in.substring(0,1).toUpperCase();
+        t += in.substring(1).toLowerCase();
+
+        return t;
+    }
+
     
 
 }
