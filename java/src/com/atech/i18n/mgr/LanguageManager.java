@@ -507,7 +507,7 @@ public class LanguageManager
         for(Enumeration<String> en = this.available_languages.keys(); en.hasMoreElements(); )
         {
             LanguageInstance li = this.available_languages.get(en.nextElement());
-            this.av_lang_array[i]= li.name;
+            this.av_lang_array[i]= li.name_description;
             
             if (li.name.equals(sel_name))
                 this.av_lang_array_selected = i;
@@ -539,6 +539,22 @@ public class LanguageManager
     {
         return this.language_manager_runnner.getTranslationToolConfigFile();
     }
+    
+    
+    public String getNameFromDescription(String desc)
+    {
+        for(Enumeration<LanguageInstance> en = this.available_languages.elements(); en.hasMoreElements(); )
+        {
+            LanguageInstance li = en.nextElement();
+            
+            if (li.name_description.equals(desc))
+                return li.name;
+        }
+        
+        return null;
+        
+    }
+    
     
     
 }

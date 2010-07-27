@@ -319,6 +319,8 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
     @Override
     public void saveConfig()
     {
+        this.m_dbc.setSelectedLanguage(this.lang_mgr.getNameFromDescription((String)this.cb_language.getSelectedItem()));
+        
         // FIXME
         System.out.println("PrefLanguagePane::saveProps(): N/A");
         //this.m_dbc.setSelectedDatabaseIndex(this.cb_database.getSelectedIndex());

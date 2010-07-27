@@ -116,7 +116,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
     	else
     	    this.data_id = usr.getId();
 
-        if (this.data_id!=-1)
+        if (this.data_id>0)
             ev = ic.getMessage("USER_EDIT");
         else
             ev = ic.getMessage("USER_ADD");
@@ -219,14 +219,14 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
             m_error = 1;
             return false;
         }
-
+/*
         if (cb_type_basic.getSelectedIndex()==0) 
         {
             JOptionPane.showMessageDialog(this, ic.getMessage("TYPE_MUST_BE_SET"), ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
             m_error = 1;
             return false;
         }
-
+*/
         if (cb_type.getSelectedIndex()==0) 
         {
             JOptionPane.showMessageDialog(this, ic.getMessage("ACCESS_MUST_BE_SET"), ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
@@ -339,48 +339,56 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
 
         // username
         label = new JLabel(ic.getMessage("USERNAME")+":");
-        label.setBounds(55, 90, 120, 25);
+        label.setBounds(45, 90, 150, 25);
         label.setFont(font_normal_b); 
         panel.add(label, null);
 
         tf_username = new JTextField();
-        tf_username.setBounds(200, 87, 150, 25);
+        tf_username.setBounds(210, 87, 150, 25);
         tf_username.setFont(font_normal);
         panel.add(tf_username, null);
 
 
         // password
         label = new JLabel(ic.getMessage("PASSWORD")+":");
-        label.setBounds(55, 123, 120, 25);
+        label.setBounds(45, 123, 150, 25);
         label.setFont(font_normal_b); 
         panel.add(label, null);
 
         pf_pass = new JPasswordField();
-        pf_pass.setBounds(200, 120, 150, 25);
+        pf_pass.setBounds(210, 120, 150, 25);
         pf_pass.setFont(font_normal);
         panel.add(pf_pass, null);
 
 
+        // login bug on linux (JPassword field is not focused on linux)
+        if (System.getProperty("os.name").equals("Linux"))
+        {
+            this.pf_pass.enableInputMethods(true);
+        }
+        
+        
+        
         // user realname
         label = new JLabel(ic.getMessage("REAL_NAME")+":");
-        label.setBounds(55, 158, 120, 25);
+        label.setBounds(45, 158, 150, 25);
         label.setFont(font_normal_b); 
         panel.add(label, null);
 
         tf_realname = new JTextField();
-        tf_realname.setBounds(200, 155, 150, 25);
+        tf_realname.setBounds(210, 155, 160, 25);
         tf_realname.setFont(font_normal);
         panel.add(tf_realname, null);
 
 
         // user desc
         label = new JLabel(ic.getMessage("USER_DESC")+":");
-        label.setBounds(55, 193, 120, 25);
+        label.setBounds(45, 193, 150, 25);
         label.setFont(font_normal_b); 
         panel.add(label, null);
 
         tf_user_desc = new JTextField();
-        tf_user_desc.setBounds(200, 190, 150, 25);
+        tf_user_desc.setBounds(210, 190, 160, 25);
         tf_user_desc.setFont(font_normal);
         panel.add(tf_user_desc, null);
 
@@ -433,12 +441,12 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
 */
         // access level
         label = new JLabel(ic.getMessage("ACCESS_LEVEL")+":");
-        label.setBounds(55, 323, 120, 25);
+        label.setBounds(45, 228, 120, 25);
         label.setFont(font_normal_b); 
         panel.add(label, null);
 
         cb_type = new JComboBox(m_da.user_types);
-        cb_type.setBounds(200, 323, 150, 25);
+        cb_type.setBounds(210, 225, 160, 25);
         cb_type.setFont(font_normal);
         panel.add(cb_type, null);
 
@@ -448,7 +456,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         // --- OK Command
         // ---
         button = new JButton(ic.getMessage("OK"));
-        button.setBounds(150,370,80,35);
+        button.setBounds(150,370,80,30);
         button.addActionListener(this);
         button.setFont(font_normal);
         button.setActionCommand("ok");
@@ -458,7 +466,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         // --- Cancel Command
         // ---
         button = new JButton(ic.getMessage("CANCEL"));
-        button.setBounds(225,370,80,35);
+        button.setBounds(225,370,80,30);
         button.addActionListener(this);
         button.setFont(font_normal);
         button.setActionCommand("cancel");
@@ -468,7 +476,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         // --- Help command
         // ---
         button = new JButton(ic.getMessage("HELP"));
-        button.setBounds(300,370,80,35);
+        button.setBounds(300,370,80,30);
         button.setFont(font_normal);
         //button.addActionListener(this);
         //button.setActionCommand("help");

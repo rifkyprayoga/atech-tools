@@ -309,6 +309,9 @@ public class DataAccessApp extends ATDataAccessLMAbstract
             m_da = new DataAccessApp(aac);
             m_da.setParent(main);
             m_da.setMainParent(main);
+            
+            m_da.help_enabled = s_app_context.isHelpEnabled();
+            
         }
             
         return m_da;
@@ -1496,7 +1499,10 @@ public void setDbLoadingStatus(int status)
     @Override
     public HibernateDb getHibernateDb()
     {
-        return DataAccessApp.s_app_context.getDb();
+        System.out.println("getHibernateDb()");
+        System.out.println("getHibernateDb():s_app_context" + s_app_context);
+        System.out.println("getHibernateDb():s_app_context.getDb():" + DataAccessApp.s_app_context.getDb());
+        return (HibernateDb)DataAccessApp.s_app_context.getDb();
     }
 
 
@@ -1631,7 +1637,7 @@ public void setDbLoadingStatus(int status)
      * 
      * @param hc the hc
      */
-    public void enableHelp(HelpCapable hc)
+  /*  public void enableHelp(HelpCapable hc)
     {
         if (s_app_context.isHelpEnabled())
         {
@@ -1639,7 +1645,7 @@ public void setDbLoadingStatus(int status)
             this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
         }
     }
-    
+    */
     
     
     

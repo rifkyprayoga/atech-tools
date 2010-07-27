@@ -112,7 +112,7 @@ public abstract class ATDataAccessAbstract
     
     protected ArrayList<User> all_users = null;
     
-    
+    protected boolean help_enabled = false;
     
     
     
@@ -772,8 +772,11 @@ public abstract class ATDataAccessAbstract
      */
     public void enableHelp(HelpCapable hc)
     {
-        this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(), hc.getHelpId(), null);
-        this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
+        if (this.help_enabled)
+        {
+            this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(), hc.getHelpId(), null);
+            this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
+        }
     }
 
     /**
@@ -1405,7 +1408,7 @@ public abstract class ATDataAccessAbstract
      */
     public ImageIcon getImageIcon(String name, Container comp)
     {
-        return getImageIcon(this.getImagesRoot(), name);
+        return getImageIcon(this.getImagesRoot(), name, comp);
     }
 
     /**

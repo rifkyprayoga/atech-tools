@@ -130,6 +130,25 @@ public abstract class HibernateDb
 //	debugConfig();
     }
 
+    
+    /**
+     * Instantiates a new hibernate db.
+     * 
+     * @param da the da
+     * @param hd 
+     */
+    public HibernateDb(ATDataAccessAbstract da, HibernateDb hd)
+    {
+        //System.out.println("HibernateDb(): " + da + ",config=" + this.config + ",session_factory=" + this.sessions);
+        this.m_da = da;
+        this.config = hd.getHibernateConfiguration();
+        this.sessions = this.config.session_factory;
+        //System.out.println("HibernateDb(): " + m_da + ",config=" + this.config + ",session_factory=" + this.sessions);
+        m_loadStatus = DB_CONFIG_LOADED;
+    }
+    
+    
+    
     /**
      * Gets the configuration.
      * 
@@ -178,9 +197,9 @@ public abstract class HibernateDb
 
 
     /**
- * Inits the db.
- */
-public void initDb()
+     * Inits the db.
+     */
+    public void initDb()
     {
         openHibernateSimple();
     }
@@ -218,15 +237,55 @@ public void initDb()
 
 
     /**
-     * Open hibernate simple.
+     * Open hibernate simple
      */
     public void openHibernateSimple()
     {
-        sessions = this.getConfiguration().buildSessionFactory();
+        if (this.config.session_factory==null)
+        {
+            this.config.createSessionFactory();
+            this.sessions = this.config.session_factory;
+        }
+        
+        //sessions = this.getConfiguration().buildSessionFactory();
         m_session = sessions.openSession();
         m_loadStatus = DB_INITIALIZED;
     }
 
+    
+    
+    /**
+     * Open Hibernate without creating new SessionFactory
+     */
+    public void openHibernateWithSessionFactory()
+    {
+        if (this.sessions==null)
+        {
+            if (this.config.session_factory==null)
+            {
+                this.config.createSessionFactory();
+                this.sessions = this.config.session_factory;
+            }
+        }
+        
+        
+        m_session = sessions.openSession();
+        m_loadStatus = DB_INITIALIZED;
+    }
+    
+    
+    
+    
+    /**
+     * Get Session Factory
+     * 
+     * @return
+     */
+    public SessionFactory getSessionFactory()
+    {
+        return this.sessions;
+    }
+    
 
     /**
      * Gets the load status.

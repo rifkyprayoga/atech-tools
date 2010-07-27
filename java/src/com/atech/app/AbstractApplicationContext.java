@@ -18,6 +18,7 @@ import com.atech.db.hibernate.hdb_object.User;
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.gui_fw.CustomDataAccess;
 import com.atech.gui_fw.MainAppFrame;
+import com.atech.gui_fw.MenuContext;
 import com.atech.gui_fw.config.AbstractConfigurationContext;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.I18nControlRunner;
@@ -41,6 +42,11 @@ public abstract class AbstractApplicationContext implements ActionListener
     protected Hashtable<String, JMenuItem> actions = null;
     protected DbToolApplicationAbstract dbtool_app = null;
     protected Hashtable<String,String> help_keywords = new Hashtable<String,String>(); 
+    protected AbstractCompanyContext company_context = null;
+    
+    protected Hashtable<String, MenuContext> menu_contexts = null;
+    protected Hashtable<String, MenuContext> menu_item_contexts = null;
+    
     
     /**
      * Constructor
@@ -56,6 +62,24 @@ public abstract class AbstractApplicationContext implements ActionListener
         
         
     }
+    
+    
+
+    /**
+     * Constructor
+     * 
+     * @param dev_edition
+     */
+    public AbstractApplicationContext(boolean dev_edition, AbstractCompanyContext cmp_ctx)
+    {
+        this.developer_editon = dev_edition;
+        this.company_context = cmp_ctx;
+        //initDataAccess();        
+        initContext();
+    }
+    
+    
+    
     
     
     /**
@@ -110,6 +134,7 @@ public abstract class AbstractApplicationContext implements ActionListener
     public abstract boolean hasSplashScreen();
     
     public abstract void initSplashScreen();
+
     
     public void initDataAccess()
     {
@@ -225,7 +250,7 @@ public abstract class AbstractApplicationContext implements ActionListener
     
     
     
-    protected void createMenuItem(JMenu menu, String name, String tip, String action_command, String icon_small)
+    protected JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, String icon_small, String keyword, int min_level, boolean process)
     {
         
         JMenuItem mi = new JMenuItem();
@@ -258,7 +283,10 @@ public abstract class AbstractApplicationContext implements ActionListener
         
         this.actions.put(action_command, mi);
 
-        // return action;
+        this.menu_item_contexts.put(keyword, new MenuContext(keyword, mi, min_level, process));
+        
+        
+        return mi;
          
          
     }
@@ -274,8 +302,20 @@ public abstract class AbstractApplicationContext implements ActionListener
     public abstract void actionRunner(ActionEvent ae);
     
     
-    public abstract JPanel getMainPanel();
+    public JPanel getMainPanel()
+    {
+        if ((this.company_context!=null) && (this.company_context.hasCustomMainPanel()))
+        {
+            return this.company_context.getCustomMainPanel();
+        }
+        else
+        {
+            return this.createMainPanel();
+        }
+    }
     
+    
+    public abstract JPanel createMainPanel();
     
     public CustomDataAccess getCustomDataAccess()
     {

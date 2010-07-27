@@ -1366,6 +1366,81 @@ public class ATSwingUtils
         
         return text_1;
     }
+
+    
+    /**
+     * Gets the text field.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font_id font id
+     * 
+     * @return the text field
+     */
+    public static JTextField getTextField(String text, int x, int y, int width, int height, Container cont, int font_id)
+    {
+        return getTextField(text, x, y, width, height, cont, getFont(font_id));
+    }
+    
+    
+    
+    /**
+     * Gets the text field.
+     * 
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     * @param font font instance
+     * 
+     * @return the text field
+     */
+    public static JTextField getTextField(String text, int x, int y, int width, int height, Container cont, Font font)
+    {
+        JTextField text_1 = new JTextField();
+        
+        if (text!=null)
+            text_1.setText(text);
+        
+        text_1.setBounds(x, y, width, height);
+        
+        if (font!=null)
+            text_1.setFont(font);
+        
+        cont.add(text_1);
+        
+        return text_1;
+    }
+    
+    
+    
+    /**
+     * Get Scroll Pane
+     * 
+     * @param element component to add to scroll pane
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont container
+     * 
+     * @return the scroll pane
+     */
+    public static JScrollPane getScrollPane(Component element, int x, int y, int width, int height, Container cont)
+    {
+        JScrollPane scr2 = new JScrollPane(element);
+        scr2.setBounds(x, y, width, height);
+        cont.add(scr2);
+
+        return scr2;
+    }
+    
     
     
 

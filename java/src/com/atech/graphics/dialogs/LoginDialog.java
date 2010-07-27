@@ -123,9 +123,9 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         ATSwingUtils.getLabel(ic.getMessage("USERNAME") + ": ", 40, 85, 140, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         this.tf_username = ATSwingUtils.getTextField("", 160, 85, 160, 25, panel);
         
-        ATSwingUtils.getLabel(ic.getMessage("PASSWORD") + ": ", 40, 125, 140, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        ATSwingUtils.getLabel(ic.getMessage("PASSWORD") + ": ", 40, 120, 140, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         this.pf_password = new JPasswordField(); // password
-        this.pf_password.setBounds(160, 125, 160, 25);
+        this.pf_password.setBounds(160, 120, 160, 25);
         panel.add(this.pf_password); //, ZeroLayout.STATIC);
 
         // login bug on linux (JPassword field is not focused on linux)
@@ -134,17 +134,17 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
             this.pf_password.enableInputMethods(true);
         }
         
-        ATSwingUtils.getButton(ic.getMessage("OK"), 
+        ATSwingUtils.getButton("  " + ic.getMessage("OK"), 
                                 40, 180, 110, 30, 
                                 panel, ATSwingUtils.FONT_NORMAL, 
                                 "ok.png", "ok", this, m_da);
 
-        ATSwingUtils.getButton(ic.getMessage("CANCEL"), 
-                                170, 180, 110, 30, 
+        ATSwingUtils.getButton("  " + ic.getMessage("CANCEL"), 
+                                160, 180, 110, 30, 
                                 panel, ATSwingUtils.FONT_NORMAL, 
                                 "cancel.png", "cancel", this, m_da);
         
-        help_button = m_da.createHelpButtonByBounds(180, 160, 75, 30, panel, ATSwingUtils.FONT_NORMAL);
+        help_button = m_da.createHelpIconByBounds(280, 180, 50, 30, panel, ATSwingUtils.FONT_NORMAL);
         panel.add(help_button);
 
         this.m_da.enableHelp(this);
@@ -232,6 +232,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
                     {
                         // no tries left
                         JOptionPane.showMessageDialog(this, ic.getMessage("LOGIN_NO_TRIES_LEFT"), ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
+                        m_da.setUser(null);
                         if (this.app_ctx!=null)
                             this.app_ctx.quitApplication();
                         return false;
@@ -240,6 +241,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
                     {
                         // WRONG PASSWORD
                         JOptionPane.showMessageDialog(this, String.format(ic.getMessage("LOGIN_WRONG_PASSWORD_USERNAME_COMBINATION"), "" + this.tries_left), ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
+                        m_da.setUser(null);
                         return false;
                     }
                 }
