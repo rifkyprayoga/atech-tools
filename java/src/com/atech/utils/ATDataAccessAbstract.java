@@ -3913,9 +3913,34 @@ public abstract class ATDataAccessAbstract
         }
     }
     
+    /**
+     * This is flag if software is running in developer mode. In this mode there will be for 
+     * example visible some menus that regular users don't see (or some other stuff).  
+     */
+    protected boolean developer_mode = false;
     
-    
-    
+    /**
+     * Set Developer mode
+     * 
+     * @param dev_mode
+     * 
+     * @see developer_mode
+     */
+    public void setDeveloperMode(boolean dev_mode)
+    {
+        this.developer_mode = dev_mode;
+    }
+
+    /**
+     * Get Developer mode flag
+     * @return 
+     * 
+     * @see developer_mode
+     */
+    public boolean getDeveloperMode()
+    {
+        return this.developer_mode;
+    }
     
     
     
