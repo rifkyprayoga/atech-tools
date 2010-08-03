@@ -4,6 +4,9 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Locale;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atech.i18n.I18nControlLangMgr;
 import com.atech.i18n.I18nControlRunner;
 import com.atech.utils.ATDataAccessAbstract;
@@ -44,6 +47,7 @@ public class LanguageManager
 {
 
     //private I18nControlAbstract m_i18n = null; //I18nControl.getInstance();
+    private static Log log = LogFactory.getLog(LanguageManager.class);
 
     /**
      * The lp_version.
@@ -165,9 +169,8 @@ public class LanguageManager
         
         if (!props.wasFileRead())
         {
-            System.out.println("LanguageManager: Configuration file " + this.language_manager_runnner.getLangaugeConfigFile() + " was NOT read !");
+            log.error("LanguageManager: Configuration file " + this.language_manager_runnner.getLangaugeConfigFile() + " was NOT read !");
         }
-        
 
 
         int le = Integer.parseInt((String)props.get("AVAILABLE_LANGUAGES"));
@@ -238,7 +241,7 @@ public class LanguageManager
         
         int l_help = Integer.parseInt((String)props.get("AVAILABLE_LANGUAGES_WITH_HELP"));
 
-        System.out.println(le + " " + l_help);
+//        System.out.println(le + " " + l_help);
 
         lp_langs_with_help = l_help;
         lp_langs_without_help = le - l_help;
@@ -246,7 +249,7 @@ public class LanguageManager
         if (this.language_manager_runnner.isTranslationToolLanguageSupported())
             this.loadTranslationData();
         
-        System.out.println("Available: " + this.available_languages);
+//        System.out.println("Available: " + this.available_languages);
         
     }
 
@@ -272,7 +275,7 @@ public class LanguageManager
     {
         PropertiesFile pf = new PropertiesFile(this.language_manager_runnner.getTranslationToolConfigFile());
         
-        System.out.println("loadTranslationData: " + pf.wasFileRead());
+//        System.out.println("loadTranslationData: " + pf.wasFileRead());
         
         if (!ATDataAccessAbstract.isOptionEnabled(pf.get("LANGUAGE_TOOL_ENABLED")))
             return;

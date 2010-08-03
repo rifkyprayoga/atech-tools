@@ -9,11 +9,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -577,12 +580,45 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     public void checkServer()
     {
         
-        //JOptionPane.showMessageDialog(this, ic.getMessage("UPDATE_SERVER_NA"), ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+        if (!m_da.getDeveloperMode())
+        {
+            JOptionPane.showMessageDialog(this, ic.getMessage("UPDATE_SERVER_NA"), ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+            
         
         try
         {
-            // TODO
-            URL url = new URL("http://localhost:8080/ATechUpdateInfo?application=ggc&version=0.3");
+            System.out.println("app: " + m_da.getAppName() + ",version=" + m_da.getCurrentVersion() + ",db_version=" + m_da.getCurrentDbVersion());
+            String server_name = "http://192.168.4.6:8080/";
+            
+            
+            
+            // check server name
+            server_name = server_name.trim();
+            
+            if (server_name.length()==0)
+            {
+                server_name = "http://www.atech-software.com/";
+            }
+            else
+            {
+                if (!server_name.startsWith("http://"))
+                    server_name = "http://" + server_name;
+                
+                if (!server_name.endsWith("/"))
+                    server_name = server_name + "/";
+            }
+            
+            
+                
+            
+            
+            // FIXME
+            URL url = new URL(server_name + "UpdateSystemGetNextAppVersion?" + "" +
+            		"product_id=" + m_da.getAppName() + "&" +
+            		"current_version=" + "7" + "&" +
+            		"current_db=" + "7");
 
 
 
@@ -593,7 +629,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
                                 url.openStream()));
 
             String iLine , iLine2;
-            iLine2 = null;
+            iLine2 = "";
 
             while ((iLine = in.readLine()) != null)
             {
@@ -604,6 +640,53 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
             in.close();
         
             
+            String ret_msg = iLine2.substring(iLine2.indexOf("RETURN_DATA_START__") + "RETURN_DATA_START__<br>".length(), iLine2.indexOf("<br>__RETURN_DATA_END"));
+            
+            
+            
+            // resolve result for update system v2
+            if (ret_msg.contains("ERR"))
+            {
+                String err = "";
+                
+                if (ret_msg.startsWith("ERR_NO_SUCH_APP"))
+                {
+                    err = "UPD_ERR_NO_SUCH_APP";
+                }
+                else if (ret_msg.startsWith("ERR_INTERNAL_ERROR"))
+                {
+                    err = "UPD_ERR_INTERNAL_ERROR";
+                }
+                    
+                m_da.showDialog(this, ATDataAccessAbstract.DIALOG_ERROR, ic.getMessage(err));
+                
+            }
+            else if (ret_msg.contains(";"))
+            {
+                StringTokenizer strtok = new StringTokenizer(ret_msg, ";");
+                Hashtable<String,String> msges = new Hashtable<String,String>();
+                
+                while(strtok.hasMoreTokens())
+                {
+                    String t = strtok.nextToken();
+                    msges.put(t.substring(0, t.indexOf("=")), t.substring(t.indexOf("=")+1));
+                }
+
+                System.out.println(msges);
+                
+                
+            }
+            else
+                m_da.showDialog(this, ATDataAccessAbstract.DIALOG_ERROR, ic.getMessage("UPD_ERR_INTERNAL_ERROR"));
+                
+            
+            
+            
+            
+            
+            
+            
+/*  v1            
             // resolve result
             
             String error_nr = getParameter("error_nr", iLine2);
@@ -618,39 +701,17 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
             {
                 this.status_label.setText(ic.getMessage(error_code));
             }
-            
-            /*
-            out.println("  <error_nr>" + this.error_id + "</error_nr>");
-            out.println("  <error_code>" + this.error_code + "</error_code>");
-            
-            if (this.error_id==0)
-            {
-                out.println("  <versions>");
-                out.println("    <latest_version>" + latest_ver+ "</latest_version>\n");
-                
-                if (!latest_ver)
-                {
-                    
-                    out.println("  <newer_version_our_db>" + (never_ver!=-1)+ "</newer_version_our_db>");
-                    out.println("  <newer_version_our_db_number>" + never_ver+ "</newer_version_our_db_number>");
-                    out.println("  <newer_version_higher_db>" + new_for_new_db+ "</newer_version_higher_db>");
-                    out.println("  <newer_version_higher_db_number>" + this.getLatestVersion(app).version_num + "</newer_version_higher_db_number>\n");
-                }
-                out.println("  </versions>");
-                
-                
-            }
-            out.println("</server_report>");
-            */
-            
-            
+*/            
             
             
         }
         catch(Exception ex)
         {
             this.status_label.setText(ic.getMessage("UPD_ERROR_CONTACTING_SERVER"));
-            System.out.println(ex);
+            //System.out.println(ex);
+            
+            m_da.showDialog(this, ATDataAccessAbstract.DIALOG_ERROR, ic.getMessage("UPD_ERROR_CONTACTING_SERVER"));
+            
             ex.printStackTrace();
         }
     }

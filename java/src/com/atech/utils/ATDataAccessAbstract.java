@@ -159,8 +159,14 @@ public abstract class ATDataAccessAbstract
      */
     protected LanguageInfo m_lang_info;
     
-    //public boolean printing_plugin_installed = false;
-
+    
+    /**
+     * This is flag if software is running in developer mode. In this mode there will be for 
+     * example visible some menus that regular users don't see (or some other stuff).  
+     */
+    protected boolean developer_mode = false;
+    
+    
     /**
      * The m_i18n.
      */
@@ -3353,6 +3359,14 @@ public abstract class ATDataAccessAbstract
             update_configuration = new UpdateConfiguration();
         }
         
+        if (this.update_configuration!=null)
+        {
+            this.app_db_version = this.update_configuration.db_version_required;
+            this.app_name = this.update_configuration.product_id;
+            this.app_version = this.update_configuration.version_numeric;
+        }
+        
+        
         return this.update_configuration;
     }
     
@@ -3669,7 +3683,7 @@ public abstract class ATDataAccessAbstract
      */
     public void loadDbApplicationContext()
     {
-        System.out.println("ATDataAccessAbstract:loadDbApplicationContext: ");
+        //System.out.println("ATDataAccessAbstract:loadDbApplicationContext: ");
     }
     
  
@@ -3913,11 +3927,6 @@ public abstract class ATDataAccessAbstract
         }
     }
     
-    /**
-     * This is flag if software is running in developer mode. In this mode there will be for 
-     * example visible some menus that regular users don't see (or some other stuff).  
-     */
-    protected boolean developer_mode = false;
     
     /**
      * Set Developer mode
@@ -3931,6 +3940,7 @@ public abstract class ATDataAccessAbstract
         this.developer_mode = dev_mode;
     }
 
+    
     /**
      * Get Developer mode flag
      * @return 
@@ -3942,6 +3952,38 @@ public abstract class ATDataAccessAbstract
         return this.developer_mode;
     }
     
+ 
+    /**
+     * Update System v2
+     */
+    
+    protected String app_name = null;
+    protected int app_version = 0;
+    protected int app_db_version = 0;
+    
+    
+    public void initApp()
+    {
+        
+    }
+    
+    
+    public String getAppName()
+    {
+        return this.app_name;
+    }
+    
+    
+    public int getCurrentVersion()
+    {
+        return this.app_version;
+    }
+    
+
+    public int getCurrentDbVersion()
+    {
+        return this.app_db_version;
+    }
     
     
 }

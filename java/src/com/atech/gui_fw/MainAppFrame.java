@@ -27,6 +27,9 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atech.app.AbstractApplicationContext;
 import com.atech.graphics.SplashAbstract;
 import com.atech.help.HelpContext;
@@ -41,6 +44,7 @@ import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 public class MainAppFrame extends JFrame //implements ActionListener
 {
 
+    private static Log log = LogFactory.getLog(MainAppFrame.class);
     AbstractApplicationContext app_context;    
     SplashAbstract splash;    
 
@@ -361,7 +365,7 @@ public class MainAppFrame extends JFrame //implements ActionListener
 
             if (main_help_set != null)
             {
-                System.out.println("Help: Main Help Set present, creating broker");
+                log.debug("Help: Main Help Set present, creating broker");
                 main_help_broker = main_help_set.createHelpBroker();
             }
 
