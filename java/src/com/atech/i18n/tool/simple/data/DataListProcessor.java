@@ -415,12 +415,19 @@ public class DataListProcessor
         sb.append("#     For english this is left empty. For all other (that have non-standard, non english\n");
         sb.append("#     charcters) we need to set this if we want sorting to be done correctly.\n#\n");
         sb.append("COLLATION_RULES=");
-        sb.append(this.user_config.get("COLLATION_RULES") + "\n");
-        
+        //sb.append(this.user_config.get("COLLATION_RULES") + "\n");
+        sb.append(getTranslationEncoded(this.user_config.get("COLLATION_RULES")) + "\n");
         
         return sb.toString();
         
     }
+    
+    
+    public String getTranslationEncoded(String str)
+    {
+        return m_da.unicode_utils.getASCIIFromUnicodeFull(str);
+    }
+    
     
     private String getProcents(int number, int max)
     {

@@ -11,6 +11,7 @@ import com.atech.db.hibernate.tool.DbToolTreeRoot;
 import com.atech.i18n.tool.simple.data.TranslationConfiguration;
 import com.atech.i18n.tool.simple.data.TranslationData;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.UnicodeUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -96,6 +97,9 @@ public class DataAccessTT extends ATDataAccessAbstract
      * The translation_data.
      */
     public TranslationData translation_data;
+    
+    
+    public UnicodeUtils unicode_utils = new UnicodeUtils();
     
     
 
