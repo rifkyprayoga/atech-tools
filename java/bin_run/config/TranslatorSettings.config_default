@@ -1,44 +1,50 @@
 
 #
-#  Translator name - name of translator (required)
+#  Translator name - name of the translator (required)
 #
 TRANSLATOR_NAME=John Doe
 
 
 #
-#  Translator email - email, this should be email on which translator is available, its a
-#                  way to be contacted about translation (for example if someone has found
-#                  an error or better word). If you don't want to leave your email, leave 
-#                  ours - ggc@atech-software.com)
+#  Translator email
+#      - email, this should be an email address on which the translator is available.
+#        It is a way to be contacted about the translation (for example if someone
+#        has found an error or better word). If you don't want to make your email
+#        address available, put ours - ggc@atech-software.com)
 #
-TRANSLATOR_EMAIL=john.doe@nowhere.com
+TRANSLATOR_EMAIL=ggc@atech-software.com
 
 
 #
-#  Translation language - name of language you are translating for (required)
+#  Translation language - the name of the language you are translating to (required)
 #
 TRANSLATION_LANGUAGE=German
 
 #
-#  Translation language short - this is extension that will be appended, identifying the language
-#          you should use official extensions for countries here (en for english, de for german,...)
+#  Translation language short
+#      - this is the extension that will be appended, identifying the language.
+#        You should use the ISO 639-1 language tags here (en for english,
+#        de for german, ... - see http://en.wikipedia.org/wiki/ISO_639)
 #
 TRANSLATION_LANGUAGE_SHORT=de
 
 #
-#  Auto Backup Time For Translation - this is time, after which backup of current translation will be made.
-#      Backup will be saved into ./files/translation/backup. Backup file looks like this
-#      <File_Root>_<Translation_Language>_<Year>_<Month>_<Day>_<Hour>_<Minute>
-#      This variable defines, when autobackup is made, Variables defines time in minutes. It is advised 
-#      to set this to 5.   
+#  Auto Backup Time For Translation
+#      - this is the time in minutes after which a backup of the current translation
+#        will be made. The backup will be saved into ./files/translation/backup. 
+#        Backup file names look like this:
+#        <File_Root>_<Translation_Language>_<Year>_<Month>_<Day>_<Hour>_<Minute>
+#        It is advised to set this to 5.   
 #
 AUTOBACKUP_TIME=5
 
 
-#  Collation Rules - In unicode we can create special rules for sorting where we specify
-#     sorting order of special characters. This will be used by tree's and special tables.
-#     For english this is left empty. For all other (that have non-standard, non english
-#     charcters) we need to set this if we want sorting to be done correctly.
+#  Collation Rules
+#      - In unicode we can create special rules for sorting, where we specify the
+#        sorting order of special characters. This will be used by trees and special
+#        tables. For english this is left empty. For all other (that have non-standard,
+#        non-english characters) we need to set this if we want sorting to be done
+#        correctly.
 #
 COLLATION_RULES=< 0 < 1 < 2 < 3 < 4 < 5 < 6 < 7 < 8 < 9 < a,A,\u00e4,\u00c4,\u00e1,\u00e0,\u00c1,\u00c0,\u00e2,\u00c2 < b,B < c,C < d,D < e,E,\u00e9,\u00e8,\u00ea,\u00c9,\u00c8,\u00ca < f,F < g,G < h,H < i,I < j,J < k,K < l,L < m,M < n,N < o,O,\u00f6,\u00d6 < p,P < q,Q < r,R < s,S,\u00df < t,T < u,U,\u00fc,\u00dc < v,V < w,W < x,X < y,Y < z,Z 
 
@@ -58,8 +64,8 @@ HEADER_COMMENT_3=
   
     
 #
-# Module specific header, starts with HEADER_<MODULE_ID>_<NUMBER>. This will be added after HEADER_COMMENT in
-# each translation.
+# Module specific header, starts with HEADER_<MODULE_ID>_<NUMBER>. This will be
+# added after HEADER_COMMENT in each translation.
 #
 
 # HEADER_COMMENT_GGC_CORE_1=
@@ -67,5 +73,3 @@ HEADER_COMMENT_3=
 # HEADER_COMMENT_GGC_CORE_3=
 
 HEADER_COMMENT_GGC_CORE_1= GGC Core 
-    
-
