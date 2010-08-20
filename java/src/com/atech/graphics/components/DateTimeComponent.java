@@ -294,7 +294,7 @@ JSpinner day, month, year;
         minute.setFont(font_normal);
         minute.setEditor(new JSpinner.NumberEditor(minute, "00"));
 
-        
+        System.out.println("Time type: " + this.m_time_type);
         
         if (this.m_time_type==DateTimeComponent.TIME_MAXIMAL_SECOND)
         {
@@ -310,6 +310,12 @@ JSpinner day, month, year;
             this.add(hour, null);
             this.add(minute, null);
             this.add(second, null);
+
+            if (type_align==DateTimeComponent.ALIGN_HORIZONTAL)
+            {
+                component_width += 50;
+                this.setSize(component_width,component_height);
+            }
         }
         else
         {
@@ -664,7 +670,7 @@ public void setDateTimeAsCurrent()
     
             return out;
         }
-        else
+        else if (this.m_time_type==DateTimeComponent.TIME_MAXIMAL_MINUTE)
         {
             int d = ((Number)day.getModel().getValue()).intValue();
             String m = (String)((SpinnerListModel)month.getModel()).getValue();
@@ -687,6 +693,11 @@ public void setDateTimeAsCurrent()
             out += sec;
     
             return out;
+        }
+        else
+        {
+            System.out.println("getDateTime:: Unknown type");
+            return -1;
         }
         
 

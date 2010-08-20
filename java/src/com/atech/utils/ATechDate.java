@@ -611,7 +611,16 @@ public class ATechDate
     {
     	long dt = 0L;
     
-    	if (type==FORMAT_DATE_AND_TIME_MIN)
+        if (type==FORMAT_DATE_AND_TIME_S)
+        {
+            dt += gc.get(GregorianCalendar.YEAR) *10000000000L;
+            dt += (gc.get(GregorianCalendar.MONTH)+1)*100000000L;
+            dt += gc.get(GregorianCalendar.DAY_OF_MONTH) *1000000L;
+            dt += gc.get(GregorianCalendar.HOUR_OF_DAY) *10000L;
+            dt += gc.get(GregorianCalendar.MINUTE) *100L;
+            dt += gc.get(GregorianCalendar.SECOND);
+        } 
+        else if (type==FORMAT_DATE_AND_TIME_MIN)
     	{
     	    dt += gc.get(GregorianCalendar.YEAR) *100000000L;
     	    dt += (gc.get(GregorianCalendar.MONTH)+1)*1000000L;

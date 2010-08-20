@@ -271,6 +271,27 @@ public class ByteUtils
     }
     
     
+    protected boolean short_hex_used = false;
+    
+    public void setUseShortHex(boolean short_true)
+    {
+        this.short_hex_used = short_true;
+    }
+    
+    
+    public int[] getIntSubArray(int[] arr, int start, int end, int length)
+    {
+        int[] arr_out = new int[length-end-start];
+        int j=0;
+        
+        for(int i=start; i<(arr.length-end); i++)
+        {
+            arr_out[j] = arr[i];
+            j++;
+        }
+        
+        return arr_out;
+    }
 
     
     /**
@@ -353,6 +374,24 @@ public class ByteUtils
         
     }
 
+    
+    
+    public void showIntArrayHex(int[] arr)
+    {
+        System.out.print("Int array: ");
+        
+        for(int i=0; i<arr.length; i++)
+        {
+            System.out.print(getCorrectHexValue(arr[i]) + " ");
+            //getCorrectHexValue(arr[i]);
+            //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+        }
+        
+        System.out.print("\n");
+        
+    }
+    
+    
     
     /**
      * Show byte array hex.

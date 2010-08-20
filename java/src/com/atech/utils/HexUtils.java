@@ -96,7 +96,13 @@ public class HexUtils extends ByteUtils
 
     public String getHex(int i)
     {
-        String s = i != -1 ? "0x" : "";
+        String s;
+        
+        if (this.short_hex_used)
+            s = "";
+        else
+            s = i != -1 ? "0x" : "";
+        
         return s + getHexCompact(i);
     }
 
