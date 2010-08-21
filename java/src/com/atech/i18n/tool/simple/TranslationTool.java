@@ -2,6 +2,12 @@ package com.atech.i18n.tool.simple;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.Hashtable;
 
@@ -76,9 +82,58 @@ TO-DO:
 
 
 
-public class TranslationTool extends JFrame implements ActionListener
+public class TranslationTool extends JFrame implements ActionListener, WindowListener
 {
     
+    private class TranslationBoxListener extends KeyAdapter implements MouseListener
+    {
+        /**
+         * Checks to see if there are changes in the translation box and change
+         * the status combo box automatically.
+         */
+        private void applyChanges()
+        {
+            switch (cmb_status.getSelectedIndex())
+            {
+            case 1:
+                if (jt_mine.getText().isEmpty() || jt_mine.getText().equals(jt_source.getText()))
+                    cmb_status.setSelectedIndex(0);
+                break;
+            case 2:
+                // if status is "translated", don't automatically change
+                break;
+            case 0:
+            default:
+                if (!jt_mine.getText().isEmpty() && !jt_mine.getText().equals(jt_source.getText()))
+                    cmb_status.setSelectedIndex(1);
+                break;
+            }
+        }
+
+        public void keyReleased(KeyEvent e)
+        {
+            applyChanges();
+        }
+
+        public void mouseClicked(MouseEvent e)
+        {}
+
+        public void mousePressed(MouseEvent e)
+        {}
+
+        public void mouseReleased(MouseEvent e)
+        {
+            applyChanges();
+        }
+
+        public void mouseEntered(MouseEvent e)
+        {}
+
+        public void mouseExited(MouseEvent e)
+        {}
+    }
+
+
     private static Log log = LogFactory.getLog(TranslationTool.class);
 	private static final long serialVersionUID = 8072388083288536444L;
     Hashtable<String,JMenu> menus = null; 
@@ -105,6 +160,7 @@ public class TranslationTool extends JFrame implements ActionListener
     public TranslationTool(String config_filename)
     {
         super();
+        addWindowListener(this);
 
         m_da = DataAccessTT.createInstance(this);
         m_ic = m_da.getI18nControlInstance();
@@ -203,7 +259,7 @@ public class TranslationTool extends JFrame implements ActionListener
         ATSwingUtils.getLabel("Not translated:", 30, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         statuses[0] = ATSwingUtils.getLabel("0000", 130, 125, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
         
-        ATSwingUtils.getLabel("Need to be checked:", 180, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        ATSwingUtils.getLabel("Needs to be checked:", 180, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         statuses[1] = ATSwingUtils.getLabel("0000", 310, 125, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
         
         ATSwingUtils.getLabel("Translated:", 360, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
@@ -225,6 +281,9 @@ public class TranslationTool extends JFrame implements ActionListener
         
         ATSwingUtils.getLabel("My Translation", 30, yst+200, 300, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         jt_mine = ATSwingUtils.getTextArea("Text", 30, yst+230, 450, 60, panel);
+        final TranslationBoxListener tbl = new TranslationBoxListener();
+        jt_mine.addKeyListener(tbl);
+        jt_mine.addMouseListener(tbl);
         //jt_mine.setEditable(false);
 
         
@@ -235,12 +294,18 @@ public class TranslationTool extends JFrame implements ActionListener
         
         int[] sz = { 40, 40 } ;
         
-        ATSwingUtils.getButton("", 30, yst+330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "find_previous.png", "prev_untranslated", this, m_da, sz);
-        ATSwingUtils.getButton("", 90, yst+330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "nav_left_blue.png", "prev", this, m_da, sz);
-        ATSwingUtils.getButton("", 150, yst+330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "nav_right_blue.png", "next", this, m_da, sz);
-        ATSwingUtils.getButton("", 210, yst+330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "find_next.png", "next_untranslated", this, m_da, sz);
-        ATSwingUtils.getButton("", 370, yst+330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "disk_blue.png", "save", this, m_da, sz);
-        ATSwingUtils.getButton("", 430, yst+330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "door2.png", "exit", this, m_da, sz);
+        ATSwingUtils.getButton("", 30, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "find_previous.png",
+            "prev_untranslated", this, m_da, sz).setToolTipText("Find previous untranslated item");
+        ATSwingUtils.getButton("", 90, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "nav_left_blue.png", "prev",
+            this, m_da, sz).setToolTipText("Go to previous item");
+        ATSwingUtils.getButton("", 150, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "nav_right_blue.png",
+            "next", this, m_da, sz).setToolTipText("Go to next item");
+        ATSwingUtils.getButton("", 210, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "find_next.png",
+            "next_untranslated", this, m_da, sz).setToolTipText("Find next untranslated item");
+        ATSwingUtils.getButton("", 370, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "disk_blue.png", "save",
+            this, m_da, sz).setToolTipText("Save current translation status");
+        ATSwingUtils.getButton("", 430, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "door2.png", "exit", this,
+            m_da, sz).setToolTipText("Exit the Translation Tool");
         
         this.add(panel);
         //this.setLayout(null);
@@ -462,27 +527,7 @@ public class TranslationTool extends JFrame implements ActionListener
         
         if (cmd.equals("exit"))
         {
-            
-          //Custom button text
-            Object[] options = {"Save and Quit",
-                                "Just Quit",
-                                };
-            int n = JOptionPane.showOptionDialog(this,
-                "Would you like to save all translations that were\n"
-                + "changed in this session?",
-                "Exiting",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
-            
-            log.debug("Exit: code=" + n);
-            
-            if (n==0)
-                this.dlp.saveTranslation();
-
-            cmdQuit();
+          saveAndExit();
         }
         else if (cmd.equals("about"))
         {
@@ -522,6 +567,7 @@ public class TranslationTool extends JFrame implements ActionListener
         }
         else if (cmd.equals("save"))
         {
+            this.saveData();
             this.dlp.saveTranslation();
         }
         else if (cmd.equals("show_group_info"))
@@ -534,8 +580,65 @@ public class TranslationTool extends JFrame implements ActionListener
         }
         else
             System.out.println("Unknown command: " + cmd);
-        
-        
     }
 
+
+    /**
+     * Exit, possibly after saving.
+     */
+    private void saveAndExit()
+    {
+        //Custom button text
+            Object[] options = {"Save and Quit",
+                                "Just Quit",
+                                };
+            int n = JOptionPane.showOptionDialog(this,
+                "Would you like to save all translations that were\n"
+                + "changed in this session?",
+                "Exiting",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+            
+            log.debug("Exit: code=" + n);
+            
+        if (n == 0)
+        {
+            this.saveData();
+            this.dlp.saveTranslation();
+        }
+
+            cmdQuit();
+    }
+
+
+    public void windowOpened(WindowEvent e)
+    {}
+
+
+    public void windowClosing(WindowEvent e)
+    {
+        saveAndExit();
+    }
+
+    public void windowClosed(WindowEvent e)
+    {}
+
+
+    public void windowIconified(WindowEvent e)
+    {}
+
+
+    public void windowDeiconified(WindowEvent e)
+    {}
+
+
+    public void windowActivated(WindowEvent e)
+    {}
+
+
+    public void windowDeactivated(WindowEvent e)
+    {}
 }
