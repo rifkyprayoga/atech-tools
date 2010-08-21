@@ -257,10 +257,10 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         statuses = new JLabel[3];
 
         ATSwingUtils.getLabel("Not translated:", 30, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        statuses[0] = ATSwingUtils.getLabel("0000", 130, 125, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
+        statuses[0] = ATSwingUtils.getLabel("0000", 140, 125, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
         
-        ATSwingUtils.getLabel("Needs to be checked:", 180, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        statuses[1] = ATSwingUtils.getLabel("0000", 310, 125, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
+        ATSwingUtils.getLabel("Need to be checked:", 175, 125, 150, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+        statuses[1] = ATSwingUtils.getLabel("0000", 330, 125, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
         
         ATSwingUtils.getLabel("Translated:", 360, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         statuses[2] = ATSwingUtils.getLabel("0000", 450, 125, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
@@ -271,16 +271,22 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         ATSwingUtils.getLabel("Master Text File Translation", 30, yst, 300, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         jt_source = ATSwingUtils.getTextArea("Text Master File", 30, yst+30, 450, 60, panel);
         jt_source.setEditable(false);
+        jt_source.setLineWrap(true);
+        jt_source.setWrapStyleWord(true);
         
         ATSwingUtils.getLabel("Description", 30, yst+100, 300, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         jt_desc = ATSwingUtils.getTextArea("No Description", 30, yst+130, 450, 60, panel);
         jt_desc.setEditable(false);
+        jt_desc.setLineWrap(true);
+        jt_desc.setWrapStyleWord(true);
 
         
         ATSwingUtils.getButton("Copy from Master file", 310, yst+200, 170, 25, panel, ATSwingUtils.FONT_NORMAL, null, "copy_text", this, m_da);
         
         ATSwingUtils.getLabel("My Translation", 30, yst+200, 300, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         jt_mine = ATSwingUtils.getTextArea("Text", 30, yst+230, 450, 60, panel);
+        jt_mine.setLineWrap(true);
+        jt_mine.setWrapStyleWord(true);
         final TranslationBoxListener tbl = new TranslationBoxListener();
         jt_mine.addKeyListener(tbl);
         jt_mine.addMouseListener(tbl);
