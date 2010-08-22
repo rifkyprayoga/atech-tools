@@ -16,6 +16,7 @@ import java.text.Collator;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -2492,10 +2493,33 @@ public abstract class ATDataAccessAbstract
     public String getCurrentDateTimeString()
     {
         GregorianCalendar gc = new GregorianCalendar();
-        return gc.get(Calendar.DAY_OF_MONTH) + "."
-                + (gc.get(Calendar.MONTH) + 1) + "." + gc.get(Calendar.YEAR) + "  " 
-                + gc.get(Calendar.HOUR_OF_DAY) + ":"
-                + gc.get(Calendar.MINUTE) + ":" + gc.get(Calendar.SECOND);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
+        
+        return sdf.format(gc.getTime());
+//        String dom = "";
+//        String mon = "";
+//        String h = "";
+//        String m = "";
+//        String s = "";
+//
+//        dom += gc.get(Calendar.DAY_OF_MONTH);
+//        mon += (gc.get(Calendar.MONTH) + 1);
+//        h += gc.get(Calendar.HOUR_OF_DAY);
+//        m += gc.get(Calendar.MINUTE);
+//        s += gc.get(Calendar.SECOND);
+//
+//        if (dom.length() == 1)
+//            dom = "0" + dom;
+//        if (mon.length() == 1)
+//            mon = "0" + mon;
+//        if (h.length() == 1)
+//            h = "0" + h;
+//        if (m.length() == 1)
+//            m = "0" + m;
+//        if (s.length() == 1)
+//            s = "0" + s;
+//
+//        return dom + "." + mon + "." + gc.get(Calendar.YEAR) + "  " + h + ":" + m + ":" + s;
     }
 
     

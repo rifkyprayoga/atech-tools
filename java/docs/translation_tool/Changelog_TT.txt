@@ -2,6 +2,12 @@
 Change log for Translation Tool
 ===============================
 
+1.x.x [xx.x.2010] [atech-tools 0.x.x]
+   * Fixed saving currently open data
+   * Fixed application shutdown
+   * Added tooltips to buttons to make their functions more obvious
+   * First version of self-adapting status
+
 
 1.2.2 [12.4.2010] [atech-tools 0.4.3]
    * Fixed saving of status data
@@ -13,5 +19,3 @@ Change log for Translation Tool
 
 1.2 [1.4.2010] [atech-tools 0.4.1]
    * Initial release for end users
-
-

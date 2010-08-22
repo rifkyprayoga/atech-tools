@@ -1,0 +1,4 @@
+TODO:
+ * Make TT more keyboard accessible
+ * Add some kind of "Go to index" functionality
+ * Remember index of previous translation session and continue there
