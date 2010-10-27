@@ -189,7 +189,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         //m_da.setParent(parent);
         this.backuprestore_root = br_coll;
         
-        System.out.println("Br Coll: " + br_coll);
+        //System.out.println("Br Coll: " + br_coll);
         
         this.filename = filename;
         //System.out.println("BRD ic: " + this.ic);

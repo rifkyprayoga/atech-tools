@@ -2,6 +2,7 @@ package com.atech.app;
 
 import java.awt.Dimension;
 import java.awt.Event;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import javax.swing.KeyStroke;
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.hdb_object.User;
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
+import com.atech.db.hibernate.transfer.BackupRestoreRunner;
 import com.atech.gui_fw.CustomDataAccess;
 import com.atech.gui_fw.MainAppFrame;
 import com.atech.gui_fw.MenuContext;
@@ -46,6 +48,10 @@ public abstract class AbstractApplicationContext implements ActionListener
     
     protected Hashtable<String, MenuContext> menu_contexts = null;
     protected Hashtable<String, MenuContext> menu_item_contexts = null;
+    
+    public static final int DB_ACTION_RESTORE = 2;
+    public static final int DB_ACTION_BACKUP = 1;
+    
     
     
     /**
@@ -172,6 +178,17 @@ public abstract class AbstractApplicationContext implements ActionListener
     
     
     
+    public void specialRestoreInit()
+    {
+    }
+    
+    
+    public abstract BackupRestoreRunner getBackupRestoreRunner(int action);
+    
+    
+    //public abstract String getSpecialRestoreParameter();
+    
+    
     /**
      * Set menus by Db Loading status
      * 
@@ -215,11 +232,21 @@ public abstract class AbstractApplicationContext implements ActionListener
     
     public abstract I18nControlRunner getI18nControlRunner();
     
+    public static Font menu_font = null;
+    
     
     protected JMenu createMenu(String name, String tool_tip)
     {
         JMenu item = new JMenu(m_ic.getMessageWithoutMnemonic(name));
         item.setMnemonic(m_ic.getMnemonic(name));
+        
+        if (menu_font==null)
+        {
+            menu_font = item.getFont().deriveFont(Font.PLAIN);
+        }
+        
+        item.setFont(menu_font);
+        
 
         if (tool_tip != null)
         {
@@ -238,6 +265,14 @@ public abstract class AbstractApplicationContext implements ActionListener
         JMenu item = new JMenu(m_ic.getMessageWithoutMnemonic(name));
         item.setMnemonic(m_ic.getMnemonic(name));
 
+        if (menu_font==null)
+        {
+            menu_font = item.getFont().deriveFont(Font.PLAIN);
+        }
+        
+        item.setFont(menu_font);
+        
+        
         if (tool_tip != null)
         {
             item.setToolTipText(m_ic.getMessage(tool_tip));
@@ -256,6 +291,13 @@ public abstract class AbstractApplicationContext implements ActionListener
         JMenuItem mi = new JMenuItem();
         mi.setName(m_ic.getMessageWithoutMnemonic(name));
         mi.setText(m_ic.getMessageWithoutMnemonic(name));
+
+        if (menu_font==null)
+        {
+            menu_font = mi.getFont().deriveFont(Font.PLAIN);
+        }
+        
+        mi.setFont(menu_font);
         
         
         if (m_ic.hasMnemonic(name))

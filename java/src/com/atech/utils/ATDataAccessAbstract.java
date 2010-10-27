@@ -115,7 +115,7 @@ public abstract class ATDataAccessAbstract
     
     protected boolean help_enabled = false;
     
-    
+    protected int current_db_version = 0;
     
     
     /**
@@ -3708,6 +3708,7 @@ public abstract class ATDataAccessAbstract
     public void loadDbApplicationContext()
     {
         //System.out.println("ATDataAccessAbstract:loadDbApplicationContext: ");
+        this.setCurrentDbVersion(0);
     }
     
  
@@ -3726,6 +3727,17 @@ public abstract class ATDataAccessAbstract
     public void setCurrentUserId(long user_id)
     {
         this.current_user_id = user_id;
+    }
+    
+    
+    public void setCurrentDbVersion(int ver)
+    {
+        this.current_db_version = ver;
+    }
+    
+    public int getCurrentDbVersion()
+    {
+        return this.current_db_version;
     }
     
     
@@ -4004,10 +4016,6 @@ public abstract class ATDataAccessAbstract
     }
     
 
-    public int getCurrentDbVersion()
-    {
-        return this.app_db_version;
-    }
     
     
 }
