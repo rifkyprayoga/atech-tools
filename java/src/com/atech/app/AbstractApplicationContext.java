@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -27,6 +29,7 @@ import com.atech.i18n.I18nControlRunner;
 import com.atech.i18n.mgr.LanguageManager;
 import com.atech.utils.ATDataAccessLMAbstract;
 import com.atech.utils.DataAccessApp;
+import com.atech.utils.file.ClassFinder;
 
 public abstract class AbstractApplicationContext implements ActionListener
 {
@@ -51,7 +54,9 @@ public abstract class AbstractApplicationContext implements ActionListener
     
     public static final int DB_ACTION_RESTORE = 2;
     public static final int DB_ACTION_BACKUP = 1;
-    
+    Vector<Class<?>> plugins_classes = null;
+    //ArrayList<String> plugins_db = null;
+    protected ArrayList<String> db_files = new ArrayList<String>(); 
     
     
     /**
@@ -97,7 +102,10 @@ public abstract class AbstractApplicationContext implements ActionListener
     {
         this.frame = frame_;
         this.initDataAccess();
+        this.discoverPlugins();
+        this.initDb();
         this.loadPlugIns();
+        
     }
     
     
@@ -116,6 +124,27 @@ public abstract class AbstractApplicationContext implements ActionListener
      * Init Context
      */
     public abstract void initContext();
+    
+    
+    public void discoverPlugins()
+    {
+        
+        ClassFinder finder = new ClassFinder ();
+        //Vector<Class<?>> v = null;
+        List<Throwable> errors = null;
+        
+        finder = new ClassFinder ();
+        plugins_classes = finder.findSubclasses ("com.atech.business.plugin.BusinessPlugInAbstract");
+        errors = finder.getErrors ();
+        
+        for(int i=0; i<plugins_classes.size(); i++)
+        {
+            Class c = plugins_classes.get(i);
+            System.out.println("Class: " + c);
+        }
+        
+        
+    }
     
     
     
@@ -146,7 +175,6 @@ public abstract class AbstractApplicationContext implements ActionListener
     {
         //System.out.println("init Da6ta ACcess");
         this.data_access = DataAccessApp.createInstance(this.frame, this);
-        this.initDb();
         this.m_ic = this.data_access.getI18nControlInstance();
         this.menu_bar = new JMenuBar();
         
