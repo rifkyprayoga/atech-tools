@@ -211,6 +211,8 @@ public class I18nControlLangMgr extends I18nControlAbstract
         boolean lt_found = false;
         String file_path = null;
         
+        System.out.println("setLanguage: (LanguageInstance): " + li);
+        
         
         if (li.is_translation_tool)
         {
@@ -240,13 +242,14 @@ public class I18nControlLangMgr extends I18nControlAbstract
         //System.out.println("setLanguage(Locale): " + lcl);
 
         
-//        System.out.println("Trying to load: " + prefix + "" + lang_file_root + ",lcl=" + lcl);
+        System.out.println("Trying to load: " + prefix + "" + lang_file_root + ",lcl=" + lcl);
         try
         {
-            //System.out.println("setLang(): " + li.name);
+            System.out.println("setLang(): " + li.name + ", Locale: " + lcl);
             
             if (lt_found)
             {
+                System.out.println("Lt Found");
                 // 1.5
                 res = new PropertyResourceBundle(new FileInputStream(file_path)); 
                 
@@ -255,12 +258,39 @@ public class I18nControlLangMgr extends I18nControlAbstract
             }
             else
             {
+                System.out.println("Current Location: " + new File(".").getAbsolutePath());
+                
+                
+                // FIXME Testing
                 res = ResourceBundle.getBundle(prefix + "" + lang_file_root, lcl);
+                //res = new PropertyResourceBundle(new FileInputStream(prefix + "" + lang_file_root + li.name + ".properties"));
+                
+                
+/*
+                try
+                {
+                    res = ResourceBundle.getBundle(prefix + "" + lang_file_root, lcl);
+                }
+                catch(Exception ex1)
+                {
+                    try
+                    {
+                    res = new PropertyResourceBundle(new FileInputStream(prefix + "" + lang_file_root + li.name + ".properties"));
+                    }
+                    catch(Exception ex2)
+                    {
+                        throw ex1;
+                    }
+                    
+                }*/
             }
+            
+            System.out.println("Res: " + prefix + "" + lang_file_root   + ", Locale: " + lcl + "File:" + res.getString("I18NFILE"));
 
         }
         catch (MissingResourceException mre)
         {
+            System.out.println("Couldn't find resource file(1): " + lang_file_root + "_" + li.name + ".properties");
             log.error("Couldn't find resource file(1): " + lang_file_root + "_" + li.name + ".properties");
             try
             {
@@ -296,6 +326,8 @@ public class I18nControlLangMgr extends I18nControlAbstract
         this.selected_language_locale = lcl;
 
         createCollationDefintion();
+        
+        this.setLanguage(this.selected_language_locale);
     }
     
     

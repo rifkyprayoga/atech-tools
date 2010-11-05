@@ -1499,9 +1499,9 @@ public void setDbLoadingStatus(int status)
     @Override
     public HibernateDb getHibernateDb()
     {
-        System.out.println("getHibernateDb()");
-        System.out.println("getHibernateDb():s_app_context" + s_app_context);
-        System.out.println("getHibernateDb():s_app_context.getDb():" + DataAccessApp.s_app_context.getDb());
+        //System.out.println("getHibernateDb()");
+        //System.out.println("getHibernateDb():s_app_context" + s_app_context);
+        //System.out.println("getHibernateDb():s_app_context.getDb():" + DataAccessApp.s_app_context.getDb());
         return (HibernateDb)DataAccessApp.s_app_context.getDb();
     }
 
