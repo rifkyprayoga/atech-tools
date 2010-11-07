@@ -20,6 +20,7 @@ import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.hdb_object.User;
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.db.hibernate.transfer.BackupRestoreRunner;
+import com.atech.graphics.components.menu.DynMenuItem;
 import com.atech.gui_fw.CustomDataAccess;
 import com.atech.gui_fw.MainAppFrame;
 import com.atech.gui_fw.MenuContext;
@@ -102,7 +103,7 @@ public abstract class AbstractApplicationContext implements ActionListener
     {
         this.frame = frame_;
         this.initDataAccess();
-        this.discoverPlugins();
+        //this.discoverPlugins();
         this.initDb();
         this.loadPlugIns();
         
@@ -313,7 +314,24 @@ public abstract class AbstractApplicationContext implements ActionListener
     
     
     
+    protected JMenuItem createMenuItem(JMenu menu_parent, DynMenuItem dmi)
+    {
+        //JMenu menu, String name, String tip, String action_command, String icon_small, String keyword, int min_level, boolean process
+        //this.createMenuItem(m, mi.getActionCommand(), mi.getTooltip(), mi.getActionCommand(), "logon.png", "LOGIN", 0, false);
+        
+        return createMenuItem(menu_parent, dmi.getName(), dmi.getTooltip(), 
+                              dmi.getActionCommand(), dmi.getIconSmall(), dmi.getKeyword(), 
+                              dmi.getMinLevel(), dmi.getProcess(), dmi.getActionListener());
+    }
+    
+    
     protected JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, String icon_small, String keyword, int min_level, boolean process)
+    {
+        return createMenuItem(menu, name, tip, action_command, icon_small, keyword, min_level, process, this);
+    }
+    
+    
+    protected JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, String icon_small, String keyword, int min_level, boolean process, ActionListener al)
     {
         
         JMenuItem mi = new JMenuItem();
@@ -349,7 +367,7 @@ public abstract class AbstractApplicationContext implements ActionListener
         if (menu != null)
             menu.add(mi);
 
-        mi.addActionListener(this);
+        mi.addActionListener(al);
         
         this.actions.put(action_command, mi);
 

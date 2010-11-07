@@ -1,8 +1,6 @@
 package com.atech.utils.file;
 
-/*
- * ClassFinder.java
- */
+
 
 import java.io.File;
 import java.io.FileFilter;
@@ -24,6 +22,11 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 
+/** 
+ * I adopted this file, since it's quiote useful. I extended it a little. -- Andy
+ */
+
+
 /**
  * This utility class was based originally on <a href="private.php?do=newpm&u=47838">Daniel Le Berre</a>'s 
  * <code>RTSI</code> class. This class can be called in different modes, but the principal use 
@@ -43,6 +46,14 @@ public class ClassFinder
     {
         refreshLocations ();
     }
+
+    
+    public ClassFinder (String jar_starts_with)
+    {
+        refreshLocations ();
+    }
+    
+    
     
     /**
      * Rescan the classpath, cacheing all possible file locations.
@@ -54,6 +65,18 @@ public class ClassFinder
             classpathLocations = getClasspathLocations ();
         }
     }
+
+    
+    public final void refreshLocations (String jar_starts_with)
+    {
+        synchronized (classpathLocations)
+        {
+            classpathLocations = getClasspathLocations (jar_starts_with);
+        }
+    }
+    
+    
+    
     
     /**
      * @param fqcn Name of superclass/interface on which to search
@@ -152,6 +175,45 @@ public class ClassFinder
         
         return map;
     }
+    
+
+    
+    
+    public final Map<URL, String> getClasspathLocations (String jar_starts_with)
+    {
+        Map<URL, String> map = new TreeMap<URL, String> (URL_COMPARATOR);
+        File file = null;
+        
+        String pathSep = System.getProperty ("path.separator");
+        String classpath = System.getProperty ("java.class.path");
+        //System.out.println ("classpath=" + classpath);
+        
+        StringTokenizer st = new StringTokenizer (classpath, pathSep);
+        while (st.hasMoreTokens ())
+        {
+            String path = st.nextToken ();
+            file = new File (path);
+            
+            if (file.getName().startsWith(jar_starts_with))
+            {
+                include (null, file, map);
+            }
+        }
+        
+        Iterator<URL> it = map.keySet ().iterator ();
+        while (it.hasNext ())
+        {
+            URL url = it.next ();
+            //System.out.println (url + "-->" + map.get (url));
+        }
+        
+        return map;
+    }
+    
+    
+    
+    
+    
     
     private final static FileFilter DIRECTORIES_ONLY = new FileFilter ()
     {

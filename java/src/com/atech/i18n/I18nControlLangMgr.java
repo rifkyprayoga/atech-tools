@@ -291,6 +291,9 @@ public class I18nControlLangMgr extends I18nControlAbstract
         }
         catch (MissingResourceException mre)
         {
+            System.out.println("MissingResourceException. Ex: " + mre);
+            //System.out.println("Ex: " + mre);
+            
             System.out.println("Couldn't find resource file(1): " + lang_file_root + "_" + li.name + ".properties");
             log.error("Couldn't find resource file(1): " + lang_file_root + "_" + li.name + ".properties");
             try
@@ -305,6 +308,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         }
         catch (FileNotFoundException ex)
         {
+            System.out.println("FileNotFoundException. Ex: " + ex);
             log.error("Couldn't find translation tool file(1): " + file_path );
             try
             {
@@ -316,10 +320,11 @@ public class I18nControlLangMgr extends I18nControlAbstract
                 //System.exit(2);
             }
         }
-        catch (Exception mre)
+        catch (Exception ex)
         {
+            System.out.println("Exception. Ex: " + ex);
             log.error("Exception on reading resource file. Exiting application.");
-            log.error("Exception: " + mre, mre);
+            log.error("Exception: " + ex, ex);
             //mre.printStackTrace();
             System.exit(2);
         }

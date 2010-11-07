@@ -175,14 +175,25 @@ public class ATSwingUtils
         if (fonts!=null)
             return;
         
-        
+        JLabel label = new JLabel();
+        Font f = label.getFont();
         fonts = new Font[6];
+        
+        fonts[0] = f.deriveFont(Font.BOLD, 22);
+        fonts[1] = f.deriveFont(Font.PLAIN, 12);
+        fonts[2] = f.deriveFont(Font.BOLD, 12);
+        fonts[3] = f.deriveFont(Font.PLAIN, 14);
+        fonts[4] = f.deriveFont(Font.BOLD, 14);
+        fonts[5] = f.deriveFont(Font.PLAIN, 11);
+        
+        /*
         fonts[0] = new Font("SansSerif", Font.BOLD, 22);
         fonts[1] = new Font("SansSerif", Font.PLAIN, 12);
         fonts[2] = new Font("SansSerif", Font.BOLD, 12);
         fonts[3] = new Font("SansSerif", Font.PLAIN, 14);
         fonts[4] = new Font("SansSerif", Font.BOLD, 14);
         fonts[5] = new Font("SansSerif", Font.PLAIN, 11);
+        */
         
     }
 

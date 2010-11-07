@@ -166,13 +166,17 @@ public class LanguageManager
         }
         */
         
+//        System.out.println("LoadData: " + this.language_manager_runnner.getLangaugeConfigFile());
+        
+        
         
         if (!props.wasFileRead())
         {
             log.error("LanguageManager: Configuration file " + this.language_manager_runnner.getLangaugeConfigFile() + " was NOT read !");
         }
 
-
+       
+        
         int le = Integer.parseInt((String)props.get("AVAILABLE_LANGUAGES"));
 
         availableLang = new Object[le];
