@@ -260,6 +260,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
             {
                 System.out.println("Current Location: " + new File(".").getAbsolutePath());
                 
+                System.out.println("ResBundle: prefix=" + prefix + ",LangFileRoot=" + lang_file_root );
                 
                 // FIXME Testing
                 res = ResourceBundle.getBundle(prefix + "" + lang_file_root, lcl);
