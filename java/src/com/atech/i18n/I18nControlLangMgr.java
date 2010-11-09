@@ -211,7 +211,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         boolean lt_found = false;
         String file_path = null;
         
-        System.out.println("setLanguage: (LanguageInstance): " + li);
+//        System.out.println("setLanguage: (LanguageInstance): " + li);
         
         
         if (li.is_translation_tool)
@@ -242,14 +242,14 @@ public class I18nControlLangMgr extends I18nControlAbstract
         //System.out.println("setLanguage(Locale): " + lcl);
 
         
-        System.out.println("Trying to load: " + prefix + "" + lang_file_root + ",lcl=" + lcl);
+//        System.out.println("Trying to load: " + prefix + "" + lang_file_root + ",lcl=" + lcl);
         try
         {
-            System.out.println("setLang(): " + li.name + ", Locale: " + lcl);
+//            System.out.println("setLang(): " + li.name + ", Locale: " + lcl);
             
             if (lt_found)
             {
-                System.out.println("Lt Found");
+//                System.out.println("Lt Found");
                 // 1.5
                 res = new PropertyResourceBundle(new FileInputStream(file_path)); 
                 
@@ -258,9 +258,9 @@ public class I18nControlLangMgr extends I18nControlAbstract
             }
             else
             {
-                System.out.println("Current Location: " + new File(".").getAbsolutePath());
+//                System.out.println("Current Location: " + new File(".").getAbsolutePath());
                 
-                System.out.println("ResBundle: prefix=" + prefix + ",LangFileRoot=" + lang_file_root );
+//                System.out.println("ResBundle: prefix=" + prefix + ",LangFileRoot=" + lang_file_root );
                 
                 // FIXME Testing
                 res = ResourceBundle.getBundle(prefix + "" + lang_file_root, lcl);
@@ -286,15 +286,15 @@ public class I18nControlLangMgr extends I18nControlAbstract
                 }*/
             }
             
-            System.out.println("Res: " + prefix + "" + lang_file_root   + ", Locale: " + lcl + "File:" + res.getString("I18NFILE"));
+//            System.out.println("Res: " + prefix + "" + lang_file_root   + ", Locale: " + lcl + "File:" + res.getString("I18NFILE"));
 
         }
         catch (MissingResourceException mre)
         {
-            System.out.println("MissingResourceException. Ex: " + mre);
+//            System.out.println("MissingResourceException. Ex: " + mre);
             //System.out.println("Ex: " + mre);
             
-            System.out.println("Couldn't find resource file(1): " + lang_file_root + "_" + li.name + ".properties");
+//            System.out.println("Couldn't find resource file(1): " + lang_file_root + "_" + li.name + ".properties");
             log.error("Couldn't find resource file(1): " + lang_file_root + "_" + li.name + ".properties");
             try
             {
@@ -308,7 +308,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         }
         catch (FileNotFoundException ex)
         {
-            System.out.println("FileNotFoundException. Ex: " + ex);
+  //          System.out.println("FileNotFoundException. Ex: " + ex);
             log.error("Couldn't find translation tool file(1): " + file_path );
             try
             {
@@ -322,7 +322,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         }
         catch (Exception ex)
         {
-            System.out.println("Exception. Ex: " + ex);
+//            System.out.println("Exception. Ex: " + ex);
             log.error("Exception on reading resource file. Exiting application.");
             log.error("Exception: " + ex, ex);
             //mre.printStackTrace();
