@@ -103,7 +103,7 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     /**
      * The full_int.
      */
-    public ArrayList<SelectableInterface> full_int; 
+    //public ArrayList<SelectableInterface> full_int; 
 
     //public ArrayList<SelectableInterface> full; 
     /**
@@ -204,7 +204,7 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     /**
      * The column_sorting_enabled.
      */
-    boolean column_sorting_enabled = true;
+    protected boolean column_sorting_enabled = true;
     
     /**
      * Allowed actions (new, edit, select, cancel)
@@ -1206,6 +1206,8 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 		    Collections.sort(list);
 		}
 
+		System.out.println("List: " + list.size());
+		
     }
 
     
@@ -2509,6 +2511,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
                 
             }
 
+            
+            System.out.println("Filter: " + list.size());
+            
             createTable();
 
         }
