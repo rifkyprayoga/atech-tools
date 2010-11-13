@@ -317,13 +317,25 @@ public class UpdateConfigurationXml
     }
     
     
-    
     /**
      * Write Xml
      * 
      * @param uconfig
      */
     public void writeXml(UpdateConfiguration uconfig)
+    {
+        writeXml(uconfig, null);
+    }
+    
+    
+    
+    /**
+     * Write Xml
+     * 
+     * @param uconfig
+     * @param _out_name 
+     */
+    public void writeXml(UpdateConfiguration uconfig, String _out_name)
     {
         try
         {
@@ -483,7 +495,15 @@ public class UpdateConfigurationXml
             transformer.transform(domSource, sr);
             String xml = sw.toString();
             
-            FileWriter fw = new FileWriter("test_create.xml");
+            
+            if (_out_name == null)
+            {
+                _out_name = "test_create.xml";
+            }
+            
+            FileWriter fw = new FileWriter(_out_name);
+                
+                
             fw.write(xml);
             fw.close();
             
