@@ -1,5 +1,7 @@
 package com.atech.update.client.dev;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -7,47 +9,105 @@ import java.io.RandomAccessFile;
 import java.net.URL;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
 
+import com.atech.update.client.action.ActionThread;
+import com.atech.update.client.action.BinaryDownloadThread;
+import com.atech.update.client.data.UpdateComponentEntry;
+import com.atech.update.client.data.UpdateSettings;
+import com.atech.update.client.panel.UpdateProgressPanel;
+import com.atech.update.client.panel.UpdateProgressPanelAbstract;
 import com.atech.utils.file.CheckSumUtility;
 
-public class DownloadFileClient extends JFrame
+public class DownloadFileClient extends JFrame implements ActionListener
 {
+    
+    JPanel panel;
+    JList list;
+    
+    ArrayList<ActionThread> threads = new ArrayList<ActionThread>();
+    
     
     public DownloadFileClient()
     {
         super();
-        
-        //initGUI();
+        initGUI();
         doAction();
+        this.setVisible(true);
     }
     
 
     private void initGUI()
     {
         getContentPane().setLayout(null);
-        JPanel panel = new JPanel();
+        
+        panel = new JPanel();
+        panel.setBounds(0,0, 600, 500);
         panel.setLayout(null);
         getContentPane().add(panel, null);
         
-        JProgressBar progressBar = new JProgressBar();
-        progressBar.setBounds(96, 98, 266, 23);
-        getContentPane().add(progressBar);
-        
         JLabel label = new JLabel("New label");
         label.setBounds(83, 44, 70, 15);
-        getContentPane().add(label);
+        panel.add(label);
+
         
-        JLabel label_1 = new JLabel("New label");
-        label_1.setBounds(83, 162, 70, 15);
-        getContentPane().add(label_1);
+        list = new JList();
+        
+        JScrollPane pane = new JScrollPane(list);
+        pane.setBounds(45, 102, 500, 350);
+        panel.add(pane);
+        
+        
+        
+        //pane.setViewportView(list);
+        
+        JButton button = new JButton("New button");
+        button.setBounds(319, 26, 117, 25);
+        button.addActionListener(this);
+        panel.add(button);
+
+        
+        
+        
+        
+        
+        //getContentPane().add(list, null);
+        
+        this.setSize(600, 500);
     }
     
     
     public void doAction()
+    {
+        UpdateComponentEntry uce = new UpdateComponentEntry();
+        uce.action = 1;
+        uce.estimated_crc = 1889989348;
+        uce.file_id = 1;
+        uce.requested_version_id = 1;
+        uce.output_file = "img_2345.jpg";
+        
+
+        
+        UpdateProgressPanelAbstract p = new UpdateProgressPanel();
+        p.setBounds(0, 0, 450, 100);
+        //panel.add(p);
+        
+        this.list.add((JPanel)p);
+        
+        this.threads.add(new BinaryDownloadThread(new UpdateSettings(), uce, p));
+        
+        
+        
+    }
+    
+    
+    
+    public void doActionxxx()
     {
         
         try
@@ -112,14 +172,26 @@ public class DownloadFileClient extends JFrame
            float size=671200;
            long current_size = 0;
                
+           System.out.println("File size: " + is.available());
+           
+           byte[] array = new byte[1024];
            
            while (is.available()>0) //; r.ready())
            {
+               if (is.available()<1024)
+               {
+                   array = new byte[is.available()];
+               }
+
+               is.read(array);
+               raf.write(array);
+               current_size +=array.length;
+               
+               
                //list.add(isr.read());
                //osr.write(is.read());
-               raf.write(is.read());
+               //raf.write(is.read());
                
-               current_size ++;
                
                System.out.println("Progress: " + ((current_size/size)*100));
            }
@@ -162,6 +234,14 @@ public class DownloadFileClient extends JFrame
     {
         new DownloadFileClient();
     }
-    
-    
+
+
+    public void actionPerformed(ActionEvent arg0)
+    {
+        this.threads.get(0).start();
+        
+        
+        // TODO Auto-generated method stub
+        
+    }
 }

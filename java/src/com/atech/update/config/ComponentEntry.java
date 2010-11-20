@@ -207,7 +207,23 @@ public class ComponentEntry implements ComponentInterface
                 
                 if (this.files_java_specific.containsKey(os_abs.getShortOSName()))
                 {
-                    sb.append(this.files_java_specific.get(os_abs.getShortOSName()));
+                    // we get error on Mac for example, because files are not found.
+                    String file = this.files_java_specific.get(os_abs.getShortOSName());
+                    
+                    if ((file==null) || (file.trim().length()==0))
+                    {
+                        // try windows or linux, this are in most cases OSes that have files
+                        file = this.files_java_specific.get("win");
+                        if ((file==null) || (file.trim().length()==0))
+                        {
+                            sb.append(this.files_java_specific.get("linux"));
+                        }
+                        else
+                            sb.append(file);
+                        
+                    }
+                    else                  
+                        sb.append(file);
                 }
                 else
                 {
