@@ -17,6 +17,8 @@ public class UpdateComponentEntry extends ComponentEntry
     
     public String output_file = null;
     
+    public long file_size = 0L;
+    
     public String getFileCommand()
     {
         if (this.action == ACTION_GET_FILE_BINARY)

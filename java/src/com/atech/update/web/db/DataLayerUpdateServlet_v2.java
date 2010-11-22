@@ -1,15 +1,17 @@
 package com.atech.update.web.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.atech.db.datalayer.DataLayerJDBCAbstract;
 
 public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
 {
 
+    private static Log log = LogFactory.getLog(DataLayerUpdateServlet_v2.class);
+    
     
     /**
      * The s_dl.
@@ -135,6 +137,34 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
         return result.toString();
         
     }
+
+    
+    public String getProductXml(String product_id, int current_version) 
+    {
+        try
+        {
+            String sql = " SELECT xml_def " +
+                         " FROM upd_app_version " + 
+                         " WHERE product_id='" + product_id + "' and version_num=" + current_version;
+            
+            ResultSet rs = this.executeQuery(sql);
+            
+            if (rs.next())
+            {
+                return rs.getString("xml_def");
+            }
+            else
+                return null;
+        }
+        catch(Exception ex)
+        {
+            log.debug("getProductXml. Ex.: " + ex, ex);
+            return null;
+        }
+        
+    }
+    
+    
     
     
     public static void main(String[] args)

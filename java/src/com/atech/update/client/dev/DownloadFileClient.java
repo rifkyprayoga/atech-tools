@@ -94,7 +94,7 @@ public class DownloadFileClient extends JFrame implements ActionListener
 
         
         UpdateProgressPanelAbstract p = new UpdateProgressPanel();
-        p.setBounds(0, 0, 450, 100);
+        //p.setBounds(0, 0, 450, 100);
         //panel.add(p);
         
         this.list.add((JPanel)p);

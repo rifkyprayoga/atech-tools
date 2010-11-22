@@ -28,6 +28,7 @@ import javax.swing.table.TableColumnModel;
 import com.atech.help.ComponentHelpCapable;
 import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
+import com.atech.update.client.data.UpdateSettings;
 import com.atech.update.config.ComponentInterface;
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.utils.ATDataAccess;
@@ -87,11 +88,11 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
      */
     JPanel panel;
     JLabel label, label_title, status_label;
-    JButton button, help_button;
+    JButton btn_check, btn_update, button, help_button;
     Font font_big, font_normal, font_normal_b;
 
 
-
+    UpdateSettings update_settings = null;
 
 
 
@@ -231,6 +232,9 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
         //this.setVisible(true);
     	
+        update_settings = new UpdateSettings();
+        
+        
     	
     }
     
@@ -405,23 +409,23 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         // ---
         // --- OK Command
         // ---
-        button = new JButton("   " + ic.getMessage("CHECK_SERVER"));
-        button.setBounds(455,30,150,25);
-        button.setIcon(m_da.getImageIcon("/icons/", "up_down_question.png", 22, 22, this));
-        button.addActionListener(this);
-        button.setFont(font_normal);
-        button.setActionCommand("check_server");
-        panel.add(button);
+        this.btn_check = new JButton("   " + ic.getMessage("CHECK_SERVER"));
+        this.btn_check.setBounds(455,30,150,25);
+        this.btn_check.setIcon(m_da.getImageIcon("/icons/", "up_down_question.png", 22, 22, this));
+        this.btn_check.addActionListener(this);
+        this.btn_check.setFont(font_normal);
+        this.btn_check.setActionCommand("check_server");
+        panel.add(this.btn_check);
 
         
-        button = new JButton("   " + ic.getMessage("RUN_UPDATE"));
-        button.setBounds(455,60,150,25);
-        button.addActionListener(this);
-        button.setIcon(m_da.getImageIcon("/icons/", "download.png", 22, 22, this));
-        button.setEnabled(false);
-        button.setFont(font_normal);
-        button.setActionCommand("run_update");
-        panel.add(button);
+        this.btn_update = new JButton("   " + ic.getMessage("RUN_UPDATE"));
+        this.btn_update.setBounds(455,60,150,25);
+        this.btn_update.addActionListener(this);
+        this.btn_update.setIcon(m_da.getImageIcon("/icons/", "download.png", 22, 22, this));
+        this.btn_update.setEnabled(false);
+        this.btn_update.setFont(font_normal);
+        this.btn_update.setActionCommand("run_update");
+        panel.add(this.btn_update);
         
         
         // ---
@@ -574,6 +578,22 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     }
 
     
+    
+    /**
+     * Update System v2.1
+     * 
+     * 1. Check Update version X
+     * 2. Display possible updates 
+     * 3. Get New Version Xml and display updates in list (activate button)  X
+     * 4. Get detailed update data x
+     * 4. Download files X
+     * 5. Apply Update   
+     * 
+     */
+    
+    
+    
+    
     /**
      * Check Server
      */
@@ -589,8 +609,11 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         
         try
         {
+            
+            
+/*            
             System.out.println("app: " + m_da.getAppName() + ",version=" + m_da.getCurrentVersion() + ",db_version=" + m_da.getCurrentDbVersion());
-            String server_name = "http://192.168.4.6:8080/";
+            String server_name = "http://192.168.4.3:8080/";
             
             
             
@@ -609,21 +632,18 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
                 if (!server_name.endsWith("/"))
                     server_name = server_name + "/";
             }
+  */
             
+            String server_name = this.update_settings.update_server;
             
-                
-            
+            //UpdateSystemGetNextAppVersion
             
             // FIXME
-            URL url = new URL(server_name + "UpdateSystemGetNextAppVersion?" + "" +
+            URL url = new URL(server_name + "ATechUpdateSystem?action=get_update_status&" +
             		"product_id=" + m_da.getAppName() + "&" +
             		"current_version=" + "7" + "&" +
             		"current_db=" + "7");
 
-
-
-            
-            //HTMLDocument tt = new HTMLDocument();
 
             BufferedReader in = new BufferedReader(new InputStreamReader(
                                 url.openStream()));

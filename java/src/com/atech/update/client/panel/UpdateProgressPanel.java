@@ -10,10 +10,10 @@ public class UpdateProgressPanel extends UpdateProgressPanelAbstract
 {
 
     JProgressBar progress_bar;
-    String base_status = null;
-    String sub_status = null;
     JLabel label_status_1, label_status_2;
     String job_status = null;
+    String base_status = null;
+    String sub_status = null;
     
     public UpdateProgressPanel()
     {
@@ -23,23 +23,25 @@ public class UpdateProgressPanel extends UpdateProgressPanelAbstract
     }
     
     
-    public void initGUI()
+    private void initGUI()
     {
         this.setLayout(null);
         this.setBorder(new LineBorder(Color.BLACK));
         
         label_status_1 = new JLabel("");
-        label_status_1.setBounds(22, 15, 355, 15);
+        label_status_1.setBounds(22, 10, 355, 15);
         add(label_status_1);
         
         progress_bar = new JProgressBar();
-        progress_bar.setBounds(22, 40, 355, 25);
+        progress_bar.setStringPainted(true);
+        progress_bar.setBounds(22, 35, 425, 25);
         add(progress_bar);
 
         label_status_2 = new JLabel("");
-        label_status_2.setBounds(22, 70, 355, 15);
+        label_status_2.setBounds(22, 65, 355, 15);
         add(label_status_2);
         
+        this.setSize(490, 90);
         
     }
 
