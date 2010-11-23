@@ -5,12 +5,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.atech.utils.file.CheckSumUtility;
 
 public class ATechUpdateGetFile extends HttpServlet 
 {
@@ -24,7 +25,7 @@ public class ATechUpdateGetFile extends HttpServlet
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         System.out.println("AtechUpdateGetFile::doGet");
-        this.doDownload(request, response, "d:/test.jar", "test.jar");
+        this.doDownload(request, response, "d:/IMG_3968.JPG", "test.jar");
     }
     
     
@@ -50,6 +51,18 @@ public class ATechUpdateGetFile extends HttpServlet
         //ServletContext      context  = getServletConfig().getServletContext();
         String              mimetype = null; //context.getMimeType( filename );
 
+        
+        try
+        {
+            CheckSumUtility csu = new CheckSumUtility();
+            System.out.println("Checksum: " + csu.getChecksumValue(filename));
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Exception CheckSum. Ex: " + ex);
+        }
+        
+        
         //
         //  Set the response and go!
         //

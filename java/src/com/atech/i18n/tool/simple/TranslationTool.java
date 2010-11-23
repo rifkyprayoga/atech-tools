@@ -278,6 +278,11 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         ATSwingUtils.getButton("Copy from Master file", 310, yst + 200, 170, 25, panel, ATSwingUtils.FONT_NORMAL, null,
             "copy_text", this, m_da);
 
+        ATSwingUtils.getButton("Big", 210, yst + 200, 90, 25, panel, ATSwingUtils.FONT_NORMAL, null,
+            "big_display", this, m_da);
+        
+        
+        
         ATSwingUtils.getLabel("My Translation", 30, yst + 200, 300, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         jt_mine = ATSwingUtils.getTextArea("Text", 30, yst + 230, 450, 60, panel);
         jt_mine.setLineWrap(true);
@@ -563,6 +568,20 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         else if (cmd.equals("copy_translations"))
         {
             System.out.println("!!! Copy Translations !!!");
+        }
+        else if (cmd.equals("big_display"))
+        {
+            TranslationDetail td = new TranslationDetail(this, this.jt_source.getText(), this.jt_mine.getText());
+            
+            //System.out.println("was action: " + td.wasAction());
+            
+            if (td.wasAction())
+            {
+                //System.out.println("was action: " + td.wasAction() + ", data:" + td.getData());
+                
+                this.jt_mine.setText(td.getData());
+            }
+            
         }
         else
             System.out.println("Unknown command: " + cmd);
