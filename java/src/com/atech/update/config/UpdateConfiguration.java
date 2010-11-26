@@ -166,6 +166,8 @@ public class UpdateConfiguration
             "APP_CUSTOM_1_ID", 
             
             "DB_UPDATE_SITE",
+            "DB_UPDATE_SITE_VERSION",
+            
             "DB_VERSION_REQUIRED",
             "DB_ENABLED",
             "DB_CONFIGURATION_CLASS",
@@ -173,6 +175,9 @@ public class UpdateConfiguration
 			"LAST_COMPONENT",
 			"GROUP_1_NAME",
 			"COMPONENT_1_NAME",
+			
+			"VERSION_NAME",
+			"VERSION_NUMERIC"
 	};
 	
 	

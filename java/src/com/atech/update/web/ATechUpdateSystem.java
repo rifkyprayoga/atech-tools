@@ -33,6 +33,10 @@ public class ATechUpdateSystem extends HttpServlet
                 getParameter(request, "product_id"), 
                 Integer.parseInt(getParameter(request, "current_version")));
         }
+        else if (action.equals("get_update_list"))
+        {
+            getUpdateList();
+        }
         else if (action.equals("get_update_status"))
         {
             getNextVersion(response, 
@@ -73,6 +77,27 @@ public class ATechUpdateSystem extends HttpServlet
     private void getFile(HttpServletRequest request, HttpServletResponse response, long module_id, long version_id)
     {
 
+        
+        
+        
+    }
+    
+    
+    private void getUpdateList()
+    {
+/*
+        SELECT upd_app_ver_modules.*
+        FROM upd_app_ver_modules
+        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num=4 and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id = upd_app_ver_modules.module_id
+        WHERE upd_app_ver_modules.product_id = 'ggc' AND upd_app_ver_modules.version_num = 7 AND mod2.module_version < upd_app_ver_modules.module_version
+
+        UNION
+
+        SELECT upd_app_ver_modules.*
+        FROM upd_app_ver_modules
+        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num=4 and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id = upd_app_ver_modules.module_id
+        WHERE upd_app_ver_modules.product_id = 'ggc' AND upd_app_ver_modules.version_num = 7 AND mod2 is null --.module_version < upd_app_ver_modules.module_version
+*/
         
         
         
