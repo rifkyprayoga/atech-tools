@@ -59,12 +59,19 @@ public class ComponentGroup implements ComponentInterface
 	
 	
 	/**
+	 * Children map (name -> id) 
+	 */
+	public Hashtable<String,String> children_map_id_name;
+	
+	
+	/**
 	 * Constructor
 	 */
 	public ComponentGroup()
 	{
         this.children = new ArrayList<ComponentEntry>();
         this.children_id = new Hashtable<String,ComponentEntry>();
+        this.children_map_id_name = new Hashtable<String,String>();
 	}
 	
 
@@ -81,6 +88,7 @@ public class ComponentGroup implements ComponentInterface
 		
 		this.children = new ArrayList<ComponentEntry>();
 		this.children_id = new Hashtable<String,ComponentEntry>();
+        this.children_map_id_name = new Hashtable<String,String>();
 	}
 
 	/**
@@ -96,7 +104,7 @@ public class ComponentGroup implements ComponentInterface
 		
 		this.children = new ArrayList<ComponentEntry>();
 		this.children_id = new Hashtable<String,ComponentEntry>();
-		
+        this.children_map_id_name = new Hashtable<String,String>();
 	}
 	
 	/**
@@ -108,6 +116,7 @@ public class ComponentGroup implements ComponentInterface
 	{
 		this.children.add(ce);
 		this.children_id.put("" + ce.id, ce);
+		this.children_map_id_name.put(ce.name, "" + ce.id);
 	}
 
 	/**

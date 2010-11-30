@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
 
@@ -29,8 +28,8 @@ import com.atech.help.ComponentHelpCapable;
 import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.update.client.data.UpdateSettings;
-import com.atech.update.config.ComponentInterface;
 import com.atech.update.config.UpdateConfiguration;
+import com.atech.update.config.UpdateConfigurationXml;
 import com.atech.utils.ATDataAccess;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
@@ -81,7 +80,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
 
     JTabbedPane tabbedPane;
-    ArrayList<ComponentInterface> list;
+    //ArrayList<ComponentInterface> list;
 
     /*
      *  Globaly used variables
@@ -90,7 +89,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     JLabel label, label_title, status_label;
     JButton btn_check, btn_update, button, help_button;
     Font font_big, font_normal, font_normal_b;
-
+    JTable table;
 
     UpdateSettings update_settings = null;
 
@@ -106,6 +105,8 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     
     int lastAction = 0;  // no event
 
+    long next_version = 0L;
+    
 
 
     /**
@@ -216,7 +217,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
         //this.uo_root = uo_root;
         //this.update_system = usys;
-        this.list = this.update_config.getUpdateTable(); 
+        //this.list = this.update_config.getUpdateTable(); 
             //update_system.getUpdateTable();
         
         
@@ -304,7 +305,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         
         this.label = ATSwingUtils.getLabel(ic.getMessage("SERVER_STATUS") + ":", 30, 70, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD); 
         
-        this.status_label = ATSwingUtils.getLabel(ic.getMessage("SERVER_STATUS"), 150, 70, 320, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD); 
+        this.status_label = ATSwingUtils.getLabel(ic.getMessage("NO_STATUS"), 160, 70, 320, 25, panel, ATSwingUtils.FONT_NORMAL); 
         
         
         this.label = new JLabel(ic.getMessage("LEGEND") +":");
@@ -317,7 +318,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         String[] pictures = { "dot_green.gif", "dot_red.gif", "dot_orange.gif", "dot_blue.gif" };
         String[] leg_label = {  "  " + ic.getMessage("NEWEST"), 
                             "  " + ic.getMessage("NOT_UPDATED"),
-                            "  " + ic.getMessage("NOT_UPDATABLE"),
+                            "  " + ic.getMessage("NEW"),
                             "  " + ic.getMessage("UNKNOWN_STATUS")
                             };
         
@@ -329,9 +330,9 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
             panel.add(label);
         }
         
-        this.model = new UpdateSystemModel(this.list, m_da);
+        this.model = new UpdateSystemModel(this.update_config, m_da);
         
-        JTable table = new JTable(this.model);
+        table = new JTable(this.model);
 
 /*
             new AbstractTableModel()
@@ -582,12 +583,15 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     /**
      * Update System v2.1
      * 
-     * 1. Check Update version X
-     * 2. Display possible updates 
-     * 3. Get New Version Xml and display updates in list (activate button)  X
+     * + 1. Check Update version X
+     * + 2. Display possible updates 
+     * + 3. Get New Version Xml and display updates in list (activate button)  X
      * 4. Get detailed update data x
      * 4. Download files X
      * 5. Apply Update   
+     * 
+     * 
+     * 2. Update::  Check if db_updatable for version of application
      * 
      */
     
@@ -611,57 +615,24 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         {
             
             
-/*            
-            System.out.println("app: " + m_da.getAppName() + ",version=" + m_da.getCurrentVersion() + ",db_version=" + m_da.getCurrentDbVersion());
-            String server_name = "http://192.168.4.3:8080/";
-            
-            
-            
-            // check server name
-            server_name = server_name.trim();
-            
-            if (server_name.length()==0)
-            {
-                server_name = "http://www.atech-software.com/";
-            }
-            else
-            {
-                if (!server_name.startsWith("http://"))
-                    server_name = "http://" + server_name;
-                
-                if (!server_name.endsWith("/"))
-                    server_name = server_name + "/";
-            }
-  */
-            
             String server_name = this.update_settings.update_server;
+            long current_version = 4;
+            long current_db = 7;
             
-            //UpdateSystemGetNextAppVersion
+            String iLine2;
             
-            // FIXME
-            URL url = new URL(server_name + "ATechUpdateSystem?action=get_update_status&" +
-            		"product_id=" + m_da.getAppName() + "&" +
-            		"current_version=" + "7" + "&" +
-            		"current_db=" + "7");
+            iLine2 = getServletData(server_name + "ATechUpdateSystem?action=get_update_status&" +
+                "product_id=" + m_da.getAppName() + "&" +
+                "current_version=" + current_version + "&" +
+                "current_db=" + current_db);
 
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                                url.openStream()));
-
-            String iLine , iLine2;
-            iLine2 = "";
-
-            while ((iLine = in.readLine()) != null)
+            
+            if (iLine2 == null)
             {
-                iLine2 += iLine;
-                System.out.println(iLine);
-            } // while file
-            
-            in.close();
-        
+                return;
+            }
             
             String ret_msg = iLine2.substring(iLine2.indexOf("RETURN_DATA_START__") + "RETURN_DATA_START__<br>".length(), iLine2.indexOf("<br>__RETURN_DATA_END"));
-            
             
             
             // resolve result for update system v2
@@ -679,6 +650,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
                 }
                     
                 m_da.showDialog(this, ATDataAccessAbstract.DIALOG_ERROR, ic.getMessage(err));
+                status_label.setText(ic.getMessage("STATUS_UPD_FAILED_DATA"));
                 
             }
             else if (ret_msg.contains(";"))
@@ -686,43 +658,116 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
                 StringTokenizer strtok = new StringTokenizer(ret_msg, ";");
                 Hashtable<String,String> msges = new Hashtable<String,String>();
                 
+                String return_info = null;
+                
+                
                 while(strtok.hasMoreTokens())
                 {
                     String t = strtok.nextToken();
                     msges.put(t.substring(0, t.indexOf("=")), t.substring(t.indexOf("=")+1));
                 }
 
-                System.out.println(msges);
+                //System.out.println(msges);
                 
+                next_version = Long.parseLong(msges.get("NEXT_VERSION"));
+                boolean cont = false;
+                
+                
+                
+                
+                if (next_version == current_version)
+                {
+                    if (msges.containsKey("NEXT_DB_VERSION"))
+                    {
+                        System.out.println("UPDATE_FOR_HIGHER_DB_FOUND");
+                        return_info = String.format(ic.getMessage("UPDATE_FOR_HIGHER_DB_FOUND"), msges.get("NEXT_DB_VERSION_STR")) ;
+                        status_label.setText(ic.getMessage("STATUS_UPD_NO_VALID_UPDATE"));
+                    }
+                    else
+                    {
+                        System.out.println("NO_UPDATE_FOUND");
+                        return_info = ic.getMessage("NO_UPDATE_FOUND");
+                        status_label.setText(ic.getMessage("STATUS_UPD_NO_UPDATE"));
+                    }
+                    
+                    //status_label.setText(ic.getMessage("STATUS_UPD_NO_VALID_UPDATE"));
+
+                    
+                }
+                else
+                {
+                    cont = true;
+                    if (msges.containsKey("NEXT_DB_VERSION"))
+                    {
+                        System.out.println("UPDATE_FOUND_ALSO_HIGHER_DB");
+                        return_info = String.format(ic.getMessage("UPDATE_FOUND_ALSO_HIGHER_DB"), msges.get("NEXT_DB_VERSION_STR"), msges.get("NEXT_VERSION_STR")) ;
+                    }
+                    else
+                    {
+                        System.out.println("UPDATE_FOUND_VERSION");
+                        return_info = String.format(ic.getMessage("UPDATE_FOUND_VERSION"), msges.get("NEXT_VERSION_STR"));
+                    }
+                    status_label.setText(ic.getMessage("STATUS_UPD_UPDATE_FOUND"));
+                    
+                }
+                
+                if (cont)
+                {
+                    
+                  //Custom button text
+                    Object[] options = { ic.getMessage("YES"), ic.getMessage("NO") };
+                    
+                    int n = JOptionPane.showOptionDialog(this, return_info,
+                        ic.getMessage("QUESTION"), JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    
+                    if (n==JOptionPane.YES_OPTION)
+                    {
+                        
+                        iLine2 = this.getServletData(server_name + "ATechUpdateSystem?action=get_xml&" +
+                            "product_id=" + m_da.getAppName() + "&" +
+                            "current_version=" + msges.get("NEXT_VERSION") );
+                        
+                        if (iLine2 == null)
+                        {
+                            // 3.
+                            //m_da.showDialog(this, ATDataAccessAbstract.DIALOG_WARNING, "Error reading xml data !");
+                            return;
+                        }
+                        else
+                        {
+                            ret_msg = iLine2.substring(iLine2.indexOf("RETURN_DATA_START__") + "RETURN_DATA_START__<br>".length(), iLine2.indexOf("<br>__RETURN_DATA_END"));                            
+                            UpdateConfigurationXml ucxml = new UpdateConfigurationXml(ret_msg);
+                            
+                            this.model.updateModel(ucxml.getUpdateConfiguration());
+                            this.model.fireTableDataChanged();
+                            
+                            this.btn_update.setEnabled(true);
+                            
+                            //System.out.println("Got xml: \"" + ret_msg + "\"");
+                            //m_da.showDialog(this, ATDataAccessAbstract.DIALOG_INFO, "Got xml !");
+                        }
+                        
+                        
+                        
+                        // 3.
+                        //m_da.showDialog(this, ATDataAccessAbstract.DIALOG_INFO, "Update YAY !");
+                        
+                        
+                        
+                        
+                    }
+                }
+                else
+                    m_da.showDialog(this, ATDataAccessAbstract.DIALOG_INFO, return_info);
                 
             }
             else
+            {
                 m_da.showDialog(this, ATDataAccessAbstract.DIALOG_ERROR, ic.getMessage("UPD_ERR_INTERNAL_ERROR"));
-                
-            
-            
-            
-            
-            
-            
-            
-/*  v1            
-            // resolve result
-            
-            String error_nr = getParameter("error_nr", iLine2);
-            String error_code = getParameter("error_code", iLine2);
-            
-            if (error_nr.equals("0"))
-            {
-                
-                
+                status_label.setText(ic.getMessage("STATUS_UPD_FAILED_COMM_ERROR"));
             }
-            else
-            {
-                this.status_label.setText(ic.getMessage(error_code));
-            }
-*/            
-            
+                
             
         }
         catch(Exception ex)
@@ -736,7 +781,43 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         }
     }
 
+
+    private String getServletData(String full_url)
+    {
+        try
+        {
+            URL url = new URL(full_url);
+
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+
+            String iLine , iLine2;
+            iLine2 = "";
+
+            while ((iLine = in.readLine()) != null)
+            {
+                iLine2 += iLine;
+                //System.out.println(iLine);
+            } // while file
+            
+            in.close();
+            
+            return iLine2;
+        }
+        catch(Exception ex)
+        {
+            this.status_label.setText(ic.getMessage("UPD_ERROR_CONTACTING_SERVER"));
+            m_da.showDialog(this, ATDataAccessAbstract.DIALOG_ERROR, ic.getMessage("UPD_ERROR_CONTACTING_SERVER"));
+            
+            //System.out.println("Exception reading Web. Ex: " + ex);
+            return null;
+        }
+        
+        
+    }
     
+    
+    @SuppressWarnings("unused")
     private String getParameter(String parameter, String text)
     {
         String start_tag = "<" + parameter + ">";
@@ -758,7 +839,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
      */
     public void runUpdate()
     {
-        
+        m_da.showDialog(this, ATDataAccessAbstract.DIALOG_INFO, "Run Update !");
     }
 
 

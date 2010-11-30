@@ -11,8 +11,43 @@ import javax.servlet.http.HttpServletResponse;
 import com.atech.update.web.db.DataLayerUpdateServlet_v2;
 import com.atech.utils.web.ServletUtilities;
 
+/**
+ *  This file is part of ATech Tools library.
+ *  
+ *  ComponentCustomApp - Custom Application definition class
+ *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
+ *  
+ *  
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ *  
+ *  
+ *  For additional information about this project please visit our project site on 
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  andyrozman@users.sourceforge.net or andy@atech-software.com
+ *  
+ *  @author Andy
+ *
+*/
+
+
 public class ATechUpdateSystem extends HttpServlet
 {
+
+    private static final long serialVersionUID = -5622091320679694087L;
+
+
 
     /**
      * doGet
@@ -35,7 +70,10 @@ public class ATechUpdateSystem extends HttpServlet
         }
         else if (action.equals("get_update_list"))
         {
-            getUpdateList();
+            getDetailedUpdateList(response, 
+                getParameter(request, "product_id"), 
+                Integer.parseInt(getParameter(request, "current_version")),
+                Integer.parseInt(getParameter(request, "next_version")));
         }
         else if (action.equals("get_update_status"))
         {
@@ -74,6 +112,7 @@ public class ATechUpdateSystem extends HttpServlet
     }
     
     
+    @SuppressWarnings("unused")
     private void getFile(HttpServletRequest request, HttpServletResponse response, long module_id, long version_id)
     {
 
@@ -83,23 +122,38 @@ public class ATechUpdateSystem extends HttpServlet
     }
     
     
-    private void getUpdateList()
+    
+    
+    private void getDetailedUpdateList(HttpServletResponse response, String product_id, int current_version, int next_version ) throws ServletException, IOException 
     {
-/*
-        SELECT upd_app_ver_modules.*
-        FROM upd_app_ver_modules
-        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num=4 and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id = upd_app_ver_modules.module_id
-        WHERE upd_app_ver_modules.product_id = 'ggc' AND upd_app_ver_modules.version_num = 7 AND mod2.module_version < upd_app_ver_modules.module_version
-
-        UNION
-
-        SELECT upd_app_ver_modules.*
-        FROM upd_app_ver_modules
-        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num=4 and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id = upd_app_ver_modules.module_id
-        WHERE upd_app_ver_modules.product_id = 'ggc' AND upd_app_ver_modules.version_num = 7 AND mod2 is null --.module_version < upd_app_ver_modules.module_version
-*/
+        DataLayerUpdateServlet_v2 dl = DataLayerUpdateServlet_v2.getInstance();
+        
+        String xml = dl.getProductUpdateList(product_id, current_version, next_version);
         
         
+        response.setContentType("text/html");
+        //response.setContentLength(message.length());
+        PrintWriter out = response.getWriter();
+        out.println(ServletUtilities.headWithTitle("ATech Update Server"));
+        out.println("<body>");
+        out.println("<h1>ATech Update Server - Get Detailed Update List</h1><br>");
+        
+        out.println("<b>This servlet is intended for internal use of applications implementing");
+        out.println("ATech-Tools Update System (v2).<b><br><br>");
+        
+        //String ret_data = dl.getNextVersionInfo(product_id, current_version, current_db);
+        
+        out.println("Returned data:<br>" + xml + "<br>");
+        
+        out.println("<!-- RETURN_DATA_START__<br>" + xml + "<br>" + "__RETURN_DATA_END --!>");
+        
+        out.println("</body>");
+        out.println("</html>");
+
+        
+        //in.close();
+        out.flush();
+        out.close();
         
     }
     
@@ -116,7 +170,7 @@ public class ATechUpdateSystem extends HttpServlet
      * @throws ServletException 
      * @throws IOException 
      */
-    public void getNextVersion(HttpServletResponse response, String product_id, int current_version, int current_db ) throws ServletException, IOException 
+    private void getNextVersion(HttpServletResponse response, String product_id, int current_version, int current_db ) throws ServletException, IOException 
     {
         DataLayerUpdateServlet_v2 dl = DataLayerUpdateServlet_v2.getInstance();
         

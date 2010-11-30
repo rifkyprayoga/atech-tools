@@ -3,7 +3,7 @@ package com.atech.graphics.components;
 import com.atech.i18n.I18nControlAbstract;
 
 // TODO: Auto-generated Javadoc
-/*
+/**
  * * This file is part of ATech Tools library.
  * 
  * <one line to give the library's name and a brief idea of what it does.>

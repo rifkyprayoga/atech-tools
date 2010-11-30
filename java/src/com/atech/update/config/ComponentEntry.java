@@ -80,6 +80,7 @@ public class ComponentEntry implements ComponentInterface
 	 */
 	public String server_version = "";
 	
+	
 	/**
 	 * Server Version (num)
 	 */
@@ -133,6 +134,62 @@ public class ComponentEntry implements ComponentInterface
 	 * Files Java Specific
 	 */
 	public Hashtable<String,String> files_java_specific = new Hashtable<String,String>();
+	
+	
+	
+	// Update System
+	
+    public long module_version_id = 0L;
+	
+	public String archive_file = null;
+	
+    public long archive_crc = 0L;
+    
+    public long archive_size = 0L;
+	
+    public int action = 0;
+
+    public static final int ACTION_GET_FILE_BINARY = 1;
+	
+	
+    //public long estimated_crc = 0L;
+    
+    //public long file_id = 0L;
+    
+    //public long requested_version_id = 0L;
+    
+    
+    //public String output_file = null;
+    
+    //public long file_size = 0L;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Status: Newest (Up to date)
+	 */
+	public static final int STATUS_NEWEST = 1;
+	
+    /**
+     * Status: Not Updated
+     */
+    public static final int STATUS_NOT_UPDATED = 2;
+    
+    /**
+     * Status: New 
+     */
+    public static final int STATUS_NEW = 3;
+    
+    /**
+     * Status: Unknown 
+     */
+    public static final int STATUS_UNKNOWN = 4;
 	
 	
 	/*
@@ -305,7 +362,49 @@ public class ComponentEntry implements ComponentInterface
         return sb.toString();
         
     }
+
     
+    /**
+     * Copy to Server Settings
+     */
+    public void copyToServerSettings()
+    {
+        this.server_version = this.version;
+        this.server_version_num = this.version_num;
+        
+        this.version = "N/A";
+        this.version_num = 0;
+        
+        setStatus();
+    }
+    
+    
+    /**
+     * Set Server Settings
+     * 
+     * @param ce
+     */
+    public void setVersionSettings(ComponentEntry ce)
+    {
+        this.version = ce.version;
+        this.version_num = ce.version_num;
+        
+        //System.out.println("Component: " + this.name + "Version: " + this.version_num + ", ServerVersion: " + this.server_version_num);
+        setStatus();
+    }
+    
+    
+    private void setStatus()
+    {
+        if ((this.version_num==0) && (this.server_version_num>0))
+            this.status = ComponentEntry.STATUS_NEW;
+        else if (this.version_num < this.server_version_num)
+            this.status = ComponentEntry.STATUS_NOT_UPDATED;
+        else if (this.version_num == this.server_version_num)
+            this.status = ComponentEntry.STATUS_NEWEST;
+        else
+            this.status = ComponentEntry.STATUS_UNKNOWN;
+    }
     
     
 }

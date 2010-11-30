@@ -5,6 +5,7 @@ import com.atech.web.db.AppDbWebAbstract;
 import com.atech.web.util.DataAccessWeb;
 import com.atech.web.util.I18nWebControl;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -39,20 +40,58 @@ import com.atech.web.util.I18nWebControl;
 public interface AppContextInterface  
 {
 
+    /**
+     * Gets the type.
+     * 
+     * @return the type
+     */
     public int getType(); 
     
+    /**
+     * Inits the context.
+     */
     public void initContext();
     
+    /**
+     * Gets the db.
+     * 
+     * @return the db
+     */
     public AppDbWebAbstract getDb();
     
+    /**
+     * Gets the i18n.
+     * 
+     * @param lang
+     *            the lang
+     * @return the i18n
+     */
     public I18nWebControl getI18n(String lang);
     
+    /**
+     * Gets the data access web.
+     * 
+     * @return the data access web
+     */
     public DataAccessWeb getDataAccessWeb();
     
+    /**
+     * Gets the i18n.
+     * 
+     * @return the i18n
+     */
     public I18nWebControl getI18n();
     
+    /**
+     * Checks for multiple language changer.
+     * 
+     * @return true, if successful
+     */
     public boolean hasMultipleLanguageChanger();
     
+    /**
+     * Dispose context.
+     */
     public void disposeContext();
     
 }

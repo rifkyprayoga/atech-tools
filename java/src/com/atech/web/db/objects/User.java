@@ -1,5 +1,6 @@
 package com.atech.web.db.objects;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -33,20 +34,41 @@ package com.atech.web.db.objects;
 
 public class User 
 {
+    
+    /** The id. */
     public long id;
+    
+    /** The username. */
     public String username;
+    
+    /** The password. */
     public String password;
+    
+    /** The real_name. */
     public String real_name;
+    
+    /** The description. */
     public String description;
+    
+    /** The user_type. */
     public int user_type;
+    
+    /** The user_access. */
     public long user_access;
+    
+    /** The user_group. */
     public int user_group;
     
+    /** The debug. */
     public boolean debug = true;
 
+    /** The default_user. */
     public boolean default_user = false;
 
     
+    /**
+     * Instantiates a new user.
+     */
     public User()
     {
     }

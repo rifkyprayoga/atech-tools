@@ -464,6 +464,11 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     }
     
     
+    /**
+     * Get Mapping Location
+     * 
+     * @return
+     */
     public String getMappingLocation()
     {
         return null;

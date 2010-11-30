@@ -544,6 +544,7 @@ public class UpdateConfiguration
 	        ComponentGroup cg = this.groups.get("" + i);
 	        lst.add(cg);
 	        
+	        //System.out.println("cg:ch:" + cg.children.size());
 	        
 	        
 	        for(int j=0; j<cg.childrenCount(); j++)

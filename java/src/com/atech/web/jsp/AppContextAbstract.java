@@ -56,7 +56,14 @@ public abstract class AppContextAbstract implements AppContextInterface
     // Static method are: createInstance(Hashtable<String,String>) and getInstance()
     
     
+    /**
+     * App Context: Db
+     */
     public static final int APP_CONTEXT_DB = 1;
+    
+    /**
+     * App Context: Hibernate
+     */
     public static final int APP_CONTEXT_DB_HIBERNATE = 2;
     
     private static Log log = LogFactory.getLog(AppContextAbstract.class);

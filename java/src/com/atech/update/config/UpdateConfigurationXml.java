@@ -74,8 +74,38 @@ public class UpdateConfigurationXml
     
     
     
+    /**
+     * Constructor
+     * 
+     * @param xml_data 
+     */
+    public UpdateConfigurationXml(String xml_data)
+    {
+        try
+        {
+            openXmlData(xml_data);
+        }
+        catch(Exception ex)
+        {
+            System.out.println("UpdateConfigurationXml. Ex.: " + ex);
+        }
+    }
 
-
+    
+    /**
+     * Get Update Configuration (when called with constructor for xml_data)
+     * 
+     * @return
+     */
+    public UpdateConfiguration getUpdateConfiguration()
+    {
+        UpdateConfiguration uc = new UpdateConfiguration();
+        this.actualReadingOfXml(uc);
+        return uc;
+    }
+    
+    
+    
     /**
      * Open Xml File
      * 
@@ -92,6 +122,24 @@ public class UpdateConfigurationXml
     }
     
 
+    
+    /**
+     * Open Xml Data
+     * 
+     * @param xml_data
+     *  
+     * @return
+     * @throws DocumentException
+     */
+    public Document openXmlData(String xml_data) throws DocumentException 
+    {
+        SAXReader reader = new SAXReader();
+        
+        document = reader.read(new StringReader(xml_data));
+        return document;
+    }
+    
+    
     
     /**
      * Open Xml File
@@ -253,7 +301,7 @@ public class UpdateConfigurationXml
             
             uconfig.groups.put("" + cg.id, cg);
             
-            System.out.println(cg);
+            //System.out.println(cg);
         }
         
         
@@ -267,7 +315,7 @@ public class UpdateConfigurationXml
             
             ComponentEntry ce = new ComponentEntry();
 
-            System.out.println("" + nodes.size());
+            //System.out.println("" + nodes.size());
 
             ce.id = Integer.parseInt(el.element("id").getText());
             ce.group = Integer.parseInt(el.element("group").getText());
@@ -311,7 +359,7 @@ public class UpdateConfigurationXml
             uconfig.components_ht.put(ce.name, ce);
 
             
-            System.out.println(ce);
+            //System.out.println(ce);
             
         }
     }

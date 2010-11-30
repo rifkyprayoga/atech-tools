@@ -92,6 +92,11 @@ public class DataListProcessor
     }
 
     
+    /**
+     * Constructor
+     * 
+     * @param settings
+     */
     public DataListProcessor(Hashtable<String,String> settings)
     {
         tra_data = new TranslationData();
@@ -228,6 +233,11 @@ public class DataListProcessor
     }
     
     
+    /**
+     * Was user config read
+     * 
+     * @return
+     */
     public boolean wasUserConfigRead()
     {
         return this.user_configuration_read;
@@ -247,6 +257,9 @@ public class DataListProcessor
 
     /**
      * Read Master File
+     * 
+     * @param master_file_name 
+     * @return 
      */
     public MasterFileReader readMasterFile(String master_file_name)
     {
@@ -423,6 +436,12 @@ public class DataListProcessor
     }
     
     
+    /**
+     * Get Translation Encoded
+     * 
+     * @param str
+     * @return
+     */
     public String getTranslationEncoded(String str)
     {
         return m_da.unicode_utils.getASCIIFromUnicodeFull(str);

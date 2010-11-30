@@ -11,6 +11,7 @@ import com.atech.web.jsp.AppContextAbstract;
 import com.atech.web.util.DataAccessWeb;
 import com.atech.web.util.I18nWebControl;
 
+// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -48,32 +49,47 @@ public abstract class AppDbWebAbstract
     // Connection conn;
     // Statement stmt;
 
+    /** The debug. */
     protected boolean debug = false;
 
 //    private static Log log = LogFactory.getLog(AppDbWebAbstract.class);
-    protected AppContextAbstract m_context;
+    /** The m_context. */
+protected AppContextAbstract m_context;
     //public Session m_session = null;
 
+    /** The m_error code. */
     protected int m_errorCode = 0;
+    
+    /** The m_error desc. */
     protected String m_errorDesc = "";
 
+    /** The m_add id. */
     protected String m_addId = "";
     //SessionFactory m_session_factory = null;
 
+    /** The config. */
     protected Hashtable<String, String> config = new Hashtable<String, String>();
 
+    /** The user. */
     protected User user = null;
 
     //protected DataAccessWeb da = null;
+    /** The users. */
     protected ArrayList<User> users = null;
 
     //private String pis_web_version = "v0.5.3";
+    /** The ic. */
     I18nWebControl ic = null;
 
     // WEB
 
+    /** The week_days. */
     protected String week_days = "";
+    
+    /** The months. */
     protected String months = "";
+    
+    /** The daw. */
     protected DataAccessWeb daw;
 
     // 0.2 - Phase 0 (visual outlook, main framework)
@@ -85,6 +101,14 @@ public abstract class AppDbWebAbstract
 
     // 0.6 - Phase 4 (finish)
 
+    /**
+     * Instantiates a new app db web abstract.
+     * 
+     * @param daw_
+     *            the daw_
+     * @param context_
+     *            the context_
+     */
     public AppDbWebAbstract(DataAccessWeb daw_, AppContextAbstract context_)
     {
         
@@ -105,11 +129,23 @@ public abstract class AppDbWebAbstract
         //System.out.println("PIS_Web Loaded: " + pis_web_version);
     }
 
+    /**
+     * Initialize db.
+     */
     public abstract void initializeDb();
     
+    /**
+     * Destroy db.
+     */
     public abstract void destroyDb();
     
     
+    /**
+     * Sets the i18n web control.
+     * 
+     * @param ic
+     *            the new i18n web control
+     */
     public void setI18nWebControl(I18nWebControl ic)
     {
         this.ic = ic;
@@ -118,10 +154,21 @@ public abstract class AppDbWebAbstract
         initMonths();
     }
 
+    /**
+     * Close db.
+     */
     public void closeDb()
     {
     }
 
+    /**
+     * Display error.
+     * 
+     * @param source
+     *            the source
+     * @param ex
+     *            the ex
+     */
     public void displayError(String source, Exception ex)
     {
 
@@ -140,6 +187,9 @@ public abstract class AppDbWebAbstract
     // / WEB METHODS
     // /
 
+    /**
+     * Load settings.
+     */
     public abstract void loadSettings();
 /*    {
         Query q = getSession()
@@ -154,7 +204,10 @@ public abstract class AppDbWebAbstract
         }
     }*/
 
-    public abstract void loadUsers();
+    /**
+ * Load users.
+ */
+public abstract void loadUsers();
 /*    {
         this.users = new ArrayList<UserH>();
 
@@ -172,11 +225,23 @@ public abstract class AppDbWebAbstract
     }
 */
     
-    public String getMessage(String key)
+    /**
+ * Gets the message.
+ * 
+ * @param key
+ *            the key
+ * @return the message
+ */
+public String getMessage(String key)
     {
         return key;
     }
 
+    /**
+     * Gets the web language.
+     * 
+     * @return the web language
+     */
     public String getWebLanguage()
     {
         if (config.containsKey("WEB_LANG"))
@@ -187,6 +252,11 @@ public abstract class AppDbWebAbstract
             return "SI";
     }
 
+    /**
+     * Gets the web name.
+     * 
+     * @return the web name
+     */
     public String getWebName()
     {
         if (config.containsKey("WEB_NAME"))
@@ -200,6 +270,15 @@ public abstract class AppDbWebAbstract
     // 0 = OK
     // -1 = username not found
     // -2 = password wrong
+    /**
+     * Do login.
+     * 
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @return the long
+     */
     public long doLogin(String user, String pass)
     {
 
@@ -223,12 +302,28 @@ public abstract class AppDbWebAbstract
     // 0 = OK
     // -1 = username not found
     // -2 = password wrong
+    /**
+     * Check user.
+     * 
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @return the long
+     */
     public long checkUser(String user, String pass)
     {
         return doLogin(user, pass);
     }
 
     
+    /**
+     * Gets the user.
+     * 
+     * @param id
+     *            the id
+     * @return the user
+     */
     public User getUser(long id)
     {
         Iterator<User> it = this.users.iterator();
@@ -250,29 +345,82 @@ public abstract class AppDbWebAbstract
     // BASIC METHODS
     //
 
+    /**
+     * Adds the.
+     * 
+     * @param obj
+     *            the obj
+     * @return true, if successful
+     */
     public abstract boolean add(Object obj);
 
+    /**
+     * Edits the.
+     * 
+     * @param obj
+     *            the obj
+     * @return true, if successful
+     */
     public abstract boolean edit(Object obj);
 
+    /**
+     * Gets the.
+     * 
+     * @param obj
+     *            the obj
+     * @return true, if successful
+     */
     public abstract boolean get(Object obj);
 
+    /**
+     * Delete.
+     * 
+     * @param obj
+     *            the obj
+     * @return true, if successful
+     */
     public abstract boolean delete(Object obj);
 
+    /**
+     * Adds the get id.
+     * 
+     * @return the string
+     */
     public String addGetId()
     {
         return this.m_addId;
     }
 
+    /**
+     * Gets the error code.
+     * 
+     * @return the error code
+     */
     public int getErrorCode()
     {
         return this.m_errorCode;
     }
 
+    /**
+     * Gets the error description.
+     * 
+     * @return the error description
+     */
     public String getErrorDescription()
     {
         return this.m_errorDesc;
     }
 
+    /**
+     * Sets the error.
+     * 
+     * @param code
+     *            the code
+     * @param desc
+     *            the desc
+     * @param source
+     *            the source
+     */
     public void setError(int code, String desc, String source)
     {
         this.m_errorCode = code;
@@ -283,6 +431,11 @@ public abstract class AppDbWebAbstract
     // **** DAY AND MONTH HANDLING ****
     // *************************************************************
 
+    /**
+     * Gets the week days.
+     * 
+     * @return the week days
+     */
     public String getWeekDays()
     {
         if (this.week_days == null)
@@ -291,6 +444,9 @@ public abstract class AppDbWebAbstract
         return this.week_days;
     }
 
+    /**
+     * Inits the week days.
+     */
     public void initWeekDays()
     {
         StringBuffer sb_wd = new StringBuffer();
@@ -308,6 +464,11 @@ public abstract class AppDbWebAbstract
         this.week_days = sb_wd.toString();
     }
 
+    /**
+     * Gets the months.
+     * 
+     * @return the months
+     */
     public String getMonths()
     {
         if (this.months == null)
@@ -316,6 +477,9 @@ public abstract class AppDbWebAbstract
         return this.months;
     }
 
+    /**
+     * Inits the months.
+     */
     public void initMonths()
     {
         StringBuffer sb_mon = new StringBuffer();
@@ -336,6 +500,13 @@ public abstract class AppDbWebAbstract
     }
 
 
+    /**
+     * Gets the empty string not null.
+     * 
+     * @param value
+     *            the value
+     * @return the empty string not null
+     */
     public String getEmptyStringNotNull(String value)
     {
         if (value == null)
@@ -345,6 +516,13 @@ public abstract class AppDbWebAbstract
     }
 
 
+    /**
+     * Gets the date time string.
+     * 
+     * @param time
+     *            the time
+     * @return the date time string
+     */
     public String getDateTimeString(long time)
     {
         if (time > 0)
@@ -394,13 +572,21 @@ public abstract class AppDbWebAbstract
     // ****              C O M B O  C R E A T I O N        ****
     // **************************************************************
 
+    /** The sort_by_cb. */
     Hashtable<String,ArrayList<String>> sort_by_cb = null;
+    
+    /** The filter_cb. */
     Hashtable<String,ArrayList<String>> filter_cb = null;
+    
+    /** The sort_way. */
     ArrayList<String> sort_way = null;
+    
+    /** The owner. */
     ArrayList<String> owner = null;
 
 
 
+    /** The types_key. */
     private String[] types_key = { 
                     "",
                 "MY_PIS", 
@@ -409,6 +595,9 @@ public abstract class AppDbWebAbstract
                 };
 
 
+    /**
+     * Inits the combo system.
+     */
     public void initComboSystem()
     {
     // sort way
@@ -495,6 +684,13 @@ public abstract class AppDbWebAbstract
     //Hashtable<String,ArrayList<String>> sort_by_cb 
     }
 
+    /**
+     * Gets the sort way combo.
+     * 
+     * @param selection
+     *            the selection
+     * @return the sort way combo
+     */
     public String getSortWayCombo(int selection)
     {
     //System.out.println("Sel: " + selection);
@@ -526,6 +722,15 @@ public abstract class AppDbWebAbstract
     }
 
 
+    /**
+     * Gets the sort combo.
+     * 
+     * @param type
+     *            the type
+     * @param selection
+     *            the selection
+     * @return the sort combo
+     */
     public String getSortCombo(int type, int selection)
     {
 
@@ -559,6 +764,15 @@ public abstract class AppDbWebAbstract
     }
 
 
+    /**
+     * Gets the filter combo.
+     * 
+     * @param type
+     *            the type
+     * @param selection
+     *            the selection
+     * @return the filter combo
+     */
     public String getFilterCombo(int type, int selection)
     {
     ArrayList<String> list = filter_cb.get(this.types_key[type]);
@@ -588,6 +802,13 @@ public abstract class AppDbWebAbstract
     }
 
 
+    /**
+     * Gets the owner combo.
+     * 
+     * @param selection
+     *            the selection
+     * @return the owner combo
+     */
     public String getOwnerCombo(int selection)
     {
     //System.out.println("Sel: " + selection);
@@ -625,20 +846,49 @@ public abstract class AppDbWebAbstract
     // **** I N T E R V A L P R O C E S S I N G ****
     // **************************************************************
 
+    /** The Constant TIME_INTERVAL_TODAY. */
     public static final int TIME_INTERVAL_TODAY = 1;
+    
+    /** The Constant TIME_INTERVAL_TODAY_AND_TOMMOROW. */
     public static final int TIME_INTERVAL_TODAY_AND_TOMMOROW = 2;
+    
+    /** The Constant TIME_INTERVAL_TOMMOROW. */
     public static final int TIME_INTERVAL_TOMMOROW = 3;
+    
+    /** The Constant TIME_INTERVAL_THIS_WEEK. */
     public static final int TIME_INTERVAL_THIS_WEEK = 4;
+    
+    /** The Constant TIME_INTERVAL_THIS_MONTH. */
     public static final int TIME_INTERVAL_THIS_MONTH = 5;
+    
+    /** The Constant TIME_INTERVAL_ONE_WEEK. */
     public static final int TIME_INTERVAL_ONE_WEEK = 6;
+    
+    /** The Constant TIME_INTERVAL_ONE_MONTH. */
     public static final int TIME_INTERVAL_ONE_MONTH = 7;
 
+    /** The Constant TIME_INTERVAL_LAST_MONTH. */
     public static final int TIME_INTERVAL_LAST_MONTH = 8;
+    
+    /** The Constant TIME_INTERVAL_LAST_3_MONTHS. */
     public static final int TIME_INTERVAL_LAST_3_MONTHS = 9;
+    
+    /** The Constant TIME_INTERVAL_LAST_6_MONTHS. */
     public static final int TIME_INTERVAL_LAST_6_MONTHS = 10;
+    
+    /** The Constant TIME_INTERVAL_LAST_YEAR. */
     public static final int TIME_INTERVAL_LAST_YEAR = 11;
+    
+    /** The Constant TIME_INTERVAL_THIS_YEAR. */
     public static final int TIME_INTERVAL_THIS_YEAR = 12;
 
+    /**
+     * Gets the time interval.
+     * 
+     * @param interval_type
+     *            the interval_type
+     * @return the time interval
+     */
     public long[] getTimeInterval(int interval_type)
     {
         long[] time = new long[2];
@@ -832,6 +1082,13 @@ public abstract class AppDbWebAbstract
 
     }
 
+    /**
+     * Gets the first day in week and set.
+     * 
+     * @param gc
+     *            the gc
+     * @return the first day in week and set
+     */
     private GregorianCalendar getFirstDayInWeekAndSet(GregorianCalendar gc)
     {
 
@@ -851,10 +1108,18 @@ public abstract class AppDbWebAbstract
 
     }
 
+    /** The days. */
     public static int[] days = { GregorianCalendar.MONDAY, GregorianCalendar.TUESDAY, GregorianCalendar.WEDNESDAY,
                                 GregorianCalendar.THURSDAY, GregorianCalendar.FRIDAY, GregorianCalendar.SATURDAY,
                                 GregorianCalendar.SUNDAY };
 
+    /**
+     * Gets the day of week.
+     * 
+     * @param dow
+     *            the dow
+     * @return the day of week
+     */
     public int getDayOfWeek(int dow)
     {
         for (int i = 0; i < 7; i++)
@@ -866,6 +1131,16 @@ public abstract class AppDbWebAbstract
         return -1;
     }
 
+    /**
+     * Gets the gC from.
+     * 
+     * @param target
+     *            the target
+     * @param source
+     *            the source
+     * @param tag
+     *            the tag
+     */
     public void getGCFrom(GregorianCalendar target, GregorianCalendar source, int tag)
     {
         target.set(tag, source.get(tag));
@@ -879,7 +1154,14 @@ public abstract class AppDbWebAbstract
     // **** U T I L S ****
     // *************************************************************
 
-	public long getLongFromString(String id_str)
+	/**
+     * Gets the long from string.
+     * 
+     * @param id_str
+     *            the id_str
+     * @return the long from string
+     */
+    public long getLongFromString(String id_str)
     {
 
         long id = 0;
@@ -898,6 +1180,13 @@ public abstract class AppDbWebAbstract
         return id;
     }
 
+    /**
+     * Gets the int from string.
+     * 
+     * @param id_str
+     *            the id_str
+     * @return the int from string
+     */
     private int getIntFromString(String id_str)
     {
 
@@ -917,6 +1206,13 @@ public abstract class AppDbWebAbstract
         return id;
     }
 
+    /**
+     * Gets the date picker date.
+     * 
+     * @param dt
+     *            the dt
+     * @return the date picker date
+     */
     public String getDatePickerDate(long dt)
     {
 
@@ -939,6 +1235,13 @@ public abstract class AppDbWebAbstract
 
     }
 
+    /**
+     * Gets the date time from date picker.
+     * 
+     * @param date_time
+     *            the date_time
+     * @return the date time from date picker
+     */
     public long getDateTimeFromDatePicker(String date_time)
     {
 
@@ -971,6 +1274,13 @@ public abstract class AppDbWebAbstract
 
     }
 
+    /**
+     * Change case.
+     * 
+     * @param in
+     *            the in
+     * @return the string
+     */
     public String changeCase(String in)
     {
 
@@ -998,6 +1308,13 @@ public abstract class AppDbWebAbstract
 
     }
 
+    /**
+     * Change case word.
+     * 
+     * @param in
+     *            the in
+     * @return the string
+     */
     public String changeCaseWord(String in)
     {
 
@@ -1010,6 +1327,12 @@ public abstract class AppDbWebAbstract
 
     }
 
+    /**
+     * Show byte.
+     * 
+     * @param in
+     *            the in
+     */
     public void showByte(byte[] in)
     {
 
@@ -1020,6 +1343,14 @@ public abstract class AppDbWebAbstract
 
     }
 
+    /**
+     * Debug out.
+     * 
+     * @param source
+     *            the source
+     * @param ex
+     *            the ex
+     */
     public void debugOut(String source, Exception ex)
     {
 

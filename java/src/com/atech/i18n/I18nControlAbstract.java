@@ -211,6 +211,10 @@ protected Locale lcls[] = null;
     public abstract void init();
     
     
+    /**
+     * Get Selected Language
+     * @return
+     */
     public String getSelectedLanguage()
     {
 
@@ -321,6 +325,9 @@ protected Locale lcls[] = null;
 
 
     
+    /**
+     * Init Library
+     */
     public void initLibrary()
     {
         init();

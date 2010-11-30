@@ -7,6 +7,36 @@ import org.apache.commons.logging.LogFactory;
 
 import com.atech.db.datalayer.DataLayerJDBCAbstract;
 
+/**
+ *  This file is part of ATech Tools library.
+ *  
+ *  <>
+ *  Copyright (C) 2010  Andy (Aleksander) Rozman (Atech-Software)
+ *  
+ *  
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ *  
+ *  
+ *  For additional information about this project please visit our project site on 
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  andyrozman@users.sourceforge.net or andy@atech-software.com
+ *  
+ *  @author Andy
+ *
+*/
+
 public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
 {
 
@@ -49,12 +79,23 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
     }
     
     
+    /**
+     * Init
+     */
     public void init()
     {
         
     }
     
     
+    /**
+     * Get Next Version Info
+     * 
+     * @param product_id
+     * @param current_version
+     * @param current_db
+     * @return
+     */
     public String getNextVersionInfo(String product_id, int current_version, int current_db) 
     {
         StringBuilder result = new StringBuilder();
@@ -62,9 +103,9 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
         try
         {
             int next_version = 0;
-            String next_version_string = null;
+            //String next_version_string = null;
             int next_version_db = 0;
-            String next_version_db_string = null;
+            //String next_version_db_string = null;
             int max_db_version = 0;
             
             String sql = " SELECT MAX(version_num) as max_id " +
@@ -139,6 +180,13 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
     }
 
     
+    /**
+     * Get Product Xml
+     * 
+     * @param product_id
+     * @param current_version
+     * @return
+     */
     public String getProductXml(String product_id, int current_version) 
     {
         try
@@ -165,8 +213,109 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
     }
     
     
+    /**
+     * Get Product Update List
+     * 
+     * @param product_id
+     * @param current_version
+     * @param next_version
+     * @return
+     */
+    public String getProductUpdateList(String product_id, long current_version, long next_version)
+    {
+        
+        try
+        {
+            String sql = " SELECT upd_mod_version.id as id, upd_mod_version.module_id as module_id, upd_mod_version.version_num as version_num, upd_mod_version.archive_name as archive_name, upd_mod_version.archive_crc as archive_crc, upd_mod_version.archive_length as archive_length, upd_module.module_name as module_name " +
+                  " FROM upd_mod_version " +
+                  " INNER JOIN upd_app_ver_modules on upd_app_ver_modules.module_id=upd_mod_version.module_id " + 
+                  "    AND upd_app_ver_modules.module_version=upd_mod_version.version_num " + 
+                  " INNER JOIN upd_module on upd_module.module_id = upd_mod_version.module_id " + 
+                  " AND upd_app_ver_modules.id IN " + 
+                  "    ( " +
+                  "        SELECT upd_app_ver_modules.id " + 
+                  "        FROM upd_app_ver_modules " +
+                  "        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num=" + current_version + " and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id = upd_app_ver_modules.module_id " +
+                  "        WHERE upd_app_ver_modules.product_id = '" + product_id + "' AND upd_app_ver_modules.version_num = " + next_version + " AND mod2.module_version < upd_app_ver_modules.module_version " +
+                  "        UNION " +
+                  "        SELECT upd_app_ver_modules.id " +
+                  "        FROM upd_app_ver_modules " +
+                  "        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num=" + current_version + " and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id = upd_app_ver_modules.module_id " +
+                  "        WHERE upd_app_ver_modules.product_id = '" + product_id + "' AND upd_app_ver_modules.version_num = " + next_version + " AND mod2 is null " +
+                  "     ) ";
+            
+            ResultSet rs = this.executeQuery(sql);
+            
+            StringBuilder sb = new StringBuilder();
+            sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+            sb.append("<update_detailed_file>\n");
+            sb.append("\t<components>\n");
+            
+            while (rs.next())
+            {
+                sb.append("\t\t<component>\n");
+
+                // id
+                sb.append("\t\t\t<id>");
+                sb.append(rs.getLong("id"));
+                sb.append("</id>\n");
+
+                // module_id
+                sb.append("\t\t\t<module_id>");
+                sb.append(rs.getLong("module_id"));
+                sb.append("</module_id>\n");
+                
+
+                // module_name
+                sb.append("\t\t\t<module_name>");
+                sb.append(rs.getLong("module_name"));
+                sb.append("</module_name>\n");
+                
+                // version_num
+                sb.append("\t\t\t<version_num>");
+                sb.append(rs.getLong("version_num"));
+                sb.append("</version_num>\n");
+
+                // archive_name
+                sb.append("\t\t\t<archive_name>");
+                sb.append(rs.getLong("archive_name"));
+                sb.append("</archive_name>\n");
+
+                // archive_crc
+                sb.append("\t\t\t<archive_crc>");
+                sb.append(rs.getLong("archive_crc"));
+                sb.append("</archive_crc>\n");
+                
+                // archive_length
+                sb.append("\t\t\t<archive_length>");
+                sb.append(rs.getLong("archive_length"));
+                sb.append("</archive_length>\n");
+                
+                
+//                return rs.getString("xml_def");
+                sb.append("\t\t</component>\n");
+            }
+            
+            sb.append("\t</components>\n");
+            sb.append("</update_detailed_file>\n");
+
+            return sb.toString();
+            
+        }
+        catch(Exception ex)
+        {
+            log.debug("getProductUpdateList. Ex.: " + ex, ex);
+            return null;
+        }
+        
+    }
     
     
+    
+    
+    /**
+     * @param args
+     */
     public static void main(String[] args)
     {
         DataLayerUpdateServlet_v2 dl = DataLayerUpdateServlet_v2.getInstance();

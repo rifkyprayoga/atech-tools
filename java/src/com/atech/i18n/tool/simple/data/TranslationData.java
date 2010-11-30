@@ -255,6 +255,7 @@ public class TranslationData
      * 
      * @param dlp
      * @param backup
+     * @param gc 
      */
     public void saveTranslation(DataListProcessor dlp, boolean backup, GregorianCalendar gc)
     {
@@ -302,9 +303,9 @@ public class TranslationData
                     {
                         String key = der.value_str;
                      
-                        // FIXME
-                        if (key.equals("TIME"))
-                            this.debug_write = true;
+
+                        //if (key.equals("TIME"))
+                        //    this.debug_write = true;
                         
                         
                         DataEntry de = this.get(key);
@@ -341,31 +342,9 @@ public class TranslationData
                 else
                     bw.write(v);
                 
-                // FIXME
                 this.debug_write = false;
                 
             }
-            
-            
-            
-            /*
-            for(int i=0; i<this.list_tra.size(); i++)
-            {
-                DataEntry de = this.list_tra.get(i);
-                
-                bw.write(de.key + "=");
- 
-                //  TODO: if no translation - English
-                bw.write(getTranslationEncoded(de.target_translation));
-                
-                bw.newLine();
-                bw.flush();
-                //bw.write(de.target_translation.getBytes("US_ASCII"));
-                
-                
-                //+ de.target_translation + "\n");
-                
-            } */
             
             bw.close();
             
@@ -389,6 +368,7 @@ public class TranslationData
      * 
      * @param dlp 
      * @param backup 
+     * @param gc 
      */
     public void saveSettings(DataListProcessor dlp, boolean backup, GregorianCalendar gc)
     {
@@ -433,6 +413,12 @@ public class TranslationData
     }
     
     
+    /**
+     * Get Translation Encoded
+     * 
+     * @param str
+     * @return
+     */
     public String getTranslationEncoded(String str)
     {
         return m_da.unicode_utils.getASCIIFromUnicodeFull(str);

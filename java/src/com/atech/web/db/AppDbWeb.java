@@ -52,6 +52,12 @@ public abstract class AppDbWeb extends AppDbWebAbstract
 
 
 
+    /**
+     * Constructor
+     * 
+     * @param daw
+     * @param aca
+     */
     public AppDbWeb(DataAccessWeb daw, AppContextAbstract aca)
     {
         super(daw, aca);
@@ -110,6 +116,11 @@ public abstract class AppDbWeb extends AppDbWebAbstract
     }
 
     
+    /**
+     * Get Connection
+     * 
+     * @return
+     */
     public Connection getConnection()
     {
     	try

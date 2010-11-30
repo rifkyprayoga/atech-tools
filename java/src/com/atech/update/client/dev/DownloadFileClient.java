@@ -2,9 +2,7 @@ package com.atech.update.client.dev;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,15 +22,28 @@ import com.atech.update.client.panel.UpdateProgressPanel;
 import com.atech.update.client.panel.UpdateProgressPanelAbstract;
 import com.atech.utils.file.CheckSumUtility;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DownloadFileClient.
+ */
 public class DownloadFileClient extends JFrame implements ActionListener
 {
     
+    private static final long serialVersionUID = 5524546247397085042L;
+
+    /** The panel. */
     JPanel panel;
+    
+    /** The list. */
     JList list;
     
+    /** The threads. */
     ArrayList<ActionThread> threads = new ArrayList<ActionThread>();
     
     
+    /**
+     * Instantiates a new download file client.
+     */
     public DownloadFileClient()
     {
         super();
@@ -42,6 +53,9 @@ public class DownloadFileClient extends JFrame implements ActionListener
     }
     
 
+    /**
+     * Inits the gui.
+     */
     private void initGUI()
     {
         getContentPane().setLayout(null);
@@ -82,6 +96,9 @@ public class DownloadFileClient extends JFrame implements ActionListener
     }
     
     
+    /**
+     * Do action.
+     */
     public void doAction()
     {
         UpdateComponentEntry uce = new UpdateComponentEntry();
@@ -107,6 +124,9 @@ public class DownloadFileClient extends JFrame implements ActionListener
     
     
     
+    /**
+     * Do actionxxx.
+     */
     public void doActionxxx()
     {
         
@@ -159,7 +179,7 @@ public class DownloadFileClient extends JFrame implements ActionListener
             InputStream is = url.openStream();
             
             
-            OutputStreamWriter osr = new OutputStreamWriter(new FileOutputStream("/home/andy/test.jpg"));
+            //OutputStreamWriter osr = new OutputStreamWriter(new FileOutputStream("/home/andy/test.jpg"));
             RandomAccessFile raf = new RandomAccessFile("/home/andy/test.jpg", "rw");
             
             /*
@@ -230,12 +250,21 @@ public class DownloadFileClient extends JFrame implements ActionListener
     }
     
     
+    /**
+     * The main method.
+     * 
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args)
     {
         new DownloadFileClient();
     }
 
 
+    /* (non-Javadoc)
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
     public void actionPerformed(ActionEvent arg0)
     {
         this.threads.get(0).start();

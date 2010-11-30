@@ -597,7 +597,7 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     
 
     /**
-     * Inits the.
+     * Init
      */
     public void init()
     {
@@ -802,6 +802,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     }
 
     
+    /**
+     * Refresh
+     */
     public void refresh()
     {
         getFullData();
@@ -2351,6 +2354,9 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 */
 
     
+    /**
+     * Close Dialog
+     */
     public void closeDialog()
     {
         this.m_da.removeComponent(this);

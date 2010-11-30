@@ -1,36 +1,5 @@
 package com.atech.graphics.dialogs;
 
-
-/*
- *  GGC - GNU Gluco Control
- *
- *  A pure java app to help you manage your diabetes.
- *
- *  See AUTHORS for copyright information.
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- *  Filename: <filename>
- *
- *  Purpose:  <enter purpose here>
- *
- *  Author:   andyrozman {andy@atech-software.com}
- *
- */
-
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -62,33 +31,35 @@ import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
 
 /**
- *  Application:   GGC - GNU Gluco Control
+ *  This file is part of ATech Tools library.
+ *  
+ *  <one line to give the library's name and a brief idea of what it does.>
+ *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  
+ *  
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
  *
- *  See AUTHORS for copyright information.
- * 
- *  This program is free software; you can redistribute it and/or modify it under
- *  the terms of the GNU General Public License as published by the Free Software
- *  Foundation; either version 2 of the License, or (at your option) any later
- *  version.
- * 
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- *  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- *  details.
- * 
- *  You should have received a copy of the GNU General Public License along with
- *  this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- *  Place, Suite 330, Boston, MA 02111-1307 USA
- * 
- *  Filename:     zzz  
- *  Description:  zzz
- * 
- *  Author: andyrozman {andy@atech-software.com}  
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ *  
+ *  
+ *  For additional information about this project please visit our project site on 
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  andyrozman@users.sourceforge.net or andy@atech-software.com
+ *  
+ *  @author Andy
+ *
  */
 
-// fix this
-
-// list of stocks and all entry
 
 public class GUIListDialog extends JDialog implements ActionListener, HelpCapable, ItemListener, DocumentListener
 {
@@ -126,6 +97,8 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
      * Constructor
      * 
      * @param frame
+     * @param def 
+     * @param da 
      */
     public GUIListDialog(JFrame frame, GUIListDefAbstract def, ATDataAccessAbstract da) 
     {
@@ -283,6 +256,11 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
     }
 
 
+    /**
+     * Get All Filter Values
+     * 
+     * @return
+     */
     public String[] getAllFilterValues()
     {
         String[] filters = null;
@@ -439,6 +417,11 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
     }
 
     
+    /**
+     * Get Table
+     * 
+     * @return
+     */
     public JTable getTable()
     {
         return this.table;

@@ -1,11 +1,15 @@
 package com.atech.update.client;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.swing.table.AbstractTableModel;
 
 import com.atech.i18n.I18nControlAbstract;
+import com.atech.update.config.ComponentEntry;
+import com.atech.update.config.ComponentGroup;
 import com.atech.update.config.ComponentInterface;
+import com.atech.update.config.UpdateConfiguration;
 import com.atech.utils.ATDataAccessAbstract;
 
 /**
@@ -46,6 +50,7 @@ public class UpdateSystemModel extends AbstractTableModel
     ArrayList<ComponentInterface> data;
     ATDataAccessAbstract m_da = null;
     
+    
 /*
     public UpdateSystemModel(ArrayList<UpdateObject> data)
     {
@@ -58,16 +63,17 @@ public class UpdateSystemModel extends AbstractTableModel
     /**
      * Constructor
      * 
+     * @param uconf 
+     * 
      * @param data
      * @param da
      */
-    public UpdateSystemModel(ArrayList<ComponentInterface> data, ATDataAccessAbstract da )
+    public UpdateSystemModel(UpdateConfiguration uconf /*     ArrayList<ComponentInterface> data*/, ATDataAccessAbstract da )
     {
-        this.data = data;
+        this.data = uconf.getUpdateTable();
         this.m_da = da;
         
         fixColumnNames();
-        
     }
 
     private void fixColumnNames()
@@ -133,7 +139,8 @@ public class UpdateSystemModel extends AbstractTableModel
      * Get Column Width
      * 
      * @param index index of column
-     * @param width procentual width of column
+     * @param width width of table
+     * 
      * @return
      */
     public int getColumnWidth(int index, int width)
@@ -173,6 +180,56 @@ public class UpdateSystemModel extends AbstractTableModel
         else
             return this.data.get(rowIndex).getColumnValue(columnIndex);
     }
+    
+    
+    
+    /**
+     * Update Model
+     * 
+     * @param uc_new
+     */
+    public void updateModel(UpdateConfiguration uc_new)
+    {
+        //System.out.println("Update Model.");
+        
+        // reset settings
+        for(Enumeration<ComponentGroup> en = uc_new.groups.elements(); en.hasMoreElements(); )
+        {
+            
+            ComponentGroup cg = en.nextElement();  
+            
+            for(int j=0; j<cg.children.size(); j++)
+            {
+                ComponentEntry ce = cg.children.get(j);
+                ce.copyToServerSettings();
+            }
+        }
+        
+        // update current records
+        for(int i=0; i<this.data.size(); i++)
+        {
+            if (this.data.get(i) instanceof ComponentEntry)
+            {
+                ComponentEntry ce = (ComponentEntry)this.data.get(i);
+                
+                if (uc_new.components_ht.containsKey(ce.name))
+                {
+                    uc_new.components_ht.get(ce.name).setVersionSettings(ce);
+                    //ce.setVersionSettings(uc_new.components_ht.get(ce.name));
+                    //System.out.println("Found");                    
+                }
+                //else
+                //    System.out.println("Not found");
+                
+            }
+        }
+        
+        this.data.clear();
+        this.data.addAll(uc_new.getUpdateTable());
+        
+    }
+    
+    
 }
 
 
