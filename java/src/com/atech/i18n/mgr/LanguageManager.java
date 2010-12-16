@@ -560,6 +560,36 @@ public class LanguageManager
     }
     
     
+    public String getDefaultHelp()
+    {
+        return this.default_help;
+    }
+    
+    
+    public String getHelpSet()
+    {
+        if (this.selected_language.equals("en"))
+        {
+            return "help/GGC.hs";
+        }
+        else
+        {
+            System.out.println("Selected lan: " + this.selected_language);
+            
+            LanguageInstance li = this.available_languages.get(this.selected_language);
+
+            System.out.println("Selected LI: " + li);
+            
+            
+            if (li.help_available)
+                return "help/GGC_" + this.selected_language + ".hs";
+            else
+                return "help/GGC.hs";
+        }
+    }
+    
+    
+    
     
 }
 

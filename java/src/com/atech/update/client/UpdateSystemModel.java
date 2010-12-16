@@ -2,8 +2,11 @@ package com.atech.update.client;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
+import org.dom4j.Node;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.update.config.ComponentEntry;
@@ -228,6 +231,73 @@ public class UpdateSystemModel extends AbstractTableModel
         this.data.addAll(uc_new.getUpdateTable());
         
     }
+    
+    
+    public void updateServerExtendedSettings(List<Node> list)
+    {
+       
+        for (int i=0; i<list.size(); i++)
+        {
+            Node parent_node = list.get(i);
+            
+            Node node = parent_node.selectSingleNode("module_name");
+            
+            //System.out.println("module_name: " + node.getText());
+            
+            ComponentEntry ci = getComponentEntry(node.getText());
+            
+            if (ci!=null)
+            {
+                ci.setExtendedServerData(parent_node);
+            }
+            else
+                System.out.println("Problem finding ComponentEntry: " + node.getText());
+            
+            //this.model.
+            
+            
+            //System.out.println("node id " + n1.getText());
+            
+            // <component>          
+            //   <id>49</id>         
+            //   <module_id>xml_dom_jaxen</module_id>            
+            //   <module_name>XML (dom4j, jaxen)</module_name>           
+            //   <version_num>1</version_num>            
+            //   <archive_name>xml_dom_jaxen-1.6.1.zip</archive_name>            
+            //   <archive_crc>1031795816</archive_crc>           
+            //   <archive_length>506049</archive_length>     
+            // </component>
+            
+            
+        }
+        
+        
+    }
+    
+    
+    private ComponentEntry getComponentEntry(String name)
+    {
+
+        for(int i=0; i<this.data.size(); i++)
+        {
+            if (this.data.get(i) instanceof ComponentEntry)
+            {
+                ComponentEntry ce = (ComponentEntry)this.data.get(i);
+                
+                if (ce.name.equals(name))
+                {
+                    return ce;
+                }
+            }
+        }
+        
+        return null;
+        
+        
+        
+    }
+    
+    
     
     
 }

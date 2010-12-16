@@ -3,7 +3,10 @@ package com.atech.update.config;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import org.dom4j.Node;
+
 import com.atech.update.startup.os.StartupOSAbstract;
+import com.atech.utils.xml.XmlUtil;
 
 /**
  *  This file is part of ATech Tools library.
@@ -139,16 +142,34 @@ public class ComponentEntry implements ComponentInterface
 	
 	// Update System
 	
+    /**
+     * Update Data: Module Version Id 
+     */
     public long module_version_id = 0L;
 	
+    /**
+     * Update Data: Archive File 
+     */
 	public String archive_file = null;
 	
+    /**
+     * Update Data: Archive CRC 
+     */
     public long archive_crc = 0L;
     
+    /**
+     * Update Data: Archive Size 
+     */
     public long archive_size = 0L;
 	
-    public int action = 0;
+    /**
+     * Update Data: Action 
+     */
+    public int update_action = 0;
 
+    /**
+     * Update Action: Get File Binary 
+     */
     public static final int ACTION_GET_FILE_BINARY = 1;
 	
 	
@@ -405,6 +426,36 @@ public class ComponentEntry implements ComponentInterface
         else
             this.status = ComponentEntry.STATUS_UNKNOWN;
     }
+    
+    
+    /**
+     * Set Extended Server Data
+     * 
+     * @param parent_node
+     */
+    public void setExtendedServerData(Node parent_node)
+    {
+        
+        //   <id>49</id>         
+        //   <module_id>xml_dom_jaxen</module_id>            
+        //   <module_name>XML (dom4j, jaxen)</module_name>           
+        //   <version_num>1</version_num>            
+        //   <archive_name>xml_dom_jaxen-1.6.1.zip</archive_name>            
+        //   <archive_crc>1031795816</archive_crc>           
+        //   <archive_length>506049</archive_length>     
+        
+
+        this.archive_file = XmlUtil.getNodeValueString(parent_node, "archive_name");
+        this.archive_size = XmlUtil.getNodeValueLong(parent_node, "archive_length");
+        this.archive_crc = XmlUtil.getNodeValueLong(parent_node, "archive_crc");
+        this.module_version_id = XmlUtil.getNodeValueLong(parent_node, "id");
+        
+        
+        System.out.println("ExtendedData [update_module_id=" + this.module_version_id + ", archive_file=" + this.archive_file + ", archive_size=" + this.archive_size + ", archive_crc=" + this.archive_crc);
+        
+        
+    }
+    
     
     
 }

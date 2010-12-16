@@ -264,7 +264,6 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
                 sb.append("\t\t\t<module_id>");
                 sb.append(rs.getLong("module_id"));
                 sb.append("</module_id>\n");
-                
 
                 // module_name
                 sb.append("\t\t\t<module_name>");
@@ -291,8 +290,6 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
                 sb.append(rs.getLong("archive_length"));
                 sb.append("</archive_length>\n");
                 
-                
-//                return rs.getString("xml_def");
                 sb.append("\t\t</component>\n");
             }
             
