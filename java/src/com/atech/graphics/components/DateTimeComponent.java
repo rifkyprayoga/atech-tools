@@ -670,7 +670,7 @@ public void setDateTimeAsCurrent()
     
             return out;
         }
-        else if (this.m_time_type==DateTimeComponent.TIME_MAXIMAL_MINUTE)
+        else if (this.m_time_type==DateTimeComponent.TIME_MAXIMAL_SECOND)
         {
             int d = ((Number)day.getModel().getValue()).intValue();
             String m = (String)((SpinnerListModel)month.getModel()).getValue();
