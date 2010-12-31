@@ -107,10 +107,20 @@ public class ZeroLayout implements LayoutManager, Serializable
      */
     int height = 0;
 
+    int size_from_edge = 0;
+
+
     /**
      *  Elements in ZeroLayout are STATIC if they don't change size or position
      */
     public static String STATIC = "static";
+
+
+    /**
+     *  Elements in ZeroLayout are STATIC if they don't change size or position
+     */
+    public static String STATIC_ON_LOWER_EDGE = "static_on_lower_edge";
+
 
     /**
      *  Elements in ZeroLayout are DYNAMIC if they change size 
@@ -204,9 +214,17 @@ public class ZeroLayout implements LayoutManager, Serializable
 
         synchronized (comp.getTreeLock())
         {
-            if ((type.equalsIgnoreCase("static")) || (type.equalsIgnoreCase("dynamic")) || (type.equalsIgnoreCase("dynamic_full")))
+            if (type.trim().length()>0)  //.equalsIgnoreCase("static")) || (type.equalsIgnoreCase("dynamic")) || (type.equalsIgnoreCase("dynamic_full")))
             {
-                components.put(comp.getAccessibleContext(), new ZeroElement(comp.getBounds(), type, getSize()));
+                ZeroElement ze = new ZeroElement(comp.getBounds(), type, getSize());
+                components.put(comp.getAccessibleContext(), ze);
+                
+                if (ze.type.equals(STATIC_ON_LOWER_EDGE))
+                {
+                    size_from_edge = ze.posH;
+                    System.out.println("size_from_edge: " + size_from_edge);            
+                }
+                
             }
             else
             {
@@ -344,8 +362,8 @@ public class ZeroLayout implements LayoutManager, Serializable
 
         if (zer.type.startsWith("dynamic"))
         {
-            double procX = parent.getSize().getWidth() / 100.0d;
-            double procY = parent.getSize().getHeight() / 100.0d;
+            double procX = (parent.getSize().getWidth()*1.0d) / 100.0d;
+            double procY = (parent.getSize().getHeight()*1.0d) / 100.0d;
 
             if (zer.type.equals("dynamic"))
             {
@@ -357,15 +375,31 @@ public class ZeroLayout implements LayoutManager, Serializable
                 rec.x = (int) (procX * zer.posXp);
                 rec.y = (int) (procY * zer.posYp);
             }
-            rec.height = (int) (procY * zer.posHp);
+            
+            if (this.size_from_edge>0)
+            {
+                rec.height = (int)(parent.getSize().getHeight() - rec.y - this.size_from_edge);
+            }
+            else
+                rec.height = (int) (procY * zer.posHp);
             rec.width = (int) (procX * zer.posWp);
         }
-        else
+        else if (zer.type.startsWith("static"))
         {
-            rec.x = zer.posX;
-            rec.y = zer.posY;
-            rec.height = zer.posH;
-            rec.width = zer.posW;
+            if (zer.type.equals(STATIC_ON_LOWER_EDGE))
+            {
+                rec.x = zer.posX;
+                rec.y = (int)(parent.getSize().getHeight() - zer.posY);
+                rec.height = zer.posH;
+                rec.width = zer.posW;
+            }
+            else
+            {
+                rec.x = zer.posX;
+                rec.y = zer.posY;
+                rec.height = zer.posH;
+                rec.width = zer.posW;
+            }
         }
 
         return rec;
@@ -393,7 +427,7 @@ class ZeroElement
     int posH = 0;
     int posW = 0;
 
-    /*
+    /**
      *  Static values (procentual), as definied on initialization.
      */
     double posXp = 0.0d;
@@ -401,7 +435,7 @@ class ZeroElement
     double posHp = 0.0d;
     double posWp = 0.0d;
 
-    String type = "static";
+    String type = "";
 
     /*
      * ZeroElement is used by ZeroLayout, to preserve original data of

@@ -3987,6 +3987,18 @@ public abstract class ATDataAccessAbstract
     {
         return this.developer_mode;
     }
+
+    
+    /**
+     * Get Developer mode flag
+     * @return 
+     * 
+     * @see developer_mode
+     */
+    public boolean isDeveloperMode()
+    {
+        return this.developer_mode;
+    }
     
  
     /**

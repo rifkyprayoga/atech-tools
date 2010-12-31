@@ -48,19 +48,25 @@ public class DateRangeData
     public static final int RANGE_ONE_WEEK = 1;
     
     /**
+     * Range: 2 Week
+     */
+    public static final int RANGE_TWO_WEEKS = 2;
+    
+    
+    /**
      * Range: 1 Month
      */
-    public static final int RANGE_ONE_MONTH = 2;
+    public static final int RANGE_ONE_MONTH = 3;
     
     /**
      * Range: 3 Months
      */
-    public static final int RANGE_THREE_MONTHS = 3;
+    public static final int RANGE_THREE_MONTHS = 4;
 
     /**
      * Range: Custom
      */
-    public static final int RANGE_CUSTOM = 4;
+    public static final int RANGE_CUSTOM = 5;
     
     
     private int daterange_type = 0;
@@ -109,6 +115,14 @@ public class DateRangeData
             this.gc_end = gc2;
             GregorianCalendar gc = (GregorianCalendar)gc2.clone();
             gc.add(GregorianCalendar.DAY_OF_MONTH, -7);
+            this.gc_start = gc;
+            
+        }
+        else if (type==RANGE_TWO_WEEKS)
+        {
+            this.gc_end = gc2;
+            GregorianCalendar gc = (GregorianCalendar)gc2.clone();
+            gc.add(GregorianCalendar.DAY_OF_MONTH, -14);
             this.gc_start = gc;
             
         }
