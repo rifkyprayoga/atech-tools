@@ -16,10 +16,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.plaf.ColorUIResource;
 
 import com.atech.app.AbstractApplicationContext;
+import com.atech.db.cfg.DbConfig;
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.hdb_object.User;
 import com.atech.gui_fw.MainAppFrame;
-import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.info.LanguageInfo;
 
@@ -46,7 +46,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     // login
 
     
-
+    public DbConfig jdbc_config = null;
 
 
     /**
@@ -1647,6 +1647,13 @@ public void setDbLoadingStatus(int status)
     }
     */
     
+
+    
+    
+    public DbConfig getJdbcConfig()
+    {
+        return this.jdbc_config;
+    }
     
     
 

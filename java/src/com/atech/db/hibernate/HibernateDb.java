@@ -1,6 +1,7 @@
 package com.atech.db.hibernate;
 
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.StringTokenizer;
 
@@ -143,7 +144,7 @@ public abstract class HibernateDb
         this.m_da = da;
         this.config = hd.getHibernateConfiguration();
         this.sessions = this.config.session_factory;
-        //System.out.println("HibernateDb(): " + m_da + ",config=" + this.config + ",session_factory=" + this.sessions);
+        System.out.println("HibernateDb(): " + m_da + ",config=" + this.config + ",session_factory=" + this.sessions);
         m_loadStatus = DB_CONFIG_LOADED;
     }
     
@@ -328,8 +329,9 @@ public abstract class HibernateDb
      */
     public Session getSession()
     {
-        m_session.clear();
-        return m_session;
+        return this.config.getSession(1);
+        //m_session.clear();
+        //return m_session;
     }
 
 
@@ -532,6 +534,40 @@ public abstract class HibernateDb
 
     }
 
+    
+    
+    /**
+     * Edits the hibernate.
+     * 
+     * @param obj the obj
+     * 
+     * @return true, if successful
+     */
+    public Object getHibernate(Object object, Object id)
+    {
+
+ 
+        log.debug("getHibernate::" + object.toString());
+
+        try
+        {
+            Session sess = getSession();
+            Object o_ret = sess.load(object.getClass(), (Serializable)id);
+
+            return o_ret;
+        }
+        catch (Exception ex)
+        {
+            log.error("Exception on getHibernate: " + ex, ex);
+            //ex.printStackTrace();
+            return null;
+        }
+
+    }
+    
+    
+    
+    
 
     /**
      * Delete hibernate.

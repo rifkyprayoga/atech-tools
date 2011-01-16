@@ -16,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import com.atech.db.cfg.DbConfig;
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.hdb_object.User;
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
@@ -58,7 +59,8 @@ public abstract class AbstractApplicationContext implements ActionListener
     Vector<Class<?>> plugins_classes = null;
     //ArrayList<String> plugins_db = null;
     protected ArrayList<String> db_files = new ArrayList<String>(); 
-    
+    protected DbConfig jdbc_config = null;
+
     
     /**
      * Constructor
@@ -176,6 +178,7 @@ public abstract class AbstractApplicationContext implements ActionListener
     {
         //System.out.println("init Da6ta ACcess");
         this.data_access = DataAccessApp.createInstance(this.frame, this);
+        this.data_access.jdbc_config = this.jdbc_config;
         this.m_ic = this.data_access.getI18nControlInstance();
         this.menu_bar = new JMenuBar();
         
