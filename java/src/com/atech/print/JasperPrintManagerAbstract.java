@@ -61,24 +61,36 @@ public abstract class JasperPrintManagerAbstract
             
             String base_dir = this.getBaseDir();
             
+            
             //WorkHours.jrxml
             //Map parameters_full = new HashMap();
             //parameters.put("SUBREPORT_DIR", "X:/JasperReports/");
             
             parameters.put("SUBREPORT_DIR", this.getSubReportDir());
             
+            boolean recreate = false;
             
-            if (!new File(base_dir + report_name + ".jasper").exists())
+            
+            File f1 = new File(base_dir + report_name + ".jasper");
+            File f2 = new File(base_dir + report_name + ".jrxml");
+            
+            
+            if (!f1.exists())
+            {
+                recreate = true;
+            }
+            else
+            {
+                if (f2.lastModified() > f1.lastModified())
+                    recreate = true;
+            }
+            
+
+            if (recreate)
             {
                 JasperCompileManager.compileReportToFile(
                     base_dir + report_name + ".jrxml",
                     base_dir + report_name + ".jasper");
-                
-                
-                
-                //JasperDesign jasperDesign = JasperManager.loadXmlDesign(base_dir + report_name + ".jrxml");
-                //JasperReport jasperReport = JasperManager.compileReport(jasperDesign);
-                
             }
             
             
@@ -89,13 +101,13 @@ public abstract class JasperPrintManagerAbstract
             
             //JasperFillManager.fillReportToFile(jasperReport, base_dir + report_name + ".jrprint", parameters, collection);
             
-            JasperFillManager.fillReportToFile(base_dir + report_name + ".jasper", parameters, collection);
+            String res = JasperFillManager.fillReportToFile(base_dir + report_name + ".jasper", parameters, collection);
             
             
             
 //            JasperFillManager.fillReportToFile(jasperReport, parameters, collection);
             
-            System.out.println( "Jasper report filled with data and \nJasper .jrprint file created in " + base_dir );
+            System.out.println( "Jasper report filled with data and \nJasper .jrprint file created in " + base_dir + " Return data: " + res );
         
             
 //            JasperExportManager.exportReportToPdfFile( base_dir + report_name + ".jrprint");
@@ -105,6 +117,10 @@ public abstract class JasperPrintManagerAbstract
             
             //JasperPrint jasperPrint = new JasperPrint();
             //JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, collection);
+
+            File f = new File(base_dir);
+            System.out.println("Path: " + f.getAbsolutePath());
+            
             
             
             File sourceFile = new File(base_dir + report_name + ".jrprint");
@@ -126,7 +142,7 @@ public abstract class JasperPrintManagerAbstract
 */            
             
             
-            JasperViewer.viewReport(jasperPrint); 
+            JasperViewer.viewReport(jasperPrint, false); 
         
         
         }
