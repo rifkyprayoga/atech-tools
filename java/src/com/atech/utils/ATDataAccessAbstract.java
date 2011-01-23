@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
@@ -4027,7 +4028,35 @@ public abstract class ATDataAccessAbstract
         return this.app_version;
     }
     
-
+    
+    
+    public static final int LIST_HT_KEY = 1;
+    public static final int LIST_HT_VALUE = 2;
+    
+    public String createListFromHashtable(Hashtable<Object, Object> ht, int select_type, String delimiter)
+    {
+        StringBuffer sb = new StringBuffer();
+        
+        Enumeration<Object> en = null;
+        
+        if (select_type == LIST_HT_KEY)
+            en = ht.keys();
+        else
+            en = ht.elements();
+        
+        for( ; en.hasMoreElements(); )
+        {
+            sb.append(en.nextElement().toString());
+            
+            if (en.hasMoreElements())
+                sb.append(delimiter);
+        }
+        
+        return sb.toString();
+    }
+    
+    
+    
     
     
 }

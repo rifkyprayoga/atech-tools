@@ -1,5 +1,5 @@
 
-package com.atech.utils;
+package com.atech.utils.file;
 
 /**
  *  This file is part of ATech Tools library.

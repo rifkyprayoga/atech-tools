@@ -11,7 +11,7 @@ import javax.swing.SpinnerNumberModel;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
-import com.atech.utils.ATechDate;
+import com.atech.utils.data.ATechDate;
 
 // TODO: Auto-generated Javadoc
 /**

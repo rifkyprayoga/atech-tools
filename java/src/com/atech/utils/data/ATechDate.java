@@ -1,6 +1,7 @@
 
-package com.atech.utils;
+package com.atech.utils.data;
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.jfree.util.Log;
@@ -188,6 +189,21 @@ public class ATechDate
         process(type, entry);
     }
 
+    
+    /**
+     * Constructor 
+     * 
+     * @param _day
+     * @param _month
+     * @param _year
+     */
+    public ATechDate(int _day, int _month, int _year)
+    {
+        this(_day, _month, _year, 0, 0, ATechDate.FORMAT_DATE_ONLY);
+    }
+
+    
+    
 
     /**
      * Instantiates a new a tech date.
@@ -597,6 +613,22 @@ public class ATechDate
 //    public static final int DATE_TIME_ATECH_DATE = 2;
 //    public static final int DATE_TIME_ATECH_TIME = 3;
 
+    /**
+     * Gets the aT date time from gc.
+     * 
+     * @param _day 
+     * @param _month 
+     * @param _year 
+     * 
+     * @param type the type
+     * 
+     * @return the aT date time from gc
+     */
+    public static long getATDateTimeFromDateParts(int _day, int _month, int _year) // throws Exception
+    {
+        ATechDate atd = new ATechDate(_day, _month, _year);
+        return atd.getATDateTimeAsLong();
+    }
 
 
     /**
@@ -614,7 +646,7 @@ public class ATechDate
         if (type==FORMAT_DATE_AND_TIME_S)
         {
             dt += gc.get(GregorianCalendar.YEAR) *10000000000L;
-            dt += (gc.get(GregorianCalendar.MONTH)+1)*100000000L;
+            dt += gc.get(GregorianCalendar.MONTH) * 100000000L;
             dt += gc.get(GregorianCalendar.DAY_OF_MONTH) *1000000L;
             dt += gc.get(GregorianCalendar.HOUR_OF_DAY) *10000L;
             dt += gc.get(GregorianCalendar.MINUTE) *100L;
@@ -648,6 +680,23 @@ public class ATechDate
     	return dt;
     }
 
+    
+    /**
+     * Gets the ATech DateTime from gc.
+     * 
+     * @param dt the Date instance
+     * @param type the type
+     * 
+     * @return the ATech DateTime from gc
+     */
+    public static long getATDateTimeFromDate(Date dt, int type) // throws Exception
+    {
+        GregorianCalendar gc = new GregorianCalendar(); //dt.getYear(), dt.getMonth(), dt.getDay());
+        gc.setTime(dt);
+        return ATechDate.getATDateTimeFromGC(gc, type);
+    }
+    
+    
 
     /**
      * Convert at date.

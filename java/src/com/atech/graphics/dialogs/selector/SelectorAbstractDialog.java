@@ -1746,6 +1746,25 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
      */
     public /*abstract*/ void initFilterType_ComboBox()
     {
+        JLabel label = new JLabel(this.descriptions.get("DESC_1")+":");  
+        label.setFont(this.font_normal);
+        label.setBounds(35,65,200,25);
+        panel.add(label, null);
+
+        int idx= Integer.parseInt(this.getDescriptions().get("COMBO_LAST"));
+        
+        String[] dta = new String[idx];
+        
+        for(int i=0; i<idx; i++)
+        {
+            dta[i] = this.getDescriptions().get("COMBO_" + (i+1) );
+        }
+        
+        this.comboBox1 = new JComboBox(dta);
+        this.comboBox1.setBounds(35, 90, 168, 25);
+        this.comboBox1.addItemListener(this);
+    
+        panel.add(this.comboBox1, null);
     	
     }
     
@@ -2400,7 +2419,15 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
      * The code written for this method performs the operations
      * that need to occur when an item is selected (or deselected).
      */
-    public abstract void itemStateChanged(ItemEvent e);
+    public void itemStateChanged(ItemEvent e)
+    {
+        if (e.getStateChange()==ItemEvent.SELECTED)
+        {
+            this.filterEntries();
+        }
+        
+        
+    }
     /*
     {
 // CHANGE
@@ -2979,6 +3006,16 @@ public long getSelectedID()
         this.closeDialog();
     }
     
+
+    
+    /**
+     * Set UseGeneralSelect
+     * @param sel
+     */
+    public void setUseGeneralSelect(boolean sel)
+    {
+        this.use_generic_select = true;
+    }
     
     
 

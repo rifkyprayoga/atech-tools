@@ -11,7 +11,7 @@ import com.atech.db.hibernate.tool.DbToolTreeRoot;
 import com.atech.i18n.tool.simple.data.TranslationConfiguration;
 import com.atech.i18n.tool.simple.data.TranslationData;
 import com.atech.utils.ATDataAccessAbstract;
-import com.atech.utils.UnicodeUtils;
+import com.atech.utils.data.UnicodeUtils;
 
 // TODO: Auto-generated Javadoc
 /**

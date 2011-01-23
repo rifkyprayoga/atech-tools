@@ -1,4 +1,4 @@
-package com.atech.utils;
+package com.atech.utils.data;
 
 // TODO: Auto-generated Javadoc
 /**

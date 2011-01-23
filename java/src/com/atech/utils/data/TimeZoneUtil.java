@@ -1,4 +1,4 @@
-package com.atech.utils; //ggc.meter.util;
+package com.atech.utils.data; //ggc.meter.util;
 
 //import ggc.util.DataAccess;
 
@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
+
 
 // TODO: Auto-generated Javadoc
 /**
