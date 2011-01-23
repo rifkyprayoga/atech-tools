@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -15,6 +17,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.atech.i18n.I18nControlAbstract;
+import com.atech.utils.ATDataAccessAbstract;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -50,12 +53,14 @@ import com.atech.i18n.I18nControlAbstract;
 public class DateComponent extends JPanel implements ChangeListener
 {
 
-    private static final long serialVersionUID = 7815993474415035963L;
+    private static final long serialVersionUID = -1894748246277058611L;
+
+    private String action_command = null;
     
     /**
      * The m_command.
      */
-    String m_command = "";
+    //String m_command = "";
     
     /**
      * The m_note.
@@ -70,7 +75,7 @@ public class DateComponent extends JPanel implements ChangeListener
     /**
      * The component_width.
      */
-    int component_width = 188;
+    int component_width = 182;
     
     /**
      * The component_height.
@@ -89,17 +94,21 @@ public class DateComponent extends JPanel implements ChangeListener
 
     // DataAccess m_da;
 
-    private static String months[];
-    private ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
+    //private static String months[];
+    //private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
+    private long object_id = 0L;
 
+    ATDataAccessAbstract m_da; 
+    ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
+    
     /**
      * Constructor
      * 
      * @param ic
      */
-    public DateComponent(I18nControlAbstract ic)
+    public DateComponent(ATDataAccessAbstract da)
     {
-        this(1800, 5, ic);
+        this(1800, 5, da);
     }
 
     /**
@@ -108,9 +117,9 @@ public class DateComponent extends JPanel implements ChangeListener
      * @param lower_year
      * @param ic
      */
-    public DateComponent(int lower_year, I18nControlAbstract ic)
+    public DateComponent(int lower_year, ATDataAccessAbstract da)
     {
-        this(lower_year, 5, ic);
+        this(lower_year, 5, da);
     }
 
     /**
@@ -118,15 +127,16 @@ public class DateComponent extends JPanel implements ChangeListener
      * 
      * @param lower_year
      * @param higher_year_diff
+     * @param da 
      * @param ic
      */
-    public DateComponent(int lower_year, int higher_year_diff, I18nControlAbstract ic)
+    public DateComponent(int lower_year, int higher_year_diff, ATDataAccessAbstract da)
     {
         super();
 
-        // m_da = da;
-        this.ic = ic;
-        initMonths();
+        m_da = da;
+        this.ic = da.getI18nControlInstance();
+        //initMonths();
 
         Font font_normal = new Font("SansSerif", Font.PLAIN, 12);
 
@@ -138,8 +148,11 @@ public class DateComponent extends JPanel implements ChangeListener
         day.addChangeListener(this);
         day.setFont(font_normal);
 
-        SpinnerListModel listMonthsModel = new SpinnerListModel(months);
+        //SpinnerListModel listMonthsModel = new SpinnerListModel(months);
 
+        SpinnerListModel listMonthsModel = new SpinnerListModel(m_da.getMonthsArray());
+        
+        
         month = new JSpinner(listMonthsModel);
         month.addChangeListener(this);
         month.setFont(font_normal);
@@ -163,6 +176,8 @@ public class DateComponent extends JPanel implements ChangeListener
         this.add(month, null);
         this.add(year, null);
 
+        Random generator2 = new Random( 19580427 );
+        this.object_id = generator2.nextLong();
     }
 
     /**
@@ -178,7 +193,7 @@ public class DateComponent extends JPanel implements ChangeListener
     /**
      * Init Months
      */
-    public void initMonths()
+    /*public void initMonths()
     {
         if (months == null)
         {
@@ -190,17 +205,17 @@ public class DateComponent extends JPanel implements ChangeListener
             months = m;
         }
 
-    }
+    }*/
 
     /**
      * Add Action Listener
      * 
      * @param list
      */
-    public void addActionListener(ActionListener list)
+    /*public void addActionListener(ActionListener list)
     {
         this.listeners.add(list);
-    }
+    }*/
 
     /**
      * Set Date Interval
@@ -225,8 +240,15 @@ public class DateComponent extends JPanel implements ChangeListener
 
         int d = ((Number) day.getModel().getValue()).intValue();
         String m = (String) ((SpinnerListModel) month.getModel()).getValue();
+        
+//        String m = (String)((SpinnerListModel)month.getModel()).getValue();
+
         int y = ((Number) year.getModel().getValue()).intValue();
 
+        
+        System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
+        
+        
         int mo = findMonth(m);
 
         int days_months[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -288,11 +310,13 @@ public class DateComponent extends JPanel implements ChangeListener
 
     private int findMonth(String se)
     {
-        // String[] ms = m_da.getMonthsArray();
+        String[] ms = m_da.getMonthsArray();
 
-        for (int i = 0; i < months.length; i++)
+    //    System.out.println("findMonth [" + se + "]");
+        
+        for (int i=0; i<ms.length; i++)
         {
-            if (months[i].equals(se))
+            if (ms[i].equals(se))
                 return i;
         }
 
@@ -309,9 +333,10 @@ public class DateComponent extends JPanel implements ChangeListener
     public String getMonth(String val)
     {
         int v = Integer.parseInt(val);
-        return months[v - 1];
+        return m_da.getMonthsArray()[v-1];
     }
 
+    
     /**
      * Set Date
      * 
@@ -358,12 +383,45 @@ public class DateComponent extends JPanel implements ChangeListener
 
         }
 
+        System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
+        
         year.setValue(y);
         day.setValue(d);
-        month.setValue(months[m]);
+        month.setValue(m_da.getMonthsArray()[m]);
 
+        System.out.println("setDate: y=" + year.getValue() + ",m=" + month.getValue() + ",d=" + day.getValue());
+        
+        
     }
 
+    
+    /**
+     * Set Date
+     * 
+     * @param gc
+     */
+    public void setDate(GregorianCalendar gc)
+    {
+        int y = 0;
+        int m = 0;
+        int d = 0;
+
+        y = gc.get(GregorianCalendar.YEAR);
+        d = gc.get(GregorianCalendar.DAY_OF_MONTH);
+        m = gc.get(GregorianCalendar.MONTH);
+        
+        year.setValue(y);
+        day.setValue(d);
+        month.setValue(m_da.getMonthsArray()[m]);
+        
+        System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
+        System.out.println("setDate: y=" + year.getValue() + ",m=" + month.getValue() + ",d=" + day.getValue());
+        
+        this.repaint();
+    }
+    
+    
+    
     /**
      * Get Date
      * 
@@ -371,7 +429,41 @@ public class DateComponent extends JPanel implements ChangeListener
      */
     public int getDate()
     {
-        return checkDate();
+            int d = ((Number)day.getModel().getValue()).intValue();
+            String m = (String)((SpinnerListModel)month.getModel()).getValue();
+            int y = ((Number)year.getModel().getValue()).intValue();
+    
+            //month.getValue();
+            
+            /*try
+            {
+                month.commitEdit();
+                ///month.
+            }
+            catch (ParseException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }*/
+            
+            System.out.println("getDate: y=" + y + ",m=" + month.getValue() + ",d=" + d);
+            
+            int mo = findMonth(m)+1;
+    
+            //System.out.println("findMonth: " + mo);
+            
+            int out = 0;
+    
+            out += y*10000L;
+            out += mo*100L;
+            out += d;
+
+            
+            System.out.println("getDate: " +  out);
+            
+            return out;
+        
+        //return checkDate();
     }
 
     /**
@@ -443,25 +535,6 @@ public class DateComponent extends JPanel implements ChangeListener
 
     }
 
-    /**
-     * Set Action Command
-     * 
-     * @param command
-     */
-    public void setActionCommand(String command)
-    {
-        m_command = command;
-    }
-
-    /**
-     * Gets the action command.
-     * 
-     * @return the action command
-     */
-    public String getActionCommand()
-    {
-        return m_command;
-    }
 
     /**
      * Sets the note.
@@ -483,27 +556,128 @@ public class DateComponent extends JPanel implements ChangeListener
         return m_note;
     }
 
+    
+    /**
+     * Add Action Listener
+     * 
+     * @param al
+     */
+    public void addActionListener(ActionListener al)
+    {
+        this.listeners.add(al);
+    }
+    
+    /**
+     * Remove Action Listener
+     * 
+     * @param al
+     */
+    public void removeActionListener(ActionListener al)
+    {
+        this.listeners.remove(al);
+    }
+
+    
+    
+    
+    
     /**
      * Invoked when the target of the listener has changed its state.
      * 
      * @param e
      *            a ChangeEvent object
      */
-    public void stateChanged(ChangeEvent e)
+/*    public void stateChanged(ChangeEvent e)
     {
 
         // System.out.println("DateComponent date changed");
         if (listeners.size() == 0)
             return;
 
-        ActionEvent ae = new ActionEvent(this, 1, m_command);
+        ChangeEvent ae = new ChangeEvent(this);
 
         for (int i = 0; i < this.listeners.size(); i++)
         {
-            ActionListener al = (ActionListener) listeners.get(i);
-            al.actionPerformed(ae);
+            ChangeListener al = (ChangeListener) listeners.get(i);
+            al.stateChanged(ae);
         }
 
     }
+*/
+    
+    /**
+     * Add Change Listener
+     * 
+     * @param clin
+     */
+   /*public void addChangeListener(ChangeListener clin)
+    {
+        this.listeners.add(clin);
+    }
+    
 
+    public boolean equals(Object o)
+    {
+        if (o instanceof DateComponent)
+        {
+            DateComponent dc = (DateComponent)o;
+            return dc.object_id == this.object_id;
+        }
+        else
+            return false;
+    }*/
+
+    
+    
+
+
+    public void stateChanged(ChangeEvent e)
+    {
+        this.getDate();
+        
+        ActionEvent ae = new ActionEvent(this, (int) serialVersionUID, this.action_command);
+        ae.setSource(this);
+        notifyListeners(ae);
+        
+    }
+    
+    
+    /**
+     * Set Action Command
+     * 
+     * @param act_command
+     */
+    public void setActionCommand(String act_command)
+    {
+        this.action_command = act_command;
+    }
+    
+    /**
+     * Get Action Command
+     * 
+     * @return
+     */
+    public String getActionCommand()
+    {
+        return this.action_command;
+    }
+    
+    
+    /**
+     * Notify Listeners
+     * 
+     * @param e
+     */
+    public void notifyListeners(ActionEvent e)
+    {
+        for (int i = 0; i < listeners.size(); i++) 
+        {
+            ActionListener l = listeners.get(i);
+            l.actionPerformed(e);
+        }
+    }
+    
+    
+    
+    
 }

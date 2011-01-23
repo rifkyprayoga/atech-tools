@@ -81,6 +81,8 @@ import com.atech.utils.ATDataAccessAbstract;
 
 // LEAVE OLD TEXTS INSIDE, THEY ARE THERE TO HELP WITH IMPLEMENTATION AND DEBUGING
 
+// FIXME Date
+
 public abstract class SelectorAbstractDialog extends JDialog implements ActionListener, DocumentListener, ItemListener, ChangeListener, ResortableColumns, HelpCapable
 {
 
@@ -1780,7 +1782,8 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         this.checkBox1.setName("from");
         panel.add(this.checkBox1, null);
     
-        dt_start = new DateComponent(m_da.getI18nControlInstance());
+        // FIXME
+        dt_start = new DateComponent(m_da);
         dt_start.setBounds(90, 60, 210, 26);
         dt_start.setEnabled(false);
         dt_start.addActionListener(this);
@@ -1798,7 +1801,8 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         this.checkBox2.setName("till");
         panel.add(this.checkBox2, null);
     
-        dt_end = new DateComponent(m_da.getI18nControlInstance());
+        // FIXME
+        dt_end = new DateComponent(m_da);
         dt_end.addActionListener(this);
         dt_end.setBounds(90, 85, 210, 26);
         dt_end.setEnabled(false);

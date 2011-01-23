@@ -624,9 +624,9 @@ public boolean checkDateTime()
 */
 
     /**
- * Sets the date time as current.
- */
-public void setDateTimeAsCurrent()
+     *  Sets the date time as current.
+     */
+    public void setDateTimeAsCurrent()
     {
         int type = 0;
         

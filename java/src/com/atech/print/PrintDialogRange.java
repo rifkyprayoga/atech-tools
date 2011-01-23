@@ -235,7 +235,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
         label.setBounds(40, start_y, 180, 25);
         panel.add(label);
 
-        dc_from = new DateComponent(m_ic);
+        dc_from = new DateComponent(m_da);
         dc_from.setBounds(40, start_y + 25, 120, 25);
         panel.add(dc_from);
 
@@ -244,7 +244,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
         label.setBounds(40, start_y + 70, 180, 25);
         panel.add(label);
 
-        dc_to = new DateComponent(m_ic);
+        dc_to = new DateComponent(m_da);
         dc_to.setBounds(40, start_y + 95, 120, 25);
         panel.add(dc_to);
 

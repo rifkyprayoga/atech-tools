@@ -360,10 +360,11 @@ public class ZeroLayout implements LayoutManager, Serializable
     {
         Rectangle rec = new Rectangle();
 
+        double procX = (parent.getSize().getWidth()*1.0d) / 100.0d;
+        double procY = (parent.getSize().getHeight()*1.0d) / 100.0d;
+        
         if (zer.type.startsWith("dynamic"))
         {
-            double procX = (parent.getSize().getWidth()*1.0d) / 100.0d;
-            double procY = (parent.getSize().getHeight()*1.0d) / 100.0d;
 
             if (zer.type.equals("dynamic"))
             {
@@ -382,16 +383,25 @@ public class ZeroLayout implements LayoutManager, Serializable
             }
             else
                 rec.height = (int) (procY * zer.posHp);
+            
             rec.width = (int) (procX * zer.posWp);
         }
         else if (zer.type.startsWith("static"))
         {
             if (zer.type.equals(STATIC_ON_LOWER_EDGE))
             {
-                rec.x = zer.posX;
-                rec.y = (int)(parent.getSize().getHeight() - zer.posY);
+                //rec.x = zer.posX;
+                rec.x = (int) (procX * zer.posXp);
+                
+                
+                rec.y = (int)(parent.getSize().getHeight() - this.size_from_edge);
                 rec.height = zer.posH;
-                rec.width = zer.posW;
+                //rec.width = (int)(parent.getSize().getWidth() - rec.x);
+                rec.width = (int) (procX * zer.posWp);
+                
+                
+                System.out.println("ProcX: " + procX + " PosWp: " + zer.posWp);
+                
             }
             else
             {
@@ -402,6 +412,8 @@ public class ZeroLayout implements LayoutManager, Serializable
             }
         }
 
+        System.out.println("Object: " + zer + ", Bounds: " + rec);
+        
         return rec;
     }
 
@@ -449,7 +461,7 @@ class ZeroElement
         this.posW = rec.width;
         this.type = type;
 
-        if (type.startsWith("dynamic"))
+        //if (type.startsWith("dynamic"))
         {
             double procX = size.getWidth() / 100.0d;
             double procY = size.getHeight() / 100.0d;
