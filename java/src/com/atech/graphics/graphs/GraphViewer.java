@@ -82,9 +82,7 @@ public class GraphViewer extends JDialog
         this.m_da = da;
         this.gvi = gvi;
         this.gvi.setParent(this);
-
         init();
-    
     }
     
     
@@ -103,9 +101,7 @@ public class GraphViewer extends JDialog
         this.m_da = da;
         this.gvi = gvi;
         this.gvi.setParent(this);
-
         init();
-    
     }
     
     
@@ -126,6 +122,36 @@ public class GraphViewer extends JDialog
         ChartPanel cp = gvi.getChartPanel();
         panel.add(cp, BorderLayout.CENTER);
         
+        
+        if (gvi instanceof AbstractGraphViewControler)
+        {
+            //System.out.println("GraphViewer: AbstractGraphViewControler. " + gvi);
+            AbstractGraphViewControler gvcont = (AbstractGraphViewControler)this.gvi;
+            
+            if (gvcont!=null)
+            {
+                panel.add(gvcont.getPanel(), BorderLayout.SOUTH);
+                m_da.enableHelp(gvcont);
+            }
+        }
+        else if (gvi instanceof AbstractGraphViewAndProcessor)
+        {
+            //System.out.println("GraphViewer: AbstractGraphViewAndProcessor. " + gvi);
+            AbstractGraphViewAndProcessor gvcont = (AbstractGraphViewAndProcessor)this.gvi;
+            
+            if (gvcont!=null)
+            {
+                panel.add(gvcont.getChartPanel(), BorderLayout.SOUTH);
+                //m_da.enableHelp(gvcont);
+            }
+            //else
+            //    System.out.println("GraphViewer: AbstractGraphViewAndProcessor not found");
+
+        }
+        else
+            System.out.println("GraphViewer: Unsupported graph view type. " + gvi);
+        
+        /*
         AbstractGraphViewControler gvcont = (AbstractGraphViewControler)this.gvi.getControler();
         
         if (gvcont!=null)
@@ -133,7 +159,9 @@ public class GraphViewer extends JDialog
             panel.add(gvcont.getPanel(), BorderLayout.SOUTH);
             m_da.enableHelp(gvcont);
         }
-        
+        else
+            System.out.println("GraphViewer: AbstractGraohViewControler not found");
+        */
         this.getContentPane().add(panel);
         this.setTitle(this.gvi.getTitle());
         this.setBounds(this.gvi.getViewerDialogBounds());

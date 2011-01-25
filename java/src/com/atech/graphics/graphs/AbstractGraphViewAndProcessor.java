@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
+import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 
@@ -45,7 +46,7 @@ import com.atech.utils.ATDataAccessAbstract;
 
 // AbstractGraphView + AbstractGWDataProcessor
 
-public abstract class AbstractGraphViewAndProcessor implements GraphViewInterface, GraphViewDataProcessorInterface
+public abstract class AbstractGraphViewAndProcessor implements GraphViewInterface, GraphViewDataProcessorInterface, HelpCapable
 {
 
     protected ATDataAccessAbstract m_da = null;
@@ -64,7 +65,7 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
         this.m_da = da;
         this.m_ic = da.getI18nControlInstance();
         
-        System.out.println("AbstractGraphViewProcessor: " + da + ",m_ic: " + this.m_ic);
+        //System.out.println("AbstractGraphViewProcessor: " + da + ",m_ic: " + this.m_ic);
         
     }
     

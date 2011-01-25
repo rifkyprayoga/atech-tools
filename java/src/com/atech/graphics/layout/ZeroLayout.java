@@ -412,7 +412,7 @@ public class ZeroLayout implements LayoutManager, Serializable
             }
         }
 
-        System.out.println("Object: " + zer + ", Bounds: " + rec);
+        //System.out.println("Object: " + zer + ", Bounds: " + rec);
         
         return rec;
     }
