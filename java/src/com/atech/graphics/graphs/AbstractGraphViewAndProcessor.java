@@ -46,7 +46,7 @@ import com.atech.utils.ATDataAccessAbstract;
 
 // AbstractGraphView + AbstractGWDataProcessor
 
-public abstract class AbstractGraphViewAndProcessor implements GraphViewInterface, GraphViewDataProcessorInterface, HelpCapable
+public abstract class AbstractGraphViewAndProcessor implements GraphViewInterface, GraphViewDataProcessorInterface //, HelpCapable
 {
 
     protected ATDataAccessAbstract m_da = null;
