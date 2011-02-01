@@ -172,6 +172,8 @@ public class MainAppFrame extends JFrame //implements ActionListener
         
         setLookAndFeel(this.app_context.getDataAccess().getDbToolAbstract().getLFData());
         
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
         
         
         
