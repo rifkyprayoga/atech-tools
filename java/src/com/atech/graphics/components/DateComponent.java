@@ -246,7 +246,7 @@ public class DateComponent extends JPanel implements ChangeListener
         int y = ((Number) year.getModel().getValue()).intValue();
 
         
-        System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
+//        System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
         
         
         int mo = findMonth(m);

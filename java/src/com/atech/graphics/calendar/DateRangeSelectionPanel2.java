@@ -217,7 +217,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
         //this.
 
         ATSwingUtils.getLabel(this.m_ic.getMessage("RANGE")+ ":", 10, 21, 75, 25, this, ATSwingUtils.FONT_NORMAL_BOLD);
-        
+        //this.
         this.cb_range = new JComboBox(range);
         this.cb_range.setBounds(70, 20, 120, 25);
         this.cb_range.setSelectedIndex(this.current_range);
