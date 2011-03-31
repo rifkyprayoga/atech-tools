@@ -234,7 +234,7 @@ public abstract class ATDataAccessAbstract
 
     
     
-    protected Hashtable<String, ExtendedHandler> extended_handlers = new Hashtable<String, ExtendedHandler>();
+    protected Hashtable<String, ExtendedHandler> extended_handlers = null; //new Hashtable<String, ExtendedHandler>();
     protected Hashtable<String, ATechConverter> converters = new Hashtable<String, ATechConverter>();
     protected Hashtable<String,String> sorters = new Hashtable<String,String>(); 
     
@@ -3611,7 +3611,24 @@ public abstract class ATDataAccessAbstract
     {
         return this.extended_handlers.get(key);
     }
-
+    
+    
+    /**
+     * Add Extended Handler
+     * 
+     * @param key
+     * @param eh
+     */
+    public void addExtendedHandler(String key, ExtendedHandler eh)
+    {
+        if (this.extended_handlers==null)
+        {
+            this.extended_handlers = new Hashtable<String,ExtendedHandler>();
+        }
+        //System.out.println("Key=" + key +", ExtendeedHandler: " + eh);
+        this.extended_handlers.put(key, eh);
+    }
+    
     
     // ********************************************************
     // ******                 Convertors                  *****
