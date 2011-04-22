@@ -20,6 +20,7 @@ import com.atech.db.cfg.DbConfig;
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.hdb_object.User;
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
+import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.db.hibernate.transfer.BackupRestoreRunner;
 import com.atech.graphics.components.menu.DynMenuItem;
 import com.atech.gui_fw.CustomDataAccess;
@@ -60,6 +61,14 @@ public abstract class AbstractApplicationContext implements ActionListener
     //ArrayList<String> plugins_db = null;
     protected ArrayList<String> db_files = new ArrayList<String>(); 
     protected DbConfig jdbc_config = null;
+    
+    protected boolean is_demo = false;
+    
+    /**
+     * The backup_restore_collection.
+     */
+    protected BackupRestoreCollection backup_restore_collection = null;
+    
 
     
     /**
@@ -149,7 +158,10 @@ public abstract class AbstractApplicationContext implements ActionListener
         
     }
     
-    
+    public void setDemoMode(boolean demo)
+    {
+        this.is_demo = demo;
+    }
     
     public abstract void initMenus();
     
@@ -216,6 +228,19 @@ public abstract class AbstractApplicationContext implements ActionListener
     
     
     public abstract BackupRestoreRunner getBackupRestoreRunner(int action);
+    
+    
+    public abstract void loadBackupCollection();
+
+    
+    public BackupRestoreCollection getBackupRestoreCollection()
+    {
+        if (this.backup_restore_collection==null)
+            this.loadBackupCollection();
+        
+        return this.backup_restore_collection;
+    }
+    
     
     
     //public abstract String getSpecialRestoreParameter();

@@ -540,6 +540,25 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         }
     }
     
+
+    
+    /**
+     * Gets the session.
+     * 
+     * @param num the num
+     * 
+     * @return the session
+     */
+    public SessionFactory getSessionFactory()
+    {
+        if (this.session_factory==null)
+            createSessionFactory();
+
+        return this.session_factory;
+    }
+    
+    
+    
     
     /**
      * Close db.

@@ -630,6 +630,26 @@ public class ATechDate
         return atd.getATDateTimeAsLong();
     }
 
+    
+    /**
+     * Gets the aT date time from gc.
+     * 
+     * @param _day 
+     * @param _month 
+     * @param _year 
+     * 
+     * @param type the type
+     * 
+     * @return the aT date time from gc
+     */
+    public static long getATDateTimeFromDateParts(int _day, int _month, int _year, int hour, int minute, int type) // throws Exception
+    {
+        ATechDate atd = new ATechDate(_day, _month, _year, hour, minute, type);
+        return atd.getATDateTimeAsLong();
+    }
+    
+    
+    
 
     /**
      * Gets the aT date time from gc.

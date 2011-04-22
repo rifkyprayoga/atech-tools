@@ -207,7 +207,7 @@ public abstract class ATDataAccessAbstract
     /**
      * The m_collator.
      */
-    protected Collator m_collator = null;
+    public static Collator m_collator = null;
     
     /**
      * The parent.
@@ -1477,9 +1477,9 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the int
      */
-    public int compareUnicodeStrings(String s1, String s2)
+    public static int compareUnicodeStrings(String s1, String s2)
     {
-        return this.m_collator.compare(s1, s2);
+        return m_collator.compare(s1, s2);
     }
 
     // ********************************************************
@@ -2159,7 +2159,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the date string
      */
-    public String getDateString(int date)
+    public static String getDateString(int date)
     {
 
         // 20051012
@@ -2188,7 +2188,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the time string
      */
-    public String getTimeString(int time)
+    public static String getTimeString(int time)
     {
 
         int hours = time / 100;
@@ -2206,7 +2206,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the date time string
      */
-    public String getDateTimeString(long date)
+    public static String getDateTimeString(long date)
     {
         return getDateTimeString(date, 1);
     }
@@ -2218,7 +2218,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the date time as date string
      */
-    public String getDateTimeAsDateString(long date)
+    public static String getDateTimeAsDateString(long date)
     {
         return getDateTimeString(date, 2);
     }
@@ -2341,7 +2341,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the date time as time string
      */
-    public String getDateTimeAsTimeString(long date)
+    public static String getDateTimeAsTimeString(long date)
     {
         return getDateTimeString(date, 3);
     }
@@ -2373,7 +2373,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the date time string
      */
-    public String getDateTimeString(long dt, int ret_type)
+    public static String getDateTimeString(long dt, int ret_type)
     {
 
         // System.out.println("DT process: " + dt);
@@ -2593,7 +2593,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the leading zero
      */
-    public String getLeadingZero(int number, int places)
+    public static String getLeadingZero(int number, int places)
     {
         String nn = "" + number;
 
@@ -2636,7 +2636,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return Parsed string.
      */
-    public String replaceExpression(String input, String replace,
+    public static String replaceExpression(String input, String replace,
             String replacement)
     {
 

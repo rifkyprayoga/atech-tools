@@ -313,19 +313,6 @@ public class DataAccessTT extends ATDataAccessAbstract
 
    
 
-    /** 
-     * getTimeString
-     */
-    public String getTimeString(int time)
-    {
-
-        int hours = time / 100;
-
-        int min = time - hours * 100;
-
-        return getLeadingZero(hours, 2) + ":" + getLeadingZero(min, 2);
-
-    }
 
 
 

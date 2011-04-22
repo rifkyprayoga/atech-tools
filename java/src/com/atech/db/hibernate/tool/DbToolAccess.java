@@ -731,43 +731,6 @@ public class DbToolAccess extends ATDataAccessAbstract
 
     }
 
-    /** 
-     * getDateString
-     */
-    public String getDateString(int date)
-    {
-
-        // 20051012
-
-        int year = date / 10000;
-        int months_ = date - (year * 10000);
-
-        months_ = months_ / 100;
-
-        int days_ = date - (year * 10000) - (months_ * 100);
-
-        if (year == 0)
-        {
-            return getLeadingZero(days_, 2) + "/" + getLeadingZero(months_, 2);
-        }
-        else
-            return getLeadingZero(days_, 2) + "/" + getLeadingZero(months_, 2) + "/" + year;
-
-    }
-
-    /** 
-     * getTimeString
-     */
-    public String getTimeString(int time)
-    {
-
-        int hours = time / 100;
-
-        int min = time - hours * 100;
-
-        return getLeadingZero(hours, 2) + ":" + getLeadingZero(min, 2);
-
-    }
 
     /**
      * Not implemented.

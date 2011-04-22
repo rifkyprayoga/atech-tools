@@ -5,8 +5,6 @@ import java.io.FileWriter;
 import java.lang.reflect.Constructor;
 import java.util.Iterator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 
 import com.atech.db.hibernate.HibernateConfiguration;
@@ -61,7 +59,7 @@ public class DbCheck
     
     UpdateConfiguration upd_conf;
     
-    private Log log = LogFactory.getLog(DbCheck.class);
+    //private Log log = LogFactory.getLog(DbCheck.class);
     
     private String db_config_instance_class = "";
     
@@ -173,23 +171,23 @@ public class DbCheck
         }
         catch(ClassNotFoundException ex)
         {
-            log.error("Class Not Found Exception: " + ex, ex);
-//            ex.printStackTrace();
+            System.out.println("Class Not Found Exception: " + ex);
+            ex.printStackTrace();
         }
         catch(IllegalAccessException ex)
         {
-            log.error("Illegal Access Exception: " + ex, ex);
-//            ex.printStackTrace();
+            System.out.println("Illegal Access Exception: " + ex);
+            ex.printStackTrace();
         }
         catch(InstantiationException ex)
         {
-            log.error("Illegal Access Exception: " + ex, ex);
-//            ex.printStackTrace();
+            System.out.println("Illegal Access Exception: " + ex);
+            ex.printStackTrace();
         }
         catch(Exception ex)
         {
-            log.error("Exception happened: " + ex, ex);
-//            ex.printStackTrace();
+            System.out.println("Exception happened: " + ex);
+            ex.printStackTrace();
         }
     }
     
@@ -240,7 +238,8 @@ public class DbCheck
         }
         catch(Exception ex)
         {
-            log.error("Error writing report to file: " + ex, ex);
+            System.out.println("Error writing report to file: " + ex);
+            ex.printStackTrace();
         }
         
     }

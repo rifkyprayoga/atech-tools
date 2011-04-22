@@ -562,14 +562,6 @@ public String gender_minus[] = {
     // ******           Sorting algorithms                *****    
     // ********************************************************
 
-    /** 
-     * compareUnicodeStrings
-     */
-    public int compareUnicodeStrings(String s1, String s2)
-    {
-        return this.m_collator.compare(s1, s2);
-    }
-
 
 
 
@@ -985,64 +977,7 @@ public String gender_minus[] = {
 
 */
 
-    /** 
-     * getDateString
-     */
-    public String getDateString(int date)
-    {
 
-        // 20051012
-
-        int year = date/10000;
-        int month = date - (year*10000);
-
-        month = month/100;
-
-        int day = date - (year*10000) - (month*100);
-
-        if (year==0)
-        {
-            return getLeadingZero(day,2) + "/" + getLeadingZero(month,2);
-        }
-        else
-            return getLeadingZero(day,2) + "/" + getLeadingZero(month,2) + "/" + year;
-
-    }
-
-
-
-
-
-    /** 
-     * getTimeString
-     */
-    public String getTimeString(int time)
-    {
-
-        int hours = time/100;
-
-        int min = time - hours*100;
-
-        return getLeadingZero(hours,2) + ":" + getLeadingZero(min,2);
-
-    }
-
-    /** 
-     * getDateTimeString
-     */
-    public String getDateTimeString(long date)
-    {
-        return getDateTimeString(date, 1);
-    }
-
-
-    /** 
-     * getDateTimeAsDateString
-     */
-    public String getDateTimeAsDateString(long date)
-    {
-        return getDateTimeString(date, 2);
-    }
 
 
 
@@ -1131,74 +1066,6 @@ public String gender_minus[] = {
 
 
 
-    /** 
-     * getDateTimeAsTimeString
-     */
-    public String getDateTimeAsTimeString(long date)
-    {
-        return getDateTimeString(date, 3);
-    }
-
-
-    // ret_type = 1 (Date and time)
-    // ret_type = 2 (Date)
-    // ret_type = 3 (Time)
-
-
-
-
-    /** 
-     * getDateTimeString
-     */
-    public String getDateTimeString(long dt, int ret_type)
-    {
-
-        //System.out.println("DT process: " + dt);
-        /*
-        int y = (int)(dt/10000000L);
-        dt -= y*10000000L;
-
-        int m = (int)(dt/1000000L);
-        dt -= m*1000000L;
-
-        int d = (int)(dt/10000L);
-        dt -= d*10000L;
-
-        int h = (int)(dt/100L);
-        dt -= h*100L;
-
-        int min = (int)dt;
-*/
-        
-
-// 200612051850
-        int y = (int)(dt/100000000L);
-        dt -= y*100000000L;
-
-        int m = (int)(dt/1000000L);
-        dt -= m*1000000L;
-
-        int d = (int)(dt/10000L);
-        dt -= d*10000L;
-
-        int h = (int)(dt/100L);
-        dt -= h*100L;
-
-        int min = (int)dt;
-
-        
-        if (ret_type==DT_DATETIME)
-        {
-            return getLeadingZero(d,2) + "/" + getLeadingZero(m,2) + "/" + y + "  " + getLeadingZero(h,2) + ":" + getLeadingZero(min,2);
-        }
-        else if (ret_type==DT_DATE)
-        {
-            return getLeadingZero(d,2) + "/" + getLeadingZero(m,2) + "/" + y;
-        }
-        else
-            return getLeadingZero(h,2) + ":" + getLeadingZero(min,2);
-
-    }
 
 
 /*
@@ -1240,24 +1107,6 @@ public String getDateTimeString(int date, int time)
 
     }
 
-
-
-    /** 
-     * getLeadingZero
-     */
-    public String getLeadingZero(int number, int places)
-    {
-
-        String nn = ""+number;
-
-        while (nn.length()<places)
-        {
-            nn = "0"+nn;
-        }
-
-        return nn;
-
-    }
 
 
     /** 
@@ -1352,38 +1201,6 @@ public String[] userTypes = {
 
 
 
-    /**
-     * For replacing strings.<br>
-     * 
-     * @param input   Input String
-     * @param replace What to seatch for.
-     * @param replacement  What to replace with.
-     * 
-     * @return Parsed string.
-     */
-    public String replaceExpression(String input, String replace, String replacement)
-    {
-
-        int idx;
-        if ((idx=input.indexOf(replace))==-1)
-        {
-            return input;
-        }
-
-        StringBuffer returning = new StringBuffer();
-
-        while (idx!=-1)
-        {
-            returning.append(input.substring(0, idx));
-            returning.append(replacement);
-            input = input.substring(idx+replace.length());
-            idx = input.indexOf(replace);
-        }
-        returning.append(input);
-        
-        return returning.toString();
-
-    }
 
 
     

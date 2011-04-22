@@ -224,7 +224,6 @@ public class LanguageManager
 
 // y           availableLangWeb[i-1] = name;
 // y           availableLangLocale[i-1] = ((String)props.get("LANG_" + i + "_LOCALE")).toLowerCase();
-
             //li.locale = ((String)props.get("LANG_" + i + "_LOCALE")).toLowerCase();
             //li.file
 

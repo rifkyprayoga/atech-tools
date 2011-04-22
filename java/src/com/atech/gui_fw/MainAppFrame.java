@@ -276,6 +276,7 @@ public class MainAppFrame extends JFrame //implements ActionListener
         
         
         this.app_context.initAppSpecific();
+        this.setBounds(0, 50, 800, 600);
         this.setSize(this.app_context.getInitialSize());
         this.setVisible(true);
 

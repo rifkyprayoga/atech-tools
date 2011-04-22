@@ -67,6 +67,10 @@ public abstract class DbApplicationAbstract extends AtechToolsApplication
         sb.append(getClasspathForComponent("GGC Core"));
         sb.append(";");
         sb.append(getClasspathForComponent("Log4j"));
+        sb.append(";");
+        sb.append(getClasspathForComponent("Apache Commons Logging"));
+
+        // GGC Core should be removed
         
         return StartupUtil.replaceExpression(sb.toString(), ";", this.os_abstract.getSeparator());
     }

@@ -19,6 +19,7 @@ import com.atech.app.AbstractApplicationContext;
 import com.atech.db.cfg.DbConfig;
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.hdb_object.User;
+import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.gui_fw.MainAppFrame;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.info.LanguageInfo;
@@ -241,6 +242,11 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         super(aac.getLanguageManager(), aac.getI18nControlRunner());
         
         this.hib_db = aac.getDb();
+        
+        //aac.loadBackupCollection();
+        //this.backup_restore_collection = aac.getBackupRestoreCollection();
+        
+        
         
         //this.m_app_context = aac;
         
@@ -982,64 +988,6 @@ public void setDbLoadingStatus(int status)
 
 */
 
-    /* (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getDateString(int)
-     */
-    public String getDateString(int date)
-    {
-
-        // 20051012
-
-        int year = date/10000;
-        int months = date - (year*10000);
-
-        months = months/100;
-
-        int days = date - (year*10000) - (months*100);
-
-        if (year==0)
-        {
-            return getLeadingZero(days,2) + "/" + getLeadingZero(months,2);
-        }
-        else
-            return getLeadingZero(days,2) + "/" + getLeadingZero(months,2) + "/" + year;
-
-    }
-
-
-
-
-
-    /* (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getTimeString(int)
-     */
-    public String getTimeString(int time)
-    {
-
-        int hours = time/100;
-
-        int min = time - hours*100;
-
-        return getLeadingZero(hours,2) + ":" + getLeadingZero(min,2);
-
-    }
-
-    /* (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getDateTimeString(long)
-     */
-    public String getDateTimeString(long date)
-    {
-        return getDateTimeString(date, 1);
-    }
-
-
-    /* (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getDateTimeAsDateString(long)
-     */
-    public String getDateTimeAsDateString(long date)
-    {
-        return getDateTimeString(date, 2);
-    }
 
 
     /**
@@ -1142,13 +1090,6 @@ public void setDbLoadingStatus(int status)
 
 
 
-    /* (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getDateTimeAsTimeString(long)
-     */
-    public String getDateTimeAsTimeString(long date)
-    {
-        return getDateTimeString(date, 3);
-    }
 
 
     // ret_type = 1 (Date and time)
@@ -1172,58 +1113,6 @@ public void setDbLoadingStatus(int status)
 
 
 
-    /* (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getDateTimeString(long, int)
-     */
-    public String getDateTimeString(long dt, int ret_type)
-    {
-
-        //System.out.println("DT process: " + dt);
-        /*
-        int y = (int)(dt/10000000L);
-        dt -= y*10000000L;
-
-        int m = (int)(dt/1000000L);
-        dt -= m*1000000L;
-
-        int d = (int)(dt/10000L);
-        dt -= d*10000L;
-
-        int h = (int)(dt/100L);
-        dt -= h*100L;
-
-        int min = (int)dt;
-*/
-        
-
-// 200612051850
-        int y = (int)(dt/100000000L);
-        dt -= y*100000000L;
-
-        int m = (int)(dt/1000000L);
-        dt -= m*1000000L;
-
-        int d = (int)(dt/10000L);
-        dt -= d*10000L;
-
-        int h = (int)(dt/100L);
-        dt -= h*100L;
-
-        int min = (int)dt;
-
-        
-        if (ret_type==DT_DATETIME)
-        {
-            return getLeadingZero(d,2) + "/" + getLeadingZero(m,2) + "/" + y + "  " + getLeadingZero(h,2) + ":" + getLeadingZero(min,2);
-        }
-        else if (ret_type==DT_DATE)
-        {
-            return getLeadingZero(d,2) + "/" + getLeadingZero(m,2) + "/" + y;
-        }
-        else
-            return getLeadingZero(h,2) + ":" + getLeadingZero(min,2);
-
-    }
 
 
 
@@ -1273,23 +1162,6 @@ public void setDbLoadingStatus(int status)
     }
 
 
-
-    /* (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getLeadingZero(int, int)
-     */
-    public String getLeadingZero(int number, int places)
-    {
-
-        String nn = ""+number;
-
-        while (nn.length()<places)
-        {
-            nn = "0"+nn;
-        }
-
-        return nn;
-
-    }
 
 
     /* (non-Javadoc)
@@ -1397,38 +1269,6 @@ public void setDbLoadingStatus(int status)
 
 
 
-    /**
-     * For replacing strings.<br>
-     * 
-     * @param input   Input String
-     * @param replace What to seatch for.
-     * @param replacement  What to replace with.
-     * 
-     * @return Parsed string.
-     */
-    public String replaceExpression(String input, String replace, String replacement)
-    {
-
-        int idx;
-        if ((idx=input.indexOf(replace))==-1)
-        {
-            return input;
-        }
-
-        StringBuffer returning = new StringBuffer();
-
-        while (idx!=-1)
-        {
-            returning.append(input.substring(0, idx));
-            returning.append(replacement);
-            input = input.substring(idx+replace.length());
-            idx = input.indexOf(replace);
-        }
-        returning.append(input);
-        
-        return returning.toString();
-
-    }
 
 
     
@@ -1653,6 +1493,18 @@ public void setDbLoadingStatus(int status)
     public DbConfig getJdbcConfig()
     {
         return this.jdbc_config;
+    }
+    
+
+    
+    /**
+     * Gets the backup restore collection.
+     * 
+     * @return the backup restore collection
+     */
+    public BackupRestoreCollection getBackupRestoreCollection()
+    {
+        return this.s_app_context.getBackupRestoreCollection(); 
     }
     
     
