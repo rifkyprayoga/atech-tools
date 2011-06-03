@@ -287,6 +287,38 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 */
 
 
+    /**
+     * Creates the instance.
+     * 
+     * @param main the main
+     * 
+     * @return the data access
+     */
+    static public DataAccessApp createInstanceWOFrame(AbstractApplicationContext aac)
+    {
+        if (m_da == null)
+        {
+            //if (main.getSplash()!=null)
+            //    main.getSplash().setSplashProgress(18, aac.getI18nControl().getMessage("CREATE_DATABASE_INSTANCE"));
+
+            s_app_context = aac;
+            //aac.setFrame(main);
+            //aac.initDb();
+            
+            //MDODb db = new MDODb();
+            
+            
+            
+            m_da = new DataAccessApp(aac);
+            //m_da.setParent(main);
+            //m_da.setMainParent(main);
+            
+            m_da.help_enabled = s_app_context.isHelpEnabled();
+            
+        }
+            
+        return m_da;
+    }
 
 
 
@@ -318,6 +350,11 @@ public class DataAccessApp extends ATDataAccessLMAbstract
             
             m_da.help_enabled = s_app_context.isHelpEnabled();
             
+        }
+        else
+        {
+            m_da.setParent(main);
+            m_da.setMainParent(main);
         }
             
         return m_da;

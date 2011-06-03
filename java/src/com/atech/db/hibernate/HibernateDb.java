@@ -13,6 +13,9 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
+import com.atech.app.AbstractApplicationContext;
+import com.atech.graphics.SplashAbstract;
+import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 
 // TODO: Auto-generated Javadoc
@@ -105,9 +108,15 @@ public abstract class HibernateDb
 
     
 
+    protected AbstractApplicationContext app_context = null;
 
 
-
+    protected SplashAbstract m_splash = null;
+    
+    protected I18nControlAbstract m_ic = null;
+    
+    
+    
     /**
      * Instantiates a new hibernate db.
      * 
@@ -131,6 +140,21 @@ public abstract class HibernateDb
 //	debugConfig();
     }
 
+
+    public HibernateDb(AbstractApplicationContext ctx)
+    {
+        this.app_context = ctx;
+        m_da = this.app_context.getDataAccess(); //DataAccessApp.getInstance();
+        m_ic = m_da.getI18nControlInstance();
+        
+        if (ctx.hasSplashScreen())
+        {
+            this.m_splash = ctx.getSplashAbstractObject();
+        }
+        
+        config = createConfiguration();
+    }
+    
     
     /**
      * Instantiates a new hibernate db.
@@ -140,10 +164,10 @@ public abstract class HibernateDb
      */
     public HibernateDb(ATDataAccessAbstract da, HibernateDb hd)
     {
-        //System.out.println("HibernateDb(): " + da + ",config=" + this.config + ",session_factory=" + this.sessions);
+        System.out.println("HibernateDb(): " + da + ",hib_db_in=" + hd + ",session_factory=" + this.sessions);
         this.m_da = da;
         this.config = hd.getHibernateConfiguration();
-        this.sessions = this.config.session_factory;
+        this.sessions = this.config.getSessionFactory();
         System.out.println("HibernateDb(): " + m_da + ",config=" + this.config + ",session_factory=" + this.sessions);
         m_loadStatus = DB_CONFIG_LOADED;
     }

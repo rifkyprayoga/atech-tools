@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.atech.db.hibernate.check.DbCheckAbstract;
+import com.atech.graphics.SplashAbstract;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 
@@ -64,7 +65,9 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     private String loading_db_str = "Loading Db Configuration #";
     private String cfg_file_missing_str = "Configuration file is missing. Make sure path to file is correct ";
     private String cfg_file_error_read_exc = "Error reading DB Config::Exception:";
-
+    private String cfg_db_object = "Db Object";
+    
+    
     /**
      * The db_num.
      */
@@ -108,7 +111,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     /**
      * The str_ldo.
      */
-    public String str_ldo = null;
+    //public String str_ldo = null;
     
     /**
      * The m_cfg.
@@ -199,7 +202,43 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         this(ic, -1, da);
     }
 
+    
+    
+    SplashAbstract m_splash = null; 
+    int progress_starting = 0;
+    int progress_ending = 100;        
+    protected boolean splash_set = false;
+    int splash_diff = 100;
+    int splash_object_progress = -1;
+    
+    
+    
+    /**
+     * Instantiates a new hibernate configuration.
+     * 
+     * @param val the val
+     */
+    public HibernateConfiguration(boolean val, ATDataAccessAbstract da, SplashAbstract splash, int starting, int ending)
+    {
+        this.m_da = da; 
+        this.ic = da.getI18nControlInstance();
+        initI18n();
+        setSplashProperties(splash, starting, ending);
+        loadConfiguration(-1);
+    }
+    
 
+    private void setSplashProperties(SplashAbstract splash, int starting, int ending)
+    {
+        this.m_splash = splash;
+        this.progress_starting = starting;
+        this.progress_ending = ending;        
+        splash_set = true;
+        this.splash_diff = ending - starting;
+    }
+    
+    
+    
     /**
      * Instantiates a new hibernate configuration.
      * 
@@ -221,6 +260,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
      */
     public void initI18n()
     {
+        this.cfg_db_object = setI18nVariable("LOAD_DATABASE_OBJECTS", this.cfg_db_object);
     	this.loading_db_str = setI18nVariable("LOADING_DB_CONFIGURATION", this.loading_db_str);
     	this.cfg_file_missing_str = setI18nVariable("CFG_FILE_MISSING", this.cfg_file_missing_str);
     	this.cfg_file_error_read_exc = setI18nVariable("CFG_FILE_ERROR_READ", this.cfg_file_error_read_exc);
@@ -382,7 +422,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     
     
 
-    private Configuration getCustomConfiguration(String[] res_files)
+    protected Configuration getCustomConfiguration(String[] res_files)
     {
         Configuration cfg = new Configuration()
                             .setProperty("hibernate.dialect", db_hib_dialect)
@@ -398,11 +438,19 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
             cfg.setProperty("mappingLocations", this.getMappingLocation());
         }
         
+        if (this.splash_set)
+        {
+            this.splash_object_progress = (int)Math.floor((this.splash_diff*1.0d) / ((res_files.length+1)*1.0d)); 
+        }
+        
 
         for(int i=0; i<res_files.length; i++)
         {
             cfg.addResource(res_files[i]);
+            setSplashProgress(i, res_files[i]);
         }
+        
+        setSplashProgress(res_files.length, "FINALIZING_DATABASE_LOAD", true);
         
         
         //  .setProperty("hibernate.show_sql", "true")
@@ -419,6 +467,58 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     }
     
 
+    
+    //setSplashProgress(i, res_files[i]);
+
+    
+    public void setSplashProgress(int item, String item_name)
+    {
+        this.setSplashProgress(item, item_name, false);
+    }
+    
+    
+    
+    /**
+     * Set Splash Progress
+     * 
+     * @param item
+     * @param item_name
+     */
+    public void setSplashProgress(int item, String item_name, boolean last)
+    {
+        if (!this.splash_set)
+            return;
+
+        if (!last)
+        {
+            int prg = this.progress_starting;
+            prg += (item+1) * this.splash_object_progress;
+            
+            this.m_splash.setSplashProgress(prg, this.cfg_db_object + ": " + ic.getMessage(parseItemName(item_name)));
+        }
+        else
+        {
+            this.m_splash.setSplashProgress(this.progress_ending, ic.getMessage(parseItemName(item_name)));
+        }
+        
+    }
+    
+    
+    private String parseItemName(String item_name)
+    {
+        item_name = item_name.replace(".hbm.xml", "");
+        item_name = item_name.replace(".", "_");
+        item_name = item_name.replace("/", "_");
+        item_name = item_name.replace("\\", "_");
+        
+        System.out.println("DB_CFG_" + item_name.toUpperCase());
+        
+        return ic.getMessage("DB_CFG_" + item_name.toUpperCase());
+    }
+    
+    
+    
+    
     
     /**
      * Load Default Database

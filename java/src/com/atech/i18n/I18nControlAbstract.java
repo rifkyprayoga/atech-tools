@@ -721,25 +721,25 @@ protected Locale lcls[] = null;
      */
     public void createCollationDefintion()
     {
-    	
+    	System.out.println("!!!!!!!!! CreateCollactionDefinition");
 
         String col_def = this.getMessage("COLLATION_RULES");
 
         if (col_def.equals("COLLATION_RULES"))
         {
-            //System.out.println("Default collation rule !");
+            System.out.println("Default collation rule !");
             this.langaugeCollator = Collator.getInstance(Locale.ENGLISH);
         }
         else
         {
             try
             {
-                //System.out.println(col_def);
+                System.out.println(col_def);
                 this.langaugeCollator =  new RuleBasedCollator(col_def);
             }
             catch(Exception ex)
             {
-                //System.out.println("Exception creating collator: " + ex);
+                System.out.println("Exception creating collator: " + ex);
                 s_logger.error("Exception creating collator: " + ex, ex);
                 //log.error("Exception creating collator: " + ex, ex);
                 this.langaugeCollator = Collator.getInstance(Locale.ENGLISH);
@@ -758,6 +758,9 @@ protected Locale lcls[] = null;
      */
     public Collator getCollationDefintion()
     {
+        if (this.langaugeCollator==null)
+            createCollationDefintion();
+        
         return this.langaugeCollator;
     }
    

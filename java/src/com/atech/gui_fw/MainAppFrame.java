@@ -35,6 +35,7 @@ import com.atech.graphics.SplashAbstract;
 import com.atech.help.HelpContext;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.DataAccessApp;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 
 
@@ -164,12 +165,19 @@ public class MainAppFrame extends JFrame //implements ActionListener
         // GGCProperties has been created
         // m_ic.setLanguage();
         
+        this.m_da = DataAccessApp.createInstanceWOFrame(app_ctx);
+        
+        if (app_ctx.hasSplashScreen())
+            app_ctx.initSplashScreen();
+        
+        app_ctx.setInternalSplashProgress(1, "APPLICATION_CONTEXT");
         this.app_context = app_ctx;
         this.app_context.setFrame(this);
         
         
         //this.app_context.initDataAccess();
-        
+        this.app_context.setSplashProgress(false, 5, "SET_LOOK_AND_FEEL");
+
         setLookAndFeel(this.app_context.getDataAccess().getDbToolAbstract().getLFData());
         
         JFrame.setDefaultLookAndFeelDecorated(true);
@@ -177,7 +185,7 @@ public class MainAppFrame extends JFrame //implements ActionListener
         
         
         
-        this.setTitle(app_ctx.getTitle());
+//        this.setTitle(app_ctx.getTitle());
         
         // System.out.println("MainFrame before creation");
         //m_da = DataAccess.createInstance(this);
@@ -223,11 +231,13 @@ public class MainAppFrame extends JFrame //implements ActionListener
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new CloseListener());
         
-        
+        this.app_context.setSplashProgress(false, 6, "CREATE_MENUS");
         this.app_context.createMenus();
 
+        this.app_context.setSplashProgress(false, 7, "CREATE_TOOLBAR");
         this.app_context.createToolBar();
         
+        this.app_context.setSplashProgress(false, 8, "INIT_GUI");
         this.app_context.initAppGUI();
         
         
@@ -274,10 +284,17 @@ public class MainAppFrame extends JFrame //implements ActionListener
         
         getContentPane().add(this.app_context.getMainPanel(), BorderLayout.CENTER);
         
-        
+        this.app_context.setSplashProgress(false, 9, "INIT_APP_SPECIFIC");
         this.app_context.initAppSpecific();
         this.setBounds(0, 50, 800, 600);
         this.setSize(this.app_context.getInitialSize());
+
+        if (app_ctx.hasSplashScreen())
+            app_ctx.disposeSplashScreen();
+
+//        this.setTitle(app_ctx.getTitle());
+        
+        
         this.setVisible(true);
 
     }

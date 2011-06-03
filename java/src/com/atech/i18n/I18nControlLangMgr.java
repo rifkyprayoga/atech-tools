@@ -741,7 +741,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
     /**
      * Creates the collation defintion.
      */
-    public void createCollationDefintion()
+/*    public void createCollationDefintion()
     {
     	
 
@@ -771,18 +771,18 @@ public class I18nControlLangMgr extends I18nControlAbstract
         //testCollation();
 
     }
-    
+  */  
     
     /**
      * Gets the collation defintion.
      * 
      * @return the collation defintion
      */
-    public Collator getCollationDefintion()
+ /*   public Collator getCollationDefintion()
     {
         return this.langaugeCollator;
     }
-
+*/
     @Override
     protected String getLanguageConfigFile()
     {

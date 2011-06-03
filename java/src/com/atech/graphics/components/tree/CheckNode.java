@@ -207,5 +207,12 @@ public class CheckNode extends DefaultMutableTreeNode
      * setSelected(((Boolean)obj).booleanValue()); } else {
      * super.setUserObject(obj); } }
      */
+    
+    
+    public Object getObject()
+    {
+        return this.userObject;
+    }
+    
 
 }

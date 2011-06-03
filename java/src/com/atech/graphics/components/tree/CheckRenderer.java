@@ -14,6 +14,8 @@ import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.tree.TreeCellRenderer;
 
+import com.atech.db.hibernate.transfer.BackupRestoreBase;
+
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -85,7 +87,15 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
         setEnabled(tree.isEnabled());
         check.setSelected(((CheckNode) value).isSelected());
         label.setFont(tree.getFont());
-        label.setText(stringValue);
+        
+        if (value instanceof BackupRestoreBase)
+        {
+            BackupRestoreBase brb = (BackupRestoreBase)value;
+            label.setText(brb.getTargetName());
+        }
+        else
+            label.setText(stringValue);
+        
         label.setSelected(isSelected);
         label.setFocus(hasFocus);
         if (leaf)

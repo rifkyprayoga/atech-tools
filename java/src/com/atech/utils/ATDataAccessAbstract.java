@@ -207,7 +207,7 @@ public abstract class ATDataAccessAbstract
     /**
      * The m_collator.
      */
-    public static Collator m_collator = null;
+    protected Collator m_collator = null;
     
     /**
      * The parent.
@@ -255,9 +255,17 @@ public abstract class ATDataAccessAbstract
     
     protected HibernateDb hib_db = null;
     
+    /**
+     * Contact types 
+     */
+    public static String contact_types[] = null; 
     
-    public String contact_types[] = null;
-    public ImageIcon contact_icons[] = null;
+//    public String contact_types[] = null;
+    
+    /**
+     * Contact Icons
+     */
+    public static ImageIcon contact_icons[] = null;
     
     
     /*
@@ -345,7 +353,9 @@ public abstract class ATDataAccessAbstract
         loadFonts();
         m_settings_ht = new Hashtable<String, String>();
         plugins = new Hashtable<String,PlugInClient>();
-        this.m_collator = this.m_i18n.getCollationDefintion();
+        
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!! COLATOR " + this);
+        m_collator = this.m_i18n.getCollationDefintion();
         loadPlugIns();
         loadBackupRestoreCollection();
         loadExtendedHandlers();
@@ -1477,9 +1487,23 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the int
      */
-    public static int compareUnicodeStrings(String s1, String s2)
+    public int compareUnicodeStrings(String s1, String s2)
     {
-        return m_collator.compare(s1, s2);
+        if (m_collator==null)
+        {
+            this.m_collator = this.getI18nControlInstance().getCollationDefintion();
+            log.debug("Created collator again [da=" + this + ", colator=" + m_collator + "]");
+        }
+        
+/*        
+        if (m_collator==null)
+        {
+            return s1.compareTo(s2);
+        }
+        else
+        {*/
+            return m_collator.compare(s1, s2);
+        //}
     }
 
     // ********************************************************
@@ -4072,7 +4096,18 @@ public abstract class ATDataAccessAbstract
     }
     
     
-    
+    /**
+     * We check (bitwise) if value_we_are looking for is set in bitwise_containing_value
+     * 
+     * @param value
+     * @param value_we_check_for
+     * @return
+     */
+    public static boolean isBitwiseSet(int value, int value_we_check_for)
+    {
+        return ((value & value_we_check_for) == value_we_check_for);
+    }
+   
     
     
 }

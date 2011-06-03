@@ -17,7 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTree;
 import javax.swing.SwingConstants;
+import javax.swing.tree.TreeCellRenderer;
 
 import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
 import com.atech.graphics.components.tree.CheckNode;
@@ -232,7 +234,18 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         label.setFont(this.font_normal_b);
         panel.add(label);
         
-        tree = new CheckNodeTree(this.backuprestore_root, CheckNode.DIG_IN_SELECTION);
+        tree = new CheckNodeTree(this.backuprestore_root, CheckNode.DIG_IN_SELECTION, new BackupRestoreTreeRenderer());
+        /*tree.setCellRenderer(new TreeCellRenderer() {
+
+            public Component getTreeCellRendererComponent(JTree arg0, Object value, boolean arg2, boolean arg3,
+                    boolean arg4, int arg5, boolean arg6)
+            {
+                CheckNode cn = (CheckNode)value; 
+                BackupRestoreBase bro = (BackupRestoreBase)cn.getObject(); 
+                return new JLabel(bro.getTargetName());
+            }
+            
+        });*/
         
         JScrollPane scroll = new JScrollPane(tree);
         scroll.setBounds(25, 100, 250, 150);

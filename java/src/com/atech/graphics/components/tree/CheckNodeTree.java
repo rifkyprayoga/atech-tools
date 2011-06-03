@@ -9,6 +9,7 @@ import java.util.Enumeration;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
@@ -62,15 +63,37 @@ public class CheckNodeTree extends JTree
      */
     public CheckNodeTree(CheckBoxTreeNodeInterface root_node, int check_type)
     {
-        super(CheckNodeUtil.buildTree(root_node, check_type));
+        this(root_node, check_type, new CheckRenderer());
+        /*super(CheckNodeUtil.buildTree(root_node, check_type));
 
         this.setCellRenderer(new CheckRenderer());
+        this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+        this.putClientProperty("JTree.lineStyle", "Angled");
+        this.addMouseListener(new NodeSelectionListener(this));*/
+    }
+
+    
+    
+    /**
+     * Instantiates a new check node tree.
+     * 
+     * @param root_node the root_node
+     * @param check_type the check_type
+     */
+    public CheckNodeTree(CheckBoxTreeNodeInterface root_node, int check_type, TreeCellRenderer renderer)
+    {
+        super(CheckNodeUtil.buildTree(root_node, check_type));
+
+        this.setCellRenderer(renderer);
         this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         this.putClientProperty("JTree.lineStyle", "Angled");
         this.addMouseListener(new NodeSelectionListener(this));
         
     }
-
+    
+    
+    
+    
     /**
      * Prints the tree.
      */

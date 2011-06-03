@@ -22,6 +22,7 @@ import com.atech.db.hibernate.hdb_object.User;
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.db.hibernate.transfer.BackupRestoreRunner;
+import com.atech.graphics.SplashAbstract;
 import com.atech.graphics.components.menu.DynMenuItem;
 import com.atech.gui_fw.CustomDataAccess;
 import com.atech.gui_fw.MainAppFrame;
@@ -65,6 +66,16 @@ public abstract class AbstractApplicationContext implements ActionListener
     protected boolean is_demo = false;
     
     /**
+     * Splash progress.
+     * We have predefined splash objects (first int is id, second is progress), like for
+     * example DataAccess initialization. Now if we have a lot of custom progress 
+     * stuff to add, this original splash progress objects, can happen at differnt % of 
+     * progress. We can fix this spash happenings at init of Splash.
+     */
+    public Hashtable<Integer,Integer> splash_progress = new Hashtable<Integer,Integer>(); 
+    
+    
+    /**
      * The backup_restore_collection.
      */
     protected BackupRestoreCollection backup_restore_collection = null;
@@ -79,7 +90,9 @@ public abstract class AbstractApplicationContext implements ActionListener
     public AbstractApplicationContext(boolean dev_edition)
     {
         this.developer_editon = dev_edition;
-        //initDataAccess();        
+        //initDataAccess();   
+        
+        initSplashContext();
         initContext();
         
         
@@ -98,10 +111,23 @@ public abstract class AbstractApplicationContext implements ActionListener
         this.developer_editon = dev_edition;
         this.company_context = cmp_ctx;
         //initDataAccess();        
+        initSplashContext();
         initContext();
     }
     
     
+    private void initSplashContext()
+    {
+        this.splash_progress.put(1, 5);
+        this.splash_progress.put(2, 10);
+        this.splash_progress.put(3, 15);
+        this.splash_progress.put(4, 70);
+        this.splash_progress.put(5, 75);
+        this.splash_progress.put(6, 80);
+        this.splash_progress.put(7, 85);
+        this.splash_progress.put(8, 90);
+        this.splash_progress.put(9, 95);
+    }
     
     
     
@@ -113,10 +139,15 @@ public abstract class AbstractApplicationContext implements ActionListener
     public void setFrame(MainAppFrame frame_)
     {
         this.frame = frame_;
+        this.setSplashProgress(false, 2, "DATA_CONTEXT");
         this.initDataAccess();
         //this.discoverPlugins();
+        this.setSplashProgress(false, 3, "INIT_DB");
         this.initDb();
+        this.setSplashProgress(false, 4, "LOAD_PLUGINS");
         this.loadPlugIns();
+        
+        this.frame.setTitle(getTitle());
         
     }
     
@@ -181,10 +212,50 @@ public abstract class AbstractApplicationContext implements ActionListener
     
     public abstract void loadDbToolApplication();
     
+    /**
+     * Has Splash Screen
+     * 
+     * @return
+     */
     public abstract boolean hasSplashScreen();
     
+    /**
+     * Init Splash Screen
+     */
     public abstract void initSplashScreen();
 
+    /**
+     * Dispose Splash Screen
+     */
+    public abstract void disposeSplashScreen();
+    
+    
+    
+    public void setSplashProgress(boolean custom, int param_id, String description)
+    {
+        if (custom)
+        {
+            this.setInternalSplashProgress(param_id, description);
+        }
+        else
+        {
+            if (this.splash_progress.containsKey(param_id))
+            {
+                this.setInternalSplashProgress(this.splash_progress.get(param_id), description);
+            }
+            else
+            {
+                this.setInternalSplashProgress(0, description);
+            }
+        }
+    }
+    
+    
+    public abstract void setInternalSplashProgress(int progress, String description);
+    
+    
+    public abstract SplashAbstract getSplashAbstractObject();
+    
     
     public void initDataAccess()
     {
@@ -468,6 +539,10 @@ public abstract class AbstractApplicationContext implements ActionListener
     
     
     public abstract void loadPlugIns();
+    
+
+    
+    
     
     
 }
