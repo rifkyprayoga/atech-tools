@@ -102,6 +102,15 @@ public abstract class ExtendedHandler
     }
     
     
+    public String getExtendedTypeDescription(int type)
+    {
+        if (this.ext_mapped_types.containsKey(type))
+        {
+            return this.ext_mapped_types.get(type);
+        }
+        else
+            return null;
+    }
     
 
     

@@ -9,5 +9,6 @@ public class ATechToolsVersion
     // 6=0.5.1 [GGC 0.4.19, Epris Web]
     //   0.7.1 [MSP Project, TravelDoc]
     //   0.7.2 [PIS: Bitwise, FW, Components, Hibernate]
+    //   0.7.3 [GGC: ExtendedDb, I18n Manager]
     
 }
