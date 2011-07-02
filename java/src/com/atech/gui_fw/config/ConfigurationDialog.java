@@ -10,6 +10,7 @@ import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -111,6 +112,15 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
      * m_ic.getMessage("LANGUAGE") };
      */
 
+    
+    
+    public ConfigurationDialog(AbstractConfigurationContext acc)
+    {
+        this(acc, (JFrame)acc.getDataAccessInstance().getMainParent(), acc.getDataAccessInstance());
+    }
+    
+    
+    
     /**
      * Constructor
      * 
@@ -118,11 +128,11 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
      * 
      * @param da
      */
-    public ConfigurationDialog(AbstractConfigurationContext acc)
+    public ConfigurationDialog(AbstractConfigurationContext acc, JFrame frame, ATDataAccessAbstract da)
     {
-        super(acc.getDataAccessInstance().getMainParent(), "", true);
+        super(frame, "", true);
 
-        this.m_da = acc.getDataAccessInstance();
+        this.m_da = da;
         this.m_ic = m_da.getI18nControlInstance();
         this.m_acc = acc;
 
@@ -139,7 +149,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
          */
         setSize(640, 480);
         setTitle(m_ic.getMessage("PREFERENCES"));
-        m_da.centerJDialog(this, m_da.getMainParent());
+        m_da.centerJDialog(this, frame);
 
         help_button = m_da.createHelpButtonBySize(120, 25, this);
         createPanels();
