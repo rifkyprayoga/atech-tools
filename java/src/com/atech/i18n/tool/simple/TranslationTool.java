@@ -180,7 +180,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
 
         if (!dlp.wasConfigurationRead())
         {
-            showTypesDialog("Configuration file invalid !", JOptionPane.ERROR_MESSAGE);
+            showTypesDialog("Configuration file invalid!", JOptionPane.ERROR_MESSAGE);
         }
         else if (!this.m_da.isMasterFileMasterFile())
         {
@@ -217,7 +217,6 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
             type_desc = "Info";
 
         JOptionPane.showMessageDialog(this, msg, type_desc, type);
-
     }
 
     private void init()
@@ -433,7 +432,6 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         }
         else
         {
-
             // same
             if (de.status != this.cmb_status.getSelectedIndex())
             {
@@ -527,6 +525,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         else if (cmd.equals("copy_text"))
         {
             jt_mine.setText(jt_source.getText());
+            cmb_status.setSelectedIndex(0);
         }
         else if (cmd.equals("next"))
         {
