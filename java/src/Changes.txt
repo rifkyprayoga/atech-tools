@@ -4,6 +4,18 @@ Changes file for atech-tools
 See Authors for more description on developers
 --------------------------------------------------
 
+0.7.4 [16.8.2011]
+     [GGC 0.5 [8] Minor changes]
+ 
+    * Minor chnages here and there
+    * Release for GGC 0.5 project
+
+    // 6=0.5.1 [GGC 0.4.19, Epris Web]
+    //   0.7.1 [MSP Project, TravelDoc]
+    //   0.7.2 [PIS: Bitwise, FW, Components, Hibernate]
+    //   0.7.3 [GGC: ExtendedDb, I18n Manager]
+    //   
+
 0.5.2
     * Imported app and config handling from PIS project
     * Adding features to global app and config handling

@@ -93,10 +93,11 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
          */
         private void applyChanges()
         {
+            // .isEmpty() -> .equals("")  JDK 1.5.0 compatibility 
             switch (cmb_status.getSelectedIndex())
             {
             case 1:
-                if (jt_mine.getText().isEmpty() || jt_mine.getText().equals(jt_source.getText()))
+                if (jt_mine.getText().equals("") || jt_mine.getText().equals(jt_source.getText()))
                     cmb_status.setSelectedIndex(0);
                 break;
             case 2:
@@ -104,7 +105,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
                 break;
             case 0:
             default:
-                if (!jt_mine.getText().isEmpty() && !jt_mine.getText().equals(jt_source.getText()))
+                if (!jt_mine.getText().equals("") && !jt_mine.getText().equals(jt_source.getText()))
                     cmb_status.setSelectedIndex(1);
                 break;
             }

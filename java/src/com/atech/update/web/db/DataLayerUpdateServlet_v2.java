@@ -224,6 +224,8 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
     public String getProductUpdateList(String product_id, long current_version, long next_version)
     {
         
+        System.out.println("getProductUpdateList");
+        
         try
         {
             String sql = " SELECT upd_mod_version.id as id, upd_mod_version.module_id as module_id, upd_mod_version.version_num as version_num, upd_mod_version.archive_name as archive_name, upd_mod_version.archive_crc as archive_crc, upd_mod_version.archive_length as archive_length, upd_module.module_name as module_name " +
@@ -246,13 +248,18 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
             
             ResultSet rs = this.executeQuery(sql);
             
+            System.out.println("sql: " + sql);
+            
             StringBuilder sb = new StringBuilder();
             sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
             sb.append("<update_detailed_file>\n");
             sb.append("\t<components>\n");
             
+            System.out.println("sb");
+            
             while (rs.next())
             {
+                System.out.print("xxx");
                 sb.append("\t\t<component>\n");
 
                 // id
@@ -262,12 +269,12 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
 
                 // module_id
                 sb.append("\t\t\t<module_id>");
-                sb.append(rs.getLong("module_id"));
+                sb.append(rs.getString("module_id"));
                 sb.append("</module_id>\n");
 
                 // module_name
                 sb.append("\t\t\t<module_name>");
-                sb.append(rs.getLong("module_name"));
+                sb.append(rs.getString("module_name"));
                 sb.append("</module_name>\n");
                 
                 // version_num
@@ -277,7 +284,7 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
 
                 // archive_name
                 sb.append("\t\t\t<archive_name>");
-                sb.append(rs.getLong("archive_name"));
+                sb.append(rs.getString("archive_name"));
                 sb.append("</archive_name>\n");
 
                 // archive_crc
@@ -291,6 +298,10 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
                 sb.append("</archive_length>\n");
                 
                 sb.append("\t\t</component>\n");
+                
+                
+                System.out.print(".");
+                
             }
             
             sb.append("\t</components>\n");
@@ -301,7 +312,7 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
         }
         catch(Exception ex)
         {
-            log.debug("getProductUpdateList. Ex.: " + ex, ex);
+            log.error("getProductUpdateList. Ex.: " + ex, ex);
             return null;
         }
         

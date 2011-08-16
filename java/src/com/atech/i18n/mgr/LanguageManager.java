@@ -1,5 +1,6 @@
 package com.atech.i18n.mgr;
 
+import java.io.File;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Locale;
@@ -146,6 +147,13 @@ public class LanguageManager
     {
 
         PropertiesFile props = new PropertiesFile(this.language_manager_runnner.getLangaugeConfigFile());
+
+        System.out.println(this.language_manager_runnner.getLangaugeConfigFile());
+        
+        File uu = new File(".");
+        
+        System.out.println("ii" + uu.getAbsolutePath());
+        
         
         /*
         Properties props = null;

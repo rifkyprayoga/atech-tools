@@ -54,9 +54,10 @@ public class ATechUpdateSystem extends HttpServlet
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        
         // action
         String action = getParameter(request, "action");
+
+        System.out.println("doGet(): action=" + action);
         
         if (action.equals("get_file"))
         {
@@ -129,7 +130,6 @@ public class ATechUpdateSystem extends HttpServlet
         DataLayerUpdateServlet_v2 dl = DataLayerUpdateServlet_v2.getInstance();
         
         String xml = dl.getProductUpdateList(product_id, current_version, next_version);
-        
         
         response.setContentType("text/html");
         //response.setContentLength(message.length());

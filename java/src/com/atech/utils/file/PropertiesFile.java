@@ -7,6 +7,9 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Properties;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 // TODO: Auto-generated Javadoc
 /**
  * This file is part of ATech Tools library.
@@ -44,6 +47,8 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
     private static final long serialVersionUID = 4486922769091769152L;
     private boolean in_jar = false;
     
+    private static Log log = LogFactory.getLog(PropertiesFile.class);
+    
     
     /**
      * Instantiates a new properties file.
@@ -78,8 +83,12 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
         try
         {
 
+            /*
             if (!(new File(this.filename)).exists())
+            {
+                log.warn("File " + filename + " not found.");
                 return;
+            }*/
     
             Properties props = new Properties();
             
