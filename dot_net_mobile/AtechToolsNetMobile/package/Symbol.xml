@@ -1,0 +1,3179 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Symbol</name>
+    </assembly>
+    <members>
+        <member name="T:Symbol.Marshaller.Accessor">
+            <summary>
+            Accessor base class provides access to an entry within an Accessable object.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.Accessor.#ctor(System.Int32)">
+            <summary>
+            Accessor constructor.
+            </summary>
+            <param name="i">The index for an entry within an Accessable object.</param>
+        </member>
+        <member name="F:Symbol.Marshaller.Accessor.m_i">
+            <summary>
+            An integer field that contains the location of the entry within an 
+            Accessable object.
+            </summary>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessor.i">
+            <summary>
+            Get the index of the Accessor.
+            </summary>
+        </member>
+        <member name="T:Symbol.Marshaller.UintAccessor">
+            <summary>
+            UintAccessor class provides access to a uint within an Accessable object.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.UintAccessor.#ctor(System.Int32)">
+            <summary>
+            UintAccessor constructor.
+            </summary>
+            <param name="i">The index of the Accessor.</param>
+        </member>
+        <member name="T:Symbol.Marshaller.BoolAccessor">
+            <summary>
+            BoolAccessor class provides access to a bool within an Accessable object.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.BoolAccessor.#ctor(System.Int32)">
+            <summary>
+            BoolAccessor constructor.
+            </summary>
+            <param name="i">The index of the Accessor.</param>
+        </member>
+        <member name="T:Symbol.Marshaller.ObjectAccessor">
+            <summary>
+            ObjectAccessor class provides access to a generic object within an
+            Accessable object.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.ObjectAccessor.#ctor(System.Int32)">
+            <summary>
+            ObjectAccessor constructor.
+            </summary>
+            <param name="i">The index of the Accessor.</param>
+        </member>
+        <member name="T:Symbol.Marshaller.StringObjectAccessor">
+            <summary>
+            StringObjectAccessor class provides access to a string object within an
+            Accessable object.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.StringObjectAccessor.#ctor(System.Int32)">
+            <summary>
+            StringObjectAccessor constructor.
+            </summary>
+            <param name="i">The index of the Accessor.</param>
+        </member>
+        <member name="T:Symbol.Marshaller.UintObjectAccessor">
+            <summary>
+            UintObjectAccessor class provides access to a uint object within an
+            Accessable object.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.UintObjectAccessor.#ctor(System.Int32)">
+            <summary>
+            UintObjectAccessor constructor.
+            </summary>
+            <param name="i">The index of the Accessor.</param>
+        </member>
+        <member name="T:Symbol.Marshaller.FloatObjectAccessor">
+            <summary>
+            FloatObjectAccessor class provides access to a Float object within an
+            Accessable object.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.FloatObjectAccessor.#ctor(System.Int32)">
+            <summary>
+            FloatObjectAccessor constructor.
+            </summary>
+            <param name="i">The index of the Accessor.</param>
+        </member>
+        <member name="T:Symbol.API">
+            <summary>
+            The API Base class provides a common foundation for all classes that in the EMDK
+            for .NET class libraries that will work with the StandardForms functionality.
+            </summary>
+            <remarks>
+            The API class provides the capability of "reflecting" through objects to gain
+            information at runtime about their properties. This capability provides an 
+            excellent way for application developers to create UI for parameters they may
+            not necessarilly be familiar with. This class is abstract and as such may never be
+            instantiated as is.
+            </remarks>
+        </member>
+        <member name="M:Symbol.API.#ctor">
+            <summary>
+            Default API constructor.
+            </summary>
+        </member>
+        <member name="M:Symbol.API.Save(System.Boolean)">
+            <summary>
+            Abstract method that provides the capability of saving an API objects 
+            properties/parameters.
+            </summary>
+            <param name="bRecurseIntoSubClasses">A boolean flag that when true performs
+            a deep copy of the parameters, otherwise a shallow copy is performed.</param>
+            <returns>An object that represents the saved parameters is returned.</returns>
+        </member>
+        <member name="M:Symbol.API.Restore(System.Object)">
+            <summary>
+            Abstract method provides the capability to restore previously saved API object
+            parameters.
+            </summary>
+            <param name="SaveInfo">An object that represents the saved API parameters.</param>
+        </member>
+        <member name="M:Symbol.API.GetProperties">
+            <summary>
+            Returns all parameter/property information for the API object. 
+            </summary>
+            <returns>
+            An array of PropertyAttributes are returned. The array contains all the
+            properties with meta-data that can be used for UI purposes.
+            </returns>
+        </member>
+        <member name="M:Symbol.API.GetProperties(System.Boolean)">
+            <summary>
+            Returns all parameter/property information for the API object. 
+            </summary>
+            <param name="bAllowOptionalProperties">A boolean flag that specifies whether
+            or not to return optional parameters in the PropertyAttribute array.</param>
+            <returns>
+            An array of PropertyAttributes are returned. The array contains all the
+            properties with meta-data that can be used for UI purposes.
+            </returns>
+        </member>
+        <member name="M:Symbol.API.GetPropertyClass(System.Type,System.Type)">
+            <summary>
+            This method can be used to obtain subclass information for nested API derived
+            objects within an API object.
+            </summary>
+            <param name="tParent">The class type of the Parent Class.</param>
+            <param name="tChild">The class type of the Child Class.</param>
+            <returns> Returns an PropertyClassAttribute object for a given 
+            class type.</returns>
+        </member>
+        <member name="P:Symbol.API.Text">
+            <summary>
+            The text property provides a inherited class specific string.
+            </summary>
+            <value>
+            A string that describes the API object.
+            </value>
+        </member>
+        <member name="P:Symbol.API.IsSupported">
+            <summary>
+            A virtual property that may or may not be overridden for a derived API
+            object.
+            </summary>
+            <value>
+            A boolean flag. Returns true if not overridden.
+            </value>
+        </member>
+        <member name="P:Symbol.API.Changes">
+            <summary>
+            Provides the ability to saving and restoring of API object parameters.
+            </summary>
+            <value>
+            An InfoChanges object that performs actions on the API object.
+            </value>
+        </member>
+        <member name="T:Symbol.API.InfoChanges">
+            <summary>
+            The InfoChanges class is used internally to help with the saving and restoring
+            process.
+            </summary>
+            <remarks>
+            The InfoChanges class is created by the API abstract class and is used to 
+            provide the recursive save feature. The InfoChanges object can be access using
+            API.Changes property.
+            </remarks>
+        </member>
+        <member name="M:Symbol.API.InfoChanges.#ctor(Symbol.API)">
+            <summary>
+            InfoChanges constructor is called internally to the class libraries.
+            </summary>
+            <param name="a">An API based object to save and restore information.</param>
+        </member>
+        <member name="M:Symbol.API.InfoChanges.Save">
+            <summary>
+            Saves all properties/parameters for the given API object recursively.
+            </summary>
+            <returns>An object that represents the saved parameters.</returns>
+        </member>
+        <member name="M:Symbol.API.InfoChanges.SaveEx(System.Boolean)">
+            <summary>
+            Saves all properties/parameters for the given API object. 
+            </summary>
+            <param name="bRecurseIntoSubClasses">A boolean flag. If true a deep 
+            copy of the parameters will be made, otherwise a shallow copy will be
+            made.</param>
+            <returns>An object that represents the saved parameters.</returns>
+        </member>
+        <member name="M:Symbol.API.InfoChanges.Restore(System.Object)">
+            <summary>
+            Abstract method provides the capability to restore previously saved API object
+            parameters.
+            </summary>
+            <param name="SaveInfo">An object that represents the saved API parameters.</param>
+        </member>
+        <member name="T:Symbol.Attributes.PropertyNameAttribute">
+            <summary>
+            The PropertyNameAttribute class is an attribute that is used to tag properties in
+            API objects with a friendly name for use with the UI.
+            </summary>
+            <remarks>
+            The StandardForms classes use the information provided by this attribute for user
+            interface purposes.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyNameAttribute.#ctor(System.String)">
+            <summary>
+            PropertyNameAttribute constructor with settable name. Optional flag is set to
+            false.
+            </summary>
+            <param name="s">A string that contains the name of the property.</param>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyNameAttribute.#ctor(System.String,System.Boolean)">
+            <summary>
+            PropertyNameAttribute constructor with settable name and optional flag.
+            </summary>
+            <param name="s">A string that contains the name of the property.</param>
+            <param name="b">A boolean flag that determines whether or not the property
+            is optional.</param>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyNameAttribute.#ctor(System.String,System.String)">
+            <summary>
+            PropertyNameAttribute constructor with settable name and resource information.
+            </summary>
+            <param name="s">A string that contains the name of the property.</param>
+            <param name="srb">A string that contains the location of the resource file
+            with name information.</param>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyNameAttribute.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            PropertyNameAttribute constructor with settable name, optional flag, and
+            resource file information.
+            </summary>
+            <param name="s">A string that contains the name of the property.</param>
+            <param name="srb">A string that contains the location of the resource file
+            with name information.</param>
+            <param name="b">A boolean flag that determines whether or not the property
+            is optional.</param>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyNameAttribute.s">
+            <summary>
+            The friendly name of the PropertyNameAttribute.
+            </summary>
+            <value>
+            A string that contains the friendly name.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyNameAttribute.IsOptional">
+            <summary>
+            Specifies whether or not the parameter/property is optional.
+            </summary>
+            <value>
+            A boolean flag that indicates the optional status of the parameter.
+            </value>
+        </member>
+        <member name="T:Symbol.Attributes.HelpTextAttribute">
+            <summary>
+            The HelpTextAttribute class is used to tag properties with a help string 
+            that can be used in applications as a tool tip.
+            </summary>
+            <remarks>
+            The StandardForms classes use the information provided by this attribute for user
+            interface purposes.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Attributes.HelpTextAttribute.#ctor(System.String)">
+            <summary>
+            HelpTextAttribute constructor with settable help text string.
+            </summary>
+            <param name="s">A string of help text.</param>
+        </member>
+        <member name="P:Symbol.Attributes.HelpTextAttribute.s">
+            <summary>
+            The help text string.
+            </summary>
+            <value>
+            A string of help text.
+            </value>
+        </member>
+        <member name="T:Symbol.Attributes.PropertyTypeAttribute">
+            <summary>
+            The PropertyTypeAttribute class is used to tag properties in
+            API objects with information about the type of information they contain.
+            </summary>
+            <remarks>
+            The StandardForms classes use the information provided by this attribute for user
+            interface purposes.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyTypeAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            The PropertyTypeAttribute constructor with settable type and its associated
+            name.
+            </summary>
+            <param name="t">The type of the property.</param>
+            <param name="s">The name associated with the type.</param>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyTypeAttribute.t">
+            <summary>
+            The type of the property.
+            </summary>
+            <value>
+            A type object that specifies the type of the property.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyTypeAttribute.s">
+            <summary>
+            A friendly name for the property type.
+            </summary>
+            <value>A string with the name of the property type.</value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyTypeAttribute.IsEnum">
+            <summary>
+            Specifies whether or not the property is an enumerated type.
+            </summary>
+            <value>
+            A boolean flag that indicates if the property is an enumerated type.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyTypeAttribute.IsUint">
+            <summary>
+            Specifies whether or not the property is a uint.
+            </summary>
+            <value>
+            A boolean flag that indicates if the property is a uint.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyTypeAttribute.IsInt">
+            <summary>
+            Specifies whether or not the property is a int.
+            </summary>
+            <value>
+            A boolean flag that indicates if the property is a int.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyTypeAttribute.IsBool">
+            <summary>
+            Specifies whether or not the property is a bool.
+            </summary>
+            <value>
+            A boolean flag that indicates if the property is a bool.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyTypeAttribute.IsString">
+            <summary>
+            Specifies whether or not the property is a string.
+            </summary>
+            <value>
+            A boolean flag that indicates if the property is a string.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyTypeAttribute.IsValue">
+            <summary>
+            Specifies whether or not the property is a value-type.
+            </summary>
+            <value>
+            A boolean flag that indicates if the property is a value-type.
+            </value>
+        </member>
+        <member name="T:Symbol.Attributes.PropertyReadOnlyAttribute">
+            <summary>
+            The PropertyReadOnlyAttribute class is used to tag properties in
+            API objects with information about whether or not the information it provides
+            is read only (Cannot be set).
+            </summary>
+            <remarks>
+            The StandardForms classes use the information provided by this attribute for user
+            interface purposes.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyReadOnlyAttribute.#ctor(System.Boolean)">
+            <summary>
+            The PropertyReadOnlyAttribute constructor with settable state.
+            </summary>
+            <param name="b">A boolean flag that specifies whether or not the property
+            is read only.</param>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyReadOnlyAttribute.IsReadOnly">
+            <summary>
+            Specifies whether or not the property is read only.
+            </summary>
+            <value>
+            A boolean flag that indicates if the property is read only.
+            </value>
+        </member>
+        <member name="T:Symbol.Attributes.PropertyRangeAttribute">
+            <summary>
+            The PropertyRangeAttribute class is used to tag properties in
+            API objects with information about the range of possible values that the
+            property can be.
+            </summary>
+            <remarks>
+            The StandardForms classes use the information provided by this attribute for user
+            interface purposes.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyRangeAttribute.#ctor(System.Int32,System.Int32)">
+            <summary>
+            The PropertyRangeAttribute constructor with settable minimum and maximum values.
+            </summary>
+            <param name="min">The minimum possible integer that the property can be.</param>
+            <param name="max">The maximum possible integer that the property can be.</param>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyRangeAttribute.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            The PropertyRangeAttribute constructor with settable minimum, maximum, and
+            incremental values.
+            </summary>
+            <param name="min">The minimum possible integer that the property can be.</param>
+            <param name="max">The maximum possible integer that the property can be.</param>
+            <param name="inc">An integer that specifies how much to increment or decrement
+            when presenting values between min and max to the user.</param>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyRangeAttribute.min">
+            <summary>
+            The minimum possible integer that the property can be.
+            </summary>
+            <value>
+            The minimum possible integer that the property can be.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyRangeAttribute.max">
+            <summary>
+            The maximum possible integer that the property can be.
+            </summary>
+            <value>
+            The maximum possible integer that the property can be.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyRangeAttribute.inc">
+            <summary>
+            An integer that specifies how much to increment or decrement
+            when presenting values between min and max to the user.
+            </summary>
+            <value>
+            An integer with information on how much to increment or decrement
+            through the range of valid property values.
+            </value>
+        </member>
+        <member name="T:Symbol.Attributes.PropertyClassAttribute">
+            <summary>
+            The PropertyClassAttribute class is an attribute that is used to tag properties in
+            API objects that return subclass API objects.
+            </summary>
+            <remarks>
+            Using the PropertyClassAttribute tag on a property provides a mechanism for nesting
+            API classes within eachother. By enumerating the properties tagged with this 
+            attribute, the UI can then recurse down through all the meta-data and provide 
+            an extensive UI for setting/getting parameters.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyClassAttribute.#ctor(System.Type,System.String,System.Int32)">
+            <summary>
+            PropertyClassAttribute constructor is called internally to the class libraries
+            with settable index number.
+            </summary>
+            <param name="t">A Type object that specifies the type of class.</param>
+            <param name="s">A string that specifies a friendly name to call the 
+            property for UI purposes.</param>
+            <param name="i">An integer index number associated with the attribute.</param>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyClassAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            PropertyClassAttribute constructor is called internally to the class libraries.
+            </summary>
+            <remarks>The index number is set to 0.</remarks>
+            <param name="t">A Type object that specifies the type of class.</param>
+            <param name="s">A string that specifies a friendly name to call the 
+            property for UI purposes.</param>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyClassAttribute.t">
+            <summary>
+            A Type object that specifies the type of class.
+            </summary>
+            <value>
+            A Type object.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyClassAttribute.s">
+            <summary>
+            A string that specifies a friendly name to call the property for UI purposes.
+            </summary>
+            <value>
+            A string.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyClassAttribute.i">
+            <summary>
+            An integer index number associated with the attribute.
+            </summary>
+            <value>
+            An integer.
+            </value>
+        </member>
+        <member name="T:Symbol.Attributes.PropertyValueAttribute">
+            <summary>
+            The PropertyValueAttribute class is used to tag properties in
+            API objects with information about the values the property can be.
+            </summary>
+            <remarks>
+            The StandardForms classes use the information provided by this attribute for user
+            interface purposes.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyValueAttribute.#ctor(System.String,System.Object)">
+            <summary>
+            The PropertyValueAttribute constructor with settable value name and its
+            associated number.
+            </summary>
+            <param name="s">A string that contains the name of the value.</param>
+            <param name="o">A number that is associated with the value name.</param>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyValueAttribute.CompareTo(System.Object)">
+            <summary>
+            Compares two property attributes.
+            </summary>
+            <param name="o">A boxed PropertyValueAttribute to compare.</param>
+            <returns> If the int value associated with each PropertyValueAttribute
+            is equal 0 is returned. -1 is returned if the value of the PropertyValueAttribute
+            passed in as a parameter is greater. 1 is returned if the value of the
+            PropertyValueAttribute passed in as a parameter is less.</returns>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyValueAttribute.s">
+            <summary>
+            The friendly name of the PropertyValueAttribute.
+            </summary>
+            <value>
+            A string that contains the PropertyValueAttribute name.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyValueAttribute.n">
+            <summary>
+            A number associated with the PropertyValueAttribute.
+            </summary>
+            <value>
+            A int number associated with the PropertyValueAttribute.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyValueAttribute.o">
+            <summary>
+            A boxed object associated with the PropertyValueAttribute.
+            </summary>
+            <value>
+            A boxed object associated with the PropertyValueAttribute.
+            </value>
+        </member>
+        <member name="T:Symbol.Attributes.PropertyAttribute">
+            <summary>
+            The PropertyAttribute class encapsulates all tagged attributes for a property. This
+            class provides a means to obtain information about all the attributes. This class
+            is normally instantiated by the <see cref="M:Symbol.API.GetProperties"/> method.
+            </summary>
+            <remarks>
+            The StandardForms classes use the information provided by this attribute for user
+            interface purposes.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.#ctor(Symbol.API)">
+            <summary>
+            PropertyAttribute constructor with settable <see cref="T:Symbol.API"/> owner.
+            </summary>
+            <param name="o">A Symbol.API object that owns the property that will be
+            tagged with the PropertyAttribute.</param>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetIndex">
+            <summary>
+            Gets the Index of the PropertyAttribute ValueList. The location of the property
+            value in the ValueList.
+            </summary>
+            <returns>The index location of the property value in the ValueList.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetIndex(Symbol.API)">
+            <summary>
+            Gets the Index of the PropertyAttribute ValueList. The location of the property
+            value in the ValueList.
+            </summary>
+            <param name="a">The API object that contains the property.</param>
+            <returns>The index location of the property value in the ValueList.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetUint">
+            <summary>
+            Gets the value of the property as a uint.
+            </summary>
+            <returns>The uint value of the property.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetUint(Symbol.API)">
+            <summary>
+            Gets the value of the property as a uint.
+            </summary>
+            <param name="a">The API object that contains the property.</param>
+            <returns>The uint value of the property.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetInt">
+            <summary>
+            Gets the value of the property in integer form.
+            </summary>
+            <returns>The value of the property.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetInt(Symbol.API)">
+            <summary>
+            Gets the value of the property in integer form.
+            </summary>
+            <param name="a">An API object to get the value from.</param>
+            <returns>The value of the property.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetBool">
+            <summary>
+            Get the value of the property in boolean form.
+            </summary>
+            <returns>A boolean flag with the property value.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetBool(Symbol.API)">
+            <summary>
+            Get the value of the property in boolean form.
+            </summary>
+            <param name="a">An API object to get the value from.</param>
+            <returns>A boolean flag with the property value.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetString">
+            <summary>
+            Get the value of the property in string form.
+            </summary>
+            <returns>A string that contains the value of the property.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetString(Symbol.API)">
+            <summary>
+            Get the value of the property in string form.
+            </summary>
+            <param name="a">An API object to get the value from.</param>
+            <returns>A string that contains the value of the property.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetSubClass">
+            <summary>
+            Get the subclass that the property contains.
+            </summary>
+            <returns>An API object that is nested within an API object.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.GetSubClass(Symbol.API)">
+            <summary>
+            Get the subclass that the property contains.
+            </summary>
+            <param name="a">An API object to get the value from.</param>
+            <returns>An API object that is nested within an API object.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.SetIndex(System.Int32)">
+            <summary>
+            Sets the Index of the PropertyAttribute to an item in the ValueList.
+            </summary>
+            <param name="i">The index of the value in the value list.</param>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.SetIndex(Symbol.API,System.Int32)">
+            <summary>
+            Sets the Index of the PropertyAttribute to an item in the ValueList.
+            </summary>
+            <param name="a">The API object that contains the property to be set.</param>
+            <param name="i">The index of the value in the value list.</param>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.SetValue(System.Object)">
+            <summary>
+            Sets the value of the property. The value is a boxed object.
+            </summary>
+            <param name="oValue">A boxed object that contains the value.</param>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.SetValue(Symbol.API,System.Object)">
+            <summary>
+            Sets the value of the property. The value is a boxed object.
+            </summary>
+            <param name="a">An API object that contains the property to set.</param>
+            <param name="oValue">A boxed object that contains the value.</param>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.FindPropertyByString(Symbol.Attributes.PropertyAttribute[],System.String)">
+            <summary>
+            FindPropertyByString static method provides a way to obtain the a
+            PropertyAttribute of a property given a PropertyAttribute list and its
+            friendly name.
+            </summary>
+            <param name="list">An array of PropertyAttributes. Normally obtained using the
+            <see cref="M:Symbol.API.GetProperties"/> method.</param>
+            <param name="s">A string that contains the friendly name of the propery.</param>
+            <returns>A PropertyAttribute for the found property metadata otherwise null.</returns>
+        </member>
+        <member name="M:Symbol.Attributes.PropertyAttribute.FindValueIndexByString(System.String)">
+            <summary>
+            Obtain the index of a value string.
+            </summary>
+            <param name="s">A value string.</param>
+            <returns>An integer that contains the index of the value string if found,
+            otherwise -1 is returned.</returns>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.Owner">
+            <summary>
+            Gets the owner of the tagged property.
+            </summary>
+            <value>
+            A Symbol.API object that owns the tagged property.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.PropInfo">
+            <summary>
+            Gets a PropertyInfo object that allows for the discovery of property attributes
+            and provides access to property metadata.
+            </summary>
+            <value>
+            A System.Reflection.PropertyInfo object associated with the API object.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.Name">
+            <summary>
+            Gets a PropertyNameAttribute with information about the name of the property.
+            </summary>
+            <value>
+            A PropertyNameAttribute object.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.Help">
+            <summary>
+            Gets a HelpTextAttribute with information about a property help string (if
+            present).
+            </summary>
+            <value>
+            A HelpTextAttribute object.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.Type">
+            <summary>
+            Gets a PropertyTypeAttribute with information about the type of the property.
+            </summary>
+            <value>
+            A PropertyTypeAttribute object.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.ReadOnly">
+            <summary>
+            Gets a PropertyReadOnlyAttribute with information about the read state of the
+            property.
+            </summary>
+            <value>
+            A PropertyReadOnlyAttribute object.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.ValueRange">
+            <summary>
+            Gets a PropertyRangeAttribute that contains information about the range of
+            valid values that the property can take.
+            </summary>
+            <value>
+            A PropertyRangeAttribute object.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.SubClass">
+            <summary>
+            Gets a PropertyClassAttribute that specifies whether or not the property
+            is an API object that contains properties of its own.
+            </summary>
+            <value>
+            A PropertyClassAttribute object.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.ValueList">
+            <summary>
+            Gets a PropertyValueAttribute array that contains all the possible values
+            for a given property.
+            </summary>
+            <value>
+            A PropertyValueAttribute array.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.ValueStrings">
+            <summary>
+            Returns an array of strings that represent the different values the property
+            can take.
+            </summary>
+            <value>
+            An array of strings for the different value names.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.IsUint">
+            <summary>
+            Specifies whether or not the property is a uint.
+            </summary>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.IsInt">
+            <summary>
+            Specifies whether or not the property is a int.
+            </summary>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.IsEnum">
+            <summary>
+            Specifies whether or not the property is an enumerated type.
+            </summary>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.IsBool">
+            <summary>
+            Specifies whether or not the property is a bool.
+            </summary>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.IsString">
+            <summary>
+            Specifies whether or not the property is a string.
+            </summary>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.IsReadOnly">
+            <summary>
+            Specifies whether or not the property is Read only.
+            </summary>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.IsValue">
+            <summary>
+            Specifies whether or not the property is a value-type.
+            </summary>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.IsClass">
+            <summary>
+            Specifies whether or not the property is a subclass that contains its own
+            property metadata.
+            </summary>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.HasHelp">
+            <summary>
+            Specifies whether or not the property has an associated help text string.
+            </summary>
+            <value>
+            A boolean flag that is true if a help text string is present.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.HasValueStrings">
+            <summary>
+            Specifies whether or not the property contains information strings for
+            each value. This is usually the case for enumerated values.
+            </summary>
+            <value>
+            A boolean flag that is true if the property has value strings.
+            </value>
+        </member>
+        <member name="P:Symbol.Attributes.PropertyAttribute.HasValueList">
+            <summary>
+            Specifies whether or not the property contains a list of valid values.
+            </summary>
+            <value>
+            A boolean flag that is true if the property has a list of valid value.
+            </value>
+        </member>
+        <member name="T:Symbol.Results">
+            <summary>
+            Enumerated type that maps its members to underlying C API return codes.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.SUCCESS">
+            <summary>
+            The task was successful.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.CANCELED">
+            <summary>
+            The task was cancelled.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.NOTENABLED">
+            <summary>
+            The device is not enabled.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.PENDING">
+            <summary>
+            The task is pending.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR3000_ERR_PARAMETER">
+            <summary>
+            Incorrect parameter sent to MSR C API.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR3000_ERR_SIZE">
+            <summary>
+            Incorrect buffer size for MSR C API.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR3000_ERR_NODATA">
+            <summary>
+            No data read from MSR C API.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR3000_ERR_OSERROR">
+            <summary>
+            An Operating System error occured while accessing MSR C API.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR3000_ERR_DEVICEREMOVED">
+            <summary>
+            MSR hardware was removed.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_OPENINGACTIVEKEY">
+            <summary>
+            A Scanner error occurred opening the active driver registry key.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_READINGACTIVEKEY">
+            <summary>
+            A Scanner error occurred reading the active driver registry key.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_OPENINGPARAMKEY">
+            <summary>
+            A Scanner error occurred opening the registry key containing the driver's settings.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_READINGPARAMKEY">
+            <summary>
+            A Scanner error occurred reading the registry key containing the driver's settings.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_NOTENOUGHMEMORY">
+            <summary>
+            An attempt to allocate memory for scanner failed.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDDVCCONTEXT">
+            <summary>
+            An invalid scanner device context ID was used.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDOPENCONTEXT">
+            <summary>
+            An attempt was made to access an invalid scanner open context.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_NOTINITIALIZED">
+            <summary>
+            The scanner driver was accessed before a successful initialization.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_CANTLOADDEVICE">
+            <summary>
+            The physical device driver (PDD) for scanner could not be loaded.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDDEVICE">
+            <summary>
+            The physical device driver (PDD) DLL for scanner did not contain the required entry points.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_DEVICEFAILURE">
+            <summary>
+            Required scanner device is not present, already in use or not functioning properly.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_CANTSTARTDEVICE">
+            <summary>
+            The scanner device could not be started.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_CANTGETDEFAULTS">
+            <summary>
+            The default scanner parameters could not be obtained from the physical device driver (PDD).
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_NOTSTARTED">
+            <summary>
+            An attempt was made to use or stop the scanner device and it was not started.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_ALREADYSTARTED">
+            <summary>
+            An attempt was made to start the scanner device when the device was already started.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_NOTENABLED">
+            <summary>
+            An attempt was made to access the scanner device and it was not enabled.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_ALREADYENABLED">
+            <summary>
+            An attempt was made to enable scanning when scanning was already enabled.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDIOCTRL">
+            <summary>
+            The control code passed to DeviceIoControl of the scanner is invalid.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_NULLPTR">
+            <summary>
+            A NULL pointer was passed for a required argument.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDARG">
+            <summary>
+            A passed argument is out of range.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_BUFFERSIZEIN">
+            <summary>
+            The size of the buffer passed as an input to DeviceIoControl is less than sizeof(STRUCT_INFO) or is less than the size specified in StructInfo.dwUsed.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_BUFFERSIZEOUT">
+            <summary>
+            The size of the buffer passed as an output to DeviceIoControl is less than sizeof(STRUCT_INFO) or is less than the size specified in StructInfo.dwAllocated.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_STRUCTSIZE">
+            <summary>
+            A STRUCT_INFO structure field is invalid. Either dwAllocated or dwUsed is less than the size of STRUCT_INFO or dwUsed is greater than dwAllocated.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_MISSINGFIELD">
+            <summary>
+            The size of a structure specified in a StructInfo is too small to contain a required field.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDHANDLE">
+            <summary>
+            An invalid handle was passed to a function.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDPARAM">
+            <summary>
+            The value of a parameter either passed as an argument to a function or as a member of a structure is out of range or conflicts with other parameters.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_CREATEEVENT">
+            <summary>
+            Unable to create a required event.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_CREATETHREAD">
+            <summary>
+            Unable to create a required thread.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_READCANCELLED">
+            <summary>
+            A read request was cancelled.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_READTIMEOUT">
+            <summary>
+            A read request timed out.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_READNOTPENDING">
+            <summary>
+            Attempt to cancel a read that is not pending.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_READPENDING">
+            <summary>
+            Attempt to start a read when one is pending.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_BUFFERTOOSMALL">
+            <summary>
+            Data buffer is too small for incoming data.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDSCANBUFFER">
+            <summary>
+            Attempt to access fields of an invalid scan buffer.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_READINCOMPATIBLE">
+            <summary>
+            Attempt to submit a read that is incompatible with reads already queued.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_NOFEEDBACK">
+            <summary>
+            Attempt to perform physical device driver (PDD) feedback with no feedback capabilities.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_NOTSUPPORTED">
+            <summary>
+            Version of function not supported (e.g. ANSI vs. UNICODE).
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_WRONGSTATE">
+            <summary>
+            The requested operation is inconsistent with the current state of the device.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_NOMOREITEMS">
+            <summary>
+            No more items are available to be returned from SCAN_FindFirst/SCAN_FindNext.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_CANTOPENREGKEY">
+            <summary>
+            A required registry key could not be opened.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_CANTREADREGVAL">
+            <summary>
+            A required registry value could not be read.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_EXCEPTION">
+            <summary>
+            An exception occurred while trying to call the scanner driver.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_WIN32ERROR">
+            <summary>
+            A scanner API function failed with a non-scanner API error code. Call GetLastError to get extended error code.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_ALREADYINUSE">
+            <summary>
+            A requested scanner resource is already in use.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_NOTINUSE">
+            <summary>
+            The specified scanner resource was not allocated.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_CANTLOADDECODERDLL">
+            <summary>
+            The specified decoder DLL can not be loaded.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDDECODERDLL">
+            <summary>
+            At least one API is missing in Decoder DLL.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDSYMBOL">
+            <summary>
+            The symbol's format is invalid.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDLICENSE">
+            <summary>
+            The platform does not have a valid license key.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_NOTINSEQUENCE">
+            <summary>
+            The scanned macro symbol is not part of the current macro sequence.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_DUPLICATESYMBOL">
+            <summary>
+            The scanned macro symbol has already been scanned into the current macro sequence.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_CANTLOADHALDLL">
+            <summary>
+            The Image HAL DLL can not be loaded.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDHALDLL">
+            <summary>
+            At least one API function is missing in Image HAL DLL.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_CANTLOADCOMPRESSIONDLL">
+            <summary>
+            The Image Compression DLL can not be loaded.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_I2CFAILURE">
+            <summary>
+            I2C communication failed.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_DEVICEDISABLED">
+            <summary>
+            Camera security policy not allowing to use camera.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_RSMATTRIBINVALID">
+            <summary>
+            The specific RSM attribute number is not valid on scanner.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_INVALIDRESPONSE">
+            <summary>
+            Invalid response received from scanner.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.E_SCN_MISSING_CONFIG">
+            <summary>
+            Missing configuration details.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_SUCCESS">
+            <summary>
+            The function completed successfully.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_GLOBAL">
+            <summary>
+            Global parameter error.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_PARAMETER">
+            <summary>
+            An error occurred due to invalid parameter.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_NOTOPEN">
+            <summary>
+            The MSR API is not opened (call MSR_Open).
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_STILLOPEN">
+            <summary>
+            The MSR API is already opened.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_MEMORY">
+            <summary>
+            An error occurred while allocating memory.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_SIZE">
+            <summary>
+            Card information read is greater than 400 bytes.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_NAK">
+            <summary>
+            Unable to access the MSR device. Usually occurs when the device is not connected to the Serial I/O port.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_BAD_ANS">
+            <summary>
+            Erroneous response from the MSR device.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_TIMEOUT">
+            <summary>
+            Timeout occurred while waiting for response from MSR device.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_ROM">
+            <summary>
+            MSR device ROM error.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_RAM">
+            <summary>
+            MSR device RAM error.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_EEPROM">
+            <summary>
+            MSR device EEPROM error.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_RES">
+            <summary>
+            Reserved error value.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_CHECKSUM">
+            <summary>
+            Check sum error.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_BADREAD">
+            <summary>
+            Read failed.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_NODATA">
+            <summary>
+            Read succeeded, no data.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_NULLPOINTER">
+            <summary>
+            A NULL parameter pointer passed as a parameter.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_BUSY">
+            <summary>
+            MSR device is still busy in previous function state.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_WAKEUP">
+            <summary>
+            MSR device failed to wake up.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_BUFFERED_MODE">
+            <summary>
+            Application trying to read buffered mode data while the MSR device is still in unbuffered mode.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_UNBUFFERED_MODE">
+            <summary>
+            Application trying to read unbuffered mode data while the MSR device is still in buffered mode.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_PORTEVENT">
+            <summary>
+            A failure in Serial I/O Function.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_OPENFAILURE">
+            <summary>
+            Failure to open the MSR device.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_BATTERYLOW">
+            <summary>
+            An asynchronous close due to low battery voltage.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_POWERDOWN">
+            <summary>
+            Power is switched off to MSR device during the execution of the driver function call.
+            </summary>
+        </member>
+        <member name="F:Symbol.Results.MSR_ERR_OSERROR">
+            <summary>
+            If the driver function returns error due to Operating System
+            </summary>
+        </member>
+        <member name="T:Symbol.Options">
+            <summary>
+            Options class provides the capability of setting parameters that effect that
+            way in which the EMDK for .NET class libraries work.
+            </summary>
+            <remarks>
+            The Options class can be used to select how the class libraries should handle 
+            errors that are not necessarilly fatal, but may be useful to customer during
+            development. 
+            </remarks>
+        </member>
+        <member name="P:Symbol.Options.DebugMode">
+            <summary>
+            Turn on/off debug mode exceptions.
+            </summary>
+            <value>
+            A boolean flag that when set to true enables exceptions to be thrown in 
+            situations that are not fatal but may lead flag issues that should be 
+            addressed prior to an application's release.
+            </value>
+        </member>
+        <member name="T:Symbol.Stopwatch">
+            <summary>
+            A helper class that provides a way in which applications can determine how long
+            tasks are taking.
+            </summary>
+            <remarks>
+            This class is not as accurate as a Performance Counter. It should be used for 
+            rough estimations only.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Stopwatch.start">
+            <summary>
+            Start stopwatch.
+            </summary>
+        </member>
+        <member name="M:Symbol.Stopwatch.stop">
+            <summary>
+            Stop stopwatch
+            </summary>
+            <returns>A TimeSpan object with time elapsed information.</returns>
+        </member>
+        <member name="T:Symbol.Exceptions.UnimplementedFunctionException">
+            <summary>
+            UnimplementedFunctionException is thrown when a method is 
+            not available for use.
+            </summary>
+            <remarks>
+            Derived off of the System.Exception class, this exception provides
+            no additional functionality over its derived class.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Exceptions.UnimplementedFunctionException.#ctor(System.String)">
+            <summary>
+            UnimplementedFunctionException constructor with settable 
+            string.
+            </summary>
+            <param name="sMessage">A string the contain information about
+            the exception.</param>
+        </member>
+        <member name="T:Symbol.Exceptions.WrongMarshalSizeException">
+            <summary>
+            WrongMarshalSizeException is thrown when marshalling fails to work
+            correctly. In particular, when a size of the marshaled buffer is not the
+            correct size.
+            </summary>
+            <remarks>
+            Derived off of the System.Exception class, this exception provides
+            no additional functionality over its derived class.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Exceptions.WrongMarshalSizeException.#ctor(System.String)">
+            <summary>
+            WrongMarshalSizeException constructor with settable 
+            string.
+            </summary>
+            <param name="sMessage">A string the contain information about
+            the exception.</param>
+        </member>
+        <member name="T:Symbol.Exceptions.OperationFailureException">
+            <summary>
+            OperationFailureException is thrown when a failure occurs in the 
+            class libraries. This failure usually is one that stops the proper
+            functioning of the class libraries.
+            </summary>
+            <remarks>
+            Derived off of the System.Exception class, this exception provides
+            a results enum or integer to be associated with the exception. The
+            number is returned in integer form via the Result property.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Exceptions.OperationFailureException.#ctor(System.String,Symbol.Results)">
+            <summary>
+            OperationFailureException constructor with settable string and 
+            results enum.
+            </summary>
+            <param name="sMessage">A string the contains information about
+            the exception.</param>
+            <param name="resResults">A Results enumerated type that contains
+            information about the exception.</param>
+        </member>
+        <member name="M:Symbol.Exceptions.OperationFailureException.#ctor(System.String,System.Int32)">
+            <summary>
+            OperationFailureException constructor with settable string and 
+            integer value.
+            </summary>
+            <param name="sMessage">A string the contains information about
+            the exception.</param>
+            <param name="nResults">A integer that contains information about
+            the exception.</param>
+        </member>
+        <member name="P:Symbol.Exceptions.OperationFailureException.Result">
+            <summary>
+            The number associated with the exception.
+            </summary>
+            <value>
+            An integer result that contains information about what caused the
+            exception.
+            </value>
+        </member>
+        <member name="T:Symbol.Exceptions.InvalidUsageException">
+            <summary>
+            InvalidUsageException is thrown when a class library method or property
+            is not used correctly.
+            </summary>
+            <remarks>
+            Derived off of the System.Exception class, this exception provides
+            no additional functionality over its derived class.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Exceptions.InvalidUsageException.#ctor">
+            <summary>
+            Default InvalidUsageException constructor.
+            </summary>
+        </member>
+        <member name="M:Symbol.Exceptions.InvalidUsageException.#ctor(System.String)">
+            <summary>
+            InvalidUsageException constructor with settable string.
+            </summary>
+            <param name="sMessage">A string that contains information about
+            the exception.</param>
+        </member>
+        <member name="T:Symbol.Exceptions.InvalidDataTypeException">
+            <summary>
+            InvalidDataTypeException is thrown when a class library accesses an
+            invalid data type.
+            </summary>
+            <remarks>
+            Derived off of the <see cref="T:Symbol.Exceptions.InvalidUsageException"/> class, 
+            this exception provides no additional functionality over its
+            derived class.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Exceptions.InvalidDataTypeException.#ctor">
+            <summary>
+            Default InvalidDataTypeException constructor.
+            </summary>
+        </member>
+        <member name="M:Symbol.Exceptions.InvalidDataTypeException.#ctor(System.String)">
+            <summary>
+            InvalidDataTypeException constructor with settable string.
+            </summary>
+            <param name="sMessage">A string that contains information about
+            the exception.</param>
+        </member>
+        <member name="T:Symbol.Exceptions.InvalidRequestException">
+            <summary>
+            InvalidRequestException is thrown when a class library trys to perform
+            an invalid request.
+            </summary>
+            <remarks>
+            Derived off of the <see cref="T:Symbol.Exceptions.InvalidUsageException"/> class, 
+            this exception provides no additional functionality over its
+            derived class.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Exceptions.InvalidRequestException.#ctor">
+            <summary>
+            Default InvalidRequestException constructor.
+            </summary>
+        </member>
+        <member name="M:Symbol.Exceptions.InvalidRequestException.#ctor(System.String)">
+            <summary>
+            InvalidRequestException constructor with settable string.
+            </summary>
+            <param name="sMessage">A string that contains information about
+            the exception.</param>
+        </member>
+        <member name="T:Symbol.Exceptions.InvalidIndexerException">
+            <summary>
+            InvalidIndexerException is thrown when a class library trys to access
+            an invalid indexer.
+            </summary>
+            <remarks>
+            Derived off of the <see cref="T:Symbol.Exceptions.InvalidUsageException"/> class, 
+            this exception provides no additional functionality over its
+            derived class.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Exceptions.InvalidIndexerException.#ctor">
+            <summary>
+            Default InvalidIndexerException constructor.
+            </summary>
+        </member>
+        <member name="M:Symbol.Exceptions.InvalidIndexerException.#ctor(System.String)">
+            <summary>
+            InvalidIndexerException constructor with settable string.
+            </summary>
+            <param name="sMessage">A string that contains information about
+            the exception.</param>
+        </member>
+        <member name="T:Symbol.Exceptions.DebugModeException">
+            <summary>
+            DebugModeException is thrown when a class library trys to perform
+            functions that are invalid but not fatal.
+            </summary>
+            <remarks>
+            Derived off of the System.Exception class, this exception provides
+            the capability of associated the exception with an integer.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Exceptions.DebugModeException.#ctor(System.String,System.Int32)">
+            <summary>
+            DebugModeException constructor with settable string and integer
+            information.
+            </summary>
+            <param name="sMessage">A string that contains information about
+            the exception.</param>
+            <param name="debugInfo">An integer that contains information about
+            the exception.</param>
+        </member>
+        <member name="P:Symbol.Exceptions.DebugModeException.DebugResult">
+            <summary>
+            The number associated with the exception.
+            </summary>
+            <value>
+            An integer result that contains information about what caused the
+            exception.
+            </value>
+        </member>
+        <member name="T:Symbol.Exceptions.DebugModeUnsupportedEnumValue">
+            <summary>
+            DebugModeUnsupportedEnumValue is thrown when a class library trys to
+            access an enumerated type that is not valid.
+            </summary>
+            <remarks>
+            Derived off of the <see cref="T:Symbol.Exceptions.DebugModeException"/> class, this
+            exception provides no additional functionality.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Exceptions.DebugModeUnsupportedEnumValue.#ctor(System.String,System.Int32)">
+            <summary>
+            DebugModeUnsupportedEnumValue constructor with settable string and integer
+            information.
+            </summary>
+            <param name="sMessage">A string that contains information about
+            the exception.</param>
+            <param name="debugInfo">An integer that contains information about
+            the exception.</param>
+        </member>
+        <member name="T:Symbol.Generic.Device">
+            <summary>
+            The Generic.Device class provides the basic functionality needed 
+            to obtain a list of available devices.
+            </summary>
+            <remarks>
+            This class is normally used to derive a specific class that contains 
+            more detailed device information. The basic information exposed by this 
+            class is used by the StandardForms UI to create device lists that are
+            independent of the type of the devices in the list. 
+            </remarks>
+        </member>
+        <member name="M:Symbol.Generic.Device.#ctor">
+            <summary>
+            Default Generic.Device class constructor creates a Device object that
+            contains null strings ("") for both the friendly and device names.
+            </summary>
+        </member>
+        <member name="M:Symbol.Generic.Device.#ctor(System.String,System.String)">
+            <summary>
+            Device class constructor with settable Device and Friendly names.
+            </summary>
+            <param name="DeviceName">A string that contains the name of the 
+            device. (Example: "SCN1:" for the first barcode reader).</param>
+            <param name="FriendlyName">A string that contains the friendly name
+            of device. This parameter is used for UI purposes to present more 
+            user friendly information</param>
+        </member>
+        <member name="M:Symbol.Generic.Device.ToString">
+            <summary>
+            Returns the device name for the device.
+            </summary>
+            <returns>A string that contains the device name.</returns>
+        </member>
+        <member name="P:Symbol.Generic.Device.DeviceName">
+            <summary>
+            Provides read/write access to the device name of the device.
+            </summary>
+            <value>
+            A string that contains the device name.
+            </value>
+        </member>
+        <member name="P:Symbol.Generic.Device.FriendlyName">
+            <summary>
+            Provides read/write access to the friendly name of the device.
+            </summary>
+            <value>
+            A string that contains the friendly name.
+            </value>
+        </member>
+        <member name="P:Symbol.Generic.Device.Text">
+            <summary>
+            Returns the device name for the device.
+            </summary>
+            <value>
+            A string that contains the device name.
+            </value>
+        </member>
+        <member name="P:Symbol.Generic.Device.SIMULATE">
+            <summary>
+            Returns the static standard name for a simulated device.
+            </summary>
+            <value>
+            A string that contains "Simulate".
+            </value>
+        </member>
+        <member name="T:Symbol.Generic.ReaderData">
+            <summary>
+            The Generic.ReaderData base class provides all common functionality
+            that is used by all ReaderData objects.
+            </summary>
+            <remarks>
+            The Generic.ReaderData object can be used to perform common actions on a
+            specific ReaderData (such as Barcode.ReaderData or MagStripe.ReaderData).
+            This allows common code to be created that acts on any ReaderData.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Generic.ReaderData.Dispose">
+            <summary>
+            Releases all native resources back to the system.
+            </summary>
+            <remarks>
+            This method should be called when the ReaderData object is no longer
+            needed by the application. 
+            </remarks>
+        </member>
+        <member name="P:Symbol.Generic.ReaderData.Result">
+            <summary>
+            Returns information about the status of the ReaderData.
+            </summary>
+            <value>
+            A member of the Results enumerated type.
+            </value>
+        </member>
+        <member name="P:Symbol.Generic.ReaderData.Text">
+            <summary>
+            Returns the data read from the device.
+            </summary>
+            <value>
+            A string that contains the data read from the device.
+            </value>
+        </member>
+        <member name="P:Symbol.Generic.ReaderData.Source">
+            <summary>
+            Returns information about the device that is providing the data. This
+            is usually the device name for the device.
+            </summary>
+            <value>
+            A string that contains the source information.
+            </value>
+        </member>
+        <member name="P:Symbol.Generic.ReaderData.TimeStamp">
+            <summary>
+            Returns the time at which the data was acquired.
+            </summary>
+            <value>
+            A DateTime structure that contains the time information.
+            </value>
+        </member>
+        <member name="T:Symbol.Generic.Actions">
+            <summary>
+            The Generic.Actions base class provides access to common methods that
+            are used by all Generic.Reader objects.
+            </summary>
+            <remarks>
+            The Generic.Actions object can be used to perform common actions on a
+            specific Reader (such as Barcode.Reader or MagStripe.Reader).
+            This allows common code to be created that acts on any Reader.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Generic.Actions.Enable">
+            <summary>
+            Puts the device in a state in which information can be read from
+            the device.
+            </summary>
+            <remarks>
+            This method is abstract and therefore is implemented by the derived 
+            class.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Generic.Actions.Disable">
+            <summary>
+            Puts the device in a state in which information can no longer be read
+            from the device.
+            </summary>
+            <remarks>
+            This method is abstract and therefore is implemented by the derived 
+            class.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Generic.Actions.Flush">
+            <summary>
+            Removes all pending reads from the device. 
+            </summary>
+            <remarks>
+            This method is abstract and therefore is implemented by the derived 
+            class.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Generic.Actions.Read(Symbol.Generic.ReaderData)">
+            <summary>
+            Initiates a read from the device. This method simply puts the class
+            in a state in which data can be read. Commonly, some other action
+            must take place before the read will actually complete (such as 
+            pressing a scan trigger or swiping a magnetic striped card).
+            </summary>
+            <param name="clsReaderData">A Generic.ReaderData object that will
+            contain the data.</param>
+        </member>
+        <member name="M:Symbol.Generic.Actions.NewReaderData">
+            <summary>
+            Returns a new Generic.ReaderData object that can be used with the 
+            Generic.Read function. 
+            </summary>
+            <returns>A new Generic.ReaderData object.</returns>
+        </member>
+        <member name="M:Symbol.Generic.Actions.Dispose">
+            <summary>
+            Releases all native resources back to the system.
+            </summary>
+            <remarks>
+            This method is normally called by the derived classes that 
+            instantiate the object.
+            </remarks>
+        </member>
+        <member name="T:Symbol.Generic.Reader">
+            <summary>
+            The Generic.Reader base class provides access to common functionality
+            that exists across different data providers (such as barcode readers and 
+            MSR readers).
+            </summary>
+            <remarks>
+            The Generic.Reader object can be used to perform common actions on a
+            specific Reader (such as Barcode.Reader or MagStripe.Reader).
+            This allows common code to be created that acts on any Reader.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Generic.Reader.Dispose">
+            <summary>
+            Resources will be freed up during a call to this method.
+            </summary>
+            <remarks>
+            This method is abstract and therefore is implemented by the derived 
+            class.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Generic.Reader.GetNextReaderData">
+            <summary>
+            Gets the next Generic.ReaderData object from the read completion queue.
+            </summary>
+            <remarks>
+            The GetNextReaderData method is most commonly called by methods that have been
+            invoked via the ReadNotify event. This method provides access to the ReaderData
+            object of completed reads (whether the reads have been completed successfully or
+            not should be determined from the status information provided by the ReaderData
+            object).
+            </remarks>
+            <returns>A <see cref="T:Symbol.Generic.ReaderData"/> object that has completed.</returns>
+        </member>
+        <member name="F:Symbol.Generic.Reader.m_clsReadMW">
+            <summary>
+            Internal field, should not be used.
+            </summary>
+        </member>
+        <member name="F:Symbol.Generic.Reader.m_clsActions">
+            <summary>
+            Internal field, should not be used.
+            </summary>
+        </member>
+        <member name="P:Symbol.Generic.Reader.Actions">
+            <summary>
+            Allows various operations to be performed for the reader.
+            </summary>
+            <value>
+            A Generic.Actions object that provides the standard actions that can be 
+            performed on a Generic.Reader.
+            </value>
+        </member>
+        <member name="E:Symbol.Generic.Reader.ReadNotify">
+            <summary>
+            Attach to this notification event to be called back when a generic read completes.
+            </summary>
+            <value>
+            A System.EventHandler delegate of the method that will be invoked
+            when a read completes.
+            </value>
+        </member>
+        <member name="T:Symbol.Generic.Controller">
+            <summary>
+            Generic Controller Base Class used by derived objects that will certain hardware.
+            </summary>
+            <remarks>
+            Used by the Display and Audio classes, the Controller class provides a common 
+            set of functionality for hardware controllers. This class is abstract that therefore
+            cannot be instantiated on its own.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Generic.Controller.#ctor(Symbol.Generic.Device)">
+            <summary>
+            Controller Constructor is called by the derived class. 
+            </summary>
+            <param name="Device">A Generic.Device object that provides information on what
+            hardware to control.</param>
+        </member>
+        <member name="M:Symbol.Generic.Controller.Save(System.Boolean)">
+            <summary>
+            The derived class should implement a mechanism for saving parameters if 
+            necessary. Otherwise, this method will return null.
+            </summary>
+            <param name="bRecurseIntoSubClasses">A boolean flag that specifies whether or not
+            to perform a deep copy of object.</param>
+            <returns>A new object that represents the saved parameters.</returns>
+        </member>
+        <member name="M:Symbol.Generic.Controller.Restore(System.Object)">
+            <summary>
+            The derived class should implement a mechanism for restoring any parameters 
+            that have been saved using the <see cref="M:Symbol.Generic.Controller.Save(System.Boolean)"/> method. Otherwise, this
+            method will do nothing.
+            </summary>
+            <param name="SaveInfo">An object that contains the saved parameters.</param>
+        </member>
+        <member name="F:Symbol.Generic.Controller.m_Device">
+            <summary>
+            Internal field, should not be used.
+            </summary>
+        </member>
+        <member name="M:Symbol.Generic.Controller.Dispose">
+            <summary>
+            Resources will be freed up during a call to this method.
+            </summary>
+            <remarks>
+            This method is abstract and therefore is implemented by the derived 
+            class.
+            </remarks>
+        </member>
+        <member name="T:Symbol.Marshaller.MarshalObject">
+            <summary>
+            MarshalObject abstract base class provides a the capability of defining an object
+            that can be passed between native and managed code or vice versa.
+            </summary>
+            <remarks>
+            The MarshalObject is most commonly used to derive classes that will take the form of
+            certain members inside of structures. (Examples: StringObject, FloatObject, etc.)
+            These derived classes are used to fully describe the structure that will be
+            marshalled.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Marshaller.MarshalObject.MarshalTo(System.IntPtr,System.Int32)">
+            <summary>
+            The MarshalTo method must be implemented by the derived class. When implemented,
+            the method takes the managed information and marshals it into a native buffer 
+            that can be used with native function calls.
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer value that indicates where in the native buffer
+            the marshalled data should start being copied to.</param>
+            <returns>An integer offset that indicates where the next item can be placed
+            in the native buffer. (ie the incremented offset).</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.MarshalObject.UnmarshalFrom(System.IntPtr,System.Int32)">
+            <summary>
+            The UnmarshalFrom method must be implemented by the derived class. When
+            implemented, the method takes the native buffer and unmarshals it into managed 
+            information that can be used by the class libraries.
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer offset from which to begin unmarshalling the
+            data.</param>
+            <returns>An integer offset that indicates where the next item can be unmarshalled
+            from the native buffer. (ie the incremented offset)</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.MarshalObject.AllocMarshalPtr">
+            <summary>
+            Creates a native buffer for use with the Symbol derived marshal object class. 
+            The native buffer size is based off of the <see cref="P:Symbol.Marshaller.MarshalObject.MarshalSize"/> property.
+            </summary>
+            <remarks>
+            If the allocation fails the IntPtr is still returned, but the value it contains
+            will be zero. (ie null)
+            </remarks>
+            <returns>An IntPtr that points to the new native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.MarshalObject.FreeMarshalPtr(System.IntPtr)">
+            <summary>
+            Frees the native buffer of the marshal object.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+        </member>
+        <member name="P:Symbol.Marshaller.MarshalObject.MarshalSize">
+            <summary>
+            The size in bytes of the native type that the marshal object represents.
+            </summary>
+            <value>
+            An integer that contains the amount of bytes of the native type.
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.MarshalObject.HasStructInfo">
+            <summary>
+            Specifies whether or not the marshal object contains a StructInfo structure
+            inside the native structure to be marshaled. 
+            </summary>
+            <remarks>
+            By knowing that the marshal object contains a StructInfo inside the native
+            structure, the internal marshalling functions automatically strip out the
+            information.
+            </remarks>
+            <value>
+            A boolean flag the specifies if the marshal object contains a StructInfo.
+            </value>
+        </member>
+        <member name="T:Symbol.Marshaller.GapObject">
+            <summary>
+            GapObject class is used to represent gaps in a native structure. These gaps do not
+            necessarilly need to be marshaled. 
+            </summary>
+            <remarks>
+            The gaps indicated by GapObjects provide a mechanism in which certain locations
+            within a native structure can be skipped so that marshalling the structure using 
+            a cascade approach can still work.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Marshaller.GapObject.#ctor(System.Int32)">
+            <summary>
+            GapObject constructor with settable byte length.
+            </summary>
+            <param name="len">An integer that contains the number of bytes in the gap.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.GapObject.MarshalTo(System.IntPtr,System.Int32)">
+            <summary>
+            The MarshalTo method for a GapObject simply increments the returned offset by
+            the gap length.
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer value that indicates where in the native buffer
+            the marshalled data should start being copied to.</param>
+            <returns>An integer offset that indicates where the next item can be placed
+            in the native buffer. (ie the incremented offset).</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.GapObject.UnmarshalFrom(System.IntPtr,System.Int32)">
+            <summary>
+            The UnmarshalFrom method for a GapObject simply incremetns the returned offset by
+            the gap length.
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer offset from which to begin unmarshalling the
+            data.</param>
+            <returns>An integer offset that indicates where the next item can be unmarshalled
+            from the native buffer. (ie the incremented offset)</returns>
+        </member>
+        <member name="T:Symbol.Marshaller.UintObject">
+            <summary>
+            UintObject class is used to represent byte based or unsigned numbers in a native
+            structure.
+            </summary>
+            <remarks>
+            The UintObject can handle 4,2,1 (DWORD, WORD, and BYTE) sized numbers.
+            <para>This class is not CLS compliant and will not work with some .NET programming 
+            languages.</para>
+            </remarks>
+        </member>
+        <member name="M:Symbol.Marshaller.UintObject.#ctor">
+            <summary>
+            Default UintObject constructor. By default, the number represented is set to 
+            zero and the size is set to 4 bytes.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.UintObject.#ctor(System.UInt32)">
+            <summary>
+            UintObject constructor with settable initial number. The size is set to 4 bytes.
+            </summary>
+            <param name="u">An integer that represents the number to be marshalled.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.UintObject.#ctor(System.UInt32,System.Int32)">
+            <summary>
+            UintObject constructor with settable number and size.
+            </summary>
+            <param name="u">An integer that contains the number information.</param>
+            <param name="len">An integer that contains the size in bytes of the number. 
+            Must be either 4,2,1. If it is not one of those values a WrongMarshalSizeException
+            will be thrown. </param>
+        </member>
+        <member name="M:Symbol.Marshaller.UintObject.MarshalTo(System.IntPtr,System.Int32)">
+            <summary>
+            The MarshalTo method for a UintObject sets the managed code number into the
+            native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer value that indicates where in the native buffer
+            the marshalled data should start being copied to.</param>
+            <returns>An integer offset that indicates where the next item can be placed
+            in the native buffer. (ie the incremented offset).</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.UintObject.UnmarshalFrom(System.IntPtr,System.Int32)">
+            <summary>
+            The UnmarshalFrom method for a UintObject obtains information about the number
+            from the native buffer. 
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer offset from which to begin unmarshalling the
+            data.</param>
+            <returns>An integer offset that indicates where the next item can be unmarshalled
+            from the native buffer. (ie the incremented offset)</returns>
+        </member>
+        <member name="P:Symbol.Marshaller.UintObject.u">
+            <summary>
+            Read/Write property that contains information about the number that the
+            UintObject represents.
+            </summary>
+            <value>
+            An uint that contains the value of the UintObject.
+            </value>
+        </member>
+        <member name="T:Symbol.Marshaller.FloatObject">
+            <summary>
+            FloatObject class is used to represent float based numbers in a native structure.
+            </summary>
+            <remarks>
+            The FloatObject is used by accessable classes to indicate that a float object is 
+            present in the native structure. The float object knows how to marshal and unmarshal
+            itself.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Marshaller.FloatObject.#ctor">
+            <summary>
+            Default FloatObject constructor. Sets the float number associated with the 
+            object to 0.0f.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.FloatObject.#ctor(System.Single)">
+            <summary>
+            FloatObject constructor with settable initial float value.
+            </summary>
+            <param name="f">The initial float value of the FloatObject.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.FloatObject.MarshalTo(System.IntPtr,System.Int32)">
+            <summary>
+            The MarshalTo method for a FloatObject sets the managed code number into the
+            native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer value that indicates where in the native buffer
+            the marshalled data should start being copied to.</param>
+            <returns>An integer offset that indicates where the next item can be placed
+            in the native buffer. (ie the incremented offset).</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.FloatObject.UnmarshalFrom(System.IntPtr,System.Int32)">
+            <summary>
+            The UnmarshalFrom method for a FloatObject obtains information about the number
+            from the native buffer. 
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer offset from which to begin unmarshalling the
+            data.</param>
+            <returns>An integer offset that indicates where the next item can be unmarshalled
+            from the native buffer. (ie the incremented offset)</returns>
+        </member>
+        <member name="P:Symbol.Marshaller.FloatObject.MarshalSize">
+            <summary>
+            The size in bytes of the float that the float object represents.
+            </summary>
+            <value>
+            An integer that contains the amount of bytes of the float.
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.FloatObject.f">
+            <summary>
+            Read/Write property that contains information about the number that the
+            UintObject represents.
+            </summary>
+            <value>
+            An float that contains the value of the FloatObject.
+            </value>
+        </member>
+        <member name="T:Symbol.Marshaller.StringObject">
+            <summary>
+            StringObject class is used to represent strings in a native structure.
+            </summary>
+            <remarks>
+            The StringObject can handle different length strings in both ASCII (1 byte per char) 
+            and Unicode (2 bytes per char) format.
+            <para>This class is not CLS compliant and will not work with some .NET programming 
+            languages.</para>
+            </remarks>
+        </member>
+        <member name="M:Symbol.Marshaller.StringObject.#ctor">
+            <summary>
+            Default StringObject constructor. By default, the string is set to "", the size 
+            of the string is set to MAX_PATH (260 characters), and the string is Unicode.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.StringObject.#ctor(System.String)">
+            <summary>
+            StringObject constructor with settable initial string. The size is set to 
+            MAX_PATH (260 characters), and the string is Unicode.
+            </summary>
+            <param name="s">A string that contains the initial value that the StringObject
+            represents.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.StringObject.#ctor(System.Int32)">
+            <summary>
+            StringObject constructor with settable string length. The initial string is set 
+            to "" and the string is Unicode.
+            </summary>
+            <param name="len">The size in characters of the string.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.StringObject.#ctor(System.Boolean)">
+            <summary>
+            StringObject constructor with settable string type. The initial string is set 
+            to "" and the length is set to MAX_PATH (260 characters).
+            </summary>
+            <param name="bAscii">A boolean flag that when true indicates that the string
+            is an ASCII string.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.StringObject.#ctor(System.String,System.Int32)">
+            <summary>
+            StringObject constructor with settable initial string and character length. The 
+            string type is set to Unicode.
+            </summary>
+            <param name="s">A string that contains the initial value that the StringObject
+            represents.</param>
+            <param name="len">The size in characters of the string.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.StringObject.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            StringObject constructor with settable character length and string type. The 
+            initial string is set to "".
+            </summary>
+            <param name="len">The size in characters of the string.</param>
+            <param name="bAscii">A boolean flag that when true indicates that the string
+            is an ASCII string.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.StringObject.#ctor(System.String,System.Int32,System.Boolean)">
+            <summary>
+            StringObject constructor with settable initial string, character length, and
+            string type.
+            </summary>
+            <param name="s">A string that contains the initial value that the StringObject
+            represents.</param>
+            <param name="len">The size in characters of the string.</param>
+            <param name="bAscii">A boolean flag that when true indicates that the string
+            is an ASCII string.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.StringObject.MarshalTo(System.IntPtr,System.Int32)">
+            <summary>
+            The MarshalTo method for a StringObject copies the managed code string into the
+            native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer value that indicates where in the native buffer
+            the marshalled data should start being copied to.</param>
+            <returns>An integer offset that indicates where the next item can be placed
+            in the native buffer. (ie the incremented offset).</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.StringObject.UnmarshalFrom(System.IntPtr,System.Int32)">
+            <summary>
+            The UnmarshalFrom method for a StringObject gets a string from the native buffer. 
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer offset from which to begin unmarshalling the
+            data.</param>
+            <returns>An integer offset that indicates where the next item can be unmarshalled
+            from the native buffer. (ie the incremented offset)</returns>
+        </member>
+        <member name="P:Symbol.Marshaller.StringObject.s">
+            <summary>
+            Read/Write property that contains the string that the StringObject represents.
+            </summary>
+            <value>
+            String that will be marshaled.
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.StringObject.IsAscii">
+            <summary>
+            Specifies whether or not the string is an ASCII or Unicode string.
+            </summary>
+            <value>
+            A boolean flag. When true the string is ASCII, otherwise it is Unicode.
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.StringObject.Length">
+            <summary>
+            Specifies the maximum length of the string in characters.
+            </summary>
+            <value>
+            An integer that represents the number of characters in the string.
+            </value>
+        </member>
+        <member name="T:Symbol.Marshaller.Accessable">
+            <summary>
+            The Accessable base class is used by any derived class that encapsulates a 
+            native structure.  
+            </summary>
+            <remarks>
+            The Accessable class is derived from marshal object and therefore provides 
+            both a MarshalTo and UnmarshalFrom capability. Commonly an object derived from
+            Accessable is accessed using the Indexers provided by this class. The index to
+            indexers are constants that provide location information as to where in the native
+            structure a MarshalObject resides. The derived Accessable object ususally takes on
+            the form of an array of MarshalObjects that define the native structure in
+            managed code.
+            </remarks>
+        </member>
+        <member name="F:Symbol.Marshaller.Accessable.m_bModified">
+            <summary>
+            Internal field, when set specifies that the object has been modified.
+            </summary>
+        </member>
+        <member name="F:Symbol.Marshaller.Accessable.m_nOffset">
+            <summary>
+            Internal field, specifies the current offset in the native buffer.
+            </summary>
+        </member>
+        <member name="F:Symbol.Marshaller.Accessable.m_uParams">
+            <summary>
+            Internal field, specifies an array of uint's. This array should not be used on 
+            new accessable objects. Replace with UintObject.
+            </summary>
+        </member>
+        <member name="F:Symbol.Marshaller.Accessable.m_Objects">
+            <summary>
+            Internal field, specfies an array of MarshalObjects, boxed.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.Accessable.#ctor">
+            <summary>
+            Default Accessable constructor. No internal uints or objects instantiated during
+            the construction process.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.Accessable.#ctor(System.Int32)">
+            <summary>
+            Accessable constructor with settable number of uint (DWORD) parameters.
+            </summary>
+            <param name="nSize">An integer that contains the number of DWORDs in 
+            the native buffer that the Accessable object represents.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.Accessable.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Accessable constructor with settable number of DWORD members and the offset
+            within the native buffer where they reside.
+            </summary>
+            <param name="nSize">An integer that contains the number of DWORDs in the
+            native buffer that the Accessable object represents.</param>
+            <param name="nOffset">The offset within the native buffer where the DWORDs
+            reside.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.Accessable.#ctor(System.Int32,System.Object[])">
+            <summary>
+            Accessable constructor with settable number of DWORD members and an array 
+            of marshal objects that represent the native buffer in managed code.
+            </summary>
+            <param name="nSize">An integer that contains the number of DWORDs in the
+            native buffer that the Accessable object represents.</param>
+            <param name="Objects">An array of Marshal objects.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.Accessable.#ctor(System.Int32,System.Int32,System.Object[])">
+            <summary>
+            Accessable constructor with settable number of DWORD members, the offset
+            within the native buffer where they reside, and an array of marshal objects
+            that represent the native buffer in managed code.
+            </summary>
+            <param name="nSize">An integer that contains the number of DWORDs in the 
+            native buffer that the Accessable object represents.</param>
+            <param name="nOffset">The offset within the native buffer where the DWORDs
+            reside.</param>
+            <param name="Objects">An array of Marshal objects.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.Accessable.#ctor(Symbol.Marshaller.Accessable)">
+            <summary>
+            Accessable constructor that creates a clone of the given accessable object.
+            </summary>
+            <param name="a">An Accessable object to create a copy of.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.Accessable.MarshalTo(System.IntPtr,System.Int32)">
+            <summary>
+            The MarshalTo method for an Accessable object cascades through all of the 
+            marshal objects and DWORD and copies their values from managed code to 
+            the native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer value that indicates where in the native buffer
+            the marshalled data should start being copied to.</param>
+            <returns>An integer offset that indicates where the next item can be placed
+            in the native buffer. (ie the incremented offset).</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.Accessable.UnmarshalFrom(System.IntPtr,System.Int32)">
+            <summary>
+            The UnmarshalFrom method for an Accessable object cascasdes through all the 
+            marshal objects and DWORD entries, copying native information into the managed
+            objects along the way.
+            </summary>
+            <param name="pPtr">An IntPtr to a native buffer.</param>
+            <param name="nOffset">An integer offset from which to begin unmarshalling the
+            data.</param>
+            <returns>An integer offset that indicates where the next item can be unmarshalled
+            from the native buffer. (ie the incremented offset)</returns>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessable.Count">
+            <summary>
+            A number that represents the amount of uints in the Accessable object.
+            </summary>
+            <remarks>
+            This method of marshalling is no longer used. UintObjects are used to 
+            represent DWORD entries.
+            </remarks>
+            <value>The number of DWORD entries in the Accessable object</value>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessable.Modified">
+            <summary>
+            A flag that is set when any objects in the Accessable object are changed.
+            </summary>
+            <value>
+            A boolean flag that indicates whether or not any objects have changed.
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessable.Objects">
+            <summary>
+            Gets/sets the object array in the Accessable object.
+            </summary>
+            <value>
+            A boxed MarshalObject array that provides a managed representation of the 
+            native structure.
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessable.Uints">
+            <summary>
+            Legacy call obtains all uints in the Accessable object.
+            </summary>
+            <remarks>
+            This method of marshalling is no longer used. UintObjects are used to 
+            represent DWORD entries.
+            </remarks>
+            <value>
+            An array of uints.
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessable.Item(System.Int32)">
+            <summary>
+            An indexer that returns the information of the indexed DWORD entry.
+            </summary>
+            <value>
+            Integer that contains the value of the indexed DWORD. 
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessable.Item(Symbol.Marshaller.UintAccessor)">
+            <summary>
+            A UintAccessor indexer that returns the uint information of the indexed entry.
+            </summary>
+            <value>
+            Integer that contains the value of the indexed entry. 
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessable.Item(Symbol.Marshaller.BoolAccessor)">
+            <summary>
+            A BoolAccessor indexer that returns the bool information of the indexed entry.
+            </summary>
+            <value>
+            A boolean flag that contains the value of the indexed entry. 
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessable.Item(Symbol.Marshaller.ObjectAccessor)">
+            <summary>
+            A ObjectAccessor indexer that returns the object at the indexed location.
+            </summary>
+            <value>
+            An object at the indexed location. 
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessable.Item(Symbol.Marshaller.UintObjectAccessor)">
+            <summary>
+            A UintObjectAccessor indexer that returns the uint at the indexed location.
+            </summary>
+            <value>
+            A uint at the indexed location. 
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessable.Item(Symbol.Marshaller.StringObjectAccessor)">
+            <summary>
+            A StringObjectAccessor indexer that returns the string at the indexed location.
+            </summary>
+            <value>
+            A string at the indexed location. 
+            </value>
+        </member>
+        <member name="P:Symbol.Marshaller.Accessable.Item(Symbol.Marshaller.FloatObjectAccessor)">
+            <summary>
+            A FloatObjectAccessor indexer that returns the float at the indexed location.
+            </summary>
+            <value>
+            A float at the indexed location. 
+            </value>
+        </member>
+        <member name="T:Symbol.Marshaller.MessageWindow1">
+            <summary>
+            Microsoft class that allows for native notifications within managed code.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.MessageWindow1.#ctor">
+            <summary>
+            MessageWindow constructor.
+            </summary>
+        </member>
+        <member name="T:Symbol.Marshaller.SymbolMessageWindow">
+            <summary>
+            Subclass MessageWindow to support checking for the appropriate
+            window message and for notifing someone when the appropriate
+            message is received
+            </summary>
+        </member>
+        <member name="F:Symbol.Marshaller.SymbolMessageWindow.UM_NOTIFY">
+            <summary>
+            User Message for MessageWindow  notification
+            note custom window messages are after WM_USER = 0x400
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMessageWindow.#ctor(Symbol.Marshaller.SymbolMessageWindow.MessageWindowNotify)">
+            <summary>
+            SymbolMessageWindow constructor 
+            </summary>
+            <param name="mwn">A MessageWindowNotify delegate.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMessageWindow.DoNotify(System.Object)">
+            <summary>
+            Perform notification 
+            </summary>
+            <param name="o">An object that contains information about the notification.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMessageWindow.GetNextObject">
+            <summary>
+            Get next object in the Queue 
+            </summary>
+            <returns>An object that contains information about the notification event.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMessageWindow.AddToEventHandler(System.EventHandler@,System.EventHandler)">
+            <summary>
+            Static add of event handler to event handler base.
+            </summary>
+            <param name="ehBase">The base event handler.</param>
+            <param name="ehAdd">The event handler to add to the base.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMessageWindow.RemoveFromEventHandler(System.EventHandler@,System.EventHandler)">
+            <summary>
+            Static remove of event handler from event handler base 
+            </summary>
+            <param name="ehBase">The base event handler.</param>
+            <param name="ehRemove">The event handler to remove from the base.</param>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMessageWindow.WndProc(Microsoft.WindowsCE.Forms.Message@)">
+            <summary>
+            Override the default WndProc behavior to watch for the specific
+            window message.  When the message is received, call back and
+            notify the original form that created the message window.
+            </summary>
+            <param name="msg">A windows message structure.</param>
+        </member>
+        <member name="T:Symbol.Marshaller.SymbolMessageWindow.MessageWindowNotify">
+            <summary>
+            Delegate to be called by message window when in UI thread
+            </summary>
+        </member>
+        <member name="T:Symbol.Resources">
+            <summary>
+            Resources Class provides the capability of localizing strings so that foreign 
+            language support can be implemented.
+            </summary>
+            <remarks>
+            Not currently used by the Symbol class libraries.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Resources.Manager(System.String)">
+            <summary>
+            Static method that creates a ResourceManager for use with foreign language 
+            string queries.
+            </summary>
+            <param name="BaseName">The type of foreign language.</param>
+            <returns>A ResourceManager object that can be used for string queries.</returns>
+        </member>
+        <member name="M:Symbol.Resources.GetString(System.String,System.String)">
+            <summary>
+            Query the resource managed for a given string, given the ID.
+            </summary>
+            <param name="s">The string ID.</param>
+            <param name="srb">The location of the string.</param>
+            <returns>The localized string or "Exception" if string is not found.</returns>
+        </member>
+        <member name="P:Symbol.Resources.Path">
+            <summary>
+            Gets/Sets the path where the localization information is stored.
+            </summary>
+            <value>
+            A string that contains the path information.
+            </value>
+        </member>
+        <member name="T:Symbol.Marshaller.SymbolMarshal">
+            <summary>
+            The SymbolMarshal class is used to marshal managed data into native data and vice
+            versa.
+            </summary>
+            <remarks>
+            This class is not CLS Compliant.
+            </remarks>
+        </member>
+        <member name="F:Symbol.Marshaller.SymbolMarshal.DwordSize">
+            <summary>
+            Constant integer contains the size in bytes of a native DWORD.
+            </summary>
+        </member>
+        <member name="F:Symbol.Marshaller.SymbolMarshal.WordSize">
+            <summary>
+            Constant integer contains the size in bytes of a native WORD.
+            </summary>
+        </member>
+        <member name="F:Symbol.Marshaller.SymbolMarshal.ByteSize">
+            <summary>
+            Constant integer contains the size in bytes of a native BYTE.
+            </summary>
+        </member>
+        <member name="F:Symbol.Marshaller.SymbolMarshal.WcharSize">
+            <summary>
+            Constant integer contains the size in bytes of a native WCHAR.
+            </summary>
+        </member>
+        <member name="F:Symbol.Marshaller.SymbolMarshal.MaxPath">
+            <summary>
+            Constant integer contains the max size in bytes of a native path.
+            </summary>
+        </member>
+        <member name="F:Symbol.Marshaller.SymbolMarshal.MaxDeviceName">
+            <summary>
+            Constant integer contains the max size in bytes of a device name.
+            </summary>
+        </member>
+        <member name="F:Symbol.Marshaller.SymbolMarshal.NULL">
+            <summary>
+            The NULL field returns an IntPtr with value 0. Used in marshal operations.
+            </summary>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.MarshalStructInfoTo(System.IntPtr,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Marshals (copies) managed code structinfo information into the native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer where
+            the struct info resides.</param>
+            <param name="nAllocated">The amount of bytes allocated in the native structure
+            defined by the struct info.</param>
+            <param name="nUsed">The amount of used bytes in the native structure as defined
+            by the struct info.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.UnmarshalStructInfoFrom(System.IntPtr,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Unmarshals (extracts and checks) managed information from the struct info in
+            the native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer where
+            the struct info resides.</param>
+            <param name="nAllocated">The amount of bytes allocated in the native structure
+            defined by the struct info.</param>
+            <param name="nUsed">The amount of used bytes in the native structure as defined
+            by the struct info.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.MarshalTimeStampTo(System.IntPtr,System.Int32,System.DateTime)">
+            <summary>
+            Convert DateTime in managed code to native SYSTEMTIME.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="dt">A DateTime object that contains the time information.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.UnmarshalTimeStampFrom(System.IntPtr,System.Int32,System.DateTime@)">
+            <summary>
+            Convert a native SYSTEMTIME to DateTime in managed code.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="dt">A DateTime object that will contain the time information.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.MarshalByteTo(System.IntPtr,System.Int32,System.Byte)">
+            <summary>
+            Copy managed byte into native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="bValue">That byte value that will be copied to native buffer.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.UnmarshalByteFrom(System.IntPtr,System.Int32,System.Byte@)">
+            <summary>
+            Extract managed byte from native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="bValue">That byte value that will be obtained from native buffer.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.MarshalWordTo(System.IntPtr,System.Int32,System.UInt16)">
+            <summary>
+            Copy managed byte into native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="bValue">The value that will be copied to native buffer.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.UnmarshalWordFrom(System.IntPtr,System.Int32,System.UInt16@)">
+            <summary>
+            Extract managed word from native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="bValue">That byte value that will be obtained from native buffer.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.MarshalDwordTo(System.IntPtr,System.Int32,System.UInt32)">
+            <summary>
+            Copy managed DWORD into native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="uValue">The value that will be copied to native buffer.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.UnmarshalDwordFrom(System.IntPtr,System.Int32,System.UInt32@)">
+            <summary>
+            Extract managed dword from native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="uValue">That byte value that will be obtained from native buffer.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.MarshalStringTo(System.IntPtr,System.Int32,System.String,System.Int32)">
+            <summary>
+            Copy managed string into native buffer.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="s">The string to be set.</param>
+            <param name="nSize">The size of the string in characters.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.MarshalStringTo(System.IntPtr,System.Int32,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Copy managed string into native buffer with setttable character width.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="s">The string to be set.</param>
+            <param name="nSize">The size of the string in characters.</param>
+            <param name="bAscii">A boolean flag the specifies whether of not string is 
+            in bytes or wide characters. (TRUE = bytes)</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.UnmarshalStringFrom(System.IntPtr,System.Int32,System.String@,System.Int32)">
+            <summary>
+            Extract managed string from native.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="s">The string to be set.</param>
+            <param name="nSize">The size of the string in characters.</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.UnmarshalStringFrom(System.IntPtr,System.Int32,System.String@,System.Int32,System.Boolean)">
+            <summary>
+            Extract managed string from native.
+            </summary>
+            <param name="pPtr">An IntPtr that points to the native buffer.</param>
+            <param name="nOffset">The offset from the start of the native buffer.</param>
+            <param name="s">The string to be set.</param>
+            <param name="nSize">The size of the string in characters.</param>
+            <param name="bAscii">A boolean flag the specifies whether of not string is 
+            in bytes or wide characters. (TRUE = bytes)</param>
+            <returns>An offset that indicates the next part of the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.AllocHGlobal(System.Int32)">
+            <summary>
+            Allocates a block of native memory.
+            </summary>
+            <param name="nSize">The size of the native buffer.</param>
+            <returns>A managed pointer to the native buffer.</returns>
+        </member>
+        <member name="M:Symbol.Marshaller.SymbolMarshal.FreeHGlobal(System.IntPtr)">
+            <summary>
+            Releases a block of native memory.
+            </summary>
+            <param name="pPtr">A managed pointer to the native buffer.</param>
+        </member>
+        <member name="P:Symbol.Marshaller.SymbolMarshal.StructInfoSize">
+            <summary>
+            Constant integer contains the size in bytes of a StructInfo structure.
+            </summary>
+        </member>
+        <member name="T:Symbol.Win32">
+            <summary>
+            The Win32 Class provides access to native functionality that has not yet been
+            made available with the .NET Compact Framework.
+            </summary>
+        </member>
+        <member name="M:Symbol.Win32.PostMessage(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr)">
+            <summary>
+            A native PostMessage Win32 call. Used in the notification process.
+            </summary>
+            <param name="hWnd">The handle to a window.</param>
+            <param name="nMsg">The windows message.</param>
+            <param name="ipWParam">WParam</param>
+            <param name="ipLParam">LParam</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:Symbol.Win32.SendMessage(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr)">
+            <summary>
+            A native SendMessage Win32 call. Used in the notification process.
+            </summary>
+            <param name="hWnd">The handle to a window.</param>
+            <param name="nMsg">The windows message.</param>
+            <param name="ipWParam">WParam</param>
+            <param name="ipLParam">LParam</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32RegOpenKey(System.IntPtr,System.String,System.Int32,System.Int32,System.IntPtr@)">
+            <summary>
+            Open a registry key.
+            </summary>
+            <param name="iphKey">An IntPtr to the key to open.</param>
+            <param name="sSubKey">A subkey string.</param>
+            <param name="nOptions">A integer that specifies any options.</param>
+            <param name="nReserved">A reserved integer. Usually 0.</param>
+            <param name="ipNewHKey">The new key that was opened.</param>
+            <returns>A return code.</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32RegCreateKey(System.IntPtr,System.String,System.Int32,System.String,System.Int32,System.Int32,System.String,System.IntPtr@,System.Int32@)">
+            <summary>
+            Creates or opens a key in the Registry.
+            </summary>
+            <param name="hKey">The base key to create or open.</param>
+            <param name="sSubKey">A string that contains the subkey.</param>
+            <param name="nReserved">A reserved integer. Usually 0.</param>
+            <param name="sClass">The string that contains the reg class.</param>
+            <param name="nOptions">Registry options</param>
+            <param name="nsamDesired"></param>
+            <param name="sSecurityAttributes"></param>
+            <param name="ipNewHKey">An IntPtr to the new registry key handle.</param>
+            <param name="nDisposition">Information about the disposition of the reg key.</param>
+            <returns>0 if success</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32RegSetDWORD(System.IntPtr,System.String,System.Int32)">
+            <summary>
+            Set DWORD value to registry 
+            </summary>
+            <param name="hKey">The key to the DWORD in.</param>
+            <param name="sValueName">The value name for the DWORD registry entry.</param>
+            <param name="nValue">The DWORD value to set in the registry.</param>
+            <returns>0 if success</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32RegSetString(System.IntPtr,System.String,System.String)">
+            <summary>
+            Set string value in the registry.
+            </summary>
+            <param name="hKey">Handle to the base registry key.</param>
+            <param name="sValueName">The value name of the string registry entry.</param>
+            <param name="sValue">The string to be set in the registry.</param>
+            <returns>0 if success</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32RegQueryString(System.IntPtr,System.String,System.String@)">
+            <summary>
+            Get a string value from registry.
+            </summary>
+            <param name="iphKey">The registry key where the string value resides.</param>
+            <param name="sValueName">The value name for the string entry.</param>
+            <param name="sData">The string obtained from the registry.</param>
+            <returns>0 if success</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32RegQueryDword(System.IntPtr,System.String,System.Int32@)">
+            <summary>
+            Get DWORD value from Registry.
+            </summary>
+            <param name="hKey">The registry key to get dword from.</param>
+            <param name="sValueName">The registry value name.</param>
+            <param name="nValue">The dword value.</param>
+            <returns>0 if success</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32RegSetKey(System.IntPtr,System.String,System.Int32,System.Int32,System.String,System.Int32)">
+            <summary>
+            Set a registry key.
+            </summary>
+            <param name="iphKey">The registry key to set values in.</param>
+            <param name="sValueName">The value name of the registry key.</param>
+            <param name="nReserved">A reserved integer.</param>
+            <param name="nType">The type of the registry key.</param>
+            <param name="sData">The data that the registry key will hold.</param>
+            <param name="nDataSize">The size of the data that will be set in the registry.</param>
+            <returns>0 if successful.</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32EnumerateKey(System.IntPtr,System.Int32,System.String@)">
+            <summary>
+            Enumerate subkeys under a registry key.
+            </summary>
+            <param name="hKey">Handle to an open key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right.</param>
+            <param name="nIndex">Index of the subkey of hKey to be retrieved.</param>
+            <param name="sSubKey">A string receives the name of the subkey</param>
+            <returns>0 if successful.</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32RegCloseKey(System.IntPtr)">
+            <summary>
+            Close a Registry key
+            </summary>
+            <param name="iphKey">The registry key to close.</param>
+            <returns>0 if successful.</returns>
+        </member>
+        <member name="M:Symbol.Win32.GetSimulationFlag(System.String)">
+            <summary>
+            Returns Simulation flag from registry
+            </summary>
+            <param name="KeyName">The name of the device to obtain simulation information
+            for.</param>
+            <returns>SimulationFlagType value</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32GetLastError">
+            <summary>
+            Provides access to the Win32 API GetLastError value.
+            </summary>
+            <returns>An error code string.</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32GetLastErrorCode">
+            <summary>
+            Provides Win32 API Last Error value
+            </summary>
+            <returns>  last error as integer </returns>
+        </member>
+        <member name="M:Symbol.Win32.W32WaitForSingleObject(Symbol.Win32.W32Event,System.Int32)">
+            <summary>
+            Wait for a single event object
+            </summary>
+            <param name="clsEvent">A W32Event object</param>
+            <param name="nTimeout">Timeout in milliseconds or INFINITE.</param>
+            <returns>0 if successful.</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32WaitForMultipleObjects(Symbol.Win32.W32Event[],System.Boolean,System.Int32)">
+            <summary>
+            Wait for multiple event objects
+            </summary>
+            <param name="clsEvents">Arrary of W32Event objects.</param>
+            <param name="bWaitAll">Boolean flag that specifies whether all events
+            must be signaled or just one.</param>
+            <param name="nTimeout">The timeout in milliseconds or INFINITE.</param>
+            <returns>0 if successful.</returns>
+        </member>
+        <member name="P:Symbol.Win32.PlatformType">
+            <summary>
+            Returns the platform type string.
+            </summary>
+            <value>
+            A string that contains platform type information.
+            </value>
+        </member>
+        <member name="P:Symbol.Win32.WaitCursor">
+            <summary>
+            Turns on/off the wait cursor
+            </summary>
+            <value>
+            A boolean flag that is true when the wait cursor is on, or false when it is 
+            off.
+            </value>
+        </member>
+        <member name="T:Symbol.Win32.RegKeyHandles">
+            <summary>
+            Base registry key handles.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegKeyHandles.HKEY_CLASSES_ROOT">
+            <summary>
+            ID for creating a handler to Classes Root section in registry.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegKeyHandles.HKEY_CURRENT_USER">
+            <summary>
+            ID for creating a handler to Current User section in registry.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegKeyHandles.HKEY_LOCAL_MACHINE">
+            <summary>
+            ID for creating a handler to Local Machine section in registry.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegKeyHandles.HKEY_USERS">
+            <summary>
+            ID for creating a handler to Users section in registry.
+            </summary>
+        </member>
+        <member name="T:Symbol.Win32.RegTypes">
+            <summary>
+            Registry value types
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegTypes.REG_NONE">
+            <summary>
+            No defined value type.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegTypes.REG_SZ">
+            <summary>
+            Null-terminated string. It will be a Unicode or ANSI string, 
+            depending on whether you use the Unicode or ANSI functions. 
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegTypes.REG_EXPAND_SZ">
+            <summary>
+            Null-terminated string that contains unexpanded references to environment 
+            variables (for example, "%PATH%"). It will be a Unicode or ANSI string, 
+            depending on whether you use the Unicode or ANSI functions. 
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegTypes.REG_BINARY">
+            <summary>
+            Binary data in any form. 
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegTypes.REG_DWORD">
+            <summary>
+            32-bit number.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegTypes.REG_DWORD_LITTLE_ENDIAN">
+            <summary>
+            32-bit number in little-endian format. This is equivalent to REG_DWORD.
+            In little-endian format, a multibyte value is stored in memory from the
+            lowest byte (the "little end") to the highest byte. For example, the value
+            0x12345678 is stored as (0x78 0x56 0x34 0x12) in little-endian format.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegTypes.REG_DWORD_BIG_ENDIAN">
+            <summary>
+            32-bit number in big-endian format.
+            In big-endian format, a multibyte value is stored in memory from the highest
+            byte (the "big end") to the lowest byte. For example, the value 0x12345678 is
+            stored as (0x12 0x34 0x56 0x78) in big-endian format. 
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegTypes.REG_LINK">
+            <summary>
+            Unicode symbolic link. 
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegTypes.REG_MULTI_SZ">
+            <summary>
+            Array of null-terminated strings that are terminated by two null characters. 
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegTypes.REG_RESOURCE_LIST">
+            <summary>
+            Device-driver resource list. 
+            </summary>
+        </member>
+        <member name="T:Symbol.Win32.EventEnums">
+            <summary>
+            Win32 Event Types
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.EventEnums.WAIT_OBJECT_0">
+            <summary>
+            Event has completed due to object 0.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.EventEnums.WAIT_TIMEOUT">
+            <summary>
+            Event has completed due to timeout.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.EventEnums.WAIT_ABANDONED_0">
+            <summary>
+            Event has been abandoned.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.EventEnums.INFINITE">
+            <summary>
+            Wait infinitely.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.EventEnums.EVENT_SET">
+            <summary>
+            Signal the event.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.EventEnums.EVENT_RESET">
+            <summary>
+            Reset the event.
+            </summary>
+        </member>
+        <member name="T:Symbol.Win32.SimulationFlagType">
+            <summary>
+            Simulation Flag Types.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.SimulationFlagType.Always">
+            <summary>
+            Always provide a simulation device in the available device list.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.SimulationFlagType.Never">
+            <summary>
+            Never provide a simulation device in the available device list.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.SimulationFlagType.Auto">
+            <summary>
+            Only place a simulation device in the device list if no other devices
+            are present.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.SimulationFlagType.error">
+            <summary>
+            An error has occurred with simulation.
+            </summary>
+        </member>
+        <member name="T:Symbol.Win32.RegDispositionType">
+            <summary>
+            Registry Disposition types.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegDispositionType.REG_CREATED_NEW_KEY">
+            <summary>
+            A new registry key has been created.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.RegDispositionType.REG_OPENED_EXISTING_KEY">
+            <summary>
+            An existing registry key has been opened.
+            </summary>
+        </member>
+        <member name="T:Symbol.Win32.SPI">
+            <summary>
+            System parameter information request types.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.SPI.GETPLATFORMTYPE">
+            <summary>
+            Get the platform type of the OS.
+            </summary>
+        </member>
+        <member name="F:Symbol.Win32.SPI.GETOEMINFO">
+            <summary>
+            Get the OEM information from the OS.
+            </summary>
+        </member>
+        <member name="T:Symbol.Win32.W32Event">
+            <summary>
+            The W32Event class is used as an alternative to the managed code event 
+            mechanism.
+            </summary>
+            <remarks>
+            The managed code implementation of events does not allow for timeouts. Using
+            the W32Event and the Win32 class Wait functions will provide that functionaliy.
+            </remarks>
+        </member>
+        <member name="M:Symbol.Win32.W32Event.#ctor(System.Boolean,System.Boolean)">
+            <summary>
+            W32Event constructor with settable manual reset and initial state.
+            </summary>
+            <param name="bManualReset">A boolean flag the specifies whether or not the
+            event should be reset manually or automatically.</param>
+            <param name="InitialState">A boolean flag the specifies the inital state of 
+            the event object. (True = signaled)</param>
+        </member>
+        <member name="M:Symbol.Win32.W32Event.#ctor(System.Boolean,System.Boolean,System.String)">
+            <summary>
+            W32Event constructor with settable manual reset, inital state and name.
+            </summary>
+            <param name="bManualReset">A boolean flag the specifies whether or not the
+            event should be reset manually or automatically.</param>
+            <param name="InitialState">A boolean flag the specifies the inital state of 
+            the event object. (True = signaled)</param>
+            <param name="sName">The name of the event. This can be used for synchronizing
+            across processes.</param>
+        </member>
+        <member name="M:Symbol.Win32.W32Event.SetEvent">
+            <summary>
+            Set W32Event.
+            </summary>
+            <returns>Boolean flag that specifies whether or not call is successful.</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32Event.ResetEvent">
+            <summary>
+            Reset W32Event.
+            </summary>
+            <returns>Boolean flag that specifies whether or not call is successful.</returns>
+        </member>
+        <member name="M:Symbol.Win32.W32Event.Dispose">
+            <summary>
+            Release event handle and other native resources.
+            </summary>
+        </member>
+        <member name="P:Symbol.Win32.W32Event.Handle">
+            <summary>
+            Returns the native handle of the event.
+            </summary>
+            <value>
+            An IntPtr that contains the handle for the Win32 native event.
+            </value>
+        </member>
+    </members>
+</doc>
