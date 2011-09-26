@@ -2,6 +2,9 @@ package com.atech.utils.data;
 
 import java.util.ArrayList;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 
 // TODO: Auto-generated Javadoc
@@ -38,6 +41,7 @@ import java.util.ArrayList;
 
 public class ByteUtils
 {
+    private static Log log = LogFactory.getLog(ByteUtils.class);
     
     /**
      * The Constant BIT_ORDER_BIG_ENDIAN.
@@ -281,6 +285,27 @@ public class ByteUtils
     
     public int[] getIntSubArray(int[] arr, int start, int end, int length)
     {
+        try
+        {
+        int[] arr_out = new int[end-start];
+        //int j=0;
+        
+        for(int i=start,j=0; i<end; i++,j++)
+        {
+            arr_out[j] = arr[i];
+            //j++;
+        }
+        
+        return arr_out;
+        }
+        catch(Exception ex)
+        {
+            log.error("getIntSubArray(). Ex.: " + ex, ex);
+            return null;
+        }
+        
+        
+        /*
         int[] arr_out = new int[length-end-start];
         int j=0;
         
@@ -290,7 +315,7 @@ public class ByteUtils
             j++;
         }
         
-        return arr_out;
+        return arr_out;*/
     }
 
     

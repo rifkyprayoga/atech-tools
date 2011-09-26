@@ -58,7 +58,14 @@ public class DateTimeComponent extends JPanel
     /**
      * The component_width.
      */
-    int component_width = 188;
+    int component_width = 205; //188;
+    
+    
+    int component_width_date = 205;
+    
+    int component_width_time = 95;
+    
+    
     
     /**
      * The component_height.
@@ -235,15 +242,15 @@ JSpinner day, month, year;
 
         if (type_align==DateTimeComponent.ALIGN_HORIZONTAL)
         {
-            component_width = 188+88+gap;
+            component_width = component_width_date+component_width_time+gap;
             component_height = 25;
 
-            sec_x = 188+gap;
+            sec_x = component_width_date+gap;
             sec_y = 0;
         }
         else
         {
-            component_width = 188;
+            component_width = component_width_date;
             component_height = 25+gap+25;
 
             sec_x = 0;
@@ -278,10 +285,16 @@ JSpinner day, month, year;
         year.setFont(font_normal);
 
 
-        day.setBounds(0, 0, 40, 25);
-        month.setBounds(44, 0, 90, 25);
-        year.setBounds(138, 0, 50, 25);
+        day.setBounds(0, 0, 45, 25);
+        month.setBounds(50, 0, 90, 25);
+        year.setBounds(145, 0, 60, 25);
 
+        /*
+        day.setBounds(0, 0, 40, 25); // 40
+        month.setBounds(45, 0, 90, 25); // 40, 90
+        year.setBounds(140, 0, 80, 25); // 138
+        */
+        
         // TIME
 
         SpinnerNumberModel listHourModel = new SpinnerNumberModel(0,0,23,1);
@@ -294,7 +307,7 @@ JSpinner day, month, year;
         minute.setFont(font_normal);
         minute.setEditor(new JSpinner.NumberEditor(minute, "00"));
 
-        System.out.println("Time type: " + this.m_time_type);
+        //System.out.println("Time type: " + this.m_time_type);
         
         if (this.m_time_type==DateTimeComponent.TIME_MAXIMAL_SECOND)
         {
@@ -303,9 +316,9 @@ JSpinner day, month, year;
             second.setFont(font_normal);
             second.setEditor(new JSpinner.NumberEditor(second, "00"));
 
-            hour.setBounds(sec_x, sec_y, 40, 25);
-            minute.setBounds(sec_x+44, sec_y, 40, 25);
-            second.setBounds(sec_x+88, sec_y, 40, 25);
+            hour.setBounds(sec_x, sec_y, 45, 25);
+            minute.setBounds(sec_x+50, sec_y, 45, 25);
+            second.setBounds(sec_x+100, sec_y, 45, 25);
 
             this.add(hour, null);
             this.add(minute, null);
@@ -319,8 +332,8 @@ JSpinner day, month, year;
         }
         else
         {
-            hour.setBounds(sec_x, sec_y, 40, 25);
-            minute.setBounds(sec_x+44, sec_y, 40, 25);
+            hour.setBounds(sec_x, sec_y, 45, 25);
+            minute.setBounds(sec_x+50, sec_y, 45, 25);
 
             this.add(hour, null);
             this.add(minute, null);

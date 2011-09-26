@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Random;
@@ -75,7 +74,7 @@ public class DateComponent extends JPanel implements ChangeListener
     /**
      * The component_width.
      */
-    int component_width = 182;
+    int component_width = 205;  // 182
     
     /**
      * The component_height.
@@ -96,6 +95,7 @@ public class DateComponent extends JPanel implements ChangeListener
 
     //private static String months[];
     //private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
+    @SuppressWarnings("unused")
     private long object_id = 0L;
 
     ATDataAccessAbstract m_da; 
@@ -104,7 +104,7 @@ public class DateComponent extends JPanel implements ChangeListener
     /**
      * Constructor
      * 
-     * @param ic
+     * @param da 
      */
     public DateComponent(ATDataAccessAbstract da)
     {
@@ -115,7 +115,7 @@ public class DateComponent extends JPanel implements ChangeListener
      * Constructor
      * 
      * @param lower_year
-     * @param ic
+     * @param da
      */
     public DateComponent(int lower_year, ATDataAccessAbstract da)
     {
@@ -138,6 +138,54 @@ public class DateComponent extends JPanel implements ChangeListener
         this.ic = da.getI18nControlInstance();
         //initMonths();
 
+        initComponent(lower_year, higher_year_diff);
+    }
+
+    
+    
+    /**
+     * Constructor
+     * 
+     * @param ic
+     */
+    public DateComponent(I18nControlAbstract ic)
+    {
+        this(1800, 5, ic);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param lower_year
+     * @param ic
+     */
+    public DateComponent(int lower_year, I18nControlAbstract ic)
+    {
+        this(lower_year, 5, ic);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param lower_year
+     * @param higher_year_diff
+     * @param da 
+     * @param ic
+     */
+    public DateComponent(int lower_year, int higher_year_diff, I18nControlAbstract ic)
+    {
+        super();
+
+        this.ic = ic;
+        //initMonths();
+
+        initComponent(lower_year, higher_year_diff);
+    }
+    
+    
+    
+    private void initComponent(int lower_year, int higher_year_diff)
+    {
         Font font_normal = new Font("SansSerif", Font.PLAIN, 12);
 
         this.setSize(component_width, component_height);
@@ -168,18 +216,25 @@ public class DateComponent extends JPanel implements ChangeListener
         year.setFont(font_normal);
         year.addChangeListener(this);
 
-        day.setBounds(0, 0, 36, 25); // 40
-        month.setBounds(40, 0, 85, 25); // 40, 90
-        year.setBounds(129, 0, 50, 25); // 138
-
+        day.setBounds(0, 0, 45, 25);
+        month.setBounds(50, 0, 90, 25);
+        year.setBounds(145, 0, 60, 25);
+        
+/*        
+        day.setBounds(0, 0, 40, 25); // 40
+        month.setBounds(45, 0, 90, 25); // 40, 90
+        year.setBounds(140, 0, 80, 25); // 138
+*/
         this.add(day, null);
         this.add(month, null);
         this.add(year, null);
 
         Random generator2 = new Random( 19580427 );
         this.object_id = generator2.nextLong();
+        
     }
-
+    
+    
     /**
      * Date: Day and Month only
      */
@@ -193,7 +248,7 @@ public class DateComponent extends JPanel implements ChangeListener
     /**
      * Init Months
      */
-    /*public void initMonths()
+/*    public void initMonths()
     {
         if (months == null)
         {
@@ -204,6 +259,7 @@ public class DateComponent extends JPanel implements ChangeListener
 
             months = m;
         }
+
 
     }*/
 

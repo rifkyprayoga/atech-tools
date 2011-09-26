@@ -61,7 +61,7 @@ public class TimeComponent extends JPanel implements ChangeListener
     /**
      * The component_width.
      */
-    int component_width = 90;
+    int component_width = 105;
     
     /**
      * The component_height.
@@ -107,8 +107,8 @@ public class TimeComponent extends JPanel implements ChangeListener
         minute.setFont(font_normal);
 
 
-        hour.setBounds(0, 0, 40, 25);
-        minute.setBounds(44, 0, 40, 25);
+        hour.setBounds(0, 0, 45, 25);
+        minute.setBounds(50, 0, 45, 25);
 
         this.add(hour, null);
         this.add(minute, null);
