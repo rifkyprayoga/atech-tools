@@ -68,14 +68,14 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 		
 		//Vector<ConfigurationEntry> list = discoverConfigFiles();
 		
-		ATSwingUtils.getLabel("Please select which file you want to translate !", 40, 20, 350, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+		ATSwingUtils.getLabel("Please select which file you want to translate!", 40, 20, 350, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
 		//panel.add(label);
 		
 		//String[] dtt = { "GGC Core", "GGC Meter Tool" };
 		
 		cb_selector = ATSwingUtils.getComboBox(this.configuration_files, 40, 50, 250, 25, panel, ATSwingUtils.FONT_NORMAL);
 
-		JButton b = new JButton("Go !");
+		JButton b = new JButton("Go!");
 		b.setBounds(60, 90, 100, 25);
 		b.addActionListener(this);
 		b.setActionCommand("go");
@@ -295,7 +295,4 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 	{
 	    return configuration_files;
 	}
-	
-	
-	
 }

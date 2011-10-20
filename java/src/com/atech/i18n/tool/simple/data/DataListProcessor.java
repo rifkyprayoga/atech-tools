@@ -410,9 +410,9 @@ public class DataListProcessor
         sb.append("#\n");  
         sb.append("#  Translation status:\n"); 
         sb.append("#     Words/expressions:    " + all + "\n"); 
-        sb.append("#     Not translated:       " + st[0] + "  (" + getProcents(st[0], all) + " %)\n"); 
-        sb.append("#     Need to be checked:   " + st[1] + "  (" + getProcents(st[1], all) + " %)\n#\n");
-        sb.append("#     Translated:           " + st[2] + "  (" + getProcents(st[2], all) + " %)\n#\n");
+        sb.append("#     Not translated:       " + st[0] + "  (" + getPercents(st[0], all) + " %)\n"); 
+        sb.append("#     Need to be checked:   " + st[1] + "  (" + getPercents(st[1], all) + " %)\n#\n");
+        sb.append("#     Translated:           " + st[2] + "  (" + getPercents(st[2], all) + " %)\n#\n");
         
         return sb.toString();
         
@@ -448,7 +448,7 @@ public class DataListProcessor
     }
     
     
-    private String getProcents(int number, int max)
+    private String getPercents(int number, int max)
     {
         float f = (float) (number*1.0f)/(max * 1.0f);
         f *= 100;
@@ -716,11 +716,11 @@ public class DataListProcessor
         
         boolean found = false;
         
-        for(int i=this.current_index+1; i<this.tra_data.size(); i++)
+        for (int i = this.current_index + 1; i < this.tra_data.size(); i++)
         {
             DataEntry de = this.tra_data.get(i);
-            
-            if ((de.status==DataEntry.STATUS_NEED_CHECK) || (de.status==DataEntry.STATUS_UNTRANSLATED))
+
+            if ((de.status == DataEntry.STATUS_NEED_CHECK) || (de.status == DataEntry.STATUS_UNTRANSLATED))
             {
                 this.current_index = i;
                 found = true;
@@ -728,7 +728,7 @@ public class DataListProcessor
             }
         }
         
-        // no turn arround
+        // no wrap around
         return found;
     }
     
@@ -774,24 +774,24 @@ public class DataListProcessor
      */
     public boolean movePrevUntranslated()
     {
-        if ((this.tra_data.isEmpty()) || (this.current_index==0))
+        if ((this.tra_data.isEmpty()) || (this.current_index == 0))
             return false;
-        
+
         boolean found = false;
-        
-        for(int i=this.current_index-1; i >=0; i--)
+
+        for (int i = this.current_index - 1; i >= 0; i--)
         {
             DataEntry de = this.tra_data.get(i);
-            
-            if ((de.status==DataEntry.STATUS_NEED_CHECK) || (de.status==DataEntry.STATUS_UNTRANSLATED))
+
+            if ((de.status == DataEntry.STATUS_NEED_CHECK) || (de.status == DataEntry.STATUS_UNTRANSLATED))
             {
                 this.current_index = i;
                 found = true;
                 break;
             }
         }
-        
-        // no turn arround
+
+        // no wrap around
         return found;
     }
     

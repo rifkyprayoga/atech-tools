@@ -789,10 +789,14 @@ public abstract class ATDataAccessAbstract
      */
     public void enableHelp(HelpCapable hc)
     {
-        if (this.help_enabled)
+        if (hc != null && this.help_enabled)
         {
-            this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(), hc.getHelpId(), null);
-            this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
+            // XXX: @andy: Is this supposed to be able to happen? It just did here.
+            if (this.help_context.getMainHelpBroker() != null)
+            {
+                this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(), hc.getHelpId(), null);
+                this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
+            }
         }
     }
 
