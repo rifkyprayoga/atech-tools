@@ -265,7 +265,9 @@ public class ByteUtils
         byte[] arr_out = new byte[length];
         int j=0;
         
+        
         for(int i=start; i<(arr.length-end); i++)
+        //for(int i=start; i<start+length; i++)
         {
             arr_out[j] = arr[i];
             j++;
@@ -273,6 +275,24 @@ public class ByteUtils
         
         return arr_out;
     }
+    
+
+    public byte[] getByteSubArray(byte[] arr, int start, int length)
+    {
+        byte[] arr_out = new byte[length];
+        int j=0;
+        
+        
+        //for(int i=start; i<(arr.length-end); i++)
+        for(int i=start; i<start+length; i++)
+        {
+            arr_out[j] = arr[i];
+            j++;
+        }
+        
+        return arr_out;
+    }
+    
     
     
     protected boolean short_hex_used = false;
@@ -415,6 +435,50 @@ public class ByteUtils
         System.out.print("\n");
         
     }
+    
+
+    public String getIntArrayShow(int[] arr)
+    {
+        //System.out.print("Int array: ");
+        StringBuffer sb = new StringBuffer(); 
+        
+        for(int i=0; i<arr.length; i++)
+        {
+            sb.append(arr[i] + " ");
+        }
+        
+        //System.out.print("\n");
+        
+        return sb.toString();
+        
+    }
+
+    
+    
+    /**
+     * Show byte array hex.
+     * 
+     * @param arr the arr
+     */
+    public String getIntArrayHex(int[] arr)
+    {
+        //System.out.print("Byte array: ");
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append("[ ");
+        
+        for(int i=0; i<arr.length; i++)
+        {
+            sb.append(getCorrectHexValue(arr[i]) + " ");
+            //getCorrectHexValue(arr[i]);
+            //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+        }
+        
+        sb.append("]");
+
+        return sb.toString();
+    }
+    
     
     
     
@@ -667,12 +731,19 @@ public class ByteUtils
         }
     }
 
-    public int[] concatIntArrays(int ai[], int ai1[])
+    public int[] concatIntArrays(int arr_in1[], int arr_in2[])
     {
-        int ai2[] = new int[ai.length + ai1.length];
-        System.arraycopy(ai, 0, ai2, 0, ai.length);
-        System.arraycopy(ai1, 0, ai2, ai.length, ai1.length);
-        return ai2;
+        int arr_out[] = new int[arr_in1.length + arr_in2.length];
+        System.arraycopy(arr_in1, 0, arr_out, 0, arr_in1.length);
+        System.arraycopy(arr_in2, 0, arr_out, arr_in1.length, arr_in2.length);
+        
+        //log.debug("Input 1: " + this.getIntArrayHex(arr_in1));
+        //log.debug("Input 2: " + this.getIntArrayHex(arr_in2));
+        //log.debug("Input Skupaj: " + this.getIntArrayHex(arr_out));
+        
+        
+        
+        return arr_out;
     }
     
     

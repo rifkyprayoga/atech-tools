@@ -1,5 +1,6 @@
 package com.atech.utils.data;
 
+
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -262,6 +263,112 @@ public class HexUtils extends ByteUtils
         }
     }
 
+    
+    
+    public int makeByte(int i, int j)
+    {
+        int k = i << 4 | j & 0xf;
+        return k;
+    }
+
+    public long makeLong(int i, int j, int k, int l)
+    {
+        long l1 = (long)i << 24 | (long)(j << 16) | (long)(k << 8) | (long)l;
+        return l1;
+    }
+
+
+    public int makeInt(int i, int j)
+    {
+        int k = (i & 0xff) << 8 | j & 0xff;
+        return k;
+    }
+
+    public int makeInt(int i, int j, int k)
+    {
+        int l = (i & 0xff) << 16 | (j & 0xff) << 8 | k & 0xff;
+        return l;
+    }
+
+    
+
+    public byte[] convertIntsToBytes(int ai[])
+    {
+        byte abyte0[] = new byte[ai.length];
+        for(int i = 0; i < ai.length; i++)
+        {
+            abyte0[i] = (byte)(ai[i] & 0xff);
+        }
+
+        return abyte0;
+    }
+
+    public int makeUnsignedShort(int i, int j)
+    {
+        int k = (i & 0xff) << 8 | j & 0xff;
+        return k;
+    }
+
+    public byte[] makeByteArray(int ai[])
+    {
+        if(ai != null)
+        {
+            byte abyte0[] = new byte[ai.length];
+            for(int i = 0; i < ai.length; i++)
+            {
+                abyte0[i] = (byte)ai[i];
+            }
+
+            return abyte0;
+        } else
+        {
+            return null;
+        }
+    }
+
+    public int[] makeIntArray(byte abyte0[])
+    {
+        int ai[] = new int[abyte0.length];
+        for(int i = 0; i < abyte0.length; i++)
+            ai[i] = abyte0[i] & 0xff;
+
+        return ai;
+    }
+
+    public String makeString(int ai[])
+    {
+        return makeString(ai, 0, ai.length);
+    }
+
+    public String makeString(int ai[], int i, int j)
+    {
+        if(ai != null)
+        {
+            StringBuffer stringbuffer = new StringBuffer();
+            for(int k = i; k < i + j; k++)
+                if(ai[k] != 0)
+                    stringbuffer.append((char)ai[k]);
+
+            return new String(stringbuffer);
+        } else
+        {
+            return null;
+        }
+    }
+
+
+    public int[] concat(int ai[], int ai1[])
+    {
+        int ai2[] = new int[ai.length + ai1.length];
+        System.arraycopy(ai, 0, ai2, 0, ai.length);
+        System.arraycopy(ai1, 0, ai2, ai.length, ai1.length);
+        return ai2;
+    }
+
+   
+    
+    
+    
     
     
 }

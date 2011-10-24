@@ -791,6 +791,18 @@ public class ATechDate
     }
 
 
+    /**
+     * Gets the aT date time as long.
+     * 
+     * @return the aT date time as long
+     */
+    public String getATDateTimeAsLongString() //throws Exception
+    {
+        return this.getATDateTimeAsLongString(this.atech_datetime_type);
+    }
+    
+    
+    
 
     /**
      * Gets the aT date time as long.
@@ -840,6 +852,55 @@ public class ATechDate
 
     }
 
+    
+    public String getATDateTimeAsLongString(int output_format) //throws Exception
+    {
+        String dt_s = "";
+        long dt = 0L;
+
+        if (output_format==FORMAT_DATE_AND_TIME_MIN)
+        {
+            dt += year *100000000L;
+            dt += month *1000000L;
+            dt += this.day_of_month *10000L;
+            dt += this.hour_of_day *100L;
+            dt += minute;
+            dt_s = "" + dt;
+        } 
+        else if (output_format==FORMAT_DATE_AND_TIME_S)
+        {
+            dt += year *10000000000L;
+            dt += month *100000000L;
+            dt += this.day_of_month *1000000L;
+            dt += this.hour_of_day *10000L;
+            dt += minute*100L;
+            dt += this.second;
+            dt_s = "" + dt;
+        } 
+        else if (output_format==FORMAT_DATE_ONLY)
+        {
+            dt += year *10000L;
+            dt += month *100L;
+            dt += this.day_of_month;
+            dt_s = "" + dt;
+        }
+        else if (output_format==ATechDate.FORMAT_TIME_ONLY_MIN)
+        {
+            dt += this.hour_of_day *100L;
+            dt += minute;
+            
+            dt_s = getLeadingZero((int)dt,4);
+        }
+        else
+        {
+            System.out.println("ERROR: getATDateTimeAsLong: Unsupported type [" + output_format + "]");
+        }
+
+        return dt_s;
+
+    }
+    
+    
 
 
     /**
