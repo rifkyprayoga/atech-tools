@@ -367,6 +367,30 @@ public class HexUtils extends ByteUtils
 
    
     
+    public int[] getIntSubArray(int[] arr, int start, int length)
+    {
+        try
+        {
+        int[] arr_out = new int[length];
+        //int j=0;
+        
+        for(int i=start,j=0; i<(start+length); i++,j++)
+        {
+            arr_out[j] = arr[i];
+            //j++;
+        }
+        
+        return arr_out;
+        }
+        catch(Exception ex)
+        {
+            //log.error("getIntSubArray(). Ex.: " + ex, ex);
+            return null;
+        }
+        
+        
+    }
+
     
     
     
