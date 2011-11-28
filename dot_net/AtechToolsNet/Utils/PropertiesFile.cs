@@ -45,7 +45,10 @@ namespace ATechTools.Util
                 return false;
             }
 
-            StreamReader s = File.OpenText(filename);
+            
+
+            StreamReader s = new StreamReader(filename);
+
             string read = null;
             string[] parts = null;
 

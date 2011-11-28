@@ -42,6 +42,7 @@ using System;
 using log4net;
 using System.Text;
 using System.Collections.Generic;
+using ATechTools.File;
 namespace ATechTools.I18n
 {
 
@@ -56,7 +57,10 @@ public abstract class I18nControlAbstract
     /**
      *  Resource bundle identificator
      */
-    ResourceBundle res;
+//    ResourceBundle res;
+
+
+    I18nControlRunner control_runner = null;
 
 
     /**
@@ -135,11 +139,12 @@ public abstract class I18nControlAbstract
      *  This constructor should be implemented by implementing class<br><br>
      *
      */ 
-/*    private I18nControlAbstract()
+    public I18nControlAbstract(I18nControlRunner crunner)
     {
-        setLanguage("EN");
+        this.control_runner = crunner;
+        SetLanguage("en");
     } 
-*/    
+    
 
 
     
@@ -179,6 +184,12 @@ public abstract class I18nControlAbstract
 */
 
 
+
+
+
+
+
+
     //  Method:       setLanguage (String language)
     /**
      *
@@ -186,8 +197,26 @@ public abstract class I18nControlAbstract
      *
      *  @param language language which we want to use
      */ 
-    public void setLanguage(String language)
+    public void SetLanguage(String language)
     {
+
+        string f = this.control_runner.FilesRoot + this.control_runner.LanguageFileRoot + "_" + language + ".properties";
+
+        s_logger.Debug("Filename: " + f);
+
+        FileReaderConfig frc = new FileReaderConfig(f);
+
+        s_logger.Warn("File found: " + frc.FileFound());
+        
+        
+        frc.ReadConfigFile();
+        resourceBundles = frc.GetData();
+
+
+        s_logger.Warn("Set Language " + resourceBundles.Count);
+
+
+
         //Console.WriteLine("setLanguage(String lang): " + language);
         /*
         Locale l = new Locale(language);
@@ -605,7 +634,19 @@ public abstract class I18nControlAbstract
             
             if (msg==null)
                 return "null";
-            
+
+            if (this.resourceBundles.ContainsKey(msg))
+            {
+                return this.resourceBundles[msg];
+            }
+            else
+            {
+                s_logger.Warn("I18nControl(" + this.selected_language + "): Couldn't find message: " + msg);
+                return ReturnSameValue(msg);
+            }
+
+
+            /*
             String ret = res.GetString(msg);
 
             if (ret==null)
@@ -615,7 +656,7 @@ public abstract class I18nControlAbstract
             }
             else
                 return ret;
-
+            */
         }
         catch //(Exception ex)
         {

@@ -32,10 +32,8 @@
 
 using System;
 using log4net;
-using NHibernate.Util;
 using System.Collections.Generic;
 using ATechTools.I18n;
-using ATechTools.Db.NHibernate;
 using System.ComponentModel;
 using System.Text;
 namespace ATechTools.Util
@@ -268,7 +266,7 @@ public abstract class ATDataAccessAbstract
         //    initDecimals();
 
 
-//        initSpecial();
+        InitSpecial();
     }
 
     
@@ -276,7 +274,7 @@ public abstract class ATDataAccessAbstract
     /**
      * Inits the special.
      */
-    public abstract void initSpecial();
+    public abstract void InitSpecial();
     
     
     /**
@@ -284,7 +282,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the hibernate db
      */
-    public abstract HibernateDb getHibernateDb();
+    public abstract object getHibernateDb();
     
     
     /**
@@ -781,6 +779,17 @@ public abstract class ATDataAccessAbstract
     {
         return this.m_i18n;
     }
+
+
+    public I18nControlAbstract I18nInstance
+    {
+        get { return this.m_i18n; }
+    }
+
+
+
+
+
 
     /*
      * public void setI18nControlInstance(I18nControlAbstract i18n) { this.i18n

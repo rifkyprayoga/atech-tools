@@ -231,7 +231,9 @@ public class DbCheck
         try
         {
 
-            StreamWriter s = File.CreateText(report_file);
+            
+
+            StreamWriter s = new StreamWriter(report_file);
 
             s.Write(sb.ToString());
             s.Close();
