@@ -575,6 +575,7 @@ public class LanguageManager
     
     public String getHelpSet()
     {
+    	/*
         if (this.selected_language.equals("en"))
         {
             return "help/GGC.hs";
@@ -592,7 +593,37 @@ public class LanguageManager
                 return "help/GGC_" + this.selected_language + ".hs";
             else
                 return "help/GGC.hs";
+        }*/
+    	
+    	// multi language support
+    	// we have following directory structire:
+    	//     help
+    	//       |- en
+    	//       |   |- GGC.hs
+    	//       |- si
+    	//       |   |- GGC.hs
+    	//
+    	
+        if (this.selected_language.equals("en"))
+        {
+            return "help/en/GGC.hs";
         }
+        else
+        {
+            //System.out.println("Selected lan: " + this.selected_language);
+            
+            LanguageInstance li = this.available_languages.get(this.selected_language);
+
+            //System.out.println("Selected LI: " + li);
+            
+            
+            if (li.help_available)
+                return "help/" + this.selected_language + "GGC.hs";
+            else
+                return "help/en/GGC.hs";
+        }
+    	
+    	
     }
     
     
