@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 //using System.Drawing;
 using ATechTools.File;
+using System.Drawing;
 
 namespace ATechTools.GUI.Config
 {
@@ -138,14 +139,14 @@ namespace ATechTools.GUI.Config
                     if (cm.Elements.ContainsKey(c.Name))
                     {
                         ConfigEntry ce = cm.Elements[c.Name];
-                        SetControlSize(c, ce);
+                        SetControlSettings(c, ce);
                     }
                 }            
             }
         }
 
 
-        private void SetControlSize(Control c, ConfigEntry ce)
+        private void SetControlSettings(Control c, ConfigEntry ce)
         {
             if (ce.X != -1)
             {
@@ -166,6 +167,19 @@ namespace ATechTools.GUI.Config
             {
                 c.Height = ce.Height;
             }
+
+            if (ce.BackColor != Color.Empty)
+            {
+                c.BackColor = ce.BackColor;
+            }
+
+            if (ce.ForeColor != Color.Empty)
+            {
+                c.ForeColor = ce.ForeColor;
+            }
+
+            //c.Font.
+
 
         }
 

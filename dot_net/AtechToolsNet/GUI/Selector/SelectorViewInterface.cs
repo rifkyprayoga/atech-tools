@@ -14,6 +14,19 @@ namespace AtechToolsNet.GUI.Selector
         }
 
 
+        int SelectorPanelVersion
+        {
+            get;
+        }
+
+        int GridVersion
+        {
+            get ; //{ return gridVersion; }
+            //set { gridVersion = value; }
+        }
+
+
+
         List<SelectorInterface> FullList
         {
             get;
@@ -46,7 +59,14 @@ namespace AtechToolsNet.GUI.Selector
         }
 
 
-        bool PrepareGrid(DataGridView dgv);
+        //bool PrepareGrid(DataGridView dgv);
+
+
+        bool PrepareGrid_v1(DataGridView dgv);
+
+        bool PrepareGrid_v2(object dgv);
+
+
 
         string HelpUrl
         {
@@ -71,6 +91,17 @@ namespace AtechToolsNet.GUI.Selector
         /// <returns>true if editing succesfull, false if not (on true we need to do refresh of displayed items)</returns>
         bool EditAction(SelectorInterface si);
 
+        /// <summary>
+        /// Action that calls correct Dialog for view object. (not all selector view's support this).
+        /// </summary>
+        /// <returns>true if editing succesfull, false if not (on true we need to do refresh of displayed items)</returns>
+        bool ViewAction(SelectorInterface si);
+
+        /// <summary>
+        /// SelectorView has View Action.
+        /// </summary>
+        /// <returns></returns>
+        bool HasViewAction();
 
         bool HasPrintingReports();
 
@@ -88,5 +119,30 @@ namespace AtechToolsNet.GUI.Selector
             get; 
         }
 
+
+        string ObjectName
+        {
+            get;
+        }
+
+        string SelectorName
+        {
+            get;
+        }
+
+        SelectorInterface GetItemFromFilteredList(int index);
+
+        bool AutoFilterEnabled
+        {
+            get;
+        }
+
+        bool AutoLoadEnabled
+        {
+            get;
+        }
+
+
     }
+
 }

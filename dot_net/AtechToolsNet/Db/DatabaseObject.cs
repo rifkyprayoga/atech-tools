@@ -48,6 +48,57 @@ namespace ATechTools.Db
         public abstract bool GetDb(DataRow row, int type);
 
 
+        public bool IsDbValueNull(object db_value)
+        {
+            return (db_value == DBNull.Value);
+        }
+
+        public Single GetSingleValueNotNull(object db_value, float def_value)
+        {
+            if (db_value == DBNull.Value)
+                return def_value;
+            else
+                return Convert.ToSingle(db_value);
+        }
+
+        public string GetStringValueNotNull(object db_value, string def_value)
+        {
+            if (db_value == DBNull.Value)
+                return def_value;
+            else
+                return Convert.ToString(db_value);
+        }
+
+
+        public string GetDbStringOrNull(string val)
+        {
+            if ((val == null) || (val.Length==0))
+                return null;
+            else
+                return val;
+        }
+
+
+
+
+        public int GetIntValueNotNull(object db_value, int def_value)
+        {
+            if (db_value == DBNull.Value)
+                return def_value;
+            else
+                return Convert.ToInt32(db_value);
+        }
+
+
+        public bool IsStringSet(string val)
+        {
+            if (val == null)
+                return false;
+            else
+                return (val.Length > 0);
+        }
+
+
         public abstract bool ImportDb(string[] elements, int table_version);
 
         public string ExportDb()
