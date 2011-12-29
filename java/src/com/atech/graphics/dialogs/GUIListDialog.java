@@ -229,11 +229,23 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         {
             ButtonDef bd = this.definition.getButtonDefinitions().get(i);
             
-            JButton b = ATSwingUtils.getButton("   " + bd.text, 
-                pos_x, pos_y + (i *40), 120, 30, panel, 
-                ATSwingUtils.FONT_NORMAL , bd.icon_name, bd.action, 
-                this, m_da, pic_size);
-            b.setHorizontalAlignment(JButton.LEFT);
+            if (bd instanceof LabelDef)
+            {
+                LabelDef ld = (LabelDef)bd;
+                JLabel lab = ATSwingUtils.getLabel(ld.label_text, pos_x, pos_y + (i *40), 120, 30, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+            }
+            else if (bd instanceof DividerDef)
+            {
+                
+            }
+            else
+            {
+                JButton b = ATSwingUtils.getButton("   " + bd.text, 
+                    pos_x, pos_y + (i *40), 120, 30, panel, 
+                    ATSwingUtils.FONT_NORMAL , bd.icon_name, bd.action, 
+                    this, m_da, pic_size);
+                b.setHorizontalAlignment(JButton.LEFT);
+            }
         }
         
         Dimension d = this.definition.getWindowSize();

@@ -52,6 +52,12 @@ public class ButtonDef
      */
     public String icon_name;
     
+    
+    public ButtonDef()
+    {
+    }
+    
+    
     /**
      * Constructor
      * 
