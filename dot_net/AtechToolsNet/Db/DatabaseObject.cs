@@ -70,10 +70,19 @@ namespace ATechTools.Db
         }
 
 
-        public string GetDbStringOrNull(string val)
+        public DateTime GetDateTimeNotNull(object db_value, DateTime def_value)
+        {
+            if (db_value == DBNull.Value)
+                return def_value;
+            else
+                return Convert.ToDateTime(db_value);
+        }
+
+
+        public object GetDbStringOrNull(string val)
         {
             if ((val == null) || (val.Length==0))
-                return null;
+                return DBNull.Value;
             else
                 return val;
         }
