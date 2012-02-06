@@ -31,7 +31,12 @@ namespace ATechTools.File
             while ((line = this.GetNextDataLine()) != null)
             {
                 int idx = line.IndexOf("=");
-                this.data.Add(line.Substring(0, idx), line.Substring(idx + 1));
+
+                try
+                {
+                    this.data.Add(line.Substring(0, idx), line.Substring(idx + 1));
+                }
+                catch { }
             }
             EndReading();
         }

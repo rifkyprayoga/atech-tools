@@ -637,7 +637,10 @@ public abstract class I18nControlAbstract
 
             if (this.resourceBundles.ContainsKey(msg))
             {
-                return this.resourceBundles[msg];
+                //string v = PrepareNewLine(this.resourceBundles[msg]);
+
+
+                return PrepareNewLine(this.resourceBundles[msg]);
             }
             else
             {
@@ -665,6 +668,23 @@ public abstract class I18nControlAbstract
     //}
 
     }
+
+
+    public string PrepareNewLine(string text)
+    {
+        /*
+        while (text.Contains("\\\\"))
+        {
+            text = text.Replace("\\\\", "\\");
+        }*/
+
+
+        text = text.Replace("\\\\", "\\");
+        text = text.Replace("\\n", Environment.NewLine);
+
+        return text;
+    }
+
 
 
 

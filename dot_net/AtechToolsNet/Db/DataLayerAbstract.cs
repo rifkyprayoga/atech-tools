@@ -14,10 +14,14 @@ namespace ATechTools.Db
         protected string sql_source = null;
         protected string db_filename = null;
         protected SqlConnection m_connection = null;
+        protected string errorDescription = null;
+        protected int errorCode = 0;
+        protected Exception errorException = null;
 
-
-        public DataLayerAbstract()
-        { 
+        public DataLayerAbstract(bool do_init)
+        {
+            if (do_init)
+                InitDataLayer();
         }
 
         public abstract void InitDataLayer();
@@ -119,6 +123,65 @@ namespace ATechTools.Db
                 this.m_connection.Open();
                 //CheckConnectionOpen();
                 return this.m_connection;
+            }
+        }
+
+
+        public SqlConnection GetConnection()
+        {
+            SqlConnection conn = null;
+
+            conn = new SqlConnection(sql_source);
+            conn.Open();
+                //CheckConnectionOpen();
+            return conn;
+        }
+
+
+        public bool AddDb(DatabaseObject dob)
+        {
+            try
+            {
+                dob.AddDb(Connection);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.errorCode = 1;
+                this.errorException = ex;
+                return false;
+            }
+        }
+
+
+        public bool EditDb(DatabaseObject dob)
+        {
+            try
+            {
+                dob.EditDb(Connection);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.errorCode = 2;
+                this.errorException = ex;
+                return false;
+            }
+        }
+
+
+        public bool DeleteDb(DatabaseObject dob)
+        {
+            try
+            {
+                dob.DeleteDb(Connection);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.errorCode = 3;
+                this.errorException = ex;
+                return false;
             }
         }
 

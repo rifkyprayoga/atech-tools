@@ -11,6 +11,9 @@ namespace ATechTools.Db
     public abstract class DatabaseObject
     {
 
+        protected bool is_add_action = false;
+        protected bool can_we_detect_add_edit = false;
+
         /// <summary>
         /// Add To Database
         /// </summary>
@@ -53,6 +56,25 @@ namespace ATechTools.Db
             return (db_value == DBNull.Value);
         }
 
+
+        public Decimal GetDecimalValueNotNull(object db_value, decimal def_value)
+        {
+            if (db_value == DBNull.Value)
+                return def_value;
+            else
+                return Convert.ToDecimal(db_value);
+        }
+
+        public bool IsAddAction()
+        { 
+            return is_add_action;
+        }
+
+        public bool DoWeSupportAddEditDetection()
+        {
+            return can_we_detect_add_edit;
+        }
+
         public Single GetSingleValueNotNull(object db_value, float def_value)
         {
             if (db_value == DBNull.Value)
@@ -87,7 +109,14 @@ namespace ATechTools.Db
                 return val;
         }
 
-
+        /*
+        public Decimal GetDbDecimalOrNull(object db_value)
+        {
+            if (db_value == DBNull.Value)
+                return DBNull.Value;
+            else
+                return Convert.ToDecimal(db_value);
+        }*/
 
 
         public int GetIntValueNotNull(object db_value, int def_value)

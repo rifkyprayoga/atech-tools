@@ -69,9 +69,12 @@
     <Compile Include="Db\DatabaseObjectMobile.cs" />
     <Compile Include="Db\DataLayerAbstract.cs" />
     <Compile Include="Db\DatabaseObjectError.cs" />
+    <Compile Include="Db\Search\SearchContext.cs" />
+    <Compile Include="Db\Search\SearchParameter.cs" />
     <Compile Include="File\FileReader.cs" />
     <Compile Include="File\FileReaderConfig.cs" />
     <Compile Include="File\FileReaderImport.cs" />
+    <Compile Include="GUI\Animation\WinApiAnimation.cs" />
     <Compile Include="GUI\Base\AddEditDbHelper.cs" />
     <Compile Include="GUI\Config\ConfigConfig.cs" />
     <Compile Include="GUI\Config\ConfigEntry.cs" />
