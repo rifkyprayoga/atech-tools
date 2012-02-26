@@ -82,7 +82,21 @@ public abstract class I18nControlAbstract
     /**
      * The selected_language.
      */
-    public String selected_language = null;
+    private String selectedLanguage = null;
+
+    public String SelectedLanguage
+    {
+        get { return selectedLanguage; }
+        set 
+        {
+            string v = value.ToLower();
+            if (this.selectedLanguage != v)
+            {
+                selectedLanguage = v;
+                SetLanguage(this.selectedLanguage);
+            }
+        }
+    }
     
     /**
      * The selected_language_locale.
@@ -142,7 +156,8 @@ public abstract class I18nControlAbstract
     public I18nControlAbstract(I18nControlRunner crunner)
     {
         this.control_runner = crunner;
-        SetLanguage("en");
+        SelectedLanguage = "en";
+        //SetLanguage("en");
     } 
     
 
@@ -197,7 +212,7 @@ public abstract class I18nControlAbstract
      *
      *  @param language language which we want to use
      */ 
-    public void SetLanguage(String language)
+    public void SetLanguage(string language)
     {
 
         string f = this.control_runner.FilesRoot + this.control_runner.LanguageFileRoot + "_" + language + ".properties";
@@ -225,17 +240,7 @@ public abstract class I18nControlAbstract
         createCollationDefintion(); */
     }
 
-    
-    /**
-     * Gets the selected langauge.
-     * 
-     * @return the selected langauge
-     */
-    public String getSelectedLangauge()
-    {
-        return this.selected_language;
-    }
-    
+   
 
     //  Method:       setLanguage (String language, String country)
     /**
@@ -644,7 +649,7 @@ public abstract class I18nControlAbstract
             }
             else
             {
-                s_logger.Warn("I18nControl(" + this.selected_language + "): Couldn't find message: " + msg);
+                s_logger.Warn("I18nControl(" + this.selectedLanguage + "): Couldn't find message: " + msg);
                 return ReturnSameValue(msg);
             }
 
