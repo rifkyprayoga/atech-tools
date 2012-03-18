@@ -88,6 +88,9 @@
     <Compile Include="GUI\Selector\SelectorViewInterface.cs" />
     <Compile Include="GUI\StatusReceiverInterface.cs" />
     <Compile Include="GUI\UnmovableForm.cs" />
+    <Compile Include="GUI\WindowList\WindowListClientI.cs" />
+    <Compile Include="GUI\WindowList\WindowListI.cs" />
+    <Compile Include="GUI\WindowList\WindowsListHandler.cs" />
     <Compile Include="I18n\I18nControlAbstract.cs" />
     <Compile Include="I18n\MissingResourceException.cs" />
     <Compile Include="I18n\ResourceBundle.cs" />
