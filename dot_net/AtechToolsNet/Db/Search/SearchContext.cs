@@ -27,10 +27,135 @@ namespace ATechTools.Db.Search
 
         public string GetSearchWhere(string val)
         {
-            StringBuilder sb = new StringBuilder();
+
+            if (val.Length == 0)
+                return val;
+
+            StringBuilder sb2 = new StringBuilder();
 
             int active_params = 0;
+            bool isInt = false;
+            bool isLong = false;
+            bool isDecimal = false;
 
+            try
+            {
+                Int64.Parse(val);
+                isLong = true;
+                isDecimal = true;
+            }
+            catch
+            { 
+            }
+
+
+            try
+            {
+                Int32.Parse(val);
+                isInt = true;
+                isDecimal = true;
+            }
+            catch
+            {
+            }
+            
+
+            if (!isDecimal)
+            {
+                try
+                {
+                    Decimal.Parse(val);
+                    isDecimal = true;
+                }
+                catch
+                {
+                }
+            }
+
+            
+
+            for (int i = 0; i < searchParameters.Count; i++)
+            {
+                if (searchParameters[i].Enabled)
+                {
+
+                    string sbTemp = "";
+
+
+
+
+                    if (searchParameters[i].CommandType == SearchParameter.COMMAND_EQUALS)
+                    {
+                        sbTemp = "=";
+
+                        if (searchParameters[i].SqlType == SearchParameter.SQLTYPE_STRING)
+                        {
+                            sbTemp += "'" + val + "'";
+                        }
+                        else if (searchParameters[i].SqlType == SearchParameter.SQLTYPE_LONG)
+                        {
+                            if (!isLong)
+                                sbTemp = null;
+                            else
+                                sbTemp += val;
+                        }
+                        else if (searchParameters[i].SqlType == SearchParameter.SQLTYPE_INT)
+                        {
+                            if (!isInt)
+                                sbTemp = null;
+                            else
+                                sbTemp += val;
+                        }
+                        else if (searchParameters[i].SqlType == SearchParameter.SQLTYPE_DECIMAL)
+                        {
+                            if (!isDecimal)
+                                sbTemp = null;
+                            else
+                                sbTemp += val;
+                        }
+                        else
+                        {
+                            sbTemp += val;
+                        }
+
+                    }
+                    else if (searchParameters[i].CommandType == SearchParameter.COMMAND_LIKE)
+                    {
+                        sbTemp = " LIKE ";
+
+                        if (searchParameters[i].SqlType == SearchParameter.SQLTYPE_STRING)
+                        {
+                            sbTemp += "'%" + val + "%'";
+                        }
+                        else
+                        {
+                            sbTemp += val;
+                        }
+                    }
+
+
+                    if ((sbTemp != null) && (sbTemp.Length > 4))
+                    {
+                        if (active_params > 0)
+                            sb2.Append(" OR ");
+
+                        active_params++;
+
+                        sb2.Append("(" + searchParameters[i].SqlParameter + " " + sbTemp);
+
+                        sb2.Append(")");
+                    }
+                }
+
+            }
+
+
+
+
+
+
+
+/*
             for (int i = 0; i < searchParameters.Count; i++)
             {
                 if (searchParameters[i].Enabled)
@@ -52,6 +177,10 @@ namespace ATechTools.Db.Search
                         {
                             sb.Append("'" + val + "'");
                         }
+                        else if (searchParameters[i].SqlType == SearchParameter.SQLTYPE_LONG)
+                        {
+ 
+                        }
                         else
                         {
                             sb.Append(val);
@@ -70,28 +199,46 @@ namespace ATechTools.Db.Search
                         {
                             sb.Append(val);
                         }
-
-
                     }
 
-
-
-
                     sb.Append(")");
-
                 }
 
+            }*/
 
 
-            }
-
-
-            return sb.ToString();
+            return sb2.ToString();
         
         }
 
 
+        public void SetFilterParameters(long parameters)
+        {
+            foreach (SearchParameter sp in this.searchParameters)
+            {
+                if ((parameters & sp.Index) == sp.Index)
+                    sp.Enabled = true;
+                else
+                    sp.Enabled = false;
+            }
 
+        }
+
+
+        public long GetFilterParameters()
+        {
+            long parameters = 0L;
+
+            foreach (SearchParameter sp in this.searchParameters)
+            {
+                if (sp.Enabled)
+                {
+                    parameters += sp.Index;
+                }
+            }
+
+            return parameters;
+        }
 
 
     }

@@ -14,12 +14,18 @@ namespace ATechTools.Db.Search
 
         public const int SQLTYPE_STRING = 1;
 
-        public const int SQLTYPE_OTHER = 2;
+        public const int SQLTYPE_LONG = 2;
+
+        public const int SQLTYPE_INT = 3;
+
+        public const int SQLTYPE_DECIMAL = 4;
+
+        public const int SQLTYPE_OTHER = 5;
 
 
         protected string caption = "";
         protected string sqlParameter = "";
-        protected int index = 0;
+        protected long index = 0;
         protected int commandType = 0;
         protected bool enabled = false;
         protected int sqlType = 0;
@@ -39,7 +45,7 @@ namespace ATechTools.Db.Search
         }
 
 
-        public int Index
+        public long Index
         {
             get { return index; }
             set { index = value; }
@@ -67,7 +73,7 @@ namespace ATechTools.Db.Search
         }
 
 
-        public SearchParameter(string caption, string sqlParam, int index, int command_ty, bool enabled, int sqlType)
+        public SearchParameter(string caption, string sqlParam, long index, int command_ty, bool enabled, int sqlType)
         { 
             this.caption = caption;
             this.sqlParameter = sqlParam;

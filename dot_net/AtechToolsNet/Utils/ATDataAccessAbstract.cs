@@ -36,6 +36,7 @@ using System.Collections.Generic;
 using ATechTools.I18n;
 using System.ComponentModel;
 using System.Text;
+using AtechTools.Core.Utils;
 namespace ATechTools.Util
 {
 
@@ -252,9 +253,14 @@ public abstract class ATDataAccessAbstract
      */
     public ATDataAccessAbstract(I18nControlAbstract ic)
     {
+//        DateTime now = DateTime.Now;
+
+//        log.Debug("         Da [Start]: 0.000"); // + TimeDifference(now, DateTime.Now));
         this.m_i18n = ic;
         loadArraysTranslation();
+//        log.Debug("         Da [ArrayTrans]: " + DataUtil.TimeDifference(now, DateTime.Now, 1));
         checkPrerequisites();
+//        log.Debug("         Da [Prereq]: " + DataUtil.TimeDifference(now, DateTime.Now, 1));
         //loadFonts();
         m_settings_ht = new Dictionary<String, String>();
         //plugins = new Dictionary<String,PlugInClient>();
@@ -267,6 +273,7 @@ public abstract class ATDataAccessAbstract
 
 
         InitSpecial();
+//        log.Debug("         Da [InitSpecial]: " + DataUtil.TimeDifference(now, DateTime.Now, 1));
     }
 
     

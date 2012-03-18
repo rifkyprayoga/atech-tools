@@ -217,30 +217,41 @@ public abstract class I18nControlAbstract
 
         string f = this.control_runner.FilesRoot + this.control_runner.LanguageFileRoot + "_" + language + ".properties";
 
-        s_logger.Debug("Filename: " + f);
+        //s_logger.Debug("Filename: " + f);
+
+//        DateTime now = DateTime.Now;
+
+//        s_logger.Debug("   Start Lang: 0.00");
 
         FileReaderConfig frc = new FileReaderConfig(f);
 
-        s_logger.Warn("File found: " + frc.FileFound());
+//        s_logger.Debug("   Lang [Constructed FRC]: " + TimeDifference(now, DateTime.Now));
+
+        s_logger.Warn("Lang File [" + f + "] found: " + frc.FileFound());
         
         
         frc.ReadConfigFile();
+
+//        s_logger.Debug("   Lang [ReadConfigFile.FRC]: " + TimeDifference(now, DateTime.Now));
+
         resourceBundles = frc.GetData();
 
+//        s_logger.Debug("   Lang [GetData.FRC]: " + TimeDifference(now, DateTime.Now));
 
-        s_logger.Warn("Set Language " + resourceBundles.Count);
+        s_logger.Warn("Set Language [" + language + "]: " + resourceBundles.Count);
 
-
-
-        //Console.WriteLine("setLanguage(String lang): " + language);
-        /*
-        Locale l = new Locale(language);
-        selected_language = language;
-        setLanguage(l);
-        createCollationDefintion(); */
     }
 
-   
+
+
+    private string TimeDifference(DateTime dt1, DateTime dt2)
+    {
+        TimeSpan ts = dt2.Subtract(dt1);
+        return ts.Seconds + "." + ts.Milliseconds;
+    }
+
+
+
 
     //  Method:       setLanguage (String language, String country)
     /**
@@ -649,7 +660,8 @@ public abstract class I18nControlAbstract
             }
             else
             {
-                s_logger.Warn("I18nControl(" + this.selectedLanguage + "): Couldn't find message: " + msg);
+                if (msg == msg.ToUpper())
+                    s_logger.Warn("I18nControl(" + this.selectedLanguage + "): Couldn't find message: " + msg);
                 return ReturnSameValue(msg);
             }
 

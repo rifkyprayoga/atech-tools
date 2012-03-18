@@ -105,10 +105,11 @@ namespace AtechToolsNet.GUI.Selector
 
         bool HasPrintingReports();
 
+        /*
         List<object> PrintingReportDefinitions
         {
             get;
-        }
+        }*/
 
 
         void Resize();
