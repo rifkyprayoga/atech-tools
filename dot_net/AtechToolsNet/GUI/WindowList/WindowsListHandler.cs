@@ -55,7 +55,6 @@ namespace ATechTools.GUI.WindowList
             if ((this.windowManager != null) && (!this.windowManager.IsDisposed))
             {
                 this.windowManager.RefreshList();
-                //return true;
             }
 
         }
@@ -69,6 +68,12 @@ namespace ATechTools.GUI.WindowList
                 this.listOfWindows.Remove(wlx); //.Remove(wli.WindowsListId);
                 this.dictionaryOfWindows.Remove(wli.WindowsListId);
             }
+
+            if ((this.windowManager != null) && (!this.windowManager.IsDisposed))
+            {
+                this.windowManager.RefreshList();
+            }
+
         }
 
 
