@@ -11,6 +11,8 @@ namespace ATechTools.GUI.WindowList
 
         bool Focus();
 
+        void BringToFront();
+
         void RefreshList();
 
     }

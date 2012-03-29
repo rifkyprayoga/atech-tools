@@ -15,6 +15,7 @@ namespace ATechTools.GUI.WindowList
 
         void FocusWLForm();
 
+        void BringToFront();
 
         string WindowsListBaseId
         {

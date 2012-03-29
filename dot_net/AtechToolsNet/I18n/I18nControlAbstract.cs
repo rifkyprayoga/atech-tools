@@ -591,7 +591,7 @@ public abstract class I18nControlAbstract
         
             return ((Char)back[0]);
         }
-        catch (Exception e)
+        catch //(Exception e)
         {
             return Char.MinValue;
         }

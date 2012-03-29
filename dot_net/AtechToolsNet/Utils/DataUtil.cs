@@ -88,7 +88,7 @@ namespace AtechTools.Core.Utils
                 int x = Int32.Parse(val);
                 return x;
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
                 return def_val;
             }

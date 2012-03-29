@@ -2250,7 +2250,7 @@ public abstract class ATDataAccessAbstract
         {
             config_loaded = props.LoadFile(filename);
         }
-        catch (Exception ex)
+        catch //(Exception ex)
         {
             config_loaded = false;
         }
