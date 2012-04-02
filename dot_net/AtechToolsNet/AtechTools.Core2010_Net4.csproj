@@ -65,6 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Db\Application\ModuleHelp.cs" />
+    <Compile Include="Db\Application\ModuleInstance.cs" />
+    <Compile Include="Db\Application\ModuleReport.cs" />
     <Compile Include="Db\DatabaseObject.cs" />
     <Compile Include="Db\DatabaseObjectMobile.cs" />
     <Compile Include="Db\DataLayerAbstract.cs" />
