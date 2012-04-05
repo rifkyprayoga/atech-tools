@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
+using System.ComponentModel;
 
 
 namespace ATechTools.Db
@@ -92,6 +93,15 @@ namespace ATechTools.Db
         }
 
 
+        public bool GetBoolValueNotNull(object db_value, bool def_value)
+        {
+            if (db_value == DBNull.Value)
+                return def_value;
+            else
+                return Convert.ToBoolean(db_value);
+        }
+
+
         public DateTime GetDateTimeNotNull(object db_value, DateTime def_value)
         {
             if (db_value == DBNull.Value)
@@ -139,18 +149,21 @@ namespace ATechTools.Db
 
         public abstract bool ImportDb(string[] elements, int table_version);
 
+
         public string ExportDb()
         {
             return ExportDb(TableVersion);
         }
 
 
+        [Browsable(false)]
         public abstract int TableVersion
         { 
             get;
         }
 
 
+        [Browsable(false)]
         public abstract string TableName
         {
             get;
