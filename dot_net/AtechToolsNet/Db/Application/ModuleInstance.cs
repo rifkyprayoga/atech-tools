@@ -66,7 +66,19 @@ namespace ATechTools.Db.Application
 
         }
 
+        public bool HasReports()
+        {
+            return (GetReportCount() > 0);
+        }
 
+
+        public int GetReportCount()
+        {
+            if (this.moduleReports == null)
+                return 0;
+            else
+                return this.moduleReports.Count;
+        }
 
 
     }
