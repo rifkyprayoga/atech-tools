@@ -4,6 +4,7 @@ using System.Text;
 using ATechTools.GUI;
 using ATechTools.Util;
 
+
 namespace ATechTools.GUI.WindowList
 {
     public class WindowsListHandler
@@ -11,7 +12,7 @@ namespace ATechTools.GUI.WindowList
         ATDataAccessAbstract da;
 
         Dictionary<string, WindowListI> dictionaryOfWindows = null;
-        List<WindowListI> listOfWindows = null;
+        protected List<WindowListI> listOfWindows = null;
         WindowListClientI windowManager = null;
 
         public WindowListClientI WindowManager

@@ -69,6 +69,7 @@
     <Compile Include="Db\Application\ModuleInstance.cs" />
     <Compile Include="Db\Application\ModuleReport.cs" />
     <Compile Include="Db\DatabaseObject.cs" />
+    <Compile Include="Db\DatabaseObjectId.cs" />
     <Compile Include="Db\DatabaseObjectMobile.cs" />
     <Compile Include="Db\DataLayerAbstract.cs" />
     <Compile Include="Db\DatabaseObjectError.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="GUI\WindowList\WindowListClientI.cs" />
     <Compile Include="GUI\WindowList\WindowListI.cs" />
     <Compile Include="GUI\WindowList\WindowsListHandler.cs" />
+    <Compile Include="GUI\WindowList\XtraForm.cs" />
     <Compile Include="I18n\I18nControlAbstract.cs" />
     <Compile Include="I18n\MissingResourceException.cs" />
     <Compile Include="I18n\ResourceBundle.cs" />
