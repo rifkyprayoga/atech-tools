@@ -354,7 +354,7 @@ public abstract class ATDataAccessAbstract
         m_settings_ht = new Hashtable<String, String>();
         plugins = new Hashtable<String,PlugInClient>();
         
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!! COLATOR " + this);
+        //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!! COLATOR " + this);
         m_collator = this.m_i18n.getCollationDefintion();
         loadPlugIns();
         loadBackupRestoreCollection();

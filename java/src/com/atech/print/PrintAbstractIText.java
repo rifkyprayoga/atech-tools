@@ -1,6 +1,5 @@
 package com.atech.print;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -9,20 +8,21 @@ import org.apache.commons.logging.LogFactory;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.Element;
-import com.lowagie.text.ExceptionConverter;
-import com.lowagie.text.Font;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.BaseFont;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfPageEventHelper;
-import com.lowagie.text.pdf.PdfWriter;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.ExceptionConverter;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPageEventHelper;
+import com.itextpdf.text.pdf.PdfWriter;
 
 
 /**
@@ -306,7 +306,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         if (element_cnt%2==1) 
             table.getDefaultCell().setGrayFill(0.9f);
         else
-            table.getDefaultCell().setBackgroundColor(Color.white);
+            table.getDefaultCell().setBackgroundColor(BaseColor.WHITE);
     	
     }
     
@@ -387,7 +387,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
             PdfPTable foot = new PdfPTable(1);
 
             PdfPCell pc = new PdfPCell();
-            pc.setBorderColor(Color.white);
+            pc.setBorderColor(BaseColor.WHITE);
 
             Font f = new Font(this.base_times , 10, Font.ITALIC|Font.BOLD); // this.base_times
 

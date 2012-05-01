@@ -1,4 +1,4 @@
-package com.atech.graphics.dialogs;
+package com.atech.graphics.dialogs.guilist;
 
 /**
  *  This file is part of ATech Tools library.

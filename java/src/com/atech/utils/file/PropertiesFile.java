@@ -125,8 +125,8 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
         }
         catch(Exception ex)
         {
-            System.out.println("PropertiesFile: Error reading file: " + this.filename);
-            ex.printStackTrace();
+            log.error("PropertiesFile: Error reading file: " + this.filename);
+            //ex.printStackTrace();
             file_read = false;
         }
     }

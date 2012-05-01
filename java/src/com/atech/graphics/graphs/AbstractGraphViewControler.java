@@ -224,7 +224,8 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
     
     /**
      * Get Panel (with Controler)
-
+     * @return
+     *  
      * @see com.atech.graphics.graphs.GraphViewControlerInterface#getPanel()
      */
     public JPanel getPanel()
@@ -232,4 +233,15 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         return this.control_panel;
     }
 
+    
+    /**
+     * Get Controler Panel
+
+     */
+    public JPanel getControlerPanel()
+    {
+        return this.control_panel;
+    }
+    
+    
 }

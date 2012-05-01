@@ -290,6 +290,10 @@ public class LanguageManager
         
 //        System.out.println("loadTranslationData: " + pf.wasFileRead());
         
+        if (!pf.wasFileRead())
+            return;
+        
+        
         if (!ATDataAccessAbstract.isOptionEnabled(pf.get("LANGUAGE_TOOL_ENABLED")))
             return;
         

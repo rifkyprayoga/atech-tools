@@ -1,6 +1,7 @@
 
 package com.atech.utils.data;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -1069,6 +1070,11 @@ public static GregorianCalendar getGregorianCalendar(int format, long dt)
         gc.set(GregorianCalendar.SECOND, this.second);
         gc.set(GregorianCalendar.MILLISECOND, this.msecond);
 
+        //System.out.println("getGregorianCalendar: parts   " + this.hour_of_day + ":" + this.minute);
+        //System.out.println("getGregorianCalendar: gc      " + gc.get(Calendar.HOUR_OF_DAY) + ":" + gc.get(Calendar.MINUTE)); 
+        
+        
+        
         return gc;
     }
 

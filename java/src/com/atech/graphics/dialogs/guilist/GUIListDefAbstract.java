@@ -1,4 +1,4 @@
-package com.atech.graphics.dialogs;
+package com.atech.graphics.dialogs.guilist;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;

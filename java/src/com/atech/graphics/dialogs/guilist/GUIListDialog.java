@@ -1,4 +1,4 @@
-package com.atech.graphics.dialogs;
+package com.atech.graphics.dialogs.guilist;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -224,6 +224,7 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         int pos_y = r.y;
         
         int pic_size[] = {22,22};
+        //int pos_y = 0;
         
         for(int i=0; i<this.definition.getButtonDefinitions().size(); i++)
         {
@@ -232,19 +233,21 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
             if (bd instanceof LabelDef)
             {
                 LabelDef ld = (LabelDef)bd;
-                JLabel lab = ATSwingUtils.getLabel(ld.label_text, pos_x, pos_y + (i *40), 120, 30, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+                JLabel lab = ATSwingUtils.getLabel(ld.label_text, pos_x, pos_y , 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
+                pos_y += 25;
             }
             else if (bd instanceof DividerDef)
             {
-                
+                pos_y += 25;
             }
             else
             {
                 JButton b = ATSwingUtils.getButton("   " + bd.text, 
-                    pos_x, pos_y + (i *40), 120, 30, panel, 
+                    pos_x, pos_y , 120, 30, panel, 
                     ATSwingUtils.FONT_NORMAL , bd.icon_name, bd.action, 
                     this, m_da, pic_size);
                 b.setHorizontalAlignment(JButton.LEFT);
+                pos_y += 35;
             }
         }
         

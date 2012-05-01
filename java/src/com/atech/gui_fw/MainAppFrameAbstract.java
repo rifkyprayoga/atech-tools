@@ -33,7 +33,7 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
-import com.atech.graphics.dialogs.GUIListDialog;
+import com.atech.graphics.dialogs.guilist.GUIListDialog;
 import com.atech.graphics.graphs.GraphViewer;
 import com.atech.help.HelpContext;
 import com.atech.i18n.I18nControlAbstract;

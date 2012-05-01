@@ -1,4 +1,5 @@
-package com.atech.graphics.dialogs;
+package com.atech.graphics.dialogs.guilist;
+
 
 public class DividerDef extends ButtonDef
 {

@@ -1,5 +1,7 @@
 package com.atech.graphics.graphs;
 
+import java.awt.Rectangle;
+
 import javax.swing.JPanel;
 
 /**
@@ -49,7 +51,25 @@ public interface GraphViewControlerInterface
      * 
      * @return JPanel instance
      */
-    public JPanel getPanel();
+    public JPanel getControlerPanel();
+ 
+
+    //public JPanel getControlerPanel();
+    
+    
+    /**
+     * Get Controller Bounds (in some cases controler can return false data about size, in that 
+     * cases we need to get correct bounds.  
+     * @return Rectangle as bounds
+     */
+    public Rectangle getControlerBounds();
+    
+    
+    /**
+     * Resize controller component (in some cases resize is not automatical, then we need this method)
+     */
+    public void resizeController(int width);
+    
     
 }
 

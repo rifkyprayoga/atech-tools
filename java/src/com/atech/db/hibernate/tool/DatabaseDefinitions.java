@@ -77,92 +77,100 @@ public class DatabaseDefinitions
         "", 
         "DB2390Dialect",
 
-            // Derby
-            "Derby", "org.apache.derby.jdbc.EmbeddedDriver", "jdbc:derby:;databaseName=<database>;user=<username>;password=<password>", "", "DerbyDialect",
+        // Derby
+        "Derby", 
+        "org.apache.derby.jdbc.EmbeddedDriver", 
+        "jdbc:derby:;databaseName=<database>;user=<username>;password=<password>", 
+        "", 
+        "DerbyDialect",
 
-            // Derby Read-only JAR
-            "Derby Read-only JAR", "org.apache.derby.jdbc.EmbeddedDriver", "jdbc:derby:jar:(<path_to_archive>)<path_within_archive>;user=<username>;password=<password>", "", "DerbyDialect",
+        // Derby Read-only JAR
+        "Derby Read-only JAR", 
+        "org.apache.derby.jdbc.EmbeddedDriver", 
+        "jdbc:derby:jar:(<path_to_archive>)<path_within_archive>;user=<username>;password=<password>", 
+        "", 
+        "DerbyDialect",
 
-            // FrontBase
-            "FrontBase", "com.frontbase.jdbc.FBJDriver", "jdbc:FrontBase://<hostname>:<port>/<database>", "", "FrontbaseDialect",
+        // FrontBase
+        "FrontBase", "com.frontbase.jdbc.FBJDriver", "jdbc:FrontBase://<hostname>:<port>/<database>", "", "FrontbaseDialect",
 
-            // Firebird
-            "Firebird", "org.firebirdsql.jdbc.FBDriver", "jdbc:firebirdsql://<db_tag>:<port>/<db_path>", "3050", "FirebirdDialect",
+        // Firebird
+        "Firebird", "org.firebirdsql.jdbc.FBDriver", "jdbc:firebirdsql://<db_tag>:<port>/<db_path>", "3050", "FirebirdDialect",
 
-            // HypersonicSQL
-            "HypersonicSQL Server", "org.hsqldb.jdbcDriver", "jdbc:hsqldb:hsql://<hostname>/<database>", "", "HSQLDialect",
+        // HypersonicSQL
+        "HypersonicSQL Server", "org.hsqldb.jdbcDriver", "jdbc:hsqldb:hsql://<hostname>/<database>", "", "HSQLDialect",
 
-            // HypersonicSQL
-            "HypersonicSQL File", "org.hsqldb.jdbcDriver", "jdbc:hsqldb:file:<db_path>", "", "HSQLDialect",
+        // HypersonicSQL
+        "HypersonicSQL File", "org.hsqldb.jdbcDriver", "jdbc:hsqldb:file:<db_path>", "", "HSQLDialect",
 
-            // HypersonicSQL
-            "HypersonicSQL Memory", "org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:<db_tag>", "", "HSQLDialect",
+        // HypersonicSQL
+        "HypersonicSQL Memory", "org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:<db_tag>", "", "HSQLDialect",
 
-            // Informix
-            "Informix", "com.informix.jdbc.IfxDriver", "jdbc:informix-sqli://<hostname>:<port>/<database>:informixserver=<db_server_name>", "", "InformixDialect",
+        // Informix
+        "Informix", "com.informix.jdbc.IfxDriver", "jdbc:informix-sqli://<hostname>:<port>/<database>:informixserver=<db_server_name>", "", "InformixDialect",
 
-            // Ingres
-            "Ingres", "ca.edbc.jdbc.EdbcDriver", "jdbc:edbc://<hostname>:<port>/<database>-<server_class>", "", "IngresDialect",
+        // Ingres
+        "Ingres", "ca.edbc.jdbc.EdbcDriver", "jdbc:edbc://<hostname>:<port>/<database>-<server_class>", "", "IngresDialect",
 
-            // Interbase
-            "Interbase", "interbase.interclient.Driver", "jdbc:interbase://<hostname>/<database>", "", "InterbaseDialect",
+        // Interbase
+        "Interbase", "interbase.interclient.Driver", "jdbc:interbase://<hostname>/<database>", "", "InterbaseDialect",
 
-            // JDataStore
-            "JDataStore", "com.borland.datastore.jdbc.DataStoreDriver", "jdbc:borland:dslocal:<file>", "", "JDataStoreDialect",
+        // JDataStore
+        "JDataStore", "com.borland.datastore.jdbc.DataStoreDriver", "jdbc:borland:dslocal:<file>", "", "JDataStoreDialect",
 
-            // Microsoft SQL Server
-            "Microsoft SQL Server", "com.microsoft.jdbc.sqlserver.SQLServerDriver", "jdbc:microsoft:sqlserver://<hostname>:<port>;DatabaseName=<database>", "1433", "SQLServerDialect",
+        // Microsoft SQL Server
+        "Microsoft SQL Server", "com.microsoft.jdbc.sqlserver.SQLServerDriver", "jdbc:microsoft:sqlserver://<hostname>:<port>;DatabaseName=<database>", "1433", "SQLServerDialect",
 
-            // Mckoi SQL
-            "Mckoi SQL", "com.mckoi.JDBCDriver", "jdbc:mckoi://<hostname>:<port>/<database>/", "", "MckoiDialect",
+        // Mckoi SQL
+        "Mckoi SQL", "com.mckoi.JDBCDriver", "jdbc:mckoi://<hostname>:<port>/<database>/", "", "MckoiDialect",
 
-            // Mimer
-            "MimerSQL", "com.mimer.jdbc.Driver", "jdbc:mimer://<hostname>/<database>", "", "MimerSQLDialect",
+        // Mimer
+        "MimerSQL", "com.mimer.jdbc.Driver", "jdbc:mimer://<hostname>/<database>", "", "MimerSQLDialect",
 
-            // MySQL
-            "MySQL", "com.mysql.jdbc.Driver", "jdbc:mysql://<hostname>:<port>/<database>?user=<username>&password=<password>&useUnicode=true&characterEncoding=utf-8", "", "MySQLDialect",
+        // MySQL
+        "MySQL", "com.mysql.jdbc.Driver", "jdbc:mysql://<hostname>:<port>/<database>?user=<username>&password=<password>&useUnicode=true&characterEncoding=utf-8", "", "MySQLDialect",
 
-            // MySQL InnoDb
-            "MySQL InnoDb", "com.mysql.jdbc.Driver", "jdbc:mysql://<hostname>:<port>/<database>?user=<username>&password=<password>&useUnicode=true&characterEncoding=utf-8", "", "MySQLInnoDBDialect",
+        // MySQL InnoDb
+        "MySQL InnoDb", "com.mysql.jdbc.Driver", "jdbc:mysql://<hostname>:<port>/<database>?user=<username>&password=<password>&useUnicode=true&characterEncoding=utf-8", "", "MySQLInnoDBDialect",
 
-            // MySQL MyIsam
-            "MySQL MyISAM", "com.mysql.jdbc.Driver", "jdbc:mysql://<hostname>:<port>/<database>?user=<username>&password=<password>&useUnicode=true&characterEncoding=utf-8", "", "MySQLMyISAMDialect",
+        // MySQL MyIsam
+        "MySQL MyISAM", "com.mysql.jdbc.Driver", "jdbc:mysql://<hostname>:<port>/<database>?user=<username>&password=<password>&useUnicode=true&characterEncoding=utf-8", "", "MySQLMyISAMDialect",
 
-            // Oracle (any version)
-            "Oracle (any version)", "oracle.jdbc.OracleDriver", "jdbc:oracle:oci:@<hostname>:<port>:<sid>", "1521", "OracleDialect",
+        // Oracle (any version)
+        "Oracle (any version)", "oracle.jdbc.OracleDriver", "jdbc:oracle:oci:@<hostname>:<port>:<sid>", "1521", "OracleDialect",
 
-            // Oracle 9/10g
-            "Oracle 9/10g", "oracle.jdbc.OracleDriver", "jdbc:oracle:oci:@<hostname>:<port>:<sid>", "1521", "Oracle9Dialect",
+        // Oracle 9/10g
+        "Oracle 9/10g", "oracle.jdbc.OracleDriver", "jdbc:oracle:oci:@<hostname>:<port>:<sid>", "1521", "Oracle9Dialect",
 
-            // Pointbase
-            "Pointbase", "com.pointbase.jdbc.jdbcUniversalDriver", "jdbc:pointbase:server://<hostname>/<database>", "", "PointbaseDialect",
+        // Pointbase
+        "Pointbase", "com.pointbase.jdbc.jdbcUniversalDriver", "jdbc:pointbase:server://<hostname>/<database>", "", "PointbaseDialect",
 
-            // PostgreSQL
-            "PostgreSQL", "org.postgresql.Driver", "jdbc:postgresql://<hostname>:<port>/<database>?user=<username>&password=<password>", "5432", "PostgreSQLDialect",
+        // PostgreSQL
+        "PostgreSQL", "org.postgresql.Driver", "jdbc:postgresql://<hostname>:<port>/<database>?user=<username>&password=<password>", "5432", "PostgreSQLDialect",
 
-            // Progress
-            "Progress", "com.progress.sql.jdbc.JdbcProgressDriver", "jdbc:jdbcprogress:T:<hostname>:<port>|<service_name>:<database>", "", "ProgressDialect",
+        // Progress
+        "Progress", "com.progress.sql.jdbc.JdbcProgressDriver", "jdbc:jdbcprogress:T:<hostname>:<port>|<service_name>:<database>", "", "ProgressDialect",
 
-            // RDMSOS2200Dialect
-            "RDMSOS 2200", "com.unisys.os2200.rdms.jdbc.RdmsDriver", "jdbc:rdms:schema=<database>; host=<hostname>; port=<port>", "", "RDMSOS2200Dialect",
+        // RDMSOS2200Dialect
+        "RDMSOS 2200", "com.unisys.os2200.rdms.jdbc.RdmsDriver", "jdbc:rdms:schema=<database>; host=<hostname>; port=<port>", "", "RDMSOS2200Dialect",
 
-            // SAP DB
-            "SAP DB", "com.sap.dbtech.jdbc.DriverSapDB", "jdbc:sapdb://<hostname>:<port>/<database>", "", "SAPDBDialect",
+        // SAP DB
+        "SAP DB", "com.sap.dbtech.jdbc.DriverSapDB", "jdbc:sapdb://<hostname>:<port>/<database>", "", "SAPDBDialect",
 
-            // Sybase
-            "Sybase", "com.sybase.jdbc3.jdbc.SybDriver", "jdbc:sybase:Tds:<hostname>:<port>/<database>", "2048", "SybaseDialect",
+        // Sybase
+        "Sybase", "com.sybase.jdbc3.jdbc.SybDriver", "jdbc:sybase:Tds:<hostname>:<port>/<database>", "2048", "SybaseDialect",
 
-            // Sybase 11
-            "Sybase 11", "com.sybase.jdbc3.jdbc.SybDriver", "jdbc:sybase:Tds:<hostname>:<port>/<database>", "2048", "Sybase11Dialect",
+        // Sybase 11
+        "Sybase 11", "com.sybase.jdbc3.jdbc.SybDriver", "jdbc:sybase:Tds:<hostname>:<port>/<database>", "2048", "Sybase11Dialect",
 
-            // Sybase Anywhere
-            "Sybase Anywhere", "com.sybase.jdbc3.jdbc.SybDriver", "jdbc:sybase:Tds:<hostname>:<port>/<database>", "2048", "SybaseAnywhereDialect",
+        // Sybase Anywhere
+        "Sybase Anywhere", "com.sybase.jdbc3.jdbc.SybDriver", "jdbc:sybase:Tds:<hostname>:<port>/<database>", "2048", "SybaseAnywhereDialect",
 
-            // TimesTenDialect
-            "TimesTen", "com.timesten.jdbc.TimesTenDriver", "jdbc:timesten:direct:<database>", "", "TimesTenDialect",
+        // TimesTenDialect
+        "TimesTen", "com.timesten.jdbc.TimesTenDriver", "jdbc:timesten:direct:<database>", "", "TimesTenDialect",
 
-            // H2 SQL 
-            "H2 SQL", "org.h2.Driver", "jdbc:h2:<db_path>", "", "H2Dialect",
+        // H2 SQL 
+        "H2 SQL", "org.h2.Driver", "jdbc:h2:<db_path>", "", "H2Dialect",
 
             // Unknown
             "Unsupported Db", "Undefined", "Undefined", "", "Dialect",
