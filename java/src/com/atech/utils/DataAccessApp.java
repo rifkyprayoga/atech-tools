@@ -222,6 +222,11 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
 */
         
+    
+    public long selected_customer_id = 0L;
+    
+    
+    
 
     // ********************************************************
     // ******      Constructors and Access methods        *****    

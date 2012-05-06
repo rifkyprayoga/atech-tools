@@ -502,7 +502,7 @@ public class DateComponent extends JPanel implements ChangeListener
                 e.printStackTrace();
             }*/
             
-            System.out.println("getDate: y=" + y + ",m=" + month.getValue() + ",d=" + d);
+            //System.out.println("getDate: y=" + y + ",m=" + month.getValue() + ",d=" + d);
             
             int mo = findMonth(m)+1;
     
@@ -515,7 +515,7 @@ public class DateComponent extends JPanel implements ChangeListener
             out += d;
 
             
-            System.out.println("getDate: " +  out);
+            //System.out.println("getDate: " +  out);
             
             return out;
         

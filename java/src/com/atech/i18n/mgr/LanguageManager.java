@@ -600,7 +600,7 @@ public class LanguageManager
         }*/
     	
     	// multi language support
-    	// we have following directory structire:
+    	// we have following directory structure:
     	//     help
     	//       |- en
     	//       |   |- GGC.hs
@@ -622,7 +622,7 @@ public class LanguageManager
             
             
             if (li.help_available)
-                return "help/" + this.selected_language + "GGC.hs";
+                return "help/" + this.selected_language + "/GGC.hs";
             else
                 return "help/en/GGC.hs";
         }

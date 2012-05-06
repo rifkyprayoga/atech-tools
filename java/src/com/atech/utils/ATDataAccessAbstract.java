@@ -4112,6 +4112,27 @@ public abstract class ATDataAccessAbstract
         return ((value & value_we_check_for) == value_we_check_for);
     }
    
+ 
+    /**
+     * This is for action treshold. Sometimes, action happens twice, this method can help with prevention of that. We need to have local variable tipe long 
+     * set with currentTimeMillis(). we add following code in start of action/item listner (action can have treshiold set directly, while tem listener can't).
+     * 
+     * If true is returned we have passed treshold.
+     * 
+     * @return
+     */
+    public boolean checkActionTreshold(long last_action, long treshold_ms)
+    {
+        long diff = System.currentTimeMillis()-last_action;
+        
+        if (diff< treshold_ms)
+            return false;
+        else
+            return true;
+    }
+    
+    
+    
     
     
 }

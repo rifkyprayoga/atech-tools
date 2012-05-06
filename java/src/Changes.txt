@@ -4,7 +4,16 @@ Changes file for atech-tools
 See Authors for more description on developers
 --------------------------------------------------
 
-0.7.4 [16.8.2011]
+
+0.7.5
+   - MSP 0.8 changes 
+
+0.7.4 [16.4.2012]
+   - Baralga changes
+   
+
+
+[16.8.2011]
      [GGC 0.5 [8] Minor changes]
  
     * Minor chnages here and there
@@ -14,6 +23,8 @@ See Authors for more description on developers
     //   0.7.1 [MSP Project, TravelDoc]
     //   0.7.2 [PIS: Bitwise, FW, Components, Hibernate]
     //   0.7.3 [GGC: ExtendedDb, I18n Manager]
+    //   0.7.4 [GGC 0.5.1, Baralga 1.7]
+    //   0.7.5
     //   
 
 0.5.2
