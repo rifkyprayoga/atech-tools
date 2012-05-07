@@ -33,10 +33,14 @@ jfreechart.path=${lib.dir}/jfreechart
 jfreechart.api=${jasper.dir}/jcommon-1.0.15.jar;${jfreechart.path}/jcommon-xml-1.0.13.jar;${jfreechart.path}/jfreechart-1.0.10.jar
 
 #
-# iText 2.1.7
+# iText 5.1.2 //2.1.7
 #
 # iText.api=${lib.dir}/utils/iText-2.0.7.jar (jasper 3.7.1) has newer
-iText.api=${jasper.dir}/iText-2.1.7.jar
+# iText.api=${jasper.dir}/iText-2.1.7.jar
+iText.api=${utils_path}/itextpdf-5.1.2.jar;${utils_path}/itext-xtra-5.1.2.jar
+
+
+itextpdf-5.1.2.jar
 
 
 #

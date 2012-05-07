@@ -103,6 +103,10 @@ public class Rounding
                         val++;
                 }
             }
+            else
+            {
+                return Math.round(input_val);
+            }
                 
             return val;
         }
