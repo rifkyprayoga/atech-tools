@@ -327,7 +327,7 @@ public abstract class ATDataAccessAbstract
 
     // INIT
 
-    public void loadArraysTranslation()
+    public virtual void loadArraysTranslation()
     {
         // months
         months[0] = m_i18n.GetMessage("JANUARY");

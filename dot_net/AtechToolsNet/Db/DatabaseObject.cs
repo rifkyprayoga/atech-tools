@@ -111,9 +111,44 @@ namespace ATechTools.Db
         }
 
 
+        public DateTime? GetDateTimeNull(object db_value, DateTime? def_value)
+        {
+            if (db_value == DBNull.Value)
+                return def_value;
+            else
+                return Convert.ToDateTime(db_value);
+        }
+
+
         public object GetDbStringOrNull(string val)
         {
             if ((val == null) || (val.Length==0))
+                return DBNull.Value;
+            else
+                return val;
+        }
+
+
+        public object GetDbSingleOrNull(float val)
+        {
+            if (val == 0.0f)
+                return DBNull.Value;
+            else
+                return val;
+        }
+
+
+        public object GetDbDateTimeNOrNull(DateTime? val)
+        {
+            if (val == null)
+                return DBNull.Value;
+            else
+                return Convert.ToDateTime(val);
+        }
+
+        public object GetDbDateTimeNOrNull(DateTime val)
+        {
+            if (val == DateTime.MinValue)
                 return DBNull.Value;
             else
                 return val;

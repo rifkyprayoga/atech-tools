@@ -55,8 +55,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\libs\net4\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -68,6 +69,8 @@
     <Compile Include="Db\Application\ModuleHelp.cs" />
     <Compile Include="Db\Application\ModuleInstance.cs" />
     <Compile Include="Db\Application\ModuleReport.cs" />
+    <Compile Include="Db\Application\ModuleReportPart.cs" />
+    <Compile Include="Db\DatabaseLogger.cs" />
     <Compile Include="Db\DatabaseObject.cs" />
     <Compile Include="Db\DatabaseObjectChanged.cs" />
     <Compile Include="Db\DatabaseObjectId.cs" />
@@ -93,6 +96,7 @@
     <Compile Include="GUI\Selector\SelectorViewInterface.cs" />
     <Compile Include="GUI\StatusReceiverInterface.cs" />
     <Compile Include="GUI\UnmovableForm.cs" />
+    <Compile Include="GUI\Util\BitmapToRegion.cs" />
     <Compile Include="GUI\WindowList\WindowListClientI.cs" />
     <Compile Include="GUI\WindowList\WindowListI.cs" />
     <Compile Include="GUI\WindowList\WindowsListHandler.cs" />

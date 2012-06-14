@@ -12,6 +12,8 @@ namespace ATechTools.Db.Application
         private string moduleName;
         private ModuleHelp moduleHelp = null;
         private List<ModuleReport> moduleReports = null;
+        private Dictionary<string, List<ModuleReport>> moduleReportsSubs = null;
+        
         #endregion
 
 
@@ -57,14 +59,43 @@ namespace ATechTools.Db.Application
 
         public void AddReport(ModuleReport mr)
         {
-            if (moduleReports == null)
+            if ((mr.ModuleSub == null) && (mr.ModuleSub.Length == 0))
             {
-                this.moduleReports = new List<ModuleReport>();
+                if (moduleReports == null)
+                    this.moduleReports = new List<ModuleReport>();
+
+                this.moduleReports.Add(mr);
+            }
+            else
+            {
+                if (this.moduleReportsSubs == null)
+                    this.moduleReportsSubs = new Dictionary<string, List<ModuleReport>>();
+
+                if (this.moduleReportsSubs.ContainsKey(mr.ModuleSub))
+                {
+                    this.moduleReportsSubs[mr.ModuleSub].Add(mr);
+                }
+                else
+                {
+                    List<ModuleReport> lst = new List<ModuleReport>();
+                    lst.Add(mr);
+                    this.moduleReportsSubs.Add(mr.ModuleSub, lst);
+                }
             }
 
-            this.moduleReports.Add(mr);
-
         }
+
+
+        public void AddReports(List<ModuleReport> list_mr)
+        {
+            foreach (ModuleReport mr in list_mr)
+            {
+                AddReport(mr);
+            }
+        }
+
+
+
 
         public bool HasReports()
         {
