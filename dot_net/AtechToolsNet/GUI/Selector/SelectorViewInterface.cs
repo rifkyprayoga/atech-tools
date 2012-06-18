@@ -101,7 +101,7 @@ namespace AtechToolsNet.GUI.Selector
         /// SelectorView has View Action.
         /// </summary>
         /// <returns></returns>
-        bool HasViewAction();
+        bool HasViewAction { get; set; }
 
         bool HasPrintingReports();
 
