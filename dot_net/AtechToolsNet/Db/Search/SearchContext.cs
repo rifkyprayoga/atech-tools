@@ -25,7 +25,7 @@ namespace ATechTools.Db.Search
 
 
 
-        public string GetSearchWhere(string val)
+        public string GetSearchWhere(string tableName, string val)
         {
 
             if (val.Length == 0)
@@ -81,9 +81,6 @@ namespace ATechTools.Db.Search
 
                     string sbTemp = "";
 
-
-
-
                     if (searchParameters[i].CommandType == SearchParameter.COMMAND_EQUALS)
                     {
                         sbTemp = "=";
@@ -136,14 +133,40 @@ namespace ATechTools.Db.Search
 
                     if ((sbTemp != null) && (sbTemp.Length > 4))
                     {
-                        if (active_params > 0)
-                            sb2.Append(" OR ");
+                        bool exclude = false;
+                        if (searchParameters[i].HasSubSearch && searchParameters[i].SqlSubParameter.ExcludeFromPrimary)
+                        {
+                            exclude = true;
+                        }
 
-                        active_params++;
+                        if (!exclude)
+                        {
+                            if (active_params > 0)
+                                sb2.Append(" OR ");
 
-                        sb2.Append("(" + searchParameters[i].SqlParameter + " " + sbTemp);
+                            active_params++;
 
-                        sb2.Append(")");
+                            sb2.Append("(" + searchParameters[i].SqlParameter + " " + sbTemp);
+
+                            sb2.Append(")");
+                        }
+                    }
+                    
+                    if (searchParameters[i].HasSubSearch)
+                    {
+                        if ((sbTemp != null) && (sbTemp.Length > 4))
+                        {
+                            string subwhere = searchParameters[i].GetSubSearch(tableName, sbTemp);
+                            if (!string.IsNullOrEmpty(subwhere))
+                            {
+                                if (active_params > 0)
+                                    sb2.Append(" OR ");
+
+                                active_params++;
+                                sb2.Append("(" + subwhere);
+                                sb2.Append(")");
+                            }
+                        }
                     }
                 }
 
