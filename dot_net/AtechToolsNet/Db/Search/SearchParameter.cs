@@ -112,8 +112,13 @@ namespace ATechTools.Db.Search
 
         public string GetSubSearch(string primarySelectTable, string condition)
         {
-            if (_subParameter == null) return null;
-            return _subParameter.GetSubQuery(primarySelectTable, this.sqlParameter, condition);
+            if (_subParameter == null) 
+                return null;
+            
+            if (_subParameter.HasTableSpecified)
+                return _subParameter.GetSubQuery(this.sqlParameter, condition);
+            else
+                return _subParameter.GetSubQuery(primarySelectTable, this.sqlParameter, condition);
         }
 
 
@@ -124,6 +129,14 @@ namespace ATechTools.Db.Search
         private string _FieldName;
         private string _SubTableName;
         private bool _ExcludeFromPrimary = false;
+        private string _tablename;
+        private bool hasTableSpecified = false;
+
+        public bool HasTableSpecified
+        {
+            get { return hasTableSpecified; }
+            set { hasTableSpecified = value; }
+        }
 
         // {Tablename} - primary table that the select is performed on
         // {SubTablename} - sub table for sub query
@@ -147,6 +160,20 @@ namespace ATechTools.Db.Search
 
         }
 
+
+        /// <summary>
+        /// Creates a new sub search query in the where clause.
+        /// </summary>
+        /// <param name="subtablename">Subquery table name.</param>
+        /// <param name="fieldname">Field name for subquery join.</param>
+        public SearchSubParameter(string tablename, string subtablename, string fieldname)
+            : this(subtablename, fieldname, false)
+        {
+            this._tablename = tablename;
+            this.hasTableSpecified = true;
+        }
+
+
         /// <summary>
         /// Creates a new sub search query in the where clause.
         /// </summary>
@@ -160,6 +187,7 @@ namespace ATechTools.Db.Search
             _ExcludeFromPrimary = excludeFromPrimary;
         }
 
+        
         public string GetSubQuery(string tablename, string subfieldname, string condition)
         {
             string s = _sql;
@@ -170,5 +198,18 @@ namespace ATechTools.Db.Search
             s = s.Replace("{Condition}", condition);
             return s;
         }
+
+        public string GetSubQuery(string subfieldname, string condition)
+        {
+            string s = _sql;
+            s = s.Replace("{Tablename}", _tablename);
+            s = s.Replace("{SubTablename}", _SubTableName);
+            s = s.Replace("{SubField}", _FieldName);
+            s = s.Replace("{Field}", subfieldname);
+            s = s.Replace("{Condition}", condition);
+            return s;
+        }
+
+
     }
 }

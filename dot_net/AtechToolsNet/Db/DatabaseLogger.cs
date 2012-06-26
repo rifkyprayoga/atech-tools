@@ -65,7 +65,8 @@ namespace AtechTools.Core.Db
                 case SqlDbType.Real:
                 case SqlDbType.SmallInt:
                 case SqlDbType.SmallMoney:
-                    return "" + sp.Value;
+
+                    return "" + sp.Value.ToString().Replace(',', '.');
 
 
                 default:
