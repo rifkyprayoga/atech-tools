@@ -82,7 +82,7 @@ namespace ATechTools.Db
         }*/
 
 
-
+        /*
         public void CheckConnectionOpen()
         {
             if (this.m_connection == null)
@@ -96,7 +96,7 @@ namespace ATechTools.Db
                 
                 //this.m_connection.Open();
             }
-        }
+        }*/
 
 
 
@@ -115,6 +115,8 @@ namespace ATechTools.Db
             {
                 if (this.m_connection != null)
                 {
+                    if (this.m_connection.State != ConnectionState.Closed)
+                        this.m_connection.Close();
                     this.m_connection.Dispose();
                     this.m_connection = null;
                 }
@@ -129,12 +131,14 @@ namespace ATechTools.Db
 
         public SqlConnection GetConnection()
         {
+            return this.Connection;
+            /*
             SqlConnection conn = null;
 
             conn = new SqlConnection(sql_source);
             conn.Open();
                 //CheckConnectionOpen();
-            return conn;
+            return conn;*/
         }
 
 

@@ -12,6 +12,13 @@ namespace ATechTools.Db.Application
         private string moduleName;
         private ModuleHelp moduleHelp = null;
         private List<ModuleReport> moduleReports = null;
+        private Dictionary<string, ModuleReport> moduleReportsTable = null;
+
+        public Dictionary<string, ModuleReport> ModuleReportsTable
+        {
+            get { return moduleReportsTable; }
+            set { moduleReportsTable = value; }
+        }
         private Dictionary<string, List<ModuleReport>> moduleReportsSubs = null;
         
         #endregion
@@ -47,6 +54,7 @@ namespace ATechTools.Db.Application
         public ModuleInstance()
         {
             this.moduleReports = new List<ModuleReport>();
+            this.moduleReportsTable = new Dictionary<string, ModuleReport>();
         }
 
 
@@ -59,12 +67,16 @@ namespace ATechTools.Db.Application
 
         public void AddReport(ModuleReport mr)
         {
-            if ((mr.ModuleSub == null) && (mr.ModuleSub.Length == 0))
+
+            string.IsNullOrWhiteSpace(mr.ModuleSub);
+
+            if (string.IsNullOrWhiteSpace(mr.ModuleSub))   //((mr.ModuleSub == null) && (mr.ModuleSub.Trim().Length == 0))
             {
                 if (moduleReports == null)
                     this.moduleReports = new List<ModuleReport>();
 
                 this.moduleReports.Add(mr);
+                this.moduleReportsTable.Add(mr.ReportName, mr);
             }
             else
             {
@@ -81,6 +93,9 @@ namespace ATechTools.Db.Application
                     lst.Add(mr);
                     this.moduleReportsSubs.Add(mr.ModuleSub, lst);
                 }
+
+                this.moduleReportsTable.Add(mr.ReportName, mr);
+
             }
 
         }
