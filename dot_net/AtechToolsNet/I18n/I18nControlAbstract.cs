@@ -660,8 +660,11 @@ public abstract class I18nControlAbstract
             }
             else
             {
-                if (msg == msg.ToUpper())
+                if ((msg == msg.ToUpper()) && (msg.Length > 4))
+                {
                     s_logger.Warn("I18nControl(" + this.selectedLanguage + "): Couldn't find message: " + msg);
+                }
+
                 return ReturnSameValue(msg);
             }
 

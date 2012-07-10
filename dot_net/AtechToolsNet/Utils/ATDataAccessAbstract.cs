@@ -55,18 +55,18 @@ public abstract class ATDataAccessAbstract
     /**
      * The selected lf.
      */
-    String selectedLF = null;
+//    //String selectedLF = null;
     
     /**
      * The sub selected lf.
      */
-    String subSelectedLF = null;
+//    //String subSelectedLF = null;
 
     // config file
     /**
      * The config_db_values.
      */
-    Dictionary<String, String> config_db_values = null;
+//    Dictionary<String, String> config_db_values = null;
     // public int selected_db = -1;
     // public int selected_lang = 1;
     // public String selected_LF_Class = null; // class
@@ -159,7 +159,7 @@ public abstract class ATDataAccessAbstract
      */
     public static char false_decimal;
     
-    private static bool decimals_set;
+//    private static bool decimals_set;
     
     //private UpdateConfiguration update_configuration = null;
 

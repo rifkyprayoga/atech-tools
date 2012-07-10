@@ -34,6 +34,7 @@ namespace ATechTools.GUI.Config
         {
             modules = new Dictionary<string, ConfigModule>();
             settings = new Dictionary<string, string>();
+            configName = fi.FullName;
             LoadData();
         }
 
