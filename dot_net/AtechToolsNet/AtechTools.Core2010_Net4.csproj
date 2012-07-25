@@ -82,6 +82,8 @@
     <Compile Include="File\FileReader.cs" />
     <Compile Include="File\FileReaderConfig.cs" />
     <Compile Include="File\FileReaderImport.cs" />
+    <Compile Include="File\Import\ImportExportManager.cs" />
+    <Compile Include="File\Import\ImportTypeInterface.cs" />
     <Compile Include="GUI\Animation\WinApiAnimation.cs" />
     <Compile Include="GUI\Base\AddEditDbHelper.cs" />
     <Compile Include="GUI\Config\ConfigConfig.cs" />
