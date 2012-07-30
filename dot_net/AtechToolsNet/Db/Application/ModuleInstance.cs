@@ -126,6 +126,10 @@ namespace ATechTools.Db.Application
                 return this.moduleReports.Count;
         }
 
+        public override string ToString()
+        {
+            return ModuleName;
+        }
 
     }
 }

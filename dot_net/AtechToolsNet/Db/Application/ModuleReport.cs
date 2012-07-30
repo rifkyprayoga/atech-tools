@@ -204,5 +204,10 @@ namespace ATechTools.Db.Application
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            return reportName;
+        }
     }
 }
