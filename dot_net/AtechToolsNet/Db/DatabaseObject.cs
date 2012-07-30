@@ -78,7 +78,7 @@ namespace ATechTools.Db
 
         public Single GetSingleValueNotNull(object db_value, float def_value)
         {
-            if (db_value == DBNull.Value)
+            if ((db_value == DBNull.Value) || (string.IsNullOrWhiteSpace(db_value as string)))
                 return def_value;
             else
                 return Convert.ToSingle(db_value);
@@ -104,7 +104,7 @@ namespace ATechTools.Db
 
         public DateTime GetDateTimeNotNull(object db_value, DateTime def_value)
         {
-            if (db_value == DBNull.Value)
+            if ((db_value == DBNull.Value) || (string.IsNullOrWhiteSpace(db_value as string)))
                 return def_value;
             else
                 return Convert.ToDateTime(db_value);
@@ -166,7 +166,7 @@ namespace ATechTools.Db
 
         public int GetIntValueNotNull(object db_value, int def_value)
         {
-            if (db_value == DBNull.Value)
+            if ((db_value == DBNull.Value) || (string.IsNullOrWhiteSpace(db_value as string)))
                 return def_value;
             else
                 return Convert.ToInt32(db_value);

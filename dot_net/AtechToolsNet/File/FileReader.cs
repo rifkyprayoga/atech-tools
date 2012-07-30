@@ -51,7 +51,7 @@ namespace ATechTools.File
 
                 if (IsLineData(line))
                     this.data_lines++;
-                else
+                else if (IsHeaderData(line))
                     this.headers.Add(line);
             }
 
@@ -71,7 +71,7 @@ namespace ATechTools.File
         }
 
 
-        public bool IsHeaderData(string line)
+        public virtual bool IsHeaderData(string line)
         {
             if (line.Trim().StartsWith(";"))
                 return true;

@@ -103,6 +103,9 @@ namespace ATechTools.Db
         protected virtual void CreateConnection()
         {
             this.m_connection = new SqlConnection(sql_source);
+
+            //this.m_connection.S
+            //this.m_connection.ConnectionTimeout = (30 * 60);
         }
 
 
