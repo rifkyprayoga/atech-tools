@@ -78,7 +78,7 @@ namespace ATechTools.Db
 
         public Single GetSingleValueNotNull(object db_value, float def_value)
         {
-            if ((db_value == DBNull.Value) || (string.IsNullOrWhiteSpace(db_value as string)))
+            if ((db_value == DBNull.Value) || ((db_value == null) || (string.IsNullOrWhiteSpace(db_value.ToString()))))
                 return def_value;
             else
                 return Convert.ToSingle(db_value);
@@ -132,6 +132,15 @@ namespace ATechTools.Db
         public object GetDbSingleOrNull(float val)
         {
             if (val == 0.0f)
+                return DBNull.Value;
+            else
+                return val;
+        }
+
+
+        public object GetDbIntegerOrNull(int val)
+        {
+            if (val == 0)
                 return DBNull.Value;
             else
                 return val;

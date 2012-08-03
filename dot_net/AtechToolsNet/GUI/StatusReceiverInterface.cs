@@ -14,5 +14,8 @@ namespace ATechTools.GUI
 
         void SetTitle(string title);
 
+        void ImportFinished(string error_code);
+
+        bool WasImportCanceled();
     }
 }
