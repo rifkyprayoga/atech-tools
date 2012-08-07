@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System.ComponentModel;
+using System.Globalization;
 
 
 namespace ATechTools.Db
@@ -14,6 +15,18 @@ namespace ATechTools.Db
 
         protected bool is_add_action = false;
         protected bool can_we_detect_add_edit = false;
+        protected static NumberFormatInfo numberFormatInfo = null;
+
+        public DatabaseObject()
+        {
+            if (numberFormatInfo == null)
+            {
+                System.Globalization.CultureInfo ci = System.Globalization.CultureInfo.CurrentCulture;
+                numberFormatInfo = (System.Globalization.NumberFormatInfo)ci.NumberFormat.Clone();
+            }
+        }
+
+
 
         /// <summary>
         /// Add To Database
@@ -78,11 +91,30 @@ namespace ATechTools.Db
 
         public Single GetSingleValueNotNull(object db_value, float def_value)
         {
-            if ((db_value == DBNull.Value) || ((db_value == null) || (string.IsNullOrWhiteSpace(db_value.ToString()))))
+            if ((db_value == DBNull.Value) || ((db_value == null) || (string.IsNullOrWhiteSpace(db_value.ToString())) || (db_value.ToString().Equals("<null>"))))
                 return def_value;
             else
-                return Convert.ToSingle(db_value);
+            {
+                return GetFormatedSingle(db_value);
+            }
         }
+
+        private Single GetFormatedSingle(object db_value)
+        {
+            string val = db_value.ToString();
+
+            if (numberFormatInfo.CurrencyDecimalSeparator == ".")
+            {
+                val = val.Replace(",", ".");
+                return Convert.ToSingle(val);
+            }
+            else
+            {
+                val = val.Replace(".", ",");
+                return Convert.ToSingle(val);
+            }
+        }
+
 
         public string GetStringValueNotNull(object db_value, string def_value)
         {
