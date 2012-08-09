@@ -33,10 +33,30 @@ namespace ATechTools.Db.Application
         private string preRunSP;
         string whereCondition;
         private ReportWhereType whereType;
+        private bool isTemplate;
+
+        public bool IsTemplate
+        {
+            get { return isTemplate; }
+            set { isTemplate = value; }
+        }
+        private string parameterType;
+
+        public string ParameterType
+        {
+            get { return parameterType; }
+            set { parameterType = value; }
+        }
 
         //Dictionary<string, List<ModuleReportPart>> report_parts_by_sub = null;
 
         Dictionary<string, ModuleReportPart> reportParts = null;
+
+        public Dictionary<string, ModuleReportPart> ReportParts
+        {
+            get { return reportParts; }
+            set { reportParts = value; }
+        }
 
 
 
@@ -174,6 +194,9 @@ namespace ATechTools.Db.Application
             this.moduleSub = GetStringValueNotNull(row["ModuleSub"], "");
             this.preRunSP = GetStringValueNotNull(row["PreRunSP"], "");
             this.whereCondition = GetStringValueNotNull(row["WhereCondition"], "");
+
+            this.isTemplate = GetBoolValueNotNull(row["IsTemplate"], false);
+            this.parameterType = GetStringValueNotNull(row["ParameterType"], "");
 
             ProcessWhere();
 

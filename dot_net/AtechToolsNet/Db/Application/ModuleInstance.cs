@@ -118,6 +118,24 @@ namespace ATechTools.Db.Application
         }
 
 
+        public bool HasReports(string subs)
+        {
+            if (this.moduleReportsSubs == null)
+                return false;
+            else
+            {
+                if (this.moduleReportsSubs.ContainsKey(subs))
+                {
+                    return (this.moduleReportsSubs[subs].Count > 0);
+                }
+                else
+                    return false;
+            }
+        }
+
+
+
+
         public int GetReportCount()
         {
             if (this.moduleReports == null)
@@ -130,6 +148,41 @@ namespace ATechTools.Db.Application
         {
             return ModuleName;
         }
+
+        public int GetReportCount(string subs)
+        {
+            if (this.moduleReportsSubs == null)
+                return 0;
+            else
+            {
+                if (this.moduleReportsSubs.ContainsKey(subs))
+                {
+                    return (this.moduleReportsSubs[subs].Count);
+                }
+                else
+                    return 0;
+            }
+        }
+
+
+        public List<ModuleReport> GetModuleReports(string sub)
+        {
+            if (string.IsNullOrWhiteSpace(sub))
+            {
+                return this.moduleReports;
+            }
+            else
+            {
+                if (this.moduleReportsSubs.ContainsKey(sub))
+                {
+                    return (this.moduleReportsSubs[sub]);
+                }
+                else
+                    return new List<ModuleReport>();
+            }
+        }
+
+
 
     }
 }

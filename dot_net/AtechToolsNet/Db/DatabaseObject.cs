@@ -89,9 +89,20 @@ namespace ATechTools.Db
             return can_we_detect_add_edit;
         }
 
-        public Single GetSingleValueNotNull(object db_value, float def_value)
+
+        private bool IsUnsetOrNull(object db_value)
         {
             if ((db_value == DBNull.Value) || ((db_value == null) || (string.IsNullOrWhiteSpace(db_value.ToString())) || (db_value.ToString().Equals("<null>"))))
+                return true;
+            else
+                return false;
+        }
+
+
+        public Single GetSingleValueNotNull(object db_value, float def_value)
+        {
+            //if ((db_value == DBNull.Value) || ((db_value == null) || (string.IsNullOrWhiteSpace(db_value.ToString())) || (db_value.ToString().Equals("<null>"))))
+            if (IsUnsetOrNull(db_value))
                 return def_value;
             else
             {
@@ -127,7 +138,7 @@ namespace ATechTools.Db
 
         public bool GetBoolValueNotNull(object db_value, bool def_value)
         {
-            if (db_value == DBNull.Value)
+            if (IsUnsetOrNull(db_value))
                 return def_value;
             else
                 return Convert.ToBoolean(db_value);
@@ -136,7 +147,8 @@ namespace ATechTools.Db
 
         public DateTime GetDateTimeNotNull(object db_value, DateTime def_value)
         {
-            if ((db_value == DBNull.Value) || (string.IsNullOrWhiteSpace(db_value as string)))
+//            if ((db_value == DBNull.Value) || (string.IsNullOrWhiteSpace(db_value as string))
+            if (IsUnsetOrNull(db_value))
                 return def_value;
             else
                 return Convert.ToDateTime(db_value);
