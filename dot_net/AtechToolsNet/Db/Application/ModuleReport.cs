@@ -5,6 +5,7 @@ using System.Data;
 using AtechToolsNet.GUI.Selector;
 using System.Data.SqlClient;
 using AtechTools.Core.Db.Application;
+using log4net;
 
 namespace ATechTools.Db.Application
 {
@@ -20,6 +21,10 @@ namespace ATechTools.Db.Application
 
     public class ModuleReport : DatabaseObject
     {
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(ModuleReport)); 
+
+        
         private string rowguid;
 
         private string moduleID;
@@ -30,7 +35,14 @@ namespace ATechTools.Db.Application
 
         private string moduleSub;
 
-        private string preRunSP;
+        //private string preRunSP;
+        private string sPName;
+
+        public string SPName
+        {
+            get { return sPName; }
+            set { sPName = value; }
+        }
         string whereCondition;
         private ReportWhereType whereType;
         private bool isTemplate;
@@ -48,6 +60,15 @@ namespace ATechTools.Db.Application
             set { parameterType = value; }
         }
 
+        private bool hasSPParameters = false;
+
+        public bool HasSPParameters
+        {
+            get { return hasSPParameters; }
+            set { hasSPParameters = value; }
+        }
+
+
         //Dictionary<string, List<ModuleReportPart>> report_parts_by_sub = null;
 
         Dictionary<string, ModuleReportPart> reportParts = null;
@@ -57,6 +78,16 @@ namespace ATechTools.Db.Application
             get { return reportParts; }
             set { reportParts = value; }
         }
+
+
+        List<ModuleReportSP_Linked> sPParameters = null;
+
+        public List<ModuleReportSP_Linked> SPParameters
+        {
+            get { return sPParameters; }
+            set { sPParameters = value; }
+        }
+        Dictionary<string, ModuleReportSP_Linked> sPParameters_dict = null;
 
 
 
@@ -146,6 +177,73 @@ namespace ATechTools.Db.Application
         }
 
 
+        public void AddReportSPLink(ModuleReportSP_Link link, List<ModuleReportSP> sps)
+        {
+            if (link.ReportPart == "")
+            {
+                AddReportSPLinkProcess(link, sps);
+                hasSPParameters = true;
+            }
+            else
+            { 
+                if (!this.reportParts.ContainsKey(link.ReportPart))
+                {
+                    log.Error("Report part " + link.ReportPart + " is not present, so we cannot add SP " + sps[0].SPName + " to it.");
+                    return;
+                }
+                
+                this.reportParts[link.ReportPart].AddReportSPLinkProcess(link, sps);
+                hasSPParameters = true;
+            }
+        }
+
+
+        public void AddReportSPLinkProcess(ModuleReportSP_Link link, List<ModuleReportSP> sps)
+        {
+            if (sPParameters == null)
+            {
+                sPParameters = new List<ModuleReportSP_Linked>();
+                sPParameters_dict =  new Dictionary<string,ModuleReportSP_Linked>();
+            }
+
+            foreach (ModuleReportSP sp in sps)
+            {
+                ModuleReportSP_Linked lnked = new ModuleReportSP_Linked(sp);
+                lnked.SetLink(link);
+                
+                sPParameters.Add(lnked);
+                sPParameters_dict.Add(lnked.ParameterName, lnked);
+            }
+        }
+
+
+        public void AddStaticParameters(List<ModuleReportSPParameter> parameters)
+        {
+            foreach (ModuleReportSPParameter pa in parameters)
+            {
+                if (pa.ReportPart == "")
+                {
+                    AddStaticParameter(pa);
+                }
+                else
+                {
+                    if (!this.reportParts.ContainsKey(pa.ReportPart))
+                    {
+                        log.Error("Report part " + pa.ReportPart + " is not present, so we cannot add static paramter " + pa.ParameterName);
+                        return;
+                    }
+
+                    this.reportParts[pa.ReportPart].AddStaticParameter(pa);
+                }
+            }
+        }
+
+
+        public void AddStaticParameter(ModuleReportSPParameter param)
+        {
+            this.sPParameters_dict[param.ParameterName].SetStaticValue(param);
+        }
+
 
 
         public override bool AddDb(SqlConnection conn, bool is_id_set)
@@ -192,7 +290,7 @@ namespace ATechTools.Db.Application
             this.reportParameters = GetStringValueNotNull(row["ReportParameters"], "");
             this.cRC = GetStringValueNotNull(row["CRC"], "");
             this.moduleSub = GetStringValueNotNull(row["ModuleSub"], "");
-            this.preRunSP = GetStringValueNotNull(row["PreRunSP"], "");
+            this.sPName = GetStringValueNotNull(row["SPName"], "");
             this.whereCondition = GetStringValueNotNull(row["WhereCondition"], "");
 
             this.isTemplate = GetBoolValueNotNull(row["IsTemplate"], false);

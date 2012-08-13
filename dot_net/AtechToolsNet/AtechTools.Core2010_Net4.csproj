@@ -70,6 +70,10 @@
     <Compile Include="Db\Application\ModuleInstance.cs" />
     <Compile Include="Db\Application\ModuleReport.cs" />
     <Compile Include="Db\Application\ModuleReportPart.cs" />
+    <Compile Include="Db\Application\ModuleReportSP.cs" />
+    <Compile Include="Db\Application\ModuleReportSPParameter.cs" />
+    <Compile Include="Db\Application\ModuleReportSP_Link.cs" />
+    <Compile Include="Db\Application\ModuleReportSP_Linked.cs" />
     <Compile Include="Db\DatabaseLogger.cs" />
     <Compile Include="Db\DatabaseObject.cs" />
     <Compile Include="Db\DatabaseObjectChanged.cs" />

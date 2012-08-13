@@ -27,7 +27,23 @@ namespace AtechTools.Core.Db.Application
         string targetSubType;
         string cRC;
         string whereCondition;
+        private string sPName;
+
+        public string SPName
+        {
+            get { return sPName; }
+            set { sPName = value; }
+        }
+
         private ReportWhereType whereType;
+        List<ModuleReportSP_Linked> sPParameters = null;
+
+        public List<ModuleReportSP_Linked> SPParameters
+        {
+            get { return sPParameters; }
+            set { sPParameters = value; }
+        }
+        Dictionary<string, ModuleReportSP_Linked> sPParameters_dict = null;
 
         public string ParentRowguid
         {
@@ -73,8 +89,29 @@ namespace AtechTools.Core.Db.Application
         }
 
 
+        public void AddReportSPLinkProcess(ModuleReportSP_Link link, List<ModuleReportSP> sps)
+        {
+            if (sPParameters == null)
+            {
+                sPParameters = new List<ModuleReportSP_Linked>();
+                sPParameters_dict = new Dictionary<string, ModuleReportSP_Linked>();
+            }
+
+            foreach (ModuleReportSP sp in sps)
+            {
+                ModuleReportSP_Linked lnked = new ModuleReportSP_Linked(sp);
+                lnked.SetLink(link);
+
+                sPParameters.Add(lnked);
+                sPParameters_dict.Add(lnked.ParameterName, lnked);
+            }
+        }
 
 
+        public void AddStaticParameter(ModuleReportSPParameter param)
+        {
+            this.sPParameters_dict[param.ParameterName].SetStaticValue(param);
+        }
 
         public override bool AddDb(System.Data.SqlClient.SqlConnection conn, bool is_id_set)
         {
@@ -119,7 +156,7 @@ namespace AtechTools.Core.Db.Application
             this.targetSubType = GetStringValueNotNull(row["TargetSubtype"], "");
             this.cRC = GetStringValueNotNull(row["CRC"], "");
             this.whereCondition = GetStringValueNotNull(row["WhereCondition"], "");
-
+            this.sPName = GetStringValueNotNull(row["SPName"], "");
             ProcessWhere();
 
             return true;
