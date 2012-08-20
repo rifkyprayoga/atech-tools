@@ -290,7 +290,7 @@ namespace ATechTools.Db.Application
             this.reportParameters = GetStringValueNotNull(row["ReportParameters"], "");
             this.cRC = GetStringValueNotNull(row["CRC"], "");
             this.moduleSub = GetStringValueNotNull(row["ModuleSub"], "");
-            this.sPName = GetStringValueNotNull(row["SPName"], "");
+            //this.sPName = GetStringValueNotNull(row["SPName"], "");
             this.whereCondition = GetStringValueNotNull(row["WhereCondition"], "");
 
             this.isTemplate = GetBoolValueNotNull(row["IsTemplate"], false);

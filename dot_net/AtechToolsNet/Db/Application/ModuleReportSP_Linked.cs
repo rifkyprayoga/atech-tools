@@ -20,7 +20,7 @@ namespace AtechTools.Core.Db.Application
         string reportRowguid;
         string reportPart;
 
-        string value;
+        object value;
         bool staticValue = false;
 
 
@@ -39,7 +39,7 @@ namespace AtechTools.Core.Db.Application
 
 
 
-        public string Value
+        public object Value
         {
             get { return this.value; }
             set { this.value = value; }
@@ -63,6 +63,7 @@ namespace AtechTools.Core.Db.Application
             this.parameterTypeFenix = sp_def.ParameterTypeFenix;
             this.required = sp_def.Required;
             this.orderNumber = sp_def.OrderNumber;
+            this.defaultValue = sp_def.DefaultValue;
         }
 
 

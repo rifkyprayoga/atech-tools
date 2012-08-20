@@ -27,6 +27,7 @@ namespace AtechTools.Core.Db.Application
         protected string parameterTypeFenix;
         protected bool required = false;
         protected int orderNumber;
+        protected string defaultValue = null;
 
 
 
@@ -81,6 +82,12 @@ namespace AtechTools.Core.Db.Application
             set { orderNumber = value; }
         }
 
+        public string DefaultValue
+        {
+            get { return defaultValue; }
+            set { defaultValue = value; }
+        }
+
 
 
         public override bool AddDb(System.Data.SqlClient.SqlConnection conn, bool is_id_set)
@@ -122,12 +129,14 @@ namespace AtechTools.Core.Db.Application
         {
             this.sPName = GetStringValueNotNull(row["SPName"], ""); 
             this.sPDescription = GetStringValueNotNull(row["SPDescription"], ""); 
-            this.parameterDescription = GetStringValueNotNull(row["ParameterDescription"], ""); 
+            //this.parameterDescription = GetStringValueNotNull(row["ParameterDescription"], ""); 
             this.parameterName = GetStringValueNotNull(row["ParameterName"], ""); 
             this.parameterType = GetStringValueNotNull(row["ParameterType"], ""); 
             this.parameterTypeFenix = GetStringValueNotNull(row["ParameterTypeFenix"], ""); 
             this.required = GetBoolValueNotNull(row["Required"], false);
             this.orderNumber = GetIntValueNotNull(row["OrderNumber"], 0);
+            if (row["DefaultValue"] == DBNull.Value) this.defaultValue = null;
+            else this.defaultValue = (string) row["DefaultValue"];
 
             return true;
         }

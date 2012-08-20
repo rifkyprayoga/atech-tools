@@ -29,8 +29,14 @@ namespace ATechTools.Db.Search
         protected int commandType = 0;
         protected bool enabled = false;
         protected int sqlType = 0;
+        protected object defaultValue = null;
 
         private SearchSubParameter _subParameter = null;
+
+        public object DefaultValue
+        {
+            get { return defaultValue; }
+        }
 
         public SearchSubParameter SqlSubParameter
         {
@@ -99,8 +105,31 @@ namespace ATechTools.Db.Search
             this.sqlType = sqlType;
         }
 
+        public SearchParameter(string caption, string sqlParam, long index, int command_ty, bool enabled, int sqlType, object defaultvalue)
+        {
+            this.defaultValue = defaultvalue;
+            this.caption = caption;
+            this.sqlParameter = sqlParam;
+            this.index = index;
+            this.commandType = command_ty;
+            this.enabled = enabled;
+            this.sqlType = sqlType;
+        }
+
         public SearchParameter(string caption, string sqlParam, SearchSubParameter subparam, long index, int command_ty, bool enabled, int sqlType)
         {
+            this.caption = caption;
+            this.sqlParameter = sqlParam;
+            this.index = index;
+            this.commandType = command_ty;
+            this.enabled = enabled;
+            this.sqlType = sqlType;
+            this._subParameter = subparam;
+        }
+
+        public SearchParameter(string caption, string sqlParam, SearchSubParameter subparam, long index, int command_ty, bool enabled, int sqlType, object defaultvalue)
+        {
+            this.defaultValue = defaultvalue;
             this.caption = caption;
             this.sqlParameter = sqlParam;
             this.index = index;
