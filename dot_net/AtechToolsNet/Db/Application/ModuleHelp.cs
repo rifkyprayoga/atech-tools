@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace ATechTools.Db.Application
@@ -86,8 +87,7 @@ namespace ATechTools.Db.Application
             if (this.languageID.Length != 0)
                 sb.Append(this.languageID + @"\");
 
-            //sb.Append(this.helpFileName);
-
+            return Path.GetFullPath(sb.ToString());
             return sb.ToString();
         }
 
