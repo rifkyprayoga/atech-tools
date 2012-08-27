@@ -1,8 +1,9 @@
-﻿using System;
+﻿// CHANGES
+//  - DejanB    26.08.2012  Added IDReport and OrderNumber
+
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data;
-using AtechToolsNet.GUI.Selector;
 using System.Data.SqlClient;
 using AtechTools.Core.Db.Application;
 using log4net;
@@ -37,6 +38,8 @@ namespace ATechTools.Db.Application
 
         //private string preRunSP;
         private string sPName;
+        private string _idReport;
+        private int _orderNumber;
 
         public string SPName
         {
@@ -136,6 +139,18 @@ namespace ATechTools.Db.Application
         {
             get { return cRC; }
             set { cRC = value; }
+        }
+
+        public string IdReport
+        {
+            get { return _idReport; }
+            set { _idReport = value; }
+        }
+
+        public int OrderNumber
+        {
+            get { return _orderNumber; }
+            set { _orderNumber = value; }
         }
 
 
@@ -295,6 +310,9 @@ namespace ATechTools.Db.Application
 
             this.isTemplate = GetBoolValueNotNull(row["IsTemplate"], false);
             this.parameterType = GetStringValueNotNull(row["ParameterType"], "");
+
+            this._idReport = GetStringValueNotNull(row["IDReport"], "");
+            this._orderNumber = GetIntValueNotNull(row["OrderNumber"], 0);
 
             ProcessWhere();
 
