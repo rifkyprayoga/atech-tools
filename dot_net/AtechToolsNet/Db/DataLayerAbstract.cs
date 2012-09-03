@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.IO;
 using System.Data;
+using System.Collections;
 
 namespace ATechTools.Db
 {
@@ -190,6 +191,43 @@ namespace ATechTools.Db
                 this.errorException = ex;
                 return false;
             }
+        }
+
+
+        public DataTable GetDataTableFromSqlDataReader(SqlDataReader dr)
+        {
+            DataTable dtSchema = dr.GetSchemaTable();
+            DataTable dt = new DataTable();
+            ArrayList listCols = new ArrayList();
+            if (dtSchema != null)
+            {
+                foreach (DataRow drow in dtSchema.Rows)
+                {
+                    string columnName = Convert.ToString(drow["columnName"]); //drow["columnName"].ToString();
+                    DataColumn column = new DataColumn(columnName, (Type)(drow["DataType"]));
+                    column.Unique = (bool)(drow["IsUnique"]);
+                    column.AllowDBNull = (bool)(drow["AllowDBNull"]);
+                    column.AutoIncrement = (bool)(drow["IsAutoIncrement"]);
+                    column.AutoIncrement = (bool)(drow["IsAutoIncrement"]);
+                    listCols.Add(column);
+                    dt.Columns.Add(column);
+                }
+
+                while (dr.Read())
+                {
+                    DataRow dataRow = dt.NewRow();
+                    for (int i = 0; i < listCols.Count; i++)
+                    {
+                        dataRow[((DataColumn)listCols[i])] = dr[i];
+                    }
+
+                    dt.Rows.Add(dataRow);
+                }
+
+            }
+
+            return dt;
+
         }
 
 

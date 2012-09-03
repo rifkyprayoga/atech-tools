@@ -9,10 +9,82 @@ namespace ATechTools.Db.Application
     {
         private string moduleID;
         private string moduleName;
-        private string helpFileName;
         private string helpURLBase;
         private string helpUNCBase;
+
+        private string id;
+        private string parentID;
+        private string name;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        private string description;
+
+        public string Description
+        {
+            get { return description; }
+            set { description = value; }
+        }
+
+
+        public string ParentID
+        {
+            get { return parentID; }
+            set { parentID = value; }
+        }
+        private string helpFileName;
         private string languageID;
+        private List<ModuleHelp> children;
+        private object treeNode;
+        private ModuleInstance moduleInstance;
+
+
+        public string Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+
+        public void AddChild(ModuleHelp hp)
+        {
+            if (this.children == null)
+                this.children = new List<ModuleHelp>();
+
+            this.children.Add(hp);
+        }
+
+
+        public override string ToString()
+        {
+            if (this.moduleInstance != null)
+                return this.moduleInstance.ToString();
+            else
+                return this.name;
+        }
+
+
+
+        public ModuleInstance ModuleInstance
+        {
+            get { return moduleInstance; }
+            set { moduleInstance = value; }
+        }
+
+        public object TreeNode
+        {
+            get { return treeNode; }
+            set { treeNode = value; }
+        }
+
+        public List<ModuleHelp> Children
+        {
+            get { return children; }
+            set { children = value; }
+        }
 
 
         public string ModuleName
@@ -88,9 +160,29 @@ namespace ATechTools.Db.Application
                 sb.Append(this.languageID + @"\");
 
             return Path.GetFullPath(sb.ToString());
-            return sb.ToString();
+            //return sb.ToString();
         }
 
 
+
+        public ModuleHelp Clone()
+        {
+            ModuleHelp mh = new ModuleHelp();
+            mh.description = this.description;
+            mh.helpFileName = this.helpFileName;
+            mh.helpUNCBase = this.helpUNCBase;
+            mh.helpURLBase = this.helpURLBase;
+            mh.id = this.id;
+            mh.languageID = this.languageID;
+            mh.moduleID = this.moduleID;
+            mh.moduleInstance = this.moduleInstance;
+            mh.moduleName = this.moduleName;
+            mh.name = this.name;
+            mh.parentID = this.parentID;
+
+            return mh;
+                    
+            //throw new NotImplementedException();
+        }
     }
 }

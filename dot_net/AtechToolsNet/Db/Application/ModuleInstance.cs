@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AtechTools.Core.Db;
 using log4net;
+using ATechTools.I18n;
 
 namespace ATechTools.Db.Application
 {
@@ -16,6 +17,14 @@ namespace ATechTools.Db.Application
         private ModuleHelp moduleHelp = null;
         private List<ModuleReport> moduleReports = null;
         private Dictionary<string, ModuleReport> moduleReportsTable = null;
+        private string description;
+        private I18nControlAbstract ic;
+
+        public string Description
+        {
+            get { return description; }
+            set { description = value; }
+        }
 
         public Dictionary<string, ModuleReport> ModuleReportsTable
         {
@@ -23,6 +32,12 @@ namespace ATechTools.Db.Application
             set { moduleReportsTable = value; }
         }
         private Dictionary<string, List<ModuleReport>> moduleReportsSubs = null;
+
+        public Dictionary<string, List<ModuleReport>> ModuleReportsSubs
+        {
+            get { return moduleReportsSubs; }
+            set { moduleReportsSubs = value; }
+        }
         
         #endregion
 
@@ -54,8 +69,9 @@ namespace ATechTools.Db.Application
         }
 
 
-        public ModuleInstance()
+        public ModuleInstance(I18nControlAbstract ic_)
         {
+            this.ic = ic_;
             this.moduleReports = new List<ModuleReport>();
             this.moduleReportsTable = new Dictionary<string, ModuleReport>();
         }
@@ -157,7 +173,12 @@ namespace ATechTools.Db.Application
 
         public override string ToString()
         {
-            return ModuleName;
+            if (string.IsNullOrWhiteSpace(this.description))
+                return this.moduleName;
+            else
+            {
+                return ic.GetMessage(this.description);
+            }
         }
 
         public int GetReportCount(string subs)
