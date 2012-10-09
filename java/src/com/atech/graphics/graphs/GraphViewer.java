@@ -1,15 +1,18 @@
 package com.atech.graphics.graphs;
 
+import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.atech.help.HelpCapable;
 import com.atech.utils.ATDataAccessAbstract;
 
 /**
@@ -44,8 +47,9 @@ import com.atech.utils.ATDataAccessAbstract;
 */
 
 
-public class GraphViewer extends JDialog implements ComponentListener 
+public class GraphViewer extends JDialog implements ComponentListener
 {
+
     private static final long serialVersionUID = 1508401731783922689L;
     GraphViewInterface gvi;
     ATDataAccessAbstract m_da;
@@ -58,6 +62,7 @@ public class GraphViewer extends JDialog implements ComponentListener
     
     //boolean was_inited = false;
     private boolean in_resize = true;
+    String help_id = null;
     
     
     /**
@@ -163,7 +168,10 @@ public class GraphViewer extends JDialog implements ComponentListener
                 init_bounds_controler = gvcont.getGraphView().getControler().getControlerBounds();
                 
                 //panel.add(gvcont.getPanel(), BorderLayout.SOUTH);
-                //m_da.enableHelp(gvcont);
+                //this.help_id = gvcont.getHelpId();
+                
+                //if ((help_id != null) && (help_id.length()>3))
+                m_da.enableHelp(gvcont);
             }
         }
         else if (gvi instanceof AbstractGraphViewAndProcessor)
@@ -175,12 +183,22 @@ public class GraphViewer extends JDialog implements ComponentListener
             controler_instance = gvcont.getControler();
             //JPanel cont_panel= null;
             
+            /*this.help_id = gvcont.getHelpId();
+            
+            if ((help_id != null) && (help_id.length()>3))
+                m_da.enableHelp(this); */
+            //m_da.enableHelp(gvcont);
+            
+            
             if (controler_instance!=null)
             {
                 controler_panel = gvcont.getControler().getControlerPanel();
-                System.out.println("Controler panel: " + controler_panel.getBounds());
-                System.out.println("Controler panel: " + controler_instance.getControlerBounds());
+//                System.out.println("Controler panel: " + controler_panel.getBounds());
+//                System.out.println("Controler panel: " + controler_instance.getControlerBounds());
                 init_bounds_controler = gvcont.getControler().getControlerBounds();
+                
+                //controler_instance..getHelpId();
+                m_da.enableHelp(controler_instance);
             }
             
             
@@ -351,6 +369,11 @@ public class GraphViewer extends JDialog implements ComponentListener
     }
 
     public void componentShown(ComponentEvent ce) { }
+    
+
+    
+    
+
     
     
 }

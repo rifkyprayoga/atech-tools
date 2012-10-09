@@ -65,7 +65,7 @@ import com.atech.utils.ATDataAccessAbstract;
 
 //WORK IN PROGRESS - DO NOT EDIT - Andy
 
-public abstract class AbstractGraphViewControler implements GraphViewControlerInterface, ActionListener, HelpCapable 
+public abstract class AbstractGraphViewControler implements GraphViewControlerInterface, ActionListener //, HelpCapable 
 //extends JDialog implements ActionListener, HelpCapable // JFrame
 {
 

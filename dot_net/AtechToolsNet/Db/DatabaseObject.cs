@@ -219,7 +219,8 @@ namespace ATechTools.Db
 
         public int GetIntValueNotNull(object db_value, int def_value)
         {
-            if ((db_value == null) || (db_value == DBNull.Value) || (string.IsNullOrWhiteSpace(db_value.ToString())))
+            //if ((db_value == null) || (db_value == DBNull.Value) || (string.IsNullOrWhiteSpace(db_value.ToString())))
+            if (IsUnsetOrNull(db_value))
                 return def_value;
             else
                 return Convert.ToInt32(db_value);

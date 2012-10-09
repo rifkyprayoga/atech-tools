@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
+import com.atech.help.HelpCapable;
+
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -36,7 +38,7 @@ import javax.swing.JPanel;
  *
  */
 
-public interface GraphViewControlerInterface
+public interface GraphViewControlerInterface extends HelpCapable
 {
     
     /**
@@ -69,6 +71,9 @@ public interface GraphViewControlerInterface
      * Resize controller component (in some cases resize is not automatical, then we need this method)
      */
     public void resizeController(int width);
+    
+    
+    
     
     
 }

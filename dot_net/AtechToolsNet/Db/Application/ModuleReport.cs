@@ -33,22 +33,34 @@ namespace ATechTools.Db.Application
         private string reportFile;
         private string reportParameters;
         string cRC;
-
         private string moduleSub;
-
-        //private string preRunSP;
         private string sPName;
         private string _idReport;
-        private int _orderNumber;
+        private int orderNumber;
+        private string helpFileName;
+
+        public string HelpFileName
+        {
+            get { return helpFileName; }
+            set { helpFileName = value; }
+        }
+        string whereCondition;
+        private ReportWhereType whereType;
+        private bool isTemplate;
+        private ModuleHelp reportHelp;
+        Dictionary<string, ModuleReportPart> reportParts = null;
+        List<ModuleReportSP_Linked> sPParameters = null;
+        Dictionary<string, ModuleReportSP_Linked> sPParameters_dict = null;
+
+
+
+
 
         public string SPName
         {
             get { return sPName; }
             set { sPName = value; }
         }
-        string whereCondition;
-        private ReportWhereType whereType;
-        private bool isTemplate;
 
         public bool IsTemplate
         {
@@ -72,9 +84,12 @@ namespace ATechTools.Db.Application
         }
 
 
-        //Dictionary<string, List<ModuleReportPart>> report_parts_by_sub = null;
+        public ModuleHelp ReportHelp
+        {
+            get { return reportHelp; }
+            set { reportHelp = value; }
+        }
 
-        Dictionary<string, ModuleReportPart> reportParts = null;
 
         public Dictionary<string, ModuleReportPart> ReportParts
         {
@@ -83,14 +98,12 @@ namespace ATechTools.Db.Application
         }
 
 
-        List<ModuleReportSP_Linked> sPParameters = null;
 
         public List<ModuleReportSP_Linked> SPParameters
         {
             get { return sPParameters; }
             set { sPParameters = value; }
         }
-        Dictionary<string, ModuleReportSP_Linked> sPParameters_dict = null;
 
 
 
@@ -149,8 +162,8 @@ namespace ATechTools.Db.Application
 
         public int OrderNumber
         {
-            get { return _orderNumber; }
-            set { _orderNumber = value; }
+            get { return orderNumber; }
+            set { orderNumber = value; }
         }
 
 
@@ -312,7 +325,12 @@ namespace ATechTools.Db.Application
             this.parameterType = GetStringValueNotNull(row["ParameterType"], "");
 
             this._idReport = GetStringValueNotNull(row["IDReport"], "");
-            this._orderNumber = GetIntValueNotNull(row["OrderNumber"], 0);
+            this.orderNumber = GetIntValueNotNull(row["OrderNumber"], 0);
+
+            this.helpFileName = GetStringValueNotNull(row["HelpURL"], "");
+
+
+
 
             ProcessWhere();
 

@@ -42,6 +42,5 @@ public abstract class LanguageManagerRunner
 
     public abstract String getDefaultLanguage();
 
-    
 
 }

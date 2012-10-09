@@ -791,11 +791,14 @@ public abstract class ATDataAccessAbstract
     {
         if (hc != null && this.help_enabled)
         {
-            // XXX: @andy: Is this supposed to be able to happen? It just did here.
-            if (this.help_context.getMainHelpBroker() != null)
+            try
             {
                 this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(), hc.getHelpId(), null);
                 this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
+            }
+            catch(Exception ex)
+            {
+                log.error("Error enabling help. Ex.: " + ex, ex);
             }
         }
     }

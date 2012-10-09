@@ -63,6 +63,9 @@ namespace ATechTools.GUI.WindowList
 
         public void DisposeWLDialog(WindowListI wli)
         {
+            //if (wli == null)
+            //    return;
+
             if (this.dictionaryOfWindows.ContainsKey(wli.WindowsListId))
             {
                 WindowListI wlx = this.dictionaryOfWindows[wli.WindowsListId];
