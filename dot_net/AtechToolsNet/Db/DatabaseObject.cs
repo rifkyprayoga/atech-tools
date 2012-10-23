@@ -90,7 +90,7 @@ namespace ATechTools.Db
         }
 
 
-        private bool IsUnsetOrNull(object db_value)
+        protected bool IsUnsetOrNull(object db_value)
         {
             if ((db_value == DBNull.Value) || ((db_value == null) || (string.IsNullOrWhiteSpace(db_value.ToString())) || (db_value.ToString().Equals("<null>"))))
                 return true;
@@ -109,6 +109,19 @@ namespace ATechTools.Db
                 return GetFormatedSingle(db_value);
             }
         }
+
+
+        public Single? GetSingleValueOrNull(object db_value, Single? def_value)
+        {
+            if (IsUnsetOrNull(db_value))
+                return def_value;
+            else
+            {
+                return GetFormatedSingle(db_value);
+            }
+        }
+
+
 
         private Single GetFormatedSingle(object db_value)
         {
@@ -157,7 +170,7 @@ namespace ATechTools.Db
 
         public DateTime? GetDateTimeNull(object db_value, DateTime? def_value)
         {
-            if (db_value == DBNull.Value)
+            if (IsUnsetOrNull(db_value))  //if (db_value == DBNull.Value)
                 return def_value;
             else
                 return Convert.ToDateTime(db_value);
@@ -181,6 +194,13 @@ namespace ATechTools.Db
                 return val;
         }
 
+        public object GetDbSingleOrNull(Single? val)
+        {
+            if (val==null) 
+                return DBNull.Value;
+            else
+                return val;
+        }
 
         public object GetDbIntegerOrNull(int val)
         {
