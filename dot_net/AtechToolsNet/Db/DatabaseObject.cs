@@ -7,6 +7,8 @@ using System.Data;
 using System.ComponentModel;
 using System.Globalization;
 
+// CHANGES:
+// - 1.11.2012 [Andy]    - added methods for geting Long data
 
 namespace ATechTools.Db
 {
@@ -245,6 +247,17 @@ namespace ATechTools.Db
             else
                 return Convert.ToInt32(db_value);
         }
+
+
+        public long GetLongValueNotNull(object db_value, long def_value)
+        {
+            //if ((db_value == null) || (db_value == DBNull.Value) || (string.IsNullOrWhiteSpace(db_value.ToString())))
+            if (IsUnsetOrNull(db_value))
+                return def_value;
+            else
+                return Convert.ToInt64(db_value);
+        }
+
 
 
         public bool IsStringSet(string val)

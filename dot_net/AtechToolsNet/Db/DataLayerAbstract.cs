@@ -7,6 +7,10 @@ using System.IO;
 using System.Data;
 using System.Collections;
 
+// CHANGED:
+// - 1.11.2012 [Andy]   - Added Limited Connection (this is free standing connection, which user must dispose off (use in using clause))
+
+
 namespace ATechTools.Db
 {
     public abstract class DataLayerAbstract
@@ -111,6 +115,20 @@ namespace ATechTools.Db
 
 
         //protected abstract void CreateTables();
+
+
+        public SqlConnection LimitedConnection
+        {
+            get
+            {
+
+                SqlConnection conn = new SqlConnection(sql_source);
+                conn.Open();
+                return conn;
+            }
+        }
+
+
 
 
         public SqlConnection Connection
