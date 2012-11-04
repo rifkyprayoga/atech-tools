@@ -37,6 +37,7 @@ using ATechTools.I18n;
 using System.ComponentModel;
 using System.Text;
 using AtechTools.Core.Utils;
+using ATechTools.GUI.WindowList;
 namespace ATechTools.Util
 {
 
@@ -125,7 +126,10 @@ public abstract class ATDataAccessAbstract
      */
     //public LineBorder border_line;
 
-    
+
+    protected WindowsListHandler windowsListHandler = null;
+
+
     /**
      * The plugins.
      */
@@ -2342,8 +2346,19 @@ public abstract class ATDataAccessAbstract
     {
         return this.plugins;
     } */
-    
-    
+
+
+
+    public WindowsListHandler WindowsListHandler
+    {
+        get { return windowsListHandler; }
+        set { windowsListHandler = value; }
+    }
+
+
+
+
+
     
 }
 
