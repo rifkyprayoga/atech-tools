@@ -95,11 +95,11 @@ namespace ATechTools.Db.Application
                     this.moduleReports = new List<ModuleReport>();
 
                 this.moduleReports.Add(mr);
-                if (this.moduleReportsTable.ContainsKey(mr.ReportName))
+                if (this.moduleReportsTable.ContainsKey(mr.ReportName + mr.ModuleSub))
                 {
                     
                 }
-                this.moduleReportsTable.Add(mr.ReportName, mr);
+                this.moduleReportsTable.Add(mr.ReportName + mr.ModuleSub, mr);
             }
             else
             {
@@ -117,11 +117,11 @@ namespace ATechTools.Db.Application
                     this.moduleReportsSubs.Add(mr.ModuleSub, lst);
                 }
 
-                if (this.moduleReportsTable.ContainsKey(mr.ReportName))
+                if (this.moduleReportsTable.ContainsKey(mr.ReportName + mr.ModuleSub))
                 {
                     log.Debug("Sub report '" + mr.ReportName + "' contains duplicated definitions (" + mr.Rowguid + ").");
                 }
-                this.moduleReportsTable.Add(mr.ReportName, mr);
+                this.moduleReportsTable.Add(mr.ReportName + mr.ModuleSub, mr);
 
             }
 
