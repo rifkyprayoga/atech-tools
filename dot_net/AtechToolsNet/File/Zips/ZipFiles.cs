@@ -6,7 +6,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.IO;
 using log4net;
 
-namespace ATechTools.File
+namespace ATechTools.File.Zips
 {
     public class ZipFiles
     {

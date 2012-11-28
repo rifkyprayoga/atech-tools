@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ATechTools.GUI;
 using ATechTools.Util;
+using log4net;
 
 
 namespace ATechTools.GUI.WindowList
@@ -10,17 +11,18 @@ namespace ATechTools.GUI.WindowList
     public class WindowsListHandler
     {
         ATDataAccessAbstract da;
-
         Dictionary<string, WindowListI> dictionaryOfWindows = null;
         protected List<WindowListI> listOfWindows = null;
         WindowListClientI windowManager = null;
+        private ILog log = LogManager.GetLogger(typeof(WindowsListHandler));
+
+
 
         public WindowListClientI WindowManager
         {
             get { return windowManager; }
             set { windowManager = value; }
         }
-        //Windo
 
         public List<WindowListI> ListOfWindows
         {
@@ -52,6 +54,10 @@ namespace ATechTools.GUI.WindowList
             this.dictionaryOfWindows.Add(wli.WindowsListId, wli);
             this.listOfWindows.Add(wli);
 
+            if (string.IsNullOrWhiteSpace(wli.WindowsListDescription))
+            {
+                log.Error("WindowListInterface has no description. Id=" + wli.WindowsListId);
+            }
 
             if ((this.windowManager != null) && (!this.windowManager.IsDisposed))
             {

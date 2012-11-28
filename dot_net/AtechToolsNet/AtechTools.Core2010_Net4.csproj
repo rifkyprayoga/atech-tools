@@ -55,6 +55,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\libs\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\log4net.dll</HintPath>
@@ -88,6 +91,8 @@
     <Compile Include="File\FileReaderImport.cs" />
     <Compile Include="File\Import\ImportExportManager.cs" />
     <Compile Include="File\Import\ImportTypeInterface.cs" />
+    <Compile Include="File\Zips\UnzipFiles.cs" />
+    <Compile Include="File\Zips\ZipFiles.cs" />
     <Compile Include="GUI\Animation\WinApiAnimation.cs" />
     <Compile Include="GUI\Base\AddEditDbHelper.cs" />
     <Compile Include="GUI\Config\ConfigConfig.cs" />

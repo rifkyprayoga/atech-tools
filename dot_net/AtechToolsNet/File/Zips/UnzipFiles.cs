@@ -4,7 +4,7 @@ using System.Text;
 using ICSharpCode.SharpZipLib.Zip;
 using System.IO;
 
-namespace ATechTools.File
+namespace ATechTools.File.Zips
 {
     public class UnzipFiles
     {
