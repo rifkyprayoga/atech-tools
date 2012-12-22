@@ -1,8 +1,12 @@
 package com.atech.gui_fw;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Event;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -240,8 +244,39 @@ public class MainAppFrame extends JFrame //implements ActionListener
         this.app_context.setSplashProgress(false, 8, "INIT_GUI");
         this.app_context.initAppGUI();
         
-        
-//        m_da.addObserver(ATDataAccessAbstract.OBSERVABLE_STATUS, this);
+        this.addComponentListener(new ComponentListener() 
+        {
+            public void componentResized(ComponentEvent e) 
+            {       
+                Dimension d = getSize(); //Rectangle b = getBounds();
+                
+                if (d.width < app_context.app_min_size.width || d.height < app_context.app_min_size.height)
+                {
+                    if (d.width < app_context.app_min_size.width)
+                        d.width = app_context.app_min_size.width;
+                    
+                    if (d.height < app_context.app_min_size.height)
+                        d.height = app_context.app_min_size.height;
+                    
+                    setSize(d);
+                }
+                
+                //if getSize()
+                // resize other components, refresh, etc 
+            }
+
+            public void componentMoved(ComponentEvent e)
+            {
+            }
+
+            public void componentShown(ComponentEvent e)
+            {
+            }
+
+            public void componentHidden(ComponentEvent e)
+            {
+            }
+        }); //        m_da.addObserver(ATDataAccessAbstract.OBSERVABLE_STATUS, this);
         
         /*
          * addToolBarButtonWithName("view_daily");
@@ -286,7 +321,19 @@ public class MainAppFrame extends JFrame //implements ActionListener
         
         this.app_context.setSplashProgress(false, 9, "INIT_APP_SPECIFIC");
         this.app_context.initAppSpecific();
-        this.setBounds(0, 50, 800, 600);
+        
+        if (app_context.app_location==null)
+        {
+            this.setBounds(0, 50, 800, 600);    
+        }
+        else
+        {
+            this.setBounds(this.app_context.app_location.x, this.app_context.app_location.y, 800, 600);
+        }
+            
+        
+        
+        
         this.setSize(this.app_context.getInitialSize());
 
         if (app_ctx.hasSplashScreen())

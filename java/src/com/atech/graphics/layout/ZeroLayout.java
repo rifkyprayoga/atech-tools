@@ -139,6 +139,20 @@ public class ZeroLayout implements LayoutManager, Serializable
      */
     public static String DYNAMIC_FULL = "dynamic_full";
 
+    
+    /**
+     *  Elements in ZeroLayout are DYNAMIC_SIZE if they change size 
+     *  (height and width), but NOT position (x,y).
+     */
+    public static String DYNAMIC_SIZE = "dynamic_size";
+    
+    /**
+     *  Elements in ZeroLayout are DYNAMIC_LOCATION if they change 
+     *  position (x,y), but NOT size (height and width).
+     */
+    public static String DYNAMIC_LOCATION = "dynamic_location";
+    
+    
     /**
      *  Hashtable containing additional data about Components.
      *  Components are identified with getAccessibleContext.
@@ -371,7 +385,13 @@ public class ZeroLayout implements LayoutManager, Serializable
         if (isDynamicType(zer.type)) //.startsWith("dynamic"))
         {
 
-            if (zer.type==DYNAMIC) //.equals("dynamic"))
+//            public static String DYNAMIC_SIZE = "dynamic_size";
+//            public static String DYNAMIC_LOCATION = "dynamic_location";
+
+            
+            
+            
+            if ((zer.type==DYNAMIC) || (zer.type==DYNAMIC_SIZE)) //.equals("dynamic"))
             {
                 rec.x = zer.posX;
                 rec.y = zer.posY;
@@ -382,14 +402,22 @@ public class ZeroLayout implements LayoutManager, Serializable
                 rec.y = (int) (procY * zer.posYp);
             }
             
-            if (this.size_from_edge>0)
+            if (zer.type==DYNAMIC_LOCATION)
             {
-                rec.height = (int)(parent.getSize().getHeight() - rec.y - this.size_from_edge);
+                rec.height = zer.posH; //(int)(parent.getSize().getHeight() - rec.y - this.size_from_edge);
+                rec.width = zer.posW; //(int) (procX * zer.posWp);
             }
             else
-                rec.height = (int) (procY * zer.posHp);
-            
-            rec.width = (int) (procX * zer.posWp);
+            {
+                if (this.size_from_edge>0)
+                {
+                    rec.height = (int)(parent.getSize().getHeight() - rec.y - this.size_from_edge);
+                }
+                else
+                    rec.height = (int) (procY * zer.posHp);
+                
+                rec.width = (int) (procX * zer.posWp);
+            }
         }
         else if (isStaticType(zer.type))  // .startsWith("static")
         {

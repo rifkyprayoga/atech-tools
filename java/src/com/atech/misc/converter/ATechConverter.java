@@ -37,7 +37,7 @@ import java.util.Hashtable;
 public abstract class ATechConverter
 {
 
-    boolean m_debug = false;
+    boolean m_debug = true;
     
     /**
      * The decimal_formaters.
@@ -158,24 +158,37 @@ public abstract class ATechConverter
         debug("input_v: " + input_v);
         
         float val = value * factor_to_target;
+        float val_source = Float.parseFloat(input_v);
         
         if (target_type== BASETYPE_INT)
         {
             int vali = (int)val;
             
             float step = getStep(target_type, target_precission);
+            float last_step = 0.0f; //vali-step;
             
             for(float i=vali-step; i<(vali+20); i+=step)
             {
+                if (last_step == 0.0f)
+                    last_step = i;
+
                 float v2 = i *  factor_to_source;
+                //v2 = Math.round(v2);
                 String s = getFormatedFloat(v2, source_precission);
                 
-                debug("Compare[s]: i=" + i + "val: " + input_v + " ?= " + s);
-                debug("Compare[f]: i=" + i + "val: " + vali + " ?= " + v2);
+                debug("Compare[s]: i=" + i + " val: " + input_v + " ?= " + s);
+                debug("Compare[f]: i=" + i + " val: " + vali + " ?= " + v2);
                 
                 if (s.equals(input_v))
                     return i;
                 
+                if (v2 > val_source)
+                {
+                    debug("Calculated value has overriden. New value: " + v2 + " source value: " + val_source);
+                    return last_step;
+                }
+                
+                last_step = i;
             }
             
             return 0.0f;
@@ -185,21 +198,37 @@ public abstract class ATechConverter
             float vali = (float)val;
             
             float step = getStep(target_type, target_precission);
+            float last_step = 0.0f; //getDecimaledFloat(vali, target_precission)-step;
+            //float val_source = Float.parseFloat(input_v);
             
             for(float i=vali-step; i<(vali+20); i+=step)
             {
+                if (last_step == 0.0f)
+                    last_step = i;
+                
                 i = getDecimaledFloat(i, target_precission);
                 float v2 = i *  factor_to_source;
 
                 String s = getFormatedFloat(v2, source_precission);
                 
-                debug("Compare[s]: i=" + i + "val: " + input_v + " ?= " + s);
-                debug("Compare[f]: i=" + i + "val: " + vali + " ?= " + v2);
+                debug("Compare[s]: i=" + i + " val: " + input_v + " ?= " + s);
+                debug("Compare[f]: i=" + i + " val: " + vali + " ?= " + v2);
                 
                 if (s.equals(input_v))
                 {
                     return i;
                 }
+                
+                if (v2 > val_source)
+                {
+                    debug("Calculated value has overriden. New value: " + v2 + " source value: " + val_source);
+                    return last_step;
+                }
+                
+                last_step = i;
+
+                
+                
             }
             return 0.0f;
         }

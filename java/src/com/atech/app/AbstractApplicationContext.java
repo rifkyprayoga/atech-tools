@@ -3,6 +3,7 @@ package com.atech.app;
 import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -37,7 +38,9 @@ import com.atech.utils.file.ClassFinder;
 
 public abstract class AbstractApplicationContext implements ActionListener
 {
-    protected Dimension app_size = null;
+    public Dimension app_size = null;
+    public Dimension app_min_size = new Dimension(800,600);
+    public Point app_location = null;
     protected DataAccessApp data_access = null;
     protected I18nControlAbstract m_ic = null;
     protected MainAppFrame frame = null;
