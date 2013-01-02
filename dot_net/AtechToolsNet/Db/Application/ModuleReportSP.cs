@@ -16,7 +16,7 @@ namespace AtechTools.Core.Db.Application
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class ModuleReportSP : DatabaseObject
+    public abstract class ModuleReportSP : DatabaseObject
     {
         
         protected string sPName;
@@ -24,7 +24,7 @@ namespace AtechTools.Core.Db.Application
         protected string parameterDescription;
         protected string parameterName;
         protected string parameterType;
-        protected string parameterTypeFenix;
+        protected string parameterTypeApp;
         protected bool required = false;
         protected int orderNumber;
         protected string defaultValue = null;
@@ -64,10 +64,10 @@ namespace AtechTools.Core.Db.Application
             set { parameterType = value; }
         }
 
-        public string ParameterTypeFenix
+        public string ParameterTypeApp
         {
-            get { return parameterTypeFenix; }
-            set { parameterTypeFenix = value; }
+            get { return parameterTypeApp; }
+            set { parameterTypeApp = value; }
         }
 
         public bool Required
@@ -125,8 +125,8 @@ namespace AtechTools.Core.Db.Application
             throw new NotImplementedException();
         }
 
-        public override bool GetDb(System.Data.DataRow row, int type)
-        {
+        //public abstract bool GetDb(System.Data.DataRow row, int type);
+/*        {
             this.sPName = GetStringValueNotNull(row["SPName"], ""); 
             this.sPDescription = GetStringValueNotNull(row["SPDescription"], ""); 
             //this.parameterDescription = GetStringValueNotNull(row["ParameterDescription"], ""); 
@@ -139,7 +139,7 @@ namespace AtechTools.Core.Db.Application
             else this.defaultValue = (string) row["DefaultValue"];
 
             return true;
-        }
+        }*/
 
         public override bool ImportDb(string[] elements, int table_version)
         {

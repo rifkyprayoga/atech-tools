@@ -60,7 +60,7 @@ namespace AtechTools.Core.Db.Application
             this.parameterDescription = sp_def.ParameterDescription;
             this.parameterName = sp_def.ParameterName;
             this.parameterType = sp_def.ParameterType;
-            this.parameterTypeFenix = sp_def.ParameterTypeFenix;
+            this.parameterTypeApp = sp_def.ParameterTypeApp;
             this.required = sp_def.Required;
             this.orderNumber = sp_def.OrderNumber;
             this.defaultValue = sp_def.DefaultValue;
@@ -80,6 +80,9 @@ namespace AtechTools.Core.Db.Application
             this.staticValue = true;
         }
 
-
+        public override bool GetDb(System.Data.DataRow row, int type)
+        {
+            return false;
+        }
     }
 }

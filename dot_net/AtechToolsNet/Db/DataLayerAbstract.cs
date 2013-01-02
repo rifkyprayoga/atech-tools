@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Data;
 using System.Collections;
+using log4net;
 
 // CHANGED:
 // - 1.11.2012 [Andy]   - Added Limited Connection (this is free standing connection, which user must dispose off (use in using clause))
@@ -15,7 +16,7 @@ namespace ATechTools.Db
 {
     public abstract class DataLayerAbstract
     {
-
+        private ILog log = LogManager.GetLogger(typeof(DataLayerAbstract));
         protected string sql_source = null;
         protected string db_filename = null;
         protected SqlConnection m_connection = null;
@@ -247,6 +248,54 @@ namespace ATechTools.Db
             return dt;
 
         }
+
+
+
+        public List<DatabaseObject> GetListWithSP(string sp_name, Dictionary<string,string> parameters, int column_type, DatabaseObject main_obj)
+        {
+
+            List<DatabaseObject> lst_prc = new List<DatabaseObject>();
+
+            try
+            {
+                using(SqlConnection c  = this.LimitedConnection)
+                {
+                    SqlCommand cmd = new SqlCommand(sp_name, c);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    foreach (string key in parameters.Keys)
+                    {
+                        string v = parameters[key];
+
+                        if (v==null)
+                            cmd.Parameters.Add(new SqlParameter(key, DBNull.Value));
+                        else
+                            cmd.Parameters.Add(new SqlParameter(key, v));
+                    }
+
+                    DataTable dt = GetDataTableFromSqlDataReader(cmd.ExecuteReader());
+
+                    if ((dt != null) && (dt.Rows.Count > 0))
+                    {
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            lst_prc.Add(main_obj.GetDatabaseObject(dt.Rows[i], column_type));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error executing SP: " + sp_name + " and getting list of objects. Ex.: " + ex, ex);
+            }
+
+
+            return lst_prc;
+        
+        
+        }
+
+
 
 
     }

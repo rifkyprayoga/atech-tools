@@ -19,15 +19,15 @@ namespace AtechTools.Core.Db.Application
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class ModuleReportPart : DatabaseObject
+    public abstract class ModuleReportPart : DatabaseObject
     {
-        string parentRowguid;
-        string reportPart;
-        string reportFileName;
-        string targetSubType;
-        string cRC;
-        string whereCondition;
-        private string sPName;
+        protected string parentRowguid;
+        protected string reportPart;
+        protected string reportFileName;
+        protected string targetSubType;
+        protected string cRC;
+        protected string whereCondition;
+        protected string sPName;
 
         public string SPName
         {
@@ -35,15 +35,15 @@ namespace AtechTools.Core.Db.Application
             set { sPName = value; }
         }
 
-        private ReportWhereType whereType;
-        List<ModuleReportSP_Linked> sPParameters = null;
+        protected ReportWhereType whereType;
+        protected List<ModuleReportSP_Linked> sPParameters = null;
 
         public List<ModuleReportSP_Linked> SPParameters
         {
             get { return sPParameters; }
             set { sPParameters = value; }
         }
-        Dictionary<string, ModuleReportSP_Linked> sPParameters_dict = null;
+        protected Dictionary<string, ModuleReportSP_Linked> sPParameters_dict = null;
 
         public string ParentRowguid
         {
@@ -148,8 +148,8 @@ namespace AtechTools.Core.Db.Application
             throw new NotImplementedException();
         }
 
-        public override bool GetDb(System.Data.DataRow row, int type)
-        {
+        //public abstract bool GetDb(System.Data.DataRow row, int type);
+/*        {
             this.parentRowguid = GetStringValueNotNull(row["ReportRowguid"], "");
             this.reportPart = GetStringValueNotNull(row["ReportPart"], "");
             this.reportFileName = GetStringValueNotNull(row["SubReportFileName"], "");
@@ -166,7 +166,7 @@ namespace AtechTools.Core.Db.Application
         public void ProcessWhere()
         {
         }
-
+            */
 
         public override bool ImportDb(string[] elements, int table_version)
         {

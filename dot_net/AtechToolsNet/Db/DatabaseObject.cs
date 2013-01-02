@@ -67,6 +67,31 @@ namespace ATechTools.Db
         public abstract bool GetDb(DataRow row, int type);
 
 
+
+        /// <summary>
+        /// Gets the db object.
+        /// </summary>
+        /// <param name="row">The row.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>SelectorInterface instance</returns>
+        public DatabaseObject GetDatabaseObject(DataRow row, int type)
+        {
+            DatabaseObject dd = CreateObject();
+            dd.GetDb(row, type);
+
+            return dd;
+        }
+
+
+        public virtual DatabaseObject CreateObject()
+        {
+            return null;
+        }
+        
+
+
+
+
         public bool IsDbValueNull(object db_value)
         {
             return (db_value == DBNull.Value);

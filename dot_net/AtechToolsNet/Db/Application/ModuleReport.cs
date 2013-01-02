@@ -20,24 +20,24 @@ namespace ATechTools.Db.Application
 
 
 
-    public class ModuleReport : DatabaseObject
+    public abstract class ModuleReport : DatabaseObject
     {
 
         private static readonly ILog log = LogManager.GetLogger(typeof(ModuleReport)); 
 
         
-        private string rowguid;
+        protected string rowguid;
 
-        private string moduleID;
-        private string reportName;
-        private string reportFile;
-        private string reportParameters;
-        string cRC;
-        private string moduleSub;
-        private string sPName;
-        private string _idReport;
-        private int orderNumber;
-        private string helpFileName;
+        protected string moduleID;
+        protected string reportName;
+        protected string reportFile;
+        protected string reportParameters;
+        protected string cRC;
+        protected string moduleSub;
+        protected string sPName;
+        protected string idReport;
+        protected int orderNumber;
+        protected string helpFileName;
 
         public string HelpFileName
         {
@@ -156,8 +156,8 @@ namespace ATechTools.Db.Application
 
         public string IdReport
         {
-            get { return _idReport; }
-            set { _idReport = value; }
+            get { return this.idReport; }
+            set { this.idReport = value; }
         }
 
         public int OrderNumber
@@ -309,7 +309,8 @@ namespace ATechTools.Db.Application
             throw new NotImplementedException();
         }
 
-        public override bool GetDb(DataRow row, int type)
+        public abstract override bool GetDb(DataRow row, int type);
+/*
         {
             this.rowguid = GetStringValueNotNull(row["rowguid"], "");
             this.moduleID = GetStringValueNotNull(row["ModuleID"], "");
@@ -340,7 +341,7 @@ namespace ATechTools.Db.Application
         public void ProcessWhere()
         { 
         }
-
+        */
 
         public override bool ImportDb(string[] elements, int table_version)
         {

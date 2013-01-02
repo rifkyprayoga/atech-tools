@@ -15,11 +15,11 @@ namespace AtechTools.Core.Db.Application
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class ModuleReportSP_Link : DatabaseObject
+    public abstract class ModuleReportSP_Link : DatabaseObject
     {
-        string reportRowguid;
-        string reportPart;
-        string sPName;
+        protected string reportRowguid;
+        protected string reportPart;
+        protected string sPName;
 
 
         public string ReportRowguid
@@ -76,14 +76,15 @@ namespace AtechTools.Core.Db.Application
             throw new NotImplementedException();
         }
 
-        public override bool GetDb(System.Data.DataRow row, int type)
+        //public abstract bool GetDb(System.Data.DataRow row, int type);
+        /*
         {
             this.reportRowguid = GetStringValueNotNull(row["ReportRowguid"], "");
             this.reportPart = GetStringValueNotNull(row["ReportPart"], "");
             this.sPName = GetStringValueNotNull(row["SPName"], "");
 
             return true;
-        }
+        }*/
 
         public override bool ImportDb(string[] elements, int table_version)
         {
