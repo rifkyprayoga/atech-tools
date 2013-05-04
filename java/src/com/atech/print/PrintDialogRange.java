@@ -15,7 +15,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import com.atech.graphics.components.DateComponent;
+import com.atech.graphics.components.dates.DateFromToComponent;
 import com.atech.graphics.dialogs.ActionExceptionCatchDialog;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
@@ -24,8 +24,8 @@ import com.atech.utils.ATSwingUtils;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  PrintingDialogRange - Dialog for Printing when we have a range of dates (from, till)
+ *  Copyright (C) 2011  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -47,43 +47,18 @@ import com.atech.utils.ATSwingUtils;
  *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
  *  andyrozman@users.sourceforge.net or andy@atech-software.com
  *  
- *  @author Andy
- *
-*/
-
-
-/**
- *  Application:   GGC - GNU Gluco Control
- *
- *  See AUTHORS for copyright information.
- * 
- *  This program is free software; you can redistribute it and/or modify it under
- *  the terms of the GNU General Public License as published by the Free Software
- *  Foundation; either version 2 of the License, or (at your option) any later
- *  version.
- * 
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- *  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- *  details.
- * 
- *  You should have received a copy of the GNU General Public License along with
- *  this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- *  Place, Suite 330, Boston, MA 02111-1307 USA
- * 
  *  Filename:     PrintingDialog  
  *  Description:  Dialog for Printing
- * 
- *  Author: andyrozman {andy@atech-software.com}  
+ *  
+ *  @author Andy {andy@atech-software.com}
+ *
  */
+
+
 
 // fix this
 
-public abstract class PrintDialogRange extends ActionExceptionCatchDialog // extends
-// JDialog
-// implements
-// ActionListener
-// , HelpCapable
+public abstract class PrintDialogRange extends ActionExceptionCatchDialog 
 {
 
     
@@ -95,10 +70,12 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
     private boolean m_actionDone = false;
 
     protected JTextField tfName;
+    @SuppressWarnings("rawtypes")
     protected JComboBox cb_template = null, cb_template_2 = null;
     // x private String[] schemes_names = null;
 
-    protected DateComponent dc_to, dc_from;
+    //protected DateComponent dc_to, dc_from;
+    DateFromToComponent dftc;
     
     GregorianCalendar gc = null;
     JSpinner sl_year = null, sl_month = null;
@@ -155,15 +132,10 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
      * @param ic 
      * @param _enable_help 
      */
-    public PrintDialogRange(JFrame frame, int type, ATDataAccessAbstract da, I18nControlAbstract ic, boolean _enable_help) // throws
-                                                                   // Exception
+    public PrintDialogRange(JFrame frame, int type, ATDataAccessAbstract da, I18nControlAbstract ic, boolean _enable_help) 
     {
         super(da, "printing_dialog");
-        // super(frame, "", true);
-        /*
-         * Rectangle rec = frame.getBounds(); int x = rec.x + (rec.width / 2);
-         * int y = rec.y + (rec.height / 2);
-         */
+
         this.setLayout(null);
 
         this.m_da = da;
@@ -175,7 +147,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
         font_normal_bold = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
 
         gc = new GregorianCalendar();
-        setTitle(m_ic.getMessage("PRINTING"));
+        setTitle(m_ic.getMessage(this.getPrintingTitle()));
 
         initRange();
 
@@ -185,34 +157,35 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
     }
 
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     protected void initRange() // throws Exception
     {
-        setSize(350, 420);
+        setSize(440, 380);
         this.m_da.centerJDialog(this);
 
         JPanel panel = new JPanel();
-        panel.setBounds(0, 0, 350, 400);
+        panel.setBounds(0, 0, 440, 390);
         panel.setLayout(null);
 
         this.getContentPane().add(panel);
 
-        JLabel label = new JLabel(m_ic.getMessage("PRINTING"));
+        JLabel label = new JLabel(m_ic.getMessage(this.getPrintingTitle()));
         label.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD));
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setBounds(0, 20, 350, 35);
+        label.setBounds(0, 20, 430, 35);
         panel.add(label);
 
         label = new JLabel(m_ic.getMessage("TYPE_OF_REPORT") + ":");
         label.setFont(this.font_normal_bold);
-        label.setBounds(40, 75, 280, 25);
+        label.setBounds(40, 65, 280, 25);  // 75
         panel.add(label);
 
         cb_template = new JComboBox(getReportTypes());
         cb_template.setFont(this.font_normal);
-        cb_template.setBounds(40, 105, 230, 25);
+        cb_template.setBounds(40, 95, 240, 25);  // 105
         panel.add(cb_template);
 
-        int start_y = 155;
+        int start_y = 145; // 155
         
         if (this.weHaveSecondaryType())
         {
@@ -228,8 +201,11 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
             
         }
         
+        dftc = new DateFromToComponent(m_da, DateFromToComponent.ORIENTATION_VERTICAL, false, 40, 10);
+        dftc.setBounds(40, start_y, 220, 25);
+        panel.add(dftc);
         
-        
+        /*
         label = new JLabel(m_ic.getMessage("SELECT_STARTING_RANGE") + ":");
         label.setFont(this.font_normal_bold);
         label.setBounds(40, start_y, 180, 25);
@@ -247,13 +223,15 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
         dc_to = new DateComponent(m_da);
         dc_to.setBounds(40, start_y + 95, 120, 25);
         panel.add(dc_to);
+        */
+
 
         JButton button = new JButton("   " + m_ic.getMessage("OK"));
         // button.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
         button.setActionCommand("ok");
         button.addActionListener(this);
         button.setIcon(m_da.getImageIcon_22x22("ok.png", this));
-        button.setBounds(40, start_y + 185, 125, 25);
+        button.setBounds(25, start_y + 150, 120, 25);  // 145
         panel.add(button);
 
         button = new JButton("   " + m_ic.getMessage("CANCEL"));
@@ -261,10 +239,10 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
         button.setActionCommand("cancel");
         button.setIcon(m_da.getImageIcon_22x22("cancel.png", this));
         button.addActionListener(this);
-        button.setBounds(175, start_y + 185, 125, 25);
+        button.setBounds(155, start_y + 150, 120, 25);
         panel.add(button);
 
-        help_button = m_da.createHelpButtonByBounds(185, start_y + 155, 115, 25, this);
+        help_button = m_da.createHelpButtonByBounds(285, start_y + 150, 120, 25, this);
         panel.add(help_button);
 
         if (this.enable_help)
@@ -272,7 +250,62 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
 
     }
 
+    
+    /**
+     * Get From Date Object
+     * 
+     * @return
+     */
+    public GregorianCalendar getFromDateObject()
+    {
+        return dftc.getFromDateObject();
+    }
+    
+    
+    /**
+     * Get From Date
+     * 
+     * @return
+     */
+    public int getFromDate()
+    {
+        return dftc.getFromDate();
+    }
 
+    
+    /**
+     * Get To Date Object
+     * 
+     * @return
+     */
+    public GregorianCalendar getToDateObject()
+    {
+        return dftc.getTillDateObject();
+    }
+
+    
+    /**
+     * Get To Date
+     * 
+     * @return
+     */
+    public int getToDate()
+    {
+        return dftc.getTillDate();
+    }
+
+    
+    /**
+     * Get Printing Title
+     * 
+     * @return
+     */
+    public String getPrintingTitle()
+    {
+        return "PRINTING";
+    }
+    
+    
     /**
      * performAction
      */
@@ -482,12 +515,22 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
     }
  
     
+    /**
+     * Get Secondary Types Description
+     * 
+     * @return
+     */
     public String getSecondaryTypeDescription()
     {
         return null;
     }
     
     
+    /**
+     * Get Secondary Types
+     * 
+     * @return
+     */
     public String[] getSecondaryTypes()
     {
         return null;
@@ -548,7 +591,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
     
     
     /**
-     * Start Printing Action
+     * Start Printing Action.
      * 
      * @throws Exception 
      */
@@ -556,9 +599,11 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog // ext
  
     
     /**
-     * Get Pdf Viewer paramaters. If you want name of file we are reading in this
+     * Get Pdf Viewer parameters. If you want name of file we are reading in this
      * parameters, you need to add %PDF_FILE% variable into string. This one is
-     * then resolved
+     * then resolved.
+     * 
+     * @return 
      */
     public abstract String getPdfViewerParameters();
     

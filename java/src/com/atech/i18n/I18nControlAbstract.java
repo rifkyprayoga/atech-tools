@@ -251,10 +251,10 @@ protected Locale lcls[] = null;
      * 
      * @return the selected langauge
      */
-    public String getSelectedLangauge()
+    /*public String getSelectedLangauge()
     {
         return this.selected_language;
-    }
+    }*/
     
 
     //  Method:       setLanguage (String language, String country)
@@ -372,7 +372,7 @@ protected Locale lcls[] = null;
      * @return HTMLized text
      * 
      */
-    private String htmlize(String input)
+    protected String htmlize(String input)
     {
         
         StringBuffer buffer = new StringBuffer("<HTML>");
@@ -437,7 +437,7 @@ protected Locale lcls[] = null;
      *  @param msg id of message we want
      *  @return same code back (formated)
      */
-    private String returnSameValue(String msg)
+    protected String returnSameValue(String msg)
     {
         // If we return same msg back, without beeing resolved, we put spaces before %, so
         // that it is much easier readable.
@@ -477,7 +477,7 @@ protected Locale lcls[] = null;
      *  @return array of Object, containg max. two elements, null can also be returned
      *
      */
-    private Object[] resolveMnemonics(String msg)
+    protected Object[] resolveMnemonics(String msg)
     {
 
         if (msg.indexOf("&")==-1)
@@ -669,12 +669,14 @@ protected Locale lcls[] = null;
      */
     public synchronized String getMessageFromCatalog(String msg)
     {
-
         try
         {
             
             if (msg==null)
                 return "null";
+            
+            if (!checkIfValidMessageKey(msg))
+                return msg;
             
             String ret = res.getString(msg);
 
@@ -695,6 +697,26 @@ protected Locale lcls[] = null;
     }
 
 
+    protected boolean checkIfValidMessageKey(String key)
+    {
+        if (key.trim().length()==0)
+            return false;
+        
+        try
+        {
+            Double.parseDouble(key);
+            return false;
+        }
+        catch(Exception ex)
+        {
+        }
+        
+        
+        return true;
+        
+    }
+    
+    
 
     //  Method:       getMessage (String)
     /**

@@ -45,7 +45,7 @@ public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
     private static final long serialVersionUID = 8988247925694117522L;
     
     protected boolean file_read = false;
-    
+    protected boolean required = true;
     
     
     /**
@@ -63,6 +63,16 @@ public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
         this.filename = _filename;
         readFile();
     }
+    
+    
+    public FileReaderHashtable(String _filename, boolean _required)
+    {
+        this.filename = _filename;
+        this.required = _required;
+        readFile();
+    }
+    
+    
     
     
     /**

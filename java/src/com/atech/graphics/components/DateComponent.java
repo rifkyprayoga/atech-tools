@@ -100,6 +100,8 @@ public class DateComponent extends JPanel implements ChangeListener
 
     ATDataAccessAbstract m_da; 
     ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
+    boolean debug = false;
+    
     
     /**
      * Constructor
@@ -196,6 +198,8 @@ public class DateComponent extends JPanel implements ChangeListener
         day.addChangeListener(this);
         day.setFont(font_normal);
 
+        
+        
         //SpinnerListModel listMonthsModel = new SpinnerListModel(months);
 
         SpinnerListModel listMonthsModel = new SpinnerListModel(m_da.getMonthsArray());
@@ -439,13 +443,16 @@ public class DateComponent extends JPanel implements ChangeListener
 
         }
 
-        System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
+        if (debug)
+            System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
         
         year.setValue(y);
         day.setValue(d);
         month.setValue(m_da.getMonthsArray()[m]);
 
-        System.out.println("setDate: y=" + year.getValue() + ",m=" + month.getValue() + ",d=" + day.getValue());
+        
+        if (debug)
+            System.out.println("setDate: y=" + year.getValue() + ",m=" + month.getValue() + ",d=" + day.getValue());
         
         
     }
@@ -470,8 +477,11 @@ public class DateComponent extends JPanel implements ChangeListener
         day.setValue(d);
         month.setValue(m_da.getMonthsArray()[m]);
         
-        System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
-        System.out.println("setDate: y=" + year.getValue() + ",m=" + month.getValue() + ",d=" + day.getValue());
+        if (debug)
+            System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
+        
+        if (debug)
+            System.out.println("setDate: y=" + year.getValue() + ",m=" + month.getValue() + ",d=" + day.getValue());
         
         this.repaint();
     }
@@ -562,8 +572,29 @@ public class DateComponent extends JPanel implements ChangeListener
         day.setEnabled(isEnabled);
         month.setEnabled(isEnabled);
         year.setEnabled(isEnabled);
+        
+        /*
+        if (isEnabled)
+        {
+            day.setForeground(Color.black);
+        }
+        else
+        {
+            day.setForeground(Color.red);
+        }*/
+        
     }
 
+    
+    public void setEditable(boolean isEnabled)
+    {
+        //this.day.setE
+        //JSpinner
+        //day.se
+    }
+    
+    
+    
     /** 
      * setBounds
      */

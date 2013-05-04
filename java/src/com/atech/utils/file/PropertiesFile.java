@@ -61,6 +61,14 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
     }
     
 
+    
+    public PropertiesFile(String filename, boolean required)
+    {
+        super(filename, required);
+    }
+    
+    
+    
     /**
      * Instantiates a new properties file.
      * 
@@ -83,12 +91,14 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
         try
         {
 
-            /*
-            if (!(new File(this.filename)).exists())
+            if (!required)
             {
-                log.warn("File " + filename + " not found.");
-                return;
-            }*/
+                if (!(new File(this.filename)).exists())
+                {
+                    log.warn("File " + filename + " not found.");
+                    return;
+                }
+            }
     
             Properties props = new Properties();
             

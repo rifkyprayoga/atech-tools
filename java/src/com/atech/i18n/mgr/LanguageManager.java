@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atech.i18n.I18nControlLangMgr;
+import com.atech.i18n.I18nControlLangMgrDual;
 import com.atech.i18n.I18nControlRunner;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.file.PropertiesFile;
@@ -114,7 +115,7 @@ public class LanguageManager
     public Locale[] availableRealLocale = null;
     
     
-    
+    public boolean find_untraslated_keys = false;
     
     
     
@@ -509,8 +510,10 @@ public class LanguageManager
      */
     public I18nControlLangMgr getI18nControl(I18nControlRunner icr)
     {
-        return new I18nControlLangMgr(this, icr);
-        
+        if (this.language_manager_runnner instanceof LanguageManagerRunnerDual)
+            return new I18nControlLangMgrDual(this, icr);
+        else
+            return new I18nControlLangMgr(this, icr);
     }
 
     
@@ -534,8 +537,18 @@ public class LanguageManager
             
             i++;
         }
+        
+        if (this.language_manager_runnner instanceof LanguageManagerRunnerDual)
+        {
+            this.find_untraslated_keys = ((LanguageManagerRunnerDual)this.language_manager_runnner).findUntraslatedKeysInLanguage(); 
+        }
     }
     
+    
+    public boolean findUntraslatedKeys()
+    {
+        return this.find_untraslated_keys;
+    }
     
     
     public String[] getAvailableLanguages()

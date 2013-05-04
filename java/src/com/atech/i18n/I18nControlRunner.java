@@ -40,6 +40,5 @@ public abstract class I18nControlRunner
      * @return
      */
     public abstract String getLanguageFileRoot();
-    
 
 }

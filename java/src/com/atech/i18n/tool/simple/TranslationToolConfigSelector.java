@@ -108,6 +108,8 @@ public class TranslationToolConfigSelector extends JDialog implements ActionList
 		Vector<ConfigurationEntry> list = new Vector<ConfigurationEntry>();
 		File f = new File(this.config_path);
 		
+		System.out.println("" + this.config_path );
+		
 		File[] files = f.listFiles(new FileFilter() 
         {
 

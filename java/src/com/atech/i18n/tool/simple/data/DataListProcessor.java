@@ -188,7 +188,7 @@ public class DataListProcessor
         }
         else
         {
-            log.warn("Not found TranslatorSettings.config, reading default instead !");
+            log.debug("Not found TranslatorSettings.config, reading default instead !");
             name = "../config/TranslatorSettings.config_default";
         }
         
@@ -295,8 +295,20 @@ public class DataListProcessor
         //System.out.println("DataListProcessor.readMasterFileConfig() NOT implemented !");
         log.debug("Read master file config ");
 
-        PropertiesFile pp = new PropertiesFile("../files/master_files/" + master_file_name + ".config");
+        PropertiesFile pp = null; //new PropertiesFile("../files/master_files/" + master_file_name + ".config");
 
+        // config is optional
+        try
+        {
+            pp = new PropertiesFile("../files/master_files/" + master_file_name + ".config");
+        }
+        catch(Exception ex)
+        {
+            return;
+        }
+        
+        
+        
         log.debug("   Was file read: " + pp.wasFileRead());
 
         //this.translation_file_read = pp.file_read;
