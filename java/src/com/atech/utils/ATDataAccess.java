@@ -536,6 +536,20 @@ public String gender_minus[] = {
             ex.printStackTrace();
             return null;
         }
+        finally
+        {
+            if (is!=null)
+            {
+                try
+                {
+                    is.close();
+                    is = null;
+                }
+                catch (IOException e)
+                {
+                }
+            }
+        }
         return img;
     }
 

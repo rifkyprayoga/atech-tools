@@ -396,6 +396,9 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     }
 
 
+    public abstract boolean canShemaBeAutomaticallyChanged();
+    
+    public abstract String getShemaChangeType();
 
 
     /**
@@ -432,6 +435,13 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
                             .setProperty("hibernate.connection.password", db_conn_password)
                             .setProperty("hibernate.connection.charSet", "utf-8")
                             .setProperty("hibernate.use_outer_join", "true");
+        
+        if (this.canShemaBeAutomaticallyChanged())
+        {
+            cfg.setProperty("hibernate.hbm2ddl.auto", this.getShemaChangeType());
+        }
+        
+        
         
         if (this.getMappingLocation()!=null)
         {

@@ -1,6 +1,7 @@
 package com.atech.web.db;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -897,7 +898,7 @@ public String getMessage(String key)
         gc.setTimeInMillis(System.currentTimeMillis());
 
         GregorianCalendar gc1 = new GregorianCalendar();
-        getGCFrom(gc1, gc, GregorianCalendar.DAY_OF_MONTH);
+        getGCFrom(gc1, gc, Calendar.DAY_OF_MONTH);
         getGCFrom(gc1, gc, GregorianCalendar.MONTH);
         getGCFrom(gc1, gc, GregorianCalendar.YEAR);
 
