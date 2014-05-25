@@ -1,0 +1,185 @@
+<project>
+    <modelVersion>4.0.0</modelVersion> 
+    <name>Atech-Tools Project</name>
+    
+    <groupId>com.atech-software</groupId>
+    <artifactId>atech-tools</artifactId>
+    <version>0.7.1-SNAPSHOT</version>
+    
+    
+      
+    <repositories>
+
+	    <repository>
+			<id>atechrepositorypublic</id>
+            <name>Atech Software Public Repository</name>
+            <url>http://www.atech-software.com:8080/nexus/content/groups/public/</url>
+        </repository>
+
+<!-- 
+	    <repository>
+			<id>mvnrepository</id>
+            <name>mvnrepository</name>
+            <url>http://www.mvnrepository.com</url>
+        </repository>
+
+	    <repository>
+			<id>jbossrepository</id>
+            <name>jbossrepository</name>
+            <url>https://repository.jboss.org/nexus/</url>
+        </repository>
+
+	    <repository>
+			<id>sonatype</id>
+			<name>Sonatype OSS Snapshots Repository</name>
+			<url>http://oss.sonatype.org/content/groups/public</url>
+	    </repository>
+
+	    <repository>
+			<id>javanet</id>
+			<name>Download Java Net Repository</name>
+			<url>http://download.java.net/maven/2/</url>
+	    </repository>
+
+ -->
+
+
+
+<!-- 
+            <url>http://repository.jboss.org/nexus/content/repositories/</url>
+
+        <repository>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <layout>default</layout>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+
+ -->
+
+    </repositories>
+
+     
+    
+<!--
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Maven Plugin Repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <layout>default</layout>
+
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+            <updatePolicy>never</updatePolicy>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    -->
+    <build> 
+        <directory>target</directory>
+        <outputDirectory>target/classes</outputDirectory>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <testOutputDirectory>target/test-classes</testOutputDirectory>
+        <sourceDirectory>src</sourceDirectory>
+        <scriptSourceDirectory>src</scriptSourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+            <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+    </build>
+
+
+    <reporting>
+        <outputDirectory>target/site</outputDirectory>
+    </reporting>
+    
+    
+    
+    
+    <dependencies>
+
+
+        <dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.1</version>
+		</dependency> 
+		
+		<dependency>
+  <groupId>javax.transaction</groupId>
+  <artifactId>jta</artifactId>
+  <version>1.0.1B</version>
+  <type>pom</type>
+</dependency>
+		
+<!--        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency> -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>  
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.help</groupId>
+            <artifactId>javahelp</artifactId>
+            <version>2.0.05</version>
+        </dependency>
+                    
+        <dependency>
+            <groupId>net.sf.squirrel-sql.thirdparty-non-maven</groupId>
+            <artifactId>skinlf</artifactId>
+            <version>6.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.13</version>
+        </dependency>
+
+    </dependencies>
+    
+</project>
