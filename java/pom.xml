@@ -34,13 +34,13 @@
 
 	<distributionManagement>
 		<repository>
-			<id>deployment</id>
+			<id>releases</id>
 			<name>Internal Releases</name>
 			<url>http://www.atech-software.com:8080/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>deployment</id>
-			<name>Internal Releases</name>
+			<id>snapshots</id>
+			<name>Internal Snapshots</name>
 			<url>http://www.atech-software.com:8080/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
@@ -170,6 +170,11 @@
 		<itextpdf.version>5.1.2</itextpdf.version>	
 		<commons-lang.version>2.0</commons-lang.version>	 
 		<javahelp.version>2.0.05</javahelp.version>	
+	
+	
+	
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	
 		
 	</properties>
