@@ -1,4 +1,4 @@
-package com.atech.print;
+package com.atech.print.engine;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -66,18 +66,17 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public abstract class PrintAbstractIText extends PdfPageEventHelper
 {
-    
-    private static Log log = LogFactory.getLog(PrintAbstractIText.class);
+    private static final Log LOG = LogFactory.getLog(PrintAbstractIText.class);
 
-    protected ATDataAccessAbstract m_da = null;
-    protected I18nControlAbstract ic = null;
+    protected ATDataAccessAbstract dataAccess = null;
+    protected I18nControlAbstract i18nControl = null;
     String name = "";
 
-    protected BaseFont base_helvetica = null;
-    protected BaseFont base_times = null;
-    protected Font text_normal = null;
-    protected Font text_bold = null;
-    protected Font text_italic = null;
+    protected BaseFont baseFontHelvetica = null;
+    protected BaseFont baseFontTimes = null;
+    protected Font textFontNormal = null;
+    protected Font textFontBold = null;
+    protected Font textFontItalic = null;
 
     /**
      * Print root must always contain trailing slash, so ../data/print/ is correct, while ../data/print is incorrect.
@@ -91,15 +90,15 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     /**
      * Constructor
      * 
-     * @param da 
-     * @param do_init 
+     * @param dataAccess 
+     * @param doInit 
      */
-    public PrintAbstractIText(ATDataAccessAbstract da, boolean do_init)
+    public PrintAbstractIText(ATDataAccessAbstract dataAccess, boolean doInit)
     {
-        this.m_da = da;
-        this.ic = da.getI18nControlInstance();
+        this.dataAccess = dataAccess;
+        this.i18nControl = dataAccess.getI18nControlInstance();
         
-        if (do_init)
+        if (doInit)
             init();
     }
 
@@ -108,30 +107,29 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     /**
      * Constructor
      * 
-     * @param ic
-     * @param do_init 
+     * @param i18nControl
+     * @param doInit 
      */
-    public PrintAbstractIText(I18nControlAbstract ic, boolean do_init)
+    public PrintAbstractIText(I18nControlAbstract i18nControl, boolean doInit)
     {
-        this.ic = ic;
+        this.i18nControl = i18nControl;
 
-        if (do_init)
+        if (doInit)
             init();
     }
     
     
     protected void init()
     {
-        //name = System.currentTimeMillis();
         createName();
 
         try
         {
-            base_helvetica = BaseFont.createFont("Helvetica", BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
-            base_times = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
-            text_normal = new Font(this.base_helvetica , getTextSize(), Font.NORMAL);
-            text_bold = new Font(this.base_helvetica , getTextSize(), Font.BOLD);
-            text_italic = new Font(this.base_helvetica , getTextSize(), Font.ITALIC);
+            baseFontHelvetica = BaseFont.createFont("Helvetica", BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
+            baseFontTimes = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
+            textFontNormal = new Font(this.baseFontHelvetica , getTextSize(), Font.NORMAL);
+            textFontBold = new Font(this.baseFontHelvetica , getTextSize(), Font.BOLD);
+            textFontItalic = new Font(this.baseFontHelvetica , getTextSize(), Font.ITALIC);
         }
         catch(Exception ex)
         {
@@ -139,7 +137,6 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         }
         
         createDocument();
-        
     }
     
     
@@ -241,10 +238,13 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         
         // fixme
 
+        FileOutputStream fos = null;
         try 
         {
+            fos = new FileOutputStream(fl.getAbsoluteFile());
+            
             // step2 - asign pdf to file
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fl.getAbsoluteFile()));
+            PdfWriter writer = PdfWriter.getInstance(document, fos);
             
             // step3 - set page event, open document and put on title
             writer.setPageEvent(this);
@@ -259,44 +259,25 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         } 
         catch (Exception de) 
         {
-            log.error("Error on document creation [" + de.getMessage() + "]: "+ de, de);
+            LOG.error("Error on document creation [" + de.getMessage() + "]: "+ de, de);
             de.printStackTrace();
+        }
+        finally
+        {
+            if (fos!=null)
+            {
+                try
+                {
+                    fos.close();
+                }
+                catch(Exception ex) {}
+            }
         }
 
         // step5
         document.close();
 
     }
-
-    
-    
-    
-    
-   /* 
-    private void SetComment(String text, PdfPTable table)
-    {
-        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.addCell(new Phrase(text, normal_text));
-        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-    }*/
-
-    /*
-    private PdfPCell GetPhrasedCell(String text)
-    {
-	//PdfPHeader h = new P
-	/*
-        PdfPCell cl = new PdfPCell();
-        //cl.setBorder(PdfPCell.BOTTOM|PdfPCell.TOP|PdfPCell.LEFT|PdfPCell.RIGHT);
-        cl.setBorderWidth(1);
-        cl.setVerticalAlignment(Element.ALIGN_CENTER);
-        cl.setHorizontalAlignment(Element.ALIGN_LEFT);
-        cl.addElement(new Phrase(text, normal_text));
-        */
-	
-	/*
-        return cl;
-
-    } */
     
     
     protected void setBackground(int element_cnt, PdfPTable table)
@@ -310,42 +291,6 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     	
     }
     
- /*   
-    private void addEmptyValues(int day, PdfPTable table)
-    {
-        table.addCell(day + "." + this.m_mv.getMonth());
-        table.addCell("");
-        table.addCell("");
-        table.addCell("");
-        table.addCell("");
-        table.addCell("");
-        table.addCell("");
-        table.addCell("");
-    }
-   */ 
-
-    /*
-    private void addValues(int entry, int day, DailyValuesRow dvr, PdfPTable table)
-    {
-	if (entry==0)
-	    table.addCell(day + "." + this.m_mv.getMonth());
-	else
-	    table.addCell("");
-	
-	
-        table.addCell(dvr.getTimeAsString());
-        table.addCell(dvr.getBGAsString());
-        table.addCell(dvr.getIns1AsString());
-        table.addCell(dvr.getIns2AsString());
-        table.addCell(dvr.getCHAsString());
-        table.addCell(dvr.getUrine());
-        //table.addCell(GetPhrasedCell(dvr.getComment()));
-
-        SetComment(dvr.getComment(), table);
-    }
-    */
-    
-    
     
     private void checkIfRootExists()
     {
@@ -353,22 +298,15 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         
         if (!f.exists())
         {
-            
-//            String s = print_root.substring(0, print_root.lastIndexOf("/"));
-//            s = print_root.substring(0, print_root.lastIndexOf("/"));
-            
             try
             {
                 f.mkdir();
-//                File fs = new File(s);
-//                f.createNewFile();
             }
             catch(Exception ex)
             {
-                log.error("Error creating new print directory ! [" + PrintAbstractIText.print_root + "]. Ex: " + ex, ex);
+                LOG.error("Error creating new print directory ! [" + PrintAbstractIText.print_root + "]. Ex: " + ex, ex);
             }
         }
-        
     }
 
 
@@ -389,9 +327,9 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
             PdfPCell pc = new PdfPCell();
             pc.setBorderColor(BaseColor.WHITE);
 
-            Font f = new Font(this.base_times , 10, Font.ITALIC|Font.BOLD); // this.base_times
+            Font f = new Font(this.baseFontTimes , 10, Font.ITALIC|Font.BOLD); // this.base_times
 
-            pc.setPhrase(new Phrase(new Chunk(ic.getMessage("REPORT_FOOTER"), f)));
+            pc.setPhrase(new Phrase(new Chunk(i18nControl.getMessage("REPORT_FOOTER"), f)));
             pc.setHorizontalAlignment(Element.ALIGN_CENTER);
             foot.addCell(pc);
             foot.setTotalWidth(page.getWidth() - document.leftMargin() - document.rightMargin());
@@ -413,12 +351,14 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      */
     public abstract void fillDocumentBody(Document document) throws Exception;
     
+    
     /**
      * Returns base filename for printing job, this is just part of end filename (starting part)
      * 
      * @return 
      */
     public abstract String getFileNameBase();
+    
     
     /**
      * Returns data part of filename for printing job, showing which data is being printed
