@@ -4,11 +4,11 @@ public abstract class LanguageManagerRunnerDual extends LanguageManagerRunner
 {
 
     /**
-     * Find untraslated Keys. If you need to determine which keywords are NOT translated in your language, set this to true, else
+     * Find untranslated Keys. If you need to determine which keywords are NOT translated in your language, set this to true, else
      * set to false.
      * 
      * @return
      */
-    public abstract boolean findUntraslatedKeysInLanguage();
+    public abstract boolean findUntranslatedKeysInLanguage();
     
 }

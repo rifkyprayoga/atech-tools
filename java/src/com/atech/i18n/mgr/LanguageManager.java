@@ -540,7 +540,7 @@ public class LanguageManager
         
         if (this.language_manager_runnner instanceof LanguageManagerRunnerDual)
         {
-            this.find_untraslated_keys = ((LanguageManagerRunnerDual)this.language_manager_runnner).findUntraslatedKeysInLanguage(); 
+            this.find_untraslated_keys = ((LanguageManagerRunnerDual)this.language_manager_runnner).findUntranslatedKeysInLanguage(); 
         }
     }
     
