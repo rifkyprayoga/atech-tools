@@ -18,7 +18,7 @@ public abstract class LanguageManagerRunner
      * 
      * @return the language config file
      */
-    public abstract String getLangaugeConfigFile();
+    public abstract String getLanguageConfigFile();
 
     
     

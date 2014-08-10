@@ -147,9 +147,9 @@ public class LanguageManager
     public void loadData()
     {
 
-        PropertiesFile props = new PropertiesFile(this.language_manager_runnner.getLangaugeConfigFile());
+        PropertiesFile props = new PropertiesFile(this.language_manager_runnner.getLanguageConfigFile());
 
-        System.out.println(this.language_manager_runnner.getLangaugeConfigFile());
+        System.out.println(this.language_manager_runnner.getLanguageConfigFile());
         
         File uu = new File(".");
         
@@ -181,7 +181,7 @@ public class LanguageManager
         
         if (!props.wasFileRead())
         {
-            log.error("LanguageManager: Configuration file " + this.language_manager_runnner.getLangaugeConfigFile() + " was NOT read !");
+            log.error("LanguageManager: Configuration file " + this.language_manager_runnner.getLanguageConfigFile() + " was NOT read !");
         }
 
        
