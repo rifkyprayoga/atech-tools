@@ -172,7 +172,5 @@ public abstract class PrintDialogMonth extends PrintDialogRange
         }
 
     }
-
-    
     
 }

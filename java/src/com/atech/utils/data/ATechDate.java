@@ -1,19 +1,23 @@
 
 package com.atech.utils.data;
 
+
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.jfree.util.Log;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+
 
 import com.atech.i18n.I18nControlAbstract;
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
+ *  ATechDate - ATechDate format parser/util (yyyyMMddhhss for date and time)
  *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
@@ -42,7 +46,8 @@ import com.atech.i18n.I18nControlAbstract;
 
 public class ATechDate
 {
-
+    private static Log log = LogFactory.getLog(ATechDate.class);
+    
     /**
      * The i18n_control.
      */
@@ -246,41 +251,41 @@ public class ATechDate
         {
             case ATechDate.FORMAT_DATE_ONLY:
                 {
-                    this.day_of_month = gc.get(GregorianCalendar.DAY_OF_MONTH);
-                    this.month = gc.get(GregorianCalendar.MONTH) +1;
-                    this.year = gc.get(GregorianCalendar.YEAR);
+                    this.day_of_month = gc.get(Calendar.DAY_OF_MONTH);
+                    this.month = gc.get(Calendar.MONTH) +1;
+                    this.year = gc.get(Calendar.YEAR);
                 } break;
 
             case ATechDate.FORMAT_DATE_AND_TIME_S:
                 {
-                    this.day_of_month = gc.get(GregorianCalendar.DAY_OF_MONTH);
-                    this.month = gc.get(GregorianCalendar.MONTH) +1;
-                    this.year = gc.get(GregorianCalendar.YEAR);
-                    this.hour_of_day = gc.get(GregorianCalendar.HOUR_OF_DAY);
-                    this.minute = gc.get(GregorianCalendar.MINUTE);
-                    this.second = gc.get(GregorianCalendar.SECOND);
+                    this.day_of_month = gc.get(Calendar.DAY_OF_MONTH);
+                    this.month = gc.get(Calendar.MONTH) +1;
+                    this.year = gc.get(Calendar.YEAR);
+                    this.hour_of_day = gc.get(Calendar.HOUR_OF_DAY);
+                    this.minute = gc.get(Calendar.MINUTE);
+                    this.second = gc.get(Calendar.SECOND);
                 } break;
 
             case ATechDate.FORMAT_DATE_AND_TIME_MS:
                 {
-                    this.day_of_month = gc.get(GregorianCalendar.DAY_OF_MONTH);
-                    this.month = gc.get(GregorianCalendar.MONTH) +1;
-                    this.year = gc.get(GregorianCalendar.YEAR);
-                    this.hour_of_day = gc.get(GregorianCalendar.HOUR_OF_DAY);
-                    this.minute = gc.get(GregorianCalendar.MINUTE);
-                    this.second = gc.get(GregorianCalendar.SECOND);
-                    this.msecond = gc.get(GregorianCalendar.MILLISECOND);
+                    this.day_of_month = gc.get(Calendar.DAY_OF_MONTH);
+                    this.month = gc.get(Calendar.MONTH) +1;
+                    this.year = gc.get(Calendar.YEAR);
+                    this.hour_of_day = gc.get(Calendar.HOUR_OF_DAY);
+                    this.minute = gc.get(Calendar.MINUTE);
+                    this.second = gc.get(Calendar.SECOND);
+                    this.msecond = gc.get(Calendar.MILLISECOND);
                 } break;
 
             default:
             case ATechDate.FORMAT_DATE_AND_TIME_MIN:
                 {
-                    this.day_of_month = gc.get(GregorianCalendar.DAY_OF_MONTH);
-                    this.month = gc.get(GregorianCalendar.MONTH) +1;
-                    this.year = gc.get(GregorianCalendar.YEAR);
+                    this.day_of_month = gc.get(Calendar.DAY_OF_MONTH);
+                    this.month = gc.get(Calendar.MONTH) +1;
+                    this.year = gc.get(Calendar.YEAR);
 
-                    this.hour_of_day = gc.get(GregorianCalendar.HOUR_OF_DAY);
-                    this.minute = gc.get(GregorianCalendar.MINUTE);
+                    this.hour_of_day = gc.get(Calendar.HOUR_OF_DAY);
+                    this.minute = gc.get(Calendar.MINUTE);
 
                 } break;
 
@@ -621,8 +626,6 @@ public class ATechDate
      * @param _month 
      * @param _year 
      * 
-     * @param type the type
-     * 
      * @return the aT date time from gc
      */
     public static long getATDateTimeFromDateParts(int _day, int _month, int _year) // throws Exception
@@ -638,6 +641,8 @@ public class ATechDate
      * @param _day 
      * @param _month 
      * @param _year 
+     * @param hour 
+     * @param minute 
      * 
      * @param type the type
      * 
@@ -666,31 +671,31 @@ public class ATechDate
     
         if (type==FORMAT_DATE_AND_TIME_S)
         {
-            dt += gc.get(GregorianCalendar.YEAR) *10000000000L;
-            dt += gc.get(GregorianCalendar.MONTH) * 100000000L;
-            dt += gc.get(GregorianCalendar.DAY_OF_MONTH) *1000000L;
-            dt += gc.get(GregorianCalendar.HOUR_OF_DAY) *10000L;
-            dt += gc.get(GregorianCalendar.MINUTE) *100L;
-            dt += gc.get(GregorianCalendar.SECOND);
+            dt += gc.get(Calendar.YEAR) *10000000000L;
+            dt += (gc.get(Calendar.MONTH)+1) * 100000000L;
+            dt += gc.get(Calendar.DAY_OF_MONTH) *1000000L;
+            dt += gc.get(Calendar.HOUR_OF_DAY) *10000L;
+            dt += gc.get(Calendar.MINUTE) *100L;
+            dt += gc.get(Calendar.SECOND);
         } 
         else if (type==FORMAT_DATE_AND_TIME_MIN)
     	{
-    	    dt += gc.get(GregorianCalendar.YEAR) *100000000L;
-    	    dt += (gc.get(GregorianCalendar.MONTH)+1)*1000000L;
-    	    dt += gc.get(GregorianCalendar.DAY_OF_MONTH) *10000L;
-    	    dt += gc.get(GregorianCalendar.HOUR_OF_DAY) *100L;
-    	    dt += gc.get(GregorianCalendar.MINUTE);
+    	    dt += gc.get(Calendar.YEAR) *100000000L;
+    	    dt += (gc.get(Calendar.MONTH)+1)*1000000L;
+    	    dt += gc.get(Calendar.DAY_OF_MONTH) *10000L;
+    	    dt += gc.get(Calendar.HOUR_OF_DAY) *100L;
+    	    dt += gc.get(Calendar.MINUTE);
     	} 
     	else if (type==FORMAT_DATE_ONLY)
     	{
-    	    dt += gc.get(GregorianCalendar.YEAR) *10000L;
-    	    dt += (gc.get(GregorianCalendar.MONTH)+1)*100L;
-    	    dt += gc.get(GregorianCalendar.DAY_OF_MONTH);
+    	    dt += gc.get(Calendar.YEAR) *10000L;
+    	    dt += (gc.get(Calendar.MONTH)+1)*100L;
+    	    dt += gc.get(Calendar.DAY_OF_MONTH);
     	}
     	else if (type==ATechDate.FORMAT_TIME_ONLY_MIN)
     	{
-    	    dt += gc.get(GregorianCalendar.HOUR_OF_DAY) *100L;
-    	    dt += gc.get(GregorianCalendar.MINUTE);
+    	    dt += gc.get(Calendar.HOUR_OF_DAY) *100L;
+    	    dt += gc.get(Calendar.MINUTE);
     	}
         else
         {
@@ -714,6 +719,7 @@ public class ATechDate
     {
         GregorianCalendar gc = new GregorianCalendar(); //dt.getYear(), dt.getMonth(), dt.getDay());
         gc.setTime(dt);
+        
         return ATechDate.getATDateTimeFromGC(gc, type);
     }
     
@@ -1062,13 +1068,13 @@ public static GregorianCalendar getGregorianCalendar(int format, long dt)
     {
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTimeZone(TimeZoneUtil.getInstance().getEmptyTimeZone());
-        gc.set(GregorianCalendar.YEAR, this.year);
-        gc.set(GregorianCalendar.MONTH, this.month-1);
-        gc.set(GregorianCalendar.DAY_OF_MONTH, this.day_of_month);
-        gc.set(GregorianCalendar.HOUR_OF_DAY, this.hour_of_day);
-        gc.set(GregorianCalendar.MINUTE, this.minute);
-        gc.set(GregorianCalendar.SECOND, this.second);
-        gc.set(GregorianCalendar.MILLISECOND, this.msecond);
+        gc.set(Calendar.YEAR, this.year);
+        gc.set(Calendar.MONTH, this.month-1);
+        gc.set(Calendar.DAY_OF_MONTH, this.day_of_month);
+        gc.set(Calendar.HOUR_OF_DAY, this.hour_of_day);
+        gc.set(Calendar.MINUTE, this.minute);
+        gc.set(Calendar.SECOND, this.second);
+        gc.set(Calendar.MILLISECOND, this.msecond);
 
         //System.out.println("getGregorianCalendar: parts   " + this.hour_of_day + ":" + this.minute);
         //System.out.println("getGregorianCalendar: gc      " + gc.get(Calendar.HOUR_OF_DAY) + ":" + gc.get(Calendar.MINUTE)); 
@@ -1086,13 +1092,13 @@ public static GregorianCalendar getGregorianCalendar(int format, long dt)
      */
     public void setGregorianCalendar(GregorianCalendar gc)
     {
-        this.year = gc.get(GregorianCalendar.YEAR);
-        this.month = gc.get(GregorianCalendar.MONTH)+1;
-        this.day_of_month = gc.get(GregorianCalendar.DAY_OF_MONTH);
-        this.hour_of_day = gc.get(GregorianCalendar.HOUR_OF_DAY);
-        this.minute = gc.get(GregorianCalendar.MINUTE);
-        this.second = gc.get(GregorianCalendar.SECOND);
-        this.msecond = gc.get(GregorianCalendar.MILLISECOND);
+        this.year = gc.get(Calendar.YEAR);
+        this.month = gc.get(Calendar.MONTH)+1;
+        this.day_of_month = gc.get(Calendar.DAY_OF_MONTH);
+        this.hour_of_day = gc.get(Calendar.HOUR_OF_DAY);
+        this.minute = gc.get(Calendar.MINUTE);
+        this.second = gc.get(Calendar.SECOND);
+        this.msecond = gc.get(Calendar.MILLISECOND);
     }
 
 
@@ -1332,7 +1338,7 @@ public static GregorianCalendar getGregorianCalendar(int format, long dt)
                     } 
 
                 default:
-                    Log.error("Equals for this type is not implemented !");
+                    log.error("Equals for this type is not implemented !");
                     return false;
             }
             

@@ -83,7 +83,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      * It should be stored under GGC main structure, so that parent of last directory (in this case data) already 
      * exists. And of course unix path divider must be used. (/ instead of \ on windows) 
      */
-    private static String print_root = "../data/print/";
+    private static String printRoot = "../data/print/";
     
     
     
@@ -140,6 +140,28 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     }
     
     
+    protected Phrase createBoldTextPhrase(String text)
+    {
+        return new Phrase(this.i18nControl.getMessage(text), this.textFontBold);
+    }
+
+    protected Phrase createNormalTextPhrase(String text)
+    {
+        return new Phrase(this.i18nControl.getMessage(text), this.textFontNormal);
+    }
+
+    
+    protected Phrase createEmptyTextPhrase()
+    {
+        return new Phrase("", this.textFontNormal);
+    }
+    
+    
+    protected Phrase createItalicTextPhrase(String text)
+    {
+        return new Phrase(this.i18nControl.getMessage(text), this.textFontItalic);
+    }
+    
     /**
      * Get Text Size
      * 
@@ -166,7 +188,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      */
     public String getNameWithPath()
     {
-        File f = new File(print_root + getName());
+        File f = new File(printRoot + getName());
         return f.getAbsolutePath();
     }
 
@@ -178,7 +200,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      */
     public String getRelativeNameWithPath()
     {
-        return print_root + getName();
+        return printRoot + getName();
     }
     
     
@@ -190,7 +212,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      */
     public File getNameFile()
     {
-        File f = new File(print_root + getName());
+        File f = new File(printRoot + getName());
         return f;
     }
     
@@ -205,7 +227,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         
         for(int i=1; i< Integer.MAX_VALUE; i++)
         {
-            File f = new File(PrintAbstractIText.print_root + this.name + i + ".pdf");
+            File f = new File(PrintAbstractIText.printRoot + this.name + i + ".pdf");
             
             if (!f.exists())
             {
@@ -233,7 +255,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     {
 
         // step1
-        File fl = new File(PrintAbstractIText.print_root + this.getName());
+        File fl = new File(PrintAbstractIText.printRoot + this.getName());
         Document document = new Document(PageSize.A4, 30, 30, 40, 20);
         
         // fixme
@@ -294,7 +316,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     
     private void checkIfRootExists()
     {
-        File f = new File(print_root);
+        File f = new File(printRoot);
         
         if (!f.exists())
         {
@@ -304,7 +326,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
             }
             catch(Exception ex)
             {
-                LOG.error("Error creating new print directory ! [" + PrintAbstractIText.print_root + "]. Ex: " + ex, ex);
+                LOG.error("Error creating new print directory ! [" + PrintAbstractIText.printRoot + "]. Ex: " + ex, ex);
             }
         }
     }

@@ -73,7 +73,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     protected Font fontNormal, fontNormalBold;
     protected boolean enableHelp = true;
-
+    PrintDialogType type;
     
     /**
      * Constructor
