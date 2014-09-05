@@ -1,5 +1,6 @@
 package com.atech.utils.data;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -45,6 +46,12 @@ public class MathUtils
         data.stdDeviation = (stdDevA > stdDevB) ? stdDevA : stdDevB;
         data.average = avg;
 
+    }
+
+    public static double roundTo2Decimals(double d)
+    {
+        BigDecimal bd = new BigDecimal(d).setScale(2, BigDecimal.ROUND_HALF_UP);
+        return bd.doubleValue();
     }
 
     public static void quartiles(ArrayList<Double> values, MathData data) throws Exception
