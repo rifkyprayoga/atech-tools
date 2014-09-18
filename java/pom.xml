@@ -14,7 +14,7 @@
 		<repository>
 			<id>atechrepositorypublic</id>
 			<name>Atech Software Public Repository</name>
-			<url>http://www.atech-software.com:8090/repository/public/</url>
+			<url>http://www.atech-software.com:8081/repository/public/</url>
 			<!-- <url>http://www.atech-software.com:8080/nexus/content/groups/public/</url>  -->
 		</repository>
 
@@ -41,14 +41,14 @@
 		<repository>
 			<id>releases</id>
 			<name>Internal Releases</name>
-			<url>http://www.atech-software.com:8090/repository/internal/</url>
-		<!-- 	<url>http://www.atech-software.com:8080/nexus/content/repositories/releases/</url> -->
+			<!--  <url>http://www.atech-software.com:8090/repository/internal/</url>  -->
+		 	<url>http://www.atech-software.com:8081/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>Internal Snapshots</name>
-			<url>http://www.atech-software.com:8090/repository/snapshots/</url>
-		<!-- 	<url>http://www.atech-software.com:8080/nexus/content/repositories/snapshots/</url>  -->
+			<!-- <url>http://www.atech-software.com:8090/repository/snapshots/</url>  -->
+		 	<url>http://www.atech-software.com:8081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
