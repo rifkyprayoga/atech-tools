@@ -20,7 +20,7 @@ public class MathUtils
     public static void calcAvgAndStdDev(ArrayList<Double> values, MathData data)
     {
         double min = Double.MAX_VALUE;
-        double max = Double.MIN_NORMAL;
+        double max = Double.MIN_VALUE;
         double sum = 0.0d;
 
         for (double d : values)
