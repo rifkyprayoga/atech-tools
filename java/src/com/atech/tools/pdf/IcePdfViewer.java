@@ -8,22 +8,24 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.icepdf.core.util.Defs;
-import org.icepdf.ri.common.ViewModel;
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.SwingViewBuilder;
 import org.icepdf.ri.util.FontPropertiesManager;
 import org.icepdf.ri.util.PropertiesManager;
-import org.icepdf.ri.util.URLAccess;
-import org.icepdf.ri.viewer.WindowManager;
 
 public class IcePdfViewer {
 
-    private static final Logger logger = Logger.getLogger(IcePdfViewer.class.toString());
+    private static final Log logger = LogFactory.getLog(IcePdfViewer.class);
 
-    private WindowManager windowManager;
+    //private WindowManager windowManager;
     private PropertiesManager propertiesManager;
     private ResourceBundle activeLanguageBundle;
     private boolean useLookAndFeel = false;
@@ -96,10 +98,47 @@ public class IcePdfViewer {
             setupLookAndFeel(activeLanguageBundle);
         }
 
+
+     // build a component controller
+        SwingController controller = new SwingController();
+        controller.setIsEmbeddedComponent(true);
+
+        /*
+        PropertiesManager properties = new PropertiesManager(
+                System.getProperties(),
+                ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
+
+        properties.set(PropertiesManager.PROPERTY_DEFAULT_ZOOM_LEVEL, "1.75");
+*/
+
+        SwingViewBuilder factory = new SwingViewBuilder(controller, propertiesManager);
+
+        // add interactive mouse link annotation support via callback
+        controller.getDocumentViewController().setAnnotationCallback(
+                new org.icepdf.ri.common.MyAnnotationCallback(controller.getDocumentViewController()));
+        JPanel viewerComponentPanel = factory.buildViewerPanel();
+        JFrame applicationFrame = new JFrame();
+        applicationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //.EXIT_ON_CLOSE);
+        applicationFrame.getContentPane().add(viewerComponentPanel);
+        // Now that the GUI is all in place, we can try openning a PDF
+        controller.openDocument(contentFile);
+        // show the component
+        applicationFrame.pack();
+        applicationFrame.setVisible(true);
+
+
+
+
+/*
+        // first try at running icepdf, it seems that it was wrong way
+
         ViewModel.setDefaultFilePath(propertiesManager.getDefaultFilePath());
         ViewModel.setDefaultURL(propertiesManager.getDefaultURL());
 
         windowManager = new WindowManager(propertiesManager, activeLanguageBundle);
+
+
+
 
         if (StringUtils.isNotBlank(contentFile)) {
             windowManager.newWindow(contentFile);
@@ -127,7 +166,7 @@ public class IcePdfViewer {
         } else {
             windowManager.newWindow("");
         }
-
+*/
     }
 
 
@@ -161,7 +200,7 @@ public class IcePdfViewer {
             String defaultLF = UIManager.getSystemLookAndFeelClassName();
             UIManager.setLookAndFeel(defaultLF);
         } catch (Exception e) {
-            logger.log(Level.FINE, "Error setting Swing Look and Feel.", e);
+            logger.error("Error setting Swing Look and Feel.", e);
         }
     }
 

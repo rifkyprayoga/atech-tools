@@ -14,19 +14,19 @@
 		<repository>
 			<id>atechrepositorypublic</id>
 			<name>Atech Software Public Repository</name>
-			<url>http://www.atech-software.com:8081/repository/public/</url>
-			<!-- <url>http://www.atech-software.com:8080/nexus/content/groups/public/</url>  -->
+			<!-- <url>http://www.atech-software.com:8090/repository/public/</url>  -->
+			<url>http://www.atech-software.com:8081/nexus/content/groups/public/</url>
 		</repository>
 
-		<!-- <repository> <id>mvnrepository</id> <name>mvnrepository</name> <url>http://www.mvnrepository.com</url> 
-			</repository> <repository> <id>jbossrepository</id> <name>jbossrepository</name> 
-			<url>https://repository.jboss.org/nexus/</url> </repository> <repository> 
-			<id>sonatype</id> <name>Sonatype OSS Snapshots Repository</name> <url>http://oss.sonatype.org/content/groups/public</url> 
-			</repository> <repository> <id>javanet</id> <name>Download Java Net Repository</name> 
+		<!-- <repository> <id>mvnrepository</id> <name>mvnrepository</name> <url>http://www.mvnrepository.com</url>
+			</repository> <repository> <id>jbossrepository</id> <name>jbossrepository</name>
+			<url>https://repository.jboss.org/nexus/</url> </repository> <repository>
+			<id>sonatype</id> <name>Sonatype OSS Snapshots Repository</name> <url>http://oss.sonatype.org/content/groups/public</url>
+			</repository> <repository> <id>javanet</id> <name>Download Java Net Repository</name>
 			<url>http://download.java.net/maven/2/</url> </repository> -->
 
-		<!-- <url>http://repository.jboss.org/nexus/content/repositories/</url> 
-			<repository> <id>central</id> <name>Maven Repository Switchboard</name> <layout>default</layout> 
+		<!-- <url>http://repository.jboss.org/nexus/content/repositories/</url>
+			<repository> <id>central</id> <name>Maven Repository Switchboard</name> <layout>default</layout>
 			<url>http://repo1.maven.org/maven2</url> </repository> -->
 
 		<repository>
@@ -41,20 +41,20 @@
 		<repository>
 			<id>releases</id>
 			<name>Internal Releases</name>
-			<!--  <url>http://www.atech-software.com:8090/repository/internal/</url>  -->
-		 	<url>http://www.atech-software.com:8081/nexus/content/repositories/releases/</url>
+			<url>http://www.atech-software.com:8090/repository/internal/</url>
+		<!-- 	<url>http://www.atech-software.com:8080/nexus/content/repositories/releases/</url> -->
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>Internal Snapshots</name>
-			<!-- <url>http://www.atech-software.com:8090/repository/snapshots/</url>  -->
-		 	<url>http://www.atech-software.com:8081/nexus/content/repositories/snapshots/</url>
+			<url>http://www.atech-software.com:8090/repository/snapshots/</url>
+		<!-- 	<url>http://www.atech-software.com:8080/nexus/content/repositories/snapshots/</url>  -->
 		</snapshotRepository>
 	</distributionManagement>
 
-	<!-- <pluginRepositories> <pluginRepository> <id>central</id> <name>Maven 
-		Plugin Repository</name> <url>http://repo1.maven.org/maven2</url> <layout>default</layout> 
-		<snapshots> <enabled>false</enabled> </snapshots> <releases> <updatePolicy>never</updatePolicy> 
+	<!-- <pluginRepositories> <pluginRepository> <id>central</id> <name>Maven
+		Plugin Repository</name> <url>http://repo1.maven.org/maven2</url> <layout>default</layout>
+		<snapshots> <enabled>false</enabled> </snapshots> <releases> <updatePolicy>never</updatePolicy>
 		</releases> </pluginRepository> </pluginRepositories> -->
 	<build>
 		<defaultGoal>compile</defaultGoal>
@@ -110,7 +110,7 @@
 			<type>pom</type>
 		</dependency>
 
-		<!-- <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> 
+		<!-- <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId>
 			<version>3.8.1</version> <scope>test</scope> </dependency> -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
