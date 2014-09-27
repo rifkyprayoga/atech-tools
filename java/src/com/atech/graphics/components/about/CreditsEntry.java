@@ -31,7 +31,6 @@ package com.atech.graphics.components.about;
  *
 */
 
-
 public class CreditsEntry
 {
     private String name;
@@ -59,18 +58,21 @@ public class CreditsEntry
      */
     public String getHTMLCode()
     {
-        if ((this.email==null) || (this.email.trim().length()==0))
-        {
-            return "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#006600\">" + this.name + "</font></td></tr></table>"+
-            "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#990000\">" + this.what_does + "</font></td></tr></table><br>";
-        }
+        if (this.email == null || this.email.trim().length() == 0)
+            return "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#006600\">"
+                    + this.name
+                    + "</font></td></tr></table>"
+                    + "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#990000\">"
+                    + this.what_does + "</font></td></tr></table><br>";
         else
-        {
-            return "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#006600\">" + this.name + "</font></td></tr></table>"+
-                   "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#000099\">" + this.email + "</font></td></tr></table>" +
-                   "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#990000\">" + this.what_does + "</font></td></tr></table><br>";
-        }
+            return "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#006600\">"
+                    + this.name
+                    + "</font></td></tr></table>"
+                    + "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#000099\">"
+                    + this.email
+                    + "</font></td></tr></table>"
+                    + "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#990000\">"
+                    + this.what_does + "</font></td></tr></table><br>";
     }
-
 
 }

@@ -33,15 +33,14 @@ import java.util.ArrayList;
  *
 */
 
-
-public class DbToolTreeRoot 
+public class DbToolTreeRoot
 {
 
     /**
      * The Constant ROOT_SINGLE.
      */
     public static final int ROOT_SINGLE = 1;
-    
+
     /**
      * The Constant ROOT_MULTIPLE.
      */
@@ -56,65 +55,56 @@ public class DbToolTreeRoot
      * The m_app group.
      */
     public ArrayList<DbToolApplicationInterface> m_appGroup = null;
-    
+
     /**
      * The m_app.
      */
     public DbToolApplicationInterface m_app = null;
 
-//    public Hashtable m_appGroup_table = null;
+    // public Hashtable m_appGroup_table = null;
     /**
- * The m_app_list.
- */
-public ArrayList<DatabaseSettings> m_app_list = null;
+    * The m_app_list.
+    */
+    public ArrayList<DatabaseSettings> m_app_list = null;
 
     /**
      * The m_da.
      */
     public DbToolAccess m_da = null;
 
-
     /**
      * Instantiates a new db tool tree root.
      * 
      * @param da the da
      */
-    public DbToolTreeRoot(DbToolAccess da) 
+    public DbToolTreeRoot(DbToolAccess da)
     {
 
         m_da = da;
-	//m_appGroup = m_da.getApplicationDatas();
+        // m_appGroup = m_da.getApplicationDatas();
 
-/*
-	    m_foodGroups = db.getFoodGroups();
-	    Iterator it = m_foodGroups.iterator();
+        /*
+         * m_foodGroups = db.getFoodGroups();
+         * Iterator it = m_foodGroups.iterator();
+         * m_foodDescByGroup = new Hashtable();
+         * while (it.hasNext())
+         * {
+         * FoodGroup fg = (FoodGroup)it.next();
+         * m_foodDescByGroup.put(""+fg.getId(), new ArrayList());
+         * }
+         * ArrayList list = db.getFoodDescriptions();
+         * it = list.iterator();
+         * while (it.hasNext())
+         * {
+         * FoodDescription fd = (FoodDescription)it.next();
+         * ArrayList al =
+         * (ArrayList)m_foodDescByGroup.get(""+fd.getFood_group_id());
+         * al.add(fd);
+         * }
+         */
 
-	    m_foodDescByGroup = new Hashtable();
-
-	    while (it.hasNext())
-	    {
-		FoodGroup fg = (FoodGroup)it.next();
-		m_foodDescByGroup.put(""+fg.getId(), new ArrayList());
-	    }
-
-	    
-	    ArrayList list = db.getFoodDescriptions();
-	    it = list.iterator();
-
-	    while (it.hasNext())
-	    {
-		FoodDescription fd = (FoodDescription)it.next();
-
-		ArrayList al = (ArrayList)m_foodDescByGroup.get(""+fd.getFood_group_id());
-		al.add(fd);
-	    }
-*/
-        
     }
 
-    
-    
-    
     /**
      * Load data.
      */
@@ -131,15 +121,14 @@ public ArrayList<DatabaseSettings> m_app_list = null;
      */
     public void loadData(DbToolApplicationInterface intr)
     {
-    	//m_appGroup = new ArrayList();
-    	//m_appGroup.add(intr);
-    
-    	m_app = intr;
-    	m_app_list = getListOfDatabases(intr);
-    
-    	type = ROOT_SINGLE;
-    }
+        // m_appGroup = new ArrayList();
+        // m_appGroup.add(intr);
 
+        m_app = intr;
+        m_app_list = getListOfDatabases(intr);
+
+        type = ROOT_SINGLE;
+    }
 
     /**
      * Gets the list of databases.
@@ -152,27 +141,22 @@ public ArrayList<DatabaseSettings> m_app_list = null;
     {
         intr.loadConfig();
         return m_da.getArrayOfDatabaseSettings(intr.getAllDatabases());
-            //new ArrayList(intr.getAllDatabases().values());
+        // new ArrayList(intr.getAllDatabases().values());
 
-    	//m_da.loadConfig(intr);
-    	//return m_da.getListOfDatabases();
+        // m_da.loadConfig(intr);
+        // return m_da.getListOfDatabases();
     }
-
-
-    
-
-
 
     /** 
      * toString
      */
+    @Override
     public String toString()
     {
-    	if (type==ROOT_SINGLE)
-    	    return m_app.getApplicationName();
-    	else
-                return m_da.m_i18n.getMessage("HIBERNATE_DATABASE_APPLICATION");
+        if (type == ROOT_SINGLE)
+            return m_app.getApplicationName();
+        else
+            return m_da.m_i18n.getMessage("HIBERNATE_DATABASE_APPLICATION");
     }
-
 
 }

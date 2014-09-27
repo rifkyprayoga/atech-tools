@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.atech.utils.ATDataAccessAbstract;
+
 /**
  * This file is part of ATech Tools library.
  * 
@@ -60,7 +62,10 @@ import javax.swing.SwingConstants;
 // writing of settings handle in library
 // not read-only
 
-public class PanelDatabaseSet extends JPanel implements ActionListener, /*DocumentListener,*/ KeyListener
+public class PanelDatabaseSet extends JPanel implements ActionListener, /*
+                                                                         * DocumentListener
+                                                                         * ,
+                                                                         */KeyListener
 {
 
     private static final long serialVersionUID = -8415000279643694270L;
@@ -86,10 +91,9 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
     Hashtable<String, JTextField> parameters_textfield = new Hashtable<String, JTextField>();
 
     int posy = 320;
-    
+
     PanelDbAction db_action = null;
     DbTool m_dialog;
-    
 
     /**
      * Constructor
@@ -104,11 +108,10 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
         m_dialog = dia;
         m_da = DbToolAccess.getInstance();
 
-        font_big = m_da.getFont(DbToolAccess.FONT_BIG_BOLD);
-        font_normal_b = m_da.getFont(DbToolAccess.FONT_NORMAL_BOLD);
-        font_normal = m_da.getFont(DbToolAccess.FONT_NORMAL);
+        font_big = m_da.getFont(ATDataAccessAbstract.FONT_BIG_BOLD);
+        font_normal_b = m_da.getFont(ATDataAccessAbstract.FONT_NORMAL_BOLD);
+        font_normal = m_da.getFont(ATDataAccessAbstract.FONT_NORMAL);
 
-        
         createPanel();
 
     }
@@ -175,63 +178,57 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
 
         this.db_action = new PanelDbAction(this, m_dialog);
         this.add(db_action, null);
-        
+
         // TODO : remove this
         /*
-        label = new JLabel(ic.getMessage("USERNAME") + ":");
-        label.setBounds(40, 290, 200, 25);
-        label.setFont(font_normal);
-        this.add(label, null);
+         * label = new JLabel(ic.getMessage("USERNAME") + ":");
+         * label.setBounds(40, 290, 200, 25);
+         * label.setFont(font_normal);
+         * this.add(label, null);
+         * JTextField tf_username = new JTextField();
+         * tf_username.setBounds(200, 290, 200, 25);
+         * tf_username.setFont(font_normal);
+         * tf_username.setActionCommand("textfield");
+         * tf_username.addActionListener(this);
+         * this.add(tf_username, null);
+         * this.parameters_textfield.put("<username>", tf_username);
+         * label = new JLabel(ic.getMessage("PASSWORD") + ":");
+         * label.setBounds(40, 320, 200, 25);
+         * label.setFont(font_normal);
+         * this.add(label, null);
+         * JTextField tf_password = new JTextField();
+         * tf_password.setBounds(200, 320, 180, 25);
+         * tf_password.setFont(font_normal);
+         * tf_password.setActionCommand("textfield");
+         * tf_password.addActionListener(this);
+         * this.add(tf_password, null);
+         * this.parameters_textfield.put("<password>", tf_password);
+         */
 
-        JTextField tf_username = new JTextField();
-        tf_username.setBounds(200, 290, 200, 25);
-        tf_username.setFont(font_normal);
-        tf_username.setActionCommand("textfield");
-        tf_username.addActionListener(this);
-        this.add(tf_username, null);
-
-        this.parameters_textfield.put("<username>", tf_username);
-
-        label = new JLabel(ic.getMessage("PASSWORD") + ":");
-        label.setBounds(40, 320, 200, 25);
-        label.setFont(font_normal);
-        this.add(label, null);
-
-        JTextField tf_password = new JTextField();
-        tf_password.setBounds(200, 320, 180, 25);
-        tf_password.setFont(font_normal);
-        tf_password.setActionCommand("textfield");
-        tf_password.addActionListener(this);
-        this.add(tf_password, null);
-
-        this.parameters_textfield.put("<password>", tf_password);
-*/
-        
         /*
-                button = new JButton(ic.getMessage("ADD_"));
-                button.setBounds(110, 190, 170, 25);
-                button.setFont(font_normal);
-                button.addActionListener(this);
-                button.setActionCommand("add_");
-                this.add(button);
-        */
-        /*        button = new JButton(ic.getMessage("ADD_"));
-                button.setBounds(110, 220, 170, 25);
-                button.setFont(font_normal);
-                button.setActionCommand("add_p");
-                button.addActionListener(this);
-                //this.add(button);
-
-                label = new JLabel(ic.getMessage("EDIT_VIEW"));
-                label.setBounds(40, 280, 300, 30);
-                label.setFont(fnt_18); 
-                //this.add(label, null);
-
-                label = new JLabel(ic.getMessage("EDIT_VIEW_DESC"));
-                label.setBounds(40, 310, 300, 60);
-                label.setFont(font_normal); 
-                //this.add(label, null);
-        */
+         * button = new JButton(ic.getMessage("ADD_"));
+         * button.setBounds(110, 190, 170, 25);
+         * button.setFont(font_normal);
+         * button.addActionListener(this);
+         * button.setActionCommand("add_");
+         * this.add(button);
+         */
+        /*
+         * button = new JButton(ic.getMessage("ADD_"));
+         * button.setBounds(110, 220, 170, 25);
+         * button.setFont(font_normal);
+         * button.setActionCommand("add_p");
+         * button.addActionListener(this);
+         * //this.add(button);
+         * label = new JLabel(ic.getMessage("EDIT_VIEW"));
+         * label.setBounds(40, 280, 300, 30);
+         * label.setFont(fnt_18);
+         * //this.add(label, null);
+         * label = new JLabel(ic.getMessage("EDIT_VIEW_DESC"));
+         * label.setBounds(40, 310, 300, 60);
+         * label.setFont(font_normal);
+         * //this.add(label, null);
+         */
         // System.out.println("Pabnel paint");
         return;
     }
@@ -247,10 +244,9 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
         clearElements();
         reDraw();
         processExistingUrl(intr.url);
-        //this.db_action.setDatabaseSettings
+        // this.db_action.setDatabaseSettings
     }
 
-    
     /**
      * Get Database Settings
      * 
@@ -260,8 +256,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
     {
         return this.m_database_settings;
     }
-    
-    
+
     /**
      * Get JDBC URL
      * 
@@ -271,38 +266,33 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
     {
         return this.tf_url.getText();
     }
-    
-    
+
     private void clearElements()
     {
-        for(Enumeration<String> en = this.parameters_textfield.keys(); en.hasMoreElements(); )
+        for (Enumeration<String> en = this.parameters_textfield.keys(); en.hasMoreElements();)
         {
             String key = en.nextElement();
             this.remove(this.parameters_textfield.get(key));
         }
-        
+
         this.parameters_textfield.clear();
 
-        
         for (Enumeration<String> en = this.parameters_label.keys(); en.hasMoreElements();)
         {
-            String key = (String) en.nextElement();
+            String key = en.nextElement();
             this.remove(this.parameters_label.get(key));
         }
-        
+
         this.parameters_label.clear();
-        
-        //this.parameters_textfield        
+
+        // this.parameters_textfield
     }
-    
-    
-    
+
     private void reDraw()
     {
 
         System.out.println("Redraw Not working fully");
 
-        
         String dbName = m_database_settings.db_name;
         cb_databases.setEnabled(false);
 
@@ -317,15 +307,14 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
             }
         }
 
-//        System.out.println("m_da: " + m_da);
-//        System.out.println("tableOfDb: " + m_da.m_tableOfDatabases);
-//        System.out.println("dbName: " + dbName);
+        // System.out.println("m_da: " + m_da);
+        // System.out.println("tableOfDb: " + m_da.m_tableOfDatabases);
+        // System.out.println("dbName: " + dbName);
 
         DatabaseDefObject ddo = m_da.m_tableOfDatabases.get(dbName);
 
         label_class.setText(ddo.driver);
         label_dialect.setText(ddo.short_dialect);
-
 
         this.repaint();
         posy = 260;
@@ -361,8 +350,10 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
                 }
             }
             else
+            {
                 url_list.add(str);
-            // System.out.println(tok.nextToken());
+                // System.out.println(tok.nextToken());
+            }
         }
 
         processParameters();
@@ -382,8 +373,8 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
             if (par.indexOf("<") != -1)
             {
 
-                //if ((par.equals("<username>")) || (par.equals("<password>")))
-                //    continue;
+                // if ((par.equals("<username>")) || (par.equals("<password>")))
+                // continue;
 
                 String p1 = par.substring(1, par.length() - 1).toUpperCase();
                 posy += 30;
@@ -398,7 +389,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
                 textfield.setBounds(200, posy, 180, 25);
                 textfield.setFont(font_normal);
                 textfield.addKeyListener(this);
-                
+
                 this.add(textfield, null);
                 this.parameters_textfield.put(par, textfield);
 
@@ -406,15 +397,14 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
         }
 
         this.db_action.setBounds(0, posy + 40, 485, 65);
-        
-        
+
     }
 
     private void processExistingUrl(String url)
     {
         String url2 = url;
 
-//        System.out.println("Url current: " + url);
+        // System.out.println("Url current: " + url);
 
         tf_url.setText(url);
 
@@ -423,7 +413,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
         for (int i = 0; i < sz; i += 2)
         {
 
-            if ((i + 2) < sz)
+            if (i + 2 < sz)
             {
                 String s1 = this.url_list.get(i);
                 String s2 = this.url_list.get(i + 1);
@@ -438,7 +428,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
                 tf.setText(par);
 
             }
-            else if ((i + 1) < sz)
+            else if (i + 1 < sz)
             {
                 String s1 = this.url_list.get(i);
                 String s2 = this.url_list.get(i + 1);
@@ -456,9 +446,6 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
 
     }
 
-
-
-
     /**
      *  Action Listener
      */
@@ -472,7 +459,9 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
             System.out.println("Textfield");
         }
         else
+        {
             System.out.println("PanelDatabaseSet::Unknown command: " + action);
+        }
 
     }
 
@@ -482,7 +471,6 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
     public void keyPressed(KeyEvent arg0)
     {
     }
-    
 
     /** 
      * Key Released
@@ -499,36 +487,35 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*Docume
     {
     }
 
-    
     private void refreshUrl()
     {
-        
+
         int sz = this.url_list.size();
-        //System.out.println("sz=" + sz);
+        // System.out.println("sz=" + sz);
 
         StringBuffer sb = new StringBuffer();
-        
-        for (int i = 0; i < sz; i ++) //= 2)
+
+        for (int i = 0; i < sz; i++) // = 2)
         {
-            //System.out.println(this.url_list.get(i));
-            
+            // System.out.println(this.url_list.get(i));
+
             String k = this.url_list.get(i);
-            
+
             if (k.startsWith("<"))
             {
                 sb.append(this.parameters_textfield.get(k).getText());
             }
             else
+            {
                 sb.append(k);
-            
-            
+            }
+
         }
-        
+
         this.tf_url.setText(sb.toString());
-        
-//        System.out.println("New URL: " + sb.toString());
-        
+
+        // System.out.println("New URL: " + sb.toString());
+
     }
-    
-    
+
 }

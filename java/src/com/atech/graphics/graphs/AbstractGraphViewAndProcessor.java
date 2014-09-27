@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
-import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 
@@ -46,15 +45,16 @@ import com.atech.utils.ATDataAccessAbstract;
 
 // AbstractGraphView + AbstractGWDataProcessor
 
-public abstract class AbstractGraphViewAndProcessor implements GraphViewInterface, GraphViewDataProcessorInterface //, HelpCapable
+public abstract class AbstractGraphViewAndProcessor implements GraphViewInterface, GraphViewDataProcessorInterface // ,
+                                                                                                                   // HelpCapable
 {
 
     protected ATDataAccessAbstract m_da = null;
-    protected I18nControlAbstract  m_ic = null;
+    protected I18nControlAbstract m_ic = null;
     protected JFreeChart chart;
     protected ChartPanel chart_panel;
     protected Component parent;
-    
+
     /**
      * Constructor
      * 
@@ -64,12 +64,12 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
     {
         this.m_da = da;
         this.m_ic = da.getI18nControlInstance();
-        
-        //System.out.println("AbstractGraphViewProcessor: " + da + ",m_ic: " + this.m_ic);
-        
+
+        // System.out.println("AbstractGraphViewProcessor: " + da + ",m_ic: " +
+        // this.m_ic);
+
     }
-    
-    
+
     /**
      * Is Help Enabled
      * 
@@ -77,9 +77,9 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
      */
     public boolean isHelpEnabled()
     {
-        return (getHelpId()!=null);
+        return getHelpId() != null;
     }
-    
+
     /**
      * Get Chart
      * 
@@ -87,16 +87,15 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
      */
     public JFreeChart getChart()
     {
-        if (chart==null)
+        if (chart == null)
         {
             createChart();
             setPlot(chart);
         }
-        
+
         return chart;
     }
-    
-    
+
     /**
      * Get Chart Panel
      * 
@@ -104,25 +103,24 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
      */
     public ChartPanel getChartPanel()
     {
-        if (chart_panel==null)
+        if (chart_panel == null)
+        {
             createChartPanel();
-        
+        }
+
         return this.chart_panel;
     }
-    
 
     /**
      * Create Chart
      */
     public abstract void createChart();
-    
-    
+
     /**
      * Create Chart Panel
      */
     public abstract void createChartPanel();
-    
-    
+
     /**
      * Get Processor
      * 
@@ -132,8 +130,7 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
     {
         return this;
     }
-    
-    
+
     /**
      * Reload Data - This is method which should be called after setControllerData is set
      *     with new data. This method should call loadData() and preprocessData(). 
@@ -143,8 +140,7 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
         this.loadData();
         this.preprocessData();
     }
-    
-    
+
     /**
      * Repaint
      * 
@@ -152,12 +148,11 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
      */
     public void repaint()
     {
-        //this.preprocessData();
-        //this.setPlot(chart);
+        // this.preprocessData();
+        // this.setPlot(chart);
         this.chart_panel.repaint();
     }
-    
-    
+
     /**
      * Set Controler Data - used by controler to change set of data
      * 
@@ -165,11 +160,12 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
      */
     public void setControlerData(Object data)
     {
-        if (this.getProcessor()!=null)
+        if (this.getProcessor() != null)
+        {
             this.getProcessor().setControllerData(data);
+        }
     }
-    
-    
+
     /**
      * Get Controler Interface instance
      * 
@@ -180,7 +176,6 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
         return null;
     }
 
-    
     /**
      * Get Title (used by GraphViewer)
      * 
@@ -190,7 +185,6 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
     {
         return null;
     }
-    
 
     /**
      * Get Viewer Dialog Bounds (used by GraphViewer)
@@ -199,10 +193,9 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
      */
     public Rectangle getViewerDialogBounds()
     {
-        return null; //new Rectangle(100,100,500,400);
+        return null; // new Rectangle(100,100,500,400);
     }
-    
-    
+
     /**
      * Set Parent
      */
@@ -210,8 +203,7 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
     {
         this.parent = cmp;
     }
-    
-    
+
     /**
      * Get Parent
      */
@@ -219,36 +211,36 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
     {
         return this.parent;
     }
-    
+
     /**
      * Close
      */
     public void close()
     {
-        if (parent==null)
+        if (parent == null)
         {
             System.out.println("ERROR: Using close command, without setting parent is not allowed.");
             return;
         }
-        
+
         if (this.parent instanceof JDialog)
         {
-            JDialog d = (JDialog)this.parent;
+            JDialog d = (JDialog) this.parent;
             d.dispose();
         }
         else if (this.parent instanceof JFrame)
         {
-            JFrame f = (JFrame)this.parent;
+            JFrame f = (JFrame) this.parent;
             f.dispose();
         }
         else
         {
-            System.out.println("ERROR: Parent is of wrong type. Close command not initiated. Parent must be either JDialog or JFrame.");
+            System.out
+                    .println("ERROR: Parent is of wrong type. Close command not initiated. Parent must be either JDialog or JFrame.");
         }
-        
+
     }
-    
-    
+
     /**
      * Set Controller Data
      * 
@@ -257,7 +249,5 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
     public void setControllerData(Object data)
     {
     }
-    
-    
-    
+
 }

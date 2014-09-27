@@ -1,4 +1,4 @@
-package com.atech.graphics.calendar; 
+package com.atech.graphics.calendar;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -21,7 +21,6 @@ import javax.swing.event.ChangeListener;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
-
 
 /**
  *  This file is part of ATech Tools library.
@@ -53,7 +52,6 @@ import com.atech.utils.ATDataAccessAbstract;
  *  Author:   Andy (minor changes)
  */
 
-
 public class DateRangeSelectionPanel extends JPanel implements ChangeListener
 {
     // private JTextField fieldStartDate;
@@ -68,7 +66,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
 
     private I18nControlAbstract m_ic; // = I18nControl.getInstance();
     ATDataAccessAbstract m_da;
-    
+
     private JSpinner spinnerEnd;
     private JSpinner spinnerStart;
 
@@ -79,7 +77,6 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
     private SpinnerDateModel startSpinnerDateModel = null;
 
     private int iRadioGroupState = 0;
-
 
     // private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -145,11 +142,12 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         this(da, endDate, startDate, DateRangeData.RANGE_CUSTOM);
     }
 
-    private DateRangeSelectionPanel(ATDataAccessAbstract da, GregorianCalendar endDate, GregorianCalendar startDate, int flag)
+    private DateRangeSelectionPanel(ATDataAccessAbstract da, GregorianCalendar endDate, GregorianCalendar startDate,
+            int flag)
     {
         m_da = da;
         m_ic = da.getI18nControlInstance();
-        
+
         endSpinnerDateModel = new SpinnerDateModel();
         startSpinnerDateModel = new SpinnerDateModel();
 
@@ -202,13 +200,11 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
          * JSpinner(endSpinnerDateModel));
          * ((JSpinner.DateEditor)spinnerEnd.getEditor
          * ()).getFormat().applyPattern("dd.MM.yyyy");
-         * 
          * a.add(new JLabel(m_ic.getMessage("STARTING_DATE")+":"));
          * a.add(spinnerStart = new JSpinner(startSpinnerDateModel));
          * ((JSpinner.
          * DateEditor)spinnerStart.getEditor()).getFormat().applyPattern
          * ("dd.MM.yyyy");
-         * 
          * spinnerEnd.addChangeListener(this);
          * spinnerStart.addChangeListener(this);
          */
@@ -223,14 +219,17 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
          * calcDateAndUpdateFields(); } });
          */
 
-        JRadioButton rbOneWeek = new JRadioButton("  " + m_ic.getMessage("1_WEEK"), iRadioGroupState == DateRangeData.RANGE_ONE_WEEK);
+        JRadioButton rbOneWeek = new JRadioButton("  " + m_ic.getMessage("1_WEEK"),
+                iRadioGroupState == DateRangeData.RANGE_ONE_WEEK);
         rbOneWeek.setIconTextGap(8);
         // rbOneWeek.se
 
-        JRadioButton rbOneMonth = new JRadioButton("  " + m_ic.getMessage("1_MONTH"), iRadioGroupState == DateRangeData.RANGE_ONE_MONTH);
+        JRadioButton rbOneMonth = new JRadioButton("  " + m_ic.getMessage("1_MONTH"),
+                iRadioGroupState == DateRangeData.RANGE_ONE_MONTH);
         JRadioButton rbThreeMonths = new JRadioButton("  " + m_ic.getMessage("3_MONTHS"),
                 iRadioGroupState == DateRangeData.RANGE_THREE_MONTHS);
-        JRadioButton rbCustom = new JRadioButton("  " + m_ic.getMessage("CUSTOM"), iRadioGroupState == DateRangeData.RANGE_CUSTOM);
+        JRadioButton rbCustom = new JRadioButton("  " + m_ic.getMessage("CUSTOM"),
+                iRadioGroupState == DateRangeData.RANGE_CUSTOM);
 
         ButtonGroup group = new ButtonGroup();
         group.add(rbOneWeek);
@@ -261,7 +260,9 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         add(b, BorderLayout.EAST);
 
         if (iRadioGroupState != DateRangeData.RANGE_CUSTOM)
+        {
             spinnerStart.setEnabled(false);
+        }
     }
 
     private void calcDateAndUpdateFields()
@@ -272,40 +273,41 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
 
     private void calcStartDate()
     {
-/*        if (iRadioGroupState == DateRangeData.RANGE_CUSTOM)
-        {
-            return;
-        }
-*/
+        /*
+         * if (iRadioGroupState == DateRangeData.RANGE_CUSTOM)
+         * {
+         * return;
+         * }
+         */
         // if (gc_start==null)
         gc_start = (GregorianCalendar) gc_end.clone();
 
         switch (iRadioGroupState)
         {
-        case DateRangeData.RANGE_ONE_WEEK:
-            gc_start.add(Calendar.WEEK_OF_YEAR, -1);
-            break;
-        case DateRangeData.RANGE_THREE_MONTHS:
-            gc_start.add(Calendar.MONTH, -3);
-            break;
-        case DateRangeData.RANGE_CUSTOM:
-        {
-            GregorianCalendar gc = this.getStartCalendar();
-            
-            if (gc_end.before(gc))
-            {
-                gc.setTimeInMillis(gc_end.getTimeInMillis());
-            }
-            
-            gc_start.setTimeInMillis(gc.getTimeInMillis());
-            
-        } break;
-            
-            
-        case DateRangeData.RANGE_ONE_MONTH:
-        default:
-            gc_start.add(Calendar.MONTH, -1);
-            break;
+            case DateRangeData.RANGE_ONE_WEEK:
+                gc_start.add(Calendar.WEEK_OF_YEAR, -1);
+                break;
+            case DateRangeData.RANGE_THREE_MONTHS:
+                gc_start.add(Calendar.MONTH, -3);
+                break;
+            case DateRangeData.RANGE_CUSTOM:
+                {
+                    GregorianCalendar gc = this.getStartCalendar();
+
+                    if (gc_end.before(gc))
+                    {
+                        gc.setTimeInMillis(gc_end.getTimeInMillis());
+                    }
+
+                    gc_start.setTimeInMillis(gc.getTimeInMillis());
+
+                }
+                break;
+
+            case DateRangeData.RANGE_ONE_MONTH:
+            default:
+                gc_start.add(Calendar.MONTH, -1);
+                break;
 
         }
 
@@ -321,13 +323,12 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
     public DateRangeData getDateRangeData()
     {
         DateRangeData drd = new DateRangeData();
-        //drd.setRange(this.iRadioGroupState, this.gc_start, this.gc_end);
+        // drd.setRange(this.iRadioGroupState, this.gc_start, this.gc_end);
         drd.setRange(this.iRadioGroupState, this.getStartCalendar(), this.getEndCalendar());
-        
+
         return drd;
     }
-    
-    
+
     private class RadioListener extends AbstractAction
     {
         /**
@@ -350,7 +351,9 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
                 spinnerStart.setEnabled(true);
             }
             else
+            {
                 spinnerStart.setEnabled(false);
+            }
 
             calcStartDate();
         }

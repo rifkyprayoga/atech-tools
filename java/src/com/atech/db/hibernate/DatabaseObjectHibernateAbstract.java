@@ -5,20 +5,14 @@ import org.hibernate.Transaction;
 
 public abstract class DatabaseObjectHibernateAbstract implements DatabaseObjectHibernate
 {
-    
+
     public abstract Object getHibernateObject();
-    
 
     public abstract String getObjectUniqueId();
-    
-    
+
     public abstract void setMainId(long id);
-    
-    
-    public abstract long  getMainId();
-    
-    
-    
+
+    public abstract long getMainId();
 
     public String DbAdd(Session sess) throws Exception
     {
@@ -29,7 +23,7 @@ public abstract class DatabaseObjectHibernateAbstract implements DatabaseObjectH
             Long id = (Long) sess.save(this.getHibernateObject());
             tx.commit();
             this.setMainId(id.longValue());
-            
+
             return "" + id.longValue();
         }
         catch (Exception e)
@@ -38,7 +32,6 @@ public abstract class DatabaseObjectHibernateAbstract implements DatabaseObjectH
         }
     }
 
-    
     public boolean DbEdit(Session sess) throws Exception
     {
         try
@@ -62,13 +55,13 @@ public abstract class DatabaseObjectHibernateAbstract implements DatabaseObjectH
         {
             if (this.DbHasChildren(sess))
                 return false;
-            
+
             Transaction tx = sess.beginTransaction();
 
             sess.delete(this.getHibernateObject());
             tx.commit();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return false;
         }
@@ -85,6 +78,5 @@ public abstract class DatabaseObjectHibernateAbstract implements DatabaseObjectH
     public abstract boolean isDebugMode();
 
     public abstract int getAction();
-    
 
 }

@@ -39,21 +39,20 @@ import javax.swing.table.TableCellRenderer;
  *
 */
 
-
 public class SortButtonRenderer extends JButton implements TableCellRenderer
 {
     private static final long serialVersionUID = -4547134261004989810L;
-    
+
     /**
      * The Constant NONE.
      */
     public static final int NONE = 0;
-    
+
     /**
      * The Constant DOWN.
      */
     public static final int DOWN = 1;
-    
+
     /**
      * The Constant UP.
      */
@@ -63,12 +62,12 @@ public class SortButtonRenderer extends JButton implements TableCellRenderer
      * The pushed column.
      */
     int pushedColumn;
-    
+
     /**
      * The state.
      */
     Hashtable<Integer, Integer> state;
-    
+
     /**
      * The up button.
      */
@@ -113,7 +112,7 @@ public class SortButtonRenderer extends JButton implements TableCellRenderer
         // false));
         // downButton.setPressedIcon(new BevelArrowIcon(BevelArrowIcon.DOWN,
         // false, true));
-        // 
+        //
 
         downButton.setIcon(new BevelArrowIcon(BevelArrowIcon.DOWN, false, true));
         downButton.setPressedIcon(new BevelArrowIcon(BevelArrowIcon.DOWN, false, true));
@@ -159,8 +158,8 @@ public class SortButtonRenderer extends JButton implements TableCellRenderer
                 // button = downButton;
             }
         }
-        button.setText((value == null) ? "" : value.toString());
-        boolean isPressed = (column == pushedColumn);
+        button.setText(value == null ? "" : value.toString());
+        boolean isPressed = column == pushedColumn;
         button.getModel().setPressed(isPressed);
         button.getModel().setArmed(isPressed);
         return button;

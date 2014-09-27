@@ -14,7 +14,6 @@ import javax.swing.SwingConstants;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -45,7 +44,6 @@ import com.atech.utils.ATSwingUtils;
  *
 */
 
-
 /**
  *  Application:   GGC - GNU Gluco Control
  *
@@ -71,12 +69,11 @@ import com.atech.utils.ATSwingUtils;
  *  Author: andyrozman {andy@atech-software.com}  
  */
 
-public abstract class PrintDialogMonth extends PrintDialogRange 
+public abstract class PrintDialogMonth extends PrintDialogRange
 {
 
     private static final long serialVersionUID = -5516522343993408360L;
     JSpinner spinnerYear = null, spinnerMonth = null;
-
 
     /**
      * Constructor 
@@ -85,7 +82,7 @@ public abstract class PrintDialogMonth extends PrintDialogRange
      * @param type
      * @param da 
      */
-    public PrintDialogMonth(JFrame frame, int type, ATDataAccessAbstract da) 
+    public PrintDialogMonth(JFrame frame, int type, ATDataAccessAbstract da)
     {
         super(frame, type, da, false);
 
@@ -95,7 +92,7 @@ public abstract class PrintDialogMonth extends PrintDialogRange
         this.setVisible(true);
     }
 
-    private void init() 
+    private void init()
     {
         setSize(350, 320);
 
@@ -172,5 +169,5 @@ public abstract class PrintDialogMonth extends PrintDialogRange
         }
 
     }
-    
+
 }

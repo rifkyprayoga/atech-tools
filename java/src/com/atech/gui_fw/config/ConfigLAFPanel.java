@@ -48,9 +48,6 @@ import com.atech.utils.ATSwingUtils;
  *
 */
 
-
-
-
 /**
  *  Application:   GGC - GNU Gluco Control
  *
@@ -76,14 +73,13 @@ import com.atech.utils.ATSwingUtils;
  *  Author: andyrozman {andy@atech-software.com}  
  */
 
-
 public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
 {
     private static final long serialVersionUID = 6927307265371709344L;
     private JComboBox cb_lf_type, cb_lf_type_class;
     private JTextField tf_lf;
     private JButton b_browse;
-    DbToolApplicationAbstract m_dbc = null; //m_da.getDbConfig();
+    DbToolApplicationAbstract m_dbc = null; // m_da.getDbConfig();
 
     /**
      * Constructor
@@ -93,36 +89,37 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
     public ConfigLAFPanel(AbstractConfigurationContext acc)
     {
         super(acc);
-        
+
         this.m_dbc = acc.getDataAccessInstance().getDbToolAbstract();
         this.m_dbc.loadConfig();
-        
+
         init();
     }
 
     private void init()
     {
         this.setLayout(null);
-        
+
         ATSwingUtils.getTitleLabel(m_ic.getMessage("LAF_SETTINGS"), 0, 25, 520, 36, this, ATSwingUtils.FONT_BIG_BOLD);
-        
+
         /*
-        JPanel p3 = new JPanel(/* new GridLayout(2, 1) */ /*);
-        p3.setBorder(new TitledBorder(m_ic.getMessage("LAF_SETTINGS")));
-        p3.setBounds(10, 280, 490, 135);
-        p3.setLayout(null);*/
+         * JPanel p3 = new JPanel(/* new GridLayout(2, 1)
+         *//*
+            * );
+            * p3.setBorder(new TitledBorder(m_ic.getMessage("LAF_SETTINGS")));
+            * p3.setBounds(10, 280, 490, 135);
+            * p3.setLayout(null);
+            */
 
-        
-        ATSwingUtils.getLabel(m_ic.getMessage("LAF_SETTINGS_DESC"), 
-                              50, 90, 400, 30, this, ATSwingUtils.FONT_NORMAL);
-        
-        //addLabel(p3, m_ic.getMessage("LAF_SETTINGS_DESC"), 20, 10, 400, 30);
+        ATSwingUtils.getLabel(m_ic.getMessage("LAF_SETTINGS_DESC"), 50, 90, 400, 30, this, ATSwingUtils.FONT_NORMAL);
 
-        ATSwingUtils.getLabel(m_ic.getMessage("SELECTED_LAF_TYPE_NAME"), 
-            50, 130, 400, 30, this, ATSwingUtils.FONT_NORMAL_BOLD);
-        
-        
-        //addLabel(p3, m_ic.getMessage("SELECTED_LAF_TYPE_NAME") + ":", 20, 40, 150, 25);
+        // addLabel(p3, m_ic.getMessage("LAF_SETTINGS_DESC"), 20, 10, 400, 30);
+
+        ATSwingUtils.getLabel(m_ic.getMessage("SELECTED_LAF_TYPE_NAME"), 50, 130, 400, 30, this,
+            ATSwingUtils.FONT_NORMAL_BOLD);
+
+        // addLabel(p3, m_ic.getMessage("SELECTED_LAF_TYPE_NAME") + ":", 20, 40,
+        // 150, 25);
 
         this.cb_lf_type = new JComboBox(m_dbc.getAvailableLFs());
         this.cb_lf_type.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL));
@@ -130,11 +127,11 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
         this.cb_lf_type.addItemListener(this);
         this.add(this.cb_lf_type);
 
+        ATSwingUtils.getLabel(m_ic.getMessage("SELECTED_LAF_TYPE_CLASS"), 50, 200, 400, 30, this,
+            ATSwingUtils.FONT_NORMAL_BOLD);
 
-        ATSwingUtils.getLabel(m_ic.getMessage("SELECTED_LAF_TYPE_CLASS"), 
-            50, 200, 400, 30, this, ATSwingUtils.FONT_NORMAL_BOLD);
-        
-//        addLabel(p3, m_ic.getMessage("SELECTED_LAF_TYPE_CLASS") + ":", 20, 70, 150, 25);
+        // addLabel(p3, m_ic.getMessage("SELECTED_LAF_TYPE_CLASS") + ":", 20,
+        // 70, 150, 25);
         this.cb_lf_type_class = new JComboBox(m_dbc.getAvailableLFsClass());
         this.cb_lf_type_class.setBounds(50, 230, 400, 23);
         this.cb_lf_type_class.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL));
@@ -143,13 +140,12 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
 
         // this.cb_lf_type_class.setSelectedIndex(idx);
 
+        ATSwingUtils.getLabel(m_ic.getMessage("SELECTED_SKINLF_DEF"), 50, 270, 400, 30, this,
+            ATSwingUtils.FONT_NORMAL_BOLD);
 
-        ATSwingUtils.getLabel(m_ic.getMessage("SELECTED_SKINLF_DEF"), 
-            50, 270, 400, 30, this, ATSwingUtils.FONT_NORMAL_BOLD);
-        
-        //addLabel(p3, m_ic.getMessage("SELECTED_SKINLF_DEF") + ":", 20, 100, 150, 25);
-        
-        
+        // addLabel(p3, m_ic.getMessage("SELECTED_SKINLF_DEF") + ":", 20, 100,
+        // 150, 25);
+
         this.tf_lf = new JTextField();
         this.tf_lf.setBounds(50, 300, 400, 23);
         this.tf_lf.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL));
@@ -189,10 +185,9 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
         int idx = this.m_dbc.getSelectedLFIndex();
         this.cb_lf_type.setSelectedIndex(idx);
 
-//        this.add(p3);
+        // this.add(p3);
 
     }
-
 
     boolean in_change = false;
 
@@ -201,22 +196,29 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
      * 
      * @see ggc.gui.panels.prefs.AbstractPrefOptionsPanel#itemStateChanged(java.awt.event.ItemEvent)
      */
+    @Override
     public void itemStateChanged(ItemEvent e)
     {
 
         if (in_change)
             return;
         else
+        {
             in_change = true;
+        }
 
         JComboBox cb = (JComboBox) e.getSource();
 
         int index = cb.getSelectedIndex();
 
         if (this.cb_lf_type.equals(cb))
+        {
             this.cb_lf_type_class.setSelectedIndex(index);
+        }
         else
+        {
             this.cb_lf_type.setSelectedIndex(index);
+        }
 
         boolean skin = m_dbc.isSkinLFSelected(index);
 
@@ -226,7 +228,6 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
         in_change = false;
     }
 
-    
     /**
      * Save Properties
      * 
@@ -234,38 +235,38 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
      */
     @Override
     public void saveConfig()
-    {   
+    {
         /*
-        settings.setUserName(fieldUserName.getText());
-        settings.setLanguage(langBox.getSelectedItem().toString());
-           
-        this.m_dbc.setSelectedDatabaseIndex(this.cb_database.getSelectedIndex());
-        this.m_dbc.setSelectedLF(this.cb_lf_type.getSelectedIndex(), this.tf_lf.getText());
-        */
+         * settings.setUserName(fieldUserName.getText());
+         * settings.setLanguage(langBox.getSelectedItem().toString());
+         * this.m_dbc.setSelectedDatabaseIndex(this.cb_database.getSelectedIndex(
+         * ));
+         * this.m_dbc.setSelectedLF(this.cb_lf_type.getSelectedIndex(),
+         * this.tf_lf.getText());
+         */
         this.m_dbc.setSelectedLF(this.cb_lf_type.getSelectedIndex(), this.tf_lf.getText());
     }
 
-    
     private void processJFileChooser(Container c)
     {
         Component[] comps = c.getComponents();
 
-        for (int i = 0; i < comps.length; i++)
+        for (Component comp : comps)
         {
 
-            if (comps[i] instanceof JPanel)
+            if (comp instanceof JPanel)
             {
-                processJFileChooser((Container) comps[i]);
+                processJFileChooser((Container) comp);
             }
 
-            if (comps[i] instanceof JButton)
+            if (comp instanceof JButton)
             {
-                JButton b = (JButton) comps[i];
+                JButton b = (JButton) comp;
 
                 String ttText = b.getToolTipText();
                 // x String buttonText = b.getText();
 
-                if ((ttText != null)
+                if (ttText != null
                         && (ttText.equals("Create New Folder") || ttText.equals("Desktop") || ttText
                                 .equals("Up One Level")))
                 {
@@ -273,9 +274,9 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
                 }
             }
 
-            if (comps[i] instanceof JComboBox)
+            if (comp instanceof JComboBox)
             {
-                JComboBox box = (JComboBox) comps[i];
+                JComboBox box = (JComboBox) comp;
                 String s = box.getSelectedItem().toString();
                 if (s.indexOf("skinlf_themes") != -1)
                 {

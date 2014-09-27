@@ -30,54 +30,48 @@ package com.atech.servlets.datalayer;
  *
 */
 
-
 public class ErrorReporting
 {
-	
-	/**
-	 * Static handle for ErrorReporting singelton class
-	 */
-	public static ErrorReporting s_errors = null;
-	
-	private ErrorReporting()
-	{
-		
-	}
 
-	
-	/**
-	 * Get Instance
-	 * 
-	 * @return
-	 */
-	public static ErrorReporting getInstance()
-	{
-		if (ErrorReporting.s_errors==null)
-		{
-			ErrorReporting.s_errors = new ErrorReporting();
-		}
-		
-		return ErrorReporting.s_errors;
-		
-	}
-	
+    /**
+     * Static handle for ErrorReporting singelton class
+     */
+    public static ErrorReporting s_errors = null;
 
-	/**
-	 * Get Error Sollution
-	 * 
-	 * @param application
-	 * @param module
-	 * @param error_str
-	 * @param lang
-	 * @return
-	 */
-	public String getErrorSollution(String application, String module, String error_str, String lang)
-	{
-	
-		return null;
-	}
-	
-	
-	
+    private ErrorReporting()
+    {
+
+    }
+
+    /**
+     * Get Instance
+     * 
+     * @return
+     */
+    public static ErrorReporting getInstance()
+    {
+        if (ErrorReporting.s_errors == null)
+        {
+            ErrorReporting.s_errors = new ErrorReporting();
+        }
+
+        return ErrorReporting.s_errors;
+
+    }
+
+    /**
+     * Get Error Sollution
+     * 
+     * @param application
+     * @param module
+     * @param error_str
+     * @param lang
+     * @return
+     */
+    public String getErrorSollution(String application, String module, String error_str, String lang)
+    {
+
+        return null;
+    }
 
 }

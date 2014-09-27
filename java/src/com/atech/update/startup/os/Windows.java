@@ -1,6 +1,4 @@
-
 package com.atech.update.startup.os;
-
 
 /**
  *  This file is part of ATech Tools library.
@@ -33,7 +31,6 @@ package com.atech.update.startup.os;
  *
 */
 
-
 public class Windows extends StartupOSAbstract
 {
 
@@ -45,8 +42,7 @@ public class Windows extends StartupOSAbstract
     @Override
     public String getHeader()
     {
-        return "@echo off\n\n" +
-               "rem   Run Application\n";
+        return "@echo off\n\n" + "rem   Run Application\n";
     }
 
     /**
@@ -59,7 +55,7 @@ public class Windows extends StartupOSAbstract
     {
         return ";";
     }
-    
+
     /**
      * Get Batch File Extension
      * 
@@ -92,5 +88,5 @@ public class Windows extends StartupOSAbstract
     {
         return "%";
     }
-    
+
 }

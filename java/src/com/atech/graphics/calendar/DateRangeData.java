@@ -1,4 +1,4 @@
-package com.atech.graphics.calendar; 
+package com.atech.graphics.calendar;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -34,30 +34,29 @@ import java.util.GregorianCalendar;
  *
  */
 
-public class DateRangeData 
+public class DateRangeData
 {
 
     /**
      * Range: None
      */
     public static final int RANGE_NONE = 0;
-    
+
     /**
      * Range: 1 Week
      */
     public static final int RANGE_ONE_WEEK = 1;
-    
+
     /**
      * Range: 2 Week
      */
     public static final int RANGE_TWO_WEEKS = 2;
-    
-    
+
     /**
      * Range: 1 Month
      */
     public static final int RANGE_ONE_MONTH = 3;
-    
+
     /**
      * Range: 3 Months
      */
@@ -67,12 +66,11 @@ public class DateRangeData
      * Range: Custom
      */
     public static final int RANGE_CUSTOM = 5;
-    
-    
+
     private int daterange_type = 0;
     private GregorianCalendar gc_start = null;
     private GregorianCalendar gc_end = null;
-    
+
     /**
      * Constructor
      */
@@ -80,10 +78,10 @@ public class DateRangeData
     {
         this.gc_end = new GregorianCalendar();
         GregorianCalendar gc = new GregorianCalendar();
-        gc.add(GregorianCalendar.MONTH, -1);
+        gc.add(Calendar.MONTH, -1);
         this.gc_start = gc;
     }
-    
+
     /**
      * Constructor
      * 
@@ -95,8 +93,7 @@ public class DateRangeData
     {
         setRange(type, gc1, gc2);
     }
-    
-    
+
     /**
      * Set Range
      * 
@@ -106,51 +103,49 @@ public class DateRangeData
      */
     public void setRange(int type, GregorianCalendar gc1, GregorianCalendar gc2)
     {
-        if (type==RANGE_NONE)
-        {
+        if (type == RANGE_NONE)
             return;
-        }
-        else if (type==RANGE_ONE_WEEK)
+        else if (type == RANGE_ONE_WEEK)
         {
             this.gc_end = gc2;
-            GregorianCalendar gc = (GregorianCalendar)gc2.clone();
-            gc.add(GregorianCalendar.DAY_OF_MONTH, -7);
+            GregorianCalendar gc = (GregorianCalendar) gc2.clone();
+            gc.add(Calendar.DAY_OF_MONTH, -7);
             this.gc_start = gc;
-            
+
         }
-        else if (type==RANGE_TWO_WEEKS)
+        else if (type == RANGE_TWO_WEEKS)
         {
             this.gc_end = gc2;
-            GregorianCalendar gc = (GregorianCalendar)gc2.clone();
-            gc.add(GregorianCalendar.DAY_OF_MONTH, -14);
+            GregorianCalendar gc = (GregorianCalendar) gc2.clone();
+            gc.add(Calendar.DAY_OF_MONTH, -14);
             this.gc_start = gc;
-            
+
         }
-        else if (type==RANGE_ONE_MONTH)
+        else if (type == RANGE_ONE_MONTH)
         {
             this.gc_end = gc2;
-            GregorianCalendar gc = (GregorianCalendar)gc2.clone();
-            gc.add(GregorianCalendar.MONTH, -1);
+            GregorianCalendar gc = (GregorianCalendar) gc2.clone();
+            gc.add(Calendar.MONTH, -1);
             this.gc_start = gc;
-            
+
         }
-        else if (type==RANGE_THREE_MONTHS)
+        else if (type == RANGE_THREE_MONTHS)
         {
             this.gc_end = gc2;
-            GregorianCalendar gc = (GregorianCalendar)gc2.clone();
-            gc.add(GregorianCalendar.MONTH, -3);
+            GregorianCalendar gc = (GregorianCalendar) gc2.clone();
+            gc.add(Calendar.MONTH, -3);
             this.gc_start = gc;
         }
-        else if (type==RANGE_CUSTOM)
+        else if (type == RANGE_CUSTOM)
         {
             this.gc_end = gc2;
             this.gc_start = gc1;
         }
         else
             return;
-    
+
         this.daterange_type = type;
-    
+
     }
 
     /**
@@ -162,9 +157,7 @@ public class DateRangeData
     {
         return this.daterange_type;
     }
-    
-    
-    
+
     /**
      * Get Range From
      * 
@@ -175,7 +168,6 @@ public class DateRangeData
         return this.gc_start;
     }
 
-    
     /**
      * Get Range To
      * 
@@ -185,18 +177,17 @@ public class DateRangeData
     {
         return this.gc_end;
     }
-    
 
+    @Override
     public String toString()
     {
-        return "DateRangeData [start=" + getGCInfo(gc_start) +  ", end= "+ getGCInfo(gc_end);
+        return "DateRangeData [start=" + getGCInfo(gc_start) + ", end= " + getGCInfo(gc_end);
     }
-    
-    
+
     private String getGCInfo(GregorianCalendar gc)
     {
-        return "" + gc.get(Calendar.DAY_OF_MONTH ) + "."+ gc.get(Calendar.MONTH) + "."+ gc.get(Calendar.YEAR) + " "+ gc.get(Calendar.HOUR_OF_DAY ) + ":" + gc.get(Calendar.MINUTE );        
+        return "" + gc.get(Calendar.DAY_OF_MONTH) + "." + gc.get(Calendar.MONTH) + "." + gc.get(Calendar.YEAR) + " "
+                + gc.get(Calendar.HOUR_OF_DAY) + ":" + gc.get(Calendar.MINUTE);
     }
-    
 
 }

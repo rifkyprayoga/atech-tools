@@ -56,10 +56,14 @@ abstract public class HexString
         {
             int y = buf[x];
             if (y < 0)
+            {
                 y += 256;
+            }
             String d = Integer.toHexString(y);
             if (d.length() == 1)
+            {
                 T += "0";
+            }
             T += d;
         }
         return T;
@@ -84,7 +88,7 @@ abstract public class HexString
 
         int iLen = strHex.length();
 
-        if ((iLen % 2) != 0)
+        if (iLen % 2 != 0)
         {
 
             // System.out.println("#error HexString: iLen="+iLen);
@@ -100,15 +104,23 @@ abstract public class HexString
 
             char c1 = strHex.charAt(2 * i);
             if (Character.isDigit(c1))
+            {
                 ic1 = c1 - '0';
+            }
             else
+            {
                 ic1 = c1 - 'A' + 10;
+            }
 
             char c2 = strHex.charAt(2 * i + 1);
             if (Character.isDigit(c2))
+            {
                 ic2 = c2 - '0';
+            }
             else
+            {
                 ic2 = c2 - 'A' + (char) 10;
+            }
 
             buffer[i] = (byte) (ic1 * 16 + ic2);
         }

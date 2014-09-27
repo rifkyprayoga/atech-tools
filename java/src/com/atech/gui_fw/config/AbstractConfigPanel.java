@@ -40,17 +40,15 @@ import com.atech.utils.ATDataAccessAbstract;
  *          andyrozman {andy@atech-software.com}  
  */
 
-
 public abstract class AbstractConfigPanel extends JPanel implements DocumentListener, ItemListener, ActionListener
 {
 
     private static final long serialVersionUID = -6416972855325230538L;
     protected ATDataAccessAbstract m_da = null;
-    protected I18nControlAbstract m_ic = null; //m_da.getI18nControlInstance();
+    protected I18nControlAbstract m_ic = null; // m_da.getI18nControlInstance();
     protected boolean changed = false;
     ConfigurationDialog parent;
     AbstractConfigurationContext m_acc;
-    
 
     /**
      * Constructor
@@ -62,13 +60,12 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
         this.m_acc = acc;
         this.parent = acc.getConfigurationDialog();
         this.m_da = acc.getDataAccessInstance();
-        
+
         System.out.println("AbstractConfigPanel::m_da: " + m_da);
-        
+
         this.m_ic = m_da.getI18nControlInstance();
     }
-    
-    
+
     /**
      * Set Changed
      * 
@@ -115,7 +112,8 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
      * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
      */
     public void changedUpdate(DocumentEvent e)
-    {}
+    {
+    }
 
     /**
      * Action Performed
@@ -137,26 +135,25 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
         changed = true;
     }
 
-    
     /**
      * Save Properties
      */
     public abstract void saveConfig();
-    
-    
+
     /**
      * Kill - If changed, it asks if values should be changed
      */
     public void kill()
     {
-        if (changed) 
+        if (changed)
         {
-            int res = JOptionPane.showConfirmDialog(null, m_ic.getMessage("SOME_VALUES_CHANGED_LIKE_TO_SAVE"), m_ic.getMessage("VALUES_CHANGED"), JOptionPane.YES_NO_OPTION);
+            int res = JOptionPane.showConfirmDialog(null, m_ic.getMessage("SOME_VALUES_CHANGED_LIKE_TO_SAVE"),
+                m_ic.getMessage("VALUES_CHANGED"), JOptionPane.YES_NO_OPTION);
             if (res == JOptionPane.YES_OPTION)
+            {
                 saveConfig();
+            }
         }
     }
-
-
 
 }

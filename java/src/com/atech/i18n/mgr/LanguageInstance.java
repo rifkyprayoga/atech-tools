@@ -2,7 +2,6 @@ package com.atech.i18n.mgr;
 
 import java.util.Locale;
 
-
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -36,78 +35,65 @@ import java.util.Locale;
 
 public class LanguageInstance
 {
-    
+
     /**
      * Name - The short_name (extension for language) (for example: en)
      */
     public String name = "";
-        
+
     /**
      * The name_description - Long name (for example: English)
      */
     public String name_description = "";
-        
-    
-    
-    
-        /**
-         * The help_available.
-         */
-        public boolean help_available = false;
-        
-        /**
-         * The file.
-         */
-        public String file = "";
-//        public String locale = "";
-        
-        /**
-         * The locale_kk.
-         */
-        public String locale_kk = "";
-        
-        
-        
-        
-        /**
-         * The locale.
-         */
-        public Locale locale;
-        
-        /**
-         * The real_locale.
-         */
-        public Locale real_locale;
-        
+
+    /**
+     * The help_available.
+     */
+    public boolean help_available = false;
+
+    /**
+     * The file.
+     */
+    public String file = "";
+    // public String locale = "";
+
+    /**
+     * The locale_kk.
+     */
+    public String locale_kk = "";
+
+    /**
+     * The locale.
+     */
+    public Locale locale;
+
+    /**
+     * The real_locale.
+     */
+    public Locale real_locale;
 
     /**
      * Is This Translation Tool
      */
     public boolean is_translation_tool = false;
-        
-        
+
     /**
      * Path to language files (this will be used only in case of Translation Tool)
      */
     public String language_path;
-        
-        
-        
+
+    @Override
     public String toString()
     {
         return "LanguageInstance [name=" + this.name + ",description=" + this.name_description + "]";
     }
-    
-    
-        
-        
-        /*
-LANG_1_NAME=Slovenski
-LANG_1_HELP_AVAILABLE=No
-LANG_1_HELP=Yes
-LANG_1_FILE=PIS_si.properties
-LANG_1_LOCALE=si
-*/
 
+    /*
+     * LANG_1_NAME=Slovenski
+     * LANG_1_HELP_AVAILABLE=No
+     * LANG_1_HELP=Yes
+     * LANG_1_FILE=PIS_si.properties
+     * LANG_1_LOCALE=si
+     */
 
 }

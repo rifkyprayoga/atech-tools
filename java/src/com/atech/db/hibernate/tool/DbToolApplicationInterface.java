@@ -32,8 +32,7 @@ import java.util.Hashtable;
  *
 */
 
-
-public interface DbToolApplicationInterface 
+public interface DbToolApplicationInterface
 {
 
     /**
@@ -50,7 +49,6 @@ public interface DbToolApplicationInterface
      */
     String getApplicationDatabaseConfig();
 
-    
     /**
      * Init Static Dbs
      */
@@ -108,6 +106,5 @@ public interface DbToolApplicationInterface
      * @return
      */
     DatabaseSettings getSelectedDatabase();
-
 
 }

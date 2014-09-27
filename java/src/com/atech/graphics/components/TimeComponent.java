@@ -14,7 +14,6 @@ import javax.swing.event.ChangeListener;
 
 import com.atech.i18n.I18nControlAbstract;
 
-
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -46,13 +45,12 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
 public class TimeComponent extends JPanel implements ChangeListener
 {
 
     private static final long serialVersionUID = -7073902375512649375L;
     private String action_command = null;
-    
+
     /**
      * The ic.
      */
@@ -62,7 +60,7 @@ public class TimeComponent extends JPanel implements ChangeListener
      * The component_width.
      */
     int component_width = 105;
-    
+
     /**
      * The component_height.
      */
@@ -78,7 +76,6 @@ public class TimeComponent extends JPanel implements ChangeListener
      */
     JSpinner hour, minute;
 
-
     ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
 
     /**
@@ -91,21 +88,20 @@ public class TimeComponent extends JPanel implements ChangeListener
 
         Font font_normal = new Font("SansSerif", Font.PLAIN, 12);
 
-        this.setSize(component_width,component_height);
+        this.setSize(component_width, component_height);
         this.setLayout(null);
 
-        SpinnerNumberModel listHourModel = new SpinnerNumberModel(0,0,23,1);
+        SpinnerNumberModel listHourModel = new SpinnerNumberModel(0, 0, 23, 1);
         hour = new JSpinner(listHourModel);
         hour.setEditor(new JSpinner.NumberEditor(hour, "00"));
         hour.addChangeListener(this);
         hour.setFont(font_normal);
 
-        SpinnerNumberModel listMinModel = new SpinnerNumberModel(0,0,59,1);
+        SpinnerNumberModel listMinModel = new SpinnerNumberModel(0, 0, 59, 1);
         minute = new JSpinner(listMinModel);
         minute.setEditor(new JSpinner.NumberEditor(minute, "00"));
         minute.addChangeListener(this);
         minute.setFont(font_normal);
-
 
         hour.setBounds(0, 0, 45, 25);
         minute.setBounds(50, 0, 45, 25);
@@ -113,7 +109,6 @@ public class TimeComponent extends JPanel implements ChangeListener
         this.add(hour, null);
         this.add(minute, null);
     }
-
 
     /**
      * Set Action Command
@@ -124,7 +119,7 @@ public class TimeComponent extends JPanel implements ChangeListener
     {
         this.action_command = act_command;
     }
-    
+
     /**
      * Get Action Command
      * 
@@ -134,7 +129,6 @@ public class TimeComponent extends JPanel implements ChangeListener
     {
         return this.action_command;
     }
-    
 
     /**
      * Set the time 
@@ -144,15 +138,14 @@ public class TimeComponent extends JPanel implements ChangeListener
     public void setTime(int date)
     {
 
-        int hours = date/100;
+        int hours = date / 100;
 
-        int minutes = date-(hours*100);
+        int minutes = date - hours * 100;
 
         hour.setValue(hours);
         minute.setValue(minutes);
 
     }
-
 
     /**
      * Gets the time.
@@ -162,10 +155,10 @@ public class TimeComponent extends JPanel implements ChangeListener
     public int getTime()
     {
 
-        int h = ((SpinnerNumberModel)hour.getModel()).getNumber().intValue();
-        int m = ((SpinnerNumberModel)minute.getModel()).getNumber().intValue();
+        int h = ((SpinnerNumberModel) hour.getModel()).getNumber().intValue();
+        int m = ((SpinnerNumberModel) minute.getModel()).getNumber().intValue();
 
-        return(h*100) + m;
+        return h * 100 + m;
 
     }
 
@@ -178,54 +171,55 @@ public class TimeComponent extends JPanel implements ChangeListener
     {
 
         StringBuffer sb = new StringBuffer();
-        String h = "" + ((SpinnerNumberModel)hour.getModel()).getNumber().intValue();
-        String m = "" + ((SpinnerNumberModel)minute.getModel()).getNumber().intValue();
-        
-        if (h.length()==1)
+        String h = "" + ((SpinnerNumberModel) hour.getModel()).getNumber().intValue();
+        String m = "" + ((SpinnerNumberModel) minute.getModel()).getNumber().intValue();
+
+        if (h.length() == 1)
+        {
             sb.append("0");
-        
+        }
+
         sb.append(h);
         sb.append(":");
-        
-        if (m.length()==1)
+
+        if (m.length() == 1)
+        {
             sb.append("0");
-        
+        }
+
         sb.append(m);
-        
+
         return sb.toString();
 
     }
 
-
     /** 
      * setBackground
      */
+    @Override
     public void setBackground(Color bg)
     {
         super.setBackground(bg);
     }
 
-
     /** 
      * setEnabled
      */
+    @Override
     public void setEnabled(boolean isEnabled)
     {
         hour.setEnabled(isEnabled);
         minute.setEnabled(isEnabled);
     }
 
-
-
-
     /** 
      * setBounds
      */
+    @Override
     public void setBounds(int x, int y, int width, int height)
     {
-        super.setBounds(x,y,component_width,component_height);
+        super.setBounds(x, y, component_width, component_height);
     }
-
 
     /**
      * Add Action Listener
@@ -236,7 +230,7 @@ public class TimeComponent extends JPanel implements ChangeListener
     {
         this.listeners.add(al);
     }
-    
+
     /**
      * Remove Action Listener
      * 
@@ -247,21 +241,13 @@ public class TimeComponent extends JPanel implements ChangeListener
         this.listeners.remove(al);
     }
 
-
-
-
-
-
-
-
     public void stateChanged(ChangeEvent e)
     {
         ActionEvent ae = new ActionEvent(e.getSource(), (int) serialVersionUID, this.action_command);
         ae.setSource(e.getSource());
         notifyListeners(ae);
     }
-    
-    
+
     /**
      * Notify Listeners
      * 
@@ -269,16 +255,11 @@ public class TimeComponent extends JPanel implements ChangeListener
      */
     public void notifyListeners(ActionEvent e)
     {
-        for (int i = 0; i < listeners.size(); i++) 
+        for (int i = 0; i < listeners.size(); i++)
         {
             ActionListener l = listeners.get(i);
             l.actionPerformed(e);
         }
     }
-    
-    
-    
 
 }
-
-

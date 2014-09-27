@@ -16,7 +16,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.atech.utils.ATSwingUtils;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -47,10 +46,8 @@ import com.atech.utils.ATSwingUtils;
  *
 */
 
-
 // WORK IN PROGRESS, PLEASE DO NOT TOUCH
 // andyrozman
-
 
 public class PanelDbAction extends JPanel implements ActionListener
 {
@@ -66,8 +63,8 @@ public class PanelDbAction extends JPanel implements ActionListener
     JLabel label;
     JButton button;
 
-    //NutritionTreeDialog m_dialog = null;
-    
+    // NutritionTreeDialog m_dialog = null;
+
     PanelDatabaseSet pds;
     DbTool m_dialog;
 
@@ -83,21 +80,19 @@ public class PanelDbAction extends JPanel implements ActionListener
         super();
 
         this.pds = pds;
-        
+
         m_dialog = dia;
         m_da = DbToolAccess.getInstance();
 
-        //font_big = m_da.getFont(DbToolAccess.FONT_BIG_BOLD);
-        //font_normal_b = m_da.getFont(DbToolAccess.FONT_NORMAL_BOLD);
-        //font_normal = m_da.getFont(DbToolAccess.FONT_NORMAL);
+        // font_big = m_da.getFont(DbToolAccess.FONT_BIG_BOLD);
+        // font_normal_b = m_da.getFont(DbToolAccess.FONT_NORMAL_BOLD);
+        // font_normal = m_da.getFont(DbToolAccess.FONT_NORMAL);
 
         ATSwingUtils.initLibrary();
-        
+
         createPanel();
 
     }
-
-
 
     private void createPanel()
     {
@@ -106,48 +101,46 @@ public class PanelDbAction extends JPanel implements ActionListener
         this.setLayout(null);
         this.setBorder(new TitledBorder("Database Tools"));
 
-/*
-        button = new JButton(ic.getMessage("ADD_"));
-        button.setBounds(110, 190, 170, 25);
-        button.setFont(font_normal);
-        button.addActionListener(this);
-        button.setActionCommand("add_");
-        this.add(button);
-*/
-        
-        ATSwingUtils.getButton(ic.getMessage("TEST_CONNECTION"), 20, 25, 140, 25, 
-                               this, ATSwingUtils.FONT_NORMAL, null, "test_connection", this, m_da);
-        
-        ATSwingUtils.getButton(ic.getMessage("DB_STATUS"), 170, 25, 140, 25, 
-            this, ATSwingUtils.FONT_NORMAL, null, "db_status", this, m_da);
-        
-        ATSwingUtils.getButton(ic.getMessage("INIT_DB"), 320, 25, 140, 25, 
-            this, ATSwingUtils.FONT_NORMAL, null, "init_db", this, m_da);
-        
-/*        button = new JButton(ic.getMessage("TEST_CONNECTION"));
-        button.setBounds(0, 10, 120, 25);
-        button.setFont(font_normal);
-        button.setActionCommand("test_connection");
-        button.addActionListener(this);
-        this.add(button);
+        /*
+         * button = new JButton(ic.getMessage("ADD_"));
+         * button.setBounds(110, 190, 170, 25);
+         * button.setFont(font_normal);
+         * button.addActionListener(this);
+         * button.setActionCommand("add_");
+         * this.add(button);
+         */
 
-        button = new JButton(ic.getMessage("STATUS"));
-        button.setBounds(140, 10, 120, 25);
-        button.setFont(font_normal);
-        button.setActionCommand("add_p");
-        button.addActionListener(this);
-        this.add(button);
+        ATSwingUtils.getButton(ic.getMessage("TEST_CONNECTION"), 20, 25, 140, 25, this, ATSwingUtils.FONT_NORMAL, null,
+            "test_connection", this, m_da);
 
-        button = new JButton(ic.getMessage("INIT_DB"));
-        button.setBounds(280, 10, 120, 25);
-        button.setFont(font_normal);
-        button.setActionCommand("add_p");
-        button.addActionListener(this);
-        this.add(button);
-*/
+        ATSwingUtils.getButton(ic.getMessage("DB_STATUS"), 170, 25, 140, 25, this, ATSwingUtils.FONT_NORMAL, null,
+            "db_status", this, m_da);
+
+        ATSwingUtils.getButton(ic.getMessage("INIT_DB"), 320, 25, 140, 25, this, ATSwingUtils.FONT_NORMAL, null,
+            "init_db", this, m_da);
+
+        /*
+         * button = new JButton(ic.getMessage("TEST_CONNECTION"));
+         * button.setBounds(0, 10, 120, 25);
+         * button.setFont(font_normal);
+         * button.setActionCommand("test_connection");
+         * button.addActionListener(this);
+         * this.add(button);
+         * button = new JButton(ic.getMessage("STATUS"));
+         * button.setBounds(140, 10, 120, 25);
+         * button.setFont(font_normal);
+         * button.setActionCommand("add_p");
+         * button.addActionListener(this);
+         * this.add(button);
+         * button = new JButton(ic.getMessage("INIT_DB"));
+         * button.setBounds(280, 10, 120, 25);
+         * button.setFont(font_normal);
+         * button.setActionCommand("add_p");
+         * button.addActionListener(this);
+         * this.add(button);
+         */
         return;
     }
-
 
     /**
      * Set Data
@@ -168,59 +161,58 @@ public class PanelDbAction extends JPanel implements ActionListener
         System.out.println("Redraw Not working");
     }
 
-
-
     /**
      *  Action Listener
      */
-    public void actionPerformed(ActionEvent e) 
+    public void actionPerformed(ActionEvent e)
     {
 
         String action = e.getActionCommand();
-        
+
         if (action.equals("test_connection"))
         {
             testConnection();
         }
         else
+        {
             System.out.println("PanelDatabaseSet::Unknown command: " + action);
-  
+        }
+
     }
 
-    
     private void testConnection()
     {
         DatabaseSettings ds = this.pds.getDatabaseSettings();
-        
+
         try
         {
             Class.forName(ds.driver_class);
-            /*Connection con_ =*/ DriverManager.getConnection(this.pds.getJDBCUrl(), ds.username, ds.password); 
+            /* Connection con_ = */DriverManager.getConnection(this.pds.getJDBCUrl(), ds.username, ds.password);
             System.out.println("Connection Tested !");
-            
-            JOptionPane.showMessageDialog(m_dialog, ic.getMessage("CONNECTION_SUCCESFULL"), ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE, null);
-            
+
+            JOptionPane.showMessageDialog(m_dialog, ic.getMessage("CONNECTION_SUCCESFULL"),
+                ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE, null);
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            JOptionPane.showMessageDialog(m_dialog, ic.getMessage("CONNECTION_PROBLEM"), ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE, null);
+            JOptionPane.showMessageDialog(m_dialog, ic.getMessage("CONNECTION_PROBLEM"), ic.getMessage("ERROR"),
+                JOptionPane.ERROR_MESSAGE, null);
             System.out.println("Exception: " + ex);
             log.error("Exception: " + ex, ex);
         }
     }
-    
-    
+
     @SuppressWarnings("unused")
     private void showStatus()
     {
         // TODO
     }
-    
+
     @SuppressWarnings("unused")
     private void initDb()
     {
         // TODO
     }
-    
-    
+
 }

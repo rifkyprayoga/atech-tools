@@ -37,12 +37,11 @@ import org.apache.commons.logging.LogFactory;
  *
 */
 
-
 public class I18nWebControl
 {
 
-	public String base_lang_file = null;
-	
+    public String base_lang_file = null;
+
     /**
      * Resource bundle identificator
      */
@@ -59,7 +58,7 @@ public class I18nWebControl
      */
     public I18nWebControl(String lang, String base_i18n_name)
     {
-    	this.base_lang_file = base_i18n_name;
+        this.base_lang_file = base_i18n_name;
         setLanguage(lang);
         // setLanguage(DataAccess.getSelectedLocale());
         // DataAccess.getInstance().setI18n(this);
@@ -78,9 +77,9 @@ public class I18nWebControl
      */
     public void setLanguage(String language, String country)
     {
-    	log.warn("setLanguage(String language, String country) not implemented.");
-        //Locale l = new Locale(language, country);
-        //setLanguage(l);
+        log.warn("setLanguage(String language, String country) not implemented.");
+        // Locale l = new Locale(language, country);
+        // setLanguage(l);
     }
 
     // Method: setLanguage (Locale)
@@ -107,10 +106,13 @@ public class I18nWebControl
         catch (Exception ex) // MissingResourceException mre)
         {
             // System.out.println(mre.
-            //System.out.println("Exception load1: " + ex.getMessage() + "\n" + ex.getStackTrace());
+            // System.out.println("Exception load1: " + ex.getMessage() + "\n" +
+            // ex.getStackTrace());
 
             log.debug(this.base_lang_file + " Language " + lang + " could NOT be loaded. Trying default (SI).");
-            //System.out.println("Couldn't find resource file(1): " + this.base_lang_file + "_xx.properties (for Locale " + lang + ")");
+            // System.out.println("Couldn't find resource file(1): " +
+            // this.base_lang_file + "_xx.properties (for Locale " + lang +
+            // ")");
             try
             {
                 res = ResourceBundle.getBundle(this.base_lang_file, new Locale("SI"));
@@ -119,7 +121,7 @@ public class I18nWebControl
             catch (Exception ex2)
             {
                 log.debug("Default " + this.base_lang_file + " Language (SI)" + lang + " could NOT be loaded.");
-                //System.out.println("Exception on reading default resource file (ZIS_SI.properties). Exiting application.");
+                // System.out.println("Exception on reading default resource file (ZIS_SI.properties). Exiting application.");
                 System.exit(2);
             }
         }
@@ -270,7 +272,9 @@ public class I18nWebControl
                 }
             }
             else
+            {
                 code[i] = 0;
+            }
         }
 
         // now we find real menmonic
@@ -324,7 +328,9 @@ public class I18nWebControl
         back[1] = returnStr.toString();
 
         if (!foundMnemonic)
+        {
             back[0] = null;
+        }
 
         return back;
 
@@ -347,7 +353,7 @@ public class I18nWebControl
         {
             Object[] back = resolveMnemonics(getMessageFromCatalog(msg_id));
 
-            if ((back == null) || (back[0] == null))
+            if (back == null || back[0] == null)
                 return 0;
 
             return ((Character) back[0]).charValue();

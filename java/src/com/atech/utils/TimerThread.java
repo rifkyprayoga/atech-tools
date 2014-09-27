@@ -33,18 +33,16 @@ import java.util.ArrayList;
  *
 */
 
-
 public class TimerThread extends Thread
 {
 
     private boolean running = true;
-    
+
     /**
      * The lst_jobs.
      */
     ArrayList<TimerControlAbstract> lst_jobs = new ArrayList<TimerControlAbstract>();
     private boolean started = false;
-
 
     /**
      * Instantiates a new timer thread.
@@ -53,7 +51,6 @@ public class TimerThread extends Thread
     {
         System.out.println("TimerThread()");
     }
-
 
     /**
      * Adds the job.
@@ -92,9 +89,9 @@ public class TimerThread extends Thread
      */
     public boolean hasStarted()
     {
-    	return this.started;
+        return this.started;
     }
-    
+
     /**
      * Sets the started.
      * 
@@ -102,12 +99,9 @@ public class TimerThread extends Thread
      */
     public void setStarted(boolean started)
     {
-    	this.started = started;
+        this.started = started;
     }
-    
-    
-    
-    
+
     /** 
      * run
      */
@@ -116,36 +110,34 @@ public class TimerThread extends Thread
     {
         System.out.println("run");
 
-        while(running)
+        while (running)
         {
             System.out.println("run.running");
 
-        	//while (started)
-        	{
+            // while (started)
+            {
 
-	            if (this.lst_jobs.size()>0)
-	            {
-	                for(int i=0; i<this.lst_jobs.size(); i++)
-	                {
-	                    if (this.lst_jobs.get(i).hasChangeBeenTooLong())
-	                    {
-	                        System.out.println("to long");
-	                        this.lst_jobs.get(i).stopAction();
-	                        this.lst_jobs.get(i).setStopTime();
-	                        running = false;
-	                        started = false;
-	                    }
-	                    else
-	                        System.out.println("too short");
-	                }
-	            }
-        	}
-        }  // while
+                if (this.lst_jobs.size() > 0)
+                {
+                    for (int i = 0; i < this.lst_jobs.size(); i++)
+                    {
+                        if (this.lst_jobs.get(i).hasChangeBeenTooLong())
+                        {
+                            System.out.println("to long");
+                            this.lst_jobs.get(i).stopAction();
+                            this.lst_jobs.get(i).setStopTime();
+                            running = false;
+                            started = false;
+                        }
+                        else
+                        {
+                            System.out.println("too short");
+                        }
+                    }
+                }
+            }
+        } // while
 
     }
 
-    
-
 }
-
-

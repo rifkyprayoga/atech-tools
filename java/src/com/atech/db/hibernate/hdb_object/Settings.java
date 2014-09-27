@@ -10,7 +10,6 @@ import com.atech.db.hibernate.transfer.BackupRestoreObject;
 import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
 import com.atech.i18n.I18nControlAbstract;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -40,7 +39,6 @@ import com.atech.i18n.I18nControlAbstract;
  *  @author Andy
  *
 */
-
 
 public class Settings extends SettingsH implements DatabaseObjectHibernate, BackupRestoreObject
 {
@@ -117,7 +115,6 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         this.edited = true;
     }
 
-    
     /**
      * Set Element Added
      */
@@ -173,7 +170,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         tx.commit();
 
         this.setId(id.longValue());
-        
+
         return "" + id.longValue();
 
     }
@@ -192,8 +189,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
 
         Transaction tx = sess.beginTransaction();
 
-        SettingsH ch = (SettingsH) sess.get(SettingsH.class, new Long(this
-                .getId()));
+        SettingsH ch = (SettingsH) sess.get(SettingsH.class, new Long(this.getId()));
 
         ch.setId(this.getId());
         ch.setKey(this.getKey());
@@ -222,8 +218,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
 
         Transaction tx = sess.beginTransaction();
 
-        SettingsH ch = (SettingsH) sess.get(SettingsH.class, new Long(this
-                .getId()));
+        SettingsH ch = (SettingsH) sess.get(SettingsH.class, new Long(this.getId()));
 
         sess.delete(ch);
         tx.commit();
@@ -261,8 +256,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     public boolean DbGet(Session sess) throws Exception
     {
 
-        SettingsH ch = (SettingsH) sess.get(SettingsH.class, new Long(this
-                .getId()));
+        SettingsH ch = (SettingsH) sess.get(SettingsH.class, new Long(this.getId()));
 
         this.setId(ch.getId());
         this.setKey(ch.getKey());
@@ -320,7 +314,6 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return ic.getMessage("SETTINGS");
     }
 
-    
     /**
      * Get Class Name
      * 
@@ -330,9 +323,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return "ggc.core.db.hibernate.SettingsH";
     }
-    
-    
-    
+
     /**
      * Get Name
      * 
@@ -402,14 +393,12 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return "" + this.getId();
     }
-    
 
     /**
      * Table Version
      */
     public int TABLE_VERSION = 1;
-    
-    
+
     /**
      * getTableVersion - returns version of table
      * 
@@ -419,8 +408,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return this.TABLE_VERSION;
     }
-    
-    
+
     /**
      * dbExport - returns export String, for current version 
      *
@@ -433,7 +421,6 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return null;
     }
 
-    
     /**
      * dbExport - returns export String, for current version 
      *
@@ -444,8 +431,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return dbExport(this.TABLE_VERSION);
     }
-    
-    
+
     /**
      * dbExportHeader - header for export file
      * 
@@ -457,7 +443,6 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         // TODO
         return null;
     }
-    
 
     /**
      * dbExportHeader - header for export file
@@ -468,8 +453,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return this.dbExportHeader(this.TABLE_VERSION);
     }
-    
-    
+
     /**
      * dbImport - processes input entry to right fields
      * 
@@ -481,7 +465,6 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         dbImport(table_version, value_entry, null);
     }
-    
 
     /**
      * dbImport - processes input entry to right fields
@@ -495,8 +478,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         // TODO
     }
-    
-    
+
     /**
      * getBackupFile - name of backup file (base part)
      * 
@@ -506,7 +488,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return "SettingsH";
     }
-    
+
     /**
      * getBackupClassName - name of class which will be updated/restored
      * 
@@ -517,7 +499,6 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return "ggc.core.db.hibernate.SettingsH";
     }
 
-    
     /**
      * Has To Be Clean - if table needs to be cleaned before import
      * 
@@ -543,5 +524,5 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return false;
     }
-    
+
 }

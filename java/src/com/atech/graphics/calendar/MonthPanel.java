@@ -1,6 +1,4 @@
-
 package com.atech.graphics.calendar;
-
 
 /*
  *  Filename: MonthPanel
@@ -9,8 +7,6 @@ package com.atech.graphics.calendar;
  *
  *  Author:   schultd (taken from ggc project)
  */
-
-
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,7 +46,6 @@ import com.atech.utils.ATDataAccessAbstract;
  *  Author:   Andy
  */
 
-
 public class MonthPanel extends JPanel implements CalendarListener
 {
 
@@ -59,20 +54,20 @@ public class MonthPanel extends JPanel implements CalendarListener
     private ATDataAccessAbstract m_da = null;
 
     /*
-    private String[] months = {
-            m_ic.getMessage("JANUARY"), 
-            m_ic.getMessage("FEBRUARY"), 
-            m_ic.getMessage("MARCH"), 
-            m_ic.getMessage("APRIL"), 
-            m_ic.getMessage("MAY"), 
-            m_ic.getMessage("JUNE"), 
-            m_ic.getMessage("JULY"), 
-            m_ic.getMessage("AUGUST"), 
-            m_ic.getMessage("SEPTEMBER"), 
-            m_ic.getMessage("OCTOBER"), 
-            m_ic.getMessage("NOVEMBER"), 
-            m_ic.getMessage("DECEMBER") };
-            */
+     * private String[] months = {
+     * m_ic.getMessage("JANUARY"),
+     * m_ic.getMessage("FEBRUARY"),
+     * m_ic.getMessage("MARCH"),
+     * m_ic.getMessage("APRIL"),
+     * m_ic.getMessage("MAY"),
+     * m_ic.getMessage("JUNE"),
+     * m_ic.getMessage("JULY"),
+     * m_ic.getMessage("AUGUST"),
+     * m_ic.getMessage("SEPTEMBER"),
+     * m_ic.getMessage("OCTOBER"),
+     * m_ic.getMessage("NOVEMBER"),
+     * m_ic.getMessage("DECEMBER") };
+     */
 
     private JComboBox monthCombo;
 
@@ -106,6 +101,8 @@ public class MonthPanel extends JPanel implements CalendarListener
     public void dateHasChanged(CalendarEvent e)
     {
         if (e.getEvent() > CalendarEvent.MONTH_CHANGED)
+        {
             monthCombo.setSelectedIndex(e.getNewMonth());
+        }
     }
 }

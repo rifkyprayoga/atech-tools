@@ -36,31 +36,26 @@ import javax.swing.JMenuItem;
  *
 */
 
-
-public class HelpContext 
+public class HelpContext
 {
 
-	
     // help stuff
     private HelpBroker main_help_broker = null;
     private CSH.DisplayHelpFromSource csh = null;
     private String main_help_set_name = null;
     private JMenuItem help_item = null;
     private HelpSet main_help_set = null;
-	
 
-    
-	/**
-	 * Instantiates a new help context.
-	 * 
-	 * @param main_help_set the main_help_set
-	 */
-	public HelpContext(String main_help_set)
-	{
-		this.main_help_set_name = main_help_set;
-	}
-	
-    
+    /**
+     * Instantiates a new help context.
+     * 
+     * @param main_help_set the main_help_set
+     */
+    public HelpContext(String main_help_set)
+    {
+        this.main_help_set_name = main_help_set;
+    }
+
     /**
      * Gets the main help broker.
      * 
@@ -68,9 +63,9 @@ public class HelpContext
      */
     public HelpBroker getMainHelpBroker()
     {
-    	return this.main_help_broker;
+        return this.main_help_broker;
     }
-    
+
     /**
      * Sets the main help broker.
      * 
@@ -78,10 +73,9 @@ public class HelpContext
      */
     public void setMainHelpBroker(HelpBroker broker)
     {
-    	this.main_help_broker = broker;
+        this.main_help_broker = broker;
     }
-    
-    
+
     /**
      * Sets the help item.
      * 
@@ -89,9 +83,8 @@ public class HelpContext
      */
     public void setHelpItem(JMenuItem item)
     {
-    	this.help_item = item;
+        this.help_item = item;
     }
-    
 
     /**
      * Gets the help item.
@@ -100,10 +93,9 @@ public class HelpContext
      */
     public JMenuItem getHelpItem()
     {
-    	return this.help_item;
+        return this.help_item;
     }
-    
-    
+
     /**
      * Sets the main help set name.
      * 
@@ -111,9 +103,9 @@ public class HelpContext
      */
     public void setMainHelpSetName(String help_set_name)
     {
-    	this.main_help_set_name = help_set_name;
+        this.main_help_set_name = help_set_name;
     }
-    
+
     /**
      * Gets the main help set name.
      * 
@@ -121,9 +113,8 @@ public class HelpContext
      */
     public String getMainHelpSetName()
     {
-    	return this.main_help_set_name;
+        return this.main_help_set_name;
     }
-    
 
     /**
      * Sets the display help from source instance.
@@ -132,10 +123,9 @@ public class HelpContext
      */
     public void setDisplayHelpFromSourceInstance(CSH.DisplayHelpFromSource csh)
     {
-    	this.csh = csh;
+        this.csh = csh;
     }
 
-    
     /**
      * Gets the display help from source instance.
      * 
@@ -143,10 +133,9 @@ public class HelpContext
      */
     public CSH.DisplayHelpFromSource getDisplayHelpFromSourceInstance()
     {
-    	return this.csh;
+        return this.csh;
     }
 
-    
     /**
      * Sets the main help set.
      * 
@@ -154,9 +143,9 @@ public class HelpContext
      */
     public void setMainHelpSet(HelpSet help_set)
     {
-    	this.main_help_set = help_set;
+        this.main_help_set = help_set;
     }
-    
+
     /**
      * Gets the main help set.
      * 
@@ -164,17 +153,11 @@ public class HelpContext
      */
     public HelpSet getMainHelpSet()
     {
-    	return this.main_help_set;
+        return this.main_help_set;
     }
-    
-    
-    //public HelpSet main_help_set = null;
 
-    
-    
-    //public CSH.DisplayHelpFromSource csh = null;
-    
-    
-    
-    
+    // public HelpSet main_help_set = null;
+
+    // public CSH.DisplayHelpFromSource csh = null;
+
 }

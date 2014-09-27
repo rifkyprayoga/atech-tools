@@ -38,41 +38,37 @@ import com.atech.i18n.I18nControlAbstract;
 public class I18nControlTT extends I18nControlAbstract
 {
 
-    //x private static Log s_logger = LogFactory.getLog(I18nControlDbT.class); 
+    // x private static Log s_logger = LogFactory.getLog(I18nControlDbT.class);
 
+    // protected String lang_file_root = "DbTool";
+    // protected String def_language = "en";
+    // protected String selected_language = null;
 
+    // protected String languages[] = null;
+    /*
+     * }
+     * {
+     * "English",
+     * "German",
+     * "Slovene",
+     * "Simp. Chinese"
+     * };
+     */
 
-    //protected String lang_file_root = "DbTool";
-    //protected String def_language = "en";
-    //protected String selected_language = null;
+    // protected Locale lcls[] = null;
+    /*
+     * {
+     * Locale.ENGLISH,
+     * Locale.GERMAN,
+     * new Locale("SI"),
+     * Locale.SIMPLIFIED_CHINESE
+     * };
+     */
 
+    static private I18nControlTT m_i18n = null; // This is handle to unique
+                                                // singelton instance
 
-    //protected String languages[] = null;
-/*
-    }
-	{
-        "English",
-        "German",
-        "Slovene",
-        "Simp. Chinese"
-    };
-*/
-
-    //protected Locale lcls[] = null;
-/*	{
-        Locale.ENGLISH,
-        Locale.GERMAN,
-        new Locale("SI"),
-        Locale.SIMPLIFIED_CHINESE
-    };
-*/
-
-
-    static private I18nControlTT m_i18n = null;   // This is handle to unique 
-                                                    // singelton instance
-                                               
-
-    //   Constructor:  I18nControl
+    // Constructor: I18nControl
     /**
      *
      *  This is I18nControl constructor; Since classes use Singleton Pattern,
@@ -80,7 +76,7 @@ public class I18nControlTT extends I18nControlAbstract
      *  method. 
      *  This constructor should be implemented by implementing class<br><br>
      *
-     */ 
+     */
     private I18nControlTT()
     {
         init();
@@ -88,24 +84,21 @@ public class I18nControlTT extends I18nControlAbstract
         setLanguage();
 
         loadWords();
-//        setLanguage("EN");
-    } 
-    
-
+        // setLanguage("EN");
+    }
 
     /**
      * 
      */
+    @Override
     public void init()
     {
         def_language = "en";
         lang_file_root = "TranslationTool";
     }
 
-
-    
-    //  Method:       getInstance
-    //  Author:       Andy
+    // Method: getInstance
+    // Author: Andy
     /**
      *
      *  This method returns reference to OmniI18nControl object created, or if no 
@@ -114,70 +107,68 @@ public class I18nControlTT extends I18nControlAbstract
      *
      *  @return Reference to OmniI18nControl object
      * 
-     */ 
+     */
     static public I18nControlTT getInstance()
     {
         if (m_i18n == null)
+        {
             m_i18n = new I18nControlTT();
+        }
         return m_i18n;
     }
 
-
-
-
-
-
-    //  Method:       deleteInstance
+    // Method: deleteInstance
     /**
      *
      *  This method sets handle to OmniI18NControl to null and deletes the instance. <br><br>
      *
-     */ 
+     */
     public void deleteInstance()
     {
-        m_i18n=null;
+        m_i18n = null;
     }
 
-
-/*
-    private void getSelectedLanguage()
-    {
-        this.selected_language = this.def_language;
-/*
-        try
-        {
-            Properties props = new Properties();
-
-            FileInputStream in = new FileInputStream("../data/GGC_Config.properties");
-            props.load(in);
-
-            String tempLang = (String)props.get("SELECTED_LANG");
-
-            if (tempLang != null)
-            this.selected_language = tempLang;
-        }
-        catch(Exception ex)
-        {
-            System.out.println("I18nControl: Configuration file not found. Using default langauge ('en')");
-            s_logger.warn("Configuration file not found. Using default langauge ('en')");
-        }
-*/
-  //  }
-
-
+    /*
+     * private void getSelectedLanguage()
+     * {
+     * this.selected_language = this.def_language;
+     * /*
+     * try
+     * {
+     * Properties props = new Properties();
+     * FileInputStream in = new
+     * FileInputStream("../data/GGC_Config.properties");
+     * props.load(in);
+     * String tempLang = (String)props.get("SELECTED_LANG");
+     * if (tempLang != null)
+     * this.selected_language = tempLang;
+     * }
+     * catch(Exception ex)
+     * {
+     * System.out.println(
+     * "I18nControl: Configuration file not found. Using default langauge ('en')"
+     * );
+     * s_logger.warn("Configuration file not found. Using default langauge ('en')"
+     * );
+     * }
+     */
+    // }
 
     /**
      * This method sets the language according to the preferences.<br>
      */
-    public void setLanguage() 
+    @Override
+    public void setLanguage()
     {
-        if (selected_language!=null)
+        if (selected_language != null)
+        {
             setLanguage(selected_language);
+        }
         else
+        {
             setLanguage(def_language);
+        }
     }
-
-
 
     @Override
     protected String getLanguageConfigFile()
@@ -186,26 +177,23 @@ public class I18nControlTT extends I18nControlAbstract
         return null;
     }
 
+    Hashtable<String, String> words = new Hashtable<String, String>();
 
-    Hashtable<String, String> words = new Hashtable<String, String>(); 
-    
-    
     private void loadWords()
     {
         this.words.put("LICENCE", "Licence");
         this.words.put("ABOUT", "About...");
         this.words.put("SYSTEM_PROPERTIES", "System properties");
-        
+
         this.words.put("PROPERTY", "Property");
         this.words.put("VALUE", "Value");
         this.words.put("ABOUT", "About...");
         this.words.put("ABOUT", "About...");
         this.words.put("ABOUT", "About...");
-        
-        
+
     }
 
-    
+    @Override
     public String getMessage(String key)
     {
         if (this.words.containsKey(key))
@@ -213,10 +201,5 @@ public class I18nControlTT extends I18nControlAbstract
         else
             return key.toUpperCase();
     }
-    
-    
-
 
 }
-
-

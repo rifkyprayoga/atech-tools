@@ -45,13 +45,12 @@ import com.atech.i18n.tool.simple.TranslationTool;
  *
 */
 
-
-public class TTAboutDialog extends AboutDialog 
+public class TTAboutDialog extends AboutDialog
 {
 
     private static final long serialVersionUID = 586495485605943204L;
     DataAccessTT m_da = DataAccessTT.getInstance();
-	
+
     /**
      * Constructor 
      * 
@@ -62,22 +61,22 @@ public class TTAboutDialog extends AboutDialog
     {
         super(parent, true, DataAccessTT.getInstance().getI18nControlInstance());
 
-        //this.m_da = da;
-        
+        // this.m_da = da;
+
         // licence
         this.setLicenceType(LicenceInfo.LICENCE_GPL_v2_0);
 
         // credits
-//        this.setCredits(m_da.getPlugInDevelopers());
+        // this.setCredits(m_da.getPlugInDevelopers());
 
         // set display system properties
         this.setDisplayProperties(true);
 
         // libraries
-//        this.setLibraries(m_da.getPlugInLibraries());
-        
+        // this.setLibraries(m_da.getPlugInLibraries());
+
         // features
-//        this.setFeatures(m_da.getPlugInFeatures());
+        // this.setFeatures(m_da.getPlugInFeatures());
 
         // custom page
         createCustomTab();
@@ -93,16 +92,16 @@ public class TTAboutDialog extends AboutDialog
     }
 
     /*
-    public void initCustom()
-    {
-	System.out.println("init Custom");
-	this.about_image = "/icons/t_asc_dex.gif";
-    } */
-
+     * public void initCustom()
+     * {
+     * System.out.println("init Custom");
+     * this.about_image = "/icons/t_asc_dex.gif";
+     * }
+     */
 
     private void createCustomTab()
     {
-        
+
         AboutCustomPanel acp = new AboutCustomPanel(m_ic);
         acp.setTabName(m_ic.getMessage("ABOUT"));
         acp.setLayout(new BoxLayout(acp, BoxLayout.PAGE_AXIS));
@@ -111,37 +110,36 @@ public class TTAboutDialog extends AboutDialog
         p1.setLayout(new BorderLayout());
 
         int[] sz = { 240, 160 };
-        
-        JLabel l = new JLabel(m_da.getImageIcon("translation_about.jpg", sz[0], sz[1] , this));
+
+        JLabel l = new JLabel(m_da.getImageIcon("translation_about.jpg", sz[0], sz[1], this));
         p1.add(l, BorderLayout.CENTER);
 
         JLabel l2 = new JLabel();
-        l2.setPreferredSize(new Dimension(100,10));
+        l2.setPreferredSize(new Dimension(100, 10));
 
         p1.add(l2, BorderLayout.SOUTH);
         acp.add(p1);
 
         JEditorPane jEditorPaneAbout = new javax.swing.JEditorPane();
         jEditorPaneAbout.setBackground(new java.awt.Color(204, 204, 204));
-        //jEditorPaneAbout.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        // jEditorPaneAbout.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jEditorPaneAbout.setEditable(false);
         jEditorPaneAbout.setMinimumSize(new java.awt.Dimension(104, 90));
         jEditorPaneAbout.setOpaque(false);
         jEditorPaneAbout.setPreferredSize(new java.awt.Dimension(104, 90));
 
         jEditorPaneAbout.setContentType("text/html");
-        jEditorPaneAbout.setText("<HTML><body><font face=\"SansSerif\" size=\"3\"><center><b>" + 
-                                 "Simple Translation Tool v" + TranslationTool.m_version +
-                                 "</b><br>&nbsp;&nbsp;(c) Copyright 2009 by<br>" +
-                                 "Andy (Aleksander) Rozman (andy@atech-software.com)<br>" +
-                                 "<br><A HREF=\"http://atech-tools.sourceforge.net/\">http://atech-tools.sourceforge.net/</A><br>" + 
-                                 m_ic.getMessage("LICENCE") + " GPL v2.0<br></font></body></html>");
+        jEditorPaneAbout.setText("<HTML><body><font face=\"SansSerif\" size=\"3\"><center><b>"
+                + "Simple Translation Tool v" + TranslationTool.m_version
+                + "</b><br>&nbsp;&nbsp;(c) Copyright 2009 by<br>"
+                + "Andy (Aleksander) Rozman (andy@atech-software.com)<br>"
+                + "<br><A HREF=\"http://atech-tools.sourceforge.net/\">http://atech-tools.sourceforge.net/</A><br>"
+                + m_ic.getMessage("LICENCE") + " GPL v2.0<br></font></body></html>");
 
-        acp.add(jEditorPaneAbout); //, BoxLayout.PAGE_AXIS);
+        acp.add(jEditorPaneAbout); // , BoxLayout.PAGE_AXIS);
 
         this.addCustomPanel(AboutDialog.PLACEMENT_BEFORE_STATIC_TABS, acp);
 
     }
-
 
 }

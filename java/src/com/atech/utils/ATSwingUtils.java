@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -32,6 +33,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -73,27 +75,26 @@ import com.atech.i18n.I18nControlAbstract;
 
 public class ATSwingUtils
 {
-    
+
     /**
      * The color_background.
      */
     public Color color_background;
-    
+
     /**
      * The color_foreground.
      */
     public Color color_foreground;
-    
+
     /**
      * The border_line.
      */
     LineBorder border_line;
-    
+
     /**
      * The fonts.
      */
     static Font[] fonts;
-
 
     private static I18nControlAbstract i18n_control = null;
 
@@ -102,14 +103,14 @@ public class ATSwingUtils
      * The available l f_full.
      */
     Hashtable<String, String> availableLF_full = null;
-    //Object[] availableLF = null;
+
+    // Object[] availableLF = null;
     // Object[] availableLang = null;
     // private LanguageInfo m_lang_info = null;
 
-    //String selectedLF = null;
-    //String subSelectedLF = null;
+    // String selectedLF = null;
+    // String subSelectedLF = null;
 
-    
     /**
      * Sets the i18n control.
      * 
@@ -119,19 +120,16 @@ public class ATSwingUtils
     {
         ATSwingUtils.i18n_control = ic;
     }
-    
-    
+
     /**
      * Inits the library.
      */
     public static void initLibrary()
     {
         loadFonts();
-        
+
     }
-    
-    
-    
+
     // ********************************************************
     // ****** Fonts *****
     // ********************************************************
@@ -140,22 +138,22 @@ public class ATSwingUtils
      * The Constant FONT_BIG_BOLD.
      */
     public static final int FONT_BIG_BOLD = 0;
-    
+
     /**
      * The Constant FONT_NORMAL.
      */
     public static final int FONT_NORMAL = 1;
-    
+
     /**
      * The Constant FONT_NORMAL_BOLD.
      */
     public static final int FONT_NORMAL_BOLD = 2;
-    
+
     /**
      * The Constant FONT_NORMAL_P2.
      */
     public static final int FONT_NORMAL_P2 = 3;
-    
+
     /**
      * The Constant FONT_NORMAL_BOLD_P2.
      */
@@ -165,36 +163,35 @@ public class ATSwingUtils
      * The Constant FONT_NORMAL_BOLD_P2.
      */
     public static final int FONT_NORMAL_SMALLER = 5;
-    
-    
+
     /**
      * Load fonts.
      */
     public static void loadFonts()
     {
-        if (fonts!=null)
+        if (fonts != null)
             return;
-        
+
         JLabel label = new JLabel();
         Font f = label.getFont();
         fonts = new Font[6];
-        
+
         fonts[0] = f.deriveFont(Font.BOLD, 22);
         fonts[1] = f.deriveFont(Font.PLAIN, 12);
         fonts[2] = f.deriveFont(Font.BOLD, 12);
         fonts[3] = f.deriveFont(Font.PLAIN, 14);
         fonts[4] = f.deriveFont(Font.BOLD, 14);
         fonts[5] = f.deriveFont(Font.PLAIN, 11);
-        
+
         /*
-        fonts[0] = new Font("SansSerif", Font.BOLD, 22);
-        fonts[1] = new Font("SansSerif", Font.PLAIN, 12);
-        fonts[2] = new Font("SansSerif", Font.BOLD, 12);
-        fonts[3] = new Font("SansSerif", Font.PLAIN, 14);
-        fonts[4] = new Font("SansSerif", Font.BOLD, 14);
-        fonts[5] = new Font("SansSerif", Font.PLAIN, 11);
-        */
-        
+         * fonts[0] = new Font("SansSerif", Font.BOLD, 22);
+         * fonts[1] = new Font("SansSerif", Font.PLAIN, 12);
+         * fonts[2] = new Font("SansSerif", Font.BOLD, 12);
+         * fonts[3] = new Font("SansSerif", Font.PLAIN, 14);
+         * fonts[4] = new Font("SansSerif", Font.BOLD, 14);
+         * fonts[5] = new Font("SansSerif", Font.PLAIN, 11);
+         */
+
     }
 
     /**
@@ -223,14 +220,18 @@ public class ATSwingUtils
         InputStream is = this.getClass().getResourceAsStream(filename);
 
         if (is == null)
+        {
             System.out.println("Error reading image: " + filename);
+        }
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try
         {
             int c;
             while ((c = is.read()) >= 0)
+            {
                 baos.write(c);
+            }
 
             // JDialog.getT
             // JFrame.getToolkit();
@@ -257,18 +258,18 @@ public class ATSwingUtils
     public static void centerJDialog(JDialog dialog, Container parent)
     {
 
-        //System.out.println("centerJDialog: ");
+        // System.out.println("centerJDialog: ");
 
         Rectangle rec = parent.getBounds();
 
         int x = rec.width / 2;
-        x += (rec.x);
+        x += rec.x;
 
         int y = rec.height / 2;
         y += rec.y;
 
-        x -= (dialog.getBounds().width / 2);
-        y -= (dialog.getBounds().height / 2);
+        x -= dialog.getBounds().width / 2;
+        y -= dialog.getBounds().height / 2;
 
         dialog.getBounds().x = x;
         dialog.getBounds().y = y;
@@ -280,65 +281,54 @@ public class ATSwingUtils
     // ********************************************************
     // ****** Look and Feel *****
     // ********************************************************
-/*
-    public void loadAvailableLFs()
-    {
-
-        availableLF_full = new Hashtable<String, String>();
-        UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
-
-        availableLF = new Object[info.length + 1];
-
-        // ring selectedLF = null;
-        // String subSelectedLF = null;
-
-        int i;
-        for (i = 0; i < info.length; i++)
-        {
-            String name = info[i].getName();
-            String className = info[i].getClassName();
-
-            availableLF_full.put(name, className);
-            availableLF[i] = name;
-
-            // System.out.println(humanReadableName);
-        }
-
-        availableLF_full.put("SkinLF", "com.l2fprod.gui.plaf.skin.SkinLookAndFeel");
-        availableLF[i] = "SkinLF";
-
-    }
-
-    public Object[] getAvailableLFs()
-    {
-        return availableLF;
-    }
-*/
-    /* XX
-        public static String[] getLFData()
-        {
-            String out[] = new String[2];
-
-            try
-            {
-                Properties props = new Properties();
-
-                FileInputStream in = new FileInputStream(pathPrefix  + "/data/PIS_Config.properties");
-                props.load(in);
-
-                out[0] = (String)props.get("LF_CLASS");
-                out[1] = (String)props.get("SKINLF_SELECTED");
-
-                return out;
-
-            }
-            catch(Exception ex)
-            {
-                System.out.println("DataAccess::getLFData::Exception> " + ex);
-                return null;
-            }
-        }
-    */
+    /*
+     * public void loadAvailableLFs()
+     * {
+     * availableLF_full = new Hashtable<String, String>();
+     * UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
+     * availableLF = new Object[info.length + 1];
+     * // ring selectedLF = null;
+     * // String subSelectedLF = null;
+     * int i;
+     * for (i = 0; i < info.length; i++)
+     * {
+     * String name = info[i].getName();
+     * String className = info[i].getClassName();
+     * availableLF_full.put(name, className);
+     * availableLF[i] = name;
+     * // System.out.println(humanReadableName);
+     * }
+     * availableLF_full.put("SkinLF",
+     * "com.l2fprod.gui.plaf.skin.SkinLookAndFeel");
+     * availableLF[i] = "SkinLF";
+     * }
+     * public Object[] getAvailableLFs()
+     * {
+     * return availableLF;
+     * }
+     */
+    /*
+     * XX
+     * public static String[] getLFData()
+     * {
+     * String out[] = new String[2];
+     * try
+     * {
+     * Properties props = new Properties();
+     * FileInputStream in = new FileInputStream(pathPrefix +
+     * "/data/PIS_Config.properties");
+     * props.load(in);
+     * out[0] = (String)props.get("LF_CLASS");
+     * out[1] = (String)props.get("SKINLF_SELECTED");
+     * return out;
+     * }
+     * catch(Exception ex)
+     * {
+     * System.out.println("DataAccess::getLFData::Exception> " + ex);
+     * return null;
+     * }
+     * }
+     */
 
     // ********************************************************
     // ****** Colors *****
@@ -369,49 +359,31 @@ public class ATSwingUtils
     }
 
     /*
-    public void loadComboOptions()
-    {
-
-    yes_no_combo = new Object[2];
-    
-    yes_no_combo[0] = ATSwingUtils.i18n_control.getMessage("OPTION_YES");
-    yes_no_combo[1] = ATSwingUtils.i18n_control.getMessage("OPTION_NO");
-
-    Hashtable ht = m_db.getProductType(-1);
-
-    typesAll = new Object[ht.size()];
-
-    int i = 0;
-
-
-    for(Enumeration en=ht.keys(); en.hasMoreElements(); )
-    {
-
-        String key = (String)en.nextElement();
-
-        String key2 = "";
-
-        if (key.length()==1)
-        {
-        key2 = "0"+key;
-        }
-        else
-        key2 = key;
-
-
-
-        typesAll[i] = key2 + " - " + ((ProductType)ht.get(key)).path.substring(1);
-        i++;
-
-    }
-
-    Arrays.sort(typesAll);
-
-
-
-
-    }
-      */
+     * public void loadComboOptions()
+     * {
+     * yes_no_combo = new Object[2];
+     * yes_no_combo[0] = ATSwingUtils.i18n_control.getMessage("OPTION_YES");
+     * yes_no_combo[1] = ATSwingUtils.i18n_control.getMessage("OPTION_NO");
+     * Hashtable ht = m_db.getProductType(-1);
+     * typesAll = new Object[ht.size()];
+     * int i = 0;
+     * for(Enumeration en=ht.keys(); en.hasMoreElements(); )
+     * {
+     * String key = (String)en.nextElement();
+     * String key2 = "";
+     * if (key.length()==1)
+     * {
+     * key2 = "0"+key;
+     * }
+     * else
+     * key2 = key;
+     * typesAll[i] = key2 + " - " +
+     * ((ProductType)ht.get(key)).path.substring(1);
+     * i++;
+     * }
+     * Arrays.sort(typesAll);
+     * }
+     */
 
     /**
      * Gets the date string.
@@ -426,16 +398,14 @@ public class ATSwingUtils
         // 20051012
 
         int year = date / 10000;
-        int months = date - (year * 10000);
+        int months = date - year * 10000;
 
         months = months / 100;
 
-        int days = date - (year * 10000) - (months * 100);
+        int days = date - year * 10000 - months * 100;
 
         if (year == 0)
-        {
             return getLeadingZero(days, 2) + "/" + getLeadingZero(months, 2);
-        }
         else
             return getLeadingZero(days, 2) + "/" + getLeadingZero(months, 2) + "/" + year;
 
@@ -487,12 +457,12 @@ public class ATSwingUtils
      * The Constant DATE_TIME_ATECH_DATETIME.
      */
     public static final int DATE_TIME_ATECH_DATETIME = 1;
-    
+
     /**
      * The Constant DATE_TIME_ATECH_DATE.
      */
     public static final int DATE_TIME_ATECH_DATE = 2;
-    
+
     /**
      * The Constant DATE_TIME_ATECH_TIME.
      */
@@ -512,22 +482,22 @@ public class ATSwingUtils
 
         if (type == DATE_TIME_ATECH_DATETIME)
         {
-            dt += gc.get(GregorianCalendar.YEAR) * 100000000L;
-            dt += (gc.get(GregorianCalendar.MONTH) + 1) * 1000000L;
-            dt += gc.get(GregorianCalendar.DAY_OF_MONTH) * 10000L;
-            dt += gc.get(GregorianCalendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(GregorianCalendar.MINUTE);
+            dt += gc.get(Calendar.YEAR) * 100000000L;
+            dt += (gc.get(Calendar.MONTH) + 1) * 1000000L;
+            dt += gc.get(Calendar.DAY_OF_MONTH) * 10000L;
+            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
+            dt += gc.get(Calendar.MINUTE);
         }
         else if (type == DATE_TIME_ATECH_DATE)
         {
-            dt += gc.get(GregorianCalendar.YEAR) * 10000L;
-            dt += (gc.get(GregorianCalendar.MONTH) + 1) * 100L;
-            dt += gc.get(GregorianCalendar.DAY_OF_MONTH);
+            dt += gc.get(Calendar.YEAR) * 10000L;
+            dt += (gc.get(Calendar.MONTH) + 1) * 100L;
+            dt += gc.get(Calendar.DAY_OF_MONTH);
         }
         else if (type == DATE_TIME_ATECH_TIME)
         {
-            dt += gc.get(GregorianCalendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(GregorianCalendar.MINUTE);
+            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
+            dt += gc.get(Calendar.MINUTE);
         }
 
         return dt;
@@ -613,12 +583,12 @@ public class ATSwingUtils
      * The Constant DT_DATETIME.
      */
     public final static int DT_DATETIME = 1;
-    
+
     /**
      * The Constant DT_DATE.
      */
     public final static int DT_DATE = 2;
-    
+
     /**
      * The Constant DT_TIME.
      */
@@ -637,20 +607,16 @@ public class ATSwingUtils
 
         // System.out.println("DT process: " + dt);
         /*
-        int y = (int)(dt/10000000L);
-        dt -= y*10000000L;
-
-        int m = (int)(dt/1000000L);
-        dt -= m*1000000L;
-
-        int d = (int)(dt/10000L);
-        dt -= d*10000L;
-
-        int h = (int)(dt/100L);
-        dt -= h*100L;
-
-        int min = (int)dt;
-        */
+         * int y = (int)(dt/10000000L);
+         * dt -= y*10000000L;
+         * int m = (int)(dt/1000000L);
+         * dt -= m*1000000L;
+         * int d = (int)(dt/10000L);
+         * dt -= d*10000L;
+         * int h = (int)(dt/100L);
+         * dt -= h*100L;
+         * int min = (int)dt;
+         */
 
         // 200612051850
         int y = (int) (dt / 100000000L);
@@ -668,43 +634,33 @@ public class ATSwingUtils
         int min = (int) dt;
 
         if (ret_type == DT_DATETIME)
-        {
-            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y + "  " + getLeadingZero(h, 2) + ":" + getLeadingZero(min, 2);
-        }
+            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y + "  " + getLeadingZero(h, 2) + ":"
+                    + getLeadingZero(min, 2);
         else if (ret_type == DT_DATE)
-        {
             return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y;
-        }
         else
             return getLeadingZero(h, 2) + ":" + getLeadingZero(min, 2);
 
     }
 
-    /* x
-        public String getGCObjectFromDateTimeLong(long dt)
-        {
-
-    	int y = (int)(dt/100000000L);
-    	dt -= y*100000000L;
-
-    	int m = (int)(dt/1000000L);
-    	dt -= m*1000000L;
-
-    	int d = (int)(dt/10000L);
-    	dt -= d*10000L;
-
-    	int h = (int)(dt/100L);
-    	dt -= h*100L;
-
-    	int min = (int)dt;
-
-    	GregorianCalendar gc1 = new GregorianCalendar();
-    	//gc1.set(GregorianCalendar.
-
-    	return null;
-
-        }
-    */
+    /*
+     * x
+     * public String getGCObjectFromDateTimeLong(long dt)
+     * {
+     * int y = (int)(dt/100000000L);
+     * dt -= y*100000000L;
+     * int m = (int)(dt/1000000L);
+     * dt -= m*1000000L;
+     * int d = (int)(dt/10000L);
+     * dt -= d*10000L;
+     * int h = (int)(dt/100L);
+     * dt -= h*100L;
+     * int min = (int)dt;
+     * GregorianCalendar gc1 = new GregorianCalendar();
+     * //gc1.set(GregorianCalendar.
+     * return null;
+     * }
+     */
 
     /**
      * Gets the date time string.
@@ -802,15 +758,11 @@ public class ATSwingUtils
         return item;
     }
 
-
-    
     public static JMenu createMenu(String name, String tool_tip, JMenuBar bar, I18nControlAbstract ic)
     {
         return createMenu(name, tool_tip, bar, ic, -1);
     }
-    
-    
-    
+
     /**
      * Creates the menu.
      * 
@@ -826,24 +778,25 @@ public class ATSwingUtils
     {
         JMenu item = new JMenu(ic.getMessageWithoutMnemonic(name));
         item.setMnemonic(ic.getMnemonic(name));
-        
-        
-        
-        if (font_id!=-1)
+
+        if (font_id != -1)
+        {
             item.setFont(getFont(font_id));
-        
-        if ((tool_tip!=null) && (tool_tip.trim().length()>0))
+        }
+
+        if (tool_tip != null && tool_tip.trim().length() > 0)
         {
             item.setToolTipText(ic.getMessage(tool_tip));
         }
 
-        if (bar!=null)
+        if (bar != null)
+        {
             bar.add(item);
+        }
 
         return item;
     }
-    
-    
+
     /**
      * Creates the menu.
      * 
@@ -858,7 +811,6 @@ public class ATSwingUtils
     {
         return ATSwingUtils.createMenu(name, tool_tip, menu, ATSwingUtils.i18n_control);
     }
-    
 
     /**
      * Creates the menu.
@@ -876,19 +828,17 @@ public class ATSwingUtils
         JMenu item = new JMenu(ic.getMessageWithoutMnemonic(name));
         item.setMnemonic(ic.getMnemonic(name));
 
-        if ((tool_tip!=null) && (tool_tip.trim().length()>0))
+        if (tool_tip != null && tool_tip.trim().length() > 0)
         {
             item.setToolTipText(ic.getMessage(tool_tip));
         }
 
-//        bar.add(item);
+        // bar.add(item);
 
         menu.add(item);
         return item;
     }
-    
-    
-    
+
     /**
      * Creates the menu item.
      * 
@@ -919,17 +869,18 @@ public class ATSwingUtils
         }
 
         if (menu != null)
+        {
             menu.add(mi);
+        }
 
         return mi;
 
     }
 
     // ********************************************************
-    // ******              Swing Components               *****
+    // ****** Swing Components *****
     // ********************************************************
-    
-    
+
     /**
      * Gets the numeric text field.
      * 
@@ -944,7 +895,8 @@ public class ATSwingUtils
      * 
      * @return the numeric text field
      */
-    public static JDecimalTextField getNumericTextField(int columns, int decimal_places, Object value, int x, int y, int width, int height, Container cont)
+    public static JDecimalTextField getNumericTextField(int columns, int decimal_places, Object value, int x, int y,
+            int width, int height, Container cont)
     {
         JDecimalTextField tf = new JDecimalTextField(value, decimal_places);
         tf.setBounds(x, y, width, height);
@@ -953,7 +905,6 @@ public class ATSwingUtils
 
         return tf;
     }
-    
 
     /**
      * Gets the label.
@@ -972,7 +923,6 @@ public class ATSwingUtils
         return getLabel(text, x, y, width, height, cont, null);
     }
 
-    
     /**
      * Gets the label.
      * 
@@ -990,8 +940,6 @@ public class ATSwingUtils
     {
         return getLabel(text, x, y, width, height, cont, getFont(font_id));
     }
-    
-    
 
     /**
      * Gets the label.
@@ -1009,22 +957,24 @@ public class ATSwingUtils
     public static JLabel getLabel(String text, int x, int y, int width, int height, Container cont, Font font)
     {
         JLabel label_1 = new JLabel();
-        
-        if (text!=null)
+
+        if (text != null)
+        {
             label_1.setText(text);
-        
+        }
+
         label_1.setBounds(x, y, width, height);
-        
-        if (font!=null)
+
+        if (font != null)
+        {
             label_1.setFont(font);
-        
+        }
+
         cont.add(label_1);
-        
+
         return label_1;
     }
 
-    
-    
     /**
      * Gets the title label.
      * 
@@ -1042,8 +992,7 @@ public class ATSwingUtils
     {
         return getTitleLabel(text, x, y, width, height, cont, getFont(font_id));
     }
-    
-    
+
     /**
      * Gets the title label.
      * 
@@ -1060,10 +1009,10 @@ public class ATSwingUtils
     public static JLabel getTitleLabel(String text, int x, int y, int width, int height, Container cont, Font font)
     {
         JLabel label_1 = getLabel(text, x, y, width, height, cont, font);
-        label_1.setHorizontalAlignment(JLabel.CENTER);
+        label_1.setHorizontalAlignment(SwingConstants.CENTER);
         return label_1;
-    } 
-    
+    }
+
     /**
      * Gets the combo box.
      * 
@@ -1080,9 +1029,8 @@ public class ATSwingUtils
     public static JComboBox getComboBox(Vector<?> data, int x, int y, int width, int height, Container cont, int font_id)
     {
         return ATSwingUtils.getComboBox(data, x, y, width, height, cont, getFont(font_id));
-        
+
     }
-    
 
     /**
      * Gets the combo box.
@@ -1103,10 +1051,9 @@ public class ATSwingUtils
         cb.setBounds(x, y, width, height);
         cb.setFont(font);
         cont.add(cb);
-        
+
         return cb;
     }
-    
 
     /**
      * Gets the combo box.
@@ -1125,7 +1072,6 @@ public class ATSwingUtils
     {
         return ATSwingUtils.getComboBox(data, x, y, width, height, cont, getFont(font_id));
     }
-    
 
     /**
      * Gets the combo box.
@@ -1146,11 +1092,10 @@ public class ATSwingUtils
         cb.setBounds(x, y, width, height);
         cb.setFont(font);
         cont.add(cb);
-        
+
         return cb;
     }
-    
-    
+
     /**
      * Gets the button.
      * 
@@ -1168,12 +1113,12 @@ public class ATSwingUtils
      * 
      * @return the button
      */
-    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, int font_id, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da)
+    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, int font_id,
+            String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da)
     {
         return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da);
     }
 
-    
     /**
      * Gets the button.
      * 
@@ -1191,13 +1136,15 @@ public class ATSwingUtils
      * 
      * @return the button
      */
-    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, Font font, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da)
+    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, Font font,
+            String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da)
     {
         return ATSwingUtils.getButton(text, x, y, width, height, cont, font, icon_name, action_cmd, al, da, null);
     }
-    
 
-    public static JButton getIconButton(int x, int y, int width, int height, String tooltip, String icon_name, int icon_width, int icon_height, String action_cmd, ActionListener al, Container cont, ATDataAccessAbstract da)
+    public static JButton getIconButton(int x, int y, int width, int height, String tooltip, String icon_name,
+            int icon_width, int icon_height, String action_cmd, ActionListener al, Container cont,
+            ATDataAccessAbstract da)
     {
         JButton button = new JButton(da.getImageIcon(icon_name, icon_width, icon_height, cont));
         button.addActionListener(al);
@@ -1205,12 +1152,10 @@ public class ATSwingUtils
         button.setToolTipText(tooltip);
         button.setBounds(x, y, width, height);
         cont.add(button, null);
-        
+
         return button;
     }
-    
-    
-    
+
     /**
      * @param text
      * @param x
@@ -1226,13 +1171,13 @@ public class ATSwingUtils
      * @param icon_size
      * @return
      */
-    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, int font_id, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size)
+    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, int font_id,
+            String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size)
     {
-        return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da, icon_size);
+        return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da,
+            icon_size);
     }
-    
-    
-    
+
     /**
      * Gets the button.
      * 
@@ -1251,33 +1196,40 @@ public class ATSwingUtils
      * 
      * @return the button
      */
-    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, Font font, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size)
+    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, Font font,
+            String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size)
     {
         JButton button = null;
-        
-        if ((text==null) || (text.trim().length()==0))
-            button = new JButton();            
-        else
-            button = new JButton(text);
-        
-        if (icon_name !=null)
+
+        if (text == null || text.trim().length() == 0)
         {
-            if (icon_size==null)
+            button = new JButton();
+        }
+        else
+        {
+            button = new JButton(text);
+        }
+
+        if (icon_name != null)
+        {
+            if (icon_size == null)
+            {
                 button.setIcon(da.getImageIcon_22x22(icon_name, cont));
+            }
             else
+            {
                 button.setIcon(da.getImageIcon(icon_name, icon_size[0], icon_size[1], cont));
+            }
         }
         button.setActionCommand(action_cmd);
         button.setFont(font);
         button.setBounds(x, y, width, height);
         button.addActionListener(al);
         cont.add(button);
-        
+
         return button;
     }
-    
-    
-    
+
     /**
      * Gets the check box.
      * 
@@ -1295,7 +1247,6 @@ public class ATSwingUtils
     {
         return ATSwingUtils.getCheckBox(text, x, y, width, height, cont, getFont(font_id));
     }
-    
 
     /**
      * Gets the check box.
@@ -1313,16 +1264,15 @@ public class ATSwingUtils
     public static JCheckBox getCheckBox(String text, int x, int y, int width, int height, Container cont, Font font)
     {
         JCheckBox chb = new JCheckBox(text);
-        chb.setBounds(x, y, width, height); 
+        chb.setBounds(x, y, width, height);
         chb.setFont(font);
         chb.setSelected(false);
-        
+
         cont.add(chb);
-        
+
         return chb;
     }
-    
-    
+
     /**
      * Gets the panel.
      * 
@@ -1336,22 +1286,22 @@ public class ATSwingUtils
      * 
      * @return the panel
      */
-    public static JPanel getPanel(int x, int y, int width, int height, LayoutManager layout, Border border, Container cont)
+    public static JPanel getPanel(int x, int y, int width, int height, LayoutManager layout, Border border,
+            Container cont)
     {
         JPanel panel = new JPanel();
         panel.setLayout(layout);
         panel.setBorder(border);
         panel.setBounds(x, y, width, height);
-        
-        if (cont!=null)
+
+        if (cont != null)
+        {
             cont.add(panel);
-        
+        }
+
         return panel;
     }
-    
-    
-    
-    
+
     /**
      * Gets the text field.
      * 
@@ -1367,18 +1317,19 @@ public class ATSwingUtils
     public static JTextField getTextField(String text, int x, int y, int width, int height, Container cont)
     {
         JTextField text_1 = new JTextField();
-        
-        if (text!=null)
+
+        if (text != null)
+        {
             text_1.setText(text);
-        
+        }
+
         text_1.setBounds(x, y, width, height);
-        
+
         cont.add(text_1);
-        
+
         return text_1;
     }
 
-    
     /**
      * Gets the text field.
      * 
@@ -1396,9 +1347,7 @@ public class ATSwingUtils
     {
         return getTextField(text, x, y, width, height, cont, getFont(font_id));
     }
-    
-    
-    
+
     /**
      * Gets the text field.
      * 
@@ -1415,22 +1364,24 @@ public class ATSwingUtils
     public static JTextField getTextField(String text, int x, int y, int width, int height, Container cont, Font font)
     {
         JTextField text_1 = new JTextField();
-        
-        if (text!=null)
+
+        if (text != null)
+        {
             text_1.setText(text);
-        
+        }
+
         text_1.setBounds(x, y, width, height);
-        
-        if (font!=null)
+
+        if (font != null)
+        {
             text_1.setFont(font);
-        
+        }
+
         cont.add(text_1);
-        
+
         return text_1;
     }
-    
-    
-    
+
     /**
      * Get Scroll Pane
      * 
@@ -1451,9 +1402,6 @@ public class ATSwingUtils
 
         return scr2;
     }
-    
-    
-    
 
     /**
      * Adds the component.
@@ -1470,7 +1418,6 @@ public class ATSwingUtils
         addComponent(comp, posX, posY, width, height, FONT_NORMAL, parent);
     }
 
-    
     /**
      * Adds the component.
      * 
@@ -1482,17 +1429,14 @@ public class ATSwingUtils
      * @param font_id the font_id
      * @param parent the parent
      */
-    public static void addComponent(JComponent comp, int posX, int posY, int width, int height, int font_id, JPanel parent)
+    public static void addComponent(JComponent comp, int posX, int posY, int width, int height, int font_id,
+            JPanel parent)
     {
         comp.setBounds(posX, posY, width, height);
         comp.setFont(getFont(font_id));
         parent.add(comp);
     }
-    
-    
-    
-    
-    
+
     /**
      * Create Menu
      * 
@@ -1514,14 +1458,12 @@ public class ATSwingUtils
         return item;
     }
 
-    
-    public static JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c)
+    public static JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command,
+            ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c)
     {
-        return createMenuItem(menu, name, tip, action_command, al, icon_small, ic, da,c, -1);
+        return createMenuItem(menu, name, tip, action_command, al, icon_small, ic, da, c, -1);
     }
-    
-    
-    
+
     /**
      * Create Menu Item 
      * 
@@ -1537,17 +1479,21 @@ public class ATSwingUtils
      * 
      * @return 
      */
-    public static JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c, int font_id)
+    public static JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command,
+            ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c,
+            int font_id)
     {
         JMenuItem mi = new JMenuItem(ic.getMessageWithoutMnemonic(name));
         mi.setMnemonic(ic.getMnemonic(name));
-        
+
         mi.setActionCommand(action_command);
         mi.addActionListener(al);
-        
-        if (font_id!=-1)
+
+        if (font_id != -1)
+        {
             mi.setFont(getFont(font_id));
-        
+        }
+
         if (tip != null)
         {
             mi.setToolTipText(ic.getMessage(tip));
@@ -1559,14 +1505,14 @@ public class ATSwingUtils
         }
 
         if (menu != null)
+        {
             menu.add(mi);
+        }
 
         return mi;
         // return action;
     }
- 
 
-    
     /**
      * Gets the numeric text field.
      * 
@@ -1583,20 +1529,20 @@ public class ATSwingUtils
      * 
      * @return the numeric text field
      */
-    public static JSpinner getJSpinner(float value, int min, int max, float step, int x, int y, int width, int height, Container cont)
+    public static JSpinner getJSpinner(float value, int min, int max, float step, int x, int y, int width, int height,
+            Container cont)
     {
         JSpinner sp = new JSpinner();
         sp.setBounds(x, y, width, height);
-        
-        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step); 
+
+        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
         sp.setModel(model);
-        
+
         cont.add(sp);
 
         return sp;
     }
-    
-    
+
     /**
      * Gets the numeric text field.
      * 
@@ -1613,22 +1559,20 @@ public class ATSwingUtils
      * 
      * @return the numeric text field
      */
-    public static JSpinner getJSpinner(float value, float min, float max, float step, int x, int y, int width, int height, Container cont)
+    public static JSpinner getJSpinner(float value, float min, float max, float step, int x, int y, int width,
+            int height, Container cont)
     {
         JSpinner sp = new JSpinner();
         sp.setBounds(x, y, width, height);
-        
-        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step); 
+
+        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
         sp.setModel(model);
-        
+
         cont.add(sp);
 
         return sp;
     }
-    
-    
-    
-    
+
     /**
      * Show Error Dialog
      * 
@@ -1640,7 +1584,7 @@ public class ATSwingUtils
     {
         JOptionPane.showMessageDialog(cont, ic.getMessage(message), ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
     }
-    
+
     /**
      * Show Warning Dialog
      * 
@@ -1650,9 +1594,9 @@ public class ATSwingUtils
      */
     public static void showWarningDialog(Container cont, String message, I18nControlAbstract ic)
     {
-        JOptionPane.showMessageDialog(cont, ic.getMessage(message), ic.getMessage("WARNING"), JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(cont, ic.getMessage(message), ic.getMessage("WARNING"),
+            JOptionPane.WARNING_MESSAGE);
     }
-    
 
     /**
      * Gets the text area (is JScrollPane)
@@ -1669,18 +1613,18 @@ public class ATSwingUtils
     public static JTextArea getTextArea(String text, int x, int y, int width, int height, Container cont)
     {
         JTextArea jta = new JTextArea();
-        
-        if (text!=null)
+
+        if (text != null)
+        {
             jta.setText(text);
-        
+        }
+
         JScrollPane scp = new JScrollPane(jta);
         scp.setBounds(x, y, width, height);
-        
-        
+
         cont.add(scp);
-        
+
         return jta;
     }
-    
-    
+
 }

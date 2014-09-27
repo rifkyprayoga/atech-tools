@@ -25,12 +25,12 @@ public class TestHtml
                 + "<br /><font color='#000000'>Black Text</font>"
                 + "<br /><font color='#FFFFFF'>Blue Text</font></html>");
 
-        //mainFrame.add(button1);
+        // mainFrame.add(button1);
         mainFrame.add(label1);
 
-        mainFrame.setDefaultCloseOperation(mainFrame.EXIT_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
-        //mainFrame.pack();
+        // mainFrame.pack();
     }
 
     public static void main(String[] args)

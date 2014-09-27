@@ -39,7 +39,6 @@ import java.util.ArrayList;
 public abstract class FileReaderList<E> extends ArrayList<E>
 {
 
-    
     private static final long serialVersionUID = -4359104200059285861L;
     /**
      * The filename.
@@ -47,7 +46,7 @@ public abstract class FileReaderList<E> extends ArrayList<E>
     public String filename;
     private boolean file_exists = false;
     private boolean file_read = false;
-    
+
     /**
      * Instantiates a new file reader list.
      * 
@@ -59,13 +58,12 @@ public abstract class FileReaderList<E> extends ArrayList<E>
         specialInit();
         readFile();
     }
-    
+
     /**
      * Special init.
      */
     public abstract void specialInit();
-    
-    
+
     /**
      * Does file exists.
      * 
@@ -73,11 +71,10 @@ public abstract class FileReaderList<E> extends ArrayList<E>
      */
     public boolean doesFileExists()
     {
-        //this.file_exists = (new File(this.filename)).exists();
+        // this.file_exists = (new File(this.filename)).exists();
         return this.file_exists;
     }
 
-    
     /**
      * Was file read.
      * 
@@ -85,11 +82,10 @@ public abstract class FileReaderList<E> extends ArrayList<E>
      */
     public boolean wasFileRead()
     {
-        //this.file_exists = (new File(this.filename)).exists();
+        // this.file_exists = (new File(this.filename)).exists();
         return this.file_read;
     }
-    
-    
+
     /**
      * Read file.
      */
@@ -97,38 +93,35 @@ public abstract class FileReaderList<E> extends ArrayList<E>
     {
         try
         {
-            if (!(new File(this.filename)).exists())
+            if (!new File(this.filename).exists())
                 return;
-            
+
             this.file_exists = true;
-            
+
             BufferedReader br = new BufferedReader(new FileReader(this.filename));
             String line = null;
-            
+
             file_read = true;
-            
-            while((line = br.readLine()) != null)
+
+            while ((line = br.readLine()) != null)
             {
                 processFileEntry(line);
             }
-            
+
             br.close();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             System.out.println("FileReaderList: Error reading file: " + this.filename);
             ex.printStackTrace();
         }
     }
-    
-    
+
     /**
      * Process file entry.
      * 
      * @param line the line
      */
     public abstract void processFileEntry(String line);
-    
 
 }
-

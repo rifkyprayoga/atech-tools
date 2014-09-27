@@ -30,7 +30,6 @@ package com.atech.update.config;
  *
 */
 
-
 public interface ComponentInterface
 {
     /** 
@@ -46,7 +45,5 @@ public interface ComponentInterface
      * @return true if element is group
      */
     public abstract boolean isGroup();
-    
+
 }
-
-

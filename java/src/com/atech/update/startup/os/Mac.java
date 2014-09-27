@@ -30,7 +30,6 @@ package com.atech.update.startup.os;
  *
 */
 
-
 public class Mac extends StartupOSAbstract
 {
 
@@ -42,8 +41,7 @@ public class Mac extends StartupOSAbstract
     @Override
     public String getHeader()
     {
-        return "#!/bin/bash\n\n" +
-               "#  Run Application\n";
+        return "#!/bin/bash\n\n" + "#  Run Application\n";
     }
 
     /**
@@ -56,7 +54,7 @@ public class Mac extends StartupOSAbstract
     {
         return ":";
     }
-    
+
     /**
      * Get Batch File Extension
      * 
@@ -67,7 +65,7 @@ public class Mac extends StartupOSAbstract
     {
         return "bash";
     }
-    
+
     /**
      * Get Short OS Name (this is not official name, but name we use)
      * 
@@ -89,5 +87,5 @@ public class Mac extends StartupOSAbstract
     {
         return "$";
     }
-    
+
 }

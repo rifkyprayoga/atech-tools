@@ -41,12 +41,12 @@ public class ATTableModel extends AbstractTableModel
 {
 
     private static final long serialVersionUID = -8909561742968102872L;
-    
+
     /**
      * The list.
      */
     ArrayList<?> list = null;
-    
+
     /**
      * The object_type.
      */

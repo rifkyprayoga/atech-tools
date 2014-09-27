@@ -33,11 +33,9 @@ import com.atech.update.startup.os.StartupOSAbstract;
  *
 */
 
-
 public class DbCheck extends DbApplicationAbstract
 {
 
-    
     /**
      * Constructor
      * 
@@ -48,7 +46,6 @@ public class DbCheck extends DbApplicationAbstract
     {
         super(uc, osa);
     }
-    
 
     /**
      * Get Class Name
@@ -61,29 +58,28 @@ public class DbCheck extends DbApplicationAbstract
         return "com.atech.db.hibernate.check.DbCheck";
     }
 
-    
     /**
      * Has Application Parameters (something %1 %2)
      * 
      * @return true if application is called with parameters 
      */
+    @Override
     public boolean hasApplicationParameters()
     {
         return true;
     }
 
-    
     /**
      * Get Application Parameters
      * 
      * @return string with all parameters
      */
+    @Override
     public String getApplicationParameters()
     {
         return this.upd_conf.db_version_required + " " + this.upd_conf.db_config_class;
     }
-    
-    
+
     /**
      * Get File Name for batch file
      * 
@@ -94,6 +90,5 @@ public class DbCheck extends DbApplicationAbstract
     {
         return "db_check." + this.os_abstract.getBatchFileExtension();
     }
-	
-    
+
 }

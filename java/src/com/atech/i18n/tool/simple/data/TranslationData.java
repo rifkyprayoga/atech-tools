@@ -14,7 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atech.i18n.tool.simple.util.DataAccessTT;
-
+import com.atech.utils.ATDataAccessAbstract;
 
 /**
  *  This file is part of ATech Tools library.
@@ -51,36 +51,34 @@ public class TranslationData
 {
 
     private static Log log = LogFactory.getLog(TranslationData.class);
-    
+
     /**
      * The list_tra.
      */
     public ArrayList<DataEntry> list_tra = null;
-    
+
     /**
      * The dt_tra.
      */
-    public Hashtable<String,DataEntry> dt_tra = null;
+    public Hashtable<String, DataEntry> dt_tra = null;
 
     /**
      * The statuses_info.
      */
-    public int statuses_info[] = { 0, 0, 0};
-    
-    
+    public int statuses_info[] = { 0, 0, 0 };
+
     DataAccessTT m_da = DataAccessTT.getInstance();
-    
+
     /**
      * Instantiates a new translation data.
      */
     public TranslationData()
     {
         list_tra = new ArrayList<DataEntry>();
-        dt_tra = new Hashtable<String,DataEntry>();
-        
+        dt_tra = new Hashtable<String, DataEntry>();
+
     }
 
-    
     /**
      * Adds the translation data.
      * 
@@ -91,7 +89,6 @@ public class TranslationData
         this.list_tra.add(de);
         this.dt_tra.put(de.key, de);
     }
-    
 
     /**
      * Checks if is empty.
@@ -100,9 +97,9 @@ public class TranslationData
      */
     public boolean isEmpty()
     {
-        return (this.list_tra.size()==0);
+        return this.list_tra.size() == 0;
     }
-    
+
     /**
      * Gets the.
      * 
@@ -115,7 +112,6 @@ public class TranslationData
         return this.dt_tra.get(key);
     }
 
-
     /**
      * Elements.
      * 
@@ -126,8 +122,7 @@ public class TranslationData
         return this.dt_tra.elements();
 
     }
-    
-    
+
     /**
      * Contains key.
      * 
@@ -139,8 +134,7 @@ public class TranslationData
     {
         return this.dt_tra.containsKey(key);
     }
-    
-    
+
     /**
      * Gets the.
      * 
@@ -152,8 +146,7 @@ public class TranslationData
     {
         return this.list_tra.get(index);
     }
-    
-    
+
     /**
      * Size.
      * 
@@ -163,15 +156,17 @@ public class TranslationData
     {
         return this.list_tra.size();
     }
-    
+
     /**
      * Save.
      */
-/*    public void save()
-    {
-        saveTranslation();
-        saveSettings();
-    } */
+    /*
+     * public void save()
+     * {
+     * saveTranslation();
+     * saveSettings();
+     * }
+     */
 
     /**
      * Save
@@ -183,7 +178,7 @@ public class TranslationData
         saveTranslation(dlp, false, null);
         saveSettings(dlp, false, null);
     }
-    
+
     /**
      * Save Backup
      * 
@@ -196,7 +191,6 @@ public class TranslationData
         saveSettings(dlp, true, gc);
     }
 
-    
     /**
      * Save translation.
      */
@@ -204,52 +198,49 @@ public class TranslationData
     {
         try
         {
-            //BufferedWriter bw = new BufferedWriter(new FileWriter("./files/translation/GGC_si.properties"));
-        
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("../files/translation/GGC_si.properties")),"ASCII"));
-            //String unicode = "Unicode: \u30e6\u30eb\u30b3\u30fc\u30c9";
-            //byte[] bytes = String.getBytes("US_ASCII");
+            // BufferedWriter bw = new BufferedWriter(new
+            // FileWriter("./files/translation/GGC_si.properties"));
 
-            
-            for(int i=0; i<this.list_tra.size(); i++)
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(
+                    "../files/translation/GGC_si.properties")), "ASCII"));
+            // String unicode = "Unicode: \u30e6\u30eb\u30b3\u30fc\u30c9";
+            // byte[] bytes = String.getBytes("US_ASCII");
+
+            for (int i = 0; i < this.list_tra.size(); i++)
             {
                 DataEntry de = this.list_tra.get(i);
-                
+
                 bw.write(de.key + "=");
- 
-                //  TODO: if no translation - English
+
+                // TODO: if no translation - English
                 bw.write(getTranslationEncoded(de.target_translation));
-                
+
                 /*
-                byte bb[] = de.target_translation.getBytes("ASCII");
-                
-                for(int j=0; j<bb.length; j++)
-                {
-                    bw.write(bb[j]);
-                }
-                */
+                 * byte bb[] = de.target_translation.getBytes("ASCII");
+                 * for(int j=0; j<bb.length; j++)
+                 * {
+                 * bw.write(bb[j]);
+                 * }
+                 */
                 bw.newLine();
                 bw.flush();
-                //bw.write(de.target_translation.getBytes("US_ASCII"));
-                
-                
-                //+ de.target_translation + "\n");
-                
+                // bw.write(de.target_translation.getBytes("US_ASCII"));
+
+                // + de.target_translation + "\n");
+
             }
-            
+
             bw.close();
-            
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            log.error("TranslationData.saveTranslation(). Exception: "+ ex, ex);
+            log.error("TranslationData.saveTranslation(). Exception: " + ex, ex);
         }
     }
 
-    
     private boolean debug_write = false;
-    
-    
+
     /**
      * Save Translation
      * 
@@ -259,10 +250,10 @@ public class TranslationData
      */
     public void saveTranslation(DataListProcessor dlp, boolean backup, GregorianCalendar gc)
     {
-        
+
         String add_path = "";
         String filename = dlp.getTargetFileRoot();
-        
+
         if (backup)
         {
             add_path = "backup/";
@@ -273,50 +264,51 @@ public class TranslationData
         {
             log.debug("Save Translation");
         }
-        
+
         try
         {
-            //BufferedWriter bw = new BufferedWriter(new FileWriter("./files/translation/GGC_si.properties"));
-        
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("../files/translation/" + add_path + filename + ".properties")),"ASCII"));
-            //String unicode = "Unicode: \u30e6\u30eb\u30b3\u30fc\u30c9";
-            //byte[] bytes = String.getBytes("US_ASCII");
+            // BufferedWriter bw = new BufferedWriter(new
+            // FileWriter("./files/translation/GGC_si.properties"));
+
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(
+                    "../files/translation/" + add_path + filename + ".properties")), "ASCII"));
+            // String unicode = "Unicode: \u30e6\u30eb\u30b3\u30fc\u30c9";
+            // byte[] bytes = String.getBytes("US_ASCII");
 
             MasterFileReader mfr = dlp.mfr;
-            
-            //dlp.getHeader();
-            
-            for(int i=0; i<mfr.size(); i++)
+
+            // dlp.getHeader();
+
+            for (int i = 0; i < mfr.size(); i++)
             {
                 DataEntryRaw der = mfr.get(i);
-                
+
                 String v = der.getValue();
-                
-                if (v==null)
+
+                if (v == null)
                 {
-                    if (der.type==DataEntryRaw.DATA_ENTRY_HEADER)
+                    if (der.type == DataEntryRaw.DATA_ENTRY_HEADER)
                     {
                         bw.write(dlp.getFullHeader());
-                        //bw.write("#\n#\n#  Header is still missing !!!\n#\n#\n#\n");
+                        // bw.write("#\n#\n#  Header is still missing !!!\n#\n#\n#\n");
                     }
-                    else if (der.type==DataEntryRaw.DATA_ENTRY_TRANSLATION)
+                    else if (der.type == DataEntryRaw.DATA_ENTRY_TRANSLATION)
                     {
                         String key = der.value_str;
-                     
 
-                        //if (key.equals("TIME"))
-                        //    this.debug_write = true;
-                        
-                        
+                        // if (key.equals("TIME"))
+                        // this.debug_write = true;
+
                         DataEntry de = this.get(key);
-                        
+
                         if (debug_write)
+                        {
                             System.out.println("De: " + de);
-                        
-                        
+                        }
+
                         bw.write(de.key + "=");
-         
-                        if ((de.target_translation==null) || (de.target_translation.trim().length()==0))
+
+                        if (de.target_translation == null || de.target_translation.trim().length() == 0)
                         {
                             if (debug_write)
                             {
@@ -333,36 +325,39 @@ public class TranslationData
                             }
                             bw.write(getTranslationEncoded(de.target_translation));
                         }
-                        
+
                         bw.newLine();
                         bw.flush();
                     }
-                    
+
                 }
                 else
+                {
                     bw.write(v);
-                
+                }
+
                 this.debug_write = false;
-                
+
             }
-            
+
             bw.close();
-            
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            log.error("TranslationData.saveTranslation(). Exception: "+ ex, ex);
+            log.error("TranslationData.saveTranslation(). Exception: " + ex, ex);
         }
     }
-    
-    
+
     private String getDateTimeFilename(GregorianCalendar gc)
     {
-        return "" + gc.get(Calendar.YEAR) + "_" + m_da.getLeadingZero(gc.get(Calendar.MONTH), 2) + "_" + m_da.getLeadingZero(gc.get(Calendar.DAY_OF_MONTH), 2) + "_" + m_da.getLeadingZero(gc.get(Calendar.HOUR_OF_DAY), 2) + "_" + m_da.getLeadingZero(gc.get(Calendar.MINUTE), 2);   
+        return "" + gc.get(Calendar.YEAR) + "_" + ATDataAccessAbstract.getLeadingZero(gc.get(Calendar.MONTH), 2) + "_"
+                + ATDataAccessAbstract.getLeadingZero(gc.get(Calendar.DAY_OF_MONTH), 2) + "_"
+                + ATDataAccessAbstract.getLeadingZero(gc.get(Calendar.HOUR_OF_DAY), 2) + "_"
+                + ATDataAccessAbstract.getLeadingZero(gc.get(Calendar.MINUTE), 2);
 
     }
-    
-    
+
     /**
      * Save settings
      * 
@@ -372,10 +367,10 @@ public class TranslationData
      */
     public void saveSettings(DataListProcessor dlp, boolean backup, GregorianCalendar gc)
     {
-        
+
         String add_path = "";
         String filename = dlp.getTargetFileRoot();
-        
+
         if (backup)
         {
             add_path = "backup/";
@@ -386,33 +381,35 @@ public class TranslationData
         {
             log.debug("Save Settings");
         }
-        
+
         try
         {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("../files/translation/" + add_path + filename + ".config")),"ASCII"));
-            
-            for(int i=0; i<this.list_tra.size(); i++)
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(
+                    "../files/translation/" + add_path + filename + ".config")), "ASCII"));
+
+            for (int i = 0; i < this.list_tra.size(); i++)
             {
                 DataEntry de = this.list_tra.get(i);
-                
-                if (de.invalidated>0)
-                    bw.write(de.key + "__INVALIDATED=" + de.invalidated+ "\n");
-                
+
+                if (de.invalidated > 0)
+                {
+                    bw.write(de.key + "__INVALIDATED=" + de.invalidated + "\n");
+                }
+
                 bw.write(de.key + "__STATUS=" + de.status);
                 bw.newLine();
                 bw.flush();
             }
-            
+
             bw.close();
-            
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            log.error("TranslationData.saveTranslation(). Exception: "+ ex, ex);
+            log.error("TranslationData.saveTranslation(). Exception: " + ex, ex);
         }
     }
-    
-    
+
     /**
      * Get Translation Encoded
      * 
@@ -423,8 +420,7 @@ public class TranslationData
     {
         return m_da.unicode_utils.getASCIIFromUnicodeFull(str);
     }
-    
-    
+
     /**
      * Reset status.
      */
@@ -434,13 +430,13 @@ public class TranslationData
         this.statuses_info[1] = 0;
         this.statuses_info[2] = 0;
 
-        for(int i=0; i<this.list_tra.size(); i++)
+        for (int i = 0; i < this.list_tra.size(); i++)
         {
             DataEntry de = this.list_tra.get(i);
-            this.statuses_info[de.status] = this.statuses_info[de.status]+1;
+            this.statuses_info[de.status] = this.statuses_info[de.status] + 1;
         }
     }
-    
+
     /**
      * Gets the statuses.
      * 
@@ -450,8 +446,5 @@ public class TranslationData
     {
         return this.statuses_info;
     }
-    
-    
-    
-    
+
 }

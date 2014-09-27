@@ -31,45 +31,43 @@ package com.atech.graphics.components.about;
  *
 */
 
-
 public class LibraryInfoEntry
 {
-    
+
     /**
      * The name.
      */
     public String name;
-    
+
     /**
      * The version_used.
      */
     public String version_used;
-    
+
     /**
      * The link_to.
      */
     public String link_to;
-    
+
     /**
      * The licence_type.
      */
     public String licence_type;
-    
+
     /**
      * The description.
      */
     public String description;
-    
+
     /**
      * The copyright.
      */
     public String copyright = null;
-    
+
     /**
      * The copyright2.
      */
     public String copyright2 = null;
-
 
     /**
      * Instantiates a new library info entry.
@@ -95,7 +93,8 @@ public class LibraryInfoEntry
      * @param desc the desc
      * @param copyright the copyright
      */
-    public LibraryInfoEntry(String name, String ver_used, String link, String licence_type, String desc, String copyright)
+    public LibraryInfoEntry(String name, String ver_used, String link, String licence_type, String desc,
+            String copyright)
     {
         this.name = name;
         this.version_used = ver_used;
@@ -104,7 +103,6 @@ public class LibraryInfoEntry
         this.description = desc;
         this.copyright = copyright;
     }
-    
 
     /**
      * Sets the copy right notice2.
@@ -115,7 +113,6 @@ public class LibraryInfoEntry
     {
         this.copyright2 = notice;
     }
-
 
     /**
      * Process link.
@@ -129,13 +126,12 @@ public class LibraryInfoEntry
 
         this.link_to = this.link_to.trim();
 
-        if (this.link_to.charAt(this.link_to.length()-1) != '/')
+        if (this.link_to.charAt(this.link_to.length() - 1) != '/')
         {
             this.link_to = this.link_to + "/";
         }
 
     }
-
 
     /**
      * Gets the hTML code.
@@ -148,21 +144,28 @@ public class LibraryInfoEntry
 
         StringBuffer sb = new StringBuffer();
 
-        sb.append("<table width=\"100%\" border=\"0\"><tr><td><font color=\"#006600\">" + this.name + ", v" + this.version_used + " (" + this.licence_type + ")</font></td></tr></table>");
-        sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#000099\">" + this.description + "</font></td></tr></table>");
-        sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#990000\"><a href=\"" + this.link_to + "\">" + this.link_to + "</a></font></td></tr></table>");
+        sb.append("<table width=\"100%\" border=\"0\"><tr><td><font color=\"#006600\">" + this.name + ", v"
+                + this.version_used + " (" + this.licence_type + ")</font></td></tr></table>");
+        sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#000099\">"
+                + this.description + "</font></td></tr></table>");
+        sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#990000\"><a href=\""
+                + this.link_to + "\">" + this.link_to + "</a></font></td></tr></table>");
 
-        if (this.copyright!=null)
-            sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#000099\">" + this.copyright + "</font></td></tr></table>");
+        if (this.copyright != null)
+        {
+            sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#000099\">"
+                    + this.copyright + "</font></td></tr></table>");
+        }
 
-        if (this.copyright2!=null)
-            sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#000099\">" + this.copyright2 + "</font></td></tr></table>");
+        if (this.copyright2 != null)
+        {
+            sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#000099\">"
+                    + this.copyright2 + "</font></td></tr></table>");
+        }
 
         sb.append("<br>");
 
         return sb.toString();
     }
-
-
 
 }

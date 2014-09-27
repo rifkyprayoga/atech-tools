@@ -40,16 +40,14 @@ import org.apache.commons.logging.LogFactory;
  * @author Andy
  */
 
-
-public class PropertiesFile extends FileReaderHashtable<String,String>
+public class PropertiesFile extends FileReaderHashtable<String, String>
 {
 
     private static final long serialVersionUID = 4486922769091769152L;
     private boolean in_jar = false;
-    
+
     private static Log log = LogFactory.getLog(PropertiesFile.class);
-    
-    
+
     /**
      * Instantiates a new properties file.
      * 
@@ -59,33 +57,28 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
     {
         super(filename);
     }
-    
 
-    
     public PropertiesFile(String filename, boolean required)
     {
         super(filename, required);
     }
-    
-    
-    
+
     /**
      * Instantiates a new properties file.
      * 
      * @param data 
      * @param filename the filename
      */
-    public PropertiesFile(Hashtable<String,String> data)
+    public PropertiesFile(Hashtable<String, String> data)
     {
         super();
         this.putAll(data);
     }
-    
-    
-    
+
     /** 
      * readFile
      */
+    @Override
     public void readFile()
     {
         try
@@ -93,20 +86,20 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
 
             if (!required)
             {
-                if (!(new File(this.filename)).exists())
+                if (!new File(this.filename).exists())
                 {
                     log.warn("File " + filename + " not found.");
                     return;
                 }
             }
-    
+
             Properties props = new Properties();
-            
+
             if (in_jar)
             {
-               InputStream fin = getClass().getResourceAsStream(filename);
-               props.load(fin);
-               fin.close();
+                InputStream fin = getClass().getResourceAsStream(filename);
+                props.load(fin);
+                fin.close();
             }
             else
             {
@@ -115,34 +108,32 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
                 in.close();
             }
 
-            file_read = true;            
+            file_read = true;
             /*
-            BufferedReader br = new BufferedReader(new FileReader(this.filename));
-            String line = null;
-            
-            while((line = br.readLine()) != null)
+             * BufferedReader br = new BufferedReader(new
+             * FileReader(this.filename));
+             * String line = null;
+             * while((line = br.readLine()) != null)
+             * {
+             * processFileEntry(line);
+             * }
+             */
+
+            for (Enumeration<Object> en = props.keys(); en.hasMoreElements();)
             {
-                processFileEntry(line);
-            }*/
-            
-            for(Enumeration<Object> en = props.keys(); en.hasMoreElements(); )
-            {
-                String key = (String)en.nextElement();
+                String key = (String) en.nextElement();
                 this.put(key, props.getProperty(key));
             }
-            //this.putAll(props.)
-            
+            // this.putAll(props.)
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             log.error("PropertiesFile: Error reading file: " + this.filename);
-            //ex.printStackTrace();
+            // ex.printStackTrace();
             file_read = false;
         }
     }
-    
-    
-    
 
     /** 
      * processFileEntry
@@ -151,15 +142,11 @@ public class PropertiesFile extends FileReaderHashtable<String,String>
     public void processFileEntry(String line)
     {
         line = line.trim();
-        if ((!line.startsWith("#")) && (line.contains("=")))
-        { 
+        if (!line.startsWith("#") && line.contains("="))
+        {
             int idx = line.indexOf("=");
-            this.put(line.substring(0, idx), line.substring(idx+1));
+            this.put(line.substring(0, idx), line.substring(idx + 1));
         }
     }
 
-
-    
-    
-    
 }

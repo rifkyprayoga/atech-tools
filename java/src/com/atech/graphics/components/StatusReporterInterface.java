@@ -1,4 +1,3 @@
-
 package com.atech.graphics.components;
 
 // TODO: Auto-generated Javadoc
@@ -32,8 +31,7 @@ package com.atech.graphics.components;
  *
 */
 
-
-public interface StatusReporterInterface 
+public interface StatusReporterInterface
 {
 
     /**
@@ -42,8 +40,7 @@ public interface StatusReporterInterface
      * @param status the new status
      */
     public abstract void setStatus(int status);
-    
-    
+
     /**
      * Set reading finished
      */

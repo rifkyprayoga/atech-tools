@@ -1,4 +1,4 @@
-package com.atech.app.data.transfer; 
+package com.atech.app.data.transfer;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -33,51 +33,58 @@ import com.atech.utils.ATDataAccessAbstract;
  *  Author: andyrozman {andy@atech-software.com}  
  */
 
-public class BackupAppDialog extends BackupRestoreDialog 
+public class BackupAppDialog extends BackupRestoreDialog
 {
 
     private static final long serialVersionUID = -9066907986768713200L;
     AbstractApplicationContext m_aac;
 
-    
     /**
      * Constructor
      * 
      * @param parent
      * @param da
      */
-    public BackupAppDialog(JDialog parent, ATDataAccessAbstract da /*, BackupRestoreCollection br_coll*/, AbstractApplicationContext aac)
+    public BackupAppDialog(JDialog parent, ATDataAccessAbstract da /*
+                                                                    * ,
+                                                                    * BackupRestoreCollection
+                                                                    * br_coll
+                                                                    */, AbstractApplicationContext aac)
     {
-    	super(parent, da, da.getBackupRestoreCollection());
+        super(parent, da, da.getBackupRestoreCollection());
         this.m_aac = aac;
-        this.enableHelp(aac.getHelpKeyword("Tools_Backup", "Tools_Backup")); 
-    	showDialog();
+        this.enableHelp(aac.getHelpKeyword("Tools_Backup", "Tools_Backup"));
+        showDialog();
     }
-    
-    
+
     /**
      * Constructor
      * 
      * @param parent
      * @param da
      */
-    public BackupAppDialog(JFrame parent, ATDataAccessAbstract da, AbstractApplicationContext aac /*, BackupRestoreCollection br_coll*/)
+    public BackupAppDialog(JFrame parent, ATDataAccessAbstract da, AbstractApplicationContext aac /*
+                                                                                                   * ,
+                                                                                                   * BackupRestoreCollection
+                                                                                                   * br_coll
+                                                                                                   */)
     {
-    	super(parent, da, da.getBackupRestoreCollection());
-    	this.m_aac = aac;
-        this.enableHelp(aac.getHelpKeyword("Tools_Backup", "Tools_Backup")); 
-    	showDialog();
+        super(parent, da, da.getBackupRestoreCollection());
+        this.m_aac = aac;
+        this.enableHelp(aac.getHelpKeyword("Tools_Backup", "Tools_Backup"));
+        showDialog();
     }
-    
-    
+
     /** 
      * Perform Backup
      */
     @Override
     public void performBackup()
     {
-        BackupRestoreRunner brr = this.m_aac.getBackupRestoreRunner(AbstractApplicationContext.DB_ACTION_BACKUP); //this.restore_files, this, this.m_aac.getSpecialRestoreParameter());
+        BackupRestoreRunner brr = this.m_aac.getBackupRestoreRunner(AbstractApplicationContext.DB_ACTION_BACKUP); // this.restore_files,
+                                                                                                                  // this,
+                                                                                                                  // this.m_aac.getSpecialRestoreParameter());
         brr.start();
     }
-    
+
 }

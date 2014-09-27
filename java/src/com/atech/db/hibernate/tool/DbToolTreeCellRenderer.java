@@ -6,6 +6,8 @@ import java.awt.Font;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
+import com.atech.utils.ATDataAccessAbstract;
+
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -36,14 +38,13 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  *
 */
 
-
 public class DbToolTreeCellRenderer extends DefaultTreeCellRenderer
 {
 
     private static final long serialVersionUID = 3294655960419222634L;
 
     /** Last tree the renderer was painted in. */
-    //private JTree tree;
+    // private JTree tree;
 
     private Font defFont = null;
     private Font boldFont = null;
@@ -57,17 +58,15 @@ public class DbToolTreeCellRenderer extends DefaultTreeCellRenderer
 
         DbToolAccess da = DbToolAccess.getInstance();
 
-        defFont = da.getFont(DbToolAccess.FONT_NORMAL);
-        boldFont = da.getFont(DbToolAccess.FONT_NORMAL_BOLD);
-	/*defFont = super.getFont();
-	defFont = 
-
-	System.out.println(defFont);
-	boldFont = defFont.deriveFont(Font.BOLD);*/
+        defFont = da.getFont(ATDataAccessAbstract.FONT_NORMAL);
+        boldFont = da.getFont(ATDataAccessAbstract.FONT_NORMAL_BOLD);
+        /*
+         * defFont = super.getFont();
+         * defFont =
+         * System.out.println(defFont);
+         * boldFont = defFont.deriveFont(Font.BOLD);
+         */
     }
-
-    
-
 
     /**
       * Configures the renderer based on the passed in components.
@@ -78,60 +77,72 @@ public class DbToolTreeCellRenderer extends DefaultTreeCellRenderer
       * is set based on on leaf and expanded.
       */
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value,
-						  boolean sel,
-						  boolean expanded,
-						  boolean leaf, int row,
-						  boolean _hasFocus) 
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
+            boolean leaf, int row, boolean _hasFocus)
     {
-        String stringValue = tree.convertValueToText(value, sel,
-					  expanded, leaf, row, _hasFocus);
+        String stringValue = tree.convertValueToText(value, sel, expanded, leaf, row, _hasFocus);
         setFont(this.defFont);
 
-        //System.out.println(value);
-    	if (value instanceof DatabaseSettings)
-    	{
-    	    DatabaseSettings ds = (DatabaseSettings)value;
-    
-    	    if (ds.isDefault)
-    		setFont(this.boldFont);
-    	}
+        // System.out.println(value);
+        if (value instanceof DatabaseSettings)
+        {
+            DatabaseSettings ds = (DatabaseSettings) value;
 
+            if (ds.isDefault)
+            {
+                setFont(this.boldFont);
+            }
+        }
 
-        //this.tree = tree;
-    	this.hasFocus = _hasFocus;
-    	setText(stringValue);
-    	if(sel)
-    	    setForeground(getTextSelectionColor());
-    	else
-    	    setForeground(getTextNonSelectionColor());
-    	// There needs to be a way to specify disabled icons.
-    	if (!tree.isEnabled()) 
-    	{
-    	    setEnabled(false);
-    	    if (leaf) 
+        // this.tree = tree;
+        this.hasFocus = _hasFocus;
+        setText(stringValue);
+        if (sel)
+        {
+            setForeground(getTextSelectionColor());
+        }
+        else
+        {
+            setForeground(getTextNonSelectionColor());
+        }
+        // There needs to be a way to specify disabled icons.
+        if (!tree.isEnabled())
+        {
+            setEnabled(false);
+            if (leaf)
+            {
                 setDisabledIcon(getLeafIcon());
-            else if (expanded) 
+            }
+            else if (expanded)
+            {
                 setDisabledIcon(getOpenIcon());
-            else 
+            }
+            else
+            {
                 setDisabledIcon(getClosedIcon());
-    	}
-    	else 
-    	{
-    	    setEnabled(true);
-    	    if (leaf) 
+            }
+        }
+        else
+        {
+            setEnabled(true);
+            if (leaf)
+            {
                 setIcon(getLeafIcon());
-            else if (expanded) 
+            }
+            else if (expanded)
+            {
                 setIcon(super.getOpenIcon());
-            else 
+            }
+            else
+            {
                 setIcon(super.getClosedIcon());
-    	}
+            }
+        }
         setComponentOrientation(tree.getComponentOrientation());
-	    
+
         selected = sel;
 
         return this;
     }
-
 
 }

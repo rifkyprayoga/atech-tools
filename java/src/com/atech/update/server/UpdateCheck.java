@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -40,18 +39,16 @@ import javax.servlet.http.HttpServletResponse;
  *
 */
 
-
-
-public class UpdateCheck extends HttpServlet 
+public class UpdateCheck extends HttpServlet
 {
 
     private static final long serialVersionUID = -4640549667242751028L;
 
-
     /**
      * doGet - for starting servlet
      */
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
 
         response.setContentType("text/html;charset=UTF-8");
@@ -59,7 +56,7 @@ public class UpdateCheck extends HttpServlet
 
         ArrayList<String> vd = getVersionData();
 
-        for(int i=0; i<vd.size(); i++)
+        for (int i = 0; i < vd.size(); i++)
         {
             out.println(vd.get(i));
         }
@@ -71,7 +68,6 @@ public class UpdateCheck extends HttpServlet
         return new ArrayList<String>();
     }
 
-
     @SuppressWarnings("unused")
     private void getData()
     {
@@ -80,14 +76,14 @@ public class UpdateCheck extends HttpServlet
         // != just this version is possible
 
         // component : id, name, last_version
-        // component_version: id, comp_id, version, version_num, file, updatable_version, comment, action, dependencies
+        // component_version: id, comp_id, version, version_num, file,
+        // updatable_version, comment, action, dependencies
 
-//x        String sql = "select c1.id, c1.name, c2.version, c2.version_num, c2.dependencies from component c1, component_version c2 where c1.id = c2.comp_id and c1.last_version=c2.version_num";
+        // x String sql =
+        // "select c1.id, c1.name, c2.version, c2.version_num, c2.dependencies from component c1, component_version c2 where c1.id = c2.comp_id and c1.last_version=c2.version_num";
 
         // id, name, version, version_num, dependencies
 
     }
-
-
 
 }

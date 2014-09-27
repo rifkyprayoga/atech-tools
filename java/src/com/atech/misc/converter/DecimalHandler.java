@@ -3,7 +3,6 @@ package com.atech.misc.converter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -34,12 +33,11 @@ import java.util.ArrayList;
  *
 */
 
-
 public class DecimalHandler
 {
 
     ArrayList<DecimalFormat> formaters = null;
-    
+
     /**
      * Constructor
      * 
@@ -49,17 +47,17 @@ public class DecimalHandler
     {
         this.formaters = new ArrayList<DecimalFormat>();
         this.formaters.add(new DecimalFormat("#0"));
-        
+
         String decs = "#0.";
-        
-        for(int i=1; i<=max_decimal; i++)
+
+        for (int i = 1; i <= max_decimal; i++)
         {
             decs += "0";
             this.formaters.add(new DecimalFormat(decs));
         }
-        
+
     }
-    
+
     /**
      * Get Decimal As String
      * 
@@ -71,7 +69,7 @@ public class DecimalHandler
     {
         return formaters.get(decimal_places).format(dec_value);
     }
-    
+
     /**
      * Get Decimal As String
      * 
@@ -83,8 +81,5 @@ public class DecimalHandler
     {
         return formaters.get(decimal_places).format(dec_value);
     }
-    
-    
-    
-}
 
+}

@@ -35,11 +35,10 @@ import com.atech.update.startup.os.StartupOSAbstract;
  *
 */
 
-
 public class ApplicationFile extends StartupFileAbstract
 {
     ComponentCustomApp custom_app;
-    
+
     /**
      * Constructor
      * 
@@ -52,7 +51,6 @@ public class ApplicationFile extends StartupFileAbstract
         super(uc, osa);
         this.custom_app = custom_app;
     }
-    
 
     /**
      * Does Need Binary Path (if application will run with libraries that have binaries)
@@ -62,10 +60,9 @@ public class ApplicationFile extends StartupFileAbstract
     @Override
     public boolean doesNeedBinaryPath()
     {
-        //System.out.println("Does need binary: " + custom_app.binary_needed);
+        // System.out.println("Does need binary: " + custom_app.binary_needed);
         return this.custom_app.binary_needed;
     }
-
 
     /**
      * Get Class Name
@@ -78,7 +75,6 @@ public class ApplicationFile extends StartupFileAbstract
         return this.custom_app.main_class;
     }
 
-
     /**
      * Get Class Path
      * 
@@ -88,23 +84,24 @@ public class ApplicationFile extends StartupFileAbstract
     public String getClassPath()
     {
         StringBuffer files = new StringBuffer();
-        
+
         int count = this.upd_conf.Components().size() - 1;
-        
-        for(int i=0; i<= count; i++)
+
+        for (int i = 0; i <= count; i++)
         {
             ComponentEntry ce = this.upd_conf.Components().get(i);
             String path = upd_conf.root + ce.root_dir;
-            
+
             files.append(parseRoot(path, ce.getFiles(this.os_abstract)));
-            
-            if (count!=i)
+
+            if (count != i)
+            {
                 files.append(this.os_abstract.getSeparator());
+            }
         }
-        
+
         return files.toString();
     }
-
 
     /**
      * Get File Name for batch file
@@ -117,38 +114,37 @@ public class ApplicationFile extends StartupFileAbstract
         return this.custom_app.filename + "." + this.os_abstract.getBatchFileExtension();
     }
 
-    
     /**
      * Has Java Parameters
      * 
      * @return true if application needs java parameters to start
      */
+    @Override
     public boolean hasJavaParameters()
     {
-        return ((this.custom_app.special_parameters!=null) && (this.custom_app.special_parameters.length()>2));
+        return this.custom_app.special_parameters != null && this.custom_app.special_parameters.length() > 2;
     }
 
-    
     /**
      * Get Special Java Parameters
      * 
      * @return string with special parameters
      */
+    @Override
     public String getSpecialJavaParameters()
     {
         return this.custom_app.special_parameters;
     }
-    
-    
+
     /**
      * Needs JDBC Drivers
      * 
      * @return true if application needs JDBC drivers
      */
+    @Override
     public boolean needsJdbcDrivers()
     {
         return this.custom_app.needs_jdbc;
     }
 
-    
 }

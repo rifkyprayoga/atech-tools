@@ -31,26 +31,16 @@ import com.atech.db.hibernate.transfer.BackupRestoreRunner;
  *  Author: Andy {andy@atech-software.com}
  */
 
-
 public interface ImportExportPlugin
 {
 
-    
-
-  
-    
-    
     public abstract void doFullExport(String export_object, BackupRestoreRunner brr);
-    
 
     public static final int IMPORT_ACTION_APPEND = 1;
     public static final int IMPORT_ACTION_OVERWRITE = 2;
     public static final int IMPORT_ACTION_CLEAR = 3;
-    
-    
-    
+
     public abstract void doFullImport(String import_object, BackupRestoreRunner brr, int action);
-    
 
     /**
      * Export only some data (usually this data will be selected through dialog in this
@@ -60,8 +50,7 @@ public interface ImportExportPlugin
      * @param hsql_where
      */
     public abstract void doPartitialExport(String export_object, BackupRestoreRunner brr, String hsql_where);
-    
-    
+
     /**
      * Do partitial import, will import files created by doPartitialExport, enforcing this 
      * rules:
@@ -73,11 +62,7 @@ public interface ImportExportPlugin
      * @param brr
      */
     public abstract void doPartitialImport(String import_object, BackupRestoreRunner brr);
-    
-    
-    
 
-    
     /**
      * Get Backup Restore Object
      * 
@@ -85,8 +70,7 @@ public interface ImportExportPlugin
      * @return
      */
     public abstract BackupRestoreObject getBackupRestoreObject(String class_name);
-    
-    
+
     /**
      * Get Backup Restore Object
      * 
@@ -95,7 +79,6 @@ public interface ImportExportPlugin
      * @return
      */
     public abstract BackupRestoreObject getBackupRestoreObject(Object obj, BackupRestoreObject bro);
-    
 
     /**
      * Does Contain Backup Restore Object
@@ -104,7 +87,5 @@ public interface ImportExportPlugin
      * @return
      */
     public abstract boolean doesContainBackupRestoreObject(String bro_name);
-    
-    
-    
+
 }

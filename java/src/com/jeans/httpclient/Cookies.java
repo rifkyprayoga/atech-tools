@@ -31,7 +31,6 @@ import weiss.util.LinkedList;
  * andyrozman@users.sourceforge.net or andy@atech-software.com
  */
 
-
 /**
  * The cookie support provided in this class is limited.  The expirations of
  * the cookies is currently not handled because whenever the HttpClient
@@ -69,21 +68,39 @@ class Cookies
         String header = "Cookie: ";
 
         temp = uri.getHost();
-        
-        for(int x = 0; x < cookies.size(); x++)
+
+        for (int x = 0; x < cookies.size(); x++)
         {
-            l = (CookieNode)cookies.get(x);
+            l = (CookieNode) cookies.get(x);
 
-            if(!temp.endsWith(l.domain)) continue;
-            if(l.path.length() > uri.getFile().length()) continue;
-            if(!l.path.startsWith(uri.getFile())) continue;
+            if (!temp.endsWith(l.domain))
+            {
+                continue;
+            }
+            if (l.path.length() > uri.getFile().length())
+            {
+                continue;
+            }
+            if (!l.path.startsWith(uri.getFile()))
+            {
+                continue;
+            }
 
-            if(x > 0 && header.length() != 8) header += "; ";
+            if (x > 0 && header.length() != 8)
+            {
+                header += "; ";
+            }
             header += l.value;
         }
 
-        if(header == "Cookie: ") header = "";
-        else header += "\r\n";
+        if (header == "Cookie: ")
+        {
+            header = "";
+        }
+        else
+        {
+            header += "\r\n";
+        }
         return header;
     }
 
@@ -109,7 +126,7 @@ class Cookies
         token = new java.util.StringTokenizer(cookie, ";");
         h.value = token.nextToken();
 
-        while(token.hasMoreTokens())
+        while (token.hasMoreTokens())
         {
             String name, value;
             String o = token.nextToken().trim();
@@ -118,20 +135,25 @@ class Cookies
             name = y.nextToken();
             value = y.nextToken();
 
-            if(name.toLowerCase().equals("domain") == true)
+            if (name.toLowerCase().equals("domain") == true)
             {
                 h.domain = value;
-                if(value.charAt(0) != '.') return;
-                if(!origdom.endsWith(value)) return;
+                if (value.charAt(0) != '.')
+                    return;
+                if (!origdom.endsWith(value))
+                    return;
                 temp2 = origdom.substring(0, origdom.length() - value.length());
-                if(temp2.indexOf('.') < 0) return;
+                if (temp2.indexOf('.') < 0)
+                    return;
             }
-            else if(name.toLowerCase().equals("path") == true)
+            else if (name.toLowerCase().equals("path") == true)
             {
                 h.path = value;
             }
-            else if(name.toLowerCase().equals("max-age") == true)
+            else if (name.toLowerCase().equals("max-age") == true)
+            {
                 h.maxage = Integer.valueOf(value).intValue();
+            }
         }
 
         cookies.add(h);

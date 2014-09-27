@@ -1,6 +1,5 @@
 package com.atech.i18n;
 
-
 import java.io.FileInputStream;
 import java.text.Collator;
 import java.text.RuleBasedCollator;
@@ -44,7 +43,6 @@ import org.apache.commons.logging.LogFactory;
  *
 */
 
-
 /**
  *  This is abstract class for controling I18N. You need to extend this class, and set all variables. With setting 
  *  of variables half of work is done. Next half is way to create this class. You need to make constructor. Sample
@@ -53,21 +51,18 @@ import org.apache.commons.logging.LogFactory;
 public abstract class I18nControlAbstract
 {
 
-    private static Log s_logger = LogFactory.getLog(I18nControlAbstract.class); 
+    private static Log s_logger = LogFactory.getLog(I18nControlAbstract.class);
     private Collator langaugeCollator = null;
-
 
     /**
      *  Resource bundle identificator
      */
     ResourceBundle res;
 
-
     /**
      * The resource bundles.
      */
-    Hashtable<String,String> resourceBundles;
-
+    Hashtable<String, String> resourceBundles;
 
     /**
      * The lang_file_root.
@@ -83,54 +78,50 @@ public abstract class I18nControlAbstract
      * The selected_language.
      */
     public String selected_language = null;
-    
+
     /**
      * The selected_language_locale.
      */
     public Locale selected_language_locale = null;
-    
-    
+
     /**
      * The selected_language_locale.
      */
     public Locale selected_language_locale_real = null;
 
-
     /**
      * The languages.
      */
     protected String languages[] = null;
-/*
-    }
-	{
-        "English",
-        "German",
-        "Slovene",
-        "Simp. Chinese"
-    };
-*/
+    /*
+     * }
+     * {
+     * "English",
+     * "German",
+     * "Slovene",
+     * "Simp. Chinese"
+     * };
+     */
 
     /**
- * The lcls.
- */
-protected Locale lcls[] = null;
-/*	{
-        Locale.ENGLISH,
-        Locale.GERMAN,
-        new Locale("SI"),
-        Locale.SIMPLIFIED_CHINESE
-    };
-*/
-
+    * The lcls.
+    */
+    protected Locale lcls[] = null;
+    /*
+     * {
+     * Locale.ENGLISH,
+     * Locale.GERMAN,
+     * new Locale("SI"),
+     * Locale.SIMPLIFIED_CHINESE
+     * };
+     */
 
     protected Locale lcls_real[] = null;
 
+    // static private I18nControl m_i18n = null; // This is handle to unique
+    // singelton instance
 
-//    static private I18nControl m_i18n = null;   // This is handle to unique 
-                                                    // singelton instance
-                                               
-
-    //   Constructor:  I18nControl
+    // Constructor: I18nControl
     /**
      *
      *  This is I18nControl constructor; Since classes use Singleton Pattern,
@@ -138,17 +129,16 @@ protected Locale lcls[] = null;
      *  method. 
      *  This constructor should be implemented by implementing class<br><br>
      *
-     */ 
-/*    private I18nControlAbstract()
-    {
-        setLanguage("EN");
-    } 
-*/    
+     */
+    /*
+     * private I18nControlAbstract()
+     * {
+     * setLanguage("EN");
+     * }
+     */
 
-
-    
-    //  Method:       getInstance
-    //  Author:       Andy
+    // Method: getInstance
+    // Author: Andy
     /**
      *
      *  This method returns reference to OmniI18nControl object created, or if no 
@@ -157,46 +147,41 @@ protected Locale lcls[] = null;
      *
      *  @return Reference to OmniI18nControl object
      * 
-     */ 
-/*    static public I18nControlAbstract getInstance()
-    {
-        if (m_i18n == null)
-            m_i18n = new I18nControlAbstract();
-        return m_i18n;
-    }
-*/
+     */
+    /*
+     * static public I18nControlAbstract getInstance()
+     * {
+     * if (m_i18n == null)
+     * m_i18n = new I18nControlAbstract();
+     * return m_i18n;
+     * }
+     */
 
-
-
-
-
-    //  Method:       deleteInstance
+    // Method: deleteInstance
     /**
      *
      *  This method sets handle to OmniI18NControl to null and deletes the instance. <br><br>
      *
-     */ 
-/*    public void deleteInstance()
-    {
-        m_i18n=null;
-    }
-*/
+     */
+    /*
+     * public void deleteInstance()
+     * {
+     * m_i18n=null;
+     * }
+     */
 
-    
     protected abstract String getLanguageConfigFile();
-    
-    
 
-    //  Method:       setLanguage (String language)
+    // Method: setLanguage (String language)
     /**
      *
      *  This is helper method for setting language.<br><br>
      *
      *  @param language language which we want to use
-     */ 
+     */
     public void setLanguage(String language)
     {
-        //System.out.println("setLanguage(String lang): " + language);
+        // System.out.println("setLanguage(String lang): " + language);
 
         Locale l = new Locale(language);
         selected_language = language;
@@ -204,13 +189,11 @@ protected Locale lcls[] = null;
         createCollationDefintion();
     }
 
-    
     /**
      * Init - This method is used to set default language and language root file
      */
     public abstract void init();
-    
-    
+
     /**
      * Get Selected Language
      * @return
@@ -218,97 +201,100 @@ protected Locale lcls[] = null;
     public String getSelectedLanguage()
     {
 
-        if (this.selected_language!=null)
+        if (this.selected_language != null)
             return this.selected_language;
-        
+
         try
         {
             Properties props = new Properties();
-    
+
             FileInputStream in = new FileInputStream(getLanguageConfigFile());
             props.load(in);
-    
-            String tempLang = (String)props.get("SELECTED_LANG");
-    
+
+            String tempLang = (String) props.get("SELECTED_LANG");
+
             if (tempLang != null)
+            {
                 this.selected_language = tempLang;
-            
+            }
+
             return this.selected_language;
-            //System.out.println("selected language: " + this.selected_language);
+            // System.out.println("selected language: " +
+            // this.selected_language);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             System.out.println("I18nControl: Configuration file not found. Using default langauge ('en')");
             s_logger.warn("Configuration file not found. Using default langauge ('en')");
             return null;
         }
-        
+
     }
-    
-    
+
     /**
      * Gets the selected langauge.
      * 
      * @return the selected langauge
      */
-    /*public String getSelectedLangauge()
-    {
-        return this.selected_language;
-    }*/
-    
+    /*
+     * public String getSelectedLangauge()
+     * {
+     * return this.selected_language;
+     * }
+     */
 
-    //  Method:       setLanguage (String language, String country)
+    // Method: setLanguage (String language, String country)
     /**
      *
      *  This is helper method for setting language.<br><br>
      *
      *  @param language language which we want to use
      *  @param country country that uses this language
-     */ 
+     */
     public void setLanguage(String language, String country)
     {
-        //System.out.println("setLanguage(String lang, String cnt): " + language + ", " + country);
+        // System.out.println("setLanguage(String lang, String cnt): " +
+        // language + ", " + country);
 
         Locale l = new Locale(language, country);
         selected_language = language;
         setLanguage(l);
     }
 
-
-
-    //  Method:       setLanguage (Locale)
+    // Method: setLanguage (Locale)
     /**
      *
      *  This method sets language for control instance. If none is found, english is defaulted.
      *  if none is found, application will exit.<br><br>
      *
      *  @param lcl locale that will choose which language will be set
-     */ 
+     */
     public void setLanguage(Locale lcl)
     {
-        //System.out.println("setLanguage(Locale): " + lcl);
+        // System.out.println("setLanguage(Locale): " + lcl);
 
         try
         {
-            //System.out.println("setLang: " + lang_file_root);
+            // System.out.println("setLang: " + lang_file_root);
             res = ResourceBundle.getBundle(lang_file_root, lcl);
 
-            if (selected_language ==null)
+            if (selected_language == null)
             {
                 selected_language = lcl.getCountry();
             }
         }
         catch (MissingResourceException mre)
         {
-            System.out.println("Couldn't find resource file(1): " + lang_file_root + "." + selected_language + ".properties");
+            System.out.println("Couldn't find resource file(1): " + lang_file_root + "." + selected_language
+                    + ".properties");
             try
             {
                 res = ResourceBundle.getBundle(lang_file_root, new Locale(this.def_language));
             }
-            catch(MissingResourceException ex)
+            catch (MissingResourceException ex)
             {
                 System.out.println("Exception on reading resource file. Exiting application.");
-                //System.exit(2);
+                // System.exit(2);
             }
         }
         catch (Exception mre)
@@ -318,13 +304,11 @@ protected Locale lcls[] = null;
             mre.printStackTrace();
             System.exit(2);
         }
-        
+
         this.selected_language_locale = lcl;
 
     }
 
-
-    
     /**
      * Init Library
      */
@@ -334,8 +318,6 @@ protected Locale lcls[] = null;
         getSelectedLanguage();
         setLanguage();
     }
-    
-    
 
     /**
      * Gets the selected language locale.
@@ -347,21 +329,22 @@ protected Locale lcls[] = null;
         return this.selected_language_locale;
     }
 
-
     /**
      * This method sets the language according to the preferences.<br>
      */
-    public void setLanguage() 
+    public void setLanguage()
     {
-        if (selected_language!=null)
+        if (selected_language != null)
+        {
             setLanguage(selected_language);
+        }
         else
+        {
             setLanguage(def_language);
+        }
     }
 
-
-
-    //  Method: hmmlize
+    // Method: hmmlize
     /**
      *  
      * Converts text from bundle into HTML. This must be used if we have control, which has
@@ -374,7 +357,7 @@ protected Locale lcls[] = null;
      */
     protected String htmlize(String input)
     {
-        
+
         StringBuffer buffer = new StringBuffer("<HTML>");
 
         input = input.replaceAll("\n", "<BR>");
@@ -384,12 +367,10 @@ protected Locale lcls[] = null;
         buffer.append("</HTML>");
 
         return buffer.toString();
-        
+
     }
 
-
-
-    //  Method: getMessageHTML(String)
+    // Method: getMessageHTML(String)
     /**
      * 
      *  Helper method to get HTMLized message from Bundle
@@ -407,11 +388,7 @@ protected Locale lcls[] = null;
 
     }
 
-
-
-
-
-    //  Method:       getString
+    // Method: getString
     /**
      * 
      *  This helper method calls getMessage(String) and returns message that is
@@ -426,9 +403,7 @@ protected Locale lcls[] = null;
         return this.getMessage(msg);
     }
 
-
-
-    //  Method:       returnSameValue (String)
+    // Method: returnSameValue (String)
     /**
      * 
      *  Returns same value as it was sent to catalog in case that catalog entry was not
@@ -439,20 +414,21 @@ protected Locale lcls[] = null;
      */
     protected String returnSameValue(String msg)
     {
-        // If we return same msg back, without beeing resolved, we put spaces before %, so
+        // If we return same msg back, without beeing resolved, we put spaces
+        // before %, so
         // that it is much easier readable.
-        if (msg.indexOf("%")==-1)
+        if (msg.indexOf("%") == -1)
             return msg;
 
-        StringBuffer out=new StringBuffer();
+        StringBuffer out = new StringBuffer();
         int idx;
-        while ((idx=msg.indexOf("%"))!=-1)
+        while ((idx = msg.indexOf("%")) != -1)
         {
             out.append(msg.substring(0, idx));
             out.append("|%");
-            
-            msg = msg.substring(idx+1);
-                
+
+            msg = msg.substring(idx + 1);
+
         }
 
         out.append(msg);
@@ -460,8 +436,6 @@ protected Locale lcls[] = null;
         return out.toString();
 
     }
-
-
 
     // Method: resolveMnemonic(String)
     /**
@@ -480,83 +454,81 @@ protected Locale lcls[] = null;
     protected Object[] resolveMnemonics(String msg)
     {
 
-        if (msg.indexOf("&")==-1)
+        if (msg.indexOf("&") == -1)
             return null;
-
 
         Object back[] = new Object[2];
         int msg_length = msg.length();
         int code[] = new int[msg_length];
-//x        boolean foundDouble=false;
-        boolean foundMnemonic=false;
+        // x boolean foundDouble=false;
+        boolean foundMnemonic = false;
 
-
-        for (int i=0;i<msg_length;i++)
+        for (int i = 0; i < msg_length; i++)
         {
-            if (msg.charAt(i)=='&')
+            if (msg.charAt(i) == '&')
             {
-                // we found mnemonic sign   
-                code[i]=1;  // 1 if & sign
-                if (i!=0)
+                // we found mnemonic sign
+                code[i] = 1; // 1 if & sign
+                if (i != 0)
                 {
                     // check for double &
-                    if (code[i-1]==1)  // double & are marked 2
+                    if (code[i - 1] == 1) // double & are marked 2
                     {
-                        code[i-1]=2;
-                        code[i]=2;
-//x                        foundDouble=true;
+                        code[i - 1] = 2;
+                        code[i] = 2;
+                        // x foundDouble=true;
                     }
                 }
             }
             else
-                code[i]=0;
+            {
+                code[i] = 0;
+            }
         }
 
-
         // now we find real menmonic
-        for (int i=msg_length-1; i>-1; i--)
+        for (int i = msg_length - 1; i > -1; i--)
         {
-            if (code[i]==1)
+            if (code[i] == 1)
             {
-                code[i]=3;
-                if (i==msg_length-1)  // if & is last char we ignore it
+                code[i] = 3;
+                if (i == msg_length - 1) // if & is last char we ignore it
                 {
-                    code[i]=1;
+                    code[i] = 1;
                 }
                 else
                 {
-                    foundMnemonic=true;
+                    foundMnemonic = true;
                     break;
                 }
             }
         }
 
-
         StringBuffer returnStr = new StringBuffer();
 
-        int lastChange=0;
+        int lastChange = 0;
 
-        for (int i=0; i<msg_length;i++)
+        for (int i = 0; i < msg_length; i++)
         {
-            
-            if (code[i]==1)  // all & (tagged 1) are removed
+
+            if (code[i] == 1) // all & (tagged 1) are removed
             {
                 returnStr.append(msg.substring(lastChange, i));
-                lastChange=i+1;
-                
-            } 
-            else if (code[i]==2) // all && are replaced with one &
+                lastChange = i + 1;
+
+            }
+            else if (code[i] == 2) // all && are replaced with one &
             {
                 returnStr.append(msg.substring(lastChange, i));
                 returnStr.append("&");
-                lastChange=i+2; // was 2
-                i=i+1;
+                lastChange = i + 2; // was 2
+                i = i + 1;
             }
-            else if (code[i]==3) // this is mnemonic
+            else if (code[i] == 3) // this is mnemonic
             {
-                back[0]=new Character(msg.charAt(i+1)); 
+                back[0] = new Character(msg.charAt(i + 1));
                 returnStr.append(msg.substring(lastChange, i));
-                lastChange=i+1;
+                lastChange = i + 1;
             }
         }
 
@@ -565,12 +537,13 @@ protected Locale lcls[] = null;
         back[1] = returnStr.toString();
 
         if (!foundMnemonic)
-            back[0]=null;
+        {
+            back[0] = null;
+        }
 
         return back;
-    
-    }
 
+    }
 
     // temporary only - this is not core
     /**
@@ -586,17 +559,15 @@ protected Locale lcls[] = null;
         {
             Object[] back = resolveMnemonics(getMessageFromCatalog(msg_id));
 
-            if ((back!=null) && (back[0]!=null))
-               return true;
+            if (back != null && back[0] != null)
+                return true;
 
         }
         catch (Exception e)
-        {
-        }
+        {}
 
         return false;
     }
-
 
     // Method: getMnemonic
     /**
@@ -612,10 +583,10 @@ protected Locale lcls[] = null;
         {
             Object[] back = resolveMnemonics(getMessageFromCatalog(msg_id));
 
-            if ((back==null) || (back[0]==null))
-               return 0;
-        
-            return ((Character)back[0]).charValue();
+            if (back == null || back[0] == null)
+                return 0;
+
+            return ((Character) back[0]).charValue();
         }
         catch (Exception e)
         {
@@ -623,10 +594,6 @@ protected Locale lcls[] = null;
         }
 
     }
-
-
-
-
 
     /**
      *  Get Message Without Mnemonic
@@ -646,18 +613,16 @@ protected Locale lcls[] = null;
 
             Object[] back = resolveMnemonics(ret);
 
-            if (back==null)
+            if (back == null)
                 return ret;
             else
-                return (String)back[1];
+                return (String) back[1];
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return returnSameValue(msg_id);
         }
     }
-
-
 
     // Method: getMessageFromCatalog
     /**
@@ -671,108 +636,97 @@ protected Locale lcls[] = null;
     {
         try
         {
-            
-            if (msg==null)
+
+            if (msg == null)
                 return "null";
-            
+
             if (!checkIfValidMessageKey(msg))
                 return msg;
-            
+
             String ret = res.getString(msg);
 
-            if (ret==null)
+            if (ret == null)
             {
-                s_logger.warn("I18nControl(" + this.selected_language +"): Couldn't find message: " + msg);
+                s_logger.warn("I18nControl(" + this.selected_language + "): Couldn't find message: " + msg);
                 return returnSameValue(msg);
             }
             else
                 return ret;
 
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return returnSameValue(msg);
         }
 
     }
 
-
     protected boolean checkIfValidMessageKey(String key)
     {
-        if (key.trim().length()==0)
+        if (key.trim().length() == 0)
             return false;
-        
+
         try
         {
             Double.parseDouble(key);
             return false;
         }
-        catch(Exception ex)
-        {
-        }
-        
-        
-        return true;
-        
-    }
-    
-    
+        catch (Exception ex)
+        {}
 
-    //  Method:       getMessage (String)
+        return true;
+
+    }
+
+    // Method: getMessage (String)
     /**
      * 
      *  Helper method to get message from Bundle.
      * 
      *  @param msg id of message we want
      *  @return value for code, or same code back
-     */    
+     */
     public String getMessage(String msg)
     {
         return getMessageFromCatalog(msg);
     }
 
+    // this.m_collator = this.m_i18n.getCollationDefintion();
 
-    
-    
-    //this.m_collator = this.m_i18n.getCollationDefintion();
-
-    
-    
     /**
      * Creates the collation defintion.
      */
     public void createCollationDefintion()
     {
-    	//System.out.println("!!!!!!!!! CreateCollactionDefinition");
+        // System.out.println("!!!!!!!!! CreateCollactionDefinition");
 
         String col_def = this.getMessage("COLLATION_RULES");
 
         if (col_def.equals("COLLATION_RULES"))
         {
-            //System.out.println("Default collation rule !");
+            // System.out.println("Default collation rule !");
             this.langaugeCollator = Collator.getInstance(Locale.ENGLISH);
         }
         else
         {
             try
             {
-                //System.out.println(col_def);
-                this.langaugeCollator =  new RuleBasedCollator(col_def);
+                // System.out.println(col_def);
+                this.langaugeCollator = new RuleBasedCollator(col_def);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                //System.out.println("Exception creating collator: " + ex);
+                // System.out.println("Exception creating collator: " + ex);
                 s_logger.error("Exception creating collator: " + ex, ex);
-                //log.error("Exception creating collator: " + ex, ex);
+                // log.error("Exception creating collator: " + ex, ex);
                 this.langaugeCollator = Collator.getInstance(Locale.ENGLISH);
             }
         }
 
-        //testCollation();
+        // testCollation();
 
     }
-    
-    
+
     /**
      * Gets the collation defintion.
      * 
@@ -780,14 +734,14 @@ protected Locale lcls[] = null;
      */
     public Collator getCollationDefintion()
     {
-        if (this.langaugeCollator==null)
+        if (this.langaugeCollator == null)
+        {
             createCollationDefintion();
-        
+        }
+
         return this.langaugeCollator;
     }
-   
-    
-    
+
     /**
      * Get Partitial Translation
      * 
@@ -797,70 +751,71 @@ protected Locale lcls[] = null;
      */
     public String getPartitialTranslation(String keyword, String default_delim)
     {
-    
+
         StringTokenizer strtok = new StringTokenizer(keyword, default_delim);
         StringBuffer sb = new StringBuffer();
-        
-        
-        while(strtok.hasMoreTokens())
+
+        while (strtok.hasMoreTokens())
         {
             String k = strtok.nextToken();
-            
+
             char[] chars = { ',', '(', ')' };
             boolean checked = false;
-            int i =0;
-            
+            int i = 0;
+
             while (!checked)
             {
                 checked = checkStartEnd(k, chars[i], sb);
                 i++;
-                
+
                 if (i == chars.length)
+                {
                     break;
+                }
             }
-            
-            //boolean found = checkStartEnd(k, ',', sb);
-            
-            //if (!found
-            
+
+            // boolean found = checkStartEnd(k, ',', sb);
+
+            // if (!found
+
             if (!checked)
-            sb.append(this.getMessage(k));
-            
+            {
+                sb.append(this.getMessage(k));
+            }
+
             sb.append(" ");
         }
-    
+
         return sb.toString();
-    
-    }
-    
-    
-    private boolean checkStartEnd(String key, char char_el, StringBuffer sb)
-    {
-        if (key.charAt(0)==char_el)
-        {
-            sb.append(char_el);
-            
-            key = key.substring(1,key.length());
-            
-            sb.append(this.getMessage(key));
-            return true;
-        }
-        else if (key.charAt(key.length()-1)==char_el)
-        {
-            
-            key = key.substring(0,key.length()-1);
-            
-            sb.append(this.getMessage(key));
-            sb.append(char_el);
-            return true;
-            
-        }
-        
-        return false;
-    
+
     }
 
-    
+    private boolean checkStartEnd(String key, char char_el, StringBuffer sb)
+    {
+        if (key.charAt(0) == char_el)
+        {
+            sb.append(char_el);
+
+            key = key.substring(1, key.length());
+
+            sb.append(this.getMessage(key));
+            return true;
+        }
+        else if (key.charAt(key.length() - 1) == char_el)
+        {
+
+            key = key.substring(0, key.length() - 1);
+
+            sb.append(this.getMessage(key));
+            sb.append(char_el);
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     /**
      *  Get Name
      *   
@@ -869,11 +824,11 @@ protected Locale lcls[] = null;
      * 
      *  @param msg id of message we want
      *  @return value for code, or same code back
-     */    
+     */
     public String getName(String msg)
     {
 
-        //String nm = getMessageFromCatalog(msg);
+        // String nm = getMessageFromCatalog(msg);
         String nm = getMessage(msg);
 
         if (nm.equals(msg))
@@ -887,11 +842,8 @@ protected Locale lcls[] = null;
         }
         else
             return nm;
-        
-        
+
     }
-
-
 
     /**
      * @param in
@@ -908,13 +860,12 @@ protected Locale lcls[] = null;
         while (stok.hasMoreTokens())
         {
 
-
             if (!first)
             {
                 out += " ";
             }
 
-            //String tmp = stok.nextToken();
+            // String tmp = stok.nextToken();
 
             out += changeCaseWord(stok.nextToken());
 
@@ -923,7 +874,6 @@ protected Locale lcls[] = null;
 
         return out;
     }
-
 
     /**
      * Change case of word (something -> Something)
@@ -935,12 +885,10 @@ protected Locale lcls[] = null;
     {
         String t = "";
 
-        t = in.substring(0,1).toUpperCase();
+        t = in.substring(0, 1).toUpperCase();
         t += in.substring(1).toLowerCase();
 
         return t;
     }
-
-    
 
 }

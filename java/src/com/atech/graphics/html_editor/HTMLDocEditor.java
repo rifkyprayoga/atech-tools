@@ -77,12 +77,11 @@ import javax.swing.undo.UndoManager;
  *
 */
 
-
 public class HTMLDocEditor extends JFrame implements ActionListener
 {
 
     private static final long serialVersionUID = 1608797065642430368L;
-    
+
     /**
      * The Class RedoAction.
      */
@@ -100,9 +99,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             {
                 undo.redo();
             }
-            catch(CannotRedoException ex)
+            catch (CannotRedoException ex)
             {
-                System.err.println((new StringBuilder()).append("Unable to redo: ").append(ex).toString());
+                System.err.println(new StringBuilder().append("Unable to redo: ").append(ex).toString());
                 ex.printStackTrace();
             }
             update();
@@ -114,11 +113,12 @@ public class HTMLDocEditor extends JFrame implements ActionListener
          */
         protected void update()
         {
-            if(undo.canRedo())
+            if (undo.canRedo())
             {
                 setEnabled(true);
                 putValue("Name", undo.getRedoPresentationName());
-            } else
+            }
+            else
             {
                 setEnabled(false);
                 putValue("Name", "Redo");
@@ -143,8 +143,7 @@ public class HTMLDocEditor extends JFrame implements ActionListener
 
         private static final long serialVersionUID = 7877236529165912956L;
 
-
-        /* 
+        /*
          * actionPerformed
          */
         public void actionPerformed(ActionEvent e)
@@ -153,9 +152,9 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             {
                 undo.undo();
             }
-            catch(CannotUndoException ex)
+            catch (CannotUndoException ex)
             {
-                System.out.println((new StringBuilder()).append("Unable to undo: ").append(ex).toString());
+                System.out.println(new StringBuilder().append("Unable to undo: ").append(ex).toString());
                 ex.printStackTrace();
             }
             update();
@@ -167,17 +166,17 @@ public class HTMLDocEditor extends JFrame implements ActionListener
          */
         protected void update()
         {
-            if(undo.canUndo())
+            if (undo.canUndo())
             {
                 setEnabled(true);
                 putValue("Name", undo.getUndoPresentationName());
-            } else
+            }
+            else
             {
                 setEnabled(false);
                 putValue("Name", "Undo");
             }
         }
-
 
         /**
          * Instantiates a new undo action.
@@ -195,7 +194,7 @@ public class HTMLDocEditor extends JFrame implements ActionListener
     class UndoHandler implements UndoableEditListener
     {
 
-        /* 
+        /*
          * undoableEditHappened
          */
         public void undoableEditHappened(UndoableEditEvent e)
@@ -204,7 +203,6 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             undoAction.update();
             redoAction.update();
         }
-
 
         /**
          * Instantiates a new undo handler.
@@ -221,22 +219,23 @@ public class HTMLDocEditor extends JFrame implements ActionListener
     class HTMLFileFilter extends FileFilter
     {
 
-        /* 
+        /*
          * accept
          */
+        @Override
         public boolean accept(File f)
         {
             return f.isDirectory() || f.getName().toLowerCase().indexOf(".htm") > 0;
         }
 
-        /* 
+        /*
          * getDescription
          */
+        @Override
         public String getDescription()
         {
             return "html";
         }
-
 
         /**
          * Instantiates a new hTML file filter.
@@ -255,14 +254,13 @@ public class HTMLDocEditor extends JFrame implements ActionListener
 
         private static final long serialVersionUID = -5816644815136707434L;
 
-
-        /* 
+        /*
          * actionPerformed
          */
         public void actionPerformed(ActionEvent ae)
         {
             javax.swing.JEditorPane editor = getEditor(ae);
-            if(editor != null)
+            if (editor != null)
             {
                 StyledEditorKit kit = getStyledEditorKit(editor);
                 javax.swing.text.MutableAttributeSet attr = kit.getInputAttributes();
@@ -272,7 +270,6 @@ public class HTMLDocEditor extends JFrame implements ActionListener
                 setCharacterAttributes(editor, sas, false);
             }
         }
-
 
         /**
          * Instantiates a new strike through action.
@@ -291,14 +288,13 @@ public class HTMLDocEditor extends JFrame implements ActionListener
 
         private static final long serialVersionUID = -6397583463447945632L;
 
-
-        /* 
+        /*
          * actionPerformed
          */
         public void actionPerformed(ActionEvent ae)
         {
             javax.swing.JEditorPane editor = getEditor(ae);
-            if(editor != null)
+            if (editor != null)
             {
                 StyledEditorKit kit = getStyledEditorKit(editor);
                 javax.swing.text.MutableAttributeSet attr = kit.getInputAttributes();
@@ -308,7 +304,6 @@ public class HTMLDocEditor extends JFrame implements ActionListener
                 setCharacterAttributes(editor, sas, false);
             }
         }
-
 
         /**
          * Instantiates a new superscript action.
@@ -327,13 +322,13 @@ public class HTMLDocEditor extends JFrame implements ActionListener
 
         private static final long serialVersionUID = -2333034083654733244L;
 
-        /* 
+        /*
          * actionPerformed
          */
         public void actionPerformed(ActionEvent ae)
         {
             javax.swing.JEditorPane editor = getEditor(ae);
-            if(editor != null)
+            if (editor != null)
             {
                 StyledEditorKit kit = getStyledEditorKit(editor);
                 javax.swing.text.MutableAttributeSet attr = kit.getInputAttributes();
@@ -368,11 +363,11 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         /**
          * windowClosing
          */
+        @Override
         public void windowClosing(WindowEvent we)
         {
             exit();
         }
-
 
         /**
          * Instantiates a new frame listener.
@@ -382,7 +377,6 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             super();
         }
     }
-
 
     /**
      * Instantiates a new hTML doc editor.
@@ -403,13 +397,14 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         underlineAction = new javax.swing.text.StyledEditorKit.UnderlineAction();
         italicAction = new javax.swing.text.StyledEditorKit.ItalicAction();
         insertBreakAction = new javax.swing.text.DefaultEditorKit.InsertBreakAction();
-        unorderedListAction = new javax.swing.text.html.HTMLEditorKit.InsertHTMLTextAction("Bullets", "<ul><li> </li></ul>", javax.swing.text.html.HTML.Tag.P, javax.swing.text.html.HTML.Tag.UL);
-        bulletAction = new javax.swing.text.html.HTMLEditorKit.InsertHTMLTextAction("Bullets", "<li> </li>", javax.swing.text.html.HTML.Tag.UL, javax.swing.text.html.HTML.Tag.LI);
+        unorderedListAction = new javax.swing.text.html.HTMLEditorKit.InsertHTMLTextAction("Bullets",
+                "<ul><li> </li></ul>", javax.swing.text.html.HTML.Tag.P, javax.swing.text.html.HTML.Tag.UL);
+        bulletAction = new javax.swing.text.html.HTMLEditorKit.InsertHTMLTextAction("Bullets", "<li> </li>",
+                javax.swing.text.html.HTML.Tag.UL, javax.swing.text.html.HTML.Tag.LI);
         HTMLEditorKit editorKit = new HTMLEditorKit();
-        document = (HTMLDocument)editorKit.createDefaultDocument();
+        document = (HTMLDocument) editorKit.createDefaultDocument();
         init();
     }
-
 
     /**
      * Inits the.
@@ -480,13 +475,20 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         editMenu.add(unorderedListItem);
         editMenu.add(bulletItem);
         JMenuItem redTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Red", Color.red));
-        JMenuItem orangeTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Orange", Color.orange));
-        JMenuItem yellowTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Yellow", Color.yellow));
-        JMenuItem greenTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Green", Color.green));
-        JMenuItem blueTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Blue", Color.blue));
-        JMenuItem cyanTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Cyan", Color.cyan));
-        JMenuItem magentaTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Magenta", Color.magenta));
-        JMenuItem blackTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Black", Color.black));
+        JMenuItem orangeTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Orange",
+                Color.orange));
+        JMenuItem yellowTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Yellow",
+                Color.yellow));
+        JMenuItem greenTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Green",
+                Color.green));
+        JMenuItem blueTextItem = new JMenuItem(
+                new javax.swing.text.StyledEditorKit.ForegroundAction("Blue", Color.blue));
+        JMenuItem cyanTextItem = new JMenuItem(
+                new javax.swing.text.StyledEditorKit.ForegroundAction("Cyan", Color.cyan));
+        JMenuItem magentaTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Magenta",
+                Color.magenta));
+        JMenuItem blackTextItem = new JMenuItem(new javax.swing.text.StyledEditorKit.ForegroundAction("Black",
+                Color.black));
         redTextItem.setIcon(new ImageIcon("red.gif"));
         orangeTextItem.setIcon(new ImageIcon("orange.gif"));
         yellowTextItem.setIcon(new ImageIcon("yellow.gif"));
@@ -505,30 +507,30 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         colorMenu.add(blackTextItem);
         JMenu fontTypeMenu = new JMenu("Font Type");
         fontMenu.add(fontTypeMenu);
-        String fontTypes[] = {
-            "SansSerif", "Serif", "Monospaced", "Dialog", "DialogInput"
-        };
-        for(int i = 0; i < fontTypes.length; i++)
+        String fontTypes[] = { "SansSerif", "Serif", "Monospaced", "Dialog", "DialogInput" };
+        for (String fontType : fontTypes)
         {
-            if(debug)
-                System.out.println(fontTypes[i]);
-            JMenuItem nextTypeItem = new JMenuItem(fontTypes[i]);
-            nextTypeItem.setAction(new javax.swing.text.StyledEditorKit.FontFamilyAction(fontTypes[i], fontTypes[i]));
+            if (debug)
+            {
+                System.out.println(fontType);
+            }
+            JMenuItem nextTypeItem = new JMenuItem(fontType);
+            nextTypeItem.setAction(new javax.swing.text.StyledEditorKit.FontFamilyAction(fontType, fontType));
             fontTypeMenu.add(nextTypeItem);
         }
 
         JMenu fontSizeMenu = new JMenu("Font Size");
         fontMenu.add(fontSizeMenu);
-        int fontSizes[] = {
-            6, 8, 10, 12, 14, 16, 20, 24, 32, 36, 
-            48, 72
-        };
-        for(int i = 0; i < fontSizes.length; i++)
+        int fontSizes[] = { 6, 8, 10, 12, 14, 16, 20, 24, 32, 36, 48, 72 };
+        for (int fontSize : fontSizes)
         {
-            if(debug)
-                System.out.println(fontSizes[i]);
-            JMenuItem nextSizeItem = new JMenuItem(String.valueOf(fontSizes[i]));
-            nextSizeItem.setAction(new javax.swing.text.StyledEditorKit.FontSizeAction(String.valueOf(fontSizes[i]), fontSizes[i]));
+            if (debug)
+            {
+                System.out.println(fontSize);
+            }
+            JMenuItem nextSizeItem = new JMenuItem(String.valueOf(fontSize));
+            nextSizeItem.setAction(new javax.swing.text.StyledEditorKit.FontSizeAction(String.valueOf(fontSize),
+                    fontSize));
             fontSizeMenu.add(nextSizeItem);
         }
 
@@ -558,9 +560,11 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         styleMenu.add(subscriptMenuItem);
         styleMenu.add(superscriptMenuItem);
         styleMenu.add(strikeThroughMenuItem);
-        JMenuItem leftAlignMenuItem = new JMenuItem(new javax.swing.text.StyledEditorKit.AlignmentAction("Left Align", 0));
+        JMenuItem leftAlignMenuItem = new JMenuItem(new javax.swing.text.StyledEditorKit.AlignmentAction("Left Align",
+                0));
         JMenuItem centerMenuItem = new JMenuItem(new javax.swing.text.StyledEditorKit.AlignmentAction("Center", 1));
-        JMenuItem rightAlignMenuItem = new JMenuItem(new javax.swing.text.StyledEditorKit.AlignmentAction("Right Align", 2));
+        JMenuItem rightAlignMenuItem = new JMenuItem(new javax.swing.text.StyledEditorKit.AlignmentAction(
+                "Right Align", 2));
         leftAlignMenuItem.setText("Left Align");
         centerMenuItem.setText("Center");
         rightAlignMenuItem.setText("Right Align");
@@ -638,7 +642,7 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         textPane.setContentType("text/html");
         JScrollPane scrollPane = new JScrollPane(textPane);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension scrollPaneSize = new Dimension((5 * screenSize.width) / 8, (5 * screenSize.height) / 8);
+        Dimension scrollPaneSize = new Dimension(5 * screenSize.width / 8, 5 * screenSize.height / 8);
         scrollPane.setPreferredSize(scrollPaneSize);
         JToolBar tb = new JToolBar();
         tb.add(cutButton);
@@ -664,25 +668,29 @@ public class HTMLDocEditor extends JFrame implements ActionListener
         pack();
         setLocationRelativeTo(null);
         startNewDocument();
-	setVisible(true);
-	//show();
+        setVisible(true);
+        // show();
     }
 
     private Image getImage(String filename)
     {
         InputStream is = getClass().getResourceAsStream(filename);
-        if(is == null)
-            System.out.println((new StringBuilder()).append("Error reading image: ").append(filename).toString());
+        if (is == null)
+        {
+            System.out.println(new StringBuilder().append("Error reading image: ").append(filename).toString());
+        }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Image img;
         try
         {
             int c;
-            while((c = is.read()) >= 0) 
+            while ((c = is.read()) >= 0)
+            {
                 baos.write(c);
+            }
             img = getToolkit().createImage(baos.toByteArray());
         }
-        catch(IOException ex)
+        catch (IOException ex)
         {
             ex.printStackTrace();
             return null;
@@ -696,48 +704,60 @@ public class HTMLDocEditor extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent ae)
     {
         String actionCommand = ae.getActionCommand();
-        if(debug)
+        if (debug)
         {
             int modifier = ae.getModifiers();
             long when = ae.getWhen();
             String parameter = ae.paramString();
-            System.out.println((new StringBuilder()).append("actionCommand: ").append(actionCommand).toString());
-            System.out.println((new StringBuilder()).append("modifier: ").append(modifier).toString());
-            System.out.println((new StringBuilder()).append("when: ").append(when).toString());
-            System.out.println((new StringBuilder()).append("parameter: ").append(parameter).toString());
+            System.out.println(new StringBuilder().append("actionCommand: ").append(actionCommand).toString());
+            System.out.println(new StringBuilder().append("modifier: ").append(modifier).toString());
+            System.out.println(new StringBuilder().append("when: ").append(when).toString());
+            System.out.println(new StringBuilder().append("parameter: ").append(parameter).toString());
         }
-        if(actionCommand.compareTo("New") == 0)
+        if (actionCommand.compareTo("New") == 0)
+        {
             startNewDocument();
-        else
-        if(actionCommand.compareTo("Open") == 0)
+        }
+        else if (actionCommand.compareTo("Open") == 0)
+        {
             openDocument();
-        else
-        if(actionCommand.compareTo("Save") == 0)
+        }
+        else if (actionCommand.compareTo("Save") == 0)
+        {
             saveDocument();
-        else
-        if(actionCommand.compareTo("Save As") == 0)
+        }
+        else if (actionCommand.compareTo("Save As") == 0)
+        {
             saveDocumentAs();
-        else
-        if(actionCommand.compareTo("Exit") == 0)
+        }
+        else if (actionCommand.compareTo("Exit") == 0)
+        {
             exit();
-        else
-        if(actionCommand.compareTo("Clear") == 0)
+        }
+        else if (actionCommand.compareTo("Clear") == 0)
+        {
             clear();
-        else
-        if(actionCommand.compareTo("Select All") == 0)
+        }
+        else if (actionCommand.compareTo("Select All") == 0)
+        {
             selectAll();
-        else
-        if(actionCommand.compareTo("Help") == 0)
+        }
+        else if (actionCommand.compareTo("Help") == 0)
+        {
             help();
-        else
-        if(actionCommand.compareTo("Keyboard Shortcuts") == 0)
+        }
+        else if (actionCommand.compareTo("Keyboard Shortcuts") == 0)
+        {
             showShortcuts();
-        else
-        if(actionCommand.compareTo("About QuantumHyperSpace") == 0)
+        }
+        else if (actionCommand.compareTo("About QuantumHyperSpace") == 0)
+        {
             aboutQuantumHyperSpace();
-        else
-        if(actionCommand.equals("bold"))
+        }
+        else if (actionCommand.equals("bold"))
+        {
             System.out.println("Bol activated");
+        }
     }
 
     /**
@@ -756,10 +776,12 @@ public class HTMLDocEditor extends JFrame implements ActionListener
     public void startNewDocument()
     {
         Document oldDoc = textPane.getDocument();
-        if(oldDoc != null)
+        if (oldDoc != null)
+        {
             oldDoc.removeUndoableEditListener(undoHandler);
+        }
         HTMLEditorKit editorKit = new HTMLEditorKit();
-        document = (HTMLDocument)editorKit.createDefaultDocument();
+        document = (HTMLDocument) editorKit.createDefaultDocument();
         textPane.setDocument(document);
         currentFile = null;
         setTitle("HTMLDocumentEditor");
@@ -779,33 +801,37 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             chooser.setFileSelectionMode(2);
             chooser.setFileFilter(new HTMLFileFilter());
             int approval = chooser.showSaveDialog(this);
-            if(approval == 0)
+            if (approval == 0)
             {
                 currentFile = chooser.getSelectedFile();
                 setTitle(currentFile.getName());
                 FileReader fr = new FileReader(currentFile);
                 Document oldDoc = textPane.getDocument();
-                if(oldDoc != null)
+                if (oldDoc != null)
+                {
                     oldDoc.removeUndoableEditListener(undoHandler);
+                }
                 HTMLEditorKit editorKit = new HTMLEditorKit();
-                document = (HTMLDocument)editorKit.createDefaultDocument();
+                document = (HTMLDocument) editorKit.createDefaultDocument();
                 editorKit.read(fr, document, 0);
                 document.addUndoableEditListener(undoHandler);
                 textPane.setDocument(document);
                 resetUndoManager();
             }
         }
-        catch(BadLocationException ble)
+        catch (BadLocationException ble)
         {
-            System.err.println((new StringBuilder()).append("BadLocationException: ").append(ble.getMessage()).toString());
+            System.err
+                    .println(new StringBuilder().append("BadLocationException: ").append(ble.getMessage()).toString());
         }
-        catch(FileNotFoundException fnfe)
+        catch (FileNotFoundException fnfe)
         {
-            System.err.println((new StringBuilder()).append("FileNotFoundException: ").append(fnfe.getMessage()).toString());
+            System.err.println(new StringBuilder().append("FileNotFoundException: ").append(fnfe.getMessage())
+                    .toString());
         }
-        catch(IOException ioe)
+        catch (IOException ioe)
         {
-            System.err.println((new StringBuilder()).append("IOException: ").append(ioe.getMessage()).toString());
+            System.err.println(new StringBuilder().append("IOException: ").append(ioe.getMessage()).toString());
         }
     }
 
@@ -814,23 +840,28 @@ public class HTMLDocEditor extends JFrame implements ActionListener
      */
     public void saveDocument()
     {
-        if(currentFile != null)
+        if (currentFile != null)
+        {
             try
             {
                 FileWriter fw = new FileWriter(currentFile);
                 fw.write(textPane.getText());
                 fw.close();
             }
-            catch(FileNotFoundException fnfe)
+            catch (FileNotFoundException fnfe)
             {
-                System.err.println((new StringBuilder()).append("FileNotFoundException: ").append(fnfe.getMessage()).toString());
+                System.err.println(new StringBuilder().append("FileNotFoundException: ").append(fnfe.getMessage())
+                        .toString());
             }
-            catch(IOException ioe)
+            catch (IOException ioe)
             {
-                System.err.println((new StringBuilder()).append("IOException: ").append(ioe.getMessage()).toString());
+                System.err.println(new StringBuilder().append("IOException: ").append(ioe.getMessage()).toString());
             }
+        }
         else
+        {
             saveDocumentAs();
+        }
     }
 
     /**
@@ -845,41 +876,50 @@ public class HTMLDocEditor extends JFrame implements ActionListener
             chooser.setFileSelectionMode(2);
             chooser.setFileFilter(new HTMLFileFilter());
             int approval = chooser.showSaveDialog(this);
-            if(approval == 0)
+            if (approval == 0)
             {
                 File newFile = chooser.getSelectedFile();
-                if(newFile.exists())
+                if (newFile.exists())
                 {
-                    String message = (new StringBuilder()).append(newFile.getAbsolutePath()).append(" already exists. \n").append("Do you want to replace it?").toString();
-                    if(JOptionPane.showConfirmDialog(this, message) == 0)
+                    String message = new StringBuilder().append(newFile.getAbsolutePath())
+                            .append(" already exists. \n").append("Do you want to replace it?").toString();
+                    if (JOptionPane.showConfirmDialog(this, message) == 0)
                     {
                         currentFile = newFile;
                         setTitle(currentFile.getName());
                         FileWriter fw = new FileWriter(currentFile);
                         fw.write(textPane.getText());
                         fw.close();
-                        if(debug)
-                            System.out.println((new StringBuilder()).append("Saved ").append(currentFile.getAbsolutePath()).toString());
+                        if (debug)
+                        {
+                            System.out.println(new StringBuilder().append("Saved ")
+                                    .append(currentFile.getAbsolutePath()).toString());
+                        }
                     }
-                } else
+                }
+                else
                 {
                     currentFile = new File(newFile.getAbsolutePath());
                     setTitle(currentFile.getName());
                     FileWriter fw = new FileWriter(currentFile);
                     fw.write(textPane.getText());
                     fw.close();
-                    if(debug)
-                        System.out.println((new StringBuilder()).append("Saved ").append(currentFile.getAbsolutePath()).toString());
+                    if (debug)
+                    {
+                        System.out.println(new StringBuilder().append("Saved ").append(currentFile.getAbsolutePath())
+                                .toString());
+                    }
                 }
             }
         }
-        catch(FileNotFoundException fnfe)
+        catch (FileNotFoundException fnfe)
         {
-            System.err.println((new StringBuilder()).append("FileNotFoundException: ").append(fnfe.getMessage()).toString());
+            System.err.println(new StringBuilder().append("FileNotFoundException: ").append(fnfe.getMessage())
+                    .toString());
         }
-        catch(IOException ioe)
+        catch (IOException ioe)
         {
-            System.err.println((new StringBuilder()).append("IOException: ").append(ioe.getMessage()).toString());
+            System.err.println(new StringBuilder().append("IOException: ").append(ioe.getMessage()).toString());
         }
     }
 
@@ -889,8 +929,10 @@ public class HTMLDocEditor extends JFrame implements ActionListener
     public void exit()
     {
         String exitMessage = "Are you sure you want to exit?";
-        if(JOptionPane.showConfirmDialog(this, exitMessage) == 0)
+        if (JOptionPane.showConfirmDialog(this, exitMessage) == 0)
+        {
             System.exit(0);
+        }
     }
 
     /**
@@ -914,7 +956,10 @@ public class HTMLDocEditor extends JFrame implements ActionListener
      */
     public void help()
     {
-        JOptionPane.showMessageDialog(this, "DocumentEditor.java\nAuthor: Charles Bell\nVersion: May 25, 2002\nhttp://www.quantumhyperspace.com\nQuantumHyperSpace Programming Services");
+        JOptionPane
+                .showMessageDialog(
+                    this,
+                    "DocumentEditor.java\nAuthor: Charles Bell\nVersion: May 25, 2002\nhttp://www.quantumhyperspace.com\nQuantumHyperSpace Programming Services");
     }
 
     /**
@@ -931,9 +976,12 @@ public class HTMLDocEditor extends JFrame implements ActionListener
      */
     public void aboutQuantumHyperSpace()
     {
-        JOptionPane.showMessageDialog(this, "QuantumHyperSpace Programming Services\nhttp://www.quantumhyperspace.com\nemail: support@quantumhyperspace.com\n                     or \nemail: charles@quantumhyperspace.com\n", "QuantumHyperSpace", 1, new ImageIcon("quantumhyperspace.gif"));
+        JOptionPane
+                .showMessageDialog(
+                    this,
+                    "QuantumHyperSpace Programming Services\nhttp://www.quantumhyperspace.com\nemail: support@quantumhyperspace.com\n                     or \nemail: charles@quantumhyperspace.com\n",
+                    "QuantumHyperSpace", 1, new ImageIcon("quantumhyperspace.gif"));
     }
-
 
     /**
      * The main method.
@@ -942,20 +990,19 @@ public class HTMLDocEditor extends JFrame implements ActionListener
      */
     public static void main(String args[])
     {
-	 /*HTMLDocumentEditor editor =*/ new HTMLDocumentEditor();
+        /* HTMLDocumentEditor editor = */new HTMLDocumentEditor();
     }
-
 
     private HTMLDocument document;
     private JTextPane textPane;
     private boolean debug;
     private File currentFile;
-    
+
     /**
      * The undo handler.
      */
     protected UndoableEditListener undoHandler;
-    
+
     /**
      * The undo.
      */
@@ -971,6 +1018,5 @@ public class HTMLDocEditor extends JFrame implements ActionListener
     private Action insertBreakAction;
     private javax.swing.text.html.HTMLEditorKit.InsertHTMLTextAction unorderedListAction;
     private javax.swing.text.html.HTMLEditorKit.InsertHTMLTextAction bulletAction;
-
 
 }

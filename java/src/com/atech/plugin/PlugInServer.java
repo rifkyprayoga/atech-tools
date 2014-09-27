@@ -16,7 +16,6 @@ import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATDataAccessLMAbstract;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -47,14 +46,15 @@ import com.atech.utils.ATDataAccessLMAbstract;
  *
 */
 
-
 /*
- * This is abstract class which needs to be implemented in application to which we are adding some
- * plug-in functionality. This clinet in will at later time look for server component and exceute
+ * This is abstract class which needs to be implemented in application to which
+ * we are adding some
+ * plug-in functionality. This clinet in will at later time look for server
+ * component and exceute
  * action. If server is not found it needs to display something to user.
  */
 
-public abstract class PlugInServer 
+public abstract class PlugInServer
 {
 
     protected boolean installed = false;
@@ -65,7 +65,7 @@ public abstract class PlugInServer
     protected boolean backup_restore_enabled = false;
     protected PlugInClient client;
     protected HibernateDb db;
-    
+
     /**
      * Constructor
      */
@@ -73,7 +73,6 @@ public abstract class PlugInServer
     {
     }
 
-    
     /**
      * Constructor
      * 
@@ -86,8 +85,7 @@ public abstract class PlugInServer
     {
         init(cont, selected_lang, da, null, db);
     }
-    
-    
+
     /**
      * Constructor
      * 
@@ -99,8 +97,7 @@ public abstract class PlugInServer
     {
         init(cont, selected_lang, da, null, null);
     }
-    
-    
+
     /**
      * Constructor
      * 
@@ -111,8 +108,7 @@ public abstract class PlugInServer
     {
         init(cont, da, null);
     }
-    
-    
+
     /**
      * Init PlugIn
      * 
@@ -122,7 +118,8 @@ public abstract class PlugInServer
      * @param client_in
      * @param db_in
      */
-    public void init(Container cont, String selected_lang_in, ATDataAccessAbstract da, PlugInClient client_in, HibernateDb db_in)
+    public void init(Container cont, String selected_lang_in, ATDataAccessAbstract da, PlugInClient client_in,
+            HibernateDb db_in)
     {
         this.parent = cont;
         this.selected_lang = selected_lang_in;
@@ -132,7 +129,6 @@ public abstract class PlugInServer
         initPlugIn();
     }
 
-    
     /**
      * Init PlugIn
      * 
@@ -145,28 +141,25 @@ public abstract class PlugInServer
     public void init(Container cont, ATDataAccessLMAbstract da, PlugInClient client_in)
     {
         this.parent = cont;
-        //this.selected_lang = selected_lang_in;
+        // this.selected_lang = selected_lang_in;
         this.m_da = da;
         this.client = client_in;
         this.db = da.getHibernateDb();
         initPlugIn();
     }
-    
-    
-    
+
     /**
      * Init PlugIn which needs to be implemented 
      */
     public abstract void initPlugIn();
-    
-    
+
     /**
      * Get Name of plugin
      * 
      * @return
      */
     public abstract String getName();
-    
+
     /**
      * Get Version of plugin
      * 
@@ -183,7 +176,7 @@ public abstract class PlugInServer
     {
         this.executeCommand(command, null);
     }
-    
+
     /**
      * Execute Command on Server Side, with object parameter
      * 
@@ -191,9 +184,7 @@ public abstract class PlugInServer
      * @param data
      */
     public abstract void executeCommand(int command, Object data);
-    
-    
-    
+
     /**
      * Execute Command Dialog Return - This one executes command that starts dialog, with
      *   dialog as parent, and supply of Object as input data. Input data can be anything
@@ -209,7 +200,7 @@ public abstract class PlugInServer
         System.out.println("ExecuteCommandDialog is not implemented for " + getName());
         return false;
     }
-    
+
     /**
      * Execute Command Dialog Return - This one executes command that starts dialog, with
      *   dialog as parent, and supply of Object as input data. Input data can be anything
@@ -227,7 +218,7 @@ public abstract class PlugInServer
         System.out.println("executeCommandDialogReturn is not implemented for " + getName());
         return null;
     }
-    
+
     /**
      * Feature not implemented message
      * @param command_desc
@@ -235,23 +226,21 @@ public abstract class PlugInServer
     public void featureNotImplemented(String command_desc)
     {
         String text = String.format(ic.getMessage("PLUGIN_NOT_INSTALLED_OR_AVAILABLE"), this.getName());
-            
-        text += "\n\n'" + ic.getMessage(command_desc) +"' ";
+
+        text += "\n\n'" + ic.getMessage(command_desc) + "' ";
         text += String.format(ic.getMessage("IMPLEMENTED_VERSION"), this.getWhenWillBeImplemented());
         text += "!\n\n";
-    
+
         JOptionPane.showMessageDialog(this.parent, text, ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
 
     }
 
-    
     /**
      * Get Information When will it be implemented
      * 
      * @return
      */
     public abstract String getWhenWillBeImplemented();
-    
 
     /**
      * Set Return Data
@@ -261,12 +250,16 @@ public abstract class PlugInServer
      */
     public void setReturnData(Object data, StatusReporterInterface stat_rep_int)
     {
-        if (this.client!=null)
+        if (this.client != null)
+        {
             this.client.setReturnData(data, stat_rep_int);
+        }
         else
+        {
             System.out.println("There is not instance of PlugInClient to return data to !");
+        }
     }
-    
+
     /**
      * Get Parent
      * 
@@ -276,8 +269,6 @@ public abstract class PlugInServer
     {
         return this.parent;
     }
-    
-    
 
     /**
      * Get Transfer objects for communicating with certain classes in main application
@@ -285,13 +276,12 @@ public abstract class PlugInServer
      */
     public ArrayList<TransferDialog> getTransferObjects()
     {
-        if (this.client==null)
+        if (this.client == null)
             return null;
         else
             return this.client.getTransferObjects();
     }
-    
-    
+
     /**
      * Get Return Object
      * 
@@ -300,7 +290,6 @@ public abstract class PlugInServer
      */
     public abstract Object getReturnObject(int ret_obj_id);
 
-    
     /**
      * Get Return Object
      * 
@@ -309,9 +298,7 @@ public abstract class PlugInServer
      * @return
      */
     public abstract Object getReturnObject(int ret_obj_id, Object[] parameters);
-    
-    
-    
+
     /**
      * Get PlugIn Main Menu 
      * 
@@ -322,8 +309,7 @@ public abstract class PlugInServer
      * @return
      */
     public abstract JMenu getPlugInMainMenu();
-    
-    
+
     /**
      * Get PlugIn Print Menus 
      * 
@@ -332,9 +318,7 @@ public abstract class PlugInServer
      * @return
      */
     public abstract JMenu[] getPlugInPrintMenus();
-    
-    
-    
+
     /**
      * Is Backup Restore Enabled
      * 
@@ -344,8 +328,7 @@ public abstract class PlugInServer
     {
         return this.backup_restore_enabled;
     }
-    
-    
+
     /**
      * Get Backup Objects (if available)
      * 
@@ -357,7 +340,6 @@ public abstract class PlugInServer
         return null;
     }
 
-    
     /**
      * Get Backup Restore Handler
      * 
@@ -369,13 +351,11 @@ public abstract class PlugInServer
         return null;
     }
 
-    
     /**
      * Action Performed
      * 
      * @param ae
      */
     public abstract void actionPerformed(ActionEvent ae);
-    
-    
+
 }

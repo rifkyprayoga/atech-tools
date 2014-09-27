@@ -39,12 +39,12 @@ import javax.swing.UIManager;
 
 public class BevelArrowIcon implements Icon
 {
-    
+
     /**
      * The Constant UP.
      */
     public static final int UP = 0; // direction
-    
+
     /**
      * The Constant DOWN.
      */
@@ -71,22 +71,26 @@ public class BevelArrowIcon implements Icon
         {
             if (isPressedView)
             {
-                init(UIManager.getColor("controlLtHighlight"), UIManager.getColor("controlDkShadow"), UIManager.getColor("controlShadow"), DEFAULT_SIZE, direction);
+                init(UIManager.getColor("controlLtHighlight"), UIManager.getColor("controlDkShadow"),
+                    UIManager.getColor("controlShadow"), DEFAULT_SIZE, direction);
             }
             else
             {
-                init(UIManager.getColor("controlHighlight"), UIManager.getColor("controlShadow"), UIManager.getColor("control"), DEFAULT_SIZE, direction);
+                init(UIManager.getColor("controlHighlight"), UIManager.getColor("controlShadow"),
+                    UIManager.getColor("control"), DEFAULT_SIZE, direction);
             }
         }
         else
         {
             if (isPressedView)
             {
-                init(UIManager.getColor("controlDkShadow"), UIManager.getColor("controlLtHighlight"), UIManager.getColor("controlShadow"), DEFAULT_SIZE, direction);
+                init(UIManager.getColor("controlDkShadow"), UIManager.getColor("controlLtHighlight"),
+                    UIManager.getColor("controlShadow"), DEFAULT_SIZE, direction);
             }
             else
             {
-                init(UIManager.getColor("controlShadow"), UIManager.getColor("controlHighlight"), UIManager.getColor("control"), DEFAULT_SIZE, direction);
+                init(UIManager.getColor("controlShadow"), UIManager.getColor("controlHighlight"),
+                    UIManager.getColor("control"), DEFAULT_SIZE, direction);
             }
         }
     }
@@ -112,12 +116,12 @@ public class BevelArrowIcon implements Icon
     {
         switch (direction)
         {
-        case DOWN:
-            drawDownArrow(g, x, y);
-            break;
-        case UP:
-            drawUpArrow(g, x, y);
-            break;
+            case DOWN:
+                drawDownArrow(g, x, y);
+                break;
+            case UP:
+                drawUpArrow(g, x, y);
+                break;
         }
     }
 
@@ -175,13 +179,13 @@ public class BevelArrowIcon implements Icon
             dx -= 2;
         }
         g.setColor(edge1);
-        g.drawLine(xo + (size / 2), yo + size - 1, xo + (size / 2), yo + size - 1);
+        g.drawLine(xo + size / 2, yo + size - 1, xo + size / 2, yo + size - 1);
     }
 
     private void drawUpArrow(Graphics g, int xo, int yo)
     {
         g.setColor(edge1);
-        int x = xo + (size / 2);
+        int x = xo + size / 2;
         g.drawLine(x, yo, x, yo);
         x--;
         int y = yo + 1;

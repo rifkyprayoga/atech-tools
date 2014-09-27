@@ -1,9 +1,5 @@
 package com.atech.utils.data;
 
-import java.util.ArrayList;
-
-
-
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -35,10 +31,8 @@ import java.util.ArrayList;
  *
 */
 
-
 public class UnicodeUtils
 {
-    
 
     public String getASCIIFromUnicodeFull(String value)
     {
@@ -47,150 +41,135 @@ public class UnicodeUtils
 
         return unicodeToASCII(value);
     }
-    
 
     public String unicodeToASCII(String value)
     {
         StringBuffer sb = new StringBuffer();
-        
-        for(int i=0; i<value.length(); i++)
+
+        for (int i = 0; i < value.length(); i++)
         {
-            //if ((!Character.isUnicodeIdentifierPart(bb[i])) && (bb[i] < 0) )//|| (Character.i)
+            // if ((!Character.isUnicodeIdentifierPart(bb[i])) && (bb[i] < 0)
+            // )//|| (Character.i)
             if (isNotRegularAscii(value.charAt(i)))
+            {
                 sb.append("\\u" + charToHex(value.charAt(i)).toUpperCase());
+            }
             else
+            {
                 sb.append(value.charAt(i));
+            }
         }
-        
+
         return sb.toString();
-        
+
     }
-    
-    
-    
-    
-    public String byteToHex(byte b) 
+
+    public String byteToHex(byte b)
     {
         // Returns hex String representation of byte b
-        char hexDigit[] = {
-           '0', '1', '2', '3', '4', '5', '6', '7',
-           '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
-        };
-        char[] array = { hexDigit[(b >> 4) & 0x0f], hexDigit[b & 0x0f] };
+        char hexDigit[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+        char[] array = { hexDigit[b >> 4 & 0x0f], hexDigit[b & 0x0f] };
         return new String(array);
-     }
+    }
 
-    
     public boolean isNotRegularAscii(char c)
     {
         byte hi = (byte) (c >>> 8);
-        
+
         /*
-        if (debug_write)
-        {
-            //Character cc = new Character(c);
-            
-            System.out.println("Char: " + c);
-            
-            System.out.println("Is Letter: " + Character.isLetter(c));
-            System.out.println("Get Numeric: " + Character.getNumericValue(c));
-            
-            
-            System.out.println("Hi: " + hi + " Is not reg: " + (hi!=0) + "\n");
-            System.out.println("Returned: " + ((Character.getNumericValue(c)==-1) && Character.isLetter(c)));
-        }*/
-        
-        return (hi!=0) || ((Character.getNumericValue(c)==-1) && Character.isLetter(c));
+         * if (debug_write)
+         * {
+         * //Character cc = new Character(c);
+         * System.out.println("Char: " + c);
+         * System.out.println("Is Letter: " + Character.isLetter(c));
+         * System.out.println("Get Numeric: " + Character.getNumericValue(c));
+         * System.out.println("Hi: " + hi + " Is not reg: " + (hi!=0) + "\n");
+         * System.out.println("Returned: " + ((Character.getNumericValue(c)==-1)
+         * && Character.isLetter(c)));
+         * }
+         */
+
+        return hi != 0 || Character.getNumericValue(c) == -1 && Character.isLetter(c);
     }
-    
-    public String charToHex(char c) 
+
+    public String charToHex(char c)
     {
         // Returns hex String representation of char c
         byte hi = (byte) (c >>> 8);
         byte lo = (byte) (c & 0xff);
         return byteToHex(hi) + byteToHex(lo);
-     }
-    
+    }
 
-    
     /*
-    private String decode_v2(String str)
-    {
-    
-    byte[] b = str.getBytes();
-    Charset def = Charset.defaultCharset(); //  default encoding 
-    Charset cs = Charset.forName( "ASCII"); // encoding 
-    ByteBuffer bb = ByteBuffer.wrap( b );
-    CharBuffer cb = cs.decode( bb );
-    String s = cb.toString();
-    return s;
-    }
-    
-    private String decode_v1( String str )
-    {
-        System.out.println(str);
-        byte[] input = str.getBytes();
-    char[] output = new char[input.length];
-    // index input[]
-    int i = 0;
-    // index output[]
-    int j = 0;
-    while ( i < input.length )
-        {
-        // get next byte unsigned
-        int b = input[ i++ ] & 0xff;
-        // classify based on the high order 3 bits
-        switch ( b >>> 5 )
-            {
-            default:
-                // one byte encoding
-                // 0xxxxxxx
-                // use just low order 7 bits
-                // 00000000 0xxxxxxx
-                output[ j++ ] = ( char ) ( b & 0x7f );
-                break;
-            case 6:
-                // two byte encoding
-                // 110yyyyy 10xxxxxx
-                // use low order 6 bits
-                int y = b & 0x1f;
-                // use low order 6 bits of the next byte
-                // It should have high order bits 10, which we don't check.
-                int x = input[ i++ ] & 0x3f;
-                // 00000yyy yyxxxxxx
-                output[ j++ ] = ( char ) ( y << 6 | x );
-                break;
-            case 7:
-                // three byte encoding
-                // 1110zzzz 10yyyyyy 10xxxxxx
-                assert ( b & 0x10 )
-                       == 0 : "UTF8Decoder does not handle 32-bit characters";
-                // use low order 4 bits
-                int z = b & 0x0f;
-                // use low order 6 bits of the next byte
-                // It should have high order bits 10, which we don't check.
-                y = input[ i++ ] & 0x3f;
-                // use low order 6 bits of the next byte
-                // It should have high order bits 10, which we don't check.
-                x = input[ i++ ] & 0x3f;
-                // zzzzyyyy yyxxxxxx
-                int asint = ( z << 12 | y << 6 | x );
-                output[ j++ ] = ( char ) asint;
-                break;
-            }// end switch
-        }// end while
-    return new String( output, 0
-    // offset 
-     , j
-     // count  
-      );
-      
-    }
-    */
-    
-    
-    
-    
-    
-    
+     * private String decode_v2(String str)
+     * {
+     * byte[] b = str.getBytes();
+     * Charset def = Charset.defaultCharset(); // default encoding
+     * Charset cs = Charset.forName( "ASCII"); // encoding
+     * ByteBuffer bb = ByteBuffer.wrap( b );
+     * CharBuffer cb = cs.decode( bb );
+     * String s = cb.toString();
+     * return s;
+     * }
+     * private String decode_v1( String str )
+     * {
+     * System.out.println(str);
+     * byte[] input = str.getBytes();
+     * char[] output = new char[input.length];
+     * // index input[]
+     * int i = 0;
+     * // index output[]
+     * int j = 0;
+     * while ( i < input.length )
+     * {
+     * // get next byte unsigned
+     * int b = input[ i++ ] & 0xff;
+     * // classify based on the high order 3 bits
+     * switch ( b >>> 5 )
+     * {
+     * default:
+     * // one byte encoding
+     * // 0xxxxxxx
+     * // use just low order 7 bits
+     * // 00000000 0xxxxxxx
+     * output[ j++ ] = ( char ) ( b & 0x7f );
+     * break;
+     * case 6:
+     * // two byte encoding
+     * // 110yyyyy 10xxxxxx
+     * // use low order 6 bits
+     * int y = b & 0x1f;
+     * // use low order 6 bits of the next byte
+     * // It should have high order bits 10, which we don't check.
+     * int x = input[ i++ ] & 0x3f;
+     * // 00000yyy yyxxxxxx
+     * output[ j++ ] = ( char ) ( y << 6 | x );
+     * break;
+     * case 7:
+     * // three byte encoding
+     * // 1110zzzz 10yyyyyy 10xxxxxx
+     * assert ( b & 0x10 )
+     * == 0 : "UTF8Decoder does not handle 32-bit characters";
+     * // use low order 4 bits
+     * int z = b & 0x0f;
+     * // use low order 6 bits of the next byte
+     * // It should have high order bits 10, which we don't check.
+     * y = input[ i++ ] & 0x3f;
+     * // use low order 6 bits of the next byte
+     * // It should have high order bits 10, which we don't check.
+     * x = input[ i++ ] & 0x3f;
+     * // zzzzyyyy yyxxxxxx
+     * int asint = ( z << 12 | y << 6 | x );
+     * output[ j++ ] = ( char ) asint;
+     * break;
+     * }// end switch
+     * }// end while
+     * return new String( output, 0
+     * // offset
+     * , j
+     * // count
+     * );
+     * }
+     */
+
 }

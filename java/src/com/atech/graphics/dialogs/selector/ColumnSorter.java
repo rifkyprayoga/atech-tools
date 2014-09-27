@@ -159,43 +159,44 @@ public class ColumnSorter
             res = l1.compareTo(l2);
         }
         else
+        {
             res = 0;
+        }
 
         /*
-        	if (first.getColumnValueObject(this.sortedColumn) instanceof String)
-        	    //this.columnDefinitions[this.sortedColumn].equals("String"))
-        	{
-        	    res = first.getColumnValue(this.sortedColumn).compareTo(second.getColumnValue(this.sortedColumn));
-        	}
-        	else if (this.columnDefinitions[this.sortedColumn].equals("Integer"))
-        	{
-        	    int f1 = Integer.parseInt(first.getColumnValue(this.sortedColumn));
-        	    int f2 = Integer.parseInt(second.getColumnValue(this.sortedColumn));
-
-        	    if (f1<f2)
-        		return -1;
-        	    else if (f1==f2)
-        		return 0;
-        	    else
-        		return 1;
-
-        	}
-        	else if (this.columnDefinitions[this.sortedColumn].equals("Long"))
-        	{
-        	    long l1 = Long.parseLong(first.getColumnValue(this.sortedColumn));
-        	    long l2 = Long.parseLong(second.getColumnValue(this.sortedColumn));
-
-        	    if (l1<l2)
-        		return -1;
-        	    else if (l1==l2)
-        		return 0;
-        	    else
-        		return 1;
-        	}
-        */
+         * if (first.getColumnValueObject(this.sortedColumn) instanceof String)
+         * //this.columnDefinitions[this.sortedColumn].equals("String"))
+         * {
+         * res =
+         * first.getColumnValue(this.sortedColumn).compareTo(second.getColumnValue
+         * (this.sortedColumn));
+         * }
+         * else if (this.columnDefinitions[this.sortedColumn].equals("Integer"))
+         * {
+         * int f1 = Integer.parseInt(first.getColumnValue(this.sortedColumn));
+         * int f2 = Integer.parseInt(second.getColumnValue(this.sortedColumn));
+         * if (f1<f2)
+         * return -1;
+         * else if (f1==f2)
+         * return 0;
+         * else
+         * return 1;
+         * }
+         * else if (this.columnDefinitions[this.sortedColumn].equals("Long"))
+         * {
+         * long l1 = Long.parseLong(first.getColumnValue(this.sortedColumn));
+         * long l2 = Long.parseLong(second.getColumnValue(this.sortedColumn));
+         * if (l1<l2)
+         * return -1;
+         * else if (l1==l2)
+         * return 0;
+         * else
+         * return 1;
+         * }
+         */
         if (!this.sortedAscending)
         {
-            res = res * (-1);
+            res = res * -1;
         }
 
         return res;

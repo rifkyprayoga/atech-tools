@@ -3,7 +3,6 @@ package com.atech.gui_fw;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Event;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -42,53 +41,44 @@ import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.DataAccessApp;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 
-
-
-
-
-public class MainAppFrame extends JFrame //implements ActionListener
+public class MainAppFrame extends JFrame // implements ActionListener
 {
 
     private static Log log = LogFactory.getLog(MainAppFrame.class);
-    AbstractApplicationContext app_context;    
-    SplashAbstract splash;    
+    AbstractApplicationContext app_context;
+    SplashAbstract splash;
 
-    
     /**
      * Skin Look and Feel
      */
     public static SkinLookAndFeel s_skinlf;
-
 
     /**
      * Developer version 
      */
     public static boolean developer_version = false;
 
-    
     /**
      * Menu Bar
      */
     private JMenuBar menuBar = new JMenuBar();
 
-    
     /**
      * Tool Bars
      */
-    private Hashtable<String,JToolBar> toolbars = null;
-    
-    
-    //private JToolBar toolBar = new JToolBar();
-    //private JToolBar toolbar_pen = new JToolBar();
-    //private JToolBar toolbar_pump = new JToolBar();
+    private Hashtable<String, JToolBar> toolbars = null;
+
+    // private JToolBar toolBar = new JToolBar();
+    // private JToolBar toolbar_pen = new JToolBar();
+    // private JToolBar toolbar_pump = new JToolBar();
 
     private ATDataAccessAbstract m_da = null;
     private static final String skinLFdir = "../data/skinlf_themes/";
     private I18nControlAbstract m_ic = null;
-    
-    
 
-//    private JMenu menu_file, menu_bgs, /*menu_food,*/ menu_doctor, menu_printing, menu_tools, menu_help, /*menu_meters, menu_pumps,*/ menu_data_graphs /*, menu_cgms  , menu_misc */;
+    // private JMenu menu_file, menu_bgs, /*menu_food,*/ menu_doctor,
+    // menu_printing, menu_tools, menu_help, /*menu_meters, menu_pumps,*/
+    // menu_data_graphs /*, menu_cgms , menu_misc */;
 
     private Hashtable<String, JMenu> menus = null;
     private Hashtable<String, GGCAction> actions = null;
@@ -96,28 +86,24 @@ public class MainAppFrame extends JFrame //implements ActionListener
     private Hashtable<String, GGCAction> toolbar_pump_items = null;
     private int current_toolbar = -1;
 
-
     /**
      * Status panels
      */
-//    public StatusBar statusPanel;
-    
+    // public StatusBar statusPanel;
+
     /**
      * Information panels
      */
-//    public InfoPanel informationPanel;
-
-    
+    // public InfoPanel informationPanel;
 
     /**
      * Static definitions (Look and Feel)
      */
     static
     {
-        //MainAppFrame.setLookAndFeel();
+        // MainAppFrame.setLookAndFeel();
     }
 
-    
     /**
      * Set Look & Feel
      * @param data 
@@ -128,7 +114,7 @@ public class MainAppFrame extends JFrame //implements ActionListener
         try
         {
 
-            //String data[] = null; //ATDataAccess.getLFData();
+            // String data[] = null; //ATDataAccess.getLFData();
 
             if (data == null)
                 return;
@@ -168,101 +154,91 @@ public class MainAppFrame extends JFrame //implements ActionListener
         // this is the first chance to call this method after an instance of
         // GGCProperties has been created
         // m_ic.setLanguage();
-        
+
         this.m_da = DataAccessApp.createInstanceWOFrame(app_ctx);
-        
+
         if (app_ctx.hasSplashScreen())
+        {
             app_ctx.initSplashScreen();
-        
+        }
+
         app_ctx.setInternalSplashProgress(1, "APPLICATION_CONTEXT");
         this.app_context = app_ctx;
         this.app_context.setFrame(this);
-        
-        
-        //this.app_context.initDataAccess();
+
+        // this.app_context.initDataAccess();
         this.app_context.setSplashProgress(false, 5, "SET_LOOK_AND_FEEL");
 
         setLookAndFeel(this.app_context.getDataAccess().getDbToolAbstract().getLFData());
-        
+
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
-        
-        
-        
-//        this.setTitle(app_ctx.getTitle());
-        
+
+        // this.setTitle(app_ctx.getTitle());
+
         // System.out.println("MainFrame before creation");
-        //m_da = DataAccess.createInstance(this);
+        // m_da = DataAccess.createInstance(this);
 
-         //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  m_da: " + m_da);
-/*
-        m_ic = m_da.getI18nControlInstance();
-
-        m_da.addComponent(this);
-        
-        m_da.developer_version = developer_version;
-
-        statusPanel = new StatusBar(this);
-
-        this.actions = new Hashtable<String, GGCAction>();
-        MainFrame.developer_version = developer_version;
-
-        
-        String title_full = "GGC - GNU Gluco Control (" + GGC.full_version + ")";
-
-        if (developer_version)
-            title_full += " - Developer edition";
-        
-        setTitle(title_full);
-        
-        
-        setJMenuBar(menuBar);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new CloseListener());
-
-        helpInit();
-
-//        initPlugIns();
-
-        // menu_file, menu_bgs, menu_food, menu_doctor, menu_reports,
-        // menu_tools, menu_help;
-
-        //setTitle("");
-        
-        this.setSoftwareMode();
-  */      
+        // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  m_da: "
+        // + m_da);
+        /*
+         * m_ic = m_da.getI18nControlInstance();
+         * m_da.addComponent(this);
+         * m_da.developer_version = developer_version;
+         * statusPanel = new StatusBar(this);
+         * this.actions = new Hashtable<String, GGCAction>();
+         * MainFrame.developer_version = developer_version;
+         * String title_full = "GGC - GNU Gluco Control (" + GGC.full_version +
+         * ")";
+         * if (developer_version)
+         * title_full += " - Developer edition";
+         * setTitle(title_full);
+         * setJMenuBar(menuBar);
+         * setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+         * addWindowListener(new CloseListener());
+         * helpInit();
+         * // initPlugIns();
+         * // menu_file, menu_bgs, menu_food, menu_doctor, menu_reports,
+         * // menu_tools, menu_help;
+         * //setTitle("");
+         * this.setSoftwareMode();
+         */
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new CloseListener());
-        
+
         this.app_context.setSplashProgress(false, 6, "CREATE_MENUS");
         this.app_context.createMenus();
 
         this.app_context.setSplashProgress(false, 7, "CREATE_TOOLBAR");
         this.app_context.createToolBar();
-        
+
         this.app_context.setSplashProgress(false, 8, "INIT_GUI");
         this.app_context.initAppGUI();
-        
-        this.addComponentListener(new ComponentListener() 
+
+        this.addComponentListener(new ComponentListener()
         {
-            public void componentResized(ComponentEvent e) 
-            {       
-                Dimension d = getSize(); //Rectangle b = getBounds();
-                
+            public void componentResized(ComponentEvent e)
+            {
+                Dimension d = getSize(); // Rectangle b = getBounds();
+
                 if (d.width < app_context.app_min_size.width || d.height < app_context.app_min_size.height)
                 {
                     if (d.width < app_context.app_min_size.width)
+                    {
                         d.width = app_context.app_min_size.width;
-                    
+                    }
+
                     if (d.height < app_context.app_min_size.height)
+                    {
                         d.height = app_context.app_min_size.height;
-                    
+                    }
+
                     setSize(d);
                 }
-                
-                //if getSize()
-                // resize other components, refresh, etc 
+
+                // if getSize()
+                // resize other components, refresh, etc
             }
 
             public void componentMoved(ComponentEvent e)
@@ -276,115 +252,96 @@ public class MainAppFrame extends JFrame //implements ActionListener
             public void componentHidden(ComponentEvent e)
             {
             }
-        }); //        m_da.addObserver(ATDataAccessAbstract.OBSERVABLE_STATUS, this);
-        
+        }); // m_da.addObserver(ATDataAccessAbstract.OBSERVABLE_STATUS, this);
+
         /*
          * addToolBarButtonWithName("view_daily");
          * addToolBarButtonWithName("view_course");
          * addToolBarButtonWithName("view_spread");
          * addToolBarButtonWithName("view_freq"); addToolBarSpacer();
          * addToolBarSpacer();
-         * 
          * addToolBarButtonWithName("view_hba1c"); addToolBarSpacer();
          * addToolBarSpacer(); //addToolBarButtonWithName("view_freq");
-         * 
-         * 
-         * 
          * addToolBarButtonWithName("tools_pref"); addToolBarSpacer();
          * addToolBarSpacer(); addToolBarButtonWithName("hlp_help");
          */
         // this.menu_help.add(GGCHelp.helpItem);
-        
-        //getContentPane().remove(this.toolbars.get("TOOLBAR_PEN"));
-        //getContentPane().remove(this.toolbars.get("TOOLBAR_PUMP")); 
 
-//        getContentPane().add(this.toolbars.get("TOOLBAR_PEN"), BorderLayout.NORTH);
-//        getContentPane().add(statusPanel, BorderLayout.SOUTH);
+        // getContentPane().remove(this.toolbars.get("TOOLBAR_PEN"));
+        // getContentPane().remove(this.toolbars.get("TOOLBAR_PUMP"));
 
-//        m_da.startDb(); //statusPanel);
+        // getContentPane().add(this.toolbars.get("TOOLBAR_PEN"),
+        // BorderLayout.NORTH);
+        // getContentPane().add(statusPanel, BorderLayout.SOUTH);
 
-//        statusPanel.setStatusMessage(m_ic.getMessage("INIT"));
+        // m_da.startDb(); //statusPanel);
+
+        // statusPanel.setStatusMessage(m_ic.getMessage("INIT"));
 
         // Information Portal Setup
-//        informationPanel = new InfoPanel();
-//        getContentPane().add(informationPanel, BorderLayout.CENTER);
+        // informationPanel = new InfoPanel();
+        // getContentPane().add(informationPanel, BorderLayout.CENTER);
 
         // setDbActions(false);
-//        setMenusByDbLoad(StatusBar.DB_STOPPED);
-        
-        
-//        initPlugIns();
-        
-//        m_da.startToObserve();
-        
+        // setMenusByDbLoad(StatusBar.DB_STOPPED);
+
+        // initPlugIns();
+
+        // m_da.startToObserve();
+
         getContentPane().add(this.app_context.getMainPanel(), BorderLayout.CENTER);
-        
+
         this.app_context.setSplashProgress(false, 9, "INIT_APP_SPECIFIC");
         this.app_context.initAppSpecific();
-        
-        if (app_context.app_location==null)
+
+        if (app_context.app_location == null)
         {
-            this.setBounds(0, 50, 800, 600);    
+            this.setBounds(0, 50, 800, 600);
         }
         else
         {
             this.setBounds(this.app_context.app_location.x, this.app_context.app_location.y, 800, 600);
         }
-            
-        
-        
-        
+
         this.setSize(this.app_context.getInitialSize());
 
         if (app_ctx.hasSplashScreen())
+        {
             app_ctx.disposeSplashScreen();
+        }
 
-//        this.setTitle(app_ctx.getTitle());
-        
-        
+        // this.setTitle(app_ctx.getTitle());
+
         this.setVisible(true);
 
     }
 
-    
-    
-    
-    
-    
-    
-/*
-    private void initPlugIns()
-    {
-        // TODO: deprecated
-        m_da.addPlugIn(DataAccess.PLUGIN_METERS, new MetersPlugIn(this, m_ic));
-        // m_da.getPlugIn(DataAccess.PLUGIN_METERS).checkIfInstalled();
+    /*
+     * private void initPlugIns()
+     * {
+     * // TODO: deprecated
+     * m_da.addPlugIn(DataAccess.PLUGIN_METERS, new MetersPlugIn(this, m_ic));
+     * // m_da.getPlugIn(DataAccess.PLUGIN_METERS).checkIfInstalled();
+     * m_da.addPlugIn(DataAccess.PLUGIN_PUMPS, new PumpsPlugIn(this, m_ic));
+     * // m_da.getPlugIn(DataAccess.PLUGIN_PUMPS).checkIfInstalled();
+     * m_da.addPlugIn(DataAccess.PLUGIN_CGMS, new CGMSPlugIn(this, m_ic));
+     * // m_da.getPlugIn(DataAccess.PLUGIN_CGMS).checkIfInstalled();
+     * }
+     */
 
-        m_da.addPlugIn(DataAccess.PLUGIN_PUMPS, new PumpsPlugIn(this, m_ic));
-        // m_da.getPlugIn(DataAccess.PLUGIN_PUMPS).checkIfInstalled();
-
-        m_da.addPlugIn(DataAccess.PLUGIN_CGMS, new CGMSPlugIn(this, m_ic));
-        // m_da.getPlugIn(DataAccess.PLUGIN_CGMS).checkIfInstalled();
-    }
-*/
-    
-    
-    
-    
-    
-    
-    
     private void helpInit()
     {
-//        HelpContext hc = new HelpContext("../data/help/GGC.hs");
-//        m_da.setHelpContext(hc);
+        // HelpContext hc = new HelpContext("../data/help/GGC.hs");
+        // m_da.setHelpContext(hc);
         boolean help_debug = true;
-        
+
         if (help_debug)
+        {
             System.out.println("Help Init");
-        
+        }
+
         HelpContext hc = m_da.getHelpContext();
-        
-        
+
         JMenuItem helpItem = new JMenuItem(m_ic.getMessage("HELP") + "...");
         helpItem.setIcon(new ImageIcon(getClass().getResource("/icons/help.gif")));
         hc.setHelpItem(helpItem);
@@ -399,7 +356,9 @@ public class MainAppFrame extends JFrame //implements ActionListener
         {
 
             if (help_debug)
+            {
                 System.out.println("Help init broker");
+            }
 
             HelpSet main_help_set = null;
             // HelpContext.mainHelpSet = null;
@@ -414,9 +373,13 @@ public class MainAppFrame extends JFrame //implements ActionListener
                 URL hsURL = new URL(help_url);
 
                 if (hsURL == null)
+                {
                     System.out.println("HelpSet " + help_url + " not found.");
+                }
                 else
+                {
                     main_help_set = new HelpSet(null, hsURL);
+                }
             }
             catch (HelpSetException ee)
             {
@@ -461,8 +424,6 @@ public class MainAppFrame extends JFrame //implements ActionListener
 
     }
 
-    
-
     private JMenu createMenu(String name, String tool_tip)
     {
         JMenu item = new JMenu(m_ic.getMessageWithoutMnemonic(name));
@@ -495,7 +456,6 @@ public class MainAppFrame extends JFrame //implements ActionListener
         return item;
     }
 
-    
     /**
      * ToolBar: Pen/Injection
      */
@@ -507,47 +467,40 @@ public class MainAppFrame extends JFrame //implements ActionListener
     public static final int TOOLBAR_PUMP = 2;
 
     /*
-    private void createToolbarAction(String name, String tip, String action_command, String icon_small, int toolbar_id)
-    {
-        GGCAction action = new GGCAction(name, tip, action_command);
+     * private void createToolbarAction(String name, String tip, String
+     * action_command, String icon_small, int toolbar_id)
+     * {
+     * GGCAction action = new GGCAction(name, tip, action_command);
+     * if (icon_small != null)
+     * {
+     * action.putValue(Action.SMALL_ICON, m_da.getImageIcon(icon_small, 24, 24,
+     * this));
+     * }
+     * if (toolbar_id == MainFrame.TOOLBAR_PEN_INJECTION)
+     * this.toolbar_pen_items.put(action_command, action);
+     * else
+     * this.toolbar_pump_items.put(action_command, action);
+     * addToolBarButton(action, toolbar_id);
+     * }
+     * private void createAction(JMenu menu, String name, String tip, String
+     * action_command, String icon_small)
+     * {
+     * GGCAction action = new GGCAction(name, tip, action_command);
+     * if (icon_small != null)
+     * {
+     * action.putValue(Action.SMALL_ICON, m_da.getImageIcon(icon_small, 15, 15,
+     * this));
+     * // new ImageIcon(getClass().getResource("/icons/" + icon_small)));
+     * // action.putValue(Action.LARGE_ICON_KEY, new
+     * // ImageIcon(getClass().getResource("/icons/" + icon_small)));
+     * }
+     * if (menu != null)
+     * menu.add(action);
+     * this.actions.put(action_command, action);
+     * // return action;
+     * }
+     */
 
-        if (icon_small != null)
-        {
-            action.putValue(Action.SMALL_ICON, m_da.getImageIcon(icon_small, 24, 24, this));
-        }
-
-        
-        if (toolbar_id == MainFrame.TOOLBAR_PEN_INJECTION)
-            this.toolbar_pen_items.put(action_command, action);
-        else
-            this.toolbar_pump_items.put(action_command, action);
-
-        addToolBarButton(action, toolbar_id);
-
-    }
-
-    private void createAction(JMenu menu, String name, String tip, String action_command, String icon_small)
-    {
-        GGCAction action = new GGCAction(name, tip, action_command);
-
-        if (icon_small != null)
-        {
-            action.putValue(Action.SMALL_ICON, m_da.getImageIcon(icon_small, 15, 15, this));
-            // new ImageIcon(getClass().getResource("/icons/" + icon_small)));
-            // action.putValue(Action.LARGE_ICON_KEY, new
-            // ImageIcon(getClass().getResource("/icons/" + icon_small)));
-        }
-
-        if (menu != null)
-            menu.add(action);
-
-        this.actions.put(action_command, action);
-
-        // return action;
-    }
-*/
-
-    
     private void setToolBarItemEnabled(String item_name, boolean enabled)
     {
         if (this.toolbar_pump_items.containsKey(item_name))
@@ -559,50 +512,39 @@ public class MainAppFrame extends JFrame //implements ActionListener
         {
             this.toolbar_pen_items.get(item_name).setEnabled(enabled);
         }
-        
+
     }
-    
-    
-    
 
     // System.out.println("FIIIIIIIIIIIIIIIIIIIIIIXXXX this");
     // }
     public void close()
     {
-/*
-        if (m_da != null)
-        {
-            if (m_da.getDb() != null)
-                m_da.getDb().closeDb();
-
-            DataAccess.deleteInstance();
-        }
-*/
+        /*
+         * if (m_da != null)
+         * {
+         * if (m_da.getDb() != null)
+         * m_da.getDb().closeDb();
+         * DataAccess.deleteInstance();
+         * }
+         */
         dispose();
         System.exit(0);
     }
 
-    
-    
-    
-/*
-    private JButton addToolBarButton(Action action, int toolbar_id)
-    {
-        final JButton button;        
-
-        if (toolbar_id == MainFrame.TOOLBAR_PEN_INJECTION)
-            button = this.toolbars.get("TOOLBAR_PEN").add(action);
-        else
-            button = this.toolbars.get("TOOLBAR_PUMP").add(action);
-
-        button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(28, 28));
-
-        return button;
-    }
-*/
-    
+    /*
+     * private JButton addToolBarButton(Action action, int toolbar_id)
+     * {
+     * final JButton button;
+     * if (toolbar_id == MainFrame.TOOLBAR_PEN_INJECTION)
+     * button = this.toolbars.get("TOOLBAR_PEN").add(action);
+     * else
+     * button = this.toolbars.get("TOOLBAR_PUMP").add(action);
+     * button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+     * button.setFocusPainted(false);
+     * button.setPreferredSize(new Dimension(28, 28));
+     * return button;
+     * }
+     */
 
     class GGCAction extends AbstractAction
     {
@@ -630,7 +572,9 @@ public class MainAppFrame extends JFrame //implements ActionListener
             }
 
             if (command != null)
+            {
                 putValue(ACTION_COMMAND_KEY, command);
+            }
 
             command = name;
         }
@@ -661,10 +605,14 @@ public class MainAppFrame extends JFrame //implements ActionListener
             }
 
             if (tooltip != null)
+            {
                 putValue(SHORT_DESCRIPTION, m_ic.getMessage(tooltip));
+            }
 
             if (command != null)
+            {
                 putValue(ACTION_COMMAND_KEY, command);
+            }
         }
 
         public String getName()
@@ -674,7 +622,6 @@ public class MainAppFrame extends JFrame //implements ActionListener
 
         public void actionPerformed(ActionEvent e)
         {
-
 
         }
     }
@@ -691,7 +638,6 @@ public class MainAppFrame extends JFrame //implements ActionListener
 
     }
 
-    
     private void featureNotImplementedDescription(String desc, String version)
     {
         String text = m_ic.getMessage("FEATURE");
@@ -703,8 +649,7 @@ public class MainAppFrame extends JFrame //implements ActionListener
         JOptionPane.showMessageDialog(this, text, m_ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
 
     }
-    
-    
+
     private class CloseListener extends WindowAdapter
     {
         @Override
@@ -714,7 +659,6 @@ public class MainAppFrame extends JFrame //implements ActionListener
         }
     }
 
-    
     /**
      * To String
      * 
@@ -726,23 +670,16 @@ public class MainAppFrame extends JFrame //implements ActionListener
         return "MainFrame";
     }
 
-    
     boolean title_set = false;
 
     public void actionPerformed(ActionEvent e)
     {
-        
-        
-        
-    }
-    
 
-    
+    }
+
     public SplashAbstract getSplash()
     {
-        return this.splash; 
+        return this.splash;
     }
 
-    
-    
 }

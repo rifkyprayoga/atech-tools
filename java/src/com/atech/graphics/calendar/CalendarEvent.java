@@ -3,8 +3,6 @@ package com.atech.graphics.calendar;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -35,24 +33,23 @@ import java.util.GregorianCalendar;
  *  Author:   Andy
  */
 
-
 public class CalendarEvent
 {
     /**
      * Calendar Event: Day
      */
     public static final int DAY_CHANGED = 101;
-    
+
     /**
      * Calendar Event: Month
      */
     public static final int MONTH_CHANGED = 102;
-    
+
     /**
      * Calendar Event: Year
      */
     public static final int YEAR_CHANGED = 103;
-    
+
     /**
      * Calendar Event: Date
      */

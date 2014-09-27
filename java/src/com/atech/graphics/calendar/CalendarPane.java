@@ -46,7 +46,6 @@ import com.atech.utils.ATDataAccessAbstract;
  *
 */
 
-
 public class CalendarPane extends JPanel
 {
     /**
@@ -56,7 +55,7 @@ public class CalendarPane extends JPanel
     private MonthPanel mPanel;
     private YearPanel yPanel;
     private DayPanel dPanel;
-    
+
     ATDataAccessAbstract m_da;
 
     CalendarModel cModel;
@@ -74,7 +73,7 @@ public class CalendarPane extends JPanel
         this.m_da = da;
 
         //
-        //this.setLayout(null);
+        // this.setLayout(null);
 
         mPanel = new MonthPanel(cModel, da);
         yPanel = new YearPanel(cModel, da);
@@ -82,21 +81,18 @@ public class CalendarPane extends JPanel
         setLayout(new BorderLayout());
 
         /*
-        JPanel pan_upper = new JPanel();
-        pan_upper.setLayout(null);
-        pan_upper.setBounds(20, 20, 300, 35);
-        
-        mPanel.setBounds(20, 0, 100, 25);
-        pan_upper.add(mPanel);
-        
-        yPanel.setBounds(140, 0, 80, 25);
-        pan_upper.add(yPanel);
-        */
-        
+         * JPanel pan_upper = new JPanel();
+         * pan_upper.setLayout(null);
+         * pan_upper.setBounds(20, 20, 300, 35);
+         * mPanel.setBounds(20, 0, 100, 25);
+         * pan_upper.add(mPanel);
+         * yPanel.setBounds(140, 0, 80, 25);
+         * pan_upper.add(yPanel);
+         */
+
         Box a = Box.createHorizontalBox();
-        
-       
-        //a.setBounds(10, 10, 120, 30);
+
+        // a.setBounds(10, 10, 120, 30);
 
         a.add(mPanel);
         a.add(Box.createRigidArea(new Dimension(20, 30)));
@@ -104,8 +100,8 @@ public class CalendarPane extends JPanel
 
         add(a, BorderLayout.NORTH);
 
-//        add(pan_upper, BorderLayout.NORTH);
-        
+        // add(pan_upper, BorderLayout.NORTH);
+
         dPanel = new DayPanel(cModel, da);
         add(dPanel, BorderLayout.CENTER);
 
@@ -113,7 +109,7 @@ public class CalendarPane extends JPanel
         this.addCalendarListener(mPanel);
         this.addCalendarListener(yPanel);
 
-        //setBounds(10, 10, 200, 200);
+        // setBounds(10, 10, 200, 200);
     }
 
     /**
@@ -153,8 +149,10 @@ public class CalendarPane extends JPanel
      */
     public void notifyListeners(int event)
     {
-        //System.out.println("notifyListeners: " + cModel.getYear() + " " + cModel.getMonth()+ " " + cModel.getDay());
-        notifyListeners(new CalendarEvent(new GregorianCalendar(cModel.getYear(), cModel.getMonth(), cModel.getDay()), event));
+        // System.out.println("notifyListeners: " + cModel.getYear() + " " +
+        // cModel.getMonth()+ " " + cModel.getDay());
+        notifyListeners(new CalendarEvent(new GregorianCalendar(cModel.getYear(), cModel.getMonth(), cModel.getDay()),
+                event));
     }
 
     /**
@@ -164,7 +162,7 @@ public class CalendarPane extends JPanel
      */
     public void notifyListeners(CalendarEvent e)
     {
-        for (int i = 0; i < listeners.size(); i++) 
+        for (int i = 0; i < listeners.size(); i++)
         {
             CalendarListener l = listeners.elementAt(i);
             l.dateHasChanged(e);

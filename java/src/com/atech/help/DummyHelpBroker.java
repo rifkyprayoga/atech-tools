@@ -20,9 +20,9 @@ import javax.help.DefaultHelpBroker;
 import javax.help.HelpSet;
 import javax.help.InvalidHelpSetContextException;
 import javax.help.MainWindow;
+import javax.help.Map.ID;
 import javax.help.Presentation;
 import javax.help.WindowPresentation;
-import javax.help.Map.ID;
 import javax.swing.AbstractButton;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
@@ -89,6 +89,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * 
      * @returns the window presentation for this object
      */
+    @Override
     public WindowPresentation getWindowPresentation()
     {
         return mw;
@@ -97,6 +98,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Returns the default HelpSet
      */
+    @Override
     public HelpSet getHelpSet()
     {
         return mw.getHelpSet();
@@ -109,6 +111,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *            The HelpSet to set for this broker. A null hs is valid
      *            parameter.
      */
+    @Override
     public void setHelpSet(HelpSet hs)
     {
         debug("setHelpSet");
@@ -123,6 +126,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *            The HelpSet.Presentation
      * @since 2.0
      */
+    @Override
     public void setHelpSetPresentation(HelpSet.Presentation hsPres)
     {
         debug("setHelpSetPresentation");
@@ -136,6 +140,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *         locale, the defaultLocale is returned.
      * @see #setLocale
      */
+    @Override
     public Locale getLocale()
     {
         return mw.getLocale();
@@ -150,6 +155,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *            the same as the defaultLocale.
      * @see #getLocale
      */
+    @Override
     public void setLocale(Locale l)
     {
         mw.setLocale(l);
@@ -158,6 +164,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Gets the font for this HelpBroker.
      */
+    @Override
     public Font getFont()
     {
         return mw.getFont();
@@ -169,6 +176,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @param f
      *            The font.
      */
+    @Override
     public void setFont(Font f)
     {
         mw.setFont(f);
@@ -185,6 +193,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @throws IllegalArgumentException
      *             if nav is null or not a valid Navigator.
      */
+    @Override
     public void setCurrentView(String name)
     {
         mw.setCurrentView(name);
@@ -193,6 +202,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Determines the current navigator.
      */
+    @Override
     public String getCurrentView()
     {
         return mw.getCurrentView();
@@ -203,6 +213,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * initialized but not displayed. Typically this would be done in a separate
      * thread to reduce the intialization time.
      */
+    @Override
     public void initPresentation()
     {
         mw.createHelpWindow();
@@ -211,6 +222,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Displays the presentation to the user.
      */
+    @Override
     public void setDisplayed(boolean b)
     {
         debug("displayHelp: " + b);
@@ -220,6 +232,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Determines if the presentation is displayed.
      */
+    @Override
     public boolean isDisplayed()
     {
         return mw.isDisplayed();
@@ -228,6 +241,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Requests the presentation be located at a given position.
      */
+    @Override
     public void setLocation(Point p)
     {
         mw.setLocation(p);
@@ -238,6 +252,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * 
      * @returns Point the location of the presentation.
      */
+    @Override
     public Point getLocation()
     {
         return mw.getLocation();
@@ -246,6 +261,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Requests the presentation be set to a given size.
      */
+    @Override
     public void setSize(Dimension d)
     {
         mw.setSize(d);
@@ -256,6 +272,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * 
      * @returns Point the location of the presentation.
      */
+    @Override
     public Dimension getSize() throws javax.help.UnsupportedOperationException
     {
         return mw.getSize();
@@ -264,6 +281,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Hides/Shows view.
      */
+    @Override
     public void setViewDisplayed(boolean displayed)
     {
         mw.setViewDisplayed(displayed);
@@ -272,6 +290,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Determines if the current view is visible.
      */
+    @Override
     public boolean isViewDisplayed()
     {
         return mw.isViewDisplayed();
@@ -295,6 +314,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *                if presentation is not valid
      * @see Presentation
      */
+    @Override
     public void showID(String id, String presentation, String presentationName) throws BadIDException
     {
         debug("showID - string");
@@ -321,6 +341,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *                if the current helpset does not contain id.helpset
      * @see Presentation
      */
+    @Override
     public void showID(ID id, String presentation, String presentationName) throws InvalidHelpSetContextException
     {
         debug("showID - ID");
@@ -339,9 +360,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
         HelpSet hs = mw.getHelpSet();
         // should never happen, but...
         if (hs == null)
-        {
             return null;
-        }
         ClassLoader loader;
         Class<?> klass;
         Class<?> types[] = { HelpSet.class, String.class };
@@ -370,15 +389,11 @@ public class DummyHelpBroker extends DefaultHelpBroker
         }
 
         if (pres == null)
-        {
             return null;
-        }
 
         // It is not possible to call this method for Popup
         if (pres instanceof javax.help.Popup)
-        {
             return null;
-        }
 
         return pres;
     }
@@ -393,6 +408,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @exception BadIDException
      *                The ID is not valid for the HelpSet
      */
+    @Override
     public void setCurrentID(String id) throws BadIDException
     {
         try
@@ -414,6 +430,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @exception InvalidHelpSetContextException
      *                if the current helpset does not contain id.helpset
      */
+    @Override
     public void setCurrentID(ID id) throws InvalidHelpSetContextException
     {
         // id.id
@@ -433,6 +450,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Determines which ID is displayed (if any).
      */
+    @Override
     public ID getCurrentID()
     {
         return mw.getCurrentID();
@@ -445,6 +463,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @param url
      *            The url to display. A null URL is a valid url.
      */
+    @Override
     public void setCurrentURL(URL url)
     {
         debug("setCurrentURL");
@@ -454,6 +473,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Determines which URL is displayed.
      */
+    @Override
     public URL getCurrentURL()
     {
         return mw.getCurrentURL();
@@ -477,6 +497,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *            the default HelpSet to be displayed. If hs is null the default
      *            HelpSet will be assumed.
      */
+    @Override
     public void enableHelpKey(Component comp, String id, HelpSet hs)
     {
         enableHelpKey(comp, id, hs, null, null);
@@ -511,16 +532,13 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @throws IllegalArgumentException
      *             if presentation != null and hs == null
      */
+    @Override
     public void enableHelpKey(Component comp, String id, HelpSet hs, String presentation, String presentationName)
     {
         if (id == null)
-        {
             throw new NullPointerException("id");
-        }
         if (presentation != null && hs == null)
-        {
             throw new IllegalArgumentException("hs");
-        }
         CSH.setHelpIDString(comp, id);
         if (hs != null)
         {
@@ -556,6 +574,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * Invoked when a key is typed. This event occurs when a key press is
      * followed by a key release. Not intended to be overridden or extended.
      */
+    @Override
     public void keyTyped(KeyEvent e)
     {
         // ignore
@@ -564,6 +583,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Invoked when a key is pressed. Not intended to be overridden or extended.
      */
+    @Override
     public void keyPressed(KeyEvent e)
     {
         // ingore
@@ -573,6 +593,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * Invoked when a key is released. Not intended to be overridden or
      * extended.
      */
+    @Override
     public void keyReleased(KeyEvent e)
     {
         // simulate what is done in JComponents registerKeyboardActions.
@@ -605,12 +626,11 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *            the HelpSet the id is in. If hs is null the default HelpSet
      *            will be assumed.
      */
+    @Override
     public void enableHelp(Component comp, String id, HelpSet hs)
     {
         if (id == null)
-        {
             throw new NullPointerException("id");
-        }
         CSH.setHelpIDString(comp, id);
         if (hs != null)
         {
@@ -630,12 +650,11 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *            the HelpSet the id is in. If hs is null the default HelpSet
      *            will be assumed.
      */
+    @Override
     public void enableHelp(MenuItem comp, String id, HelpSet hs)
     {
         if (id == null)
-        {
             throw new NullPointerException("id");
-        }
         CSH.setHelpIDString(comp, id);
         if (hs != null)
         {
@@ -663,16 +682,13 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @throws IllegalArgumentException
      *             if comp is null.
      */
+    @Override
     public void enableHelpOnButton(Component comp, String id, HelpSet hs)
     {
         if (!(comp instanceof AbstractButton) && !(comp instanceof Button))
-        {
             throw new IllegalArgumentException("Invalid Component");
-        }
         if (id == null)
-        {
             throw new NullPointerException("id");
-        }
         CSH.setHelpIDString(comp, id);
         if (hs != null)
         {
@@ -707,16 +723,13 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @throws IllegalArgumentException
      *             if comp is null.
      */
+    @Override
     public void enableHelpOnButton(MenuItem comp, String id, HelpSet hs)
     {
         if (comp == null)
-        {
             throw new IllegalArgumentException("Invalid Component");
-        }
         if (id == null)
-        {
             throw new NullPointerException("id");
-        }
         CSH.setHelpIDString(comp, id);
         if (hs != null)
         {
@@ -745,16 +758,13 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @throws IllegalArgumentException
      *             if comp is null.
      */
+    @Override
     public void enableHelpOnButton(Object obj, String id, HelpSet hs, String presentation, String presentationName)
     {
         if (!(obj instanceof AbstractButton) && !(obj instanceof Button) && !(obj instanceof MenuItem))
-        {
             throw new IllegalArgumentException("Invalid Object");
-        }
         if (id == null)
-        {
             throw new NullPointerException("id");
-        }
 
         if (obj instanceof AbstractButton || obj instanceof Button)
         {
@@ -815,6 +825,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Returns the default DisplayHelpFromFocus listener.
      */
+    @Override
     protected ActionListener getDisplayHelpFromFocus()
     {
         if (displayHelpFromFocus == null)
@@ -827,6 +838,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
     /**
      * Returns the default DisplayHelpFromSource listener.
      */
+    @Override
     protected ActionListener getDisplayHelpFromSource()
     {
         if (displayHelpFromSource == null)
@@ -849,6 +861,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      * @since 1.1
      * 
      */
+    @Override
     public void setActivationObject(Object comp)
     {
         mw.setActivationObject(comp);
@@ -864,6 +877,7 @@ public class DummyHelpBroker extends DefaultHelpBroker
      *            the activating window
      * @since 1.1
      */
+    @Override
     public void setActivationWindow(Window window)
     {
         mw.setActivationWindow(window);

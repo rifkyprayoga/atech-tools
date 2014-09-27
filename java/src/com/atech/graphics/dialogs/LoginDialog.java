@@ -50,26 +50,24 @@ import com.atech.utils.ATSwingUtils;
  *
 */
 
-
 public class LoginDialog extends JDialog implements ActionListener, HelpCapable
 {
 
     private static final long serialVersionUID = 2723627844126175317L;
     ATDataAccessAbstract m_da = null;
-    I18nControlAbstract ic = null; 
+    I18nControlAbstract ic = null;
 
-    JPasswordField pf_password; //passwordField1;
-    JTextField tf_username; //, pf_password;  // textField1, 
-    
+    JPasswordField pf_password; // passwordField1;
+    JTextField tf_username; // , pf_password; // textField1,
 
-    JPanel panel; //, panel_2;
-    JLabel label; //, label_parish, label_pperson;
+    JPanel panel; // , panel_2;
+    JLabel label; // , label_parish, label_pperson;
 
     int last_event = 0; // no event
 
     JButton help_button;
     int tries_left = 0;
-    AbstractApplicationContext app_ctx; 
+    AbstractApplicationContext app_ctx;
 
     /**
      * Constructor
@@ -84,16 +82,15 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         this.app_ctx = aac;
         m_da = da;
         this.ic = da.getI18nControlInstance();
-        
+
         String ev = "";
         ev = ic.getMessage("LOGIN");
         this.setTitle(ev);
 
         System.out.println("Login 0.1 ");
 
-
         this.m_da.addComponent(this);
-        
+
         this.setResizable(false);
         // this.setBounds(130, 50, 200, 200);
         this.setBounds(200, 140, 375, 270);
@@ -104,10 +101,9 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         this.setVisible(true);
     }
 
-    
     private void cmdLogin()
     {
-        if (m_da.getUser()!=null)
+        if (m_da.getUser() != null)
             return;
 
         ATSwingUtils.initLibrary();
@@ -118,32 +114,27 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         this.getContentPane().add(panel);
 
         ATSwingUtils.getTitleLabel(ic.getMessage("FILE_LOGIN"), 0, 25, 400, 32, panel, ATSwingUtils.FONT_BIG_BOLD);
-        
-        
+
         ATSwingUtils.getLabel(ic.getMessage("USERNAME") + ": ", 40, 85, 140, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         this.tf_username = ATSwingUtils.getTextField("", 160, 85, 160, 25, panel);
-        
+
         ATSwingUtils.getLabel(ic.getMessage("PASSWORD") + ": ", 40, 120, 140, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         this.pf_password = new JPasswordField(); // password
         this.pf_password.setBounds(160, 120, 160, 25);
-        panel.add(this.pf_password); //, ZeroLayout.STATIC);
+        panel.add(this.pf_password); // , ZeroLayout.STATIC);
 
         // login bug on linux (JPassword field is not focused on linux)
         if (System.getProperty("os.name").equals("Linux"))
         {
             this.pf_password.enableInputMethods(true);
         }
-        
-        ATSwingUtils.getButton("  " + ic.getMessage("OK"), 
-                                40, 180, 110, 30, 
-                                panel, ATSwingUtils.FONT_NORMAL, 
-                                "ok.png", "ok", this, m_da);
 
-        ATSwingUtils.getButton("  " + ic.getMessage("CANCEL"), 
-                                160, 180, 110, 30, 
-                                panel, ATSwingUtils.FONT_NORMAL, 
-                                "cancel.png", "cancel", this, m_da);
-        
+        ATSwingUtils.getButton("  " + ic.getMessage("OK"), 40, 180, 110, 30, panel, ATSwingUtils.FONT_NORMAL, "ok.png",
+            "ok", this, m_da);
+
+        ATSwingUtils.getButton("  " + ic.getMessage("CANCEL"), 160, 180, 110, 30, panel, ATSwingUtils.FONT_NORMAL,
+            "cancel.png", "cancel", this, m_da);
+
         help_button = m_da.createHelpIconByBounds(280, 180, 50, 30, panel, ATSwingUtils.FONT_NORMAL);
         panel.add(help_button);
 
@@ -167,8 +158,8 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
 
                 if (this.m_da.isDemoVersion())
                 {
-                    JOptionPane.showMessageDialog(this.m_da.getCurrentComponent(),
-                        m_da.getI18nControlInstance().getMessage("DEMO_LOGIN"), m_da.getI18nControlInstance().getMessage("DEMO_WARNING"),
+                    JOptionPane.showMessageDialog(this.m_da.getCurrentComponent(), m_da.getI18nControlInstance()
+                            .getMessage("DEMO_LOGIN"), m_da.getI18nControlInstance().getMessage("DEMO_WARNING"),
                         JOptionPane.INFORMATION_MESSAGE);
 
                 }
@@ -186,20 +177,18 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
          * else if (action.equals("help")) { this.dispose(); }
          */
         else
+        {
             System.out.println("LoginDialog:Unknown command: " + action);
+        }
 
     }
 
-    
     @SuppressWarnings("deprecation")
     private boolean doLogin()
     {
-        
-        
-        
-        if ((this.pf_password.getPassword() != null) && 
-            (this.pf_password.getText().length() != 0) && 
-            (this.tf_username.getText().length() != 0))
+
+        if (this.pf_password.getPassword() != null && this.pf_password.getText().length() != 0
+                && this.tf_username.getText().length() != 0)
         {
 
             User us = getUser(this.tf_username.getText());
@@ -215,32 +204,38 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
             {
                 // System.out.println("Us password: " + us.getPassword());
 
-                //String pass = new String(this.pf_password.getPassword());
+                // String pass = new String(this.pf_password.getPassword());
 
-                if (us.getPassword().equals(pf_password.getText())) //;pass))
+                if (us.getPassword().equals(pf_password.getText())) // ;pass))
                 {
                     // LOGIN SUCCESS
                     m_da.setUser(us);
-                    //m_da.processLogin();
+                    // m_da.processLogin();
                     return true;
                 }
                 else
                 {
                     this.tries_left--;
 
-                    if (tries_left==0)
+                    if (tries_left == 0)
                     {
                         // no tries left
-                        JOptionPane.showMessageDialog(this, ic.getMessage("LOGIN_NO_TRIES_LEFT"), ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, ic.getMessage("LOGIN_NO_TRIES_LEFT"),
+                            ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
                         m_da.setUser(null);
-                        if (this.app_ctx!=null)
+                        if (this.app_ctx != null)
+                        {
                             this.app_ctx.quitApplication();
+                        }
                         return false;
                     }
                     else
                     {
                         // WRONG PASSWORD
-                        JOptionPane.showMessageDialog(this, String.format(ic.getMessage("LOGIN_WRONG_PASSWORD_USERNAME_COMBINATION"), "" + this.tries_left), ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(
+                            this,
+                            String.format(ic.getMessage("LOGIN_WRONG_PASSWORD_USERNAME_COMBINATION"), ""
+                                    + this.tries_left), ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
                         m_da.setUser(null);
                         return false;
                     }
@@ -255,7 +250,6 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         }
     }
 
-    
     private User getUser(String username)
     {
         ArrayList<User> all = m_da.getAllUsers();
@@ -263,9 +257,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         for (int i = 0; i < all.size(); i++)
         {
             if (all.get(i).getUsername().equals(username))
-            {
                 return all.get(i);
-            }
             else
             {
                 // System.out.println("User: " + all.get(i).getUsername() +
@@ -275,7 +267,6 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
 
         return null;
     }
-
 
     /**
      * Gets info if action was performed.
@@ -289,7 +280,6 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         else
             return false;
     }
-
 
     /**
      * getComponent - this method returns instance of this component, for
@@ -319,16 +309,12 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
      */
     public String getHelpId()
     {
-        if (this.app_ctx==null)
+        if (this.app_ctx == null)
             return "Application.Login";
         else
             return this.app_ctx.getHelpKeyword("Application.Login", "Application.Login");
     }
 
-    
-    
-    
-    
     /**
      * Logout
      * 
@@ -337,12 +323,9 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
     public static void doLogout(ATDataAccessAbstract da)
     {
         I18nControlAbstract ic = da.getI18nControlInstance();
-        
-        int result = JOptionPane.showConfirmDialog(da.getMainParent(), 
-                                                   ic.getMessage("WANT_LOGOUT"),
-                                                   ic.getMessage("LOGOUT"),
-                                                   JOptionPane.YES_NO_OPTION,
-                                                   JOptionPane.QUESTION_MESSAGE);
+
+        int result = JOptionPane.showConfirmDialog(da.getMainParent(), ic.getMessage("WANT_LOGOUT"),
+            ic.getMessage("LOGOUT"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         switch (result)
         {
             case JOptionPane.CLOSED_OPTION:
@@ -351,14 +334,10 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
                 {
                     da.setUser(null);
                     break;
-                } 
+                }
             case JOptionPane.NO_OPTION:
                 break;
         }
     }
-    
-    
-    
-    
-    
+
 }

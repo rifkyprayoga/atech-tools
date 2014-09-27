@@ -30,32 +30,29 @@ package com.atech.graphics.components;
  *
 */
 
-
 public interface EditablePanel
 {
 
-	/**
-	 * Is Panel Editable. Not all panels need to be editable. If this is set to false
-	 * most of methods don't need to be implemented.
-	 * @return
-	 */
-	public boolean isPanelEditable();
-	
-	
-	/**
-	 * Was data in this panel changed.
-	 * 
-	 * @return true if data changed, false otherwise
-	 */
+    /**
+     * Is Panel Editable. Not all panels need to be editable. If this is set to false
+     * most of methods don't need to be implemented.
+     * @return
+     */
+    public boolean isPanelEditable();
+
+    /**
+     * Was data in this panel changed.
+     * 
+     * @return true if data changed, false otherwise
+     */
     public boolean hasDataChanged();
-    
+
     /**
      * Get type of action
      *  
      * @return int displaying type of action (usually 0 = add, 1 = edit)
      */
     public int getTypeOfAction();
-    
 
     /**
      * Set type of action
@@ -63,18 +60,14 @@ public interface EditablePanel
      * @param action_type displaying type of action (usually 0 = add, 1 = edit)
      */
     public void setTypeOfAction(int action_type);
-    
-    
-    
+
     /**
      * Returns true if action is add action
      * 
      * @return
      */
     public boolean isAddAction();
-    
-    
-    
+
     /**
      * Execute correct warning and action (saveData). This is main method, which calls
      * all other methods. It's implementation should be the same for all classes.
@@ -90,7 +83,7 @@ public interface EditablePanel
      * 
      */
     public void actionWarningAndExecute();
-    
+
     /**
      * Warning if action type is add (this can be empty, depending on what we want user 
      * to see.
@@ -114,8 +107,4 @@ public interface EditablePanel
      */
     public boolean saveData();
 
-
 }
-    
-    
-

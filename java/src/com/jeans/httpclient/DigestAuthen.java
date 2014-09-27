@@ -30,7 +30,6 @@ import java.security.NoSuchAlgorithmException;
  * andyrozman@users.sourceforge.net or andy@atech-software.com
  */
 
-
 /**
  * Used internally to provide HTTP DigestAuthentication as specified in
  * RFC 2617.  There are two limitations to this class currenly.  This
@@ -76,8 +75,14 @@ public class DigestAuthen
         file = f;
 
         algor = "MD5";
-        try { MD = MessageDigest.getInstance("MD5"); }
-        catch(NoSuchAlgorithmException e) { MD = null; }
+        try
+        {
+            MD = MessageDigest.getInstance("MD5");
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            MD = null;
+        }
     }
 
     /**
@@ -98,7 +103,8 @@ public class DigestAuthen
      */
     public void setQop(String q)
     {
-        if(q.toLowerCase().equals("auth-info".toLowerCase())) return;
+        if (q.toLowerCase().equals("auth-info".toLowerCase()))
+            return;
         qop = q;
     }
 
@@ -116,9 +122,18 @@ public class DigestAuthen
     public void setNonce(String n)
     {
         String c;
-        if(nonce == null) ncount = 1;
-        else if(n.compareTo(nonce) != 0) ncount = 1;
-        else ncount++;
+        if (nonce == null)
+        {
+            ncount = 1;
+        }
+        else if (n.compareTo(nonce) != 0)
+        {
+            ncount = 1;
+        }
+        else
+        {
+            ncount++;
+        }
         nonce = n;
         c = Integer.toHexString(ncount);
         count = new String("00000000").substring(c.length()) + c;
@@ -162,13 +177,16 @@ public class DigestAuthen
      */
     public boolean setAlgorithm(String algorithm)
     {
-        if(algorithm == null) algor = "MD5";
-
-        else if(algorithm.toUpperCase().compareTo("MD5") != 0 &&
-             algorithm.toUpperCase().compareTo("MD5-SESS") != 0)
+        if (algorithm == null)
+        {
+            algor = "MD5";
+        }
+        else if (algorithm.toUpperCase().compareTo("MD5") != 0 && algorithm.toUpperCase().compareTo("MD5-SESS") != 0)
             return false;
-
-        else algor = algorithm.toUpperCase();
+        else
+        {
+            algor = algorithm.toUpperCase();
+        }
         return true;
     }
 
@@ -182,9 +200,9 @@ public class DigestAuthen
     public void parseHeader(String header)
     {
         java.util.StringTokenizer ST = new java.util.StringTokenizer(header.trim(), " ");
-        String R = ST.nextToken();      // "Digest"
+        String R = ST.nextToken(); // "Digest"
 
-        while(ST.hasMoreTokens())
+        while (ST.hasMoreTokens())
         {
             R = ST.nextToken(",").trim();
 
@@ -193,20 +211,26 @@ public class DigestAuthen
 
             T.nextToken("\"");
 
-            if(S.compareTo("qop") == 0)
+            if (S.compareTo("qop") == 0)
+            {
                 qop = T.nextToken("\"");
-
-            else if(S.compareTo("nonce") == 0)
+            }
+            else if (S.compareTo("nonce") == 0)
+            {
                 setNonce(T.nextToken("\""));
-
-            else if(S.compareTo("realm") == 0)
+            }
+            else if (S.compareTo("realm") == 0)
+            {
                 realm = T.nextToken("\"");
-
-            else if(S.compareTo("opaque") == 0)
+            }
+            else if (S.compareTo("opaque") == 0)
+            {
                 opaque = T.nextToken("\"");
-
-            else if(S.compareTo("algorithm") == 0)
+            }
+            else if (S.compareTo("algorithm") == 0)
+            {
                 algor = T.nextToken("\"");
+            }
         }
     }
 
@@ -221,34 +245,54 @@ public class DigestAuthen
     {
         String Header = "Digest ";
 
-        if(user != null)
+        if (user != null)
+        {
             Header = Header + "username=\"" + user + "\", ";
+        }
 
-        if(realm != null)
+        if (realm != null)
+        {
             Header = Header + "realm=\"" + realm + "\", ";
+        }
 
-        if(nonce != null)
+        if (nonce != null)
+        {
             Header = Header + "nonce=\"" + nonce + "\", ";
+        }
 
-        if(file != null)
+        if (file != null)
+        {
             Header = Header + "uri=\"" + file + "\", ";
+        }
 
-        if(qop != null)
+        if (qop != null)
+        {
             Header = Header + "qop=\"" + qop + "\", ";
+        }
 
-        if(count != null)
+        if (count != null)
+        {
             Header = Header + "nc=" + count + ", ";
+        }
 
-        if(algor != null)
+        if (algor != null)
+        {
             Header = Header + "algorithm=\"" + algor + "\", ";
+        }
         else
+        {
             Header = Header + "algorithm=\"MD5\", ";
+        }
 
-        if(cnonce != null)
+        if (cnonce != null)
+        {
             Header = Header + "cnonce=\"" + cnonce + "\", ";
+        }
 
-        if(opaque != null)
+        if (opaque != null)
+        {
             Header = Header + "opaque=\"" + opaque + "\", ";
+        }
 
         Header = Header + "response=\"" + Digest() + "\"";
 
@@ -267,20 +311,23 @@ public class DigestAuthen
         String Digest = new String();
         String A1, A2;
 
-        if(user.length() == 0 || pass.length() == 0 || realm.length() == 0 ||
-           file.length() == 0 || nonce.length() == 0 || cnonce.length() == 0 ||
-           method.length() == 0 ) return Digest;
+        if (user.length() == 0 || pass.length() == 0 || realm.length() == 0 || file.length() == 0
+                || nonce.length() == 0 || cnonce.length() == 0 || method.length() == 0)
+            return Digest;
 
         A1 = getA1();
         A2 = getA2();
 
         MD.reset();
 
-        if(qop == null)
+        if (qop == null)
+        {
             Digest = A1 + ":" + nonce + ":" + A2;
+        }
         else
-            Digest = A1 + ":" + nonce + ":" + count + ":" + cnonce + ":" +
-                qop + ":" + A2;
+        {
+            Digest = A1 + ":" + nonce + ":" + count + ":" + cnonce + ":" + qop + ":" + A2;
+        }
 
         MD.update(Digest.getBytes());
 
@@ -307,7 +354,8 @@ public class DigestAuthen
 
         Digest = HexString.convert(MD.digest(), 16);
 
-        if(algor.toLowerCase().compareTo("md5-sess") != 0) return Digest;
+        if (algor.toLowerCase().compareTo("md5-sess") != 0)
+            return Digest;
 
         Digest += ":" + nonce + ":" + cnonce;
 

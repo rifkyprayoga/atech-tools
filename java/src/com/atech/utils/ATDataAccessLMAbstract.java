@@ -48,9 +48,8 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
     private static Log log = LogFactory.getLog(ATDataAccessLMAbstract.class);
 
     protected LanguageManager lang_mgr;
-    protected I18nControlRunner m_icr = null; 
-    
-    
+    protected I18nControlRunner m_icr = null;
+
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
@@ -75,14 +74,9 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
         this.m_icr = icr;
     }
 
-    
-    
     public LanguageManager getLanguageManager()
     {
         return this.lang_mgr;
     }
-    
-     
-    
-    
+
 }

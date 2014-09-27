@@ -1,5 +1,5 @@
 package com.atech.misc.refresh;
- 
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -36,9 +36,9 @@ import java.util.Observer;
 
 public interface EventObserverInterface extends Observer
 {
-    
+
     /** 
      * update
      */
-    public abstract void update (Observable obj, Object arg);
+    public abstract void update(Observable obj, Object arg);
 }

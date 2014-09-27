@@ -21,7 +21,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 1.0 01/11/99
  */
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -52,17 +51,16 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
 */
 
-
 public class CheckNode extends DefaultMutableTreeNode
 {
 
     private static final long serialVersionUID = -1791091492376349349L;
-    
+
     /**
      * The Constant SINGLE_SELECTION.
      */
     public final static int SINGLE_SELECTION = 0;
-    
+
     /**
      * The Constant DIG_IN_SELECTION.
      */
@@ -72,12 +70,12 @@ public class CheckNode extends DefaultMutableTreeNode
      * The selection mode.
      */
     protected int selectionMode;
-    
+
     /**
      * The is selected.
      */
     protected boolean isSelected;
-    
+
     /**
      * The name.
      */
@@ -110,8 +108,7 @@ public class CheckNode extends DefaultMutableTreeNode
      * @param allowsChildren the allows children
      * @param isSelected the is selected
      */
-    public CheckNode(Object userObject, String name, boolean allowsChildren,
-            boolean isSelected)
+    public CheckNode(Object userObject, String name, boolean allowsChildren, boolean isSelected)
     {
         super(userObject, allowsChildren);
         this.isSelected = isSelected;
@@ -127,8 +124,7 @@ public class CheckNode extends DefaultMutableTreeNode
      * @param allowsChildren the allows children
      * @param selection_mode the selection_mode
      */
-    public CheckNode(Object userObject, String name, boolean allowsChildren,
-            int selection_mode)
+    public CheckNode(Object userObject, String name, boolean allowsChildren, int selection_mode)
     {
         super(userObject, allowsChildren);
         this.isSelected = false;
@@ -165,7 +161,7 @@ public class CheckNode extends DefaultMutableTreeNode
     {
         this.isSelected = isSelected;
 
-        if ((selectionMode == DIG_IN_SELECTION) && (children != null))
+        if (selectionMode == DIG_IN_SELECTION && children != null)
         {
             Enumeration<?> en = children.elements();
             while (en.hasMoreElements())
@@ -173,14 +169,13 @@ public class CheckNode extends DefaultMutableTreeNode
                 CheckNode node = (CheckNode) en.nextElement();
                 node.setSelected(isSelected);
             }
-        } 
+        }
         else
         {
 
         }
     }
 
-    
     /**
      * Gets the name.
      * 
@@ -190,7 +185,7 @@ public class CheckNode extends DefaultMutableTreeNode
     {
         return this.name;
     }
-    
+
     /**
      * Checks if is selected.
      * 
@@ -207,12 +202,10 @@ public class CheckNode extends DefaultMutableTreeNode
      * setSelected(((Boolean)obj).booleanValue()); } else {
      * super.setUserObject(obj); } }
      */
-    
-    
+
     public Object getObject()
     {
         return this.userObject;
     }
-    
 
 }

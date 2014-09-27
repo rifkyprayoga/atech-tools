@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.atech.misc.converter.DecimalHandler;
 import com.atech.utils.ATDataAccessAbstract;
+
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -37,37 +38,37 @@ import com.atech.utils.ATDataAccessAbstract;
 
 public class StatisticsCollection
 {
-    
+
     /**
      * The stat_objects.
      */
     protected ArrayList<StatisticsObject> stat_objects;
-    
+
     /**
      * The items.
      */
     protected ArrayList<StatisticsItem> items;
-    
+
     /**
      * The base_item.
      */
     protected StatisticsItem base_item;
-    
+
     /**
      * The m_da.
      */
     protected ATDataAccessAbstract m_da;
-    
+
     /**
      * The decimal_handler.
      */
     protected DecimalHandler decimal_handler;
-    
+
     /**
      * The special_processed.
      */
     protected boolean special_processed = false;
-    
+
     /**
      * Instantiates a new statistics collection.
      * 
@@ -80,32 +81,33 @@ public class StatisticsCollection
         this.base_item = base_item_in;
         this.m_da = da;
         this.decimal_handler = new DecimalHandler(2);
-        
+
         if (this.base_item.weHaveSpecialActions())
         {
             this.items = new ArrayList<StatisticsItem>();
         }
-        
+
         createStatisticsObjects();
     }
-    
+
     /**
      * Clean statistics objects.
      */
     public void cleanStatisticsObjects()
     {
-        for(int i=0; i<this.stat_objects.size(); i++)
+        for (int i = 0; i < this.stat_objects.size(); i++)
         {
             stat_objects.get(i).clean();
         }
 
         if (this.base_item.weHaveSpecialActions())
+        {
             this.items.clear();
-        
+        }
+
         this.special_processed = false;
     }
-    
-    
+
     /**
      * Process full collection.
      * 
@@ -114,19 +116,15 @@ public class StatisticsCollection
     public void processFullCollection(ArrayList<? extends StatisticsItem> list)
     {
         this.cleanStatisticsObjects();
-        
-        for(int i=0; i<list.size(); i++)
+
+        for (int i = 0; i < list.size(); i++)
         {
-            addItem(list.get(i)); 
+            addItem(list.get(i));
         }
-        
+
         special_processed = false;
     }
-    
 
-    
-    
-    
     /**
      * Adds the item.
      * 
@@ -135,13 +133,15 @@ public class StatisticsCollection
     public void addItem(StatisticsItem item)
     {
         processItem(item);
-        
+
         if (this.base_item.weHaveSpecialActions())
+        {
             this.items.add(item);
+        }
 
         special_processed = false;
     }
-    
+
     /**
      * Process item.
      * 
@@ -149,29 +149,26 @@ public class StatisticsCollection
      */
     public void processItem(StatisticsItem item)
     {
-        for(int i=1; i<this.getMaxStatisticsObject(); i++)
+        for (int i = 1; i < this.getMaxStatisticsObject(); i++)
         {
-            this.stat_objects.get(i-1).addToSum(item.getValueForItem(i)); 
+            this.stat_objects.get(i - 1).addToSum(item.getValueForItem(i));
         }
     }
-    
-    
+
     /**
      * Creates the statistics objects.
      */
     public void createStatisticsObjects()
     {
-        for(int i=1; i<this.getMaxStatisticsObject(); i++)
+        for (int i = 1; i < this.getMaxStatisticsObject(); i++)
         {
             StatisticsObject so = new StatisticsObject();
             so.operation = this.base_item.getStatisticsAction(i);
-            
-            this.stat_objects.add(so); //.get(i-1).addToSum(this.base_item.getValueForItem(i)); 
+
+            this.stat_objects.add(so); // .get(i-1).addToSum(this.base_item.getValueForItem(i));
         }
     }
-    
-    
-    
+
     /**
      * Gets the max statistics object.
      * 
@@ -181,8 +178,7 @@ public class StatisticsCollection
     {
         return this.base_item.getMaxStatisticsObject();
     }
-    
-    
+
     /**
      * Gets the statistics item sample.
      * 
@@ -192,9 +188,7 @@ public class StatisticsCollection
     {
         return this.base_item;
     }
-    
-    
-    
+
     /**
      * Gets the item statistics value.
      * 
@@ -205,15 +199,16 @@ public class StatisticsCollection
     public float getItemStatisticsValue(int index)
     {
         if (!this.special_processed)
+        {
             processSpecialStatistics();
+        }
 
         if (!this.base_item.isSpecialAction(index))
-            return this.stat_objects.get(index-1).getStatistics();
+            return this.stat_objects.get(index - 1).getStatistics();
         else
             return getSpecialActionStatisticsValue(index);
     }
-    
-    
+
     /**
      * Gets the special action statistics value.
      * 
@@ -223,10 +218,10 @@ public class StatisticsCollection
      */
     public float getSpecialActionStatisticsValue(int index)
     {
-//        if (!this.special_processed)
-//            processSpecialStatistics();
-        
-        return this.stat_objects.get(index-1).getStatistics();
+        // if (!this.special_processed)
+        // processSpecialStatistics();
+
+        return this.stat_objects.get(index - 1).getStatistics();
     }
 
     /**
@@ -236,8 +231,7 @@ public class StatisticsCollection
     {
         this.special_processed = true;
     }
-    
-    
+
     /**
      * Gets the item statistic value as int.
      * 
@@ -247,9 +241,9 @@ public class StatisticsCollection
      */
     public int getItemStatisticValueAsInt(int index)
     {
-        return (int)this.getItemStatisticsValue(index);
+        return (int) this.getItemStatisticsValue(index);
     }
-    
+
     /**
      * Gets the item statistic value as string float.
      * 
@@ -262,7 +256,7 @@ public class StatisticsCollection
     {
         return this.decimal_handler.getDecimalAsString(this.getItemStatisticsValue(index), dec_places);
     }
-    
+
     /**
      * Gets the item statistic value as int.
      * 
@@ -272,11 +266,7 @@ public class StatisticsCollection
      */
     public String getItemStatisticValueAsStringInt(int index)
     {
-        return "" + (int)this.getItemStatisticsValue(index);
+        return "" + (int) this.getItemStatisticsValue(index);
     }
-    
-    
+
 }
-
-
-

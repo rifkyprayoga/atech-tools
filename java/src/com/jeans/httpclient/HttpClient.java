@@ -91,9 +91,13 @@ public class HttpClient
         String auth = "";
 
         if (Status == 401)
+        {
             wwwauthen = getResponseHeader("WWW-Authenticate");
+        }
         else if (Status == 407)
+        {
             wwwauthen = getResponseHeader("Proxy-Authenticate");
+        }
 
         if (wwwauthen == "")
             return;
@@ -104,9 +108,13 @@ public class HttpClient
             return;
 
         if (Status == 401)
+        {
             removeHeader("Authorization");
+        }
         else if (Status == 407)
+        {
             removeProxyHeader("Proxy-Authorization");
+        }
 
         java.util.StringTokenizer u = new java.util.StringTokenizer(wwwauthen, " ");
         String authtype = u.nextToken();
@@ -130,7 +138,9 @@ public class HttpClient
             {
                 String q = Integer.toHexString(rand.nextInt(256));
                 if (q.length() == 1)
+                {
                     d += "0";
+                }
                 d += q;
             }
 
@@ -321,7 +331,8 @@ public class HttpClient
      * @throws InvalidProtocolException 
      * @throws MalformedURLException 
      */
-    public boolean open(String m, String url, String u, String p) throws InvalidProtocolException, MalformedURLException
+    public boolean open(String m, String url, String u, String p) throws InvalidProtocolException,
+            MalformedURLException
     {
         open(m, url);
 
@@ -359,7 +370,9 @@ public class HttpClient
                 ResponseHeaderValues.add(v.nextToken("").trim());
 
                 if (header.startsWith("Set-Cookie") && useCookies)
+                {
                     cookies.addCookie(header, HttpUrl.getHost());
+                }
             }
 
             return true;
@@ -385,10 +398,12 @@ public class HttpClient
 
         StringTokenizer u = new StringTokenizer(StatusText, " ");
 
-        /*        while (u.hasMoreTokens()) 
-                {
-                    System.out.println(u.nextToken());
-                }*/
+        /*
+         * while (u.hasMoreTokens())
+         * {
+         * System.out.println(u.nextToken());
+         * }
+         */
 
         if (u.hasMoreTokens())
         {
@@ -500,9 +515,13 @@ public class HttpClient
         for (;;)
         {
             if (proxy.useProxy)
+            {
                 code = sendProxyRequest(body);
+            }
             else
+            {
                 code = sendRequest(body);
+            }
 
             Status = code;
 
@@ -579,9 +598,13 @@ public class HttpClient
         request += "Connection: Close\r\n";
 
         if (body != null)
+        {
             x = body.length();
+        }
         else
+        {
             x = 0;
+        }
         request += "Content-Legnth: " + x + "\r\n";
 
         /* Add the headers */
@@ -605,21 +628,32 @@ public class HttpClient
         }
 
         if (useCookies)
+        {
             request += cookies.getCookies(HttpUrl);
+        }
 
         request += "\r\n";
 
         /* Add the body, if there is one */
 
         if (body != null)
+        {
             request += body;
+        }
 
-        /* Request assembled, open the socket to the proxy server and send it off */
+        /*
+         * Request assembled, open the socket to the proxy server and send it
+         * off
+         */
 
         if (proxy.ProxyServer.getPort() < 0)
+        {
             port = 80;
+        }
         else
+        {
             port = proxy.ProxyServer.getPort();
+        }
 
         try
         {
@@ -665,7 +699,7 @@ public class HttpClient
 
         try
         {
-            /* Parse feedback as it comes in.  First line is the status. */
+            /* Parse feedback as it comes in. First line is the status. */
 
             StatusText = in.readLine();
             // System.out.print("StatusText=" + StatusText); // sepp
@@ -676,10 +710,12 @@ public class HttpClient
             while (line.length() > 0)
             {
                 if (line != null)
+                {
                     ResponseHeaders += line + "\n";
+                }
                 line = in.readLine();
             }
-            /* Next, the response text.  Read until the input is null. */
+            /* Next, the response text. Read until the input is null. */
 
             line = in.readLine();
             while (line != null)
@@ -752,15 +788,21 @@ public class HttpClient
         /* Is there a request body? */
 
         if (body != null)
+        {
             len = body.length();
+        }
         else
+        {
             len = 0;
+        }
 
         /* Determine what port to use, 80 being the default */
 
         port = HttpUrl.getPort();
         if (port < 0)
+        {
             port = 80;
+        }
 
         /* Next, piece together the request */
 
@@ -781,14 +823,18 @@ public class HttpClient
         /* Add cookies, if they're used */
 
         if (useCookies)
+        {
             request += cookies.getCookies(HttpUrl);
+        }
 
         request += "\r\n";
 
         if (body != null)
+        {
             request += body;
+        }
 
-        /* Attempt to open the socket.  If it fails, return -1 */
+        /* Attempt to open the socket. If it fails, return -1 */
 
         try
         {
@@ -803,14 +849,13 @@ public class HttpClient
             return -1;
         }
         /*
-            catch (java.security.AccessControlException e) {
-                System.out.println("\nAccesControlException" + e);
-                return -1;
-         
-            }
-        
-        */
-        /* Get the streams necessary to communicate with the server.
+         * catch (java.security.AccessControlException e) {
+         * System.out.println("\nAccesControlException" + e);
+         * return -1;
+         * }
+         */
+        /*
+         * Get the streams necessary to communicate with the server.
          * Again, if an error occurs, return -1.
          */
 
@@ -846,7 +891,7 @@ public class HttpClient
         try
         {
 
-            /* Parse feedback as it comes in.  First line is the status. */
+            /* Parse feedback as it comes in. First line is the status. */
 
             StatusText = in.readLine();
 
@@ -868,19 +913,19 @@ public class HttpClient
             }
             // System.out.println("\nRESPONSE HEADERS=[" + ResponseHeaders
             // +"]");
-            /*        
-                    line = in.readLine();
-                    if (!line) {
-                        System.out.println("\nhttp response doesn't have valid header");
-                        s.close();
-                        return -1;
-                    }
-                    while (line.length() > 0) {
-                        if (line != null)
-                            ResponseHeaders += line + "\n";
-                        line = in.readLine();
-                    }
-            */
+            /*
+             * line = in.readLine();
+             * if (!line) {
+             * System.out.println("\nhttp response doesn't have valid header");
+             * s.close();
+             * return -1;
+             * }
+             * while (line.length() > 0) {
+             * if (line != null)
+             * ResponseHeaders += line + "\n";
+             * line = in.readLine();
+             * }
+             */
             line = in.readLine();
             while (line != null)
             {
@@ -908,12 +953,12 @@ public class HttpClient
         parseStatusCode();
 
         /*
-        if (m_env.debug) {
-            System.out.println("*******REQUEST*******");
-            String f = Util.PrintHex(request, 32);
-            System.out.print(f);
-        }
-        */
+         * if (m_env.debug) {
+         * System.out.println("*******REQUEST*******");
+         * String f = Util.PrintHex(request, 32);
+         * System.out.print(f);
+         * }
+         */
         return Status;
     }
 
@@ -983,7 +1028,8 @@ public class HttpClient
     {
         int indx;
 
-        /* First, check to see if header is one that is supposed to be
+        /*
+         * First, check to see if header is one that is supposed to be
          * set internally.
          */
 

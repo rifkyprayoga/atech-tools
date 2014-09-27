@@ -31,7 +31,6 @@ import com.atech.db.hibernate.transfer.BackupRestoreRunner;
  *  Author: Andy {andy@atech-software.com}
  */
 
-
 public abstract class BackupRestorePlugin
 {
 
@@ -41,7 +40,6 @@ public abstract class BackupRestorePlugin
     public BackupRestorePlugin()
     {
     }
-    
 
     /**
      * Do Backup
@@ -49,17 +47,14 @@ public abstract class BackupRestorePlugin
      * @param brr 
      */
     public abstract void doBackup(BackupRestoreRunner brr);
-    
-    
+
     /**
      * Do Restore
      * 
      * @param brr 
      */
     public abstract void doRestore(BackupRestoreRunner brr);
-    
 
-    
     /**
      * Get Backup Restore Object
      * 
@@ -67,8 +62,7 @@ public abstract class BackupRestorePlugin
      * @return
      */
     public abstract BackupRestoreObject getBackupRestoreObject(String class_name);
-    
-    
+
     /**
      * Get Backup Restore Object
      * 
@@ -77,7 +71,6 @@ public abstract class BackupRestorePlugin
      * @return
      */
     public abstract BackupRestoreObject getBackupRestoreObject(Object obj, BackupRestoreObject bro);
-    
 
     /**
      * Does Contain Backup Restore Object
@@ -86,7 +79,5 @@ public abstract class BackupRestorePlugin
      * @return
      */
     public abstract boolean doesContainBackupRestoreObject(String bro_name);
-    
-    
-    
+
 }

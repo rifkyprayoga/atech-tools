@@ -56,7 +56,6 @@ import javax.swing.text.html.HTMLFrameHyperlinkEvent;
  *
 */
 
-
 // The Simple Web Browser.
 public class MiniBrowser extends JFrame
 
@@ -92,6 +91,7 @@ implements HyperlinkListener
         // Handle closing events.
         addWindowListener(new WindowAdapter()
         {
+            @Override
             public void windowClosing(WindowEvent e)
             {
                 actionExit();
@@ -139,6 +139,7 @@ implements HyperlinkListener
         locationTextField = new JTextField(35);
         locationTextField.addKeyListener(new KeyAdapter()
         {
+            @Override
             public void keyReleased(KeyEvent e)
             {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER)
@@ -182,11 +183,10 @@ implements HyperlinkListener
         int pageIndex = pageList.indexOf(currentUrl.toString());
         try
         {
-            showPage(new URL((String) pageList.get(pageIndex - 1)), false);
+            showPage(new URL(pageList.get(pageIndex - 1)), false);
         }
         catch (Exception e)
-        {
-        }
+        {}
     }
 
     // Go forward to the page viewed after the current page.
@@ -196,11 +196,10 @@ implements HyperlinkListener
         int pageIndex = pageList.indexOf(currentUrl.toString());
         try
         {
-            showPage(new URL((String) pageList.get(pageIndex + 1)), false);
+            showPage(new URL(pageList.get(pageIndex + 1)), false);
         }
         catch (Exception e)
-        {
-        }
+        {}
     }
 
     // Load and show the page specified in the location text field.
@@ -314,7 +313,7 @@ implements HyperlinkListener
             URL currentUrl = displayEditorPane.getPage();
             int pageIndex = pageList.indexOf(currentUrl.toString());
             backButton.setEnabled(pageIndex > 0);
-            forwardButton.setEnabled(pageIndex < (pageList.size() - 1));
+            forwardButton.setEnabled(pageIndex < pageList.size() - 1);
         }
     }
 

@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -38,21 +37,19 @@ import java.util.ArrayList;
  *
 */
 
-
 public class DataReaderWriter
 {
     String filename = null;
-    
+
     /**
      * @param filename_
      */
     public DataReaderWriter(String filename_)
     {
         this.filename = filename_;
-        
+
     }
-    
-    
+
     /**
      * Write Int Array
      * 
@@ -64,22 +61,21 @@ public class DataReaderWriter
         {
             FileOutputStream fos = new FileOutputStream(filename);
             DataOutputStream dos = new DataOutputStream(fos);
-            
-            for(int i=0; i<arr.length; i++)
+
+            for (int element : arr)
             {
-                dos.writeInt(arr[i]);
+                dos.writeInt(element);
             }
-            
+
             fos.close();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            System.out.println("Error writing data to file. Ex.: " + ex); 
+            System.out.println("Error writing data to file. Ex.: " + ex);
         }
-        
+
     }
-    
-    
+
     /**
      * Read Int Array
      * 
@@ -93,22 +89,22 @@ public class DataReaderWriter
         {
             fis = new FileInputStream(filename);
             DataInputStream dis = new DataInputStream(fis);
-            
+
             int v = -1;
-            
-            while(true)
+
+            while (true)
             {
                 v = dis.readInt();
                 lst.add(v);
             }
         }
-        catch(EOFException ex)
+        catch (EOFException ex)
         {
-            
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            System.out.println("Error writing data to file. Ex.: " + ex); 
+            System.out.println("Error writing data to file. Ex.: " + ex);
         }
         finally
         {
@@ -116,47 +112,31 @@ public class DataReaderWriter
             {
                 fis.close();
             }
-            catch(Exception ex)
-            {
-            }
+            catch (Exception ex)
+            {}
         }
-        
-        
+
         int[] ret = new int[lst.size()];
-        
-        for(int i=0; i<lst.size(); i++)
+
+        for (int i = 0; i < lst.size(); i++)
         {
             ret[i] = lst.get(i);
         }
-        
-        
-        
+
         return ret;
     }
-    
-    
+
     /*
-    public static void main(String[] args)
-    {
-        
-        int[] ixa = { 1, 2, 45, 3773, 4433, 223, 255, 280 };
-        
-        HexUtils hu = new HexUtils();
-        
-        System.out.println(" Int Array: " + hu.getIntArrayShow(ixa));
-        
-        DataReaderWriter drw = new DataReaderWriter("test.dta");
-        
-        drw.writeIntArray(ixa);
-        
-        int[] dd = drw.readIntArray();
-        
-        System.out.println(" Int Array OUT: " + hu.getIntArrayShow(dd));
-        
-    }*/
-    
-    
-    
-    
-    
+     * public static void main(String[] args)
+     * {
+     * int[] ixa = { 1, 2, 45, 3773, 4433, 223, 255, 280 };
+     * HexUtils hu = new HexUtils();
+     * System.out.println(" Int Array: " + hu.getIntArrayShow(ixa));
+     * DataReaderWriter drw = new DataReaderWriter("test.dta");
+     * drw.writeIntArray(ixa);
+     * int[] dd = drw.readIntArray();
+     * System.out.println(" Int Array OUT: " + hu.getIntArrayShow(dd));
+     * }
+     */
+
 }

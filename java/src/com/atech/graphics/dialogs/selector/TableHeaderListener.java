@@ -47,12 +47,12 @@ import javax.swing.table.JTableHeader;
  */
 public class TableHeaderListener extends MouseAdapter
 {
-    
+
     /**
      * The header.
      */
     JTableHeader header;
-    
+
     /**
      * The renderer.
      */
@@ -73,6 +73,7 @@ public class TableHeaderListener extends MouseAdapter
     /** 
      * mousePressed
      */
+    @Override
     public void mousePressed(MouseEvent e)
     {
         int col = header.columnAtPoint(e.getPoint());
@@ -85,17 +86,18 @@ public class TableHeaderListener extends MouseAdapter
         {
             header.getTable().getCellEditor().stopCellEditing();
         }
-        /* X
-        boolean isAscent;
-        if (SortButtonRenderer.DOWN == renderer.getState(col)) 
-        {
-            isAscent = true;
-        } 
-        else 
-        {
-          isAscent = false;
-        }
-        */
+        /*
+         * X
+         * boolean isAscent;
+         * if (SortButtonRenderer.DOWN == renderer.getState(col))
+         * {
+         * isAscent = true;
+         * }
+         * else
+         * {
+         * isAscent = false;
+         * }
+         */
         // ((SortableTableModel)header.getTable().getModel())
         // .sortByColumn(sortCol, isAscent);
     }
@@ -103,6 +105,7 @@ public class TableHeaderListener extends MouseAdapter
     /** 
      * mouseReleased
      */
+    @Override
     public void mouseReleased(MouseEvent e)
     {
         // x int col = header.columnAtPoint(e.getPoint());

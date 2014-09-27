@@ -40,7 +40,6 @@ import com.atech.utils.file.CheckSumUtility;
  *
 */
 
-
 public class BinaryDownloadThread extends ActionThread
 {
 
@@ -61,6 +60,7 @@ public class BinaryDownloadThread extends ActionThread
     int retry = 0;
     int max_retry = 2;
 
+    @Override
     public void run()
     {
 
@@ -80,9 +80,9 @@ public class BinaryDownloadThread extends ActionThread
 
                 InputStream is = url.openStream();
 
-                if (!(new File(this.upd_settings.output_path)).exists())
+                if (!new File(this.upd_settings.output_path).exists())
                 {
-                    (new File(this.upd_settings.output_path)).mkdirs();
+                    new File(this.upd_settings.output_path).mkdirs();
                 }
 
                 RandomAccessFile raf = new RandomAccessFile(this.upd_settings.output_path + "tempFile.bin", "rw");
@@ -125,8 +125,7 @@ public class BinaryDownloadThread extends ActionThread
                     // osr.write(is.read());
                     // raf.write(is.read());
 
-
-                    int prg = (int) ((current_size / size) * 100);
+                    int prg = (int) (current_size / size * 100);
                     System.out.println("Progress: " + prg);
 
                     this.upd_progress.setProgress(prg);
@@ -136,12 +135,8 @@ public class BinaryDownloadThread extends ActionThread
                 // System.out.println("Size Arr: " + list.size());
                 /*
                  * File f = new File("/home/andy/test.jpg");
-                 * 
                  * FileWriter bfw = new FileWriter(f);
-                 * 
-                 * 
                  * for(int i=0; i<list.size(); i++) { bfw.write(list.get(i)); }
-                 * 
                  * System.out.println("Write file");
                  */
 
@@ -169,7 +164,7 @@ public class BinaryDownloadThread extends ActionThread
 
                 is.close();
                 raf.close();
-                
+
                 // System.out.println("Checksum: " +
                 // csu.getChecksumValue(this.upd_settings.output_path +
                 // "tempFile.bin"));

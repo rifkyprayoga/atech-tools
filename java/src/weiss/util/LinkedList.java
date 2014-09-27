@@ -55,7 +55,9 @@ public class LinkedList extends AbstractCollection implements List
         clear();
         Iterator itr = other.iterator();
         while (itr.hasNext())
+        {
             add(itr.next());
+        }
     }
 
     /**
@@ -72,6 +74,7 @@ public class LinkedList extends AbstractCollection implements List
      * @param x any object.
      * @return true if this collection contains an item equal to x.
      */
+    @Override
     public boolean contains(Object x)
     {
         return findPos(x) != NOT_FOUND;
@@ -198,6 +201,7 @@ public class LinkedList extends AbstractCollection implements List
      * @param x any object.
      * @return true if this item was removed from the collection.
      */
+    @Override
     public boolean remove(Object x)
     {
         Node pos = findPos(x);
@@ -254,13 +258,17 @@ public class LinkedList extends AbstractCollection implements List
         {
             p = beginMarker.next;
             for (int i = 0; i < idx; i++)
+            {
                 p = p.next;
+            }
         }
         else
         {
             p = endMarker;
             for (int i = size(); i > idx; i--)
+            {
                 p = p.prev;
+            }
         }
 
         return p;
@@ -294,6 +302,7 @@ public class LinkedList extends AbstractCollection implements List
     /**
      * Change the size of this collection to zero.
      */
+    @Override
     public void clear()
     {
         beginMarker = new Node("BEGINMARKER", null, null);
@@ -371,7 +380,9 @@ public class LinkedList extends AbstractCollection implements List
             LinkedList.this.remove(lastVisited);
             lastVisited = null;
             if (lastMoveWasPrev)
+            {
                 current = current.next;
+            }
             expectedModCount++;
         }
 

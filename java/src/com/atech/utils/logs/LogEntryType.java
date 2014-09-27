@@ -1,8 +1,5 @@
 package com.atech.utils.logs;
 
-
-
-
 /**
  *  Application:   GGC - GNU Gluco Control
  *  Plug-in:       GGC PlugIn Base (base class for all plugins)
@@ -29,32 +26,31 @@ package com.atech.utils.logs;
  *  Author: Andy {andy@atech-software.com}
  */
 
-
 public class LogEntryType
 {
     /**
      * Log: Trace
      */
     public static final int TRACE = 1;
-    
+
     /**
      * Log: Debug
      */
     public static final int DEBUG = 2;
-    
+
     /**
      * Log: Info
      */
     public static final int INFO = 3;
-    
+
     /**
      * Log: Warning
      */
     public static final int WARNING = 4;
-    
+
     /**
      * Log: Error
      */
     public static final int ERROR = 5;
-    
+
 }

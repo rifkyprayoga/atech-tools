@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Hashtable;
 
-
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -36,10 +35,9 @@ import java.util.Hashtable;
  *
 */
 
-
-public class DatabaseSettings implements Comparable<DatabaseSettings> //<DatabaseSettings>
+public class DatabaseSettings implements Comparable<DatabaseSettings> // <DatabaseSettings>
 {
-    
+
     /**
      * The number.
      */
@@ -49,32 +47,32 @@ public class DatabaseSettings implements Comparable<DatabaseSettings> //<Databas
      * The db_name.
      */
     public String db_name = null;
-    
+
     /**
      * The name.
      */
     public String name = null;
-    
+
     /**
      * The driver.
      */
     public String driver = null;
-    
+
     /**
      * The driver_class.
      */
     public String driver_class = null;
-    
+
     /**
      * The url.
      */
     public String url = null;
-    
+
     /**
      * The port.
      */
     public String port = null;
-    
+
     /**
      * The dialect.
      */
@@ -84,7 +82,7 @@ public class DatabaseSettings implements Comparable<DatabaseSettings> //<Databas
      * The username.
      */
     public String username = null;
-    
+
     /**
      * The password.
      */
@@ -98,26 +96,21 @@ public class DatabaseSettings implements Comparable<DatabaseSettings> //<Databas
     /**
      * The settings.
      */
-    public Hashtable<String,String> settings = null;
+    public Hashtable<String, String> settings = null;
 
-    
-    
-    
-    
-    
-/*
-    public String hostname = null;
-    public String url = null;
-    public String port = null;
-    public String database = null;
-*/
+    /*
+     * public String hostname = null;
+     * public String url = null;
+     * public String port = null;
+     * public String database = null;
+     */
 
     /**
      * Instantiates a new database settings.
      */
     public DatabaseSettings()
     {
-        settings = new Hashtable<String,String>();
+        settings = new Hashtable<String, String>();
     }
 
     /**
@@ -131,13 +124,13 @@ public class DatabaseSettings implements Comparable<DatabaseSettings> //<Databas
      */
     public DatabaseSettings(String name, String driver, String url, String port, String dialect)
     {
-    	this.name = name;
-    	this.driver = driver;
-    	this.url = url;
-    	this.port = port;
-    	this.dialect = dialect;
-    
-    	settings = new Hashtable<String,String>();
+        this.name = name;
+        this.driver = driver;
+        this.url = url;
+        this.port = port;
+        this.dialect = dialect;
+
+        settings = new Hashtable<String, String>();
     }
 
     /**
@@ -149,16 +142,15 @@ public class DatabaseSettings implements Comparable<DatabaseSettings> //<Databas
      */
     public void write(BufferedWriter bw) throws IOException
     {
-    	bw.write("\n#\n# Database #" + this.number +" - " + this.name + "\n#\n");
-    	bw.write("DB" + this.number + "_CONN_NAME=" + this.name +"\n");
-    	bw.write("DB" + this.number + "_DB_NAME=" + this.db_name +"\n");
-    	bw.write("DB" + this.number + "_CONN_DRIVER_CLASS=" + this.driver_class +"\n");
-    	bw.write("DB" + this.number + "_CONN_URL=" + this.url +"\n");
-    	bw.write("DB" + this.number + "_CONN_USERNAME=" + this.username +"\n");
-    	bw.write("DB" + this.number + "_CONN_PASSWORD=" + this.password +"\n");
-    	bw.write("DB" + this.number + "_HIBERNATE_DIALECT=" + this.dialect +"\n");
+        bw.write("\n#\n# Database #" + this.number + " - " + this.name + "\n#\n");
+        bw.write("DB" + this.number + "_CONN_NAME=" + this.name + "\n");
+        bw.write("DB" + this.number + "_DB_NAME=" + this.db_name + "\n");
+        bw.write("DB" + this.number + "_CONN_DRIVER_CLASS=" + this.driver_class + "\n");
+        bw.write("DB" + this.number + "_CONN_URL=" + this.url + "\n");
+        bw.write("DB" + this.number + "_CONN_USERNAME=" + this.username + "\n");
+        bw.write("DB" + this.number + "_CONN_PASSWORD=" + this.password + "\n");
+        bw.write("DB" + this.number + "_HIBERNATE_DIALECT=" + this.dialect + "\n");
     }
-
 
     /** 
      * toString
@@ -168,7 +160,6 @@ public class DatabaseSettings implements Comparable<DatabaseSettings> //<Databas
     {
         return number + " - " + name;
     }
-
 
     /**
      * Compares this object with the specified object for order.  Returns a
@@ -218,7 +209,5 @@ public class DatabaseSettings implements Comparable<DatabaseSettings> //<Databas
             return 1;
 
     }
-
-
 
 }

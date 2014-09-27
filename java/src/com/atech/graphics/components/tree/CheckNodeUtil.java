@@ -31,51 +31,46 @@ package com.atech.graphics.components.tree;
  *
 */
 
-
-
 /**
  * @version 1.0 01/11/99
  */
-public class CheckNodeUtil  
+public class CheckNodeUtil
 {
 
-	/**
-	 * Builds the tree.
-	 * 
-	 * @param cb the cb
-	 * @param check_type the check_type
-	 * 
-	 * @return the check node
-	 */
-	public static CheckNode buildTree(CheckBoxTreeNodeInterface cb, int check_type)
-	{
-		return CheckNodeUtil.traverseTree(cb, check_type);
-	}
-	
-	/**
-	 * Traverse tree.
-	 * 
-	 * @param cb the cb
-	 * @param check_type the check_type
-	 * 
-	 * @return the check node
-	 */
-	public static CheckNode traverseTree(CheckBoxTreeNodeInterface cb, int check_type)
-	{
-		CheckNode node = new CheckNode(cb, cb.getTargetName(), cb.hasNodeChildren(), check_type);
-		
-		if (cb.hasNodeChildren())
-		{
-			for(int i=0; i<cb.getNodeChildren().size(); i++)
-			{
-				node.add(CheckNodeUtil.traverseTree(cb.getNodeChildren().get(i), check_type));
-			}
-		}
-		
-		return node;
-	}
-	
-	
+    /**
+     * Builds the tree.
+     * 
+     * @param cb the cb
+     * @param check_type the check_type
+     * 
+     * @return the check node
+     */
+    public static CheckNode buildTree(CheckBoxTreeNodeInterface cb, int check_type)
+    {
+        return CheckNodeUtil.traverseTree(cb, check_type);
+    }
+
+    /**
+     * Traverse tree.
+     * 
+     * @param cb the cb
+     * @param check_type the check_type
+     * 
+     * @return the check node
+     */
+    public static CheckNode traverseTree(CheckBoxTreeNodeInterface cb, int check_type)
+    {
+        CheckNode node = new CheckNode(cb, cb.getTargetName(), cb.hasNodeChildren(), check_type);
+
+        if (cb.hasNodeChildren())
+        {
+            for (int i = 0; i < cb.getNodeChildren().size(); i++)
+            {
+                node.add(CheckNodeUtil.traverseTree(cb.getNodeChildren().get(i), check_type));
+            }
+        }
+
+        return node;
+    }
 
 }
-

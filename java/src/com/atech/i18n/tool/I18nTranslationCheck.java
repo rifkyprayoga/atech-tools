@@ -66,7 +66,6 @@ public class I18nTranslationCheck
     private String check_lang = null;
     private int keyword_count_full = 0;
 
-    
     /**
      * 
      * I18nTranslationCheck constructor; Since classes use Singleton Pattern,
@@ -102,9 +101,6 @@ public class I18nTranslationCheck
 
     }
 
-    
-    
-    
     /**
      * Gets the available files.
      */
@@ -114,11 +110,11 @@ public class I18nTranslationCheck
 
         String[] files = fl.list();
 
-        for (int i = 0; i < files.length; i++)
+        for (String file : files)
         {
-            if ((files[i].startsWith(this.m_prefix + "_")) && (files[i].indexOf(".properties") != -1))
+            if (file.startsWith(this.m_prefix + "_") && file.indexOf(".properties") != -1)
             {
-                String sub = files[i].substring(this.m_prefix.length() + 1, files[i].indexOf(".properties"));
+                String sub = file.substring(this.m_prefix.length() + 1, file.indexOf(".properties"));
 
                 if (sub.length() <= 3)
                 {
@@ -152,7 +148,9 @@ public class I18nTranslationCheck
                 // rb = getResourceBundle(lcls[0]);
             }
             else
+            {
                 System.out.println("Resource File " + name + " loaded succesfully");
+            }
 
             // System.out.println("RB Full: " + resourceBundles + " loaded RB: "
             // +rb);
@@ -162,11 +160,13 @@ public class I18nTranslationCheck
             if (lang.toUpperCase().equals(this.default_lang))
             {
                 res = rb;
-                this.keyword_count_full = countKeys(rb); 
+                this.keyword_count_full = countKeys(rb);
                 System.out.println("Default language");
             }
             else
+            {
                 resourceBundles.put(lang, rb);
+            }
 
         }
         System.out.println(" --- End of loading of Resource Bundles ---");
@@ -176,22 +176,22 @@ public class I18nTranslationCheck
     private int countKeys(ResourceBundle rb)
     {
         int count = 0;
-        
-        for(Enumeration<String> en = rb.getKeys(); en.hasMoreElements(); )
+
+        for (Enumeration<String> en = rb.getKeys(); en.hasMoreElements();)
         {
             String key = en.nextElement();
-            
+
             if (!key.equals("TRANSLATION_CHECK_SAME_WORDS"))
+            {
                 count++;
-            
+            }
+
         }
-        
+
         return count;
-        
+
     }
-    
-    
-    
+
     /**
      * Gets the resource bundle.
      * 
@@ -256,13 +256,13 @@ public class I18nTranslationCheck
         int i = 0;
 
         int same = 0;
-        
+
         for (Enumeration<String> en = res.getKeys(); en.hasMoreElements();)
         {
             String key = en.nextElement();
 
             String def = res.getString(key);
-            
+
             if (key.equals("TRANSLATION_CHECK_SAME_WORDS"))
             {
                 same = ATDataAccess.getInstance().getIntValueFromString(def, 0);
@@ -270,7 +270,7 @@ public class I18nTranslationCheck
             else
             {
                 String tra = this.resourceBundles.get(this.check_lang).getString(key);
-    
+
                 if (def.equals(tra))
                 {
                     System.out.println(key + " = " + def + " == " + tra);
@@ -280,15 +280,15 @@ public class I18nTranslationCheck
 
         }
 
-        //System.out.println("We have probably " + i + " untranslated expressions.");
-        
+        // System.out.println("We have probably " + i +
+        // " untranslated expressions.");
+
         System.out.println("=================================================");
         System.out.println("===   Short Report                            ===");
-        System.out.println("===   Total words:  " + this.keyword_count_full );
-        System.out.println("===   Same words:   " + same); //===========================================");
-        System.out.println("===   Translated:   " + (100 - (((i-same) / (this.keyword_count_full*1.0))*100)) );
+        System.out.println("===   Total words:  " + this.keyword_count_full);
+        System.out.println("===   Same words:   " + same); // ===========================================");
+        System.out.println("===   Translated:   " + (100 - (i - same) / (this.keyword_count_full * 1.0) * 100));
         System.out.println("===   UnTranslated: " + i);
-        
 
     }
 
@@ -313,13 +313,10 @@ public class I18nTranslationCheck
         /*
          * for (int i=0; i<lang_short.size(); i++) { String lang =
          * (String)this.lang_short.get(i);
-         * 
-         * 
          * if (!lang_short.get(i)[i].equals(lang_def)) { //
          * System.out.println("Checking " + this.languages[i] + " language.");
          * //this.checkIfLangFileHasAllKeywords(lang_short[i]);
          * System.out.println("\n\n"); }
-         * 
          * }
          */
 
@@ -355,8 +352,10 @@ public class I18nTranslationCheck
             try
             {
                 if (rb.getString(key) == null)
+                {
                     sb.append(key + "\n");
-                // System.out.println(key);
+                    // System.out.println(key);
+                }
             }
             catch (Exception ex)
             {
@@ -398,8 +397,10 @@ public class I18nTranslationCheck
             try
             {
                 if (res.getString(key) == null)
+                {
                     sb.append(key + "\n");
-                // System.out.println(key);
+                    // System.out.println(key);
+                }
             }
             catch (Exception ex)
             {
@@ -409,8 +410,7 @@ public class I18nTranslationCheck
         }
 
         if (sb.length() == 0)
-        {
-        }
+        {}
         else
         {
             System.out.println("KEYWORDS NO LONGER USED:");

@@ -2,7 +2,6 @@ package com.atech.update.startup.os;
 
 import java.io.File;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -33,63 +32,67 @@ import java.io.File;
  *
 */
 
-
 public class OSUtil
 {
-	
-	/**
-	 * Constructor
-	 */
-	public OSUtil()
-	{
-		
-	}
-	
-	/**
-	 * Get Short OS Name
-	 * @return
-	 */
-	public static String getShortOSName()
-	{
-		String os_name = System.getProperty("os.name");
-		String short_name = "unknown";
-		
-		//System.out.println("Found OS: " + os_name);
-		
-		if (os_name.contains("Linux"))
-			short_name = "linux";
-		else if (os_name.contains("Mac"))
-			short_name = "mac";
-		else if (os_name.contains("Win"))
-			short_name = "win";
-		else if (os_name.contains("FreeBSD"))
-		    short_name = "freebsd";
 
-		return short_name;
-	}
+    /**
+     * Constructor
+     */
+    public OSUtil()
+    {
 
-	
-	/**
-	 * Get OS Specific Configuration File
-	 * 
-	 * @return filename of configuration file
-	 */
-	public static String getOSSpecificConfigurationFile()
-	{
-		String def_filename = "StartupConfig.properties";
-		
-		String os_name = OSUtil.getShortOSName();
-		String full_os_name = "StartupConfig_" + os_name + ".properties";
-		
-		File f = new File(full_os_name);
-		
-		if (f.exists())
-			return full_os_name;
-		else
-			return def_filename;
-		
-	}
-	
-	
+    }
+
+    /**
+     * Get Short OS Name
+     * @return
+     */
+    public static String getShortOSName()
+    {
+        String os_name = System.getProperty("os.name");
+        String short_name = "unknown";
+
+        // System.out.println("Found OS: " + os_name);
+
+        if (os_name.contains("Linux"))
+        {
+            short_name = "linux";
+        }
+        else if (os_name.contains("Mac"))
+        {
+            short_name = "mac";
+        }
+        else if (os_name.contains("Win"))
+        {
+            short_name = "win";
+        }
+        else if (os_name.contains("FreeBSD"))
+        {
+            short_name = "freebsd";
+        }
+
+        return short_name;
+    }
+
+    /**
+     * Get OS Specific Configuration File
+     * 
+     * @return filename of configuration file
+     */
+    public static String getOSSpecificConfigurationFile()
+    {
+        String def_filename = "StartupConfig.properties";
+
+        String os_name = OSUtil.getShortOSName();
+        String full_os_name = "StartupConfig_" + os_name + ".properties";
+
+        File f = new File(full_os_name);
+
+        if (f.exists())
+            return full_os_name;
+        else
+            return def_filename;
+
+    }
 
 }

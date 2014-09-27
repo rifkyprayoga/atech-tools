@@ -2,7 +2,6 @@ package com.atech.i18n.info;
 
 import java.util.Locale;
 
-
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -36,59 +35,54 @@ import java.util.Locale;
 
 public class LanguageInstance
 {
-    
-        /**
-         * The short_name.
-         */
-        public String short_name = "";
-        
-        /**
-         * The name.
-         */
-        public String name = "";
-        
-        /**
-         * The name_description.
-         */
-        public String name_description = "";
-        
-        /**
-         * The help_available.
-         */
-        public boolean help_available = false;
-        
-        /**
-         * The file.
-         */
-        public String file = "";
-//        public String locale = "";
-        
-        /**
-         * The locale_kk.
-         */
-        public String locale_kk = "";
-        
-        
-        
-        
-        /**
-         * The locale.
-         */
-        public Locale locale;
-        
-        /**
-         * The real_locale.
-         */
-        public Locale real_locale;
-        
-        
-        /*
-LANG_1_NAME=Slovenski
-LANG_1_HELP_AVAILABLE=No
-LANG_1_HELP=Yes
-LANG_1_FILE=PIS_si.properties
-LANG_1_LOCALE=si
-*/
 
+    /**
+     * The short_name.
+     */
+    public String short_name = "";
+
+    /**
+     * The name.
+     */
+    public String name = "";
+
+    /**
+     * The name_description.
+     */
+    public String name_description = "";
+
+    /**
+     * The help_available.
+     */
+    public boolean help_available = false;
+
+    /**
+     * The file.
+     */
+    public String file = "";
+    // public String locale = "";
+
+    /**
+     * The locale_kk.
+     */
+    public String locale_kk = "";
+
+    /**
+     * The locale.
+     */
+    public Locale locale;
+
+    /**
+     * The real_locale.
+     */
+    public Locale real_locale;
+
+    /*
+     * LANG_1_NAME=Slovenski
+     * LANG_1_HELP_AVAILABLE=No
+     * LANG_1_HELP=Yes
+     * LANG_1_FILE=PIS_si.properties
+     * LANG_1_LOCALE=si
+     */
 
 }

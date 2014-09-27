@@ -2,7 +2,6 @@ package com.atech.update.client.panel;
 
 import javax.swing.JPanel;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -32,7 +31,6 @@ import javax.swing.JPanel;
  *  @author Andy {andy@atech-software.com}
  *
 */
-
 
 public abstract class UpdateProgressPanelAbstract extends JPanel implements UpdateProgressPanelInterface
 {

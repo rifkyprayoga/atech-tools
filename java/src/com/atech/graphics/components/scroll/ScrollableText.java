@@ -39,18 +39,18 @@ public abstract class ScrollableText
     /**
      * The texts.
      */
-    ArrayList<String> texts; 
-    
+    ArrayList<String> texts;
+
     /**
      * The scroll_enabled.
      */
     boolean scroll_enabled = true;
-    
+
     /**
      * The scroll_active.
      */
     boolean scroll_active = false;
-    
+
     /**
      * The scroll_lines.
      */
@@ -60,7 +60,7 @@ public abstract class ScrollableText
      * The index_texts.
      */
     ArrayList<String> index_texts;
-    
+
     /**
      * The starting_number.
      */
@@ -99,17 +99,22 @@ public abstract class ScrollableText
 
     private void checkScrollingAction()
     {
-        if ((this.scroll_lines == 0) || (this.texts ==null) || (this.texts.size()==0))
+        if (this.scroll_lines == 0 || this.texts == null || this.texts.size() == 0)
+        {
             this.scroll_active = false;
+        }
         else
         {
             if (this.scroll_lines > this.texts.size())
+            {
                 this.scroll_active = true;
+            }
             else
+            {
                 this.scroll_active = false;
+            }
         }
     }
-
 
     /**
      * Scroll.
@@ -119,16 +124,18 @@ public abstract class ScrollableText
         this.starting_number++;
 
         if (this.starting_number == this.texts.size())
+        {
             this.starting_number = 0;
+        }
 
-        //int col_idx = 0;
+        // int col_idx = 0;
         int entries = 0;
 
         this.index_texts.clear();
 
         boolean filled = false;
 
-        for (int i=this.starting_number; i<this.texts.size(); i++)
+        for (int i = this.starting_number; i < this.texts.size(); i++)
         {
             this.index_texts.add("" + i);
             entries++;
@@ -142,7 +149,7 @@ public abstract class ScrollableText
 
         if (!filled)
         {
-            for (int i=0; i<this.texts.size(); i++)
+            for (int i = 0; i < this.texts.size(); i++)
             {
                 this.index_texts.add("" + i);
                 entries++;
@@ -158,7 +165,6 @@ public abstract class ScrollableText
 
     }
 
-
     /**
      * Gets the scroll text nr.
      * 
@@ -173,14 +179,11 @@ public abstract class ScrollableText
         return this.texts.get(Integer.parseInt(index));
     }
 
-
     /**
      * Paint scroll elements.
      */
     public abstract void paintScrollElements();
 
-    //void scrollAction();
+    // void scrollAction();
 
 }
-
-

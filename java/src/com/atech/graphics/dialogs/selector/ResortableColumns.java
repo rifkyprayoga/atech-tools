@@ -31,16 +31,15 @@ package com.atech.graphics.dialogs.selector;
  *
 */
 
-
 public interface ResortableColumns
 {
-	
-	/**
-	 * Resort columns.
-	 * 
-	 * @param column the column
-	 * @param way_down the way_down
-	 */
-	void resortColumns(int column, boolean way_down);
-	
+
+    /**
+     * Resort columns.
+     * 
+     * @param column the column
+     * @param way_down the way_down
+     */
+    void resortColumns(int column, boolean way_down);
+
 }

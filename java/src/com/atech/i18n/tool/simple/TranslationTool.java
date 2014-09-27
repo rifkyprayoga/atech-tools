@@ -63,24 +63,18 @@ import com.atech.utils.ATSwingUtils;
  *
 */
 
-
-
 /*
-
-TO-DO:
-// 0.3
- + read main configuration (0.4)
- + read user configuration (0.6)
- + user config: more header types (0.7)
- + save translation: + in right order (0.5)
-                     + with correct header and sub header (0.8)
-+ about (0.9)
-+ auto backup
-+ exit - ask (0.8.5)
-
+ * TO-DO:
+ * // 0.3
+ * + read main configuration (0.4)
+ * + read user configuration (0.6)
+ * + user config: more header types (0.7)
+ * + save translation: + in right order (0.5)
+ * + with correct header and sub header (0.8)
+ * + about (0.9)
+ * + auto backup
+ * + exit - ask (0.8.5)
  */
-
-
 
 public class TranslationTool extends JFrame implements ActionListener, WindowListener
 {
@@ -93,24 +87,29 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
          */
         private void applyChanges()
         {
-            // .isEmpty() -> .equals("")  JDK 1.5.0 compatibility 
+            // .isEmpty() -> .equals("") JDK 1.5.0 compatibility
             switch (cmb_status.getSelectedIndex())
             {
-            case 1:
-                if (jt_mine.getText().equals("") || jt_mine.getText().equals(jt_source.getText()))
-                    cmb_status.setSelectedIndex(0);
-                break;
-            case 2:
-                // if status is "translated", don't automatically change
-                break;
-            case 0:
-            default:
-                if (!jt_mine.getText().equals("") && !jt_mine.getText().equals(jt_source.getText()))
-                    cmb_status.setSelectedIndex(1);
-                break;
+                case 1:
+                    if (jt_mine.getText().equals("") || jt_mine.getText().equals(jt_source.getText()))
+                    {
+                        cmb_status.setSelectedIndex(0);
+                    }
+                    break;
+                case 2:
+                    // if status is "translated", don't automatically change
+                    break;
+                case 0:
+                default:
+                    if (!jt_mine.getText().equals("") && !jt_mine.getText().equals(jt_source.getText()))
+                    {
+                        cmb_status.setSelectedIndex(1);
+                    }
+                    break;
             }
         }
 
+        @Override
         public void keyReleased(KeyEvent e)
         {
             applyChanges();
@@ -211,11 +210,17 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         String type_desc = "";
 
         if (type == JOptionPane.ERROR_MESSAGE)
+        {
             type_desc = "Error";
+        }
         else if (type == JOptionPane.WARNING_MESSAGE)
+        {
             type_desc = "Warning";
+        }
         else if (type == JOptionPane.INFORMATION_MESSAGE)
+        {
             type_desc = "Info";
+        }
 
         JOptionPane.showMessageDialog(this, msg, type_desc, type);
     }
@@ -278,11 +283,9 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         ATSwingUtils.getButton("Copy from Master file", 310, yst + 200, 170, 25, panel, ATSwingUtils.FONT_NORMAL, null,
             "copy_text", this, m_da);
 
-        ATSwingUtils.getButton("Big", 210, yst + 200, 90, 25, panel, ATSwingUtils.FONT_NORMAL, null,
-            "big_display", this, m_da);
-        
-        
-        
+        ATSwingUtils.getButton("Big", 210, yst + 200, 90, 25, panel, ATSwingUtils.FONT_NORMAL, null, "big_display",
+            this, m_da);
+
         ATSwingUtils.getLabel("My Translation", 30, yst + 200, 300, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
         jt_mine = ATSwingUtils.getTextArea("Text", 30, yst + 230, 450, 60, panel);
         jt_mine.setLineWrap(true);
@@ -318,11 +321,13 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         String[] paths = { "../files/", "../files/master_files/", "../files/translation/",
                           "../files/translation/backup/" };
 
-        for (int i = 0; i < paths.length; i++)
+        for (String path : paths)
         {
-            File f = new File(paths[i]);
+            File f = new File(path);
             if (!f.exists())
+            {
                 f.mkdir();
+            }
         }
 
     }
@@ -350,16 +355,20 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         this.jt_source.setText(de.master_file_translation);
 
         if (de.description == null)
+        {
             this.jt_desc.setText("No description available.");
+        }
         else
+        {
             this.jt_desc.setText(de.description);
+        }
 
         this.jt_mine.setText(de.target_translation);
         // System.out.println("De Target Translation:" + de.target_translation);
 
         this.cmb_status.setSelectedIndex(de.status);
 
-        this.index.setText((dlp.getCurrentIndex() + 1) + "");
+        this.index.setText(dlp.getCurrentIndex() + 1 + "");
         this.keyword.setText(de.key);
 
         this.group.setText(de.getGroupInfo());
@@ -403,7 +412,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
                     // translation matches master - why should we ask to verify
                     // the "untranslated" status in a way that suggests we
                     // marked it as translated?
-                    
+
                     // st = JOptionPane.showOptionDialog(this,
                     // "Your translation looks same as translation\n"
                     // + "from master file. This indicates that no\n"
@@ -490,9 +499,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         /*
          * if (ttcs.wasAction()) { ConfigurationEntry ce =
          * ttcs.getSelectedItem();
-         * 
          * new TranslationTool(ce.config_file); }
-         * 
          * System.exit(0);
          */
 
@@ -533,28 +540,36 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
             this.saveData();
 
             if (this.dlp.moveNext())
+            {
                 this.readData();
+            }
         }
         else if (cmd.equals("prev"))
         {
             this.saveData();
 
             if (this.dlp.movePrev())
+            {
                 this.readData();
+            }
         }
         else if (cmd.equals("next_untranslated"))
         {
             this.saveData();
 
             if (this.dlp.moveNextUntranslated())
+            {
                 this.readData();
+            }
         }
         else if (cmd.equals("prev_untranslated"))
         {
             this.saveData();
 
             if (this.dlp.movePrevUntranslated())
+            {
                 this.readData();
+            }
         }
         else if (cmd.equals("save"))
         {
@@ -572,19 +587,22 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         else if (cmd.equals("big_display"))
         {
             TranslationDetail td = new TranslationDetail(this, this.jt_source.getText(), this.jt_mine.getText());
-            
-            //System.out.println("was action: " + td.wasAction());
-            
+
+            // System.out.println("was action: " + td.wasAction());
+
             if (td.wasAction())
             {
-                //System.out.println("was action: " + td.wasAction() + ", data:" + td.getData());
-                
+                // System.out.println("was action: " + td.wasAction() +
+                // ", data:" + td.getData());
+
                 this.jt_mine.setText(td.getData());
             }
-            
+
         }
         else
+        {
             System.out.println("Unknown command: " + cmd);
+        }
     }
 
     /**

@@ -76,8 +76,8 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
     private JComboBox comboAntiAliasing, comboColorRendering, comboDithering, comboFractionalMetrics,
             comboInterpolation, comboTextAntiAliasing, comboRendering;
 
-    //private DailyGraphView dgv;
-    //private JPanel testingPanel;
+    // private DailyGraphView dgv;
+    // private JPanel testingPanel;
 
     /**
      * Constructor
@@ -142,16 +142,21 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
         setLayout(new BorderLayout());
 
         // FIXME
-        
+
         /*
-        comboAntiAliasing.setSelectedIndex(m_da.getSettings().getAntiAliasing());
-        comboColorRendering.setSelectedIndex(m_da.getSettings().getColorRendering());
-        comboDithering.setSelectedIndex(m_da.getSettings().getDithering());
-        comboFractionalMetrics.setSelectedIndex(m_da.getSettings().getFractionalMetrics());
-        comboInterpolation.setSelectedIndex(m_da.getSettings().getInterpolation());
-        comboTextAntiAliasing.setSelectedIndex(m_da.getSettings().getTextAntiAliasing());
-        comboRendering.setSelectedIndex(m_da.getSettings().getRendering());
-*/
+         * comboAntiAliasing.setSelectedIndex(m_da.getSettings().getAntiAliasing(
+         * ));
+         * comboColorRendering.setSelectedIndex(m_da.getSettings().getColorRendering
+         * ());
+         * comboDithering.setSelectedIndex(m_da.getSettings().getDithering());
+         * comboFractionalMetrics.setSelectedIndex(m_da.getSettings().
+         * getFractionalMetrics());
+         * comboInterpolation.setSelectedIndex(m_da.getSettings().getInterpolation
+         * ());
+         * comboTextAntiAliasing.setSelectedIndex(m_da.getSettings().
+         * getTextAntiAliasing());
+         * comboRendering.setSelectedIndex(m_da.getSettings().getRendering());
+         */
         comboAntiAliasing.addItemListener(this);
         comboColorRendering.addItemListener(this);
         comboDithering.addItemListener(this);
@@ -162,14 +167,14 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
 
         add(myBox, BorderLayout.NORTH);
 
-        
-        //testingPanel = new JPanel();
+        // testingPanel = new JPanel();
         // testingPanel.setBackground(Color.white);
-/*
-        dgv = new DailyGraphView(PrefFontsAndColorPane.createDailyGraphValues());
-
-        testingPanel.add(dgv, BorderLayout.CENTER);
-        add(dgv, BorderLayout.CENTER);*/
+        /*
+         * dgv = new
+         * DailyGraphView(PrefFontsAndColorPane.createDailyGraphValues());
+         * testingPanel.add(dgv, BorderLayout.CENTER);
+         * add(dgv, BorderLayout.CENTER);
+         */
     }
 
     /**
@@ -181,17 +186,19 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
     public void saveConfig()
     {
         /*
-        this.settings.setAntiAliasing(comboAntiAliasing.getSelectedIndex());
-        this.settings.setColorRendering(comboColorRendering.getSelectedIndex());
-        this.settings.setDithering(comboDithering.getSelectedIndex());
-        this.settings.setFractionalMetrics(comboFractionalMetrics.getSelectedIndex());
-        this.settings.setInterpolation(comboInterpolation.getSelectedIndex());
-        this.settings.setTextAntiAliasing(comboTextAntiAliasing.getSelectedIndex());
-        this.settings.setRendering(comboRendering.getSelectedIndex());
-        */
+         * this.settings.setAntiAliasing(comboAntiAliasing.getSelectedIndex());
+         * this.settings.setColorRendering(comboColorRendering.getSelectedIndex()
+         * );
+         * this.settings.setDithering(comboDithering.getSelectedIndex());
+         * this.settings.setFractionalMetrics(comboFractionalMetrics.
+         * getSelectedIndex());
+         * this.settings.setInterpolation(comboInterpolation.getSelectedIndex());
+         * this.settings.setTextAntiAliasing(comboTextAntiAliasing.getSelectedIndex
+         * ());
+         * this.settings.setRendering(comboRendering.getSelectedIndex());
+         */
     }
 
-    
     /**
      * Item State Changed
      * 
@@ -202,7 +209,7 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
     {
         // saveProps();
         changed = true;
-        //dgv.settingsChanged();
+        // dgv.settingsChanged();
     }
 
     // ****************************************************************

@@ -1,5 +1,6 @@
 package com.atech.i18n.tool.simple.util;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.apache.commons.logging.Log;
@@ -38,18 +39,16 @@ import com.atech.i18n.tool.simple.data.DataListProcessor;
  *
 */
 
-
 public class BackupRunner extends Thread
 {
 
     private boolean running = true;
     private boolean started = true;
     private static Log log = LogFactory.getLog(BackupRunner.class);
-    
 
     long next_time = 0L;
     int backup_time = 0;
-    
+
     DataListProcessor dlp;
     DataAccessTT m_da = DataAccessTT.getInstance();
 
@@ -61,35 +60,32 @@ public class BackupRunner extends Thread
         this.backup_time = _dlp.getBackupTime();
         this.setNextTime();
         this.dlp = _dlp;
-        
+
         log.debug("Backup Job started");
-        
-/*        
-        if (debug)
-        {
-            System.out.println("ThreadStart(): ");
-            this.writeCurrentTime();
-            System.out.print("\n");
-        }*/
+
+        /*
+         * if (debug)
+         * {
+         * System.out.println("ThreadStart(): ");
+         * this.writeCurrentTime();
+         * System.out.print("\n");
+         * }
+         */
     }
 
-    
     private void setNextTime()
     {
         GregorianCalendar gc = new GregorianCalendar();
-        gc.add(GregorianCalendar.MINUTE, this.backup_time);
-        
+        gc.add(Calendar.MINUTE, this.backup_time);
+
         this.next_time = gc.getTimeInMillis();
     }
-    
 
     private boolean isBackupTimeReached()
     {
-        return (System.currentTimeMillis() > this.next_time);
+        return System.currentTimeMillis() > this.next_time;
     }
-    
 
-    
     /**
      * Stop timer thread.
      */
@@ -105,9 +101,9 @@ public class BackupRunner extends Thread
      */
     public boolean hasStarted()
     {
-    	return this.started;
+        return this.started;
     }
-    
+
     /**
      * Sets the started.
      * 
@@ -115,42 +111,34 @@ public class BackupRunner extends Thread
      */
     public void setStarted(boolean started)
     {
-    	this.started = started;
+        this.started = started;
     }
-    
-    
-    
-    
+
     /** 
      * run
      */
     @Override
     public void run()
     {
-        while(running)
+        while (running)
         {
-            
+
             if (this.isBackupTimeReached())
             {
                 log.debug("Backup Started");
                 this.dlp.saveTranslationBackup();
                 this.setNextTime();
             }
-            
+
             try
             {
                 Thread.sleep(30000); // 30s
             }
-            catch(Exception ex) {}
-            
-            
-        
+            catch (Exception ex)
+            {}
+
         }
 
     }
 
-    
-
 }
-
-

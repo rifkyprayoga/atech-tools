@@ -42,28 +42,21 @@ import java.util.Vector;
 
 /*
  * XMLElement.java
- * 
  * $Revision: 65 $ $Date: 2006-02-01 20:12:46 +0100 (Sre, 01 feb 2006) $ $Name$
- * 
  * This file is part of NanoXML 2 Lite. Copyright (C) 2000-2002 Marc De
  * Scheemaecker, All Rights Reserved.
- * 
  * This software is provided 'as-is', without any express or implied warranty.
  * In no event will the authors be held liable for any damages arising from the
  * use of this software.
- * 
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
  * 1. The origin of this software must not be misrepresented; you must not claim
  * that you wrote the original software. If you use this software in a product,
  * an acknowledgment in the product documentation would be appreciated but is
  * not required.
- * 
  * 2. Altered source versions must be plainly marked as such, and must not be
  * misrepresented as being the original software.
- * 
  * 3. This notice may not be removed or altered from any source distribution.
  * ***************************************************************************
  */
@@ -95,12 +88,9 @@ import java.util.Vector;
  * XMLElement</B></DT> <DD> When subclassing XMLElement, you need to override
  * the method {@link #createAnotherElement() createAnotherElement} which has to
  * return a new copy of the receiver. </DD></DL> <P>
- * 
  * @see nanoxml.XMLParseException
- * 
  * @author Marc De Scheemaecker &lt;<A
  * href="mailto:cyberelf@mac.com">cyberelf@mac.com</A>&gt;
- * 
  * @version $Name$, $Revision: 65 $
  */
 public class XMLElement
@@ -446,7 +436,8 @@ public class XMLElement
      *
      * @see nanoxml.XMLElement#createAnotherElement()
      */
-    protected XMLElement(Hashtable<String, Object> entities, boolean skipLeadingWhitespace, boolean fillBasicConversionTable, boolean ignoreCase)
+    protected XMLElement(Hashtable<String, Object> entities, boolean skipLeadingWhitespace,
+            boolean fillBasicConversionTable, boolean ignoreCase)
     {
         this.ignoreWhitespace = skipLeadingWhitespace;
         this.ignoreCase = ignoreCase;
@@ -570,6 +561,7 @@ public class XMLElement
      * @deprecated Use {@link #setAttribute(java.lang.String, java.lang.Object)
      *             setAttribute} instead.
      */
+    @Deprecated
     public void addProperty(String name_, Object value)
     {
         this.setAttribute(name, value);
@@ -630,6 +622,7 @@ public class XMLElement
      * @deprecated Use {@link #setIntAttribute(java.lang.String, int)
      *             setIntAttribute} instead.
      */
+    @Deprecated
     public void addProperty(String key_, int value)
     {
         this.setIntAttribute(key_, value);
@@ -690,6 +683,7 @@ public class XMLElement
      * @deprecated Use {@link #setDoubleAttribute(java.lang.String, double)
      *             setDoubleAttribute} instead.
      */
+    @Deprecated
     public void addProperty(String _name, double value)
     {
         this.setDoubleAttribute(_name, value);
@@ -781,6 +775,7 @@ public class XMLElement
      * @deprecated Use {@link #enumerateAttributeNames()
      *             enumerateAttributeNames} instead.
      */
+    @Deprecated
     public Enumeration<String> enumeratePropertyNames()
     {
         return this.enumerateAttributeNames();
@@ -844,6 +839,7 @@ public class XMLElement
      *
      * @deprecated Use {@link #getContent() getContent} instead.
      */
+    @Deprecated
     public String getContents()
     {
         return this.getContent();
@@ -982,7 +978,8 @@ public class XMLElement
      * @see nanoxml.XMLElement#getAttribute(java.lang.String, java.lang.Object)
      *         getAttribute(String, Object)
      */
-    public Object getAttribute(String name_, Hashtable<String,Object> valueSet_, String defaultKey_, boolean allowLiterals)
+    public Object getAttribute(String name_, Hashtable<String, Object> valueSet_, String defaultKey_,
+            boolean allowLiterals)
     {
         if (this.ignoreCase)
         {
@@ -1002,9 +999,7 @@ public class XMLElement
                 result = key;
             }
             else
-            {
                 throw this.invalidValue(name_, (String) key);
-            }
         }
         return result;
     }
@@ -1108,7 +1103,8 @@ public class XMLElement
      *                                            java.lang.String)
      *         getStringAttribute(String, String)
      */
-    public String getStringAttribute(String name_, Hashtable<String,Object> valueSet, String defaultKey, boolean allowLiterals)
+    public String getStringAttribute(String name_, Hashtable<String, Object> valueSet, String defaultKey,
+            boolean allowLiterals)
     {
         return (String) this.getAttribute(name, valueSet, defaultKey, allowLiterals);
     }
@@ -1171,9 +1167,7 @@ public class XMLElement
         }
         String value = (String) this.attributes.get(name_);
         if (value == null)
-        {
             return defaultValue_;
-        }
         else
         {
             try
@@ -1225,7 +1219,8 @@ public class XMLElement
      * @see nanoxml.XMLElement#getIntAttribute(java.lang.String, int)
      *         getIntAttribute(String, int)
      */
-    public int getIntAttribute(String name_, Hashtable<String,Object> valueSet_, String defaultKey_, boolean allowLiteralNumbers)
+    public int getIntAttribute(String name_, Hashtable<String, Object> valueSet_, String defaultKey_,
+            boolean allowLiteralNumbers)
     {
         if (this.ignoreCase)
         {
@@ -1248,9 +1243,7 @@ public class XMLElement
         if (result == null)
         {
             if (!allowLiteralNumbers)
-            {
                 throw this.invalidValue(name_, (String) key);
-            }
             try
             {
                 result = Integer.valueOf((String) key);
@@ -1321,9 +1314,7 @@ public class XMLElement
         }
         String value = (String) this.attributes.get(name_);
         if (value == null)
-        {
             return defaultValue;
-        }
         else
         {
             try
@@ -1376,7 +1367,8 @@ public class XMLElement
      * @see nanoxml.XMLElement#getDoubleAttribute(java.lang.String, double)
      *         getDoubleAttribute(String, double)
      */
-    public double getDoubleAttribute(String name_, Hashtable<String,Object> valueSet, String defaultKey, boolean allowLiteralNumbers)
+    public double getDoubleAttribute(String name_, Hashtable<String, Object> valueSet, String defaultKey,
+            boolean allowLiteralNumbers)
     {
         if (this.ignoreCase)
         {
@@ -1399,9 +1391,7 @@ public class XMLElement
         if (result == null)
         {
             if (!allowLiteralNumbers)
-            {
                 throw this.invalidValue(name, (String) key);
-            }
             try
             {
                 result = Double.valueOf((String) key);
@@ -1451,21 +1441,13 @@ public class XMLElement
         }
         Object value = this.attributes.get(name);
         if (value == null)
-        {
             return defaultValue;
-        }
         else if (value.equals(trueValue))
-        {
             return true;
-        }
         else if (value.equals(falseValue))
-        {
             return false;
-        }
         else
-        {
             throw this.invalidValue(name, (String) value);
-        }
     }
 
     /**
@@ -1479,7 +1461,8 @@ public class XMLElement
      *             java.util.Hashtable, java.lang.String, boolean)
      *             getIntAttribute} instead.
      */
-    public int getIntProperty(String name_, Hashtable<String,Object> valueSet_, String defaultKey_)
+    @Deprecated
+    public int getIntProperty(String name_, Hashtable<String, Object> valueSet_, String defaultKey_)
     {
         return this.getIntAttribute(name_, valueSet_, defaultKey_, false);
     }
@@ -1492,6 +1475,7 @@ public class XMLElement
      * @deprecated Use {@link #getStringAttribute(java.lang.String)
      *             getStringAttribute} instead.
      */
+    @Deprecated
     public String getProperty(String name_)
     {
         return this.getStringAttribute(name_);
@@ -1506,6 +1490,7 @@ public class XMLElement
      * @deprecated Use {@link #getStringAttribute(java.lang.String,
      *             java.lang.String) getStringAttribute} instead.
      */
+    @Deprecated
     public String getProperty(String name_, String defaultValue)
     {
         return this.getStringAttribute(name_, defaultValue);
@@ -1520,6 +1505,7 @@ public class XMLElement
      * @deprecated Use {@link #getIntAttribute(java.lang.String, int)
      *             getIntAttribute} instead.
      */
+    @Deprecated
     public int getProperty(String name_, int defaultValue_)
     {
         return this.getIntAttribute(name_, defaultValue_);
@@ -1534,6 +1520,7 @@ public class XMLElement
      * @deprecated Use {@link #getDoubleAttribute(java.lang.String, double)
      *             getDoubleAttribute} instead.
      */
+    @Deprecated
     public double getProperty(String name_, double defaultValue)
     {
         return this.getDoubleAttribute(name_, defaultValue);
@@ -1551,6 +1538,7 @@ public class XMLElement
      *             java.lang.String, java.lang.String, boolean)
      *             getBooleanAttribute} instead.
      */
+    @Deprecated
     public boolean getProperty(String key_, String trueValue_, String falseValue_, boolean defaultValue_)
     {
         return this.getBooleanAttribute(key_, trueValue_, falseValue_, defaultValue_);
@@ -1567,7 +1555,8 @@ public class XMLElement
      *             java.util.Hashtable, java.lang.String, boolean)
      *             getAttribute} instead.
      */
-    public Object getProperty(String name_, Hashtable<String,Object> valueSet_, String defaultKey_)
+    @Deprecated
+    public Object getProperty(String name_, Hashtable<String, Object> valueSet_, String defaultKey_)
     {
         return this.getAttribute(name_, valueSet_, defaultKey_, false);
     }
@@ -1583,7 +1572,8 @@ public class XMLElement
      *             java.util.Hashtable, java.lang.String, boolean)
      *             getStringAttribute} instead.
      */
-    public String getStringProperty(String name_, Hashtable<String,Object> valueSet, String defaultKey)
+    @Deprecated
+    public String getStringProperty(String name_, Hashtable<String, Object> valueSet, String defaultKey)
     {
         return this.getStringAttribute(name_, valueSet, defaultKey, false);
     }
@@ -1599,7 +1589,8 @@ public class XMLElement
      *             java.util.Hashtable, java.lang.String, boolean)
      *             getIntAttribute} instead.
      */
-    public int getSpecialIntProperty(String name_, Hashtable<String,Object> valueSet_, String defaultKey_)
+    @Deprecated
+    public int getSpecialIntProperty(String name_, Hashtable<String, Object> valueSet_, String defaultKey_)
     {
         return this.getIntAttribute(name_, valueSet_, defaultKey_, true);
     }
@@ -1615,7 +1606,8 @@ public class XMLElement
      *             java.util.Hashtable, java.lang.String, boolean)
      *             getDoubleAttribute} instead.
      */
-    public double getSpecialDoubleProperty(String name_, Hashtable<String,Object> valueSet_, String defaultKey_)
+    @Deprecated
+    public double getSpecialDoubleProperty(String name_, Hashtable<String, Object> valueSet_, String defaultKey_)
     {
         return this.getDoubleAttribute(name_, valueSet_, defaultKey_, true);
     }
@@ -1637,6 +1629,7 @@ public class XMLElement
      *
      * @deprecated Use {@link #getName() getName} instead.
      */
+    @Deprecated
     public String getTagName()
     {
         return this.getName();
@@ -1667,7 +1660,7 @@ public class XMLElement
      */
     public void parseFromReader(Reader reader_) throws IOException, XMLParseException
     {
-        this.parseFromReader(reader_, /*startingLineNr*/1);
+        this.parseFromReader(reader_, /* startingLineNr */1);
     }
 
     /**
@@ -1706,13 +1699,11 @@ public class XMLElement
             char ch = this.scanWhitespace();
 
             if (ch != '<')
-            {
                 throw this.expectedInput("<");
-            }
 
             ch = this.readChar();
 
-            if ((ch == '!') || (ch == '?'))
+            if (ch == '!' || ch == '?')
             {
                 this.skipSpecialTag(0);
             }
@@ -1749,7 +1740,7 @@ public class XMLElement
         try
         {
             this.parseFromReader(new StringReader(string_),
-            /*startingLineNr*/1);
+            /* startingLineNr */1);
         }
         catch (IOException e)
         {
@@ -1884,7 +1875,7 @@ public class XMLElement
      */
     public void parseCharArray(char[] input_, int offset, int end) throws XMLParseException
     {
-        this.parseCharArray(input_, offset, end, /*startingLineNr*/1);
+        this.parseCharArray(input_, offset, end, /* startingLineNr */1);
     }
 
     /**
@@ -2036,6 +2027,7 @@ public class XMLElement
      * @deprecated Use {@link #removeAttribute(java.lang.String)
      *             removeAttribute} instead.
      */
+    @Deprecated
     public void removeProperty(String name_)
     {
         this.removeAttribute(name_);
@@ -2050,6 +2042,7 @@ public class XMLElement
      * @deprecated Use {@link #removeAttribute(java.lang.String)
      *             removeAttribute} instead.
      */
+    @Deprecated
     public void removeChild(String name_)
     {
         this.removeAttribute(name_);
@@ -2084,6 +2077,7 @@ public class XMLElement
      *
      * @deprecated Use {@link #setName(java.lang.String) setName} instead.
      */
+    @Deprecated
     public void setTagName(String name)
     {
         this.setName(name);
@@ -2112,6 +2106,7 @@ public class XMLElement
      *
      * @see nanoxml.XMLElement#write(java.io.Writer) write(Writer)
      */
+    @Override
     public String toString()
     {
         try
@@ -2160,7 +2155,7 @@ public class XMLElement
             while (enume.hasMoreElements())
             {
                 writer.write(' ');
-                String key = (String) enume.nextElement();
+                String key = enume.nextElement();
                 String value = (String) this.attributes.get(key);
                 writer.write(key);
                 writer.write('=');
@@ -2169,7 +2164,7 @@ public class XMLElement
                 writer.write('"');
             }
         }
-        if ((this.contents != null) && (this.contents.length() > 0))
+        if (this.contents != null && this.contents.length() > 0)
         {
             writer.write('>');
             this.writeEncoded(writer, this.contents);
@@ -2220,55 +2215,55 @@ public class XMLElement
             char ch = str.charAt(i);
             switch (ch)
             {
-            case '<':
-                writer.write('&');
-                writer.write('l');
-                writer.write('t');
-                writer.write(';');
-                break;
-            case '>':
-                writer.write('&');
-                writer.write('g');
-                writer.write('t');
-                writer.write(';');
-                break;
-            case '&':
-                writer.write('&');
-                writer.write('a');
-                writer.write('m');
-                writer.write('p');
-                writer.write(';');
-                break;
-            case '"':
-                writer.write('&');
-                writer.write('q');
-                writer.write('u');
-                writer.write('o');
-                writer.write('t');
-                writer.write(';');
-                break;
-            case '\'':
-                writer.write('&');
-                writer.write('a');
-                writer.write('p');
-                writer.write('o');
-                writer.write('s');
-                writer.write(';');
-                break;
-            default:
-                int unicode = (int) ch;
-                if ((unicode < 32) || (unicode > 126))
-                {
+                case '<':
                     writer.write('&');
-                    writer.write('#');
-                    writer.write('x');
-                    writer.write(Integer.toString(unicode, 16));
+                    writer.write('l');
+                    writer.write('t');
                     writer.write(';');
-                }
-                else
-                {
-                    writer.write(ch);
-                }
+                    break;
+                case '>':
+                    writer.write('&');
+                    writer.write('g');
+                    writer.write('t');
+                    writer.write(';');
+                    break;
+                case '&':
+                    writer.write('&');
+                    writer.write('a');
+                    writer.write('m');
+                    writer.write('p');
+                    writer.write(';');
+                    break;
+                case '"':
+                    writer.write('&');
+                    writer.write('q');
+                    writer.write('u');
+                    writer.write('o');
+                    writer.write('t');
+                    writer.write(';');
+                    break;
+                case '\'':
+                    writer.write('&');
+                    writer.write('a');
+                    writer.write('p');
+                    writer.write('o');
+                    writer.write('s');
+                    writer.write(';');
+                    break;
+                default:
+                    int unicode = ch;
+                    if (unicode < 32 || unicode > 126)
+                    {
+                        writer.write('&');
+                        writer.write('#');
+                        writer.write('x');
+                        writer.write(Integer.toString(unicode, 16));
+                        writer.write(';');
+                    }
+                    else
+                    {
+                        writer.write(ch);
+                    }
             }
         }
     }
@@ -2296,7 +2291,8 @@ public class XMLElement
         for (;;)
         {
             char ch = this.readChar();
-            if (((ch < 'A') || (ch > 'Z')) && ((ch < 'a') || (ch > 'z')) && ((ch < '0') || (ch > '9')) && (ch != '_') && (ch != '.') && (ch != ':') && (ch != '-') && (ch <= '\u007E'))
+            if ((ch < 'A' || ch > 'Z') && (ch < 'a' || ch > 'z') && (ch < '0' || ch > '9') && ch != '_' && ch != '.'
+                    && ch != ':' && ch != '-' && ch <= '\u007E')
             {
                 this.unreadChar(ch);
                 return;
@@ -2317,13 +2313,13 @@ public class XMLElement
             char ch = this.readChar();
             switch (ch)
             {
-            case ' ':
-            case '\t':
-            case '\n':
-            case '\r':
-                break;
-            default:
-                return ch;
+                case ' ':
+                case '\t':
+                case '\n':
+                case '\r':
+                    break;
+                default:
+                    return ch;
             }
         }
     }
@@ -2345,14 +2341,14 @@ public class XMLElement
             char ch = this.readChar();
             switch (ch)
             {
-            case ' ':
-            case '\t':
-            case '\n':
-                result.append(ch);
-            case '\r':
-                break;
-            default:
-                return ch;
+                case ' ':
+                case '\t':
+                case '\n':
+                    result.append(ch);
+                case '\r':
+                    break;
+                default:
+                    return ch;
             }
         }
     }
@@ -2370,17 +2366,13 @@ public class XMLElement
     protected void scanString(StringBuffer string) throws IOException
     {
         char delimiter = this.readChar();
-        if ((delimiter != '\'') && (delimiter != '"'))
-        {
+        if (delimiter != '\'' && delimiter != '"')
             throw this.expectedInput("' or \"");
-        }
         for (;;)
         {
             char ch = this.readChar();
             if (ch == delimiter)
-            {
                 return;
-            }
             else if (ch == '&')
             {
                 this.resolveEntity(string);
@@ -2461,40 +2453,40 @@ public class XMLElement
                 ch = this.readChar();
                 switch (ch)
                 {
-                case ']':
-                    if (delimiterCharsSkipped < 2)
-                    {
-                        delimiterCharsSkipped += 1;
-                    }
-                    else
-                    {
-                        buf.append(']');
-                        buf.append(']');
-                        delimiterCharsSkipped = 0;
-                    }
-                    break;
-                case '>':
-                    if (delimiterCharsSkipped < 2)
-                    {
-                        for (int i = 0; i < delimiterCharsSkipped; i++)
+                    case ']':
+                        if (delimiterCharsSkipped < 2)
+                        {
+                            delimiterCharsSkipped += 1;
+                        }
+                        else
+                        {
+                            buf.append(']');
+                            buf.append(']');
+                            delimiterCharsSkipped = 0;
+                        }
+                        break;
+                    case '>':
+                        if (delimiterCharsSkipped < 2)
+                        {
+                            for (int i = 0; i < delimiterCharsSkipped; i++)
+                            {
+                                buf.append(']');
+                            }
+                            delimiterCharsSkipped = 0;
+                            buf.append('>');
+                        }
+                        else
+                        {
+                            delimiterCharsSkipped = 3;
+                        }
+                        break;
+                    default:
+                        for (int i = 0; i < delimiterCharsSkipped; i += 1)
                         {
                             buf.append(']');
                         }
+                        buf.append(ch);
                         delimiterCharsSkipped = 0;
-                        buf.append('>');
-                    }
-                    else
-                    {
-                        delimiterCharsSkipped = 3;
-                    }
-                    break;
-                default:
-                    for (int i = 0; i < delimiterCharsSkipped; i += 1)
-                    {
-                        buf.append(']');
-                    }
-                    buf.append(ch);
-                    delimiterCharsSkipped = 0;
                 }
             }
             return true;
@@ -2524,9 +2516,7 @@ public class XMLElement
             }
         }
         if (this.readChar() != '>')
-        {
             throw this.expectedInput(">");
-        }
     }
 
     /**
@@ -2574,7 +2564,7 @@ public class XMLElement
             char ch = this.readChar();
             if (stringDelimiter == '\0')
             {
-                if ((ch == '"') || (ch == '\''))
+                if (ch == '"' || ch == '\'')
                 {
                     stringDelimiter = ch;
                 }
@@ -2625,9 +2615,7 @@ public class XMLElement
         for (int i = 0; i < length; i += 1)
         {
             if (this.readChar() != literal.charAt(i))
-            {
                 return false;
-            }
         }
         return true;
     }
@@ -2647,18 +2635,14 @@ public class XMLElement
         {
             int i = this.reader.read();
             if (i < 0)
-            {
                 throw this.unexpectedEndOfData();
-            }
             else if (i == 10)
             {
                 this.parserLineNr += 1;
                 return '\n';
             }
             else
-            {
                 return (char) i;
-            }
         }
     }
 
@@ -2679,7 +2663,7 @@ public class XMLElement
         String name_ = buf.toString();
         elt.setName(name_);
         char ch = this.scanWhitespace();
-        while ((ch != '>') && (ch != '/'))
+        while (ch != '>' && ch != '/')
         {
             buf.setLength(0);
             this.unreadChar(ch);
@@ -2687,9 +2671,7 @@ public class XMLElement
             String key = buf.toString();
             ch = this.scanWhitespace();
             if (ch != '=')
-            {
                 throw this.expectedInput("=");
-            }
             this.unreadChar(this.scanWhitespace());
             buf.setLength(0);
             this.scanString(buf);
@@ -2700,9 +2682,7 @@ public class XMLElement
         {
             ch = this.readChar();
             if (ch != '>')
-            {
                 throw this.expectedInput(">");
-            }
             return;
         }
         buf.setLength(0);
@@ -2750,14 +2730,10 @@ public class XMLElement
                 {
                     ch = this.readChar();
                     if (ch != '-')
-                    {
                         throw this.expectedInput("Comment or Element");
-                    }
                     ch = this.readChar();
                     if (ch != '-')
-                    {
                         throw this.expectedInput("Comment or Element");
-                    }
                     this.skipComment();
                 }
                 else
@@ -2769,9 +2745,7 @@ public class XMLElement
                 }
                 ch = this.scanWhitespace();
                 if (ch != '<')
-                {
                     throw this.expectedInput("<");
-                }
                 ch = this.readChar();
             }
             this.unreadChar(ch);
@@ -2789,18 +2763,12 @@ public class XMLElement
         }
         ch = this.readChar();
         if (ch != '/')
-        {
             throw this.expectedInput("/");
-        }
         this.unreadChar(this.scanWhitespace());
         if (!this.checkLiteral(name_))
-        {
             throw this.expectedInput(name_);
-        }
         if (this.scanWhitespace() != '>')
-        {
             throw this.expectedInput(">");
-        }
     }
 
     /**
@@ -2851,9 +2819,7 @@ public class XMLElement
         {
             char[] value = (char[]) this.entities.get(key);
             if (value == null)
-            {
                 throw this.unknownEntity(key);
-            }
             buf.append(value);
         }
     }

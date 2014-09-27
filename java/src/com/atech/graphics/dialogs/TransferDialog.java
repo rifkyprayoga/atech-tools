@@ -1,6 +1,5 @@
 package com.atech.graphics.dialogs;
 
-
 import java.awt.Component;
 
 import javax.swing.JDialog;
@@ -42,7 +41,6 @@ public abstract class TransferDialog extends JDialog
     private static final long serialVersionUID = 6150106762052989231L;
     Component parent = null;
 
-    
     /**
      * Constructor
      * 
@@ -54,7 +52,6 @@ public abstract class TransferDialog extends JDialog
         this.parent = parent;
     }
 
-    
     /**
      * Constructor
      * 
@@ -65,8 +62,7 @@ public abstract class TransferDialog extends JDialog
         super(parent, "", true);
         this.parent = parent;
     }
-    
-    
+
     /**
      * Get Empty Input Parameters
      * 
@@ -75,42 +71,37 @@ public abstract class TransferDialog extends JDialog
     public Object[] getEmptyInputParameters()
     {
         return new Object[this.getInputParametersCount()];
-        
+
     }
-    
-    
+
     /**
      * Get Input Parameters Count
      * 
      * @return
      */
     public abstract int getInputParametersCount();
-    
-    
+
     /**
      * Set Input Paramters
      * 
      * @param ip
      */
     public abstract void setInputParameters(Object[] ip);
-    
-    
+
     /**
      * Show Dialog
      * 
      * @param visible
      */
     public abstract void showDialog(boolean visible);
-    
-    
+
     /**
      * Was Action
      * 
      * @return
      */
     public abstract boolean wasAction();
-    
-    
+
     /**
      * Get Result Values
      * 
@@ -118,7 +109,6 @@ public abstract class TransferDialog extends JDialog
      */
     public abstract Object[] getResultValues();
 
-    
     /**
      * Get Result Values String
      * 
@@ -126,5 +116,4 @@ public abstract class TransferDialog extends JDialog
      */
     public abstract String[] getResultValuesString();
 
-    
 }

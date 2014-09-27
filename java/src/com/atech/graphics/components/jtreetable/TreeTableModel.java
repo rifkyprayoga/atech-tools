@@ -1,9 +1,6 @@
-
 package com.atech.graphics.components.jtreetable;
 
 import javax.swing.tree.TreeModel;
-
-
 
 /*
  * %W% %E%
@@ -61,7 +58,6 @@ import javax.swing.tree.TreeModel;
  * @author Scott Violet
  */
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -91,7 +87,6 @@ import javax.swing.tree.TreeModel;
  *  @author Andy
  *
 */
-
 
 public interface TreeTableModel extends TreeModel
 {
@@ -143,4 +138,3 @@ public interface TreeTableModel extends TreeModel
      */
     public void setValueAt(Object aValue, Object node, int column);
 }
-

@@ -36,23 +36,21 @@ import java.util.Hashtable;
  *
 */
 
-
-public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
+public abstract class FileReaderHashtable<K, V> extends Hashtable<K, V>
 {
 
-    //private String master_file_name = "GGC_en.properties";
-    
+    // private String master_file_name = "GGC_en.properties";
+
     private static final long serialVersionUID = 8988247925694117522L;
-    
+
     protected boolean file_read = false;
     protected boolean required = true;
-    
-    
+
     /**
      * Filename
      */
     public String filename;
-    
+
     /**
      * Constructor
      * 
@@ -63,18 +61,14 @@ public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
         this.filename = _filename;
         readFile();
     }
-    
-    
+
     public FileReaderHashtable(String _filename, boolean _required)
     {
         this.filename = _filename;
         this.required = _required;
         readFile();
     }
-    
-    
-    
-    
+
     /**
      * Empty Constructor
      */
@@ -82,9 +76,6 @@ public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
     {
     }
 
-    
-    
-    
     /**
      * Read File
      */
@@ -94,32 +85,30 @@ public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
         {
             BufferedReader br = new BufferedReader(new FileReader(this.filename));
             String line = null;
-            
+
             this.file_read = true;
-            
-            while((line = br.readLine()) != null)
+
+            while ((line = br.readLine()) != null)
             {
                 processFileEntry(line);
             }
-            
+
             br.close();
-            
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             System.out.println("FileReaderList: Error reading file: " + this.filename);
             this.file_read = false;
         }
     }
-    
-    
+
     /**
      * Process File Entry
      * 
      * @param line
      */
     public abstract void processFileEntry(String line);
-    
 
     /**
      * Was File Read 
@@ -130,8 +119,5 @@ public abstract class FileReaderHashtable<K,V> extends Hashtable<K,V>
     {
         return this.file_read;
     }
-    
-    
+
 }
-
-

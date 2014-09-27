@@ -50,10 +50,8 @@ import com.atech.db.hibernate.HibernateConfiguration;
  *
 */
 
-
 public abstract class ExportTool extends ImportExportAbstract
 {
-
 
     /**
      * Instantiates a new export tool.
@@ -75,9 +73,6 @@ public abstract class ExportTool extends ImportExportAbstract
     {
         super(hib_conf);
     }
-    
-    
-
 
     /**
      * Process configuration.
@@ -93,8 +88,7 @@ public abstract class ExportTool extends ImportExportAbstract
 
         while (it.hasNext())
         {
-            org.hibernate.mapping.RootClass rc = (org.hibernate.mapping.RootClass) it
-                    .next();
+            org.hibernate.mapping.RootClass rc = (org.hibernate.mapping.RootClass) it.next();
 
             // System.out.println(it.next());
 
@@ -119,13 +113,10 @@ public abstract class ExportTool extends ImportExportAbstract
 
         while (it.hasNext())
         {
-            org.hibernate.mapping.RootClass rc = (org.hibernate.mapping.RootClass) it
-                    .next();
+            org.hibernate.mapping.RootClass rc = (org.hibernate.mapping.RootClass) it.next();
 
             if (rc.getClassName().equals(cls_name))
-            {
                 return rc;
-            }
         }
 
         return null;
@@ -143,7 +134,6 @@ public abstract class ExportTool extends ImportExportAbstract
         exploreTable(rc.getTable());
     }
 
-    
     private void exploreTable(Table tbl)
     {
         println("Table name: " + tbl.getName());
@@ -195,7 +185,6 @@ public abstract class ExportTool extends ImportExportAbstract
     }
 
     /*
-     * 
      * <class name="ggc.core.db.hibernate.DayValueH" table="ggc_main_dayvalues"
      * > <id name="id" type="long" unsaved-value="0"> <generator
      * class="org.hibernate.id.AssignedIncrementGenerator"/> </id> <property
@@ -206,7 +195,6 @@ public abstract class ExportTool extends ImportExportAbstract
      * type="int" /> <property name="comment" type="string" length="2000" />
      * </class>
      */
-
 
     /**
      * Export.
@@ -231,15 +219,15 @@ public abstract class ExportTool extends ImportExportAbstract
 
         try
         {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(new File(
-                    "./export/" + cls_name + rd.nextLong())));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("./export/" + cls_name + rd.nextLong())));
 
             /*
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(
-                "./export/" + cls_name + rd.nextLong()))
-                file),"UTF8"));
-            */
-            
+             * BufferedWriter out = new BufferedWriter(new
+             * OutputStreamWriter(new FileOutputStream(new File(
+             * "./export/" + cls_name + rd.nextLong()))
+             * file),"UTF8"));
+             */
+
             bw.write("; Class: " + cls_name + "\n");
             bw.write("; Date of export: " + getCurrentDate() + "\n");
 
@@ -293,7 +281,6 @@ public abstract class ExportTool extends ImportExportAbstract
 
     }
 
-
     /**
      * Write header.
      * 
@@ -304,7 +291,7 @@ public abstract class ExportTool extends ImportExportAbstract
     public void writeHeader(String class_name, String columns, String db_version)
     {
 
-        //System.out.println("Exporting " + class_name);
+        // System.out.println("Exporting " + class_name);
 
         try
         {
@@ -316,7 +303,7 @@ public abstract class ExportTool extends ImportExportAbstract
             bw_file.write(";\n");
             bw_file.write("; Columns: " + columns + "\n");
             bw_file.write(";\n");
-            bw_file.write("; Database version: " +  db_version + "\n");
+            bw_file.write("; Database version: " + db_version + "\n");
             bw_file.write(";\n");
             bw_file.flush();
         }
@@ -327,8 +314,6 @@ public abstract class ExportTool extends ImportExportAbstract
 
     }
 
-
-    
     /**
      * Write header.
      * 
@@ -338,24 +323,25 @@ public abstract class ExportTool extends ImportExportAbstract
     public void writeHeader(BackupRestoreObject bro, String db_version)
     {
 
-        //System.out.println("Exporting " + class_name);
+        // System.out.println("Exporting " + class_name);
 
         try
         {
-            
+
             bw_file.write(";\n");
             bw_file.write("; Class: " + bro.getBackupClassName() + "\n");
             bw_file.write("; Date of export: " + getCurrentDate() + "\n");
             bw_file.write(";\n");
             bw_file.write("; Exported by ATechTools - Hibernate Exporter 0.3\n");
             bw_file.write(";\n");
-            //bw_file.write("; Columns: " + bro.dbExportHeader() + "\n");
-            bw_file.write("; Database version: " +  db_version + "\n");
+            // bw_file.write("; Columns: " + bro.dbExportHeader() + "\n");
+            bw_file.write("; Database version: " + db_version + "\n");
             bw_file.write(bro.dbExportHeader());
             bw_file.write(";\n");
-            //bw_file.write("; Database version: " +  db_version + "\n");
-            //bw_file.write("; Table version: " +  bro.getTableVersion() + "\n");
-            //bw_file.write(";\n");
+            // bw_file.write("; Database version: " + db_version + "\n");
+            // bw_file.write("; Table version: " + bro.getTableVersion() +
+            // "\n");
+            // bw_file.write(";\n");
             bw_file.flush();
         }
         catch (Exception ex)
@@ -364,9 +350,6 @@ public abstract class ExportTool extends ImportExportAbstract
         }
 
     }
-    
-    
-
 
     /**
      * Gets the data from column for object.
@@ -379,8 +362,7 @@ public abstract class ExportTool extends ImportExportAbstract
     public String getDataFromColumnForObject(Object obj, String column_name)
     {
 
-        String method_name = "get" + column_name.substring(0, 1).toUpperCase()
-                + column_name.substring(1);
+        String method_name = "get" + column_name.substring(0, 1).toUpperCase() + column_name.substring(1);
 
         // x String result = null;
         Object res2 = null;
@@ -395,10 +377,8 @@ public abstract class ExportTool extends ImportExportAbstract
             res2 = method.invoke(obj);
 
             if (res2 == null)
-            {
                 // System.out.println("We got null");
                 return "null";
-            }
         }
         catch (NoSuchMethodException e)
         {
@@ -469,14 +449,12 @@ public abstract class ExportTool extends ImportExportAbstract
      */
     public List<?> getData(String clas_name)
     {
-        Query q = getSession().createQuery(
-                "select smth from " + clas_name + " as smth");
+        Query q = getSession().createQuery("select smth from " + clas_name + " as smth");
         return q.list();
     }
 
     /*
      * public static void main(String args[]) { GGCDb db = new GGCDb();
-     * 
      * ExportTool tool = new ExportTool(db.getConfiguration()); tool.export(); }
      */
 

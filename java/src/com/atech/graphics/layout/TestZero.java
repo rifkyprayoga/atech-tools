@@ -36,27 +36,24 @@ import javax.swing.JPanel;
  *
 */
 
-
 public class TestZero extends JFrame
 {
-    
 
     // resize, menu's, bookmarks, support for better HTML, comments
 
-
     private static final long serialVersionUID = -2187488225174254498L;
-    /*    private allListener listener = new allListener(); */
-    //x private static JTextField textLocation;
-    private int maxX=640;
-    private int maxY=480;
-    //x private JEditorPane webPage;
-    
-    //private ArrayList historyList = new ArrayList();
-    //x private int indexListCurrent=-1;
-    //x private int indexListAll=-1;
+    /* private allListener listener = new allListener(); */
+    // x private static JTextField textLocation;
+    private int maxX = 640;
+    private int maxY = 480;
+
+    // x private JEditorPane webPage;
+
+    // private ArrayList historyList = new ArrayList();
+    // x private int indexListCurrent=-1;
+    // x private int indexListAll=-1;
 
     // ---
-
 
     /**
      * Constructor
@@ -68,31 +65,29 @@ public class TestZero extends JFrame
         this.setLocation(20, 20);
         this.setVisible(true);
         this.getContentPane().setLayout(new ZeroLayout(this.getSize()));
-        
+
         JPanel allPanel = new JPanel();
         this.getContentPane().add(allPanel, "true");
-//        allPanel.setLayout(new ZeroLayout());
+        // allPanel.setLayout(new ZeroLayout());
         allPanel.setBackground(Color.cyan);
-        allPanel.setBounds(0,0,maxX,maxY);
+        allPanel.setBounds(0, 0, maxX, maxY);
         allPanel.setLayout(new ZeroLayout(allPanel.getSize()));
         JButton bu = new JButton();
-        bu.setBounds(100,100,100, 100);
-//        this.getContentPane().add(allPanel, "true");
+        bu.setBounds(100, 100, 100, 100);
+        // this.getContentPane().add(allPanel, "true");
 
-        //bu.addActionListener(new ActionListener(){
-        /*        public void actionPerformed(ActionEvent e) {
-                    repaint();
-                }
-
-                });
-        allPanel.add(bu, "true");
-        
-          */
+        // bu.addActionListener(new ActionListener(){
+        /*
+         * public void actionPerformed(ActionEvent e) {
+         * repaint();
+         * }
+         * });
+         * allPanel.add(bu, "true");
+         */
         allPanel.add(bu, ZeroLayout.STATIC);
         this.getContentPane().add(allPanel, "true");
-        
-    }
 
+    }
 
     /**
      * Main method

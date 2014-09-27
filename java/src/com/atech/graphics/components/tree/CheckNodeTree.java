@@ -49,7 +49,6 @@ import javax.swing.tree.TreeSelectionModel;
  *
 */
 
-
 public class CheckNodeTree extends JTree
 {
 
@@ -64,16 +63,16 @@ public class CheckNodeTree extends JTree
     public CheckNodeTree(CheckBoxTreeNodeInterface root_node, int check_type)
     {
         this(root_node, check_type, new CheckRenderer());
-        /*super(CheckNodeUtil.buildTree(root_node, check_type));
-
-        this.setCellRenderer(new CheckRenderer());
-        this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-        this.putClientProperty("JTree.lineStyle", "Angled");
-        this.addMouseListener(new NodeSelectionListener(this));*/
+        /*
+         * super(CheckNodeUtil.buildTree(root_node, check_type));
+         * this.setCellRenderer(new CheckRenderer());
+         * this.getSelectionModel().setSelectionMode(TreeSelectionModel.
+         * SINGLE_TREE_SELECTION);
+         * this.putClientProperty("JTree.lineStyle", "Angled");
+         * this.addMouseListener(new NodeSelectionListener(this));
+         */
     }
 
-    
-    
     /**
      * Instantiates a new check node tree.
      * 
@@ -88,12 +87,9 @@ public class CheckNodeTree extends JTree
         this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         this.putClientProperty("JTree.lineStyle", "Angled");
         this.addMouseListener(new NodeSelectionListener(this));
-        
+
     }
-    
-    
-    
-    
+
     /**
      * Prints the tree.
      */
@@ -109,7 +105,8 @@ public class CheckNodeTree extends JTree
      */
     public void printTreeTraverse(CheckNode nd)
     {
-        //System.out.println("Node [" + nd.toString() + "]: " + nd.isSelected());
+        // System.out.println("Node [" + nd.toString() + "]: " +
+        // nd.isSelected());
 
         for (int i = 0; i < nd.getChildCount(); i++)
         {
@@ -172,9 +169,7 @@ public class CheckNodeTree extends JTree
             boolean found = traverseNodes((CheckNode) node.getChildAt(i), search_item);
 
             if (found)
-            {
                 return true;
-            }
 
         }
 
@@ -192,7 +187,7 @@ public class CheckNodeTree extends JTree
      */
     class NodeSelectionListener extends MouseAdapter
     {
-        
+
         /**
          * The tree.
          */
@@ -211,6 +206,7 @@ public class CheckNodeTree extends JTree
         /** 
          * mouseClicked
          */
+        @Override
         public void mouseClicked(MouseEvent e)
         {
             int x = e.getX();
@@ -221,7 +217,7 @@ public class CheckNodeTree extends JTree
             if (path != null)
             {
                 CheckNode node = (CheckNode) path.getLastPathComponent();
-                boolean isSelected = !(node.isSelected());
+                boolean isSelected = !node.isSelected();
                 node.setSelected(isSelected);
                 if (node.getSelectionMode() == CheckNode.DIG_IN_SELECTION)
                 {
@@ -248,7 +244,6 @@ public class CheckNodeTree extends JTree
         }
     }
 
-
     /**
      * The listener interface for receiving buttonAction events.
      * The class that is interested in processing a buttonAction
@@ -260,12 +255,12 @@ public class CheckNodeTree extends JTree
      */
     class ButtonActionListener implements ActionListener
     {
-        
+
         /**
          * The root.
          */
         CheckNode root;
-        
+
         /**
          * The text area.
          */
@@ -304,5 +299,5 @@ public class CheckNodeTree extends JTree
             }
         }
     }
-   
+
 }

@@ -30,7 +30,7 @@ package com.atech.update.startup.os;
  *
 */
 
-public class FreeBSD extends Linux 
+public class FreeBSD extends Linux
 {
 
     /**
@@ -43,5 +43,5 @@ public class FreeBSD extends Linux
     {
         return "freebsd";
     }
-    
+
 }

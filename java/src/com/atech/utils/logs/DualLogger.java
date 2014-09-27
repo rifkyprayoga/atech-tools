@@ -34,15 +34,14 @@ import org.apache.log4j.Priority;
  *
 */
 
-
 public class DualLogger
 {
-//    private static Log log = LogFactory.getLog(DualLogger.class);
+    // private static Log log = LogFactory.getLog(DualLogger.class);
     /**
      * The logger.
      */
     static Logger logger = Logger.getLogger(DualLogger.class);
-    
+
     /**
      * The settings.
      */
@@ -54,11 +53,10 @@ public class DualLogger
     public DualLogger()
     {
         settings = new LogSettings();
-        //logger.log("com.atech.utils.logs.DualLogger.", level, message, t)
-        //logger.lo//
+        // logger.log("com.atech.utils.logs.DualLogger.", level, message, t)
+        // logger.lo//
     }
-    
-    
+
     /**
      * Trace.
      * 
@@ -70,7 +68,7 @@ public class DualLogger
     {
         this.log(lsi, LogEntryType.TRACE, msg, t);
     }
-    
+
     /**
      * Trace.
      * 
@@ -81,10 +79,7 @@ public class DualLogger
     {
         this.trace(lsi, msg, null);
     }
-    
-    
 
-    
     /**
      * Info.
      * 
@@ -96,7 +91,7 @@ public class DualLogger
     {
         this.log(lsi, LogEntryType.INFO, msg, t);
     }
-    
+
     /**
      * Info.
      * 
@@ -108,8 +103,6 @@ public class DualLogger
         this.info(lsi, msg, null);
     }
 
-    
-    
     /**
      * Debug.
      * 
@@ -121,7 +114,7 @@ public class DualLogger
     {
         this.log(lsi, LogEntryType.DEBUG, msg, t);
     }
-    
+
     /**
      * Debug.
      * 
@@ -132,9 +125,7 @@ public class DualLogger
     {
         this.debug(lsi, msg, null);
     }
-    
 
-    
     /**
      * Error.
      * 
@@ -146,7 +137,7 @@ public class DualLogger
     {
         this.log(lsi, LogEntryType.ERROR, msg, t);
     }
-    
+
     /**
      * Error.
      * 
@@ -157,8 +148,7 @@ public class DualLogger
     {
         this.error(lsi, msg, null);
     }
-    
-    
+
     /**
      * Warn.
      * 
@@ -170,7 +160,7 @@ public class DualLogger
     {
         this.log(lsi, LogEntryType.WARNING, msg, t);
     }
-    
+
     /**
      * Warn.
      * 
@@ -181,10 +171,7 @@ public class DualLogger
     {
         this.warn(lsi, msg, null);
     }
-    
-    
-    
-    
+
     /**
      * Log.
      * 
@@ -196,26 +183,15 @@ public class DualLogger
     public void log(LogSenderInterface lsi, int type, String msg, Throwable t)
     {
         logger.log("com.atech.utils.logs.DualLogger.", getPriority(type), msg, t);
-        
-        
-        
-        
-        
+
         // TODO my logger
-        
+
     }
-    
-    
-    
+
     private Priority getPriority(int type)
     {
-        
+
         return null;
     }
-    
-    
-    
-    
-    
-}
 
+}

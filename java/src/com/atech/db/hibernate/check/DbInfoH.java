@@ -188,6 +188,7 @@ public class DbInfoH implements Serializable
     /** 
      * toString
      */
+    @Override
     public String toString()
     {
         return new ToStringBuilder(this).append("id", getId()).toString();
@@ -196,6 +197,7 @@ public class DbInfoH implements Serializable
     /** 
      * equals
      */
+    @Override
     public boolean equals(Object other)
     {
         if (!(other instanceof DbInfoH))
@@ -207,6 +209,7 @@ public class DbInfoH implements Serializable
     /** 
      * hashCode
      */
+    @Override
     public int hashCode()
     {
         return new HashCodeBuilder().append(getId()).toHashCode();

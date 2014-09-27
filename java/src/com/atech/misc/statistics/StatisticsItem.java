@@ -30,12 +30,11 @@ package com.atech.misc.statistics;
  *
 */
 
-
 public interface StatisticsItem
 {
-    
-//    public float getFloatValueForItem();
-    
+
+    // public float getFloatValueForItem();
+
     /**
      * Get Value For Item
      * 
@@ -60,24 +59,19 @@ public interface StatisticsItem
      * @return
      */
     public boolean isSpecialAction(int index);
-    
+
     /**
      * Get Max Statistics Object - we can have several Statistic types defined here
      * 
      * @return
      */
     public int getMaxStatisticsObject();
-    
+
     /**
      * If we have any special actions for any of objects
      * 
      * @return
      */
     public boolean weHaveSpecialActions();
-    
+
 }
-
-
-
-
-

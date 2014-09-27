@@ -36,16 +36,12 @@ import java.util.Hashtable;
 /*
  * * A simple test class loader capable of loading from multiple sources, such
  * as local files or a URL.
- * 
  * This class is derived from an article by Chuck McManis
  * http://www.javaworld.com/javaworld/jw-10-1996/indepth.src.html with large
  * modifications.
- * 
  * Note that this has been updated to use the non-deprecated version of
  * defineClass() -- JDM.
- * 
  * @author Jack Harich - 8/18/97
- * 
  * @author John D. Mitchell - 99.03.04
  */
 public abstract class MultiClassLoader extends ClassLoader
@@ -59,7 +55,7 @@ public abstract class MultiClassLoader extends ClassLoader
      * The monitor on.
      */
     protected boolean monitorOn = false;
-    
+
     /**
      * The source monitor on.
      */
@@ -78,15 +74,17 @@ public abstract class MultiClassLoader extends ClassLoader
      * This is a simple version for external clients since they will always want
      * the class resolved before it is returned to them.
      */
+    @Override
     public Class<?> loadClass(String className) throws ClassNotFoundException
     {
-        return (loadClass(className, true));
+        return loadClass(className, true);
     }
 
     // ---------- Abstract Implementation ---------------------
     /** 
      * loadClass
      */
+    @Override
     public synchronized Class<?> loadClass(String className, boolean resolveIt) throws ClassNotFoundException
     {
 
@@ -95,7 +93,7 @@ public abstract class MultiClassLoader extends ClassLoader
         monitor(">> MultiClassLoader.loadClass(" + className + ", " + resolveIt + ")");
 
         // ----- Check our local cache of classes
-        result = (Class<?>) classes.get(className);
+        result = classes.get(className);
         if (result != null)
         {
             monitor(">> returning cached result.");
@@ -118,20 +116,18 @@ public abstract class MultiClassLoader extends ClassLoader
         // Note loadClassBytes() is an abstract method
         classBytes = loadClassBytes(className);
         if (classBytes == null)
-        {
             throw new ClassNotFoundException();
-        }
 
         // ----- Define it (parse the class file)
         result = defineClass(className, classBytes, 0, classBytes.length);
         if (result == null)
-        {
             throw new ClassFormatError();
-        }
 
         // ----- Resolve if necessary
         if (resolveIt)
+        {
             resolveClass(result);
+        }
 
         // Done
         classes.put(className, result);
@@ -172,15 +168,11 @@ public abstract class MultiClassLoader extends ClassLoader
     protected String formatClassName(String className)
     {
         if (classNameReplacementChar == '\u0000')
-        {
             // '/' is used to map the package to the path
             return className.replace('.', '/') + ".class";
-        }
         else
-        {
             // Replace '.' with custom char, such as '_'
             return className.replace('.', classNameReplacementChar) + ".class";
-        }
     }
 
     /**
@@ -191,7 +183,9 @@ public abstract class MultiClassLoader extends ClassLoader
     protected void monitor(String text)
     {
         if (monitorOn)
+        {
             print(text);
+        }
     }
 
     // --- Std

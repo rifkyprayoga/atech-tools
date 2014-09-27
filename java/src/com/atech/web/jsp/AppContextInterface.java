@@ -1,4 +1,3 @@
-
 package com.atech.web.jsp;
 
 import com.atech.web.db.AppDbWebAbstract;
@@ -36,8 +35,7 @@ import com.atech.web.util.I18nWebControl;
  *
 */
 
-
-public interface AppContextInterface  
+public interface AppContextInterface
 {
 
     /**
@@ -45,20 +43,20 @@ public interface AppContextInterface
      * 
      * @return the type
      */
-    public int getType(); 
-    
+    public int getType();
+
     /**
      * Inits the context.
      */
     public void initContext();
-    
+
     /**
      * Gets the db.
      * 
      * @return the db
      */
     public AppDbWebAbstract getDb();
-    
+
     /**
      * Gets the i18n.
      * 
@@ -67,31 +65,31 @@ public interface AppContextInterface
      * @return the i18n
      */
     public I18nWebControl getI18n(String lang);
-    
+
     /**
      * Gets the data access web.
      * 
      * @return the data access web
      */
     public DataAccessWeb getDataAccessWeb();
-    
+
     /**
      * Gets the i18n.
      * 
      * @return the i18n
      */
     public I18nWebControl getI18n();
-    
+
     /**
      * Checks for multiple language changer.
      * 
      * @return true, if successful
      */
     public boolean hasMultipleLanguageChanger();
-    
+
     /**
      * Dispose context.
      */
     public void disposeContext();
-    
+
 }

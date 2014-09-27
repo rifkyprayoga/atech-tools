@@ -47,19 +47,18 @@ import com.atech.db.hibernate.transfer.BackupRestoreBase;
  *
 */
 
-
 /**
  * @version 1.1 04/24/99
  */
 public class CheckRenderer extends JPanel implements TreeCellRenderer
 {
     private static final long serialVersionUID = 3567768460803147725L;
-    
+
     /**
      * The check.
      */
     protected JCheckBox check;
-    
+
     /**
      * The label.
      */
@@ -87,15 +86,17 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
         setEnabled(tree.isEnabled());
         check.setSelected(((CheckNode) value).isSelected());
         label.setFont(tree.getFont());
-        
+
         if (value instanceof BackupRestoreBase)
         {
-            BackupRestoreBase brb = (BackupRestoreBase)value;
+            BackupRestoreBase brb = (BackupRestoreBase) value;
             label.setText(brb.getTargetName());
         }
         else
+        {
             label.setText(stringValue);
-        
+        }
+
         label.setSelected(isSelected);
         label.setFocus(hasFocus);
         if (leaf)
@@ -116,17 +117,19 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
     /** 
      * getPreferredSize
      */
+    @Override
     public Dimension getPreferredSize()
     {
         Dimension d_check = check.getPreferredSize();
         Dimension d_label = label.getPreferredSize();
-        return new Dimension(d_check.width + d_label.width, (d_check.height < d_label.height ? d_label.height
-                : d_check.height));
+        return new Dimension(d_check.width + d_label.width, d_check.height < d_label.height ? d_label.height
+                : d_check.height);
     }
 
     /** 
      * doLayout
      */
+    @Override
     public void doLayout()
     {
         Dimension d_check = check.getPreferredSize();
@@ -150,10 +153,13 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
     /** 
      * setBackground
      */
+    @Override
     public void setBackground(Color color)
     {
         if (color instanceof ColorUIResource)
+        {
             color = null;
+        }
         super.setBackground(color);
     }
 
@@ -163,12 +169,12 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
     public class TreeLabel extends JLabel
     {
         private static final long serialVersionUID = -4558401204750233731L;
-        
+
         /**
          * The is selected.
          */
         boolean isSelected;
-        
+
         /**
          * The has focus.
          */
@@ -184,16 +190,20 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
         /** 
          * setBackground
          */
+        @Override
         public void setBackground(Color color)
         {
             if (color instanceof ColorUIResource)
+            {
                 color = null;
+            }
             super.setBackground(color);
         }
 
         /** 
          * paint
          */
+        @Override
         public void paint(Graphics g)
         {
             String str;
@@ -230,6 +240,7 @@ public class CheckRenderer extends JPanel implements TreeCellRenderer
         /** 
          * getPreferredSize
          */
+        @Override
         public Dimension getPreferredSize()
         {
             Dimension retDimension = super.getPreferredSize();

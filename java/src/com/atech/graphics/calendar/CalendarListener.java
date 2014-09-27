@@ -1,6 +1,5 @@
 package com.atech.graphics.calendar;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -30,7 +29,6 @@ package com.atech.graphics.calendar;
  *  @author schultd
  *
 */
-
 
 public interface CalendarListener
 {

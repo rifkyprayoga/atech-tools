@@ -41,17 +41,16 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
 {
 
     private static final long serialVersionUID = 1402194555133545330L;
- 
+
     private boolean is_master_file_xa = false;
     private TranslationConfiguration m_config = null;
     private static Log log = LogFactory.getLog(MasterFileReader.class);
-    
-    
+
     /**
      * The m_da.
      */
     DataAccessTT m_da = null;
-    
+
     /**
      * Instantiates a new master file reader
      * 
@@ -66,18 +65,18 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
     /** 
      * Special Init
      */
+    @Override
     public void specialInit()
     {
         this.add(new DataEntryRaw(1));
-        
+
         this.m_da = DataAccessTT.getInstance();
         this.m_config = this.m_da.getTranslationConfig();
     }
-    
+
     DataEntryRaw group = null;
     DataEntryRaw sub_group = null;
-    
-    
+
     /** 
      * processFileEntry
      */
@@ -86,7 +85,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
     {
         line = line.trim();
         if (line.startsWith("#"))
-        { 
+        {
             if (line.contains("!S!"))
             {
                 String desc = line.substring(line.indexOf("!S!") + 4).trim();
@@ -95,27 +94,27 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
             }
             else if (line.contains("!MASTER_FILE!"))
             {
-                this.is_master_file_xa= true;
-                
+                this.is_master_file_xa = true;
+
                 m_da.setIsMasterFileMasterFile(true);
             }
             else if (line.contains("!G!"))
             {
                 String desc = line.substring(line.indexOf("!G!") + 4).trim();
                 int pri = 0;
-                
+
                 if (desc.contains("["))
                 {
                     try
                     {
-                        pri = Integer.parseInt(desc.substring(desc.indexOf("[")+1, desc.indexOf("]")));
+                        pri = Integer.parseInt(desc.substring(desc.indexOf("[") + 1, desc.indexOf("]")));
                         desc = desc.substring(0, desc.indexOf("[")).trim();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         log.error("Exception on reading prioroty from master file. Ex: " + ex, ex);
                     }
-                    
+
                 }
 
                 this.group = new DataEntryRaw(DataEntryRaw.DATA_ENTRY_GROUP, desc, pri);
@@ -125,33 +124,31 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
             else if (line.contains("!SG!"))
             {
                 String desc = line.substring(line.indexOf("!SG!") + 4).trim();
-                this.sub_group = new DataEntryRaw(DataEntryRaw.DATA_ENTRY_SUBGROUP, desc, group );
+                this.sub_group = new DataEntryRaw(DataEntryRaw.DATA_ENTRY_SUBGROUP, desc, group);
                 this.add(sub_group);
             }
-                
+
         }
         else if (line.contains("="))
         {
             // keywords
             int idx = line.indexOf("=");
-            
+
             String key = line.substring(0, idx);
-            String val = line.substring(idx+1);
-            
+            String val = line.substring(idx + 1);
+
             DataEntryRaw der = new DataEntryRaw(DataEntryRaw.DATA_ENTRY_TRANSLATION, key, group, sub_group);
-            
+
             this.add(der);
-            
+
             DataEntry de = new DataEntry(key, val, der);
-            
-            
+
             m_da.getTranslationData().addTranslationData(de);
         }
         // else ignore
-        
+
     }
 
-    
     /**
      * Is Master File
      * 
@@ -161,7 +158,5 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
     {
         return this.is_master_file_xa;
     }
-    
-    
-    
+
 }

@@ -17,8 +17,6 @@ import org.hibernate.mapping.Table;
 import org.hibernate.type.Type;
 import org.hibernate.util.StringHelper;
 
-
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -63,7 +61,6 @@ import org.hibernate.util.StringHelper;
  *
 */
 
-
 public class AssignedIncrementGenerator implements IdentifierGenerator, Configurable
 {
 
@@ -73,7 +70,6 @@ public class AssignedIncrementGenerator implements IdentifierGenerator, Configur
     private Class<?> returnClass;
     private static final Log log = LogFactory.getLog(AssignedIncrementGenerator.class);
 
-
     /**
      * Constructor
      */
@@ -81,8 +77,6 @@ public class AssignedIncrementGenerator implements IdentifierGenerator, Configur
     {
     }
 
-
-    
     /**
      * generate - method which needs to be implemented for Id generator to work
      */
@@ -90,158 +84,158 @@ public class AssignedIncrementGenerator implements IdentifierGenerator, Configur
     {
         Serializable id = session.getEntityPersister(entityName, obj).getIdentifier(obj, session.getEntityMode());
 
-        //System.out.println("generate(): curr_id: " + id);
+        // System.out.println("generate(): curr_id: " + id);
 
         String ids = null;
 
         if (id instanceof String)
         {
-            String str = (String)id;
+            String str = (String) id;
             ids = str;
         }
         else if (id instanceof Long)
         {
-            Long l = (Long)id;
+            Long l = (Long) id;
             ids = "" + l.longValue();
         }
         else if (id instanceof Integer)
         {
-            Integer i = (Integer)id;
+            Integer i = (Integer) id;
             ids = "" + i.longValue();
         }
 
-
-        if ((ids == null) || (ids.equals("-1")) || (ids.equals("0")) )
+        if (ids == null || ids.equals("-1") || ids.equals("0"))
         {
             log.debug("ID was not found. Creating new ID");
-            //System.out.println("ID was not found. Creating new ID");
+            // System.out.println("ID was not found. Creating new ID");
 
             if (sql != null)
+            {
                 getNext(session);
+            }
             else
             {
                 log.error("SQL Variable was not set. Failed increment.");
-                //System.out.println("SQL Variable was not set. Failed increment.");
+                // System.out.println("SQL Variable was not set. Failed increment.");
             }
 
             return IdentifierGeneratorFactory.createNumber(next++, returnClass);
-        } 
+        }
         else
         {
             log.debug("ID was already assigned: " + id);
-//            System.out.println("ID was already assigned: " + id);
+            // System.out.println("ID was already assigned: " + id);
             return id;
         }
     }
 
-
     /**
      * configure - method which needs to be implemented for Id generator to work
      */
-    public void configure(Type type, Properties params, Dialect dialect) throws MappingException 
+    public void configure(Type type, Properties params, Dialect dialect) throws MappingException
     {
 
         log.debug("configure");
 
         // for assignment
         entityName = params.getProperty(ENTITY_NAME);
-/*
-        if (entityName==null) 
-        {
-            throw new MappingException("no entity name");
-	} */
+        /*
+         * if (entityName==null)
+         * {
+         * throw new MappingException("no entity name");
+         * }
+         */
 
         // for increment
         String tableList = params.getProperty("tables");
 
-        if (tableList==null) 
+        if (tableList == null)
+        {
             tableList = params.getProperty(PersistentIdentifierGenerator.TABLES);
+        }
 
         String[] tables = StringHelper.split(", ", tableList);
         String column = params.getProperty("column");
 
-        if (column==null) 
+        if (column == null)
+        {
             column = params.getProperty(PersistentIdentifierGenerator.PK);
+        }
 
         String schema = params.getProperty(PersistentIdentifierGenerator.SCHEMA);
         String catalog = params.getProperty(PersistentIdentifierGenerator.CATALOG);
         returnClass = type.getReturnedClass();
-            
 
         StringBuffer buf = new StringBuffer();
-        for ( int i=0; i<tables.length; i++ ) 
+        for (int i = 0; i < tables.length; i++)
         {
-                if (tables.length>1) 
-                {
-                    buf.append("select ").append(column).append(" from ");
-                }
+            if (tables.length > 1)
+            {
+                buf.append("select ").append(column).append(" from ");
+            }
 
-                buf.append(Table.qualify(catalog, schema, tables[i]) );
+            buf.append(Table.qualify(catalog, schema, tables[i]));
 
-                if ( i<tables.length-1) 
-                    buf.append(" union ");
+            if (i < tables.length - 1)
+            {
+                buf.append(" union ");
+            }
         }
 
-        if (tables.length>1) 
+        if (tables.length > 1)
         {
             buf.insert(0, "( ").append(" ) ids_");
             column = "ids_." + column;
         }
-            
+
         sql = "select max(" + column + ") from " + buf.toString();
     }
 
-
     // From IncrementGenerator
-    private void getNext( SessionImplementor session ) 
+    private void getNext(SessionImplementor session)
     {
 
         log.debug("fetching initial value: " + sql);
-		
-        try 
+
+        try
         {
             PreparedStatement st = session.getBatcher().prepareSelectStatement(sql);
-            try 
+            try
             {
                 ResultSet rs = st.executeQuery();
-                try 
+                try
                 {
-                    if (rs.next()) 
-                     {
+                    if (rs.next())
+                    {
                         next = rs.getLong(1) + 1;
-                        if (rs.wasNull()) 
+                        if (rs.wasNull())
+                        {
                             next = 1;
+                        }
                     }
-                    else 
+                    else
                     {
                         next = 1;
                     }
-                    //sql=null;
+                    // sql=null;
                     log.debug("first free id: " + next);
                 }
-                finally 
+                finally
                 {
                     rs.close();
                 }
             }
-            finally 
+            finally
             {
                 session.getBatcher().closeStatement(st);
             }
-			
+
         }
-        catch (SQLException sqle) 
+        catch (SQLException sqle)
         {
-            throw JDBCExceptionHelper.convert(
-                                session.getFactory().getSQLExceptionConverter(),
-                                sqle,
-                                "could not fetch initial value for AssignedIncrement generator",
-                                sql
-                        );
+            throw JDBCExceptionHelper.convert(session.getFactory().getSQLExceptionConverter(), sqle,
+                "could not fetch initial value for AssignedIncrement generator", sql);
         }
     }
-
-
-
 
 }

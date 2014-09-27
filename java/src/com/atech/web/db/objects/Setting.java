@@ -31,10 +31,8 @@ package com.atech.web.db.objects;
  *
 */
 
-
-public class Setting  
+public class Setting
 {
-
 
     /** The id. */
     private long id;
@@ -53,7 +51,7 @@ public class Setting
      * @param value
      *            the value
      */
-    public Setting(String property, String value) 
+    public Setting(String property, String value)
     {
         this.property = property;
         this.value = value;
@@ -62,7 +60,7 @@ public class Setting
     /**
      * default constructor.
      */
-    public Setting() 
+    public Setting()
     {
     }
 
@@ -71,7 +69,7 @@ public class Setting
      * 
      * @return the id
      */
-    public long getId() 
+    public long getId()
     {
         return this.id;
     }
@@ -82,7 +80,7 @@ public class Setting
      * @param id
      *            the new id
      */
-    public void setId(long id) 
+    public void setId(long id)
     {
         this.id = id;
     }
@@ -92,7 +90,7 @@ public class Setting
      * 
      * @return the property
      */
-    public String getProperty() 
+    public String getProperty()
     {
         return this.property;
     }
@@ -103,7 +101,7 @@ public class Setting
      * @param property
      *            the new property
      */
-    public void setProperty(String property) 
+    public void setProperty(String property)
     {
         this.property = property;
     }
@@ -113,7 +111,7 @@ public class Setting
      * 
      * @return the value
      */
-    public String getValue() 
+    public String getValue()
     {
         return this.value;
     }
@@ -124,10 +122,9 @@ public class Setting
      * @param value
      *            the new value
      */
-    public void setValue(String value) 
+    public void setValue(String value)
     {
         this.value = value;
     }
-
 
 }

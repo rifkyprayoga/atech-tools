@@ -34,32 +34,28 @@ import javax.swing.JButton;
  *
 */
 
-
-public interface HelpCapable 
+public interface HelpCapable
 {
-    
-    
+
     /**
      * getHelpId - returns help id, for attachment to help context
      * 
      * @return help id as string
      */
-	public String getHelpId();
+    public String getHelpId();
 
-	
     /**
      * getHelpButton - returns help button, for attaching to help context
      * 
      * @return help button instance
      */
-	public JButton getHelpButton();
+    public JButton getHelpButton();
 
-	
     /**
      * getComponent - this method returns instance of this component, for attaching it to help context.
      * 
      * @return instance of this component
      */
-	public Component getComponent();
-    
+    public Component getComponent();
+
 }

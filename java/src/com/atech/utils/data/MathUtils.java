@@ -43,7 +43,7 @@ public class MathUtils
         double stdDevA = avg - min;
         double stdDevB = max - avg;
 
-        data.stdDeviation = (stdDevA > stdDevB) ? stdDevA : stdDevB;
+        data.stdDeviation = stdDevA > stdDevB ? stdDevA : stdDevB;
         data.average = avg;
 
     }
@@ -57,9 +57,7 @@ public class MathUtils
     public static void quartiles(ArrayList<Double> values, MathData data) throws Exception
     {
         if (values.size() < 3)
-        {
             throw new Exception("This method is not designed to handle lists with fewer than 3 elements.");
-        }
 
         double median = median(values);
 
@@ -70,7 +68,7 @@ public class MathUtils
         data.quartileMedian = median;
         data.quartileMax = median(upperHalf);
 
-        //return new double[] { median(lowerHalf), median, median(upperHalf) };
+        // return new double[] { median(lowerHalf), median, median(upperHalf) };
     }
 
     public static ArrayList<Double> getValuesGreaterThan(ArrayList<Double> values, double limit, boolean orEqualTo)
@@ -79,7 +77,7 @@ public class MathUtils
 
         for (double value : values)
         {
-            if ((value > limit) || ((value == limit) && orEqualTo))
+            if (value > limit || value == limit && orEqualTo)
             {
                 modValues.add(value);
             }
@@ -94,7 +92,7 @@ public class MathUtils
 
         for (double value : values)
         {
-            if ((value < limit) || ((value == limit) && orEqualTo))
+            if (value < limit || value == limit && orEqualTo)
             {
                 modValues.add(value);
             }
@@ -107,13 +105,11 @@ public class MathUtils
     {
         Collections.sort(values);
 
-        if ((values.size() % 2) == 1)
-        {
-            return values.get(((values.size() + 1) / 2) - 1);
-        }
+        if (values.size() % 2 == 1)
+            return values.get((values.size() + 1) / 2 - 1);
         else
         {
-            double lower = values.get((values.size() / 2) - 1);
+            double lower = values.get(values.size() / 2 - 1);
             double upper = values.get(values.size() / 2);
 
             return (lower + upper) / 2.0;

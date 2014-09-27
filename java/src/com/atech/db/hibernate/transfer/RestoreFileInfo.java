@@ -35,35 +35,34 @@ import java.io.FileReader;
  *
 */
 
-
 public class RestoreFileInfo
 {
-    
+
     /**
      * The name.
      */
     public String name = "";
-    
+
     /**
      * The class_name.
      */
     public String class_name = "";
-    
+
     /**
      * The element_count.
      */
     public int element_count = 0;
-    
+
     /**
      * The db_version.
      */
     public String db_version = "";
-    
+
     /**
      * The file.
      */
     File file;
-    
+
     /**
      * The selected.
      */
@@ -97,7 +96,9 @@ public class RestoreFileInfo
             while ((line = br.readLine()) != null)
             {
                 if (line.startsWith(";"))
+                {
                     processStatusLine(line);
+                }
                 else if (line.trim().length() > 0)
                 {
                     data_line++;
@@ -137,6 +138,7 @@ public class RestoreFileInfo
     /** 
      * toString
      */
+    @Override
     public String toString()
     {
         return "RestoreFileInfo [filename=" + this.name + ",class_name=" + this.class_name + ",db_ver="

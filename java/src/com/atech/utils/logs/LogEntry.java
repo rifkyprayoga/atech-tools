@@ -1,6 +1,5 @@
 package com.atech.utils.logs;
 
-
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -32,19 +31,17 @@ package com.atech.utils.logs;
  *
 */
 
-
 public class LogEntry
 {
-    
+
     private long time_ms;
-    
+
     private int type;
-    
+
     private String message;
-    
+
     private Object object;
-    
-    
+
     /**
      * Instantiates a new log entry.
      * 
@@ -55,7 +52,7 @@ public class LogEntry
     {
         this(type_, message_, null);
     }
-    
+
     /**
      * Instantiates a new log entry.
      * 
@@ -70,9 +67,6 @@ public class LogEntry
         this.object = obj;
         this.time_ms = System.currentTimeMillis();
     }
-    
-    
-    
 
     /**
      * Sets the time ms.
@@ -153,6 +147,5 @@ public class LogEntry
     {
         return object;
     }
-    
-    
+
 }

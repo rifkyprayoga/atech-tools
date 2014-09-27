@@ -31,18 +31,16 @@ package com.atech.update.startup.os;
  *
  */
 
-
 public abstract class StartupOSAbstract
 {
-    
+
     /**
      * Get Header for batch file
      * 
      * @return header as string
      */
     public abstract String getHeader();
-    
-    
+
     /**
      * Get Footer for batch file
      * 
@@ -53,36 +51,32 @@ public abstract class StartupOSAbstract
         return "";
     }
 
-    
     /**
      * Get Separator - this is path separator 
      * 
      * @return separator as string
      */
     public abstract String getSeparator();
-    
-	
+
     /**
      * Get Batch File Extension
      * 
      * @return extension of batch file in this OS
      */
     public abstract String getBatchFileExtension();
-    
-    
+
     /**
      * Get Short OS Name (this is not official name, but name we use)
      * 
      * @return short os name
      */
     public abstract String getShortOSName();
-    
-    
+
     /**
      * Get How Parameter is constructed (%1 in windows, $1 in unix)
      * 
      * @return custom parameter 
      */
     public abstract String getCustomParameter();
-    
+
 }

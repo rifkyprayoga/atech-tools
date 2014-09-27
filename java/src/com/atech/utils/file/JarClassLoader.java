@@ -74,13 +74,14 @@ public class JarClassLoader extends MultiClassLoader
     /** 
      * loadClassBytes
      */
+    @Override
     protected byte[] loadClassBytes(String className)
     {
         // Support the MultiClassLoader's class name munging facility.
         className = formatClassName(className);
 
         // Attempt to get the class data from the JarResource.
-        return (jarResources.getResource(className));
+        return jarResources.getResource(className);
     }
 
     /*
@@ -91,7 +92,7 @@ public class JarClassLoader extends MultiClassLoader
      */
     public static class Test
     {
-        
+
         /**
          * The main method.
          * 
@@ -118,7 +119,6 @@ public class JarClassLoader extends MultiClassLoader
 
             /*
              * Create an instance of the class.
-             * 
              * Note that created object's constructor-taking-no-arguments will
              * be called as part of the objects creation.
              */
@@ -128,7 +128,7 @@ public class JarClassLoader extends MultiClassLoader
             if (o instanceof PackFiles)
             {
                 // Yep, lets call a method that we know about. */
-                /*PackFiles tc = (PackFiles) o; */
+                /* PackFiles tc = (PackFiles) o; */
                 // tc.doSomething();
             }
         }

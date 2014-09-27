@@ -52,7 +52,7 @@ public class JTreeTable extends JTable
 {
 
     private static final long serialVersionUID = 6274675444215143328L;
-    
+
     /**
      * The tree.
      */
@@ -76,24 +76,22 @@ public class JTreeTable extends JTable
         setTreeTableCellRenderer(tree2);
 
         /*
-        // Install a tableModel representing the visible rows in the tree. 
-        super.setModel(new TreeTableModelAdapter(treeTableModel, tree));
-
-        // Force the JTable and JTree to share their row selection models. 
-        tree.setSelectionModel(new DefaultTreeSelectionModel() { 
-                                   // Extend the implementation of the constructor, as if: 
-                                   /* public this() */// {
-        /*                                       setSelectionModel(listSelectionModel); 
-                                           } 
-                                       }); 
-                // Make the tree and table row heights the same. 
-                tree.setRowHeight(getRowHeight());
-
-                
-
-                // Install the tree editor renderer and editor. 
-                setDefaultRenderer(TreeTableModel.class, tree); 
-                */
+         * // Install a tableModel representing the visible rows in the tree.
+         * super.setModel(new TreeTableModelAdapter(treeTableModel, tree));
+         * // Force the JTable and JTree to share their row selection models.
+         * tree.setSelectionModel(new DefaultTreeSelectionModel() {
+         * // Extend the implementation of the constructor, as if:
+         * /* public this()
+         */// {
+        /*
+         * setSelectionModel(listSelectionModel);
+         * }
+         * });
+         * // Make the tree and table row heights the same.
+         * tree.setRowHeight(getRowHeight());
+         * // Install the tree editor renderer and editor.
+         * setDefaultRenderer(TreeTableModel.class, tree);
+         */
         setDefaultEditor(TreeTableModel.class, new TreeTableCellEditor());
 
         setShowGrid(false);
@@ -103,6 +101,7 @@ public class JTreeTable extends JTable
     /** 
      * setShowGrid
      */
+    @Override
     public void setShowGrid(boolean show)
     {
         super.setShowGrid(show);
@@ -121,18 +120,20 @@ public class JTreeTable extends JTable
         return this.show_grid;
     }
 
-    /* Workaround for BasicTableUI anomaly. Make sure the UI never tries to 
-     * paint the editor. The UI currently uses different techniques to 
-     * paint the renderers and editors and overriding setBounds() below 
-     * is not the right thing to do for an editor. Returning -1 for the 
-     * editing row in this case, ensures the editor is never painted. 
+    /*
+     * Workaround for BasicTableUI anomaly. Make sure the UI never tries to
+     * paint the editor. The UI currently uses different techniques to
+     * paint the renderers and editors and overriding setBounds() below
+     * is not the right thing to do for an editor. Returning -1 for the
+     * editing row in this case, ensures the editor is never painted.
      */
     /** 
      * getEditingRow
      */
+    @Override
     public int getEditingRow()
     {
-        return (getColumnClass(editingColumn) == TreeTableModel.class) ? -1 : editingRow;
+        return getColumnClass(editingColumn) == TreeTableModel.class ? -1 : editingRow;
     }
 
     /**
@@ -182,7 +183,7 @@ public class JTreeTable extends JTable
 
     // tree = new TreeTableCellRenderer(treeTableModel, this);
 
-    // 
+    //
     // The editor used to interact with tree nodes, a JTree.
     //
 
@@ -191,7 +192,7 @@ public class JTreeTable extends JTable
      */
     public class TreeTableCellEditor extends AbstractCellEditor implements TableCellEditor
     {
-        
+
         /** 
          * getTableCellEditorComponent
          */

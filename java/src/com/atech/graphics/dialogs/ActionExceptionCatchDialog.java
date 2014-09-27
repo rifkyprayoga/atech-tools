@@ -1,6 +1,5 @@
 package com.atech.graphics.dialogs;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -43,7 +42,6 @@ import com.atech.utils.ATDataAccessAbstract;
  *
 */
 
-
 /**
  * ActionExceptionCatchDialog is intended to be used with dialogs that perform
  * specific action. This is less restrictive form of ExceptionCatch dialogs.
@@ -68,31 +66,31 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     private static final long serialVersionUID = -5125099590281275283L;
     private int m_action_done = 0;
     private String m_action_id = "unknown";
-    
+
     /**
      * The m_da.
      */
     ATDataAccessAbstract m_da;
-    
+
     /**
      * The error_message.
      */
     String error_message = null;
-    
+
     /**
      * The error_message_tip.
      */
     String error_message_tip = null;
-    
+
     /**
      * The base_error_message.
      */
     String base_error_message = "Unknown exception occured. Please consider sending report to us, so that we can resolve problem";
-    //private static Log log = LogFactory.getLog(ActionExceptionCatchDialog.class); 
+    // private static Log log =
+    // LogFactory.getLog(ActionExceptionCatchDialog.class);
     @SuppressWarnings("unused")
     private static Log log = LogFactory.getLog(ActionExceptionCatchDialog.class);
 
-    
     private String component_name;
 
     /**
@@ -103,22 +101,22 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
      */
     public ActionExceptionCatchDialog(ATDataAccessAbstract da, String component_name)
     {
-    	this.m_da = da;
-    	this.m_da.addComponent(this);
-    	this.component_name = component_name;
+        this.m_da = da;
+        this.m_da.addComponent(this);
+        this.component_name = component_name;
     }
-    
+
     /**
      * When disposing dialog, we need to remove dialog from list so we override
      * original method. 
      */
+    @Override
     public void dispose()
     {
-    	m_da.removeComponent(this);
-    	super.dispose();
+        m_da.removeComponent(this);
+        super.dispose();
     }
-    
-    
+
     /**
      * setBaseErrorMessage - set base error message. 
      * 
@@ -126,9 +124,8 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
      */
     public void setBaseErrorMessage(String msg)
     {
-    	this.base_error_message = msg;
+        this.base_error_message = msg;
     }
-
 
     /**
      * Action handling... In this method we handle actions... Each action must
@@ -140,7 +137,6 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
      */
     public abstract void performAction(ActionEvent e) throws Exception;
 
-
     /**
      * Get Action Id
      * @return
@@ -150,7 +146,6 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
         return this.m_action_id;
     }
 
-    
     /**
      * Sets the action id.
      * 
@@ -158,9 +153,8 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
      */
     public void setActionId(String action_id)
     {
-    	this.m_action_id = action_id;
+        this.m_action_id = action_id;
     }
-
 
     /**
      * Sets the error messages.
@@ -170,11 +164,10 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
      */
     public void setErrorMessages(String err_msg, String err_msg_tip)
     {
-    	this.error_message = err_msg;
-    	this.error_message_tip = err_msg_tip;
+        this.error_message = err_msg;
+        this.error_message_tip = err_msg_tip;
     }
-    
-    
+
     /**
      * Invoked when an action occurs.
      */
@@ -184,15 +177,20 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
         {
             performAction(e);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-        	if (this.error_message!=null)
-        		m_da.createErrorDialog(this.component_name, this.getActionId(), ex, this.error_message, this.error_message_tip);
-        	else
-        		m_da.createErrorDialog(this.component_name, this.getActionId(), ex, this.base_error_message, this.error_message_tip);
+            if (this.error_message != null)
+            {
+                m_da.createErrorDialog(this.component_name, this.getActionId(), ex, this.error_message,
+                    this.error_message_tip);
+            }
+            else
+            {
+                m_da.createErrorDialog(this.component_name, this.getActionId(), ex, this.base_error_message,
+                    this.error_message_tip);
+            }
         }
     }
-
 
     /**
      *  Gets info if action was performed.
@@ -201,9 +199,8 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
      */
     public boolean wasAction()
     {
-        return (m_action_done==0);
+        return m_action_done == 0;
     }
-
 
     /**
      *  Gets info if action was performed.
@@ -214,7 +211,6 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     {
         return m_action_done;
     }
-
 
     /**
      *  Returns object of this dialog or null

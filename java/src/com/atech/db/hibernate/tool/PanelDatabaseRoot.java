@@ -9,8 +9,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
-
 
 /**
  *  This file is part of ATech Tools library.
@@ -42,10 +42,8 @@ import com.atech.utils.ATSwingUtils;
  *
 */
 
-
 // WORK IN PROGRESS, PLEASE DO NOT TOUCH
 // andyrozman
-
 
 public class PanelDatabaseRoot extends JPanel implements ActionListener
 {
@@ -60,9 +58,7 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
     JLabel label;
     JButton button;
 
-    //NutritionTreeDialog m_dialog = null;
-    
-
+    // NutritionTreeDialog m_dialog = null;
 
     /**
      * Constructor
@@ -74,18 +70,16 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
 
         super();
 
-        //m_dialog = dia;
+        // m_dialog = dia;
         m_da = DbToolAccess.getInstance();
 
-        font_big = m_da.getFont(DbToolAccess.FONT_BIG_BOLD);
-        font_normal_b = m_da.getFont(DbToolAccess.FONT_NORMAL_BOLD);
-        font_normal = m_da.getFont(DbToolAccess.FONT_NORMAL);
+        font_big = m_da.getFont(ATDataAccessAbstract.FONT_BIG_BOLD);
+        font_normal_b = m_da.getFont(ATDataAccessAbstract.FONT_NORMAL_BOLD);
+        font_normal = m_da.getFont(ATDataAccessAbstract.FONT_NORMAL);
 
         createPanel();
 
     }
-
-
 
     private void createPanel()
     {
@@ -96,43 +90,41 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
         Font fnt_18 = new Font("Times New Roman", Font.BOLD, 18);
 
         ATSwingUtils.initLibrary();
-        
+
         ATSwingUtils.getTitleLabel(ic.getMessage("DB_TOOL"), 0, 35, 500, 40, this, ATSwingUtils.FONT_BIG_BOLD);
-        
-        
+
         /*
-        label = new JLabel(ic.getMessage("")); //"Database Root");
-	    //ic.getMessage("CONFIGURATION"));
-        label.setBounds(0, 35, 500, 40);
-        label.setFont(font_big); 
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        this.add(label, null);
-*/
+         * label = new JLabel(ic.getMessage("")); //"Database Root");
+         * //ic.getMessage("CONFIGURATION"));
+         * label.setBounds(0, 35, 500, 40);
+         * label.setFont(font_big);
+         * label.setHorizontalAlignment(SwingConstants.CENTER);
+         * this.add(label, null);
+         */
 
         label = new JLabel(ic.getMessage("ADD_VIEW"));
         label.setBounds(40, 100, 100, 30);
-        label.setFont(fnt_18); 
+        label.setFont(fnt_18);
         this.add(label, null);
 
         label = new JLabel(ic.getMessage("ADD_VIEW_DESC"));
         label.setBounds(40, 130, 300, 60);
-        label.setFont(font_normal); 
+        label.setFont(font_normal);
         this.add(label, null);
 
-	JComboBox cb = new JComboBox(m_da.getAvailableDatabases());
-	cb.setBounds(110, 190, 170, 25);
-	cb.setFont(font_normal);
-	this.add(cb, null);
+        JComboBox cb = new JComboBox(m_da.getAvailableDatabases());
+        cb.setBounds(110, 190, 170, 25);
+        cb.setFont(font_normal);
+        this.add(cb, null);
 
-
-/*
-        button = new JButton(ic.getMessage("ADD_"));
-        button.setBounds(110, 190, 170, 25);
-        button.setFont(font_normal);
-        button.addActionListener(this);
-        button.setActionCommand("add_");
-        this.add(button);
-*/
+        /*
+         * button = new JButton(ic.getMessage("ADD_"));
+         * button.setBounds(110, 190, 170, 25);
+         * button.setFont(font_normal);
+         * button.addActionListener(this);
+         * button.setActionCommand("add_");
+         * this.add(button);
+         */
         button = new JButton(ic.getMessage("ADD_DB"));
         button.setBounds(110, 220, 170, 25);
         button.setFont(font_normal);
@@ -142,19 +134,18 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
 
         label = new JLabel(ic.getMessage("EDIT_VIEW"));
         label.setBounds(40, 280, 300, 30);
-        label.setFont(fnt_18); 
+        label.setFont(fnt_18);
         this.add(label, null);
 
         label = new JLabel(ic.getMessage("EDIT_VIEW_DESC"));
         label.setBounds(40, 310, 300, 60);
-        label.setFont(font_normal); 
+        label.setFont(font_normal);
         this.add(label, null);
 
-	//System.out.println("Pabnel paint");
+        // System.out.println("Pabnel paint");
 
         return;
     }
-
 
     /**
      * Set Data
@@ -172,23 +163,18 @@ public class PanelDatabaseRoot extends JPanel implements ActionListener
      */
     public void reDraw()
     {
-        //System.out.println("Redraw Not working");
+        // System.out.println("Redraw Not working");
     }
-
-
 
     /**
      *  Action Listener
      */
-    public void actionPerformed(ActionEvent e) 
+    public void actionPerformed(ActionEvent e)
     {
 
         String action = e.getActionCommand();
         System.out.println("PanelDatabaseSet::Unknown command: " + action);
-  
+
     }
 
 }
-    
-    
-

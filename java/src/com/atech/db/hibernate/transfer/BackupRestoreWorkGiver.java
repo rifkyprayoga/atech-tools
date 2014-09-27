@@ -31,25 +31,23 @@ package com.atech.db.hibernate.transfer;
  *
 */
 
-
 // this one should be extended, we have several variables that need to be filled
 
-public interface BackupRestoreWorkGiver //extends BackupRestoreBase 
+public interface BackupRestoreWorkGiver // extends BackupRestoreBase
 {
 
     /**
-	 * Sets the status.
-	 * 
-	 * @param procents the new status
-	 */
-	public void setStatus(int procents);
-	
-	/**
-	 * Sets the task.
-	 * 
-	 * @param task_name the new task
-	 */
-	public void setTask(String task_name);
-    
-	
+     * Sets the status.
+     * 
+     * @param procents the new status
+     */
+    public void setStatus(int procents);
+
+    /**
+     * Sets the task.
+     * 
+     * @param task_name the new task
+     */
+    public void setTask(String task_name);
+
 }

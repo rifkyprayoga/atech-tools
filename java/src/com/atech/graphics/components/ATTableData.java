@@ -132,7 +132,4 @@ public abstract class ATTableData
      */
     public abstract String getColumnValue(int column);
 
-    
-    
-    
 }

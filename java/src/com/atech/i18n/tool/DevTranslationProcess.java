@@ -3,14 +3,13 @@
  */
 package com.atech.i18n.tool;
 
-
 /**
  * @author Andy
  *
  */
-public class DevTranslationProcess 
+public class DevTranslationProcess
 {
-    
+
     private static final long serialVersionUID = 2644133874899117924L;
 
     /**

@@ -1,4 +1,3 @@
-
 package com.atech.update.config;
 
 import com.atech.update.startup.StartupUtil;
@@ -33,60 +32,59 @@ import com.atech.update.startup.StartupUtil;
  *
 */
 
-public class ComponentCustomApp //implements ComponentInterface
+public class ComponentCustomApp // implements ComponentInterface
 {
-    
+
     /**
      * Id
      */
     public String id;
-    
-	/**
-	 * Filename 
-	 */
-	public String filename;
-	
-	/**
-	 * Main Class 
-	 */
-	public String main_class;
-	
-	/**
-	 * Is Binary Needed 
-	 */
-	public boolean binary_needed;
-	
-	/**
-	 * Special Parameters
-	 */
-	public String special_parameters;
-	
-	/**
-	 * Needs JDBC
-	 */
-	public boolean needs_jdbc;
-	
 
-	/**
-	 * Constructor
-	 * 
-	 * @param id
-	 * @param filename
-	 * @param main_class
-	 * @param binary_needed
-	 * @param special_parameters
-	 * @param needs_jdbc
-	 */
-	public ComponentCustomApp(String id, String filename, String main_class, String binary_needed, String special_parameters, String needs_jdbc)
-	{
-		this.id = id;
-		this.filename = filename;
-		this.main_class = main_class;
-		this.binary_needed = StartupUtil.isOptionEnabled(binary_needed);
-		this.special_parameters = special_parameters;
+    /**
+     * Filename 
+     */
+    public String filename;
+
+    /**
+     * Main Class 
+     */
+    public String main_class;
+
+    /**
+     * Is Binary Needed 
+     */
+    public boolean binary_needed;
+
+    /**
+     * Special Parameters
+     */
+    public String special_parameters;
+
+    /**
+     * Needs JDBC
+     */
+    public boolean needs_jdbc;
+
+    /**
+     * Constructor
+     * 
+     * @param id
+     * @param filename
+     * @param main_class
+     * @param binary_needed
+     * @param special_parameters
+     * @param needs_jdbc
+     */
+    public ComponentCustomApp(String id, String filename, String main_class, String binary_needed,
+            String special_parameters, String needs_jdbc)
+    {
+        this.id = id;
+        this.filename = filename;
+        this.main_class = main_class;
+        this.binary_needed = StartupUtil.isOptionEnabled(binary_needed);
+        this.special_parameters = special_parameters;
         this.needs_jdbc = StartupUtil.isOptionEnabled(needs_jdbc);
-	}
-
+    }
 
     /**
      * Constructor
@@ -95,16 +93,12 @@ public class ComponentCustomApp //implements ComponentInterface
     {
     }
 
-	
+    @Override
     public String toString()
     {
-        return "ComponentCustomApp [id=" + this.id + ", filename=" + this.filename + ", main_class=" + this.main_class +
-            ", binary_needed=" + this.binary_needed + ", needs_jdbc=" + this.needs_jdbc + 
-            ", special_parameters=" + this.special_parameters + "]";
+        return "ComponentCustomApp [id=" + this.id + ", filename=" + this.filename + ", main_class=" + this.main_class
+                + ", binary_needed=" + this.binary_needed + ", needs_jdbc=" + this.needs_jdbc + ", special_parameters="
+                + this.special_parameters + "]";
     }
-    
-    
-	
+
 }
-
-

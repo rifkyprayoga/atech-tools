@@ -128,13 +128,13 @@ public class ByteUtils
 
         if (this.byte_order == ByteUtils.BIT_ORDER_BIG_ENDIAN)
         {
-            val += (arr[offset] << 8) & 0xff00;
-            val = (val + (arr[offset + 1] & 0xff));
+            val += arr[offset] << 8 & 0xff00;
+            val = val + (arr[offset + 1] & 0xff);
         }
         else
         {
-            val += (arr[offset + 1] << 8) & 0xff00;
-            val = (val + (arr[offset] & 0xff));
+            val += arr[offset + 1] << 8 & 0xff00;
+            val = val + (arr[offset] & 0xff);
         }
 
         return val;
@@ -144,7 +144,7 @@ public class ByteUtils
     // endian is here not supported
     public int getByteFromIntsAsInt(int num1, int num2)
     {
-        int k = (num1 << 4) | (num2 & 0xf);
+        int k = num1 << 4 | num2 & 0xf;
         return k;
     }
 
@@ -186,8 +186,8 @@ public class ByteUtils
                 destinationArray[i] = (char) arr[offset + i];
             }
 
-            //            System.arraycopy(arr, offset, destinationArray, 0, size);
-            String str = new String(destinationArray); //, 0, size);
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
             return str;
         }
         catch (Exception ex)
@@ -220,8 +220,8 @@ public class ByteUtils
                 destinationArray[i] = (char) arr[offset + i];
             }
 
-            //            System.arraycopy(arr, offset, destinationArray, 0, size);
-            String str = new String(destinationArray); //, 0, size);
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
             return str;
         }
         catch (Exception ex)
@@ -266,12 +266,12 @@ public class ByteUtils
 
             for (int i = 0; i < size; i++)
             {
-                //byte b = (byte)(arr[offset+i] +  0x41);
-                destinationArray[i] = (char) ((arr[offset + i] + 0x41));
+                // byte b = (byte)(arr[offset+i] + 0x41);
+                destinationArray[i] = (char) (arr[offset + i] + 0x41);
             }
 
-            //            System.arraycopy(arr, offset, destinationArray, 0, size);
-            String str = new String(destinationArray); //, 0, size);
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
             return str;
         }
         catch (Exception ex)
@@ -300,8 +300,8 @@ public class ByteUtils
         byte[] arr_out = new byte[length];
         int j = 0;
 
-        for (int i = start; i < (arr.length - end); i++)
-        //for(int i=start; i<start+length; i++)
+        for (int i = start; i < arr.length - end; i++)
+        // for(int i=start; i<start+length; i++)
         {
             arr_out[j] = arr[i];
             j++;
@@ -315,8 +315,8 @@ public class ByteUtils
         byte[] arr_out = new byte[length];
         int j = 0;
 
-        //for(int i=start; i<(arr.length-end); i++)
-        for (int i = start; i < (start + length); i++)
+        // for(int i=start; i<(arr.length-end); i++)
+        for (int i = start; i < start + length; i++)
         {
             arr_out[j] = arr[i];
             j++;
@@ -337,12 +337,12 @@ public class ByteUtils
         try
         {
             int[] arr_out = new int[end - start];
-            //int j=0;
+            // int j=0;
 
             for (int i = start, j = 0; i < end; i++, j++)
             {
                 arr_out[j] = arr[i];
-                //j++;
+                // j++;
             }
 
             return arr_out;
@@ -355,10 +355,8 @@ public class ByteUtils
 
         /*
          * int[] arr_out = new int[length-end-start]; int j=0;
-         * 
          * for(int i=start; i<(arr.length-end); i++) { arr_out[j] = arr[i]; j++;
          * }
-         * 
          * return arr_out;
          */
     }
@@ -376,27 +374,19 @@ public class ByteUtils
         String hx = Integer.toHexString((char) inp);
 
         if (hx.length() == 0)
-        {
             return "00";
-        }
         else if (hx.length() == 1)
-        {
             return "0" + hx;
-        }
         else if (hx.length() == 2)
-        {
             return hx;
-        }
         else if (hx.length() == 4)
-        {
             return hx.substring(2);
-        }
         else
         {
             System.out.println("HEX ERROR !!!!!!!!!!!!!!!!");
         }
 
-        //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+        // System.out.print(Integer.toHexString((char)arr[i]) + " ");
 
         return null;
     }
@@ -414,27 +404,19 @@ public class ByteUtils
         String hx = Integer.toHexString((char) inp);
 
         if (hx.length() == 0)
-        {
             return "00";
-        }
         else if (hx.length() == 1)
-        {
             return "0" + hx;
-        }
         else if (hx.length() == 2)
-        {
             return hx;
-        }
         else if (hx.length() == 4)
-        {
             return hx.substring(2);
-        }
         else
         {
             System.out.println("HEX ERROR !!!!!!!!!!!!!!!!");
         }
 
-        //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+        // System.out.print(Integer.toHexString((char)arr[i]) + " ");
 
         return null;
     }
@@ -452,8 +434,8 @@ public class ByteUtils
         for (byte element : arr)
         {
             System.out.print(getCorrectHexValue(element) + " ");
-            //getCorrectHexValue(arr[i]);
-            //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+            // getCorrectHexValue(arr[i]);
+            // System.out.print(Integer.toHexString((char)arr[i]) + " ");
         }
 
         System.out.print("\n");
@@ -467,8 +449,8 @@ public class ByteUtils
         for (int element : arr)
         {
             System.out.print(getCorrectHexValue(element) + " ");
-            //getCorrectHexValue(arr[i]);
-            //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+            // getCorrectHexValue(arr[i]);
+            // System.out.print(Integer.toHexString((char)arr[i]) + " ");
         }
 
         System.out.print("\n");
@@ -477,7 +459,7 @@ public class ByteUtils
 
     public String getIntArrayShow(int[] arr)
     {
-        //System.out.print("Int array: ");
+        // System.out.print("Int array: ");
         StringBuffer sb = new StringBuffer();
 
         for (int element : arr)
@@ -485,7 +467,7 @@ public class ByteUtils
             sb.append(element + " ");
         }
 
-        //System.out.print("\n");
+        // System.out.print("\n");
 
         return sb.toString();
 
@@ -499,7 +481,7 @@ public class ByteUtils
      */
     public String getIntArrayHex(int[] arr)
     {
-        //System.out.print("Byte array: ");
+        // System.out.print("Byte array: ");
 
         StringBuffer sb = new StringBuffer();
         sb.append("[ ");
@@ -507,8 +489,8 @@ public class ByteUtils
         for (int element : arr)
         {
             sb.append(getCorrectHexValue(element) + " ");
-            //getCorrectHexValue(arr[i]);
-            //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+            // getCorrectHexValue(arr[i]);
+            // System.out.print(Integer.toHexString((char)arr[i]) + " ");
         }
 
         sb.append("]");
@@ -524,7 +506,7 @@ public class ByteUtils
      */
     public String getByteArrayHex(byte[] arr)
     {
-        //System.out.print("Byte array: ");
+        // System.out.print("Byte array: ");
 
         StringBuffer sb = new StringBuffer();
         sb.append("[ ");
@@ -532,8 +514,8 @@ public class ByteUtils
         for (byte element : arr)
         {
             sb.append(getCorrectHexValue(element) + " ");
-            //getCorrectHexValue(arr[i]);
-            //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+            // getCorrectHexValue(arr[i]);
+            // System.out.print(Integer.toHexString((char)arr[i]) + " ");
         }
 
         sb.append("]");
@@ -567,7 +549,7 @@ public class ByteUtils
         for (byte element : arr)
         {
             sb.append((char) element);
-            //System.out.print(arr[i] + " ");
+            // System.out.print(arr[i] + " ");
         }
 
         System.out.println(sb.toString());
@@ -577,18 +559,18 @@ public class ByteUtils
     {
         StringBuilder sb = new StringBuilder();
         sb.append("Byte array [Hex]: ");
-        //System.out.print("Byte array: ");
+        // System.out.print("Byte array: ");
 
         for (byte element : arr)
         {
             sb.append(getCorrectHexValue(element) + " ");
-            //System.out.print(getCorrectHexValue(arr[i]) + " ");
-            //getCorrectHexValue(arr[i]);
-            //System.out.print(Integer.toHexString((char)arr[i]) + " ");
+            // System.out.print(getCorrectHexValue(arr[i]) + " ");
+            // getCorrectHexValue(arr[i]);
+            // System.out.print(Integer.toHexString((char)arr[i]) + " ");
         }
 
         sb.append("\n");
-        //System.out.print("\n");
+        // System.out.print("\n");
 
         return sb.toString();
 
@@ -603,14 +585,14 @@ public class ByteUtils
     public String getDebugByteArray(byte[] arr)
     {
         StringBuilder sb = new StringBuilder();
-        //System.out.println("Byte array: ");
+        // System.out.println("Byte array: ");
 
         sb.append("Byte array: ");
 
         for (byte element : arr)
         {
             sb.append(element + " ");
-            //System.out.print(arr[i] + " ");
+            // System.out.print(arr[i] + " ");
         }
 
         return sb.toString();
@@ -621,12 +603,12 @@ public class ByteUtils
         StringBuilder sb = new StringBuilder();
         sb.append("Byte array as Str: ");
 
-        //System.out.println("Byte array as String: ");
+        // System.out.println("Byte array as String: ");
 
         for (byte element : arr)
         {
             sb.append((char) element);
-            //System.out.print(arr[i] + " ");
+            // System.out.print(arr[i] + " ");
         }
 
         return sb.toString();
@@ -654,16 +636,16 @@ public class ByteUtils
 
         int iLen = strHex.length();
 
-        if ((iLen % 2) != 0)
+        if (iLen % 2 != 0)
         {
 
-            //            System.out.println("#error HexString: iLen="+iLen);
+            // System.out.println("#error HexString: iLen="+iLen);
             iLen -= 1;
         }
 
         byte[] buffer = new byte[iLen / 2];
 
-        for (int i = 0; i < (iLen / 2); i++)
+        for (int i = 0; i < iLen / 2; i++)
         {
 
             int ic1, ic2;
@@ -675,20 +657,20 @@ public class ByteUtils
             }
             else
             {
-                ic1 = (c1 - 'A') + 10;
+                ic1 = c1 - 'A' + 10;
             }
 
-            char c2 = strHex.charAt((2 * i) + 1);
+            char c2 = strHex.charAt(2 * i + 1);
             if (Character.isDigit(c2))
             {
                 ic2 = c2 - '0';
             }
             else
             {
-                ic2 = (c2 - 'A') + (char) 10;
+                ic2 = c2 - 'A' + (char) 10;
             }
 
-            buffer[i] = (byte) ((ic1 * 16) + ic2);
+            buffer[i] = (byte) (ic1 * 16 + ic2);
         }
 
         return buffer;
@@ -721,8 +703,9 @@ public class ByteUtils
 
     public int[] makePackedBCD(String s)
     {
-        //Contract.preNonNull(s, "numericString");
-        //Contract.pre(isEven(s.length()), "numericString must have an even number of characters");
+        // Contract.preNonNull(s, "numericString");
+        // Contract.pre(isEven(s.length()),
+        // "numericString must have an even number of characters");
         s = s.toLowerCase();
 
         /*
@@ -736,7 +719,7 @@ public class ByteUtils
         for (int j = 0; j < ai1.length; j++)
         {
             char c1 = (char) ai[j * 2];
-            char c2 = (char) ai[(j * 2) + 1];
+            char c2 = (char) ai[j * 2 + 1];
             int k = c1 - (Character.isDigit(c1) ? 48 : 87);
             int l = c2 - (Character.isDigit(c2) ? 48 : 87);
             ai1[j] = getByteAsInt(k, l);
@@ -758,9 +741,7 @@ public class ByteUtils
             return ai;
         }
         else
-        {
             return null;
-        }
     }
 
     public int[] concatIntArrays(int arr_in1[], int arr_in2[])
@@ -769,19 +750,22 @@ public class ByteUtils
         System.arraycopy(arr_in1, 0, arr_out, 0, arr_in1.length);
         System.arraycopy(arr_in2, 0, arr_out, arr_in1.length, arr_in2.length);
 
-        //log.debug("Input 1: " + this.getIntArrayHex(arr_in1));
-        //log.debug("Input 2: " + this.getIntArrayHex(arr_in2));
-        //log.debug("Input Skupaj: " + this.getIntArrayHex(arr_out));
+        // log.debug("Input 1: " + this.getIntArrayHex(arr_in1));
+        // log.debug("Input 2: " + this.getIntArrayHex(arr_in2));
+        // log.debug("Input Skupaj: " + this.getIntArrayHex(arr_out));
 
         return arr_out;
     }
 
     public int getByteAsInt(int i, int j)
     {
-        //Contract.pre(i >= 0 && i <= 15, "highNibble value of " + i + " is out of expected range 0.." + 15);
-        //Contract.pre(j >= 0 && j <= 15, "lowNibble value of " + j + " is out of expected range 0.." + 15);
-        return ((i << 4) | (j & 0xf));
-        //Contract.post(k >= 0 && k <= 255, "value of " + k + " is out of expected range 0.." + 255);
+        // Contract.pre(i >= 0 && i <= 15, "highNibble value of " + i +
+        // " is out of expected range 0.." + 15);
+        // Contract.pre(j >= 0 && j <= 15, "lowNibble value of " + j +
+        // " is out of expected range 0.." + 15);
+        return i << 4 | j & 0xf;
+        // Contract.post(k >= 0 && k <= 255, "value of " + k +
+        // " is out of expected range 0.." + 255);
     }
 
     public byte[] convertIntArrayToByteArray(int[] arr_in)
@@ -798,16 +782,14 @@ public class ByteUtils
             return arr_out;
         }
         else
-        {
             return null;
-        }
 
     }
 
     public int convertIntsToUnsignedShort(int i, int j)
     {
-        //int k = (i & 0xff) << 8 | j & 0xff;
-        return (((i & 0xff) << 8) | (j & 0xff));
+        // int k = (i & 0xff) << 8 | j & 0xff;
+        return (i & 0xff) << 8 | j & 0xff;
     }
 
     public int[] getIntArrayFromAL(ArrayList<Integer> list)

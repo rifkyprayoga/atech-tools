@@ -31,41 +31,39 @@ package com.atech.web.db.objects;
  *
 */
 
-
-public class User 
+public class User
 {
-    
+
     /** The id. */
     public long id;
-    
+
     /** The username. */
     public String username;
-    
+
     /** The password. */
     public String password;
-    
+
     /** The real_name. */
     public String real_name;
-    
+
     /** The description. */
     public String description;
-    
+
     /** The user_type. */
     public int user_type;
-    
+
     /** The user_access. */
     public long user_access;
-    
+
     /** The user_group. */
     public int user_group;
-    
+
     /** The debug. */
     public boolean debug = true;
 
     /** The default_user. */
     public boolean default_user = false;
 
-    
     /**
      * Instantiates a new user.
      */
@@ -73,30 +71,19 @@ public class User
     {
     }
 
-
     /*
-    public User(UserH uh)
-    {
-
-        this.setId(uh.getId());
-        this.setUsername(uh.getUsername());
-        this.setPassword(uh.getPassword());
-        this.setReal_desc(uh.getReal_desc());
-        this.setReal_name(uh.getReal_name());
-        this.setUser_type(uh.getUser_type());
-        this.setUser_type_id(uh.getUser_type_id());
-        this.setUser_access(uh.getUser_access());
-
-        //setSearchContext();
-
-    }
-*/
-    
-    
-
-
-
+     * public User(UserH uh)
+     * {
+     * this.setId(uh.getId());
+     * this.setUsername(uh.getUsername());
+     * this.setPassword(uh.getPassword());
+     * this.setReal_desc(uh.getReal_desc());
+     * this.setReal_name(uh.getReal_name());
+     * this.setUser_type(uh.getUser_type());
+     * this.setUser_type_id(uh.getUser_type_id());
+     * this.setUser_access(uh.getUser_access());
+     * //setSearchContext();
+     * }
+     */
 
 }
-
-

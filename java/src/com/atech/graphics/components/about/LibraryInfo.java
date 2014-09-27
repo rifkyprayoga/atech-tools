@@ -40,12 +40,11 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
 public class LibraryInfo extends AboutPanel
 {
 
     private static final long serialVersionUID = -3384856095101992059L;
-    
+
     /**
      * The libraries.
      */
@@ -64,7 +63,6 @@ public class LibraryInfo extends AboutPanel
         init();
     }
 
-
     /**
      * Inits the.
      */
@@ -74,9 +72,8 @@ public class LibraryInfo extends AboutPanel
 
         JEditorPane jEditorPane1 = new JEditorPane();
 
-
         JScrollPane jScrollPane1 = new JScrollPane(jEditorPane1);
-        //jScrollPane1.setPreferredSize(new java.awt.Dimension(13, 1200));
+        // jScrollPane1.setPreferredSize(new java.awt.Dimension(13, 1200));
 
         jEditorPane1.setEditable(false);
         jEditorPane1.setContentType("text/html");
@@ -85,10 +82,9 @@ public class LibraryInfo extends AboutPanel
 
         this.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jEditorPane1.select(0,0);
+        jEditorPane1.select(0, 0);
 
     }
-
 
     /**
      * Generate page.
@@ -101,7 +97,7 @@ public class LibraryInfo extends AboutPanel
 
         sb.append("<html><body>");
 
-        for(int i=0; i<this.libraries.size(); i++)
+        for (int i = 0; i < this.libraries.size(); i++)
         {
             sb.append(this.libraries.get(i).getHTMLCode());
         }
@@ -111,11 +107,10 @@ public class LibraryInfo extends AboutPanel
         return sb.toString();
     }
 
-
-
     /** 
      * getTabName
      */
+    @Override
     public String getTabName()
     {
         return this.ic.getMessage("LIBRARIES");
@@ -124,11 +119,10 @@ public class LibraryInfo extends AboutPanel
     /** 
      * getTabPanel
      */
+    @Override
     public JPanel getTabPanel()
     {
         return this;
     }
 
-
-    
 }

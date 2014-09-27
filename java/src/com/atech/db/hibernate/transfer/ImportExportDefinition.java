@@ -33,10 +33,9 @@ import java.util.Hashtable;
  *
 */
 
-
 // this one should be extended, we have several variables that need to be filled
 
-public abstract class ImportExportDefinition 
+public abstract class ImportExportDefinition
 {
 
     /**
@@ -44,24 +43,23 @@ public abstract class ImportExportDefinition
      * 
      * Second parameter gives properties
      */
-    public Hashtable<String,Integer> class_defs = null;
-
+    public Hashtable<String, Integer> class_defs = null;
 
     /**
      * The Constant CP_NONE.
      */
     public static final int CP_NONE = 0;
-    
+
     /**
      * The Constant CP_TYPE_SELF.
      */
     public static final int CP_TYPE_SELF = 1;
-    
+
     /**
      * The Constant CP_TYPE_EXTENDED.
      */
     public static final int CP_TYPE_EXTENDED = 2;
-    
+
     /**
      * The Constant CP_TYPE_COLLECTIONS.
      */
@@ -71,12 +69,11 @@ public abstract class ImportExportDefinition
      * The Constant CP_IMPORT_DELETE.
      */
     public static final int CP_IMPORT_DELETE = 8;
-    
+
     /**
      * The Constant CP_IMPORT_UPDATE.
      */
     public static final int CP_IMPORT_UPDATE = 16;
-
 
     /**
      * Type of class: 
@@ -89,16 +86,11 @@ public abstract class ImportExportDefinition
      */
     public int getClassType()
     {
-    	return 0;
-	
-	//if public static final int CP_TYPE_SELF = 2;
-	//public static final int CP_TYPE_EXTENDED = 4;
+        return 0;
+
+        // if public static final int CP_TYPE_SELF = 2;
+        // public static final int CP_TYPE_EXTENDED = 4;
     }
-
-
-
-
-
 
     /**
      * Type of import:
@@ -113,32 +105,28 @@ public abstract class ImportExportDefinition
      *   EXTENDED = class is linked to other classes
      *   EXTENDED_PLUS = class is linked to self and other classes
      */
-    public Hashtable<String,String> class_type = null;
-
+    public Hashtable<String, String> class_type = null;
 
     /**
      * Type of import:
      *   DELETE = Delete all old values
      *   UPDATE = Update with new values
      */
-    public Hashtable<String,String> class_import_type = null;
-
-
+    public Hashtable<String, String> class_import_type = null;
 
     /**
      * Inits the definitions.
      */
     public abstract void initDefinitions();
 
-
     /*
-    public void initDefinitions()
-    {
-	class_defs = new Hashtable<String,Integer>();
-	class_defs.put("ggc.core.db.hibernate.DayValueH", new Integer(CP_IMPORT_DELETE));
-    }
-    */
-
+     * public void initDefinitions()
+     * {
+     * class_defs = new Hashtable<String,Integer>();
+     * class_defs.put("ggc.core.db.hibernate.DayValueH", new
+     * Integer(CP_IMPORT_DELETE));
+     * }
+     */
 
     /**
      * Checks if is allowed class.
@@ -149,7 +137,7 @@ public abstract class ImportExportDefinition
      */
     public boolean isAllowedClass(String cl_name)
     {
-    	return (this.class_defs.containsKey(cl_name));
+        return this.class_defs.containsKey(cl_name);
     }
 
     /**
@@ -161,7 +149,7 @@ public abstract class ImportExportDefinition
      */
     public boolean isUnallowedClass(String cl_name)
     {
-    	return (!(this.class_defs.containsKey(cl_name)));
+        return !this.class_defs.containsKey(cl_name);
     }
 
 }

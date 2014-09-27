@@ -31,76 +31,64 @@ package com.atech.i18n.tool.simple.data;
  *
 */
 
-
 public class DataEntry
 {
-    
+
     /**
      * Status: Untranslated
      */
     public static final int STATUS_UNTRANSLATED = 0;
 
-    
     /**
      * Status: Need Check
      */
     public static final int STATUS_NEED_CHECK = 1;
-    
-    
+
     /**
      * Status: Translated
      */
     public static final int STATUS_TRANSLATED = 2;
-    
-    
+
     /**
      * Key
      */
     public String key = null;
-    
-    
+
     /**
      * Group
      */
     DataEntryRaw group = null;
-    
-    
+
     /**
      * Master File Translation
      */
     public String master_file_translation;
-    
-    
+
     /**
      * Description 
      */
     public String description = null;
 
-    
     /**
      * Target translation 
      */
     public String target_translation = "";
-    
-    
+
     /**
      * Status of translation 
      */
     public int status = 0;
-    
-    
+
     /**
      * Invalidated
      */
     public long invalidated = 0L;
-    
-    
+
     /**
      * Data Entry Raw
      */
     public DataEntryRaw der;
-    
-    
+
     /**
      * Constructor
      * 
@@ -115,7 +103,6 @@ public class DataEntry
         this.der = _der;
     }
 
-    
     /**
      * Get Group Info
      * @return
@@ -124,7 +111,6 @@ public class DataEntry
     {
         return this.der.getGroupInfo();
     }
-    
 
     /**
      * Get Sub Group Info
@@ -134,8 +120,7 @@ public class DataEntry
     {
         return this.der.getSubGroupInfo();
     }
-    
-    
+
     /**
      * Get Priority
      * 
@@ -145,5 +130,5 @@ public class DataEntry
     {
         return this.der.getPriority();
     }
-    
+
 }

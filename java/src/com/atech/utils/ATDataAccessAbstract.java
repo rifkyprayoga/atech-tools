@@ -92,48 +92,42 @@ public abstract class ATDataAccessAbstract
 
     private static Log log = LogFactory.getLog(ATDataAccessAbstract.class);
 
-
-
     /**
      * Configuration Context
      */
     public AbstractConfigurationContext configuration_context = null;
-    
-    
+
     public DbToolApplicationAbstract db_tool_app = null;
 
     public String[] user_types = null;
-    
+
     public long current_user_id;
-    
+
     public boolean demo_version = false;
-    
-    
+
     protected User logged_user = null;
-    
+
     protected ArrayList<User> all_users = null;
-    
+
     protected boolean help_enabled = false;
-    
+
     protected int current_db_version = 0;
-    
-    
+
     /**
      * The selected lf.
      */
-//    String selectedLF = null;
-    
+    // String selectedLF = null;
+
     /**
      * The sub selected lf.
      */
-//    String subSelectedLF = null;
+    // String subSelectedLF = null;
 
     // config file
     /**
      * The config_db_values.
      */
     protected Hashtable<String, String> config_db_values = null;
-
 
     /**
      * The m_settings_ht.
@@ -148,8 +142,8 @@ public abstract class ATDataAccessAbstract
     /**
      * The color_background.
      */
-    public Color color_background; 
-    
+    public Color color_background;
+
     /**
      * The color_foreground.
      */
@@ -159,20 +153,17 @@ public abstract class ATDataAccessAbstract
      * The m_lang_info.
      */
     protected LanguageInfo m_lang_info;
-    
-    
+
     /**
      * This is flag if software is running in developer mode. In this mode there will be for 
      * example visible some menus that regular users don't see (or some other stuff).  
      */
     protected boolean developer_mode = false;
-    
-    
+
     /**
      * The m_i18n.
      */
     protected I18nControlAbstract m_i18n = null; // ATI18nControl.getInstance();
-
 
     private int db_loading_status = 0;
 
@@ -185,18 +176,17 @@ public abstract class ATDataAccessAbstract
      * The types all.
      */
     public Object[] typesAll = null;
-    
+
     /**
      * The border_line.
      */
     public LineBorder border_line;
 
-    
     /**
      * The plugins.
      */
-    public Hashtable<String,PlugInClient> plugins;
-    
+    public Hashtable<String, PlugInClient> plugins;
+
     /**
      * The fonts.
      */
@@ -208,69 +198,61 @@ public abstract class ATDataAccessAbstract
      * The m_collator.
      */
     protected Collator m_collator = null;
-    
+
     /**
      * The parent.
      */
     protected Container parent = null;
 
-    
     protected DecimalHandler decimal_handler = null;
-    
-    
+
     /**
      * The real_decimal.
      */
     public static char real_decimal;
-    
+
     /**
      * The false_decimal.
      */
     public static char false_decimal;
-    
+
     private static boolean decimals_set;
-    
+
     private UpdateConfiguration update_configuration = null;
 
-    
-    
-    protected Hashtable<String, ExtendedHandler> extended_handlers = null; //new Hashtable<String, ExtendedHandler>();
+    protected Hashtable<String, ExtendedHandler> extended_handlers = null; // new
+                                                                           // Hashtable<String,
+                                                                           // ExtendedHandler>();
     protected Hashtable<String, ATechConverter> converters = new Hashtable<String, ATechConverter>();
-    protected Hashtable<String,String> sorters = new Hashtable<String,String>(); 
-    
-    
+    protected Hashtable<String, String> sorters = new Hashtable<String, String>();
+
     /**
      * The graph_config.
      */
     protected GraphConfigProperties graph_config = null;
-    //private static HibernateDb m_db_hib;
-    
+    // private static HibernateDb m_db_hib;
+
     /**
      * The special_parameters.
      */
     protected Hashtable<String, String> special_parameters = null;
-    
 
-    
-    
     protected HibernateDb hib_db = null;
-    
+
     /**
      * Contact types 
      */
-    public static String contact_types[] = null; 
-    
-//    public String contact_types[] = null;
-    
+    public static String contact_types[] = null;
+
+    // public String contact_types[] = null;
+
     /**
      * Contact Icons
      */
     public static ImageIcon contact_icons[] = null;
-    
-    
+
     /*
      * ABS REMOVED
-     * 
      * public String contact_types[] = { m_i18n.getMessage("SELECT"),
      * m_i18n.getMessage("PHONE"), m_i18n.getMessage("GSM"),
      * m_i18n.getMessage("FAX"), m_i18n.getMessage("EMAIL"),
@@ -278,7 +260,6 @@ public abstract class ATDataAccessAbstract
      * m_i18n.getMessage("YAHOO_MSNG"), m_i18n.getMessage("AIM_MSNG"),
      * m_i18n.getMessage("JABBER_MSNG"), m_i18n.getMessage("MSN_MSNG"),
      * m_i18n.getMessage("SKYPE_MSNG"), m_i18n.getMessage("OTHER") };
-     * 
      * public ImageIcon contact_icons[] = { null, new
      * ImageIcon("images/c_phone.gif"), //m_i18n.getMessage("PHONE"), new
      * ImageIcon("images/c_GSM.gif"), //m_i18n.getMessage("GSM"), new
@@ -290,8 +271,6 @@ public abstract class ATDataAccessAbstract
      * ImageIcon("images/c_aim.gif"), //m_i18n.getMessage("MSN_MSNG") new
      * ImageIcon("images/c_jabber.gif"), new ImageIcon("images/c_msn.gif"),
      * null, null };
-     * 
-     * 
      * public ImageIcon db_status_load[] = { new
      * ImageIcon("images/dot_red.gif"), //m_i18n.getMessage("PHONE"), new
      * ImageIcon("images/dot_orange.gif"), //m_i18n.getMessage("PHONE"), new
@@ -328,9 +307,6 @@ public abstract class ATDataAccessAbstract
      * m_i18n.getMessage("USER_EXTERNAL"), m_i18n.getMessage("USER_INTERNAL") };
      */
 
-    
-    
-    
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
@@ -352,53 +328,45 @@ public abstract class ATDataAccessAbstract
         checkPrerequisites();
         loadFonts();
         m_settings_ht = new Hashtable<String, String>();
-        plugins = new Hashtable<String,PlugInClient>();
-        
-        //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!! COLATOR " + this);
+        plugins = new Hashtable<String, PlugInClient>();
+
+        // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!! COLATOR " + this);
         m_collator = this.m_i18n.getCollationDefintion();
         loadPlugIns();
         loadBackupRestoreCollection();
         loadExtendedHandlers();
         loadUserTypes();
-        
+
         this.loadConfigurationContexts();
         this.loadDbApplicationContext();
-        
-        
+
         this.decimal_handler = new DecimalHandler(this.getMaxDecimalsUsedByDecimalHandler());
-        
+
         if (!ATDataAccessAbstract.decimals_set)
+        {
             initDecimals();
+        }
 
-
-//        initSpecial();
+        // initSpecial();
     }
 
-    
-    
-    
-    
-    
     /**
      * Inits the special.
      */
     public abstract void initSpecial();
-    
-    
+
     /**
      * Gets the hibernate db.
      * 
      * @return the hibernate db
      */
     public abstract HibernateDb getHibernateDb();
-    
-    
+
     /**
      * Load plug ins.
      */
     public abstract void loadPlugIns();
-    
-    
+
     // Method: getInstance
     // Author: Andy
     /**
@@ -420,11 +388,12 @@ public abstract class ATDataAccessAbstract
      * This method sets handle to DataAccess to null and deletes the instance. <br>
      * <br>
      */
-   /* public void deleteInstance()
-    {
-        //m_i18n = null;
-
-    } */
+    /*
+     * public void deleteInstance()
+     * {
+     * //m_i18n = null;
+     * }
+     */
 
     // INIT
 
@@ -455,29 +424,24 @@ public abstract class ATDataAccessAbstract
 
     }
 
-    
-    
     private void initDecimals()
     {
         DecimalFormatSymbols dfs = new DecimalFormat().getDecimalFormatSymbols();
-        
+
         ATDataAccessAbstract.real_decimal = dfs.getDecimalSeparator();
-        
-        
-        
-        if (dfs.getDecimalSeparator()=='.')
+
+        if (dfs.getDecimalSeparator() == '.')
+        {
             ATDataAccessAbstract.false_decimal = ',';
+        }
         else
+        {
             ATDataAccessAbstract.false_decimal = '.';
-        
-        
-        
+        }
+
         ATDataAccessAbstract.decimals_set = true;
     }
-    
-    
-    
-    
+
     // ********************************************************************
     // ****** Compoment managing *****
     // ****** (needed to have current window for displaying dialog) *****
@@ -488,7 +452,6 @@ public abstract class ATDataAccessAbstract
      */
     protected ArrayList<Component> components = new ArrayList<Component>();
 
-    
     /**
      * Gets the current component parent.
      * 
@@ -496,11 +459,11 @@ public abstract class ATDataAccessAbstract
      */
     public Component getCurrentComponentParent()
     {
-        //System.out.println("Size: " + this.components.size());
-        
+        // System.out.println("Size: " + this.components.size());
+
         return this.components.get(this.components.size() - 2);
     }
-    
+
     /**
      * Gets the current component.
      * 
@@ -518,9 +481,9 @@ public abstract class ATDataAccessAbstract
      */
     public void addComponent(Component cmp)
     {
-        //System.out.println("Add: " + this.components);
+        // System.out.println("Add: " + this.components);
         this.components.add(cmp);
-        //System.out.println("Add: " + this.components);
+        // System.out.println("Add: " + this.components);
     }
 
     /**
@@ -530,7 +493,7 @@ public abstract class ATDataAccessAbstract
     {
         System.out.println("Lst: " + this.components);
     }
-    
+
     /**
      * Removes the component.
      * 
@@ -538,7 +501,7 @@ public abstract class ATDataAccessAbstract
      */
     public void removeComponent(Component cmp)
     {
-        //int curr = 0;
+        // int curr = 0;
         ArrayList<Component> cmps_new = new ArrayList<Component>();
 
         for (int i = 0; i < this.components.size(); i++)
@@ -570,8 +533,7 @@ public abstract class ATDataAccessAbstract
      * @param ex the ex
      * @param err_msg1 the err_msg1
      */
-    public void createErrorDialog(String module, String action, Exception ex,
-            String err_msg1)
+    public void createErrorDialog(String module, String action, Exception ex, String err_msg1)
     {
         createErrorDialog(module, action, ex, err_msg1, null);
     }
@@ -585,119 +547,109 @@ public abstract class ATDataAccessAbstract
      * @param err_msg1 the err_msg1
      * @param err_msg2 the err_msg2
      */
-    public void createErrorDialog(String module, String action, Exception ex,
-            String err_msg1, String err_msg2)
+    public void createErrorDialog(String module, String action, Exception ex, String err_msg1, String err_msg2)
     {
 
-        
         if (this.getCurrentComponentParent() instanceof JFrame)
         {
-            new ErrorDialog((JFrame)this.getCurrentComponentParent(),
-                    this, "GGC", module, action, ex, err_msg1, err_msg2);
+            new ErrorDialog((JFrame) this.getCurrentComponentParent(), this, "GGC", module, action, ex, err_msg1,
+                    err_msg2);
         }
         else
         {
-         new ErrorDialog((JDialog)this.getCurrentComponentParent(),
-                    this, "GGC", module, action, ex, err_msg1, err_msg2);
+            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, "GGC", module, action, ex, err_msg1,
+                    err_msg2);
         }
-        
-        
-        
+
         /*
-        if (this.getC.getLastParentType() == ATDataAccessAbstract.PARENT_FRAME)
-        {
-            new ErrorDialog(this.getLastParentFrame(),
-                    this, "GGC", module, action, ex, err_msg1, err_msg2);
-        }
-        else
-        {
-         new ErrorDialog(this.getLastParentDialog(),
-                    this, "GGC", module, action, ex, err_msg1, err_msg2);
-        }*/
+         * if (this.getC.getLastParentType() ==
+         * ATDataAccessAbstract.PARENT_FRAME)
+         * {
+         * new ErrorDialog(this.getLastParentFrame(),
+         * this, "GGC", module, action, ex, err_msg1, err_msg2);
+         * }
+         * else
+         * {
+         * new ErrorDialog(this.getLastParentDialog(),
+         * this, "GGC", module, action, ex, err_msg1, err_msg2);
+         * }
+         */
     }
 
     // ********************************************************
     // ****** Parent Deep Handling *****
     // ********************************************************
-/*
-    // TODO: Move
-    public static final int PARENT_FRAME = 1;
-    public static final int PARENT_DIALOG = 2;
-
-    public ArrayList<Container> cnt_list = new ArrayList<Container>();
-
-    public void addContainer(Container cont)
-    {
-        System.out.println("!!!! addContainer: " + this.cnt_list + "\nDataAccess: " + this);
-        this.cnt_list.add(cont);
-        System.out.println("!!!! addContainer: " + this.cnt_list + "\nDataAccess: " + this);
-
-    }
-
-    public void removeContainer(Container cont)
-    {
-        System.out.println("!!!! removeContainer: " + this.cnt_list+ "\nDataAccess: " + this);
-        this.cnt_list.remove(cont);
-        System.out.println("!!!! removeContainer: " + this.cnt_list+ "\nDataAccess: " + this);
-    }
-
-    public int getLastContainerType()
-    {
-        if ((cnt_list.get(cnt_list.size() - 1)) instanceof JFrame)
-        {
-            return ATDataAccessAbstract.PARENT_FRAME;
-        }
-        else
-            return ATDataAccessAbstract.PARENT_DIALOG;
-    }
-
-    public int getLastParentType()
-    {
-        if (this.cnt_list.size() < 2)
-        {
-            return ATDataAccessAbstract.PARENT_FRAME;
-        }
-        else
-        {
-            if ((cnt_list.get(cnt_list.size() - 2)) instanceof JFrame)
-            {
-                return ATDataAccessAbstract.PARENT_FRAME;
-            }
-            else
-                return ATDataAccessAbstract.PARENT_DIALOG;
-
-        }
-
-    }
-
-    public Container getLastParent()
-    {
-        System.out.println("Conatiners: " + this.cnt_list);
-        
-        if (this.cnt_list.size() == 1)
-        {
-            return cnt_list.get(0);
-        }
-        if (this.cnt_list.size() < 2)
-        {
-            return this.getMainParent();
-        }
-        else
-        {
-            return (cnt_list.get(cnt_list.size() - 2));
-        }
-    }
-
-    public JFrame getLastParentFrame()
-    {
-        return (JFrame) this.getLastParent();
-    }
-
-    public JDialog getLastParentDialog()
-    {
-        return (JDialog) this.getLastParent();
-    }
-*/
+    /*
+     * // TODO: Move
+     * public static final int PARENT_FRAME = 1;
+     * public static final int PARENT_DIALOG = 2;
+     * public ArrayList<Container> cnt_list = new ArrayList<Container>();
+     * public void addContainer(Container cont)
+     * {
+     * System.out.println("!!!! addContainer: " + this.cnt_list +
+     * "\nDataAccess: " + this);
+     * this.cnt_list.add(cont);
+     * System.out.println("!!!! addContainer: " + this.cnt_list +
+     * "\nDataAccess: " + this);
+     * }
+     * public void removeContainer(Container cont)
+     * {
+     * System.out.println("!!!! removeContainer: " + this.cnt_list+
+     * "\nDataAccess: " + this);
+     * this.cnt_list.remove(cont);
+     * System.out.println("!!!! removeContainer: " + this.cnt_list+
+     * "\nDataAccess: " + this);
+     * }
+     * public int getLastContainerType()
+     * {
+     * if ((cnt_list.get(cnt_list.size() - 1)) instanceof JFrame)
+     * {
+     * return ATDataAccessAbstract.PARENT_FRAME;
+     * }
+     * else
+     * return ATDataAccessAbstract.PARENT_DIALOG;
+     * }
+     * public int getLastParentType()
+     * {
+     * if (this.cnt_list.size() < 2)
+     * {
+     * return ATDataAccessAbstract.PARENT_FRAME;
+     * }
+     * else
+     * {
+     * if ((cnt_list.get(cnt_list.size() - 2)) instanceof JFrame)
+     * {
+     * return ATDataAccessAbstract.PARENT_FRAME;
+     * }
+     * else
+     * return ATDataAccessAbstract.PARENT_DIALOG;
+     * }
+     * }
+     * public Container getLastParent()
+     * {
+     * System.out.println("Conatiners: " + this.cnt_list);
+     * if (this.cnt_list.size() == 1)
+     * {
+     * return cnt_list.get(0);
+     * }
+     * if (this.cnt_list.size() < 2)
+     * {
+     * return this.getMainParent();
+     * }
+     * else
+     * {
+     * return (cnt_list.get(cnt_list.size() - 2));
+     * }
+     * }
+     * public JFrame getLastParentFrame()
+     * {
+     * return (JFrame) this.getLastParent();
+     * }
+     * public JDialog getLastParentDialog()
+     * {
+     * return (JDialog) this.getLastParent();
+     * }
+     */
     // ********************************************************
     // ****** Application Handling *****
     // ********************************************************
@@ -735,7 +687,7 @@ public abstract class ATDataAccessAbstract
     {
         this.main_parent = frame;
         this.addComponent(this.main_parent);
-        //this.addContainer((Container)this.main_parent);
+        // this.addContainer((Container)this.main_parent);
     }
 
     /**
@@ -796,7 +748,7 @@ public abstract class ATDataAccessAbstract
                 this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(), hc.getHelpId(), null);
                 this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.error("Error enabling help. Ex.: " + ex, ex);
             }
@@ -814,8 +766,7 @@ public abstract class ATDataAccessAbstract
      */
     public JButton createHelpButtonBySize(int width, int height, Container comp)
     {
-        JButton help_button = new JButton(" "
-                + this.getI18nControlInstance().getMessage("HELP"));
+        JButton help_button = new JButton(" " + this.getI18nControlInstance().getMessage("HELP"));
         help_button.setPreferredSize(new Dimension(width, height));
         help_button.setIcon(this.getImageIcon_22x22("help.png", comp));
 
@@ -824,7 +775,6 @@ public abstract class ATDataAccessAbstract
         return help_button;
     }
 
-    
     /**
      * Creates the help button by size.
      * 
@@ -841,9 +791,7 @@ public abstract class ATDataAccessAbstract
         help_button.setIcon(this.getImageIcon_22x22("help.png", comp));
         return help_button;
     }
-    
-    
-    
+
     /**
      * Creates the help button by bounds.
      * 
@@ -859,7 +807,6 @@ public abstract class ATDataAccessAbstract
     {
         return createHelpButtonByBounds(x, y, width, height, comp, null);
     }
-    
 
     /**
      * Creates the help button by bounds.
@@ -876,8 +823,7 @@ public abstract class ATDataAccessAbstract
     {
         return createHelpIconByBounds(x, y, width, height, comp, null);
     }
-    
-    
+
     /**
      * Creates the help button by bounds.
      * 
@@ -895,7 +841,6 @@ public abstract class ATDataAccessAbstract
         return createHelpButtonByBounds(x, y, width, height, comp, this.getFont(font_id));
     }
 
-    
     /**
      * Creates the help button by bounds.
      * 
@@ -912,7 +857,7 @@ public abstract class ATDataAccessAbstract
     {
         return createHelpIconByBounds(x, y, width, height, comp, this.getFont(font_id));
     }
-    
+
     /**
      * Creates the help button by bounds.
      * 
@@ -930,14 +875,15 @@ public abstract class ATDataAccessAbstract
         JButton help_button = new JButton("  " + this.getI18nControlInstance().getMessage("HELP"));
         help_button.setBounds(x, y, width, height);
         help_button.setIcon(this.getImageIcon_22x22("help.png", comp));
-        
-        if (font!=null)
+
+        if (font != null)
+        {
             help_button.setFont(font);
-        
+        }
+
         return help_button;
     }
-    
-    
+
     /**
      * Creates the help button by bounds.
      * 
@@ -954,15 +900,16 @@ public abstract class ATDataAccessAbstract
     {
         JButton help_button = new JButton();
         help_button.setBounds(x, y, width, height);
-        help_button.setIcon(this.getImageIcon("help.png", (int)(height*0.88), (int)(height*0.88), comp));
-        
-        if (font!=null)
+        help_button.setIcon(this.getImageIcon("help.png", (int) (height * 0.88), (int) (height * 0.88), comp));
+
+        if (font != null)
+        {
             help_button.setFont(font);
-        
+        }
+
         return help_button;
     }
 
-    
     // ********************************************************
     // ****** I18n *****
     // ********************************************************
@@ -982,12 +929,10 @@ public abstract class ATDataAccessAbstract
      * = i18n; }
      */
 
-    
     // ********************************************************
-    // ******                Plug-ins                     *****
+    // ****** Plug-ins *****
     // ********************************************************
-    
-    
+
     /**
      * Adds the plug in.
      * 
@@ -998,7 +943,7 @@ public abstract class ATDataAccessAbstract
     {
         this.plugins.put(key, plugin);
     }
-    
+
     /**
      * Gets the plug in.
      * 
@@ -1010,8 +955,7 @@ public abstract class ATDataAccessAbstract
     {
         return this.plugins.get(key);
     }
-    
-    
+
     /**
      * Checks if plugin is available
      * 
@@ -1020,13 +964,12 @@ public abstract class ATDataAccessAbstract
      */
     public boolean isPluginAvailable(String key)
     {
-        if (this.plugins==null)
+        if (this.plugins == null)
             return false;
-        
+
         return this.plugins.containsKey(key);
     }
-    
-    
+
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -1067,16 +1010,15 @@ public abstract class ATDataAccessAbstract
 
         try
         {
-            //File f = new File(".");
-            //System.out.println("File: " + f.getCanonicalPath());
+            // File f = new File(".");
+            // System.out.println("File: " + f.getCanonicalPath());
 
             FileInputStream in = new FileInputStream(filename);
             props.load(in);
         }
         catch (Exception ex)
         {
-            System.out.println("Error loading config file (" + filename + "): "
-                    + ex);
+            System.out.println("Error loading config file (" + filename + "): " + ex);
             this.config_loaded = false;
         }
 
@@ -1096,7 +1038,6 @@ public abstract class ATDataAccessAbstract
 
     }
 
-    
     /**
      * Load property file that is codepage specific (this java doesn't do, so we need to do this manually)
      * 
@@ -1110,37 +1051,36 @@ public abstract class ATDataAccessAbstract
 
         Hashtable<String, String> config_db_values_ = new Hashtable<String, String>();
 
-        //Properties props = new Properties();
+        // Properties props = new Properties();
 
         this.config_loaded = true;
 
         try
         {
-            //File f = new File(".");
-            //System.out.println("File: " + f.getCanonicalPath());
+            // File f = new File(".");
+            // System.out.println("File: " + f.getCanonicalPath());
 
-            //FileInputStream in = new FileInputStream(new File(filename), "UTF8"));
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename),codepage));
-            
+            // FileInputStream in = new FileInputStream(new File(filename),
+            // "UTF8"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename), codepage));
+
             String line = null;
-            
-            while ((line = br.readLine())!=null)
+
+            while ((line = br.readLine()) != null)
             {
                 line = line.trim();
-                
-                if ((line.contains("=")) && (!line.startsWith(";") || !line.startsWith("#")))
+
+                if (line.contains("=") && (!line.startsWith(";") || !line.startsWith("#")))
                 {
-                    config_db_values_.put(line.substring(0, line.indexOf("=")), line.substring(line.indexOf("=")+1));
+                    config_db_values_.put(line.substring(0, line.indexOf("=")), line.substring(line.indexOf("=") + 1));
                 }
-                
+
             }
-            
-            
+
         }
         catch (Exception ex)
         {
-            System.out.println("Error loading config file (" + filename + "): "
-                    + ex);
+            System.out.println("Error loading config file (" + filename + "): " + ex);
             this.config_loaded = false;
             ex.printStackTrace();
             return null;
@@ -1149,9 +1089,7 @@ public abstract class ATDataAccessAbstract
         return config_db_values_;
 
     }
-    
-    
-    
+
     // ********************************************************
     // ****** Database Loading Status *****
     // ********************************************************
@@ -1185,8 +1123,7 @@ public abstract class ATDataAccessAbstract
      */
     public boolean isDbLoadedForStatus(int status)
     {
-        if ((this.db_loading_status == status)
-                || (this.db_loading_status > status))
+        if (this.db_loading_status == status || this.db_loading_status > status)
             return true;
         else
             return false;
@@ -1233,22 +1170,22 @@ public abstract class ATDataAccessAbstract
      * The Constant FONT_BIG_BOLD.
      */
     public static final int FONT_BIG_BOLD = 0;
-    
+
     /**
      * The Constant FONT_NORMAL.
      */
     public static final int FONT_NORMAL = 1;
-    
+
     /**
      * The Constant FONT_NORMAL_BOLD.
      */
     public static final int FONT_NORMAL_BOLD = 2;
-    
+
     /**
      * The Constant FONT_NORMAL_P2.
      */
     public static final int FONT_NORMAL_P2 = 3;
-    
+
     /**
      * The Constant FONT_NORMAL_BOLD_P2.
      */
@@ -1258,7 +1195,7 @@ public abstract class ATDataAccessAbstract
      * The Constant FONT_UPDATE_TREE_HEADER.
      */
     public static final int FONT_UPDATE_TREE_HEADER = 5;
-    
+
     /**
      * The Constant FONT_UPDATE_TREE_ITEM.
      */
@@ -1279,7 +1216,7 @@ public abstract class ATDataAccessAbstract
 
         fonts[5] = new Font("SansSerif", Font.BOLD, 12);
         fonts[6] = new Font("SansSerif", Font.PLAIN, 12);
-        
+
     }
 
     /**
@@ -1309,7 +1246,6 @@ public abstract class ATDataAccessAbstract
      * m_main)); config_icons[5] = new
      * ImageIcon(getImage("/images/cfg_lang.gif", m_main)); config_icons[6] =
      * null;
-     * 
      * }
      */
 
@@ -1333,13 +1269,15 @@ public abstract class ATDataAccessAbstract
         {
             System.out.println("Error reading image: " + filename);
         }
-        
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try
         {
             int c;
             while ((c = is.read()) >= 0)
+            {
                 baos.write(c);
+            }
 
             // JDialog.getT
             // JFrame.getToolkit();
@@ -1348,7 +1286,7 @@ public abstract class ATDataAccessAbstract
         catch (Exception ex)
         {
             System.out.println("Image " + filename + " could not be created.");
-            //ex.printStackTrace();
+            // ex.printStackTrace();
             return null;
         }
         return img;
@@ -1397,8 +1335,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the image icon
      */
-    public ImageIcon getImageIcon(String name, int width, int height,
-            Container comp)
+    public ImageIcon getImageIcon(String name, int width, int height, Container comp)
     {
         return getImageIcon(this.getImagesRoot(), name, width, height, comp);
     }
@@ -1414,12 +1351,10 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the image icon
      */
-    public ImageIcon getImageIcon(String root, String name, int width,
-            int height, Container comp)
+    public ImageIcon getImageIcon(String root, String name, int width, int height, Container comp)
     {
-        
-        return new ImageIcon(getImage(root + name, comp).getScaledInstance(
-                width, height, Image.SCALE_SMOOTH));
+
+        return new ImageIcon(getImage(root + name, comp).getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
 
     /**
@@ -1472,13 +1407,13 @@ public abstract class ATDataAccessAbstract
      */
     public ImageIcon getImageIcon(String root, String name)
     {
-        //File f = new File(".");
-        
-        //System.out.println("Start path: " + f.getAbsolutePath());
-        //System.out.println("Image: " + root + name);
-        
-        //System.out.println("parent: " + this.getCurrentComponentParent());
-        
+        // File f = new File(".");
+
+        // System.out.println("Start path: " + f.getAbsolutePath());
+        // System.out.println("Image: " + root + name);
+
+        // System.out.println("parent: " + this.getCurrentComponentParent());
+
         return new ImageIcon(getImage(root + name, this.getCurrentComponentParent()));
     }
 
@@ -1496,28 +1431,28 @@ public abstract class ATDataAccessAbstract
      */
     public int compareUnicodeStrings(String s1, String s2)
     {
-        if (m_collator==null)
+        if (m_collator == null)
         {
             this.m_collator = this.getI18nControlInstance().getCollationDefintion();
             log.debug("Created collator again [da=" + this + ", colator=" + m_collator + "]");
         }
-        
-/*        
-        if (m_collator==null)
-        {
-            return s1.compareTo(s2);
-        }
-        else
-        {*/
-            return m_collator.compare(s1, s2);
-        //}
+
+        /*
+         * if (m_collator==null)
+         * {
+         * return s1.compareTo(s2);
+         * }
+         * else
+         * {
+         */
+        return m_collator.compare(s1, s2);
+        // }
     }
 
     // ********************************************************
     // ****** GUI *****
     // ********************************************************
 
-    
     /**
      * Center j dialog.
      * 
@@ -1526,44 +1461,46 @@ public abstract class ATDataAccessAbstract
     public void centerJDialog(Component dialog)
     {
         Component cmp = this.getCurrentComponentParent();
-        
-        //System.out.println("comps: " + this.components);
-        
+
+        // System.out.println("comps: " + this.components);
+
         this.centerJDialog(dialog, cmp);
     }
-    
-    
+
     /**
      * Center j dialog.
      * 
      * @param dialog the dialog
      * @param _parent the _parent
      */
-    public void centerJDialog(Component dialog, Component /*Container*/ _parent)
+    public void centerJDialog(Component dialog, Component /* Container */_parent)
     {
 
         Rectangle rec = _parent.getBounds();
 
         int x = rec.width / 2;
-        x += (rec.x);
+        x += rec.x;
 
         int y = rec.height / 2;
         y += rec.y;
 
-        x -= (dialog.getBounds().width / 2);
-        y -= (dialog.getBounds().height / 2);
+        x -= dialog.getBounds().width / 2;
+        y -= dialog.getBounds().height / 2;
 
-        if (x<0)
-            x=0;
-        
-        if (y<0)
-            y=0;
-        
+        if (x < 0)
+        {
+            x = 0;
+        }
+
+        if (y < 0)
+        {
+            y = 0;
+        }
+
         // dialog.getBounds().x = x;
         // dialog.getBounds().y = y;
 
-        dialog.setBounds(x, y, dialog.getBounds().width,
-                dialog.getBounds().height);
+        dialog.setBounds(x, y, dialog.getBounds().width, dialog.getBounds().height);
 
         /*
          * if (parent instanceof JDialog) { //centerJDialog(dialog,
@@ -1573,22 +1510,14 @@ public abstract class ATDataAccessAbstract
 
     /*
      * public void centerJDialog(JDialog dialog, JComponent parent) {
-     * 
      * //System.out.println("centerJDialog: " );
-     * 
      * Rectangle rec = parent.getBounds();
-     * 
      * int x = rec.width/2; x += (rec.x);
-     * 
      * int y = rec.height/2; y += rec.y;
-     * 
      * x -= (dialog.getBounds().width/2); y -= (dialog.getBounds().height/2);
-     * 
      * //dialog.getBounds().x = x; //dialog.getBounds().y = y;
-     * 
      * dialog.setBounds(x, y, dialog.getBounds().width,
      * dialog.getBounds().height);
-     * 
      * }
      */
 
@@ -1597,46 +1526,30 @@ public abstract class ATDataAccessAbstract
     // ********************************************************
     /*
      * public void loadAvailableLFs() {
-     * 
      * availableLF_full = new Hashtable<String,String>();
      * UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
-     * 
      * availableLF = new Object[info.length+1];
-     * 
      * //ring selectedLF = null; //String subSelectedLF = null;
-     * 
      * int i; for (i=0; i<info.length; i++) { String name = info[i].getName();
      * String className = info[i].getClassName();
-     * 
      * availableLF_full.put(name, className); availableLF[i] = name;
-     * 
      * //System.out.println(humanReadableName); }
-     * 
      * availableLF_full.put("SkinLF",
      * "com.l2fprod.gui.plaf.skin.SkinLookAndFeel"); availableLF[i] = "SkinLF";
-     * 
      * }
      */
 
     /*
      * public Object[] getAvailableLFs() { return
      * this.m_config_file.getAvailableLFs(); //return availableLF; }
-     * 
-     * 
      * public static String[] getLFData() {
-     * 
      * String out[] = new String[2];
-     * 
      * try { Properties props = new Properties();
-     * 
      * FileInputStream in = new
      * FileInputStream("../data/PIS_Config.properties"); props.load(in);
-     * 
      * out[0] = (String)props.get("LF_CLASS"); out[1] =
      * (String)props.get("SKINLF_SELECTED");
-     * 
      * return out;
-     * 
      * } catch(Exception ex) {
      * System.out.println("DataAccess::getLFData::Exception> " + ex);
      * ex.printStackTrace(); return null; } }
@@ -1650,7 +1563,7 @@ public abstract class ATDataAccessAbstract
      */
     public void loadColors()
     {
-        ColorUIResource cui = (ColorUIResource)UIManager.getLookAndFeel().getDefaults().get("textText");
+        ColorUIResource cui = (ColorUIResource) UIManager.getLookAndFeel().getDefaults().get("textText");
         this.color_foreground = new Color(cui.getRed(), cui.getGreen(), cui.getBlue(), cui.getAlpha());
 
         ColorUIResource cui2 = (ColorUIResource) UIManager.getLookAndFeel().getDefaults().get("Label.background");
@@ -1668,48 +1581,29 @@ public abstract class ATDataAccessAbstract
      * or special data required for real Locale handling.
      */
     public abstract void loadLanguageInfo();
-    
-    
+
     /*
      * public Object[] getAvailableLanguages() { return new Object[] = { "en"
      * };; }
-     * 
-     * 
      * public int getSelectedLangIndex() { return 1; //return
      * m_lang_info.findInLocale(this.m_config_file.selected_lang); }
-     * 
-     * 
      * public static String getSelectedLocale() { String locale = "en";
-     * 
-     * 
-     * 
      * try { Properties props = new Properties();
-     * 
      * FileInputStream in = new FileInputStream(pathPrefix +
      * "../data/PIS_Config.properties"); props.load(in);
-     * 
      * int sel_lang = 1;
-     * 
      * if (props.containsKey("SELECTED_LANG")) { sel_lang =
      * Integer.parseInt((String)props.get("SELECTED_LANG"));
      * System.out.println("Sel lang: " + sel_lang); }
-     * 
-     * 
      * //props = new Properties(); props.clear();
-     * 
      * in = null; in = new FileInputStream(pathPrefix +
      * "/data/lang/PIS_Languages.properties"); props.load(in);
-     * 
      * if (props.containsKey("LANG_" + sel_lang + "_LOCALE")) { locale =
      * (String)props.get("LANG_" + sel_lang + "_LOCALE"); }
-     * 
      * // System.out.println("Locale: " + locale);
-     * 
      * } catch(Exception ex) {
      * System.out.println("DataAccess::getSelectedLocale::Exception> " + ex); }
-     * 
      * return locale;
-     * 
      * }
      */
 
@@ -2054,13 +1948,9 @@ public abstract class ATDataAccessAbstract
     }
 
     /*
-     * 
      * public String[] getAvailableDbs() { //this.m_config_file. //return
      * allDbs; return this.m_config_file.getAllDatabasesNamesAsArray(); }
-     * 
-     * 
      * public int getSelectedDbIndex() {
-     * 
      * return this.m_config_file.getSelectedDatabaseIndex(); / for (int i=0;
      * i<allDbs.length; i++) { if (allDbs[i].startsWith(this.selected_db +
      * " - ")) return i; } return 0;
@@ -2078,7 +1968,6 @@ public abstract class ATDataAccessAbstract
 
         /*
          * String arr[] = new String[12];
-         * 
          * arr[0] = m_i18n.getMessage("JANUARY"); arr[1] =
          * m_i18n.getMessage("FEBRUARY"); arr[2] = m_i18n.getMessage("MARCH");
          * arr[3] = m_i18n.getMessage("APRIL"); arr[4] =
@@ -2088,7 +1977,6 @@ public abstract class ATDataAccessAbstract
          * m_i18n.getMessage("OCTOBER"); arr[10] =
          * m_i18n.getMessage("NOVEMBER"); arr[11] =
          * m_i18n.getMessage("DECEMBER");
-         * 
          * return arr;
          */
 
@@ -2096,51 +1984,26 @@ public abstract class ATDataAccessAbstract
 
     /*
      * public void loadComboOptions() {
-     * 
      * yes_no_combo = new Object[2];
-     * 
      * yes_no_combo[0] = m_i18n.getMessage("OPTION_YES"); yes_no_combo[1] =
      * m_i18n.getMessage("OPTION_NO");
-     * 
      * Hashtable ht = m_db.getProductType(-1);
-     * 
      * typesAll = new Object[ht.size()];
-     * 
      * int i = 0;
-     * 
-     * 
      * for(Enumeration en=ht.keys(); en.hasMoreElements(); ) {
-     * 
      * String key = (String)en.nextElement();
-     * 
      * String key2 = "";
-     * 
      * if (key.length()==1) { key2 = "0"+key; } else key2 = key;
-     * 
-     * 
-     * 
      * typesAll[i] = key2 + " - " +
      * ((ProductType)ht.get(key)).path.substring(1); i++;
-     * 
      * }
-     * 
      * Arrays.sort(typesAll);
-     * 
-     * 
-     * 
-     * 
      * }
      */
 
     /*
-     * 
-     * 
-     * 
      * public void makeNewConfig() {
-     * 
      * configStatic.config = new dataConfig();
-     * 
-     * 
      * configStatic.config.mainDir=""; configStatic.config.shellSelected=1;
      * configStatic.config.shellCommand="cmd /c";
      * configStatic.config.browserEnabled=true;
@@ -2148,37 +2011,24 @@ public abstract class ATDataAccessAbstract
      * configStatic.config.mailEnabled=false;
      * configStatic.config.ftpEnabled=false;
      * configStatic.config.ftpInternalEnabled=false; saveConfig();
-     * 
      * }
-     * 
-     * 
-     * 
      * public void loadConfig() {
-     * 
      * try { ObjectInputStream in = new ObjectInputStream( new
      * FileInputStream("../data/config.dat"));
      * configStatic.config=(dataConfig)in.readObject(); in.close(); } catch
      * (IOException ex) { makeNewConfig(); } catch (ClassNotFoundException ex) {
      * } }
-     * 
      * public void saveConfig() {
-     * 
      * try { ObjectOutputStream out = new ObjectOutputStream( new
      * FileOutputStream("../data/config.dat"));
      * out.writeObject(configStatic.config); out.close(); } catch (IOException
      * ex) { System.out.println("Error saving configuration."); }
-     * 
      * }
-     * 
-     * 
      * / public String getShell() { //return configStatic.browserCommand; return
      * ""; }
-     * 
      * public String getBrowserCmd() { // return
      * configStatic.browserPath[configStatic.useBrowserNr]; return "";
-     * 
      * }
-     * 
      * public String getMailerCmd() { // return configStatic.browserPath[1];
      * return ""; }
      */
@@ -2196,19 +2046,16 @@ public abstract class ATDataAccessAbstract
         // 20051012
 
         int year = date / 10000;
-        int month = date - (year * 10000);
+        int month = date - year * 10000;
 
         month = month / 100;
 
-        int day = date - (year * 10000) - (month * 100);
+        int day = date - year * 10000 - month * 100;
 
         if (year == 0)
-        {
             return getLeadingZero(day, 2) + "/" + getLeadingZero(month, 2);
-        }
         else
-            return getLeadingZero(day, 2) + "/" + getLeadingZero(month, 2)
-                    + "/" + year;
+            return getLeadingZero(day, 2) + "/" + getLeadingZero(month, 2) + "/" + year;
 
     }
 
@@ -2258,12 +2105,12 @@ public abstract class ATDataAccessAbstract
      * The Constant DATE_TIME_ATECH_DATETIME.
      */
     public static final int DATE_TIME_ATECH_DATETIME = 1;
-    
+
     /**
      * The Constant DATE_TIME_ATECH_DATE.
      */
     public static final int DATE_TIME_ATECH_DATE = 2;
-    
+
     /**
      * The Constant DATE_TIME_ATECH_TIME.
      */
@@ -2283,22 +2130,22 @@ public abstract class ATDataAccessAbstract
 
         if (type == DATE_TIME_ATECH_DATETIME)
         {
-            dt += gc.get(GregorianCalendar.YEAR) * 100000000L;
-            dt += (gc.get(GregorianCalendar.MONTH) + 1) * 1000000L;
-            dt += gc.get(GregorianCalendar.DAY_OF_MONTH) * 10000L;
-            dt += gc.get(GregorianCalendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(GregorianCalendar.MINUTE);
+            dt += gc.get(Calendar.YEAR) * 100000000L;
+            dt += (gc.get(Calendar.MONTH) + 1) * 1000000L;
+            dt += gc.get(Calendar.DAY_OF_MONTH) * 10000L;
+            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
+            dt += gc.get(Calendar.MINUTE);
         }
         else if (type == DATE_TIME_ATECH_DATE)
         {
-            dt += gc.get(GregorianCalendar.YEAR) * 10000L;
-            dt += (gc.get(GregorianCalendar.MONTH) + 1) * 100L;
-            dt += gc.get(GregorianCalendar.DAY_OF_MONTH);
+            dt += gc.get(Calendar.YEAR) * 10000L;
+            dt += (gc.get(Calendar.MONTH) + 1) * 100L;
+            dt += gc.get(Calendar.DAY_OF_MONTH);
         }
         else if (type == DATE_TIME_ATECH_TIME)
         {
-            dt += gc.get(GregorianCalendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(GregorianCalendar.MINUTE);
+            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
+            dt += gc.get(Calendar.MINUTE);
         }
 
         return dt;
@@ -2316,8 +2163,7 @@ public abstract class ATDataAccessAbstract
      * 
      * @return the aT date time from parts
      */
-    public long getATDateTimeFromParts(int day, int month, int year, int hour,
-            int minute, int type)
+    public long getATDateTimeFromParts(int day, int month, int year, int hour, int minute, int type)
     {
         long dt = 0L;
 
@@ -2385,12 +2231,12 @@ public abstract class ATDataAccessAbstract
      * The Constant DT_DATETIME.
      */
     public final static int DT_DATETIME = 1;
-    
+
     /**
      * The Constant DT_DATE.
      */
     public final static int DT_DATE = 2;
-    
+
     /**
      * The Constant DT_TIME.
      */
@@ -2410,13 +2256,9 @@ public abstract class ATDataAccessAbstract
         // System.out.println("DT process: " + dt);
         /*
          * int y = (int)(dt/10000000L); dt -= y10000000L;
-         * 
          * int m = (int)(dt/1000000L); dt -= m1000000L;
-         * 
          * int d = (int)(dt/10000L); dt -= d10000L;
-         * 
          * int h = (int)(dt/100L); dt -= h100L;
-         * 
          * int min = (int)dt;
          */
 
@@ -2436,44 +2278,32 @@ public abstract class ATDataAccessAbstract
         int min = (int) dt;
 
         if (ret_type == DT_DATETIME)
-        {
-            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y
-                    + "  " + getLeadingZero(h, 2) + ":"
+            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y + "  " + getLeadingZero(h, 2) + ":"
                     + getLeadingZero(min, 2);
-        }
         else if (ret_type == DT_DATE)
-        {
             return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y;
-        }
         else
             return getLeadingZero(h, 2) + ":" + getLeadingZero(min, 2);
 
     }
-/*
-    public String getGCObjectFromDateTimeLong(long dt)
-    {
 
-        int y = (int) (dt / 100000000L);
-        dt -= y * 100000000L;
-
-        int m = (int) (dt / 1000000L);
-        dt -= m * 1000000L;
-
-        int d = (int) (dt / 10000L);
-        dt -= d * 10000L;
-
-        int h = (int) (dt / 100L);
-        dt -= h * 100L;
-
-        int min = (int) dt;
-
-        GregorianCalendar gc1 = new GregorianCalendar();
-        // gc1.set(GregorianCalendar.
-
-        return null;
-
-    }
-*/
+    /*
+     * public String getGCObjectFromDateTimeLong(long dt)
+     * {
+     * int y = (int) (dt / 100000000L);
+     * dt -= y * 100000000L;
+     * int m = (int) (dt / 1000000L);
+     * dt -= m * 1000000L;
+     * int d = (int) (dt / 10000L);
+     * dt -= d * 10000L;
+     * int h = (int) (dt / 100L);
+     * dt -= h * 100L;
+     * int min = (int) dt;
+     * GregorianCalendar gc1 = new GregorianCalendar();
+     * // gc1.set(GregorianCalendar.
+     * return null;
+     * }
+     */
     /**
      * Gets the date time string.
      * 
@@ -2489,7 +2319,6 @@ public abstract class ATDataAccessAbstract
 
     }
 
-    
     /**
      * Gets the current date string.
      * 
@@ -2498,11 +2327,9 @@ public abstract class ATDataAccessAbstract
     public String getCurrentDateString()
     {
         GregorianCalendar gc = new GregorianCalendar();
-        return gc.get(Calendar.DAY_OF_MONTH) + "."
-                + (gc.get(Calendar.MONTH) + 1) + "." + gc.get(Calendar.YEAR);
+        return gc.get(Calendar.DAY_OF_MONTH) + "." + (gc.get(Calendar.MONTH) + 1) + "." + gc.get(Calendar.YEAR);
     }
-    
-    
+
     /**
      * Gets the current time string.
      * 
@@ -2511,10 +2338,8 @@ public abstract class ATDataAccessAbstract
     public String getCurrentTimeString()
     {
         GregorianCalendar gc = new GregorianCalendar();
-        return gc.get(Calendar.HOUR_OF_DAY) + ":"
-                + gc.get(Calendar.MINUTE) + ":" + gc.get(Calendar.SECOND);
+        return gc.get(Calendar.HOUR_OF_DAY) + ":" + gc.get(Calendar.MINUTE) + ":" + gc.get(Calendar.SECOND);
     }
-    
 
     /**
      * Gets the current date time string.
@@ -2525,35 +2350,35 @@ public abstract class ATDataAccessAbstract
     {
         GregorianCalendar gc = new GregorianCalendar();
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
-        
+
         return sdf.format(gc.getTime());
-//        String dom = "";
-//        String mon = "";
-//        String h = "";
-//        String m = "";
-//        String s = "";
-//
-//        dom += gc.get(Calendar.DAY_OF_MONTH);
-//        mon += (gc.get(Calendar.MONTH) + 1);
-//        h += gc.get(Calendar.HOUR_OF_DAY);
-//        m += gc.get(Calendar.MINUTE);
-//        s += gc.get(Calendar.SECOND);
-//
-//        if (dom.length() == 1)
-//            dom = "0" + dom;
-//        if (mon.length() == 1)
-//            mon = "0" + mon;
-//        if (h.length() == 1)
-//            h = "0" + h;
-//        if (m.length() == 1)
-//            m = "0" + m;
-//        if (s.length() == 1)
-//            s = "0" + s;
-//
-//        return dom + "." + mon + "." + gc.get(Calendar.YEAR) + "  " + h + ":" + m + ":" + s;
+        // String dom = "";
+        // String mon = "";
+        // String h = "";
+        // String m = "";
+        // String s = "";
+        //
+        // dom += gc.get(Calendar.DAY_OF_MONTH);
+        // mon += (gc.get(Calendar.MONTH) + 1);
+        // h += gc.get(Calendar.HOUR_OF_DAY);
+        // m += gc.get(Calendar.MINUTE);
+        // s += gc.get(Calendar.SECOND);
+        //
+        // if (dom.length() == 1)
+        // dom = "0" + dom;
+        // if (mon.length() == 1)
+        // mon = "0" + mon;
+        // if (h.length() == 1)
+        // h = "0" + h;
+        // if (m.length() == 1)
+        // m = "0" + m;
+        // if (s.length() == 1)
+        // s = "0" + s;
+        //
+        // return dom + "." + mon + "." + gc.get(Calendar.YEAR) + "  " + h + ":"
+        // + m + ":" + s;
     }
 
-    
     /**
      * Gets the start year.
      * 
@@ -2569,19 +2394,15 @@ public abstract class ATDataAccessAbstract
      * public static final int USER_NORMAL = 1; public static final int
      * USER_WORKER = 2; public static final int USER_ADMINISTRATOR = 3; public
      * static final int USER_SUPERADMINISTRATOR = 4;
-     * 
      * public int user_type = 3;
      */
 
     /*
      * public int authorizeUser(String username, String password) {
-     * 
      * System.out.println(username + " " + password);
-     * 
      * if ((username.equalsIgnoreCase("andy")) && (password.equals("Satja"))) {
      * return DataAccess.USER_SUPERADMINISTRATOR; } else { loginType =
      * m_db.authenticateUser(username,password); return loginType; }
-     * 
      * }
      */
 
@@ -2609,13 +2430,10 @@ public abstract class ATDataAccessAbstract
         JOptionPane.showMessageDialog(parent, "Not Implemented: \n" + source);
     }
 
+    // **************************************************************************
+    // **** String handling Methods ****
+    // **************************************************************************
 
-    // **************************************************************************
-    // ****                    String handling Methods                       ****
-    // **************************************************************************
-    
-    
-    
     /**
      * Gets the leading zero.
      * 
@@ -2655,9 +2473,7 @@ public abstract class ATDataAccessAbstract
 
         return number;
     }
-    
-    
-    
+
     /**
      * For replacing strings.<br>
      * 
@@ -2667,23 +2483,20 @@ public abstract class ATDataAccessAbstract
      * 
      * @return Parsed string.
      */
-    public static String replaceExpression(String input, String replace,
-            String replacement)
+    public static String replaceExpression(String input, String replace, String replacement)
     {
 
         int idx;
         if ((idx = input.indexOf(replace)) == -1)
-        {
             return input;
-        }
 
         boolean finished = false;
-        
-        while(!finished)
+
+        while (!finished)
         {
-        
+
             StringBuffer returning = new StringBuffer();
-    
+
             while (idx != -1)
             {
                 returning.append(input.substring(0, idx));
@@ -2692,10 +2505,10 @@ public abstract class ATDataAccessAbstract
                 idx = input.indexOf(replace);
             }
             returning.append(input);
-            
+
             input = returning.toString();
-            
-            if ((idx = returning.indexOf(replace))==-1)
+
+            if ((idx = returning.indexOf(replace)) == -1)
             {
                 finished = true;
             }
@@ -2705,8 +2518,6 @@ public abstract class ATDataAccessAbstract
         return input;
 
     }
-    
-
 
     /**
      * Parses the expression.
@@ -2722,24 +2533,26 @@ public abstract class ATDataAccessAbstract
 
         StringBuffer buffer;
 
-        int idx=in.indexOf(expression);
-        
-        if (replace==null)
-            replace ="";
-        
-        if (idx==-1)
+        int idx = in.indexOf(expression);
+
+        if (replace == null)
+        {
+            replace = "";
+        }
+
+        if (idx == -1)
             return in;
 
         buffer = new StringBuffer();
-        
-        while (idx!=-1)
+
+        while (idx != -1)
         {
-            buffer.append(in.substring(0,idx));
+            buffer.append(in.substring(0, idx));
             buffer.append(replace);
 
-            in = in.substring(idx+expression.length());
-            
-            idx=in.indexOf(expression);
+            in = in.substring(idx + expression.length());
+
+            idx = in.indexOf(expression);
         }
 
         buffer.append(in);
@@ -2747,8 +2560,6 @@ public abstract class ATDataAccessAbstract
         return buffer.toString();
 
     }
-
-
 
     /**
      * Parses the expression full.
@@ -2764,33 +2575,36 @@ public abstract class ATDataAccessAbstract
 
         String buffer;
 
-        int idx=in.indexOf(expression);
-        
-        if (replace==null)
-            replace ="";
-        
-        if (idx==-1)
+        int idx = in.indexOf(expression);
+
+        if (replace == null)
+        {
+            replace = "";
+        }
+
+        if (idx == -1)
             return in;
 
         buffer = "";
-        
-        if (idx!=-1)
-        {
-            
-            buffer = in.substring(0,idx) + replace + in.substring(idx+expression.length());
-            
-            idx=in.indexOf(expression);
 
-            if (idx!=-1) 
-                buffer = parseExpressionFull(buffer,expression,replace);
+        if (idx != -1)
+        {
+
+            buffer = in.substring(0, idx) + replace + in.substring(idx + expression.length());
+
+            idx = in.indexOf(expression);
+
+            if (idx != -1)
+            {
+                buffer = parseExpressionFull(buffer, expression, replace);
+            }
 
         }
 
         return buffer;
 
     }
-    
-    
+
     /**
      * Checks if is empty or unset.
      * 
@@ -2800,15 +2614,12 @@ public abstract class ATDataAccessAbstract
      */
     public static boolean isEmptyOrUnset(String val)
     {
-        if ((val == null) || (val.trim().length()==0))
-        {
+        if (val == null || val.trim().length() == 0)
             return true;
-        }
         else
             return false;
     }
 
-    
     /**
      * Checks if is true
      * 
@@ -2816,19 +2627,18 @@ public abstract class ATDataAccessAbstract
      * 
      * @return true, if is empty or unset
      */
-/*    public static boolean isOptionEnabled(String val)
-    {
-        if ((val == null) || (val.trim().length()==0))
-        {
-            return true;
-        }
-        else
-            return false;
-    }
-  */  
-    
-    
-    
+    /*
+     * public static boolean isOptionEnabled(String val)
+     * {
+     * if ((val == null) || (val.trim().length()==0))
+     * {
+     * return true;
+     * }
+     * else
+     * return false;
+     * }
+     */
+
     /**
      * Checks if is found.
      * 
@@ -2840,12 +2650,11 @@ public abstract class ATDataAccessAbstract
     public static boolean isFound(String text, String search_str)
     {
 
-        if ((search_str.trim().length() == 0) || (text.trim().length() == 0))
+        if (search_str.trim().length() == 0 || text.trim().length() == 0)
             return true;
 
         return text.trim().indexOf(search_str.trim()) != -1;
     }
-
 
     /**
      * Split string.
@@ -2885,8 +2694,7 @@ public abstract class ATDataAccessAbstract
     // ********************************************************
     // ****** Date/Time *****
     // ********************************************************
-    
-    
+
     /**
      * Gets the gregorian calendar.
      * 
@@ -2902,7 +2710,6 @@ public abstract class ATDataAccessAbstract
         return gc;
     }
 
-    
     /**
      * Gets the as localized date string.
      * 
@@ -2913,41 +2720,41 @@ public abstract class ATDataAccessAbstract
      */
     public String getAsLocalizedDateString(GregorianCalendar gc_value, int years_digits)
     {
-        if (years_digits==2)
+        if (years_digits == 2)
         {
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance().getSelectedLanguageLocale());
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance()
+                    .getSelectedLanguageLocale());
             return df.format(gc_value.getTime());
         }
         else
         {
             // TODO: fix this
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance().getSelectedLanguageLocale());
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance()
+                    .getSelectedLanguageLocale());
             return df.format(gc_value.getTime());
         }
     }
-    
-    
+
     /**
      * The Constant GC_COMPARE_DAY.
      */
     public static final int GC_COMPARE_DAY = 1;
-    
+
     /**
      * The Constant GC_COMPARE_HOUR.
      */
     public static final int GC_COMPARE_HOUR = 2;
-    
+
     /**
      * The Constant GC_COMPARE_MINUTE.
      */
     public static final int GC_COMPARE_MINUTE = 3;
 
-    
     /**
      * 
      */
     public static final int GC_COMPARE_SECOND = 4;
-    
+
     /**
      * Compare gregorian calendars.
      * 
@@ -2960,40 +2767,42 @@ public abstract class ATDataAccessAbstract
     public boolean compareGregorianCalendars(int type, GregorianCalendar gc1, GregorianCalendar gc2)
     {
         boolean found = false;
-        
-        if ((gc1.get(GregorianCalendar.DAY_OF_MONTH)==gc2.get(GregorianCalendar.DAY_OF_MONTH)) && 
-            (gc1.get(GregorianCalendar.MONTH)==gc2.get(GregorianCalendar.MONTH)) &&
-            (gc1.get(GregorianCalendar.YEAR)==gc2.get(GregorianCalendar.YEAR)))
-            found = true;
-            
-        if ((type == ATDataAccessAbstract.GC_COMPARE_HOUR) ||
-            (type == ATDataAccessAbstract.GC_COMPARE_MINUTE) ||
-            (type == ATDataAccessAbstract.GC_COMPARE_SECOND))
+
+        if (gc1.get(Calendar.DAY_OF_MONTH) == gc2.get(Calendar.DAY_OF_MONTH)
+                && gc1.get(Calendar.MONTH) == gc2.get(Calendar.MONTH)
+                && gc1.get(Calendar.YEAR) == gc2.get(Calendar.YEAR))
         {
-            if (gc1.get(GregorianCalendar.HOUR_OF_DAY)!=gc2.get(GregorianCalendar.HOUR_OF_DAY))
-                found = false;
+            found = true;
         }
 
-        if ((type == ATDataAccessAbstract.GC_COMPARE_MINUTE) ||
-            (type == ATDataAccessAbstract.GC_COMPARE_SECOND))
+        if (type == ATDataAccessAbstract.GC_COMPARE_HOUR || type == ATDataAccessAbstract.GC_COMPARE_MINUTE
+                || type == ATDataAccessAbstract.GC_COMPARE_SECOND)
         {
-            if (gc1.get(GregorianCalendar.MINUTE)!=gc2.get(GregorianCalendar.MINUTE))
+            if (gc1.get(Calendar.HOUR_OF_DAY) != gc2.get(Calendar.HOUR_OF_DAY))
+            {
                 found = false;
+            }
+        }
+
+        if (type == ATDataAccessAbstract.GC_COMPARE_MINUTE || type == ATDataAccessAbstract.GC_COMPARE_SECOND)
+        {
+            if (gc1.get(Calendar.MINUTE) != gc2.get(Calendar.MINUTE))
+            {
+                found = false;
+            }
         }
 
         if (type == ATDataAccessAbstract.GC_COMPARE_SECOND)
         {
-            if (gc1.get(GregorianCalendar.SECOND)!=gc2.get(GregorianCalendar.SECOND))
+            if (gc1.get(Calendar.SECOND) != gc2.get(Calendar.SECOND))
+            {
                 found = false;
+            }
         }
-        
-        
 
         return found;
     }
-    
-    
-    
+
     // ********************************************************
     // ****** Get Values From Object *****
     // ********************************************************
@@ -3024,8 +2833,7 @@ public abstract class ATDataAccessAbstract
                 out = f.floatValue();
             }
             catch (Exception ex)
-            {
-            }
+            {}
         }
         else if (aValue instanceof Double)
         {
@@ -3035,8 +2843,7 @@ public abstract class ATDataAccessAbstract
                 out = f.floatValue();
             }
             catch (Exception ex)
-            {
-            }
+            {}
         }
         else if (aValue instanceof Integer)
         {
@@ -3046,8 +2853,7 @@ public abstract class ATDataAccessAbstract
                 out = f.floatValue();
             }
             catch (Exception ex)
-            {
-            }
+            {}
         }
         else if (aValue instanceof Long)
         {
@@ -3057,8 +2863,7 @@ public abstract class ATDataAccessAbstract
                 out = f.floatValue();
             }
             catch (Exception ex)
-            {
-            }
+            {}
         }
         else if (aValue instanceof String)
         {
@@ -3102,8 +2907,7 @@ public abstract class ATDataAccessAbstract
                 out = i.intValue();
             }
             catch (Exception ex)
-            {
-            }
+            {}
         }
         else if (aValue instanceof String)
         {
@@ -3115,15 +2919,13 @@ public abstract class ATDataAccessAbstract
                     out = Integer.parseInt(s);
                 }
                 catch (Exception ex)
-                {
-                }
+                {}
             }
         }
 
         return out;
     }
 
-    
     /**
      * Gets the int value.
      * 
@@ -3138,39 +2940,40 @@ public abstract class ATDataAccessAbstract
         if (aValue == null)
             return out;
 
-/*        if (aValue instanceof Integer)
-        {
-            try
-            {
-                Integer i = (Integer) aValue;
-                out = i.intValue();
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-        else*/
+        /*
+         * if (aValue instanceof Integer)
+         * {
+         * try
+         * {
+         * Integer i = (Integer) aValue;
+         * out = i.intValue();
+         * }
+         * catch (Exception ex)
+         * {
+         * }
+         * }
+         * else
+         */
         if (aValue instanceof String)
         {
             String s = (String) aValue;
             if (s.length() > 0)
             {
                 if (s.equals("1") || s.equalsIgnoreCase("true"))
+                {
                     out = true;
+                }
             }
         }
         else if (aValue instanceof Boolean)
         {
-            Boolean b = (Boolean)aValue;
+            Boolean b = (Boolean) aValue;
             return b.booleanValue();
         }
 
         return out;
     }
-    
-    
-    
-    
+
     /**
      * Gets the long value.
      * 
@@ -3193,8 +2996,7 @@ public abstract class ATDataAccessAbstract
                 out = i.longValue();
             }
             catch (Exception ex)
-            {
-            }
+            {}
         }
         else if (aValue instanceof String)
         {
@@ -3206,8 +3008,7 @@ public abstract class ATDataAccessAbstract
                     out = Long.parseLong(s);
                 }
                 catch (Exception ex)
-                {
-                }
+                {}
             }
         }
 
@@ -3241,21 +3042,20 @@ public abstract class ATDataAccessAbstract
     public float getFloatValueFromString(String aValue, float def_value)
     {
         float out = def_value;
-        
+
         try
         {
-            if ((aValue==null) || (aValue.trim().length()==0))
+            if (aValue == null || aValue.trim().length() == 0)
                 return def_value;
 
             // parse float, doesn't look in locale for decimal sign
             aValue = aValue.replace(",", ".");
-            
+
             out = Float.parseFloat(aValue);
         }
         catch (Exception ex)
         {
-            log.error("Error on parsing string to get float [" + aValue + "]:"
-                    + ex, ex);
+            log.error("Error on parsing string to get float [" + aValue + "]:" + ex, ex);
         }
 
         return out;
@@ -3342,13 +3142,12 @@ public abstract class ATDataAccessAbstract
      */
     public boolean isValueSet(String val)
     {
-        if ((val == null) || (val.trim().length() == 0) || (val.equals("null")))
+        if (val == null || val.trim().length() == 0 || val.equals("null"))
             return false;
         else
             return true;
     }
-    
-    
+
     // ********************************************************
     // ****** Backup / Restore *****
     // ********************************************************
@@ -3365,7 +3164,7 @@ public abstract class ATDataAccessAbstract
      */
     public boolean isBackupRestoreAvailable()
     {
-        return (this.backup_restore_collection != null);
+        return this.backup_restore_collection != null;
     }
 
     /**
@@ -3378,14 +3177,12 @@ public abstract class ATDataAccessAbstract
         // TODO: clone
         return this.backup_restore_collection;
     }
-    
-    
+
     /**
      * Load Backup Restore Collection
      */
     public abstract void loadBackupRestoreCollection();
 
-    
     /**
      * Make i18n keyword.
      * 
@@ -3401,7 +3198,6 @@ public abstract class ATDataAccessAbstract
         return process;
     }
 
-
     /**
      * Gets the update configuration.
      * 
@@ -3409,37 +3205,33 @@ public abstract class ATDataAccessAbstract
      */
     public UpdateConfiguration getUpdateConfiguration()
     {
-        if (this.update_configuration==null)
+        if (this.update_configuration == null)
         {
             update_configuration = new UpdateConfiguration();
         }
-        
-        if (this.update_configuration!=null)
+
+        if (this.update_configuration != null)
         {
             this.app_db_version = this.update_configuration.db_version_required;
             this.app_name = this.update_configuration.product_id;
             this.app_version = this.update_configuration.version_numeric;
         }
-        
-        
+
         return this.update_configuration;
     }
-    
 
-    //public abstract String getUpdateConfigurationFile();
-    
-    
-    
+    // public abstract String getUpdateConfigurationFile();
+
     /**
      * Get Configuration - reads properties file and read all entries
      * 
      * @param filename
      * @return
-     */    
-    public Hashtable<String,String> getConfiguration(String filename)
+     */
+    public Hashtable<String, String> getConfiguration(String filename)
     {
 
-        Hashtable<String,String> config_db_values_ = new Hashtable<String,String>();
+        Hashtable<String, String> config_db_values_ = new Hashtable<String, String>();
 
         Properties props = new Properties();
 
@@ -3455,22 +3247,20 @@ public abstract class ATDataAccessAbstract
             config_loaded = false;
         }
 
-
         if (config_loaded)
         {
 
-            for (Enumeration<Object> en = props.keys(); en.hasMoreElements(); )
+            for (Enumeration<Object> en = props.keys(); en.hasMoreElements();)
             {
-                String  key = (String)en.nextElement();
+                String key = (String) en.nextElement();
                 config_db_values_.put(key, props.getProperty(key));
             }
         }
 
         return config_db_values_;
-        
+
     }
 
-    
     /**
      * Is Option Enabled
      * 
@@ -3479,28 +3269,26 @@ public abstract class ATDataAccessAbstract
      */
     public static boolean isOptionEnabled(String value)
     {
-        
-        if (value==null)
+
+        if (value == null)
             return false;
-        
+
         String val = value.toUpperCase();
-        
+
         if (val.equals("ENABLED") || val.equals("YES") || val.equals("TRUE") || val.equals("1"))
             return true;
         else
             return false;
-    }    
-    
-    
-    // 
+    }
+
+    //
     // Graph Config Properties
 
     /**
      * Load Graph Config Properties
      */
     public abstract void loadGraphConfigProperties();
-    
-    
+
     /**
      * Gets the graph config properties.
      * 
@@ -3511,7 +3299,6 @@ public abstract class ATDataAccessAbstract
         return this.graph_config;
     }
 
-    
     /**
      * Sets the graph config properties.
      * 
@@ -3521,14 +3308,12 @@ public abstract class ATDataAccessAbstract
     {
         this.graph_config = config;
     }
-    
-    
+
     /**
      * Load special parameters.
      */
     public abstract void loadSpecialParameters();
-    
-    
+
     /**
      * Gets the special parameters.
      * 
@@ -3538,8 +3323,7 @@ public abstract class ATDataAccessAbstract
     {
         return special_parameters;
     }
-    
-    
+
     /**
      * Gets the language info.
      * 
@@ -3549,8 +3333,7 @@ public abstract class ATDataAccessAbstract
     {
         return this.m_lang_info;
     }
- 
-    
+
     /**
      * Gets the selected lang index.
      * 
@@ -3558,41 +3341,35 @@ public abstract class ATDataAccessAbstract
      */
     public abstract int getSelectedLangIndex();
 
-    
     /**
      * Sets the selected lang index.
      * 
      * @param index the new selected lang index
      */
     public abstract void setSelectedLangIndex(int index);
- 
-    
+
     /**
      * Gets the plugins.
      * 
      * @return the plugins
      */
-    public Hashtable<String,PlugInClient> getPlugins()
+    public Hashtable<String, PlugInClient> getPlugins()
     {
         return this.plugins;
     }
-    
- 
-    
+
     /**
      * Get Max Decimals that will be used by DecimalHandler
      * 
      * @return
      */
     public abstract int getMaxDecimalsUsedByDecimalHandler();
-    
-    
-    
+
     // ********************************************************
     // ****** Component Id *****
     // ********************************************************
 
-    private long component_id_last=0L;
+    private long component_id_last = 0L;
 
     /**
      * Get New Component Id
@@ -3604,9 +3381,7 @@ public abstract class ATDataAccessAbstract
         component_id_last++;
         return "" + this.component_id_last;
     }
- 
-    
-    
+
     /**
      * Get Decimal Handler
      * 
@@ -3617,11 +3392,10 @@ public abstract class ATDataAccessAbstract
         return this.decimal_handler;
     }
 
-    
     // ********************************************************
-    // ******             Extended Handlers               *****
+    // ****** Extended Handlers *****
     // ********************************************************
- 
+
     /**
      * Load Extended Handlers. Database tables can contain extended field, which is of type text and can
      *    contain a lot of other data, stored in this field, this is hanlder for that field. Each table, 
@@ -3630,8 +3404,7 @@ public abstract class ATDataAccessAbstract
     public void loadExtendedHandlers()
     {
     }
-    
-    
+
     /**
      * Get Extended Handler. Returns extended handler
      * 
@@ -3642,8 +3415,7 @@ public abstract class ATDataAccessAbstract
     {
         return this.extended_handlers.get(key);
     }
-    
-    
+
     /**
      * Add Extended Handler
      * 
@@ -3652,28 +3424,25 @@ public abstract class ATDataAccessAbstract
      */
     public void addExtendedHandler(String key, ExtendedHandler eh)
     {
-        if (this.extended_handlers==null)
+        if (this.extended_handlers == null)
         {
-            this.extended_handlers = new Hashtable<String,ExtendedHandler>();
+            this.extended_handlers = new Hashtable<String, ExtendedHandler>();
         }
-        //System.out.println("Key=" + key +", ExtendeedHandler: " + eh);
+        // System.out.println("Key=" + key +", ExtendeedHandler: " + eh);
         this.extended_handlers.put(key, eh);
     }
-    
-    
+
     // ********************************************************
-    // ******                 Convertors                  *****
+    // ****** Convertors *****
     // ********************************************************
-    
-    
+
     /**
      * Load Converters - Loads ATechConverter instances
      */
     public void loadConverters()
     {
     }
-    
-    
+
     /**
      * Get Extended Handler. Returns extended handler
      * 
@@ -3684,21 +3453,18 @@ public abstract class ATDataAccessAbstract
     {
         return this.converters.get(key);
     }
-    
 
     // ********************************************************
-    // ******                  Sorters                    *****
+    // ****** Sorters *****
     // ********************************************************
-    
-    
+
     /**
      * Load Sorters
      */
     public void loadSorters()
     {
     }
-    
-    
+
     /**
      * Get Sort Settings
      * 
@@ -3709,7 +3475,7 @@ public abstract class ATDataAccessAbstract
     {
         return this.sorters.get(key);
     }
-    
+
     /**
      * Set Sort Settings
      * 
@@ -3725,8 +3491,6 @@ public abstract class ATDataAccessAbstract
 
         this.sorters.put(key, value);
     }
-    
- 
 
     /**
      * 
@@ -3738,14 +3502,12 @@ public abstract class ATDataAccessAbstract
     public void loadConfigurationContexts()
     {
     }
-    
-    
+
     public AbstractConfigurationContext getConfigurationContext()
     {
         return this.configuration_context;
     }
-    
-    
+
     /**
      * 
      * 
@@ -3755,83 +3517,72 @@ public abstract class ATDataAccessAbstract
      */
     public void loadDbApplicationContext()
     {
-        //System.out.println("ATDataAccessAbstract:loadDbApplicationContext: ");
+        // System.out.println("ATDataAccessAbstract:loadDbApplicationContext: ");
         this.setCurrentDbVersion(0);
     }
-    
- 
+
     public DbToolApplicationAbstract getDbToolAbstract()
     {
-        return this.db_tool_app; 
-    } 
- 
-    
+        return this.db_tool_app;
+    }
+
     public long getCurrentUserId()
     {
         return this.current_user_id;
     }
-    
-    
+
     public void setCurrentUserId(long user_id)
     {
         this.current_user_id = user_id;
     }
-    
-    
+
     public void setCurrentDbVersion(int ver)
     {
         this.current_db_version = ver;
     }
-    
+
     public int getCurrentDbVersion()
     {
         return this.current_db_version;
     }
-    
-    
+
     public void debugArray(Object[] arr, String name)
     {
-        if (arr==null)
+        if (arr == null)
         {
             System.out.println(name + " is null");
         }
-        else if (arr.length==0)
+        else if (arr.length == 0)
         {
             System.out.println(name + " length is 0");
         }
         else
         {
-            for(int i=0; i<arr.length; i++)
+            for (int i = 0; i < arr.length; i++)
             {
-                System.out.println(i+ ": " + arr[i] );
+                System.out.println(i + ": " + arr[i]);
             }
-            
+
         }
     }
- 
-    
+
     public void loadUserTypes()
     {
         this.user_types = new String[5];
-        
+
         this.user_types[0] = this.m_i18n.getMessage("SELECT");
         this.user_types[1] = m_i18n.getMessage("USER_NORMAL");
         this.user_types[2] = m_i18n.getMessage("USER_WORKER");
         this.user_types[3] = m_i18n.getMessage("USER_ADMINISTRATOR");
         this.user_types[4] = m_i18n.getMessage("USER_SUPERADMIN");
-        
-        
-        
+
     }
-    
- 
+
     public void loadContactTypes()
     {
-        
+
     }
-    
-    
-    
+
     /**
      * Is Demo Version
      * 
@@ -3841,10 +3592,9 @@ public abstract class ATDataAccessAbstract
     {
         return this.demo_version;
     }
-    
-    
+
     // ********************************************************
-    // ******                Login/Logout                 *****    
+    // ****** Login/Logout *****
     // ********************************************************
 
     /**
@@ -3868,7 +3618,6 @@ public abstract class ATDataAccessAbstract
         return this.logged_user;
     }
 
-
     /**
      * Gets the all users.
      * 
@@ -3876,35 +3625,30 @@ public abstract class ATDataAccessAbstract
      */
     public ArrayList<User> getAllUsers()
     {
-        if (this.all_users==null)
+        if (this.all_users == null)
         {
             this.all_users = new ArrayList<User>();
         }
-    
+
         return this.all_users;
     }
-
 
     /**
      * Process login.
      */
     public void processLogin()
     {
-    //this.m_main.processLogin();
+        // this.m_main.processLogin();
     }
- 
-    
-    
+
     public int getSelectedContactTypePart(String value)
     {
 
-        int i=0;
-
-
+        int i = 0;
 
         boolean found = false;
 
-        for (i=0; i<contact_types.length ;i++)
+        for (i = 0; i < contact_types.length; i++)
         {
             if (value.startsWith(contact_types[i]))
             {
@@ -3914,7 +3658,7 @@ public abstract class ATDataAccessAbstract
 
         }
 
-        //System.out.println(value +  " found: " + found + " " + i);
+        // System.out.println(value + " found: " + found + " " + i);
 
         if (found)
             return i;
@@ -3922,19 +3666,15 @@ public abstract class ATDataAccessAbstract
             return 0;
 
     }
-
-
 
     public int getSelectedConfigTypePart(String value)
     {
 
-        int i=0;
-
-
+        int i = 0;
 
         boolean found = false;
 
-        for (i=0; i<contact_types.length ;i++)
+        for (i = 0; i < contact_types.length; i++)
         {
             if (value.startsWith(contact_types[i]))
             {
@@ -3944,7 +3684,7 @@ public abstract class ATDataAccessAbstract
 
         }
 
-        //System.out.println(value +  " found: " + found + " " + i);
+        // System.out.println(value + " found: " + found + " " + i);
 
         if (found)
             return i;
@@ -3953,65 +3693,51 @@ public abstract class ATDataAccessAbstract
 
     }
 
+    /*
+     * public int getSelectedType(String value)
+     * {
+     * // Object array[] = getTypesArray(type);
+     * int i=1;
+     * boolean found = false;
+     * for (i=1; i<events.length ;i++)
+     * {
+     * if (value.equals(events[i]))
+     * {
+     * found = true;
+     * break;
+     * }
+     * }
+     * System.out.println(value + " found: " + found + " " + i);
+     * if (found)
+     * return i;
+     * else
+     * return 0;
+     * }
+     */
 
-
-
-
-/*
-    public int getSelectedType(String value)
-    {
-
-//        Object array[] = getTypesArray(type);
-        int i=1;
-
-
-
-        boolean found = false;
-
-        for (i=1; i<events.length ;i++)
-        {
-            if (value.equals(events[i]))
-            {
-                found = true;
-                break;
-            }
-
-        }
-
-        System.out.println(value +  " found: " + found + " " + i);
-
-        if (found)
-            return i;
-        else
-            return 0;
-
-    }
-*/
-    
- 
     public static final int DIALOG_INFO = 1;
     public static final int DIALOG_WARNING = 2;
     public static final int DIALOG_ERROR = 3;
-    
-    
-    
+
     public void showDialog(Container cont, int type, String message)
     {
-        if (type==DIALOG_INFO)
+        if (type == DIALOG_INFO)
         {
-            JOptionPane.showMessageDialog(cont, message, this.getI18nControlInstance().getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(cont, message, this.getI18nControlInstance().getMessage("INFORMATION"),
+                JOptionPane.INFORMATION_MESSAGE);
         }
-        else if (type==DIALOG_WARNING)
+        else if (type == DIALOG_WARNING)
         {
-            JOptionPane.showMessageDialog(cont, message, this.getI18nControlInstance().getMessage("WARNING"), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(cont, message, this.getI18nControlInstance().getMessage("WARNING"),
+                JOptionPane.WARNING_MESSAGE);
         }
-        else if (type==DIALOG_ERROR)
+        else if (type == DIALOG_ERROR)
         {
-            JOptionPane.showMessageDialog(cont, message, this.getI18nControlInstance().getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(cont, message, this.getI18nControlInstance().getMessage("ERROR"),
+                JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    
+
     /**
      * Set Developer mode
      * 
@@ -4024,7 +3750,6 @@ public abstract class ATDataAccessAbstract
         this.developer_mode = dev_mode;
     }
 
-    
     /**
      * Get Developer mode flag
      * @return 
@@ -4036,7 +3761,6 @@ public abstract class ATDataAccessAbstract
         return this.developer_mode;
     }
 
-    
     /**
      * Get Developer mode flag
      * @return 
@@ -4047,62 +3771,61 @@ public abstract class ATDataAccessAbstract
     {
         return this.developer_mode;
     }
-    
- 
+
     /**
      * Update System v2
      */
-    
+
     protected String app_name = null;
     protected int app_version = 0;
     protected int app_db_version = 0;
-    
-    
+
     public void initApp()
     {
-        
+
     }
-    
-    
+
     public String getAppName()
     {
         return this.app_name;
     }
-    
-    
+
     public int getCurrentVersion()
     {
         return this.app_version;
     }
-    
-    
-    
+
     public static final int LIST_HT_KEY = 1;
     public static final int LIST_HT_VALUE = 2;
-    
+
     public String createListFromHashtable(Hashtable<Object, Object> ht, int select_type, String delimiter)
     {
         StringBuffer sb = new StringBuffer();
-        
+
         Enumeration<Object> en = null;
-        
+
         if (select_type == LIST_HT_KEY)
+        {
             en = ht.keys();
+        }
         else
+        {
             en = ht.elements();
-        
-        for( ; en.hasMoreElements(); )
+        }
+
+        for (; en.hasMoreElements();)
         {
             sb.append(en.nextElement().toString());
-            
+
             if (en.hasMoreElements())
+            {
                 sb.append(delimiter);
+            }
         }
-        
+
         return sb.toString();
     }
-    
-    
+
     /**
      * We check (bitwise) if value_we_are looking for is set in bitwise_containing_value
      * 
@@ -4112,10 +3835,9 @@ public abstract class ATDataAccessAbstract
      */
     public static boolean isBitwiseSet(int value, int value_we_check_for)
     {
-        return ((value & value_we_check_for) == value_we_check_for);
+        return (value & value_we_check_for) == value_we_check_for;
     }
-   
- 
+
     /**
      * This is for action treshold. Sometimes, action happens twice, this method can help with prevention of that. We need to have local variable tipe long 
      * set with currentTimeMillis(). we add following code in start of action/item listner (action can have treshiold set directly, while tem listener can't).
@@ -4126,16 +3848,12 @@ public abstract class ATDataAccessAbstract
      */
     public boolean checkActionTreshold(long last_action, long treshold_ms)
     {
-        long diff = System.currentTimeMillis()-last_action;
-        
-        if (diff< treshold_ms)
+        long diff = System.currentTimeMillis() - last_action;
+
+        if (diff < treshold_ms)
             return false;
         else
             return true;
     }
-    
-    
-    
-    
-    
+
 }

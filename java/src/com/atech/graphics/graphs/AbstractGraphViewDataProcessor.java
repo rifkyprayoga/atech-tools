@@ -1,6 +1,5 @@
 package com.atech.graphics.graphs;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -34,8 +33,7 @@ package com.atech.graphics.graphs;
  *
 */
 
-//WORK IN PROGRESS - DO NOT EDIT - Andy
-
+// WORK IN PROGRESS - DO NOT EDIT - Andy
 
 public abstract class AbstractGraphViewDataProcessor implements GraphViewDataProcessorInterface
 {
@@ -50,7 +48,3 @@ public abstract class AbstractGraphViewDataProcessor implements GraphViewDataPro
     }
 
 }
-
-
-
-

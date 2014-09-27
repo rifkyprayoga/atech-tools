@@ -53,28 +53,28 @@ import com.atech.utils.ATSwingUtils;
  *  @author Andy {andy@atech-software.com}
  *
  */
-public abstract class PrintDialogRange extends ActionExceptionCatchDialog implements PrintRequester 
+public abstract class PrintDialogRange extends ActionExceptionCatchDialog implements PrintRequester
 {
-    
+
     private static final long serialVersionUID = 2693207247071685559L;
-    
+
     protected I18nControlAbstract i18nControl = null;
     protected ATDataAccessAbstract dataAccess = null;
-    protected PrintProcessor printProcessor = null; 
+    protected PrintProcessor printProcessor = null;
 
     private boolean actionDone = false;
 
     protected JTextField tfName;
     protected JComboBox cbTemplate = null, cbTemplate2 = null;
     DateFromToComponent dateFromToComponent;
-    
+
     protected GregorianCalendar gc = null;
     JButton helpButton;
 
     protected Font fontNormal, fontNormalBold;
     protected boolean enableHelp = true;
     PrintDialogType type;
-    
+
     /**
      * Constructor
      * 
@@ -87,10 +87,9 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         this(frame, type, da, da.getI18nControlInstance(), _enable_help);
     }
+
     // Exception
-    
-    
-    
+
     /**
      * Constructor 
      * 
@@ -100,7 +99,8 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
      * @param i18nControl 
      * @param _enable_help 
      */
-    public PrintDialogRange(JFrame frame, int type, ATDataAccessAbstract dataAccess, I18nControlAbstract i18nControl, boolean _enable_help) 
+    public PrintDialogRange(JFrame frame, int type, ATDataAccessAbstract dataAccess, I18nControlAbstract i18nControl,
+            boolean _enable_help)
     {
         super(dataAccess, "printing_dialog");
 
@@ -118,14 +118,13 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         this.dataAccess = dataAccess;
         this.i18nControl = i18nControl;
         ATSwingUtils.initLibrary();
-        
+
         fontNormal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
         fontNormalBold = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
 
         gc = new GregorianCalendar();
         setTitle(i18nControl.getMessage(this.getPrintingTitle()));
     }
-    
 
     protected void initRange()
     {
@@ -146,40 +145,39 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
         label = new JLabel(i18nControl.getMessage("TYPE_OF_REPORT") + ":");
         label.setFont(this.fontNormalBold);
-        label.setBounds(40, 65, 280, 25);  // 75
+        label.setBounds(40, 65, 280, 25); // 75
         panel.add(label);
 
         cbTemplate = new JComboBox(getReportTypes());
         cbTemplate.setFont(this.fontNormal);
-        cbTemplate.setBounds(40, 95, 240, 25);  // 105
+        cbTemplate.setBounds(40, 95, 240, 25); // 105
         panel.add(cbTemplate);
 
         int start_y = 145; // 155
-        
+
         if (this.weHaveSecondaryType())
         {
-            label = ATSwingUtils.getLabel(this.getSecondaryTypeDescription(), 
-                                          40, start_y, 180, 25, 
-                                          panel, ATSwingUtils.FONT_NORMAL_BOLD);
+            label = ATSwingUtils.getLabel(this.getSecondaryTypeDescription(), 40, start_y, 180, 25, panel,
+                ATSwingUtils.FONT_NORMAL_BOLD);
             start_y += 25;
-            
-            cbTemplate2 = ATSwingUtils.getComboBox(this.getSecondaryTypes(), 
-                                                     40, start_y, 230, 25, 
-                                                     panel, ATSwingUtils.FONT_NORMAL);
+
+            cbTemplate2 = ATSwingUtils.getComboBox(this.getSecondaryTypes(), 40, start_y, 230, 25, panel,
+                ATSwingUtils.FONT_NORMAL);
             start_y += 25;
-            
+
         }
-        
-        dateFromToComponent = new DateFromToComponent(dataAccess, DateFromToComponent.ORIENTATION_VERTICAL, false, 40, 10);
+
+        dateFromToComponent = new DateFromToComponent(dataAccess, DateFromToComponent.ORIENTATION_VERTICAL, false, 40,
+                10);
         dateFromToComponent.setBounds(40, start_y, 220, 25);
         panel.add(dateFromToComponent);
-        
+
         JButton button = new JButton("   " + i18nControl.getMessage("OK"));
         // button.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
         button.setActionCommand("ok");
         button.addActionListener(this);
         button.setIcon(dataAccess.getImageIcon_22x22("ok.png", this));
-        button.setBounds(25, start_y + 150, 120, 25);  // 145
+        button.setBounds(25, start_y + 150, 120, 25); // 145
         panel.add(button);
 
         button = new JButton("   " + i18nControl.getMessage("CANCEL"));
@@ -194,13 +192,14 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         panel.add(helpButton);
 
         if (this.enableHelp)
+        {
             dataAccess.enableHelp(this);
-        
+        }
+
         printProcessor = new PrintProcessor(i18nControl, this);
 
     }
 
-    
     /**
      * Get From Date Object
      * 
@@ -210,8 +209,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         return dateFromToComponent.getFromDateObject();
     }
-    
-    
+
     /**
      * Get From Date
      * 
@@ -222,7 +220,6 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return dateFromToComponent.getFromDate();
     }
 
-    
     /**
      * Get To Date Object
      * 
@@ -233,7 +230,6 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return dateFromToComponent.getTillDateObject();
     }
 
-    
     /**
      * Get To Date
      * 
@@ -244,7 +240,6 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return dateFromToComponent.getTillDate();
     }
 
-    
     /**
      * Get Printing Title
      * 
@@ -254,8 +249,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         return "PRINTING";
     }
-    
-    
+
     /**
      * performAction
      */
@@ -272,16 +266,14 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         {
             this.startPrintingAction();
         }
-            
+
     }
 
-    
     public void displayPDF(String name) throws Exception
     {
         printProcessor.displayPDF(name);
     }
-    
-    
+
     /**
      * Was Action Successful
      * 
@@ -292,7 +284,6 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return actionDone;
     }
 
-    
     /**
      * Get Action Results
      * 
@@ -303,9 +294,13 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         String[] res = new String[3];
 
         if (actionDone)
+        {
             res[0] = "1";
+        }
         else
+        {
             res[0] = "0";
+        }
 
         res[1] = this.tfName.getText();
         res[2] = this.cbTemplate.getSelectedItem().toString();
@@ -313,7 +308,6 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return res;
     }
 
-    
     /**
      * We have Secondary Type choice 
      * 
@@ -323,8 +317,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         return false;
     }
- 
-    
+
     /**
      * Get Secondary Types Description
      * 
@@ -334,8 +327,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         return null;
     }
-    
-    
+
     /**
      * Get Secondary Types
      * 
@@ -345,8 +337,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         return null;
     }
-    
-    
+
     // ****************************************************************
     // ****** HelpCapable Implementation *****
     // ****************************************************************
@@ -367,7 +358,6 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return this.helpButton;
     }
 
-
     /**
      * getObject
      */
@@ -377,13 +367,11 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return this;
     }
 
-    
     /**
      * getHelpId - get id for Help
      */
     public abstract String getHelpId();
-    
-    
+
     /**
      * Get Pdf Viewer (path to software)
      * 
@@ -391,23 +379,20 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
      */
     public abstract String getExternalPdfViewer();
 
-    
     /**
      * Get Report Types
      * 
      * @return
      */
     public abstract String[] getReportTypes();
-    
-    
+
     /**
      * Start Printing Action.
      * 
      * @throws Exception 
      */
     public abstract void startPrintingAction() throws Exception;
- 
-    
+
     /**
      * Get Pdf Viewer parameters. If you want name of file we are reading in this
      * parameters, you need to add %PDF_FILE% variable into string. This one is
@@ -416,20 +401,18 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
      * @return 
      */
     public abstract String getExternalPdfViewerParameters();
-    
-    
+
     /**
      * Is External PdfViewer Activated
      * 
      * Per default we use internal PdfViewer, but user can also use external PdfViewer if he wants.
      */
     public abstract boolean isExternalPdfViewerActivated();
-    
-    
+
     /**
      * Disable setting of Look And Feel For Internal Pdf Viewer.
      * @return
      */
     public abstract boolean disableLookAndFeelSettingForInternalPdfViewer();
-    
+
 }

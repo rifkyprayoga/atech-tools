@@ -10,5 +10,5 @@ public abstract class LanguageManagerRunnerDual extends LanguageManagerRunner
      * @return
      */
     public abstract boolean findUntranslatedKeysInLanguage();
-    
+
 }

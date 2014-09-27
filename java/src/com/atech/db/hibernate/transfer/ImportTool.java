@@ -61,40 +61,40 @@ public abstract class ImportTool extends ImportExportAbstract
      */
     public Hashtable<String, String> classDef = null;
 
-    //Configuration m_cfg = null;
+    // Configuration m_cfg = null;
     /**
      * The m_session.
      */
-    //Session m_session = null;
-    
+    // Session m_session = null;
+
     /**
      * The restore_file.
      */
     protected File restore_file = null;
-    //protected BufferedReader file_reader;
+    // protected BufferedReader file_reader;
     /**
      * The hibernate_util.
      */
     protected HibernateUtil hibernate_util = null;
-    
-/*
-    public ImportTool(Configuration cfg, int i)
-    {
-        super(cfg,i);
-    }
-*/
-    
+
+    /*
+     * public ImportTool(Configuration cfg, int i)
+     * {
+     * super(cfg,i);
+     * }
+     */
+
     /**
- * Instantiates a new import tool.
- * 
- * @param hib_conf the hib_conf
- */
-public ImportTool(HibernateConfiguration hib_conf)
+    * Instantiates a new import tool.
+    * 
+    * @param hib_conf the hib_conf
+    */
+    public ImportTool(HibernateConfiguration hib_conf)
     {
         super(hib_conf);
         createHibernateUtil();
     }
-    
+
     /**
      * Instantiates a new import tool.
      * 
@@ -105,11 +105,10 @@ public ImportTool(HibernateConfiguration hib_conf)
     {
         super(hib_conf);
         createHibernateUtil();
-        
+
         setRestoreFileInfo(res);
     }
-    
-    
+
     /**
      * Sets the restore file info.
      * 
@@ -120,9 +119,7 @@ public ImportTool(HibernateConfiguration hib_conf)
         this.statusSetMaxEntry(res.element_count);
         this.restore_file = res.file;
     }
-    
-    
-    
+
     /**
      * Instantiates a new import tool.
      */
@@ -130,7 +127,6 @@ public ImportTool(HibernateConfiguration hib_conf)
     {
         super();
     }
-    
 
     /**
      * Creates the hibernate util.
@@ -140,16 +136,13 @@ public ImportTool(HibernateConfiguration hib_conf)
         this.hibernate_util = new HibernateUtil(this.hibernate_conf, HibernateConfiguration.DB_CONTEXT_FULL, false);
         this.hibernate_util.setSession(this.getActiveSession());
     }
-    
-    
-    
-    
+
     /**
      * Process configuration.
      */
     public void processConfiguration()
     {
-        //System.out.println("Debug Configuration:");
+        // System.out.println("Debug Configuration:");
 
         // this.m_cfg.g
         // this.m_cfg.
@@ -186,9 +179,7 @@ public ImportTool(HibernateConfiguration hib_conf)
             org.hibernate.mapping.RootClass rc = (org.hibernate.mapping.RootClass) it.next();
 
             if (rc.getClassName().equals(cls_name))
-            {
                 return rc;
-            }
         }
 
         return null;
@@ -259,7 +250,6 @@ public ImportTool(HibernateConfiguration hib_conf)
     }
 
     /*
-     * 
      * <class name="ggc.core.db.hibernate.DayValueH" table="ggc_main_dayvalues"
      * > <id name="id" type="long" unsaved-value="0"> <generator
      * class="org.hibernate.id.AssignedIncrementGenerator"/> </id> <property
@@ -270,7 +260,6 @@ public ImportTool(HibernateConfiguration hib_conf)
      * type="int" /> <property name="comment" type="string" length="2000" />
      * </class>
      */
-
 
     /**
      * Export class.
@@ -342,10 +331,6 @@ public ImportTool(HibernateConfiguration hib_conf)
 
     }
 
-    
-    
-    
-
     /**
      * Gets the data from column for object.
      * 
@@ -359,7 +344,7 @@ public ImportTool(HibernateConfiguration hib_conf)
 
         String method_name = "get" + column_name.substring(0, 1).toUpperCase() + column_name.substring(1);
 
-        //String result = null;
+        // String result = null;
         Object res2 = null;
         Class<?> c = obj.getClass();
         // Class[] parameterTypes = new Class[] {String.class};
@@ -372,10 +357,8 @@ public ImportTool(HibernateConfiguration hib_conf)
             res2 = method.invoke(obj);
 
             if (res2 == null)
-            {
                 // System.out.println("We got null");
                 return "null";
-            }
         }
         catch (NoSuchMethodException e)
         {
@@ -463,7 +446,9 @@ public ImportTool(HibernateConfiguration hib_conf)
     {
 
         if (input.startsWith("~"))
+        {
             input = input.substring(1, input.length() - 1);
+        }
 
         if (input.length() == 0)
             return 0;
@@ -483,7 +468,9 @@ public ImportTool(HibernateConfiguration hib_conf)
     {
 
         if (input.startsWith("~"))
+        {
             input = input.substring(1, input.length() - 1);
+        }
 
         if (input.length() == 0)
             return 0;
@@ -503,7 +490,9 @@ public ImportTool(HibernateConfiguration hib_conf)
     {
 
         if (input.startsWith("~"))
+        {
             input = input.substring(1, input.length() - 1);
+        }
 
         if (input.length() == 0)
             return 0;
@@ -523,7 +512,9 @@ public ImportTool(HibernateConfiguration hib_conf)
     {
 
         if (input.startsWith("~"))
+        {
             input = input.substring(1, input.length() - 1);
+        }
 
         if (input.length() == 0)
             return 0;
@@ -545,7 +536,9 @@ public ImportTool(HibernateConfiguration hib_conf)
     {
 
         if (input.startsWith("~"))
+        {
             input = input.substring(1, input.length() - 1);
+        }
 
         if (input.trim().length() == 0)
             return null;
@@ -557,7 +550,6 @@ public ImportTool(HibernateConfiguration hib_conf)
 
     }
 
-    
     /**
      * Clear existing data.
      * 
@@ -565,14 +557,12 @@ public ImportTool(HibernateConfiguration hib_conf)
      */
     public void clearExistingData(String class_name)
     {
-        Query q = getSession().createQuery("delete from " + class_name );
+        Query q = getSession().createQuery("delete from " + class_name);
         q.executeUpdate();
     }
-    
-    
+
     /*
      * public static void main(String args[]) { GGCDb db = new GGCDb();
-     * 
      * ExportTool tool = new ExportTool(db.getConfiguration()); tool.export(); }
      */
 

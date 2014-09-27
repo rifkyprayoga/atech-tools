@@ -12,7 +12,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.text.html.HTMLDocument;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -43,14 +42,12 @@ import javax.swing.text.html.HTMLDocument;
  *
 */
 
-
 // The Simple Web Browser.
 public class MiniBrowserPanel extends JPanel
 {
 
-
     // These are the buttons for iterating through the page list.
-    //private JButton backButton, forwardButton;
+    // private JButton backButton, forwardButton;
 
     private static final long serialVersionUID = 6557838951692663384L;
 
@@ -63,17 +60,15 @@ public class MiniBrowserPanel extends JPanel
     // Browser's list of pages that have been visited.
     private ArrayList<String> pageList = new ArrayList<String>();
 
-    
     JScrollPane scrollPane;
-    
+
     /**
      * Constructor
      */
     public MiniBrowserPanel()
     {
-        //this.setLayout(null);
+        // this.setLayout(null);
         this.setLayout(new BorderLayout());
-        
 
         // Set up file menu.
         /*
@@ -98,32 +93,31 @@ public class MiniBrowserPanel extends JPanel
         displayEditorPane = new JEditorPane();
         displayEditorPane.setContentType("text/html");
         displayEditorPane.setEditable(false);
-        
+
         // displayEditorPane.addHyperlinkListener(this);
 
         scrollPane = new JScrollPane(displayEditorPane);
-//        this.scrollPane.setBounds(0,0,640,480);
-        
-        /* getContentPane() */ //this.setLayout(new BorderLayout());
+        // this.scrollPane.setBounds(0,0,640,480);
+
+        /* getContentPane() */// this.setLayout(new BorderLayout());
         // getContentPane().add(buttonPanel, BorderLayout.NORTH);
         /* getContentPane() */this.add(this.scrollPane, BorderLayout.CENTER);
 
         // Set window size.
         setSize(640, 480);
-        
-        
+
     }
 
     /**
      * Set Size
      */
+    @Override
     public void setSize(int width, int height)
     {
         super.setSize(width, height);
-//        this.scrollPane.setSize(width, height);
+        // this.scrollPane.setSize(width, height);
     }
-    
-    
+
     // Exit this program.
     /*
      * private void actionExit() { System.exit(0); }
@@ -168,7 +162,7 @@ public class MiniBrowserPanel extends JPanel
      */
     public void setPage(String page)
     {
-        //System.out.println("Set Page: " + page);
+        // System.out.println("Set Page: " + page);
         URL verifiedUrl = verifyUrl(page);
 
         if (verifiedUrl != null)
@@ -225,12 +219,9 @@ public class MiniBrowserPanel extends JPanel
             // Load and display specified page.
             displayEditorPane.setPage(pageUrl);
 
-            
-            HTMLDocument d = (HTMLDocument)displayEditorPane.getDocument();
+            HTMLDocument d = (HTMLDocument) displayEditorPane.getDocument();
             d.setBase(pageUrl);
 
-            
-            
             // Get URL of new page being displayed.
             URL newUrl = displayEditorPane.getPage();
 
@@ -262,7 +253,7 @@ public class MiniBrowserPanel extends JPanel
         {
             // Show error messsage.
             showError("Unable to load page: \n" + pageUrl);
-            //e.printStackTrace();
+            // e.printStackTrace();
         }
         finally
         {
@@ -287,23 +278,24 @@ public class MiniBrowserPanel extends JPanel
     }
 
     // Handle hyperlink's being clicked.
-/*    public void hyperlinkUpdate(HyperlinkEvent event)
-    {
-        HyperlinkEvent.EventType eventType = event.getEventType();
-        if (eventType == HyperlinkEvent.EventType.ACTIVATED)
-        {
-            if (event instanceof HTMLFrameHyperlinkEvent)
-            {
-                HTMLFrameHyperlinkEvent linkEvent = (HTMLFrameHyperlinkEvent) event;
-                HTMLDocument document = (HTMLDocument) displayEditorPane.getDocument();
-                document.processHTMLFrameHyperlinkEvent(linkEvent);
-            }
-            else
-            {
-                showPage(event.getURL(), true);
-            }
-        }
-    }
-*/
-  
+    /*
+     * public void hyperlinkUpdate(HyperlinkEvent event)
+     * {
+     * HyperlinkEvent.EventType eventType = event.getEventType();
+     * if (eventType == HyperlinkEvent.EventType.ACTIVATED)
+     * {
+     * if (event instanceof HTMLFrameHyperlinkEvent)
+     * {
+     * HTMLFrameHyperlinkEvent linkEvent = (HTMLFrameHyperlinkEvent) event;
+     * HTMLDocument document = (HTMLDocument) displayEditorPane.getDocument();
+     * document.processHTMLFrameHyperlinkEvent(linkEvent);
+     * }
+     * else
+     * {
+     * showPage(event.getURL(), true);
+     * }
+     * }
+     * }
+     */
+
 }

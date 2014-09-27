@@ -28,7 +28,6 @@ package weiss.util;
  *
  */
 
-
 import java.io.Serializable;
 
 /**
@@ -45,5 +44,5 @@ public interface Comparator extends Serializable
      *         > 0 if lhs is greater than rhs.
      * @throws ClassCastException if objects cannot be compared.
      */
-    int compare( Object lhs, Object rhs ) throws ClassCastException;
+    int compare(Object lhs, Object rhs) throws ClassCastException;
 }

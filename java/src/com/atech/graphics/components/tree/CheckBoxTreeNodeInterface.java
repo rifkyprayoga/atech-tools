@@ -33,7 +33,6 @@ import java.util.ArrayList;
  *
 */
 
-
 public interface CheckBoxTreeNodeInterface
 {
 
@@ -57,5 +56,5 @@ public interface CheckBoxTreeNodeInterface
      * @return true, if successful
      */
     public abstract boolean hasNodeChildren();
-    
+
 }

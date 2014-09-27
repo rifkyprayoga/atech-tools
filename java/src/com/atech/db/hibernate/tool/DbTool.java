@@ -84,8 +84,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         }
         catch (Exception ex)
-        {
-        }
+        {}
     }
 
     /**
@@ -186,49 +185,54 @@ public class DbTool extends JFrame implements TreeSelectionListener
         tree.setModel(new DbToolTreeModel(m_da.m_databases_treeroot));
         tree.setCellRenderer(new DbToolTreeCellRenderer());
         /*
-        	tree.setCellRenderer(new TreeCellRenderer()
-        	    {
-        		/**
-        		 * Sets the value of the current tree cell to <code>value</code>.
-        		 * If <code>selected</code> is true, the cell will be drawn as if
-        		 * selected. If <code>expanded</code> is true the node is currently
-        		 * expanded and if <code>leaf</code> is true the node represets a
-        		 * leaf and if <code>hasFocus</code> is true the node currently has
-        		 * focus. <code>tree</code> is the <code>JTree</code> the receiver is being
-        		 * configured for.  Returns the <code>Component</code> that the renderer
-        		 * uses to draw the value.
-        		 *
-        		 * @return	the <code>Component</code> that the renderer uses to draw the value
-        		 */
-        /*		public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus)
-        		{
-        		    JLabel label = null;
-        
-        		    if (value instanceof DatabaseSettings)
-        		    {
-        			DatabaseSettings ds = (DatabaseSettings)value;
-        
-        			if (ds.isDefault)
-        			{
-        			    label = new JLabel(ds.toString());
-        			    label.setFont(DataAccess.getInstance().getFont(DbToolAccess.FONT_NORMAL_BOLD));
-        			}
-        			else
-        			{
-        			    label = new JLabel(ds.toString());
-        			    label.setFont(DataAccess.getInstance().getFont(DbToolAccess.FONT_NORMAL));
-        			}
-        			return label;
-        		    }
-        		    else
-        		    {
-        			label = new JLabel(value.toString());
-        			label.setFont(DataAccess.getInstance().getFont(DbToolAccess.FONT_NORMAL));
-        			return label;
-        		    }
-        		}
-        	    });
-        	    */
+         * tree.setCellRenderer(new TreeCellRenderer()
+         * {
+         * /**
+         * Sets the value of the current tree cell to <code>value</code>.
+         * If <code>selected</code> is true, the cell will be drawn as if
+         * selected. If <code>expanded</code> is true the node is currently
+         * expanded and if <code>leaf</code> is true the node represets a
+         * leaf and if <code>hasFocus</code> is true the node currently has
+         * focus. <code>tree</code> is the <code>JTree</code> the receiver is
+         * being
+         * configured for. Returns the <code>Component</code> that the renderer
+         * uses to draw the value.
+         * @return the <code>Component</code> that the renderer uses to draw the
+         * value
+         */
+        /*
+         * public Component getTreeCellRendererComponent(JTree tree, Object
+         * value, boolean selected, boolean expanded, boolean leaf, int row,
+         * boolean hasFocus)
+         * {
+         * JLabel label = null;
+         * if (value instanceof DatabaseSettings)
+         * {
+         * DatabaseSettings ds = (DatabaseSettings)value;
+         * if (ds.isDefault)
+         * {
+         * label = new JLabel(ds.toString());
+         * label.setFont(DataAccess.getInstance().getFont(DbToolAccess.
+         * FONT_NORMAL_BOLD));
+         * }
+         * else
+         * {
+         * label = new JLabel(ds.toString());
+         * label.setFont(DataAccess.getInstance().getFont(DbToolAccess.FONT_NORMAL
+         * ));
+         * }
+         * return label;
+         * }
+         * else
+         * {
+         * label = new JLabel(value.toString());
+         * label.setFont(DataAccess.getInstance().getFont(DbToolAccess.FONT_NORMAL
+         * ));
+         * return label;
+         * }
+         * }
+         * });
+         */
         tree.addTreeSelectionListener(this);
 
         JScrollPane treeView = new JScrollPane(tree);
@@ -237,7 +241,10 @@ public class DbTool extends JFrame implements TreeSelectionListener
         mainPane.setLayout(null);
 
         // Add the scroll panes to a split pane.
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT/*.VERTICAL_SPLIT*/);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT/*
+                                                                          * .
+                                                                          * VERTICAL_SPLIT
+                                                                          */);
         splitPane.setTopComponent(treeView);
         splitPane.setBottomComponent(mainPane);
 
@@ -270,76 +277,94 @@ public class DbTool extends JFrame implements TreeSelectionListener
         this.setJMenuBar(menu_bar);
 
         /*
-                // file menu
-                this.menu_file = this.createMenu("MN_FILE", null);
-                this.createAction(this.menu_file, "MN_QUIT", "MN_QUIT_DESC", "file_quit", null);
-
-                // bgs menu
-                this.menu_bgs = this.createMenu("MN_BGS", null);
-                this.createAction(this.menu_bgs, "MN_DAILY", "MN_DAILY_DESC", "view_daily", "daily.gif"); 
-                this.createAction(this.menu_bgs, "MN_COURSE", "MN_COURSE_DESC", "view_course", "course.gif");
-                this.createAction(this.menu_bgs, "MN_SPREAD", "MN_SPREAD_DESC", "view_spread", "spread.gif");
-                this.createAction(this.menu_bgs, "MN_FREQUENCY", "MN_FREQUENCY_DESC", "view_freq", "frequency.gif");
-                this.menu_bgs.addSeparator();
-                this.createAction(this.menu_bgs, "MN_HBA1C", "MN_HBA1C_DESC", "view_hba1c", null);
-                this.menu_bgs.addSeparator();
-                this.createAction(this.menu_bgs, "MN_FROM_METER", "MN_FROM_METER_DESC", "read_meter", "readmeter.gif");
-
-                //viewDailyAction = new GGCAction("MN_DAILY", "MN_DAILY_DESC", "view_daily");
-                //viewDailyAction.putValue(Action.SMALL_ICON, new ImageIcon(getClass().getResource("/icons/daily.gif")));
-                //viewCourseGraphAction = new GGCAction("MN_COURSE", "MN_COURSE_DESC", "view_course");
-                //viewCourseGraphAction.putValue(Action.SMALL_ICON, new ImageIcon(getClass().getResource("/icons/course.gif")));
-                //viewSpreadGraphAction = new GGCAction("MN_SPREAD", "MN_SPREAD_DESC", "view_spread");
-                //viewSpreadGraphAction.putValue(Action.SMALL_ICON, new ImageIcon(getClass().getResource("/icons/spread.gif")));
-                //viewFrequencyGraphAction = new GGCAction("MN_FREQUENCY", "MN_FREQUENCY_DESC", "view_freq");
-                //viewFrequencyGraphAction.putValue(Action.SMALL_ICON, new ImageIcon(getClass().getResource("/icons/frequency.gif")));
-                //viewHbA1cAction = new GGCAction("MN_HBA1C", "MN_HBA1C_DESC", "view_hba1c");
-
-                //readMeterAction = new GGCAction("MN_FROM_METER", "MN_FROM_METER_DESC", "read_meter");
-                //readMeterAction.putValue(Action.SMALL_ICON, new ImageIcon(getClass().getResource("/icons/readmeter.gif")));
-
-
-
-
-                // food menu
-                this.menu_food = this.createMenu("MN_FOOD", null);
-                this.createAction(this.menu_food, "MN_NUTRDB_USDB", "MN_NUTRDB_USDB_DESC", "food_nutrition_1", null);
-                this.menu_food.addSeparator();
-                this.createAction(this.menu_food, "MN_NUTRDB_USER", "MN_NUTRDB_USER_DESC", "food_nutrition_2", null);
-                this.menu_food.addSeparator();
-                this.createAction(this.menu_food, "MN_MEALS", "MN_MEALS_DESC", "food_meals", null);
-
-
-                // doctors menu
-                this.menu_doctor = this.createMenu("MN_DOCTOR", null);
-                this.createAction(this.menu_doctor, "MN_DOCS", "MN_DOCS_DESC", "doc_docs", null);
-                this.menu_doctor.addSeparator();
-                this.createAction(this.menu_doctor, "MN_APPOINT", "MN_APPOINT_DESC", "doc_appoint", null);
-                this.menu_doctor.addSeparator();
-                this.createAction(this.menu_doctor, "MN_STOCKS", "MN_STOCKS_DESC", "doc_stocks", null);
-
-                // reports menu
-                this.menu_reports = this.createMenu("MN_REPORTS", null);
-                this.createAction(this.menu_reports, "MN_PDF_SIMPLE", "MN_PDF_SIMPLE_DESC", "report_pdf_simple", null);
-                this.createAction(this.menu_reports, "MN_PDF_EXT", "MN_PDF_EXT_DESC", "report_pdf_extended", null);
-
-                // tools menu
-                this.menu_tools = this.createMenu("MN_TOOLS", null);
-                this.createAction(this.menu_tools, "MN_PREFERENCES", "MN_PREFERENCES_DESC", "tools_pref", null);
-                this.menu_tools.addSeparator();
-                this.createAction(this.menu_tools, "MN_DB_MAINT", "MN_DB_MAINT_DESC", "tools_db_maint", null);
-                this.menu_tools.addSeparator();
-                this.createAction(this.menu_tools, "MN_METER_LIST", "MN_METER_LIST_DESC", "tools_mlist", null);
-
-                //addMenuItem(menu_tools, prefAction);
-
-                // help menu
-                this.menu_help = this.createMenu("MN_HELP", null);
-                this.menu_help.addSeparator();
-                this.createAction(this.menu_help,"MN_CHECK_FOR_UPDATE", "MN_CHECK_FOR_UPDATE_DESC", "hlp_check", null);
-                this.menu_help.addSeparator();
-                this.createAction(this.menu_help,"MN_ABOUT", "MN_ABOUT_DESC", "hlp_about", null);
-        */
+         * // file menu
+         * this.menu_file = this.createMenu("MN_FILE", null);
+         * this.createAction(this.menu_file, "MN_QUIT", "MN_QUIT_DESC",
+         * "file_quit", null);
+         * // bgs menu
+         * this.menu_bgs = this.createMenu("MN_BGS", null);
+         * this.createAction(this.menu_bgs, "MN_DAILY", "MN_DAILY_DESC",
+         * "view_daily", "daily.gif");
+         * this.createAction(this.menu_bgs, "MN_COURSE", "MN_COURSE_DESC",
+         * "view_course", "course.gif");
+         * this.createAction(this.menu_bgs, "MN_SPREAD", "MN_SPREAD_DESC",
+         * "view_spread", "spread.gif");
+         * this.createAction(this.menu_bgs, "MN_FREQUENCY", "MN_FREQUENCY_DESC",
+         * "view_freq", "frequency.gif");
+         * this.menu_bgs.addSeparator();
+         * this.createAction(this.menu_bgs, "MN_HBA1C", "MN_HBA1C_DESC",
+         * "view_hba1c", null);
+         * this.menu_bgs.addSeparator();
+         * this.createAction(this.menu_bgs, "MN_FROM_METER",
+         * "MN_FROM_METER_DESC", "read_meter", "readmeter.gif");
+         * //viewDailyAction = new GGCAction("MN_DAILY", "MN_DAILY_DESC",
+         * "view_daily");
+         * //viewDailyAction.putValue(Action.SMALL_ICON, new
+         * ImageIcon(getClass().getResource("/icons/daily.gif")));
+         * //viewCourseGraphAction = new GGCAction("MN_COURSE",
+         * "MN_COURSE_DESC", "view_course");
+         * //viewCourseGraphAction.putValue(Action.SMALL_ICON, new
+         * ImageIcon(getClass().getResource("/icons/course.gif")));
+         * //viewSpreadGraphAction = new GGCAction("MN_SPREAD",
+         * "MN_SPREAD_DESC", "view_spread");
+         * //viewSpreadGraphAction.putValue(Action.SMALL_ICON, new
+         * ImageIcon(getClass().getResource("/icons/spread.gif")));
+         * //viewFrequencyGraphAction = new GGCAction("MN_FREQUENCY",
+         * "MN_FREQUENCY_DESC", "view_freq");
+         * //viewFrequencyGraphAction.putValue(Action.SMALL_ICON, new
+         * ImageIcon(getClass().getResource("/icons/frequency.gif")));
+         * //viewHbA1cAction = new GGCAction("MN_HBA1C", "MN_HBA1C_DESC",
+         * "view_hba1c");
+         * //readMeterAction = new GGCAction("MN_FROM_METER",
+         * "MN_FROM_METER_DESC", "read_meter");
+         * //readMeterAction.putValue(Action.SMALL_ICON, new
+         * ImageIcon(getClass().getResource("/icons/readmeter.gif")));
+         * // food menu
+         * this.menu_food = this.createMenu("MN_FOOD", null);
+         * this.createAction(this.menu_food, "MN_NUTRDB_USDB",
+         * "MN_NUTRDB_USDB_DESC", "food_nutrition_1", null);
+         * this.menu_food.addSeparator();
+         * this.createAction(this.menu_food, "MN_NUTRDB_USER",
+         * "MN_NUTRDB_USER_DESC", "food_nutrition_2", null);
+         * this.menu_food.addSeparator();
+         * this.createAction(this.menu_food, "MN_MEALS", "MN_MEALS_DESC",
+         * "food_meals", null);
+         * // doctors menu
+         * this.menu_doctor = this.createMenu("MN_DOCTOR", null);
+         * this.createAction(this.menu_doctor, "MN_DOCS", "MN_DOCS_DESC",
+         * "doc_docs", null);
+         * this.menu_doctor.addSeparator();
+         * this.createAction(this.menu_doctor, "MN_APPOINT", "MN_APPOINT_DESC",
+         * "doc_appoint", null);
+         * this.menu_doctor.addSeparator();
+         * this.createAction(this.menu_doctor, "MN_STOCKS", "MN_STOCKS_DESC",
+         * "doc_stocks", null);
+         * // reports menu
+         * this.menu_reports = this.createMenu("MN_REPORTS", null);
+         * this.createAction(this.menu_reports, "MN_PDF_SIMPLE",
+         * "MN_PDF_SIMPLE_DESC", "report_pdf_simple", null);
+         * this.createAction(this.menu_reports, "MN_PDF_EXT", "MN_PDF_EXT_DESC",
+         * "report_pdf_extended", null);
+         * // tools menu
+         * this.menu_tools = this.createMenu("MN_TOOLS", null);
+         * this.createAction(this.menu_tools, "MN_PREFERENCES",
+         * "MN_PREFERENCES_DESC", "tools_pref", null);
+         * this.menu_tools.addSeparator();
+         * this.createAction(this.menu_tools, "MN_DB_MAINT", "MN_DB_MAINT_DESC",
+         * "tools_db_maint", null);
+         * this.menu_tools.addSeparator();
+         * this.createAction(this.menu_tools, "MN_METER_LIST",
+         * "MN_METER_LIST_DESC", "tools_mlist", null);
+         * //addMenuItem(menu_tools, prefAction);
+         * // help menu
+         * this.menu_help = this.createMenu("MN_HELP", null);
+         * this.menu_help.addSeparator();
+         * this.createAction(this.menu_help,"MN_CHECK_FOR_UPDATE",
+         * "MN_CHECK_FOR_UPDATE_DESC", "hlp_check", null);
+         * this.menu_help.addSeparator();
+         * this.createAction(this.menu_help,"MN_ABOUT", "MN_ABOUT_DESC",
+         * "hlp_about", null);
+         */
     }
 
     /**
@@ -366,14 +391,16 @@ public class DbTool extends JFrame implements TreeSelectionListener
 
         for (int i = 0; i < list.size(); i++)
         {
-            String name = (String) list.get(i);
+            String name = list.get(i);
 
             // System.out.println("name: " + name);
 
-            String id = (String) table.get(name);
+            String id = table.get(name);
             int idn = Integer.parseInt(id);
 
-            DatabaseDefObject ds = new DatabaseDefObject(dd.getDatabaseName(idn), dd.getJdbcDriver(idn), dd.getJdbcURL(idn), dd.getDatabasePort(idn), dd.getHibernateDialect(idn), dd.getHibernateDialectWithout(idn));
+            DatabaseDefObject ds = new DatabaseDefObject(dd.getDatabaseName(idn), dd.getJdbcDriver(idn),
+                    dd.getJdbcURL(idn), dd.getDatabasePort(idn), dd.getHibernateDialect(idn),
+                    dd.getHibernateDialectWithout(idn));
             m_da.addAvailableDatabase(i, ds);
             m_da.m_tableOfDatabases.put(ds.name, ds);
         }
@@ -393,16 +420,18 @@ public class DbTool extends JFrame implements TreeSelectionListener
         panels[2] = new PanelDatabaseSet(this);
         // panels[1] = new PanelNutritionFoodGroup(this);
         // panels[2] = new PanelNutritionFood(this);
-        /*        panels[3] = new ViewDiocesePanel(this);
-                panels[4] = new ViewParishPanel(this);
-                panels[5] = new ViewDiocesePersonalPanel(this);
-                panels[6] = new ViewParishPersonalPanel(this);
-                panels[7] = new DiocesePersonalPanel(this);
-                panels[8] = new ParishPersonalPanel(this); */
+        /*
+         * panels[3] = new ViewDiocesePanel(this);
+         * panels[4] = new ViewParishPanel(this);
+         * panels[5] = new ViewDiocesePersonalPanel(this);
+         * panels[6] = new ViewParishPersonalPanel(this);
+         * panels[7] = new DiocesePersonalPanel(this);
+         * panels[8] = new ParishPersonalPanel(this);
+         */
 
-        for (int i = 0; i < panels.length; i++)
+        for (JPanel panel : panels)
         {
-            mainPane.add(panels[i]);
+            mainPane.add(panel);
         }
 
         makePanelVisible(0);
@@ -413,12 +442,12 @@ public class DbTool extends JFrame implements TreeSelectionListener
      * The Constant PANEL_ROOT.
      */
     public static final int PANEL_ROOT = 0;
-    
+
     /**
      * The Constant PANEL_DATABASE_ROOT.
      */
     public static final int PANEL_DATABASE_ROOT = 1;
-    
+
     /**
      * The Constant PANEL_DATABASE.
      */
@@ -448,9 +477,13 @@ public class DbTool extends JFrame implements TreeSelectionListener
 
         for (int i = 0; i < panels.length; i++)
             if (i == num)
+            {
                 panels[i].setVisible(true);
+            }
             else
+            {
                 panels[i].setVisible(false);
+            }
     }
 
     /** Required by TreeSelectionListener interface. */
@@ -468,7 +501,9 @@ public class DbTool extends JFrame implements TreeSelectionListener
                 makePanelVisible(DbTool.PANEL_DATABASE_ROOT);
             }
             else
+            {
                 makePanelVisible(DbTool.PANEL_ROOT);
+            }
         }
         else if (tree.getLastSelectedPathComponent() instanceof DbToolApplicationInterface)
         {
@@ -492,7 +527,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
      */
     public static void main(String args[])
     {
-        /*DbTool tool =*/new DbTool();
+        /* DbTool tool = */new DbTool();
     }
 
 }

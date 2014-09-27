@@ -1,4 +1,3 @@
- 
 package com.atech.graphics.graphs;
 
 /**
@@ -31,7 +30,6 @@ package com.atech.graphics.graphs;
  *  @author Andy
  *
 */
-
 
 public interface GraphConfigProperties // extends GGCPropertiesHelper
 {
@@ -86,19 +84,13 @@ public interface GraphConfigProperties // extends GGCPropertiesHelper
     public int getTextAntiAliasing();
 
     /*
-    public void setAntiAliasing(int value);
-
-    public void setColorRendering(int value);
-
-    public void setDithering(int value);
-
-    public void setFractionalMetrics(int value);
-
-    public void setInterpolation(int value);
-
-    public void setRendering(int value);
-    
-    public void setTextAntiAliasing(int value); */
-
+     * public void setAntiAliasing(int value);
+     * public void setColorRendering(int value);
+     * public void setDithering(int value);
+     * public void setFractionalMetrics(int value);
+     * public void setInterpolation(int value);
+     * public void setRendering(int value);
+     * public void setTextAntiAliasing(int value);
+     */
 
 }

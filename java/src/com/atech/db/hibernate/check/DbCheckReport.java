@@ -1,7 +1,5 @@
 package com.atech.db.hibernate.check;
 
-
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -45,29 +43,28 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
 public class DbCheckReport
 {
 
     private Log log = LogFactory.getLog(DbCheckReport.class);
-    
+
     private String version_db = "0";
     private int db_version = 0;
     private String version_db_required = "0";
     private int db_version_required = 0;
-    
+
     @SuppressWarnings("unused")
     private boolean info_read_ok = false;
-    
+
     private String filename = "";
     private boolean file_exists = false;
-    
+
     /**
      * The ic.
      */
     I18nControlAbstract ic;
     private boolean can_be_started = false;
-    
+
     /**
      * Instantiates a new db check report.
      * 
@@ -81,7 +78,7 @@ public class DbCheckReport
         readFileInfo();
         evaluateInfo();
     }
-    
+
     /**
      * Read file info.
      */
@@ -90,50 +87,49 @@ public class DbCheckReport
         try
         {
             File f = new File(this.filename);
-            
-            //System.out.println("exists: " + f.ex)
-            
+
+            // System.out.println("exists: " + f.ex)
+
             this.file_exists = f.exists();
-            
+
             if (!file_exists)
                 return;
-        
+
             BufferedReader br = new BufferedReader(new FileReader(this.filename));
-            
-            String line, res=null;
-            
-            while((line = br.readLine()) != null)
+
+            String line, res = null;
+
+            while ((line = br.readLine()) != null)
             {
                 if (line.contains("|"))
                 {
                     res = line;
                     break;
                 }
-                
+
             }
-            
+
             br.close();
-            
+
             StringTokenizer strtok = new StringTokenizer(res, "|");
-            
+
             String stat = strtok.nextToken();
             this.version_db = strtok.nextToken();
             this.version_db_required = strtok.nextToken();
-            
+
             if (stat.equals("OK"))
             {
                 this.info_read_ok = true;
             }
-            
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             log.error("Error reading report: " + ex, ex);
         }
-        
+
     }
-    
-    
+
     /**
      * Evaluate info.
      */
@@ -143,7 +139,7 @@ public class DbCheckReport
         {
             this.db_version = Integer.parseInt(this.version_db);
             this.db_version_required = Integer.parseInt(this.version_db_required);
-            
+
             if (!this.file_exists)
             {
                 log.warn("Db Report file not found !");
@@ -152,23 +148,24 @@ public class DbCheckReport
             else
             {
                 // file exists
-                if (this.db_version==this.db_version_required)
+                if (this.db_version == this.db_version_required)
+                {
                     this.can_be_started = true;
+                }
                 else
+                {
                     this.can_be_started = false;
+                }
             }
 
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             log.error("Evaluate info exception: " + ex, ex);
             ex.printStackTrace();
         }
     }
-    
-    
-    
-    
+
     /**
      * Can application start.
      * 
@@ -178,7 +175,6 @@ public class DbCheckReport
     {
         return this.can_be_started;
     }
-    
 
     /**
      * Show error.
@@ -186,7 +182,7 @@ public class DbCheckReport
     public void showError()
     {
         String ver_desc = "";
-        
+
         if (this.db_version < this.db_version_required)
         {
             // current version is lower
@@ -196,12 +192,12 @@ public class DbCheckReport
         {
             ver_desc = "DB_VERSION_HIGHER";
         }
-        
-        
-        String s = String.format(ic.getMessage("DB_HEADER"), this.version_db, this.version_db_required, ic.getMessage(ver_desc));
-        
+
+        String s = String.format(ic.getMessage("DB_HEADER"), this.version_db, this.version_db_required,
+            ic.getMessage(ver_desc));
+
         JOptionPane.showMessageDialog(null, s, ic.getMessage("DB_ERROR_ON_LOAD"), JOptionPane.ERROR_MESSAGE);
-        
+
     }
-    
+
 }

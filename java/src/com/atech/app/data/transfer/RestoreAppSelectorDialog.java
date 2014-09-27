@@ -7,8 +7,6 @@ import com.atech.app.AbstractApplicationContext;
 import com.atech.db.hibernate.transfer.RestoreSelectorDialog;
 import com.atech.utils.ATDataAccessAbstract;
 
-
-
 /**
  *  Application:   GGC - GNU Gluco Control
  *
@@ -35,10 +33,9 @@ import com.atech.utils.ATDataAccessAbstract;
  *  Author: andyrozman {andy@atech-software.com}  
  */
 
-
-public class RestoreAppSelectorDialog extends RestoreSelectorDialog 
+public class RestoreAppSelectorDialog extends RestoreSelectorDialog
 {
-    
+
     private static final long serialVersionUID = 3536165659702725457L;
     AbstractApplicationContext m_aac;
 
@@ -53,7 +50,7 @@ public class RestoreAppSelectorDialog extends RestoreSelectorDialog
     {
         super(parent, da);
         this.m_aac = aac;
-        this.enableHelp(aac.getHelpKeyword("Tools_Restore_File_Selector", "Tools_Restore_File_Selector")); //"GGC_Tools_Restore_File_Selector");
+        this.enableHelp(aac.getHelpKeyword("Tools_Restore_File_Selector", "Tools_Restore_File_Selector")); // "GGC_Tools_Restore_File_Selector");
     }
 
     /**
@@ -67,46 +64,45 @@ public class RestoreAppSelectorDialog extends RestoreSelectorDialog
     {
         super(parent, da);
         this.m_aac = aac;
-        this.enableHelp(aac.getHelpKeyword("Tools_Restore_File_Selector", "Tools_Restore_File_Selector")); //"GGC_Tools_Restore_File_Selector");
+        this.enableHelp(aac.getHelpKeyword("Tools_Restore_File_Selector", "Tools_Restore_File_Selector")); // "GGC_Tools_Restore_File_Selector");
     }
-
 
     /**
      * Get Browse Startup Directory
      * 
      * @see com.atech.db.hibernate.transfer.RestoreSelectorDialog#getBrowseStartupDirectory()
      */
+    @Override
     public String getBrowseStartupDirectory()
     {
         return "../data/export/";
     }
 
-    
     /**
      * Command Next Step
      * 
      * @see com.atech.db.hibernate.transfer.RestoreSelectorDialog#cmdNextStep()
      */
+    @Override
     public void cmdNextStep()
     {
-        //System.out.println("Res Coll: " + this.m_da.getBackupRestoreCollection());
-        RestoreAppDialog rgd = new RestoreAppDialog((JFrame)this.my_parent, this.m_da, this.m_da.getBackupRestoreCollection(), this.tf_file.getText(), this.m_aac);
-        rgd.enableHelp(m_aac.getHelpKeyword("Tools_Restore", "Tools_Restore")); //"GGC_Tools_Restore_File_Selector");
+        // System.out.println("Res Coll: " +
+        // this.m_da.getBackupRestoreCollection());
+        RestoreAppDialog rgd = new RestoreAppDialog((JFrame) this.my_parent, this.m_da,
+                this.m_da.getBackupRestoreCollection(), this.tf_file.getText(), this.m_aac);
+        rgd.enableHelp(m_aac.getHelpKeyword("Tools_Restore", "Tools_Restore")); // "GGC_Tools_Restore_File_Selector");
         rgd.showDialog();
     }
-    
-    
 
-/*    
-    public static void main(String args[])
-    {
-        JFrame fr = new JFrame();
-        fr.setSize(800,600);
-        
-        RestoreGGCSelectorDialog rsd = new RestoreGGCSelectorDialog(new JDialog(), DataAccess.getInstance());
-        rsd.showDialog();
-    }
-  */  
-    
-    
+    /*
+     * public static void main(String args[])
+     * {
+     * JFrame fr = new JFrame();
+     * fr.setSize(800,600);
+     * RestoreGGCSelectorDialog rsd = new RestoreGGCSelectorDialog(new
+     * JDialog(), DataAccess.getInstance());
+     * rsd.showDialog();
+     * }
+     */
+
 }

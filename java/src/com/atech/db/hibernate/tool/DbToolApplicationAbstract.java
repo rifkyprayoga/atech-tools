@@ -3,6 +3,7 @@ package com.atech.db.hibernate.tool;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.Hashtable;
@@ -10,23 +11,19 @@ import java.util.Properties;
 
 import javax.swing.UIManager;
 
-
-
-
-
 /*
-New methods :
-    public String[] getAllDatabasesNamesPlusAsArray()
-    public String[] getAllDatabasesNamesAsArray()
-    public int getSelectedDatabaseIndex()
+ New methods :
+ public String[] getAllDatabasesNamesPlusAsArray()
+ public String[] getAllDatabasesNamesAsArray()
+ public int getSelectedDatabaseIndex()
 
-    //setChanged();
-    //getChanged();
+ //setChanged();
+ //getChanged();
 
-    hasChanged();
-    setSelectedDatabaseIndex(int);
+ hasChanged();
+ setSelectedDatabaseIndex(int);
 
-*/
+ */
 
 /**
  *  Application:   GGC - GNU Gluco Control
@@ -53,17 +50,13 @@ New methods :
  *  Author: andyrozman {andy@atech-software.com}  
  */
 
-
-
 public abstract class DbToolApplicationAbstract implements DbToolApplicationInterface
 {
 
     protected int selected_db = 0;
     protected String selected_lang = "en";
 
-
-    protected Hashtable<String,String> config_db_values = null;
-
+    protected Hashtable<String, String> config_db_values = null;
 
     // LF
     protected String selected_LF_Class = "com.l2fprod.gui.plaf.skin.SkinLookAndFeel"; // class
@@ -72,9 +65,8 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
 
     protected Object[] availableLF = null;
     protected Object[] availableLFClass = null;
-    protected Hashtable<String,String> availableLF_full = null;
+    protected Hashtable<String, String> availableLF_full = null;
     protected int skinlf_LF = 0;
-
 
     protected Hashtable<String, DatabaseSettings> staticDatabases;
     protected Hashtable<String, DatabaseSettings> customDatabases;
@@ -98,12 +90,10 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         loadAvailableLFs();
     }
 
-    
     /**
      * init Defaults - set default language, default SkinLF skin, default selected LF Class
      */
     public abstract void initDefaults();
-    
 
     /**
      * Get Selected Language
@@ -114,7 +104,7 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     {
         return this.selected_lang;
     }
-    
+
     /**
      * Set Selected Language
      * 
@@ -124,7 +114,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     {
         this.selected_lang = lang;
     }
-    
 
     /**
      * Load Available LFs
@@ -132,15 +121,14 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     public void loadAvailableLFs()
     {
 
-        availableLF_full = new Hashtable<String,String>();
+        availableLF_full = new Hashtable<String, String>();
         UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
 
-        availableLF = new Object[info.length+1];
-        availableLFClass = new Object[info.length+1];
-
+        availableLF = new Object[info.length + 1];
+        availableLFClass = new Object[info.length + 1];
 
         int i;
-        for (i=0; i<info.length; i++)
+        for (i = 0; i < info.length; i++)
         {
             String name = info[i].getName();
             String className = info[i].getClassName();
@@ -148,9 +136,8 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
             availableLF_full.put(name, className);
             availableLF[i] = name;
             availableLFClass[i] = className;
-        }     
+        }
 
-        
         if (this.use_skin_lf)
         {
             availableLF_full.put("SkinLF", "com.l2fprod.gui.plaf.skin.SkinLookAndFeel");
@@ -159,7 +146,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
             skinlf_LF = i;
         }
     }
-
 
     /**
      * Get Avilable LFs
@@ -180,26 +166,22 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return this.availableLFClass;
     }
 
-    
     /**
      * Get LF Data
      * 
      * @return
      */
-    public String[] getLFData() 
+    public String[] getLFData()
     {
         this.loadConfig();
-        
+
         String out[] = new String[2];
-        
+
         out[0] = this.selected_LF_Class;
         out[1] = this.skinLFSelected;
 
         return out;
-    } 
-    
-    
-    
+    }
 
     /**
      * Get Selected LF Index
@@ -207,18 +189,15 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
      */
     public int getSelectedLFIndex()
     {
-        for (int i=0; i<this.availableLFClass.length; i++)
+        for (int i = 0; i < this.availableLFClass.length; i++)
         {
             if (this.availableLFClass[i].equals(this.selected_LF_Class))
-            {
                 return i;
-            }
         }
 
         return this.skinlf_LF;
 
     }
-
 
     /**
      * Set Selected LF
@@ -230,16 +209,14 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     {
         System.out.println("Selected LF SelectedLFIndex: " + this.getSelectedLFIndex());
 
-        if (this.getSelectedLFIndex()!=index)  // .getSkinLFIndex()
+        if (this.getSelectedLFIndex() != index) // .getSkinLFIndex()
         {
-            this.selected_LF_Class = (String)this.availableLFClass[index]; // class
-            this.selected_LF_Name = (String)this.availableLF[index]; // name
+            this.selected_LF_Class = (String) this.availableLFClass[index]; // class
+            this.selected_LF_Name = (String) this.availableLF[index]; // name
             this.m_changed = true;
         }
-        
+
         System.out.println("Selected LF Class: " + this.selected_LF_Class);
-        
-        
 
         if (!skin.equals(this.skinLFSelected))
         {
@@ -249,8 +226,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
 
     }
 
-
-
     /**
      * Get Selected LF Skin
      * @return
@@ -259,7 +234,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     {
         return this.skinLFSelected;
     }
-
 
     /**
      * Get SkinLF Index
@@ -271,7 +245,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return this.skinlf_LF;
     }
 
-
     /**
      * Is SkinLF Selected
      * 
@@ -282,7 +255,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return isSkinLFSelected(getSelectedLFIndex());
     }
 
-
     /**
      * Is SkinLF Selected
      * 
@@ -291,20 +263,19 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
      */
     public boolean isSkinLFSelected(int index)
     {
-        return(this.skinlf_LF == index);
+        return this.skinlf_LF == index;
     }
 
-/*
-    private void setDefaultLF()
-    {
-        this.selected_LF_Class = "com.l2fprod.gui.plaf.skin.SkinLookAndFeel"; // class
-        this.selected_LF_Name = "SkinLF"; // name
-        this.skinLFSelected = "blueMetalthemepack.zip";
-
-        this.m_changed = true;
-    }
-*/
-
+    /*
+     * private void setDefaultLF()
+     * {
+     * this.selected_LF_Class = "com.l2fprod.gui.plaf.skin.SkinLookAndFeel"; //
+     * class
+     * this.selected_LF_Name = "SkinLF"; // name
+     * this.skinLFSelected = "blueMetalthemepack.zip";
+     * this.m_changed = true;
+     * }
+     */
 
     /**
      * Init Static Dbs
@@ -334,7 +305,7 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     public void loadConfig()
     {
 
-        config_db_values = new Hashtable<String,String>();
+        config_db_values = new Hashtable<String, String>();
 
         Properties props = new Properties();
 
@@ -350,48 +321,49 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
             config_loaded = false;
         }
 
-
         if (config_loaded)
         {
 
-            for (Enumeration<Object> en = props.keys(); en.hasMoreElements(); )
+            for (Enumeration<Object> en = props.keys(); en.hasMoreElements();)
             {
-                String  str = (String)en.nextElement();
+                String str = (String) en.nextElement();
 
                 if (str.startsWith("DB"))
                 {
-                    addDatabaseSetting(str, (String)props.get(str));
-                    //config_db_values.put(str, (String)props.get(str));
+                    addDatabaseSetting(str, (String) props.get(str));
+                    // config_db_values.put(str, (String)props.get(str));
                 }
                 else
                 {
 
                     if (str.equals("LF_NAME"))
                     {
-                        selected_LF_Name = (String)props.get(str);
+                        selected_LF_Name = (String) props.get(str);
                     }
                     else if (str.equals("LF_CLASS"))
                     {
-                        selected_LF_Class = (String)props.get(str);
+                        selected_LF_Class = (String) props.get(str);
                     }
                     else if (str.equals("SKINLF_SELECTED"))
                     {
-                        //System.out.println("!!!!!!!!!!!!!!!!! " + (String)props.get(str));
-                        skinLFSelected = (String)props.get(str);
+                        // System.out.println("!!!!!!!!!!!!!!!!! " +
+                        // (String)props.get(str));
+                        skinLFSelected = (String) props.get(str);
                     }
                     else if (str.equals("SELECTED_DB"))
                     {
-                        selected_db = Integer.parseInt((String)props.get(str));
+                        selected_db = Integer.parseInt((String) props.get(str));
                     }
                     else if (str.equals("SELECTED_LANG"))
                     {
-                        selected_lang = (String)props.get(str);
+                        selected_lang = (String) props.get(str);
                     }
                     else
                     {
-                        loadApplicationSpecific(str, (String)props.get(str));
+                        loadApplicationSpecific(str, (String) props.get(str));
                     }
-                     //   System.out.println("DbToolApplicationAbstract:loadConfig:: Unknown parameter : '" + str +"'");
+                    // System.out.println("DbToolApplicationAbstract:loadConfig:: Unknown parameter : '"
+                    // + str +"'");
 
                 }
 
@@ -403,7 +375,8 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
 
             // we don't have config, we try to create basic one
 
-            System.out.println("DbToolApplicationAbstract: Config file not found. Creating new config file with default settings.");
+            System.out
+                    .println("DbToolApplicationAbstract: Config file not found. Creating new config file with default settings.");
 
             try
             {
@@ -423,7 +396,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
 
     }
 
-    
     /**
      * Add Default Application Database (you need to add all settings).
      * 
@@ -438,9 +410,7 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
      * </pre>
      */
     public abstract void addDefaultApplicationDatabase();
-    
-    
-    
+
     /**
      * Load Application Specific Settings
      * 
@@ -448,39 +418,30 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
      * @param value
      */
     public abstract void loadApplicationSpecific(String key, String value);
-    
-    
+
     /**
      * Save Application Specific Settings
      * 
      * @param bw
      */
     public abstract void saveApplicationSpecific(BufferedWriter bw);
-    
-    
+
     private String getCurrentTimeAsUserReadableString()
     {
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTimeInMillis(System.currentTimeMillis());
 
-        return gc.get(GregorianCalendar.DAY_OF_MONTH) + "." + 
-        (gc.get(GregorianCalendar.MONTH) +1) + "." +
-        gc.get(GregorianCalendar.YEAR) + "  " + 
-        gc.get(GregorianCalendar.HOUR_OF_DAY) + ":" + 
-        gc.get(GregorianCalendar.MINUTE) + ":" +
-        gc.get(GregorianCalendar.SECOND);
+        return gc.get(Calendar.DAY_OF_MONTH) + "." + (gc.get(Calendar.MONTH) + 1) + "." + gc.get(Calendar.YEAR) + "  "
+                + gc.get(Calendar.HOUR_OF_DAY) + ":" + gc.get(Calendar.MINUTE) + ":" + gc.get(Calendar.SECOND);
 
     }
 
-    
     /**
      * Get Config File Comment - Comment in configuration, stating which application it is
      *   for example: "GGC_Config (Settings for GGC)"
      * @return
      */
     public abstract String getConfigFileComment();
-    
-    
 
     /**
      * Save Config
@@ -488,57 +449,50 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     public void saveConfig()
     {
 
-        //System.out.println("SAVEEEEEEEEEEEEE !!!");
+        // System.out.println("SAVEEEEEEEEEEEEE !!!");
 
         try
         {
 
-            //Properties props = new Properties();
+            // Properties props = new Properties();
             BufferedWriter bw = new BufferedWriter(new FileWriter(getApplicationDatabaseConfig()));
 
-            bw.write("#\n" +
-                     "# " + getConfigFileComment() + "\n" + 
-                     "#" + getCurrentTimeAsUserReadableString() + "\n" + 
-                     "#\n"+
-                     "# Don't edit by hand\n" +
-                     "# Only settings need for application startup are written here. All other info\n"+
-                     "#    is stored in database\n" +
-                     "#\n\n"+
-                     "#\n# Databases settings\n#\n");
+            bw.write("#\n" + "# " + getConfigFileComment() + "\n" + "#" + getCurrentTimeAsUserReadableString() + "\n"
+                    + "#\n" + "# Don't edit by hand\n"
+                    + "# Only settings need for application startup are written here. All other info\n"
+                    + "#    is stored in database\n" + "#\n\n" + "#\n# Databases settings\n#\n");
 
+            // int count_db = 0;
 
-//            int count_db = 0;
-
-            //for (int i=0; i<this.allDatabases.size(); i++)  fix, only non-static db data should be written
-            for (int i=0; i<this.allDatabases.size(); i++)
+            // for (int i=0; i<this.allDatabases.size(); i++) fix, only
+            // non-static db data should be written
+            for (int i = 0; i < this.allDatabases.size(); i++)
             {
-                DatabaseSettings dbs = this.allDatabases.get(""+i);
+                DatabaseSettings dbs = this.allDatabases.get("" + i);
                 dbs.write(bw);
             }
 
-
             bw.write("\n\n#\n# Look and Feel Settings\n#\n\n");
-            bw.write("LF_NAME=" + selected_LF_Name +"\n");
+            bw.write("LF_NAME=" + selected_LF_Name + "\n");
 
-            //props.put("LF_NAME", selected_LF_Name);
+            // props.put("LF_NAME", selected_LF_Name);
 
             selected_LF_Class = availableLF_full.get(selected_LF_Name);
 
-            bw.write("LF_CLASS=" + selected_LF_Class +"\n");
+            bw.write("LF_CLASS=" + selected_LF_Class + "\n");
 
-            //props.put("LF_CLASS", selected_LF_Name);
-            bw.write("SKINLF_SELECTED=" + skinLFSelected +"\n");
-            //props.put("SKINLF_SELECTED", skinLFSelected); 
-
+            // props.put("LF_CLASS", selected_LF_Name);
+            bw.write("SKINLF_SELECTED=" + skinLFSelected + "\n");
+            // props.put("SKINLF_SELECTED", skinLFSelected);
 
             bw.write("\n\n#\n# Db Selector\n#\n");
-            bw.write("SELECTED_DB=" + selected_db +"\n");
+            bw.write("SELECTED_DB=" + selected_db + "\n");
 
             bw.write("\n\n#\n# Language Selector\n#\n");
-            bw.write("SELECTED_LANG=" + selected_lang +"\n");
+            bw.write("SELECTED_LANG=" + selected_lang + "\n");
 
             saveApplicationSpecific(bw);
-            
+
             bw.close();
 
         }
@@ -550,7 +504,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
 
     }
 
-
     /**
      * Get First Available Database
      * 
@@ -561,7 +514,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return 1;
     }
 
-    
     /**
      * Get Static Databases
      * 
@@ -569,9 +521,8 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
      */
     public Hashtable<String, DatabaseSettings> getStaticDatabases()
     {
-        return this.staticDatabases; 
+        return this.staticDatabases;
     }
-
 
     /**
      * Get Custom Databases
@@ -583,7 +534,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return this.customDatabases;
     }
 
-    
     /**
      * Get All Databases
      * 
@@ -594,7 +544,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return this.allDatabases;
     }
 
-    
     // NEW
     /**
      * Get All Databases Names As Array
@@ -604,7 +553,7 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     {
         String[] arr = new String[this.allDatabases.size()];
 
-        for (int i=0; i<this.allDatabases.size(); i++)
+        for (int i = 0; i < this.allDatabases.size(); i++)
         {
             arr[i] = this.allDatabases.get("" + i).name;
         }
@@ -612,7 +561,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return arr;
     }
 
-    
     // NEW
     /**
      * Get All Databases Names Plus As Array
@@ -622,14 +570,13 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     {
         String[] arr = new String[this.allDatabases.size()];
 
-        for (int i=0; i<this.allDatabases.size(); i++)
+        for (int i = 0; i < this.allDatabases.size(); i++)
         {
             arr[i] = i + " - " + this.allDatabases.get("" + i).name;
         }
 
         return arr;
     }
-
 
     /**
      * Get Database
@@ -642,7 +589,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return this.allDatabases.get("" + index);
     }
 
-    
     /**
      * Get Selected Database
      * 
@@ -653,7 +599,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return this.allDatabases.get("" + this.selected_db);
     }
 
-    
     // NEW
     /**
      * Get Selected Database Index
@@ -664,7 +609,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return this.selected_db;
     }
 
-
     // NEW
     /**
      * Add Database Settings
@@ -674,15 +618,15 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
      */
     public void addDatabaseSetting(String setting, String value)
     {
-        int dbnum = Integer.parseInt(setting.substring(2,3));
+        int dbnum = Integer.parseInt(setting.substring(2, 3));
 
-//	if (dbnum<this.getFirstAvailableDatabase()) 
-//	    return;
+        // if (dbnum<this.getFirstAvailableDatabase())
+        // return;
 
-        if (this.customDatabases.containsKey(""+dbnum))
+        if (this.customDatabases.containsKey("" + dbnum))
         {
             // we have database
-            DatabaseSettings dbs = this.customDatabases.get(""+dbnum);
+            DatabaseSettings dbs = this.customDatabases.get("" + dbnum);
             addDatabaseSetting(dbs, setting, value);
         }
         else
@@ -691,14 +635,13 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
             DatabaseSettings dbs = new DatabaseSettings();
             dbs.number = dbnum;
             addDatabaseSetting(dbs, setting, value);
-            this.customDatabases.put(""+dbnum, dbs);
-            this.allDatabases.put(""+dbnum, dbs);
+            this.customDatabases.put("" + dbnum, dbs);
+            this.allDatabases.put("" + dbnum, dbs);
         }
 
-        //System.out.println(dbnum);
+        // System.out.println(dbnum);
 
     }
-
 
     // NEW
     /**
@@ -710,9 +653,9 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
      */
     public void addDatabaseSetting(DatabaseSettings ds, String setting, String value)
     {
-        String sett = setting.substring(setting.indexOf("_")+1);
+        String sett = setting.substring(setting.indexOf("_") + 1);
 
-        //System.out.println(sett);
+        // System.out.println(sett);
 
         if (sett.equals("CONN_NAME"))
         {
@@ -753,7 +696,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
 
     }
 
-    
     // NEW
     /**
      * 
@@ -761,36 +703,32 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     public void test()
     {
         /*
-        ArrayList list = new ArrayList();
-        int num = (int)(config_db_values.size()/7);
-    
-        for (int i=0; i<num; i++)
-        {
-            DatabaseSettings ds = new DatabaseSettings();
-            ds.number = i;
-            ds.name = (String)config_db_values.get("DB" +i +"_CONN_NAME");
-            ds.db_name = (String)config_db_values.get("DB" +i +"_DB_NAME");
-            ds.driver = (String)config_db_values.get("DB" +i +"_CONN_DRIVER");
-            ds.url = (String)config_db_values.get("DB" +i +"_CONN_URL");
-            //ds.port = config_db_values.get("DB" +i +"_CONN_NAME");
-            ds.dialect = (String)config_db_values.get("DB" +i +"_HIBERNATE_DIALECT");
-    
-            ds.username = (String)config_db_values.get("DB" +i +"_CONN_USERNAME");
-            ds.password = (String)config_db_values.get("DB" +i +"_CONN_PASSWORD");
-    
-            if (this.selected_db==i)
-            {
-            ds.isDefault = true;
-            }
-    
-            list.add(ds);
-        }
-    
-        return list;
-    
-        */
+         * ArrayList list = new ArrayList();
+         * int num = (int)(config_db_values.size()/7);
+         * for (int i=0; i<num; i++)
+         * {
+         * DatabaseSettings ds = new DatabaseSettings();
+         * ds.number = i;
+         * ds.name = (String)config_db_values.get("DB" +i +"_CONN_NAME");
+         * ds.db_name = (String)config_db_values.get("DB" +i +"_DB_NAME");
+         * ds.driver = (String)config_db_values.get("DB" +i +"_CONN_DRIVER");
+         * ds.url = (String)config_db_values.get("DB" +i +"_CONN_URL");
+         * //ds.port = config_db_values.get("DB" +i +"_CONN_NAME");
+         * ds.dialect = (String)config_db_values.get("DB" +i
+         * +"_HIBERNATE_DIALECT");
+         * ds.username = (String)config_db_values.get("DB" +i
+         * +"_CONN_USERNAME");
+         * ds.password = (String)config_db_values.get("DB" +i
+         * +"_CONN_PASSWORD");
+         * if (this.selected_db==i)
+         * {
+         * ds.isDefault = true;
+         * }
+         * list.add(ds);
+         * }
+         * return list;
+         */
     }
-
 
     // NEW
     /**
@@ -803,7 +741,6 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
         return this.m_changed;
     }
 
-
     // NEW
     /**
      * Set Selected Database Index
@@ -812,14 +749,13 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
      */
     public void setSelectedDatabaseIndex(int index)
     {
-        if (this.selected_db!=index)
+        if (this.selected_db != index)
         {
             this.selected_db = index;
             this.m_changed = true;
         }
 
     }
-
 
     /**
      * To String
@@ -829,8 +765,5 @@ public abstract class DbToolApplicationAbstract implements DbToolApplicationInte
     {
         return getApplicationName();
     }
-
-
-
 
 }

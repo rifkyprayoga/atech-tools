@@ -1,6 +1,5 @@
 package com.atech.db;
 
-
 /**
   *  This file is part of ATech Tools library.
   *  
@@ -32,29 +31,29 @@ package com.atech.db;
   *  @author Andy
   *
  */
-public abstract class DbDataReaderAbstract extends Thread 
+public abstract class DbDataReaderAbstract extends Thread
 {
-    
+
     /**
      * Status - None
      */
     public static final int STATUS_NONE = 0;
-    
+
     /**
      * Status Ready - ready for writing  
      */
     public static final int STATUS_READY = 1;
-    
+
     /**
      * Status Reading - we are reading from db 
      */
     public static final int STATUS_READING = 2;
-    
+
     /**
      * Status Finished Reading - reading from db was stopped 
      */
     public static final int STATUS_FINISHED_READING = 3;
-    
+
     /**
      * Status Finished Reading with error - reading from db was stopped by error 
      */
@@ -62,7 +61,7 @@ public abstract class DbDataReaderAbstract extends Thread
 
     protected int current_status = 0;
     DbDataReadingFinishedInterface finished_interface;
-    
+
     /**
      * Get Type Of Data - returns type of data
      * 
@@ -76,8 +75,7 @@ public abstract class DbDataReaderAbstract extends Thread
      * @return data as Object
      */
     public abstract Object getData();
-    
-    
+
     /**
      * Get Status - returns status of current reading
      * 
@@ -87,8 +85,7 @@ public abstract class DbDataReaderAbstract extends Thread
     {
         return this.current_status;
     }
-    
-    
+
     /**
      * Set Status - sets status of reading
      * 
@@ -97,15 +94,14 @@ public abstract class DbDataReaderAbstract extends Thread
     public void setStatus(int status)
     {
         this.current_status = status;
-        
-        if ((status > 2) && (this.finished_interface!=null))
+
+        if (status > 2 && this.finished_interface != null)
         {
             this.finished_interface.readingFinished();
         }
-        
+
     }
 
-    
     /**
      * Is Finished - queries if reading is finished
      * 
@@ -113,10 +109,9 @@ public abstract class DbDataReaderAbstract extends Thread
      */
     public boolean isFinished()
     {
-        return (this.current_status > 2);
+        return this.current_status > 2;
     }
-    
-    
+
     /**
      * setReadingFinishedObject - we can set object which will be notified if reading is finished
      * 
@@ -126,12 +121,11 @@ public abstract class DbDataReaderAbstract extends Thread
     {
         this.finished_interface = data;
     }
-    
-    
+
     /** 
      * Run - method for running thread
      */
+    @Override
     public abstract void run();
-    
 
 }

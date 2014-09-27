@@ -22,7 +22,6 @@ import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -53,9 +52,6 @@ import com.atech.utils.ATDataAccessAbstract;
  *  @author Andy
  *
 */
-
-
-
 
 /**
  * Application: GGC - GNU Gluco Control
@@ -112,15 +108,11 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
      * m_ic.getMessage("LANGUAGE") };
      */
 
-    
-    
     public ConfigurationDialog(AbstractConfigurationContext acc)
     {
-        this(acc, (JFrame)acc.getDataAccessInstance().getMainParent(), acc.getDataAccessInstance());
+        this(acc, acc.getDataAccessInstance().getMainParent(), acc.getDataAccessInstance());
     }
-    
-    
-    
+
     /**
      * Constructor
      * 
@@ -137,14 +129,12 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
         this.m_acc = acc;
 
         this.help_enabled = acc.app_ctx.isHelpEnabled();
-        
+
         this.m_da.addComponent(this);
-        
 
         /*
          * Rectangle rec = parent.getBounds(); int x = rec.x + (rec.width/2);
          * int y = rec.y + (rec.height/2);
-         * 
          * setBounds(x-320, y-240, 640, 480);
          */
         setSize(640, 480);
@@ -180,7 +170,6 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
          * ImageIcon("images/cfg_users.gif"), new
          * ImageIcon("images/cfg_lang.gif"), new
          * ImageIcon("images/cfg_web.gif"), null };
-         * 
          * public String config_types[] = { m_ic.getMessage("GENERAL"),
          * m_ic.getMessage("MEDICAL_DATA"), m_ic.getMessage("COLORS_AND_FONTS"),
          * m_ic.getMessage("RENDERING_QUALITY"),
@@ -201,18 +190,14 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
 
         /*
          * DefaultTreeModel prefTreeModel = new DefaultTreeModel(prefNode);
-         * 
          * prefTree = new JTree(prefTreeModel);
          * prefTree.putClientProperty("JTree.lineStyle", "Angled");
          * prefTree.addTreeSelectionListener(new TreeSelectionListener() {
          * public void valueChanged(TreeSelectionEvent e) {
          * DefaultMutableTreeNode selectedNode =
          * (DefaultMutableTreeNode)prefTree.getLastSelectedPathComponent();
-         * 
          * if (selectedNode == null) return;
-         * 
          * selectPanel(selectedNode.toString()); } });
-         * 
          * JScrollPane prefTreePane = new JScrollPane(prefTree,
          * ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
          * ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -362,7 +347,9 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
         prefPane.repaint();
 
         if (this.help_enabled)
+        {
             m_da.enableHelp(this);
+        }
     }
 
     JPanel selected_panel = null;
@@ -377,7 +364,6 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
         /*
          * if (!panel_id.containsKey(s)) { System.out.println("No such panel: "
          * + s); return; }
-         * 
          * String id = panel_id.get(s);
          */
 
@@ -389,7 +375,9 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
         prefPane.repaint();
 
         if (this.help_enabled)
+        {
             m_da.enableHelp(this);
+        }
     }
 
     /**
@@ -417,7 +405,9 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
             save();
         }
         else
+        {
             System.out.println("PropertiesFrame: Unknown command: " + action);
+        }
 
     }
 

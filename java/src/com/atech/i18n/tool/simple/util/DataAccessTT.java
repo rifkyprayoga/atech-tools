@@ -45,18 +45,14 @@ import com.atech.utils.data.UnicodeUtils;
  *
  */
 
-
 public class DataAccessTT extends ATDataAccessAbstract
 {
-
 
     // Config file
     /**
      * The config_db_values.
      */
     Hashtable<String, String> config_db_values = null;
-    
-    
 
     /**
      * The s_path prefix.
@@ -75,33 +71,25 @@ public class DataAccessTT extends ATDataAccessAbstract
      */
     public Component m_main = null;
 
-
     /**
      * The m_databases_treeroot.
      */
     public DbToolTreeRoot m_databases_treeroot = null;
     // public GGCTreeRoot m_meals_treeroot = null;
 
+    private TranslationConfiguration translation_config = new TranslationConfiguration();
 
-    private TranslationConfiguration translation_config = new TranslationConfiguration(); 
-
-    
     /**
      * The status.
      */
     public String[] status = { "Not translated", "Must be checked", "Translated" };
-    
-    
-    
+
     /**
      * The translation_data.
      */
     public TranslationData translation_data;
-    
-    
+
     public UnicodeUtils unicode_utils = new UnicodeUtils();
-    
-    
 
     // ********************************************************
     // ****** Constructors and Access methods *****
@@ -119,13 +107,13 @@ public class DataAccessTT extends ATDataAccessAbstract
     private DataAccessTT()
     {
         super(I18nControlTT.getInstance());
-        //System.out.println("DbToolsAccess");
+        // System.out.println("DbToolsAccess");
         // m_db = db;
         // loadConfig();
         loadFonts();
 
-        //m_dataDefs = new DatabaseDefinitions();
-        //m_databases_treeroot = new DbToolTreeRoot(this);
+        // m_dataDefs = new DatabaseDefinitions();
+        // m_databases_treeroot = new DbToolTreeRoot(this);
 
         // loadApplicationData();
 
@@ -145,7 +133,9 @@ public class DataAccessTT extends ATDataAccessAbstract
     public static DataAccessTT getInstance()
     {
         if (s_da == null)
+        {
             s_da = new DataAccessTT();
+        }
 
         return s_da;
     }
@@ -168,8 +158,6 @@ public class DataAccessTT extends ATDataAccessAbstract
         return s_da;
     }
 
-
-
     // Method: deleteInstance
     /**
      * This method sets handle to DataAccess to null and deletes the instance.
@@ -182,23 +170,18 @@ public class DataAccessTT extends ATDataAccessAbstract
         DataAccessTT.s_da = null;
     }
 
-    
-    
-    
-    
-    
-    
     // ********************************************************
     // ****** Fonts *****
     // ********************************************************
 
-    //public static final int FONT_BIG_BOLD = 0;
-    //public static final int FONT_NORMAL = 1;
-    //public static final int FONT_NORMAL_BOLD = 2;
+    // public static final int FONT_BIG_BOLD = 0;
+    // public static final int FONT_NORMAL = 1;
+    // public static final int FONT_NORMAL_BOLD = 2;
 
     /** 
      * loadFonts
      */
+    @Override
     public void loadFonts()
     {
         fonts = new Font[3];
@@ -210,6 +193,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     /** 
      * getFont
      */
+    @Override
     public Font getFont(int font_id)
     {
         return fonts[font_id];
@@ -228,52 +212,39 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
         m_main = main;
     }
-/*
-    public Component getParent()
-    {
-        return m_main;
-    }
-*/
+
+    /*
+     * public Component getParent()
+     * {
+     * return m_main;
+     * }
+     */
     // ********************************************************
     // ****** Look and Feel *****
     // ********************************************************
 
     /*
      * public void loadAvailableLFs() {
-     * 
      * availableLF_full = new Hashtable<String,String>();
      * UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
-     * 
      * availableLF = new Object[info.length+1];
-     * 
      * //ring selectedLF = null; //String subSelectedLF = null;
-     * 
      * int i; for (i=0; i<info.length; i++) { String name = info[i].getName();
      * String className = info[i].getClassName();
-     * 
      * availableLF_full.put(name, className); availableLF[i] = name;
-     * 
      * //System.out.println(humanReadableName); }
-     * 
      * availableLF_full.put("SkinLF",
      * "com.l2fprod.gui.plaf.skin.SkinLookAndFeel"); availableLF[i] = "SkinLF";
-     *  }
-     * 
+     * }
      * public Object[] getAvailableLFs() { return availableLF; }
-     * 
-     * 
      * public static String[] getLFData() { String out[] = new String[2];
-     * 
      * try { Properties props = new Properties();
-     * 
      * FileInputStream in = new FileInputStream(pathPrefix +
      * "/data/PIS_Config.properties"); props.load(in);
-     * 
      * out[0] = (String)props.get("LF_CLASS"); out[1] =
      * (String)props.get("SKINLF_SELECTED");
-     * 
      * return out;
-     *  } catch(Exception ex) {
+     * } catch(Exception ex) {
      * System.out.println("DataAccess::getLFData::Exception> " + ex); return
      * null; } }
      */
@@ -281,14 +252,10 @@ public class DataAccessTT extends ATDataAccessAbstract
     // ****** Languages *****
     // ********************************************************
 
-
-
-
-
-
     /** 
      * getMonthsArray
      */
+    @Override
     public String[] getMonthsArray()
     {
 
@@ -311,11 +278,6 @@ public class DataAccessTT extends ATDataAccessAbstract
 
     }
 
-   
-
-
-
-
     /**
      * Not implemented.
      * 
@@ -325,7 +287,6 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
         System.out.println("Not Implemented: " + source);
     }
-
 
     // ---
     // --- Array Utils
@@ -338,8 +299,7 @@ public class DataAccessTT extends ATDataAccessAbstract
      * 
      * @return the array list from hashtable values
      */
-    public ArrayList<String> getArrayListFromHashtableValues(
-            Hashtable<String, String> table)
+    public ArrayList<String> getArrayListFromHashtableValues(Hashtable<String, String> table)
     {
         ArrayList<String> al = new ArrayList<String>();
 
@@ -351,7 +311,6 @@ public class DataAccessTT extends ATDataAccessAbstract
         return al;
     }
 
-
     /** 
      * checkPrerequisites
      */
@@ -359,7 +318,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     public void checkPrerequisites()
     {
         // TODO Auto-generated method stub
-        
+
     }
 
     /** 
@@ -414,16 +373,15 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
     }
 
-    
     /**
      * Load Special Parameters
      * 
      * @see com.atech.utils.ATDataAccessAbstract#loadSpecialParameters()
      */
+    @Override
     public void loadSpecialParameters()
     {
     }
-    
 
     /**
      * This method is intended to load additional Language info. Either special langauge configuration
@@ -450,7 +408,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     public void setSelectedLangIndex(int index)
     {
         // TODO Auto-generated method stub
-        
+
     }
 
     /** 
@@ -461,17 +419,13 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
     }
 
-    
-    
     /**
-   * Start db.
-   */
+    * Start db.
+    */
     public void startDb()
     {
     }
-    
-    
-    
+
     /**
      * Gets the translation data.
      * 
@@ -481,9 +435,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
         return translation_data;
     }
-    
 
-    
     /**
      * Gets the translation configuration.
      * 
@@ -493,11 +445,9 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
         return this.translation_config;
     }
-    
-    
+
     private boolean is_master_file_master_file;
-    
-    
+
     /**
      * Is Master File really master file
      * 
@@ -507,7 +457,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
         return this.is_master_file_master_file;
     }
-    
+
     /**
      * Set is Master File really master file
      * 
@@ -515,18 +465,18 @@ public class DataAccessTT extends ATDataAccessAbstract
      */
     public void setIsMasterFileMasterFile(boolean val)
     {
-        this.is_master_file_master_file = val; 
+        this.is_master_file_master_file = val;
     }
-    
 
     /**
      * Get Max Decimals that will be used by DecimalHandler
      * 
      * @return
      */
+    @Override
     public int getMaxDecimalsUsedByDecimalHandler()
     {
         return 1;
     }
-    
+
 }

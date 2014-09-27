@@ -11,10 +11,9 @@ public enum PrintDialogType
      * Dialog Options: Range with day option
      */
     RANGE_DAY(2);
-    
-    
+
     private int typeValue;
-    
+
     private PrintDialogType(int type)
     {
         this.typeValue = type;

@@ -9,7 +9,6 @@ package com.atech.db.datalayer;
 public interface DatabaseDemoObject
 {
 
-
     /**
      * getDemoObjectId - returns demo id of this objectname of DatabaseObject
      * 
@@ -17,7 +16,4 @@ public interface DatabaseDemoObject
      */
     int getDemoObjectId();
 
-
 }
-
-

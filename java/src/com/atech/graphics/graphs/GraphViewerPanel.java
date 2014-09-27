@@ -36,7 +36,6 @@ import javax.swing.JPanel;
  *
  */
 
-
 public class GraphViewerPanel extends JPanel
 {
 
@@ -47,55 +46,51 @@ public class GraphViewerPanel extends JPanel
      * 
      * @param gvi
      */
-    /*public GraphViewerPanel(GraphViewInterface gvi) //, GraphViewDataProcessorInterface gvdp)
+    /*
+     * public GraphViewerPanel(GraphViewInterface gvi) //,
+     * GraphViewDataProcessorInterface gvdp)
+     * {
+     * super();
+     * gvi.getProcessor().loadData();
+     * gvi.getProcessor().preprocessData();
+     * setLayout(new BorderLayout());
+     * add(gvi.getChartPanel(), BorderLayout.CENTER);
+     * }
+     */
+
+    public GraphViewerPanel(AbstractGraphView gvi) // ,
+                                                   // GraphViewDataProcessorInterface
+                                                   // gvdp)
     {
         super();
-        
-        gvi.getProcessor().loadData();
-        gvi.getProcessor().preprocessData();
-        
-        setLayout(new BorderLayout());
-        add(gvi.getChartPanel(), BorderLayout.CENTER);
-    }*/
 
-
-    public GraphViewerPanel(AbstractGraphView gvi) //, GraphViewDataProcessorInterface gvdp)
-    {
-        super();
-        
         gvi.getProcessor().loadData();
         gvi.getProcessor().preprocessData();
 
         gvi.createChart();
-        
+
         setLayout(new BorderLayout());
         add(gvi.getChartPanel(), BorderLayout.CENTER);
     }
 
-    
     /**
      * Instantiates a new graph viewer panel.
      * 
      * @param gvi the gvi
      */
-    public GraphViewerPanel(AbstractGraphViewAndProcessor gvi) //, GraphViewDataProcessorInterface gvdp)
+    public GraphViewerPanel(AbstractGraphViewAndProcessor gvi) // ,
+                                                               // GraphViewDataProcessorInterface
+                                                               // gvdp)
     {
         super();
-        
+
         gvi.getProcessor().loadData();
         gvi.getProcessor().preprocessData();
 
         gvi.createChart();
-        
+
         setLayout(new BorderLayout());
         add(gvi.getChartPanel(), BorderLayout.CENTER);
     }
-    
-    
-    
-    
-    
-    
-
 
 }

@@ -36,39 +36,36 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
-
 public abstract class EditableAbstractPanel extends JPanel implements EditablePanel
 {
 
     private static final long serialVersionUID = -7274432500080261833L;
-    
+
     /**
      * The Constant ACTION_ADD.
      */
     public static final int ACTION_ADD = 0;
-    
+
     /**
      * The Constant ACTION_EDIT.
      */
     public static final int ACTION_EDIT = 1;
-    
+
     /**
      * The is_editable_panel.
      */
     public boolean is_editable_panel = true;
-    
+
     /**
      * The ic.
      */
     protected I18nControlAbstract ic;
-    
+
     /**
      * The options.
      */
     public static String[] options = null;
-    
-    
+
     /**
      * Instantiates a new editable abstract panel.
      * 
@@ -77,33 +74,30 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      */
     public EditableAbstractPanel(boolean is_editable, I18nControlAbstract ic)
     {
-    	super();
-    	this.is_editable_panel = is_editable;
-    	this.ic = ic;
-    	
-    	if (EditableAbstractPanel.options == null)
-    	{
-    		EditableAbstractPanel.options = new String[2];
-    		EditableAbstractPanel.options[0] = ic.getMessage("YES"); 
-    		EditableAbstractPanel.options[1] = ic.getMessage("NO"); 
-    	}
+        super();
+        this.is_editable_panel = is_editable;
+        this.ic = ic;
+
+        if (EditableAbstractPanel.options == null)
+        {
+            EditableAbstractPanel.options = new String[2];
+            EditableAbstractPanel.options[0] = ic.getMessage("YES");
+            EditableAbstractPanel.options[1] = ic.getMessage("NO");
+        }
     }
-    
-    
+
     /**
      * The action_type.
      */
     protected int action_type = ACTION_EDIT;
 
-    
     /**
      * This method is used when we plan to do add action (in tree) to root element.
      * 
      * @param object input object parameter (from tree)
      */
     public abstract void setParentRoot(Object object);
-    
-    
+
     /**
      * This method is used when we plan to do add action (in tree), by supplying
      * the parent. 
@@ -111,7 +105,7 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      * @param object input object parameter (from tree)
      */
     public abstract void setParent(Object object);
-    
+
     /**
      * This is planned for edit action (in tree), by supplying data entry itself
      * 
@@ -119,7 +113,6 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      */
     public abstract void setData(Object object);
 
-    
     /**
      * Get Warning string. This method returns warning string for either add or edit.
      * If value returned is null, then no warning message box will be displayed.
@@ -128,29 +121,24 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      * @return String value as warning string
      */
     public abstract String getWarningString(int action_type_);
-    
-    
-    
 
-    
-	/**
-	 * Is Panel Editable. Not all panels need to be editable. If this is set to false
-	 * most of methods don't need to be implemented.
-	 * @return
-	 */
-	public boolean isPanelEditable()
-	{
-		return this.is_editable_panel;
-	}
-	
-	
-	/**
-	 * Was data in this panel changed.
-	 * 
-	 * @return true if data changed, false otherwise
-	 */
+    /**
+     * Is Panel Editable. Not all panels need to be editable. If this is set to false
+     * most of methods don't need to be implemented.
+     * @return
+     */
+    public boolean isPanelEditable()
+    {
+        return this.is_editable_panel;
+    }
+
+    /**
+     * Was data in this panel changed.
+     * 
+     * @return true if data changed, false otherwise
+     */
     public abstract boolean hasDataChanged();
-    
+
     /**
      * Type of action (this is either add or edit)
      *  
@@ -158,19 +146,17 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      */
     public int getTypeOfAction()
     {
-    	return this.action_type;
+        return this.action_type;
     }
-    
+
     /** 
      * setTypeOfAction
      */
     public void setTypeOfAction(int action_type)
     {
-    	this.action_type = action_type;
+        this.action_type = action_type;
     }
-    
-    
-    
+
     /**
      * Returns true if action is add action
      * 
@@ -178,11 +164,9 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      */
     public boolean isAddAction()
     {
-    	return (this.action_type==EditableAbstractPanel.ACTION_ADD);
+        return this.action_type == EditableAbstractPanel.ACTION_ADD;
     }
-    
-    
-    
+
     /**
      * Execute correct warning and action (saveData). This is main method, which calls
      * all other methods. It's implementation should be the same for all classes.
@@ -199,19 +183,24 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      */
     public void actionWarningAndExecute()
     {
-    	boolean save = false;
-    	
+        boolean save = false;
+
         if (isAddAction())
-        	save = actionAddWarning();
+        {
+            save = actionAddWarning();
+        }
         else
+        {
             save = actionEditWarning();
+        }
 
         if (save)
+        {
             saveData();
-    	
+        }
+
     }
-    
-    
+
     /**
      * Warning if action type is add (this can be empty, depending on what we want user 
      * to see.
@@ -220,10 +209,9 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      */
     public boolean actionAddWarning()
     {
-    	return getActionWarningStatus(EditableAbstractPanel.ACTION_ADD);
+        return getActionWarningStatus(EditableAbstractPanel.ACTION_ADD);
     }
 
-    
     /**
      * Warning if action type is edit (this can be empty, depending on what we want user 
      * to see.
@@ -232,28 +220,27 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      */
     public boolean actionEditWarning()
     {
-    	return getActionWarningStatus(EditableAbstractPanel.ACTION_EDIT);
+        return getActionWarningStatus(EditableAbstractPanel.ACTION_EDIT);
     }
-    
-    
+
     private boolean getActionWarningStatus(int type)
     {
-    	String warn = getWarningString(type);
-    	
-    	if (warn != null)
-    	{
-    		int ret = JOptionPane.showOptionDialog(this, warn, ic.getMessage("QUESTION"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, EditableAbstractPanel.options, EditableAbstractPanel.options[0]);
-    		
-    		if (ret == JOptionPane.YES_OPTION)
-    			return true;
-    		else
-    			return false;
-    	}
-    	else
-    		return true;
-    	
+        String warn = getWarningString(type);
+
+        if (warn != null)
+        {
+            int ret = JOptionPane.showOptionDialog(this, warn, ic.getMessage("QUESTION"), JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, EditableAbstractPanel.options, EditableAbstractPanel.options[0]);
+
+            if (ret == JOptionPane.YES_OPTION)
+                return true;
+            else
+                return false;
+        }
+        else
+            return true;
+
     }
-    
 
     /**
      * Save data in panel
@@ -261,8 +248,5 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      * @return true if save was successful
      */
     public abstract boolean saveData();
-    
-    
-    
-    
+
 }

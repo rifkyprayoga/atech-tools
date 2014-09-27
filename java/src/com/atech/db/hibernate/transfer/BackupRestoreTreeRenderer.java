@@ -14,6 +14,7 @@ public class BackupRestoreTreeRenderer extends CheckRenderer
     /** 
      * getTreeCellRendererComponent
      */
+    @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean isSelected, boolean expanded,
             boolean leaf, int row, boolean hasFocus)
     {
@@ -21,8 +22,8 @@ public class BackupRestoreTreeRenderer extends CheckRenderer
         setEnabled(tree.isEnabled());
         check.setSelected(((CheckNode) value).isSelected());
         label.setFont(tree.getFont());
-        
-        BackupRestoreBase brb = (BackupRestoreBase)((CheckNode) value).getObject();
+
+        BackupRestoreBase brb = (BackupRestoreBase) ((CheckNode) value).getObject();
         label.setText(brb.getTargetName());
         label.setSelected(isSelected);
         label.setFocus(hasFocus);
@@ -41,7 +42,5 @@ public class BackupRestoreTreeRenderer extends CheckRenderer
         }
         return this;
     }
-    
-    
-    
+
 }

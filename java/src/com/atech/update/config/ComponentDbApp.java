@@ -1,6 +1,5 @@
 package com.atech.update.config;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -31,7 +30,6 @@ package com.atech.update.config;
  *
 */
 
-
 public class ComponentDbApp
 {
 
@@ -39,29 +37,24 @@ public class ComponentDbApp
      * Name
      */
     public String name = "";
-    
-    
+
     /**
      * Enabled
      */
     public boolean enabled = false;
-    
-    
+
     /**
      * Class 
      */
     public String app_class = "";
-    
-    
-    
+
     /**
      * Constructor
      */
     public ComponentDbApp()
     {
     }
-    
-    
+
     /**
      * Constructor
      * 
@@ -72,10 +65,10 @@ public class ComponentDbApp
         this.name = name_;
     }
 
-    
+    @Override
     public String toString()
     {
         return "ComponentDbApp [name=" + name + ", enabled=" + this.enabled + ", class=" + this.app_class + "]";
     }
-    
+
 }

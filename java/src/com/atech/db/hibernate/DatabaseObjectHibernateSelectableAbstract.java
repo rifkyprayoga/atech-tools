@@ -8,20 +8,14 @@ import com.atech.graphics.dialogs.selector.SelectableInterface;
 
 public abstract class DatabaseObjectHibernateSelectableAbstract implements DatabaseObjectHibernate, SelectableInterface
 {
-    
+
     public abstract Object getHibernateObject();
-    
 
     public abstract String getObjectUniqueId();
-    
-    
+
     public abstract void setMainId(long id);
-    
-    
-    public abstract long  getMainId();
-    
-    
-    
+
+    public abstract long getMainId();
 
     public String DbAdd(Session sess) throws Exception
     {
@@ -32,7 +26,7 @@ public abstract class DatabaseObjectHibernateSelectableAbstract implements Datab
             Long id = (Long) sess.save(this.getHibernateObject());
             tx.commit();
             this.setMainId(id.longValue());
-            
+
             return "" + id.longValue();
         }
         catch (Exception e)
@@ -41,7 +35,6 @@ public abstract class DatabaseObjectHibernateSelectableAbstract implements Datab
         }
     }
 
-    
     public boolean DbEdit(Session sess) throws Exception
     {
         try
@@ -65,13 +58,13 @@ public abstract class DatabaseObjectHibernateSelectableAbstract implements Datab
         {
             if (this.DbHasChildren(sess))
                 return false;
-            
+
             Transaction tx = sess.beginTransaction();
 
             sess.delete(this.getHibernateObject());
             tx.commit();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return false;
         }
@@ -88,15 +81,12 @@ public abstract class DatabaseObjectHibernateSelectableAbstract implements Datab
     public abstract boolean isDebugMode();
 
     public abstract int getAction();
-    
-    
-    //---
-    //---  Column sorting 
-    //---
 
+    // ---
+    // --- Column sorting
+    // ---
 
     private ColumnSorter columnSorter = null;
-
 
     /**
      * setColumnSorter - sets class that will help with column sorting
@@ -107,7 +97,6 @@ public abstract class DatabaseObjectHibernateSelectableAbstract implements Datab
     {
         this.columnSorter = cs;
     }
-
 
     /**
      * Compares this object with the specified object for order.  Returns a
@@ -149,8 +138,7 @@ public abstract class DatabaseObjectHibernateSelectableAbstract implements Datab
      */
     public int compareTo(SelectableInterface o)
     {
-        return this.columnSorter.compareObjects(this, (SelectableInterface)o);
+        return this.columnSorter.compareObjects(this, o);
     }
-    
 
 }

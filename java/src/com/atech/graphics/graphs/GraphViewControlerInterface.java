@@ -40,42 +40,33 @@ import com.atech.help.HelpCapable;
 
 public interface GraphViewControlerInterface extends HelpCapable
 {
-    
+
     /**
      * Get Graph View
      * 
      * @return GraphViewInterface instance
      */
     public GraphViewInterface getGraphView();
-    
+
     /**
      * Get Panel
      * 
      * @return JPanel instance
      */
     public JPanel getControlerPanel();
- 
 
-    //public JPanel getControlerPanel();
-    
-    
+    // public JPanel getControlerPanel();
+
     /**
      * Get Controller Bounds (in some cases controler can return false data about size, in that 
      * cases we need to get correct bounds.  
      * @return Rectangle as bounds
      */
     public Rectangle getControlerBounds();
-    
-    
+
     /**
      * Resize controller component (in some cases resize is not automatical, then we need this method)
      */
     public void resizeController(int width);
-    
-    
-    
-    
-    
+
 }
-
-

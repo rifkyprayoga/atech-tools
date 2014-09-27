@@ -28,7 +28,6 @@ package weiss.util;
  *
  */
 
-
 public class NoSuchElementException extends RuntimeException
 {
     /**
@@ -39,16 +38,16 @@ public class NoSuchElementException extends RuntimeException
     /**
      * Constructs a NoSuchElementException with no detail message.
      */
-    public NoSuchElementException( )
+    public NoSuchElementException()
     {
     }
-    
+
     /**
      * Constructs a NoSuchElementException with a detail message.
      * @param msg the detail mesage pertaining to this exception.
      */
-    public NoSuchElementException( String msg )
+    public NoSuchElementException(String msg)
     {
-        super( msg );
+        super(msg);
     }
 }

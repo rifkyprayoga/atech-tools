@@ -10,7 +10,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
-
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -42,7 +41,6 @@ import java.util.zip.ZipInputStream;
  *
 */
 
-
 /**
  * JarResources: JarResources maps all resources included in a Zip or Jar file.
  * Additionaly, it provides a method to extract one as a blob.
@@ -57,8 +55,8 @@ public final class JarResources
     public boolean debugOn = false;
 
     // jar resource mapping tables
-    private Hashtable<String,Integer> htSizes = new Hashtable<String,Integer>();
-    private Hashtable<String,byte[]> htJarContents = new Hashtable<String,byte[]>();
+    private Hashtable<String, Integer> htSizes = new Hashtable<String, Integer>();
+    private Hashtable<String, byte[]> htJarContents = new Hashtable<String, byte[]>();
 
     // a jar file
     private String jarFileName;
@@ -84,7 +82,7 @@ public final class JarResources
      */
     public byte[] getResource(String name)
     {
-        return (byte[]) htJarContents.get(name);
+        return htJarContents.get(name);
     }
 
     /** initializes internal hash tables with Jar file resources. */
@@ -122,23 +120,22 @@ public final class JarResources
 
                 if (debugOn)
                 {
-                    System.out.println("ze.getName()=" + ze.getName() + ","
-                            + "getSize()=" + ze.getSize());
+                    System.out.println("ze.getName()=" + ze.getName() + "," + "getSize()=" + ze.getSize());
                 }
 
                 int size = (int) ze.getSize();
                 // -1 means unknown size.
                 if (size == -1)
                 {
-                    size = ((Integer) htSizes.get(ze.getName())).intValue();
+                    size = htSizes.get(ze.getName()).intValue();
                 }
 
-                byte[] b = new byte[(int) size];
+                byte[] b = new byte[size];
                 int rb = 0;
                 int chunk = 0;
-                while (((int) size - rb) > 0)
+                while (size - rb > 0)
                 {
-                    chunk = zis.read(b, rb, (int) size - rb);
+                    chunk = zis.read(b, rb, size - rb);
                     if (chunk == -1)
                     {
                         break;
@@ -151,8 +148,8 @@ public final class JarResources
 
                 if (debugOn)
                 {
-                    System.out.println(ze.getName() + "  rb=" + rb + ",size="
-                            + size + ",csize=" + ze.getCompressedSize());
+                    System.out.println(ze.getName() + "  rb=" + rb + ",size=" + size + ",csize="
+                            + ze.getCompressedSize());
                 }
             }
         }
@@ -205,7 +202,7 @@ public final class JarResources
             sb.append("/" + ze.getCompressedSize());
         }
 
-        return (sb.toString());
+        return sb.toString();
     }
 
     /**
@@ -232,8 +229,7 @@ public final class JarResources
     {
         if (args.length != 2)
         {
-            System.err
-                    .println("usage: java JarResources <jar file name> <resource name>");
+            System.err.println("usage: java JarResources <jar file name> <resource name>");
             System.exit(1);
         }
 
@@ -245,8 +241,7 @@ public final class JarResources
         }
         else
         {
-            System.out.println("Found " + args[1] + " (length=" + buff.length
-                    + ").");
+            System.out.println("Found " + args[1] + " (length=" + buff.length + ").");
         }
     }
 

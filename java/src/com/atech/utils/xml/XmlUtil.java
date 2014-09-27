@@ -12,30 +12,25 @@ import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
-import com.atech.update.config.UpdateConfigurationXml;
-
 public class XmlUtil
 {
-    
+
     protected Document document;
     private static Log log = LogFactory.getLog(XmlUtil.class);
-    
-    
+
     public XmlUtil(String xml)
     {
         try
         {
             openXmlFile(xml);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            log.error("Error opening Xml file. Ex.: " + ex, ex );
+            log.error("Error opening Xml file. Ex.: " + ex, ex);
         }
-    
+
     }
-    
-    
-    
+
     /**
      * Open Xml File
      * 
@@ -43,16 +38,14 @@ public class XmlUtil
      * @return
      * @throws DocumentException
      */
-    public Document openXmlFile(File file) throws DocumentException 
+    public Document openXmlFile(File file) throws DocumentException
     {
         SAXReader reader = new SAXReader();
-        
+
         document = reader.read(file);
         return document;
     }
-    
 
-    
     /**
      * Open Xml Data
      * 
@@ -61,16 +54,14 @@ public class XmlUtil
      * @return
      * @throws DocumentException
      */
-    public Document openXmlData(String xml_data) throws DocumentException 
+    public Document openXmlData(String xml_data) throws DocumentException
     {
         SAXReader reader = new SAXReader();
-        
+
         document = reader.read(new StringReader(xml_data));
         return document;
     }
-    
-    
-    
+
     /**
      * Open Xml File
      * @param xml_text 
@@ -79,16 +70,14 @@ public class XmlUtil
      * @return
      * @throws DocumentException
      */
-    public Document openXmlFile(String xml_text) throws DocumentException 
+    public Document openXmlFile(String xml_text) throws DocumentException
     {
         SAXReader reader = new SAXReader();
-        
+
         document = reader.read(new StringReader(xml_text));
         return document;
     }
-    
-    
-    
+
     /**
      * Get Node
      * 
@@ -99,8 +88,7 @@ public class XmlUtil
     {
         return document.selectSingleNode(tag_path);
     }
-    
-    
+
     /**
      * Get Element
      * 
@@ -109,10 +97,9 @@ public class XmlUtil
      */
     public Element getElement(String tag_path)
     {
-        return (Element)getNode(tag_path);
+        return (Element) getNode(tag_path);
     }
-    
-    
+
     /**
      * Return List of nodes from path
      * 
@@ -125,37 +112,32 @@ public class XmlUtil
         List<Node> nodes = document.selectNodes(tag_path);
         return nodes;
     }
-    
 
     public static String getNodeValueString(Node parent, String node_name)
     {
         return getNodeValueString(parent, node_name, "");
     }
-    
-    
+
     public static String getNodeValueString(Node parent_node, String node_name, String default_value)
     {
         Node nd = parent_node.selectSingleNode(node_name);
-        
-        if (nd==null)
+
+        if (nd == null)
             return default_value;
         else
             return nd.getText();
     }
-    
 
-    
     public static long getNodeValueLong(Node parent, String node_name)
     {
         return getNodeValueLong(parent, node_name, 0L);
     }
-    
-    
+
     public static long getNodeValueLong(Node parent_node, String node_name, long default_value)
     {
         Node nd = parent_node.selectSingleNode(node_name);
-        
-        if (nd==null)
+
+        if (nd == null)
             return default_value;
         else
         {
@@ -163,14 +145,11 @@ public class XmlUtil
             {
                 return Long.parseLong(nd.getText());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return default_value;
             }
         }
     }
-    
-    
-    
 
 }

@@ -1,4 +1,3 @@
-
 package com.atech.web.jsp;
 
 import java.io.File;
@@ -44,148 +43,146 @@ import com.atech.utils.file.PropertiesFile;
  *
 */
 
-
-public class AppContextListener implements ServletContextListener 
+public class AppContextListener implements ServletContextListener
 {
 
-    Hashtable<String,AppContextAbstract> contexts = null;
+    Hashtable<String, AppContextAbstract> contexts = null;
     private static Log log = LogFactory.getLog(AppContextListener.class);
-    
-    private String[] available_parameters = { "NAME", "TITLE", "MULTILANGUAGE", "BASE_LANG", 
-        "LANGUAGE", "AVAILABLE_LANGUAGES", "DB_TYPE", "MAIN_CLASS", "JDBC_DRIVER", "JDBC_URL", 
-        "JDBC_USERNAME", "JDBC_PASSWORD"
-    };
-    
-    
-    
-    
-    public void contextInitialized(ServletContextEvent event) 
+
+    private String[] available_parameters = { "NAME", "TITLE", "MULTILANGUAGE", "BASE_LANG", "LANGUAGE",
+                                             "AVAILABLE_LANGUAGES", "DB_TYPE", "MAIN_CLASS", "JDBC_DRIVER", "JDBC_URL",
+                                             "JDBC_USERNAME", "JDBC_PASSWORD" };
+
+    public void contextInitialized(ServletContextEvent event)
     {
         initalizeContexts();
     }
 
-    public void contextDestroyed(ServletContextEvent event) 
+    public void contextDestroyed(ServletContextEvent event)
     {
-    	log.debug("contextDestroyed");
-    	
-        if (contexts!=null)
+        log.debug("contextDestroyed");
+
+        if (contexts != null)
         {
-            for(Enumeration<AppContextAbstract> en = this.contexts.elements(); en.hasMoreElements(); )
+            for (Enumeration<AppContextAbstract> en = this.contexts.elements(); en.hasMoreElements();)
             {
                 en.nextElement().disposeContext();
             }
         }
     }
-    
+
     /**
      * Initalize Contexts
      */
     public void initalizeContexts()
     {
         log.debug("initalizeContexts()");
-        
+
         File f = new File("../conf/ATechFramework.config");
-        
+
         if (f.exists())
         {
-        	log.info("Configuration file found.");
+            log.info("Configuration file found.");
             PropertiesFile pf = new PropertiesFile("../conf/ATechFramework.config");
             pf.readFile();
-            
+
             if (pf.containsKey("CONTEXTS_COUNT"))
             {
                 int cntx_cnt = Integer.parseInt(pf.get("CONTEXTS_COUNT"));
                 log.debug("Found " + cntx_cnt + " contexts !");
-                Hashtable<String, Hashtable<String,String>> parameters = loadParameters(cntx_cnt, pf);
-                
+                Hashtable<String, Hashtable<String, String>> parameters = loadParameters(cntx_cnt, pf);
+
                 this.createContexts(parameters);
-                
+
             }
             else
+            {
                 log.error("Invalid config file !");
-            	
+            }
+
         }
         else
         {
             log.warn("No configuration file found. No contexts loaded !");
         }
     }
-    
-    
-    private Hashtable<String, Hashtable<String,String>> loadParameters(int count, PropertiesFile pf)
+
+    private Hashtable<String, Hashtable<String, String>> loadParameters(int count, PropertiesFile pf)
     {
-        Hashtable<String, Hashtable<String,String>> params = new Hashtable<String,Hashtable<String,String>>();
-        
-        for(int i=1; i<=count; i++)
+        Hashtable<String, Hashtable<String, String>> params = new Hashtable<String, Hashtable<String, String>>();
+
+        for (int i = 1; i <= count; i++)
         {
-            Hashtable<String,String> ht = new Hashtable<String,String>(); 
-            
-            params.put("" + i, new Hashtable<String,String>());
-            
-            for(int j=0; j<this.available_parameters.length; j++)
+            Hashtable<String, String> ht = new Hashtable<String, String>();
+
+            params.put("" + i, new Hashtable<String, String>());
+
+            for (String available_parameter : this.available_parameters)
             {
-                String key = "CONTEXT_" + i + "_" + this.available_parameters[j];
-                
+                String key = "CONTEXT_" + i + "_" + available_parameter;
+
                 if (pf.containsKey(key))
                 {
-                    ht.put(this.available_parameters[j], pf.get(key));
+                    ht.put(available_parameter, pf.get(key));
                 }
-                
+
             }
-            
+
             log.debug("Found " + pf.size() + " parameters for context " + i + " [" + ht.get("NAME") + "]");
             params.put("" + i, ht);
         }
-        
+
         return params;
-        
+
     }
-    
-    
-    private void createContexts(Hashtable<String, Hashtable<String,String>> params)
+
+    private void createContexts(Hashtable<String, Hashtable<String, String>> params)
     {
-        contexts = new Hashtable<String,AppContextAbstract>();
-        
-        for(Enumeration<String> en=params.keys(); en.hasMoreElements(); )
+        contexts = new Hashtable<String, AppContextAbstract>();
+
+        for (Enumeration<String> en = params.keys(); en.hasMoreElements();)
         {
             String key = en.nextElement();
-            
-            Hashtable<String,String> p1 = params.get(key);
-            
+
+            Hashtable<String, String> p1 = params.get(key);
+
             try
             {
-            	
+
                 Class<?> cls = Class.forName(p1.get("MAIN_CLASS"));
-                
+
                 Method[] mths = cls.getDeclaredMethods();
-                
-                Method method=null;
-                for(int i=0; i<mths.length; i++)
+
+                Method method = null;
+                for (Method mth : mths)
                 {
-                    if (mths[i].toString().contains("createContext"))
+                    if (mth.toString().contains("createContext"))
                     {
-                        method = mths[i];
+                        method = mth;
                     }
                 }
-                
-                if (method==null)
+
+                if (method == null)
                 {
-                    log.error("Main context class [" + p1.get("MAIN_CLASS") + "] doesn't contain required static method createInstance() !!!");
+                    log.error("Main context class [" + p1.get("MAIN_CLASS")
+                            + "] doesn't contain required static method createInstance() !!!");
                     continue;
                 }
-                
-                //Method method = cls.getMethod("createInstance", java.util.Hashtable.class); //cls); //new Hashtable<String,String>()); //cls); //new Class[0]);
-                AppContextAbstract aca = (AppContextAbstract)method.invoke(null, p1); //cls, new Object[0]);
-                
+
+                // Method method = cls.getMethod("createInstance",
+                // java.util.Hashtable.class); //cls); //new
+                // Hashtable<String,String>()); //cls); //new Class[0]);
+                AppContextAbstract aca = (AppContextAbstract) method.invoke(null, p1); // cls,
+                                                                                       // new
+                                                                                       // Object[0]);
+
                 this.contexts.put(key, aca);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.error("Problem with init... Ex.: " + ex, ex);
             }
         }
     }
-    
-    
-    
+
 }

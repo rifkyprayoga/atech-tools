@@ -32,10 +32,8 @@ public class BytesFileUtil
         // Before converting to an int type, check
         // to ensure that file is not larger than Integer.MAX_VALUE.
         if (length > Integer.MAX_VALUE)
-        {
             throw new IOException("Could not completely read file " + file.getName() + " as it is too long (" + length
                     + " bytes, max supported " + Integer.MAX_VALUE + ")");
-        }
 
         // Create the byte array to hold the data
         byte[] bytes = new byte[(int) length];
@@ -50,9 +48,7 @@ public class BytesFileUtil
 
         // Ensure all the bytes have been read in
         if (offset < bytes.length)
-        {
             throw new IOException("Could not completely read file " + file.getName());
-        }
 
         // Close the input stream and return bytes
         is.close();
@@ -90,13 +86,11 @@ public class BytesFileUtil
                     bos.close();
                 }
                 catch (Exception e)
-                {
-                }
+                {}
             }
         }
     }
-    
-    
+
     /**
      * Writes the specified byte[] to the specified File path.
      * 
@@ -115,12 +109,12 @@ public class BytesFileUtil
         {
             FileOutputStream fos = new FileOutputStream(theFile);
             bos = new BufferedOutputStream(fos);
-            
-            for(short element : bytes)
+
+            for (short element : bytes)
             {
                 bos.write(element);
             }
-            //bos.write(bytes);
+            // bos.write(bytes);
         }
         finally
         {
@@ -133,8 +127,7 @@ public class BytesFileUtil
                     bos.close();
                 }
                 catch (Exception e)
-                {
-                }
+                {}
             }
         }
     }

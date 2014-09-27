@@ -33,12 +33,11 @@ import java.util.Hashtable;
  *
 */
 
-
-public class TranslationConfiguration extends Hashtable<String,String>
+public class TranslationConfiguration extends Hashtable<String, String>
 {
     private static final long serialVersionUID = 4284296371402765196L;
     String legend = null;
-    
+
     /**
      * Constructor
      */
@@ -46,21 +45,21 @@ public class TranslationConfiguration extends Hashtable<String,String>
     {
         super();
     }
-    
-    
+
     /**
      * get Priorities Legend
      * @return
      */
     public String getPrioritiesLegend()
     {
-        if (legend==null)
+        if (legend == null)
+        {
             loadLegend();
+        }
 
         return this.legend;
     }
-    
-    
+
     /**
      * Get Setting
      * 
@@ -76,17 +75,16 @@ public class TranslationConfiguration extends Hashtable<String,String>
             return def_value;
     }
 
-    
     private void loadLegend()
     {
         if (this.containsKey("GROUP_PRIORITY_LAST"))
         {
             // we have legend
             int max = Integer.parseInt(this.get("GROUP_PRIORITY_LAST"));
-            
+
             this.legend = "Legend of priorities:\n";
-            
-            for(int i=1; i<=max; i++)
+
+            for (int i = 1; i <= max; i++)
             {
                 if (this.containsKey("GROUP_PRIORITY_" + i))
                 {
@@ -97,10 +95,12 @@ public class TranslationConfiguration extends Hashtable<String,String>
                     this.legend += "\t" + i + " = Undefined.\n";
                 }
             }
-            
+
         }
         else
+        {
             this.legend = "Legend not specified or invalid.";
+        }
     }
-    
+
 }

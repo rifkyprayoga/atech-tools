@@ -37,27 +37,27 @@ public class DatabaseDefObject
      * The name.
      */
     public String name = null;
-    
+
     /**
      * The driver.
      */
     public String driver = null;
-    
+
     /**
      * The url.
      */
     public String url = null;
-    
+
     /**
      * The port.
      */
     public String port = null;
-    
+
     /**
      * The dialect.
      */
     public String dialect = null;
-    
+
     /**
      * The short_dialect.
      */

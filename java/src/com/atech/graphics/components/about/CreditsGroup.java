@@ -33,7 +33,6 @@ import java.util.ArrayList;
  *
 */
 
-
 public class CreditsGroup
 {
 
@@ -50,7 +49,6 @@ public class CreditsGroup
         this.name = name;
         this.entries = new ArrayList<CreditsEntry>();
     }
-
 
     /**
      * Adds the credits entry.
@@ -69,7 +67,8 @@ public class CreditsGroup
      */
     public String getGroupStartHTML()
     {
-        return "<table width=\"100%\" border=\"0\"><tr><td width=\"5%\">&nbsp;</td><td><font color=\"#0099FF\">" + this.name + ":</font></td></tr></table>";
+        return "<table width=\"100%\" border=\"0\"><tr><td width=\"5%\">&nbsp;</td><td><font color=\"#0099FF\">"
+                + this.name + ":</font></td></tr></table>";
     }
 
     /**
@@ -81,7 +80,6 @@ public class CreditsGroup
     {
         return "<br>";
     }
-
 
     /**
      * Gets the entries.

@@ -46,7 +46,6 @@ import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
-
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -78,7 +77,6 @@ import javax.swing.undo.UndoManager;
  *
 */
 
-
 public class HTMLDocumentEditor extends JFrame implements ActionListener
 {
 
@@ -88,13 +86,13 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
     private boolean debug = false;
     private File currentFile;
 
-    /*  Listener for the edits on the current document. */
+    /* Listener for the edits on the current document. */
     /**
      * The undo handler.
      */
     protected UndoableEditListener undoHandler = new UndoHandler();
 
-    /*  UndoManager that we add edits to. */
+    /* UndoManager that we add edits to. */
     /**
      * The undo.
      */
@@ -262,12 +260,14 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         fontMenu.add(fontTypeMenu);
 
         String[] fontTypes = { "SansSerif", "Serif", "Monospaced", "Dialog", "DialogInput" };
-        for (int i = 0; i < fontTypes.length; i++)
+        for (String fontType : fontTypes)
         {
             if (debug)
-                System.out.println(fontTypes[i]);
-            JMenuItem nextTypeItem = new JMenuItem(fontTypes[i]);
-            nextTypeItem.setAction(new StyledEditorKit.FontFamilyAction(fontTypes[i], fontTypes[i]));
+            {
+                System.out.println(fontType);
+            }
+            JMenuItem nextTypeItem = new JMenuItem(fontType);
+            nextTypeItem.setAction(new StyledEditorKit.FontFamilyAction(fontType, fontType));
             fontTypeMenu.add(nextTypeItem);
         }
 
@@ -275,12 +275,14 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
         fontMenu.add(fontSizeMenu);
 
         int[] fontSizes = { 6, 8, 10, 12, 14, 16, 20, 24, 32, 36, 48, 72 };
-        for (int i = 0; i < fontSizes.length; i++)
+        for (int fontSize : fontSizes)
         {
             if (debug)
-                System.out.println(fontSizes[i]);
-            JMenuItem nextSizeItem = new JMenuItem(String.valueOf(fontSizes[i]));
-            nextSizeItem.setAction(new StyledEditorKit.FontSizeAction(String.valueOf(fontSizes[i]), fontSizes[i]));
+            {
+                System.out.println(fontSize);
+            }
+            JMenuItem nextSizeItem = new JMenuItem(String.valueOf(fontSize));
+            nextSizeItem.setAction(new StyledEditorKit.FontSizeAction(String.valueOf(fontSize), fontSize));
             fontSizeMenu.add(nextSizeItem);
         }
 
@@ -538,7 +540,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
     {
         Document oldDoc = textPane.getDocument();
         if (oldDoc != null)
+        {
             oldDoc.removeUndoableEditListener(undoHandler);
+        }
         HTMLEditorKit editorKit = new HTMLEditorKit();
         document = (HTMLDocument) editorKit.createDefaultDocument();
         textPane.setDocument(document);
@@ -567,7 +571,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
                 FileReader fr = new FileReader(currentFile);
                 Document oldDoc = textPane.getDocument();
                 if (oldDoc != null)
+                {
                     oldDoc.removeUndoableEditListener(undoHandler);
+                }
                 HTMLEditorKit editorKit = new HTMLEditorKit();
                 document = (HTMLDocument) editorKit.createDefaultDocument();
                 editorKit.read(fr, document, 0);
@@ -645,7 +651,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
                         fw.write(textPane.getText());
                         fw.close();
                         if (debug)
+                        {
                             System.out.println("Saved " + currentFile.getAbsolutePath());
+                        }
                     }
                 }
                 else
@@ -656,7 +664,9 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
                     fw.write(textPane.getText());
                     fw.close();
                     if (debug)
+                    {
                         System.out.println("Saved " + currentFile.getAbsolutePath());
+                    }
                 }
             }
         }
@@ -759,10 +769,11 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
      */
     class FrameListener extends WindowAdapter
     {
-        
-        /* 
+
+        /*
          * windowClosing
          */
+        @Override
         public void windowClosing(WindowEvent we)
         {
             exit();
@@ -785,7 +796,7 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
             super(StyleConstants.Subscript.toString());
         }
 
-        /* 
+        /*
          * actionPerformed
          */
         public void actionPerformed(ActionEvent ae)
@@ -795,7 +806,7 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
             {
                 StyledEditorKit kit = getStyledEditorKit(editor);
                 MutableAttributeSet attr = kit.getInputAttributes();
-                boolean subscript = (StyleConstants.isSubscript(attr)) ? false : true;
+                boolean subscript = StyleConstants.isSubscript(attr) ? false : true;
                 SimpleAttributeSet sas = new SimpleAttributeSet();
                 StyleConstants.setSubscript(sas, subscript);
                 setCharacterAttributes(editor, sas, false);
@@ -819,7 +830,7 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
             super(StyleConstants.Superscript.toString());
         }
 
-        /* 
+        /*
          * actionPerformed
          */
         public void actionPerformed(ActionEvent ae)
@@ -829,7 +840,7 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
             {
                 StyledEditorKit kit = getStyledEditorKit(editor);
                 MutableAttributeSet attr = kit.getInputAttributes();
-                boolean superscript = (StyleConstants.isSuperscript(attr)) ? false : true;
+                boolean superscript = StyleConstants.isSuperscript(attr) ? false : true;
                 SimpleAttributeSet sas = new SimpleAttributeSet();
                 StyleConstants.setSuperscript(sas, superscript);
                 setCharacterAttributes(editor, sas, false);
@@ -853,7 +864,7 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
             super(StyleConstants.StrikeThrough.toString());
         }
 
-        /* 
+        /*
          * actionPerformed
          */
         public void actionPerformed(ActionEvent ae)
@@ -863,7 +874,7 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
             {
                 StyledEditorKit kit = getStyledEditorKit(editor);
                 MutableAttributeSet attr = kit.getInputAttributes();
-                boolean strikeThrough = (StyleConstants.isStrikeThrough(attr)) ? false : true;
+                boolean strikeThrough = StyleConstants.isStrikeThrough(attr) ? false : true;
                 SimpleAttributeSet sas = new SimpleAttributeSet();
                 StyleConstants.setStrikeThrough(sas, strikeThrough);
                 setCharacterAttributes(editor, sas, false);
@@ -877,17 +888,19 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
     class HTMLFileFilter extends javax.swing.filechooser.FileFilter
     {
 
-        /* 
+        /*
          * accept
          */
+        @Override
         public boolean accept(File f)
         {
-            return ((f.isDirectory()) || (f.getName().toLowerCase().indexOf(".htm") > 0));
+            return f.isDirectory() || f.getName().toLowerCase().indexOf(".htm") > 0;
         }
 
-        /* 
+        /*
          * getDescription
          */
+        @Override
         public String getDescription()
         {
             return "html";
@@ -904,7 +917,7 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
          * Messaged when the Document has created an edit, the edit is added to
          * <code>undo</code>, an instance of UndoManager.
          */
-        /* 
+        /*
          * undoableEditHappened
          */
         public void undoableEditHappened(UndoableEditEvent e)
@@ -932,7 +945,7 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
             setEnabled(false);
         }
 
-        /* 
+        /*
          * actionPerformed
          */
         public void actionPerformed(ActionEvent e)
@@ -985,7 +998,7 @@ public class HTMLDocumentEditor extends JFrame implements ActionListener
             setEnabled(false);
         }
 
-        /* 
+        /*
          * actionPerformed
          */
         public void actionPerformed(ActionEvent e)

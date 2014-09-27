@@ -38,130 +38,124 @@ import com.atech.utils.xml.XmlUtil;
  *
 */
 
-
 public class ComponentEntry implements ComponentInterface
 {
-	int id = 0;
-	
-	/**
-	 * Group 
-	 */
-	public int group=0;
-	
+    int id = 0;
+
+    /**
+     * Group 
+     */
+    public int group = 0;
+
     /**
      * Name 
      */
     public String name = "";
-    
-	/**
-	 * Version 
-	 */
-	public String version = "";
-	
-	/**
-	 * Version (num) 
-	 */
-	public int version_num = 1;
-	
-	/**
-	 * Root Directory 
-	 */
-	public String root_dir = "";
-	
-	/**
-	 * Files 
-	 */
-	public String files = "";
-	
-	/**
-	 * Comment 
-	 */
-	public String comment = "";
-	
-	/**
+
+    /**
+     * Version 
+     */
+    public String version = "";
+
+    /**
+     * Version (num) 
+     */
+    public int version_num = 1;
+
+    /**
+     * Root Directory 
+     */
+    public String root_dir = "";
+
+    /**
+     * Files 
+     */
+    public String files = "";
+
+    /**
+     * Comment 
+     */
+    public String comment = "";
+
+    /**
      * Server Version
-	 */
-	public String server_version = "";
-	
-	
-	/**
-	 * Server Version (num)
-	 */
-	public int server_version_num = 1;
-	
-	/**
-	 * Status
-	 */
-	public int status = 4;
-	
-	
-	// native stuff
-	
-	/**
-	 * Platform Specific
-	 */
-	public boolean platform_specific = false;
-	
-	/**
+     */
+    public String server_version = "";
+
+    /**
+     * Server Version (num)
+     */
+    public int server_version_num = 1;
+
+    /**
+     * Status
+     */
+    public int status = 4;
+
+    // native stuff
+
+    /**
+     * Platform Specific
+     */
+    public boolean platform_specific = false;
+
+    /**
      * Platform Specific Type: None
-	 */
-	public static final int PLATFORM_SPECIFIC_NONE = 0;
-	
+     */
+    public static final int PLATFORM_SPECIFIC_NONE = 0;
+
     /**
      * Platform Specific Type: No
      */
     public static final int PLATFORM_SPECIFIC_NO = 1;
-    
+
     /**
      * Platform Specific Type: Native Only
      */
     public static final int PLATFORM_SPECIFIC_NATIVE_ONLY = 2;
-    
+
     /**
      * Platform Specific Type: Full
      */
     public static final int PLATFORM_SPECIFIC_FULL = 3;
-	
-	/**
-	 * Platform Specific Type
-	 */
-	public int platform_specific_type = 0;
 
-	
-	/**
-	 * Platform Supported
-	 */
-	public String platform_supported = "";	
-	
-	/**
-	 * Files Java Specific
-	 */
-	public Hashtable<String,String> files_java_specific = new Hashtable<String,String>();
-	
-	
-	
-	// Update System
-	
+    /**
+     * Platform Specific Type
+     */
+    public int platform_specific_type = 0;
+
+    /**
+     * Platform Supported
+     */
+    public String platform_supported = "";
+
+    /**
+     * Files Java Specific
+     */
+    public Hashtable<String, String> files_java_specific = new Hashtable<String, String>();
+
+    // Update System
+
     /**
      * Update Data: Module Version Id 
      */
     public long module_version_id = 0L;
-	
+
     /**
      * Update Data: Archive File 
      */
-	public String archive_file = null;
-	
+    public String archive_file = null;
+
     /**
      * Update Data: Archive CRC 
      */
     public long archive_crc = 0L;
-    
+
     /**
      * Update Data: Archive Size 
      */
     public long archive_size = 0L;
-	
+
     /**
      * Update Data: Action 
      */
@@ -171,64 +165,50 @@ public class ComponentEntry implements ComponentInterface
      * Update Action: Get File Binary 
      */
     public static final int ACTION_GET_FILE_BINARY = 1;
-	
-	
-    //public long estimated_crc = 0L;
-    
-    //public long file_id = 0L;
-    
-    //public long requested_version_id = 0L;
-    
-    
-    //public String output_file = null;
-    
-    //public long file_size = 0L;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * Status: Newest (Up to date)
-	 */
-	public static final int STATUS_NEWEST = 1;
-	
+
+    // public long estimated_crc = 0L;
+
+    // public long file_id = 0L;
+
+    // public long requested_version_id = 0L;
+
+    // public String output_file = null;
+
+    // public long file_size = 0L;
+
+    /**
+     * Status: Newest (Up to date)
+     */
+    public static final int STATUS_NEWEST = 1;
+
     /**
      * Status: Not Updated
      */
     public static final int STATUS_NOT_UPDATED = 2;
-    
+
     /**
      * Status: New 
      */
     public static final int STATUS_NEW = 3;
-    
+
     /**
      * Status: Unknown 
      */
     public static final int STATUS_UNKNOWN = 4;
-	
-	
-	/*
-	#COMPONENT_13_PLATFORM_SPECIFIC=true
-	#COMPONENT_13_PLATFORM_SPECIFIC_TYPE=1,2,3 = 1- no, 2-yes,native_only,3-yes,both
-	#COMPONENT_13_PLATFORM_SUPPORTED=win linux
-	#COMPONENT_13_PLATFORM_WIN_JAVA=
-	// #COMPONENT_13_PLATFORM_WIN_NATIVE=
-	*/
-	
-	
-	
-	//1=ok, 2=not updated, 3=not updatebale, 4=unknown
-	
-    String column_names[] = { "NAME", "CURRENT_VERSION", "SERVER_VERSION", 
-            "UPDATEABLE", "COMMENT" };
 
-	
+    /*
+     * #COMPONENT_13_PLATFORM_SPECIFIC=true
+     * #COMPONENT_13_PLATFORM_SPECIFIC_TYPE=1,2,3 = 1- no,
+     * 2-yes,native_only,3-yes,both
+     * #COMPONENT_13_PLATFORM_SUPPORTED=win linux
+     * #COMPONENT_13_PLATFORM_WIN_JAVA=
+     * // #COMPONENT_13_PLATFORM_WIN_NATIVE=
+     */
+
+    // 1=ok, 2=not updated, 3=not updatebale, 4=unknown
+
+    String column_names[] = { "NAME", "CURRENT_VERSION", "SERVER_VERSION", "UPDATEABLE", "COMMENT" };
+
     /** 
      * getColumnValue
      */
@@ -236,21 +216,21 @@ public class ComponentEntry implements ComponentInterface
     {
         switch (index)
         {
-        case 0:
-            return this.name;
-        case 1:
-            return this.version;
-        case 2:
-            return this.server_version;
-        case 3:
-            return "" + this.status;
-        default:
-        case 4:
-            return "";
+            case 0:
+                return this.name;
+            case 1:
+                return this.version;
+            case 2:
+                return this.server_version;
+            case 3:
+                return "" + this.status;
+            default:
+            case 4:
+                return "";
         }
-        //return "";
+        // return "";
     }
-    
+
     /** 
      * isGroup
      */
@@ -258,8 +238,7 @@ public class ComponentEntry implements ComponentInterface
     {
         return false;
     }
-	
-	
+
     /**
      * Get Files
      * 
@@ -270,76 +249,82 @@ public class ComponentEntry implements ComponentInterface
     {
         StringBuffer sb = new StringBuffer();
         sb.append(this.files);
-        
-        if (this.platform_specific) 
+
+        if (this.platform_specific)
         {
-            
-            if (this.platform_specific_type==ComponentEntry.PLATFORM_SPECIFIC_FULL)
+
+            if (this.platform_specific_type == ComponentEntry.PLATFORM_SPECIFIC_FULL)
             {
-            
-                //System.out.println("Is platform specific");
-                if (this.files.trim().length()!=0)
+
+                // System.out.println("Is platform specific");
+                if (this.files.trim().length() != 0)
                 {
                     sb.append(";");
                 }
-                
+
                 if (this.files_java_specific.containsKey(os_abs.getShortOSName()))
                 {
-                    // we get error on Mac for example, because files are not found.
+                    // we get error on Mac for example, because files are not
+                    // found.
                     String file = this.files_java_specific.get(os_abs.getShortOSName());
-                    
-                    if ((file==null) || (file.trim().length()==0))
+
+                    if (file == null || file.trim().length() == 0)
                     {
-                        // try windows or linux, this are in most cases OSes that have files
+                        // try windows or linux, this are in most cases OSes
+                        // that have files
                         file = this.files_java_specific.get("win");
-                        if ((file==null) || (file.trim().length()==0))
+                        if (file == null || file.trim().length() == 0)
                         {
                             sb.append(this.files_java_specific.get("linux"));
                         }
                         else
+                        {
                             sb.append(file);
-                        
+                        }
+
                     }
-                    else                  
+                    else
+                    {
                         sb.append(file);
+                    }
                 }
                 else
                 {
-                    System.out.println("***\n" +
-                                       "*** Native part for Library " + this.name + " is not available !!!!\n" +
-                                       "**********************************************************************\n" +
-                                       "*** You should contact authors/site of your application and talk to\n" +
-                                       "*** them about this problem. Since this library needs native part to \n" +
-                                       "*** function correctly, this library will have to be updated or \n" +
-                                       "*** replaced (if there is suitable replacement available), or maybe \n" +
-                                       "*** just some 3rd party native part added.\n\n");
+                    System.out.println("***\n" + "*** Native part for Library " + this.name
+                            + " is not available !!!!\n"
+                            + "**********************************************************************\n"
+                            + "*** You should contact authors/site of your application and talk to\n"
+                            + "*** them about this problem. Since this library needs native part to \n"
+                            + "*** function correctly, this library will have to be updated or \n"
+                            + "*** replaced (if there is suitable replacement available), or maybe \n"
+                            + "*** just some 3rd party native part added.\n\n");
                 }
             }
-            else if (this.platform_specific_type==ComponentEntry.PLATFORM_SPECIFIC_NATIVE_ONLY)
+            else if (this.platform_specific_type == ComponentEntry.PLATFORM_SPECIFIC_NATIVE_ONLY)
             {
                 if (!this.files_java_specific.containsKey(os_abs.getShortOSName()))
                 {
-                    System.out.println("***\n" +
-                                       "*** Native part for Library " + this.name + " is not available !!!!\n" +
-                                       "**********************************************************************\n" +
-                                       "*** You should contact authors/site of your application and talk to\n" +
-                                       "*** them about this problem. Since this library needs native part to \n" +
-                                       "*** function correctly, this library will have to be updated or \n" +
-                                       "*** replaced (if there is suitable replacement available), or maybe \n" +
-                                       "*** just some 3rd party native part added.\n\n");
+                    System.out.println("***\n" + "*** Native part for Library " + this.name
+                            + " is not available !!!!\n"
+                            + "**********************************************************************\n"
+                            + "*** You should contact authors/site of your application and talk to\n"
+                            + "*** them about this problem. Since this library needs native part to \n"
+                            + "*** function correctly, this library will have to be updated or \n"
+                            + "*** replaced (if there is suitable replacement available), or maybe \n"
+                            + "*** just some 3rd party native part added.\n\n");
                 }
             }
 
         }
-        
+
         return sb.toString();
     }
-    
-    
+
+    @Override
     public String toString()
     {
         StringBuffer sb = new StringBuffer();
-        
+
         sb.append("ComponentEntry [");
         sb.append("id=" + this.id);
         sb.append(", group=" + this.group);
@@ -348,43 +333,43 @@ public class ComponentEntry implements ComponentInterface
         sb.append(", version_num=" + this.version_num);
         sb.append(", root_dir=" + this.root_dir);
         sb.append(", files=" + this.root_dir);
-        
+
         if (this.platform_specific)
         {
             sb.append("\n");
             sb.append("   platform_specific=" + this.platform_specific);
             sb.append(", platform_specific_type=" + this.platform_specific_type);
             sb.append(", platforms_supported=" + this.platform_supported);
-            
-            if (this.platform_specific_type==ComponentEntry.PLATFORM_SPECIFIC_FULL)
+
+            if (this.platform_specific_type == ComponentEntry.PLATFORM_SPECIFIC_FULL)
             {
                 sb.append("\n");
                 sb.append(" jars [");
-                
-                int i=0;
-                
-                for(Enumeration<String> en = this.files_java_specific.keys(); en.hasMoreElements(); )
+
+                int i = 0;
+
+                for (Enumeration<String> en = this.files_java_specific.keys(); en.hasMoreElements();)
                 {
                     String key = en.nextElement();
-                    if (i>0)
+                    if (i > 0)
+                    {
                         sb.append(";");
-                    
+                    }
+
                     sb.append(key + "=" + this.files_java_specific.get(key));
-                    
+
                     i++;
                 }
-                
-                
+
             }
         }
-        
+
         sb.append("]");
-        
+
         return sb.toString();
-        
+
     }
 
-    
     /**
      * Copy to Server Settings
      */
@@ -392,14 +377,13 @@ public class ComponentEntry implements ComponentInterface
     {
         this.server_version = this.version;
         this.server_version_num = this.version_num;
-        
+
         this.version = "N/A";
         this.version_num = 0;
-        
+
         setStatus();
     }
-    
-    
+
     /**
      * Set Server Settings
      * 
@@ -409,25 +393,32 @@ public class ComponentEntry implements ComponentInterface
     {
         this.version = ce.version;
         this.version_num = ce.version_num;
-        
-        //System.out.println("Component: " + this.name + "Version: " + this.version_num + ", ServerVersion: " + this.server_version_num);
+
+        // System.out.println("Component: " + this.name + "Version: " +
+        // this.version_num + ", ServerVersion: " + this.server_version_num);
         setStatus();
     }
-    
-    
+
     private void setStatus()
     {
-        if ((this.version_num==0) && (this.server_version_num>0))
+        if (this.version_num == 0 && this.server_version_num > 0)
+        {
             this.status = ComponentEntry.STATUS_NEW;
+        }
         else if (this.version_num < this.server_version_num)
+        {
             this.status = ComponentEntry.STATUS_NOT_UPDATED;
+        }
         else if (this.version_num == this.server_version_num)
+        {
             this.status = ComponentEntry.STATUS_NEWEST;
+        }
         else
+        {
             this.status = ComponentEntry.STATUS_UNKNOWN;
+        }
     }
-    
-    
+
     /**
      * Set Extended Server Data
      * 
@@ -435,27 +426,23 @@ public class ComponentEntry implements ComponentInterface
      */
     public void setExtendedServerData(Node parent_node)
     {
-        
-        //   <id>49</id>         
-        //   <module_id>xml_dom_jaxen</module_id>            
-        //   <module_name>XML (dom4j, jaxen)</module_name>           
-        //   <version_num>1</version_num>            
-        //   <archive_name>xml_dom_jaxen-1.6.1.zip</archive_name>            
-        //   <archive_crc>1031795816</archive_crc>           
-        //   <archive_length>506049</archive_length>     
-        
+
+        // <id>49</id>
+        // <module_id>xml_dom_jaxen</module_id>
+        // <module_name>XML (dom4j, jaxen)</module_name>
+        // <version_num>1</version_num>
+        // <archive_name>xml_dom_jaxen-1.6.1.zip</archive_name>
+        // <archive_crc>1031795816</archive_crc>
+        // <archive_length>506049</archive_length>
 
         this.archive_file = XmlUtil.getNodeValueString(parent_node, "archive_name");
         this.archive_size = XmlUtil.getNodeValueLong(parent_node, "archive_length");
         this.archive_crc = XmlUtil.getNodeValueLong(parent_node, "archive_crc");
         this.module_version_id = XmlUtil.getNodeValueLong(parent_node, "id");
-        
-        
-        System.out.println("ExtendedData [update_module_id=" + this.module_version_id + ", archive_file=" + this.archive_file + ", archive_size=" + this.archive_size + ", archive_crc=" + this.archive_crc);
-        
-        
+
+        System.out.println("ExtendedData [update_module_id=" + this.module_version_id + ", archive_file="
+                + this.archive_file + ", archive_size=" + this.archive_size + ", archive_crc=" + this.archive_crc);
+
     }
-    
-    
-    
+
 }

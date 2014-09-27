@@ -41,61 +41,52 @@ import com.atech.utils.web.ServletUtilities;
  *
 */
 
-
 public class ATechUpdateSystem extends HttpServlet
 {
 
     private static final long serialVersionUID = -5622091320679694087L;
 
-
-
     /**
      * doGet
      */
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         // action
         String action = getParameter(request, "action");
 
         System.out.println("doGet(): action=" + action);
-        
+
         if (action.equals("get_file"))
         {
             System.out.println("GetFile is not implemented yet !");
         }
         else if (action.equals("get_xml"))
         {
-            getProductXml(response, 
-                getParameter(request, "product_id"), 
+            getProductXml(response, getParameter(request, "product_id"),
                 Integer.parseInt(getParameter(request, "current_version")));
         }
         else if (action.equals("get_update_list"))
         {
-            getDetailedUpdateList(response, 
-                getParameter(request, "product_id"), 
+            getDetailedUpdateList(response, getParameter(request, "product_id"),
                 Integer.parseInt(getParameter(request, "current_version")),
                 Integer.parseInt(getParameter(request, "next_version")));
         }
         else if (action.equals("get_update_status"))
         {
-            getNextVersion(response, 
-                getParameter(request, "product_id"), 
-                Integer.parseInt(getParameter(request, "current_version")), 
+            getNextVersion(response, getParameter(request, "product_id"),
+                Integer.parseInt(getParameter(request, "current_version")),
                 Integer.parseInt(getParameter(request, "current_db")));
         }
         else
         {
             System.out.println("Unknown action: " + action);
         }
-        
-        
-        
-        
-//        System.out.println("AtechUpdateGetFile::doGet");
-//        this.doDownload(request, response, "d:/test.jar", "test.jar");
+
+        // System.out.println("AtechUpdateGetFile::doGet");
+        // this.doDownload(request, response, "d:/test.jar", "test.jar");
     }
-    
-    
+
     /**
      * @param request
      * @param parameter
@@ -104,61 +95,53 @@ public class ATechUpdateSystem extends HttpServlet
     public String getParameter(HttpServletRequest request, String parameter)
     {
         String param = request.getParameter(parameter);
-        
-        if (param==null || param.equals("null"))
+
+        if (param == null || param.equals("null"))
             return null;
         else
             return param;
-        
+
     }
-    
-    
+
     @SuppressWarnings("unused")
     private void getFile(HttpServletRequest request, HttpServletResponse response, long module_id, long version_id)
     {
 
-        
-        
-        
     }
-    
-    
-    
-    
-    private void getDetailedUpdateList(HttpServletResponse response, String product_id, int current_version, int next_version ) throws ServletException, IOException 
+
+    private void getDetailedUpdateList(HttpServletResponse response, String product_id, int current_version,
+            int next_version) throws ServletException, IOException
     {
         DataLayerUpdateServlet_v2 dl = DataLayerUpdateServlet_v2.getInstance();
-        
+
         String xml = dl.getProductUpdateList(product_id, current_version, next_version);
-        
+
         response.setContentType("text/html");
-        //response.setContentLength(message.length());
+        // response.setContentLength(message.length());
         PrintWriter out = response.getWriter();
         out.println(ServletUtilities.headWithTitle("ATech Update Server"));
         out.println("<body>");
         out.println("<h1>ATech Update Server - Get Detailed Update List</h1><br>");
-        
+
         out.println("<b>This servlet is intended for internal use of applications implementing");
         out.println("ATech-Tools Update System (v2).<b><br><br>");
-        
-        //String ret_data = dl.getNextVersionInfo(product_id, current_version, current_db);
-        
+
+        // String ret_data = dl.getNextVersionInfo(product_id, current_version,
+        // current_db);
+
         out.println("Returned data:<br>" + xml + "<br>");
-        
+
         out.println("<!-- RETURN_DATA_START__<br>" + xml + "<br>" + "__RETURN_DATA_END --!>");
-        
+
         out.println("</body>");
         out.println("</html>");
 
-        
-        //in.close();
+        // in.close();
         out.flush();
         out.close();
-        
+
     }
-    
-    
-    
+
     /**
      * get Next Version
      * 
@@ -170,38 +153,36 @@ public class ATechUpdateSystem extends HttpServlet
      * @throws ServletException 
      * @throws IOException 
      */
-    private void getNextVersion(HttpServletResponse response, String product_id, int current_version, int current_db ) throws ServletException, IOException 
+    private void getNextVersion(HttpServletResponse response, String product_id, int current_version, int current_db)
+            throws ServletException, IOException
     {
         DataLayerUpdateServlet_v2 dl = DataLayerUpdateServlet_v2.getInstance();
-        
+
         response.setContentType("text/html");
-        //response.setContentLength(message.length());
+        // response.setContentLength(message.length());
         PrintWriter out = response.getWriter();
         out.println(ServletUtilities.headWithTitle("ATech Update Server"));
         out.println("<body>");
         out.println("<h1>ATech Update Server - Get Next Version</h1><br>");
-        
+
         out.println("<b>This servlet is intended for internal use of applications implementing");
         out.println("ATech-Tools Update System (v2).<b><br><br>");
-        
+
         String ret_data = dl.getNextVersionInfo(product_id, current_version, current_db);
-        
+
         out.println("Returned data:<br>" + ret_data.replace(";", "<br>"));
-        
+
         out.println("<!-- RETURN_DATA_START__<br>" + ret_data + "<br>" + "__RETURN_DATA_END --!>");
-        
+
         out.println("</body>");
         out.println("</html>");
 
-        
-        //in.close();
+        // in.close();
         out.flush();
         out.close();
-        
+
     }
-    
-    
-    
+
     /**
      * get Product Xml
      * 
@@ -212,36 +193,34 @@ public class ATechUpdateSystem extends HttpServlet
      * @throws ServletException 
      * @throws IOException 
      */
-    public void getProductXml(HttpServletResponse response, String product_id, int current_version) throws ServletException, IOException 
+    public void getProductXml(HttpServletResponse response, String product_id, int current_version)
+            throws ServletException, IOException
     {
         DataLayerUpdateServlet_v2 dl = DataLayerUpdateServlet_v2.getInstance();
-        
+
         response.setContentType("text/html");
-        //response.setContentLength(message.length());
+        // response.setContentLength(message.length());
         PrintWriter out = response.getWriter();
         out.println(ServletUtilities.headWithTitle("ATech Update Server"));
         out.println("<body>");
         out.println("<h1>ATech Update Server - Get Product Xml</h1><br>");
-        
+
         out.println("<b>This servlet is intended for internal use of applications implementing");
         out.println("ATech-Tools Update System (v2).<b><br><br>");
-        
+
         String ret_data = dl.getProductXml(product_id, current_version);
-        
+
         out.println("Returned data:<br>" + ret_data.replace(";", "<br>"));
-        
+
         out.println("<!-- RETURN_DATA_START__<br>" + ret_data + "<br>" + "__RETURN_DATA_END --!>");
-        
+
         out.println("</body>");
         out.println("</html>");
 
-        
-        //in.close();
+        // in.close();
         out.flush();
         out.close();
-        
+
     }
-    
-    
-    
+
 }

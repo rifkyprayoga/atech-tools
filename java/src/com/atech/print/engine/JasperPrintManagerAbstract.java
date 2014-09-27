@@ -15,7 +15,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -46,74 +45,71 @@ import org.apache.commons.logging.LogFactory;
  *
 */
 
-
 public abstract class JasperPrintManagerAbstract
 {
-    
+
     private static final Log LOG = LogFactory.getLog(JasperPrintManagerAbstract.class);
-    
-    
+
     public abstract String getBaseDir();
-    
+
     public abstract String getSubReportDir();
-    
-    
-    public void startJasperPrint(String report_name, HashMap<String,String> parameters, JRBeanCollectionDataSource collection)
+
+    public void startJasperPrint(String report_name, HashMap<String, String> parameters,
+            JRBeanCollectionDataSource collection)
     {
         startJasperPrint(report_name, null, parameters, collection);
     }
-    
-    
-    public void startJasperPrint(String reportName, String subReports, HashMap<String,String> parameters, JRBeanCollectionDataSource collection)
+
+    public void startJasperPrint(String reportName, String subReports, HashMap<String, String> parameters,
+            JRBeanCollectionDataSource collection)
     {
         try
         {
             String baseDir = this.getBaseDir();
-            
+
             parameters.put("SUBREPORT_DIR", this.getSubReportDir());
-            
+
             checkIfReportCompiled(baseDir, reportName);
-            
+
             checkIfSubreportsCompiled(this.getSubReportDir(), subReports);
-            
+
             String res = JasperFillManager.fillReportToFile(baseDir + reportName + ".jasper", parameters, collection);
-            LOG.debug("Jasper report filled with data and \nJasper .jrprint file created in " + baseDir + ". Return data: " + res );
-        
+            LOG.debug("Jasper report filled with data and \nJasper .jrprint file created in " + baseDir
+                    + ". Return data: " + res);
+
             File sourceFile = new File(baseDir + reportName + ".jrprint");
-            JasperPrint jasperPrint = (JasperPrint)JRLoader.loadObject(sourceFile);
-    
-            JasperViewer.viewReport(jasperPrint, false); 
-        
+            JasperPrint jasperPrint = (JasperPrint) JRLoader.loadObject(sourceFile);
+
+            JasperViewer.viewReport(jasperPrint, false);
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             LOG.error("Error printing: " + ex, ex);
         }
-    
+
     }
-    
-    
+
     public void checkIfSubreportsCompiled(String subReportsDirectory, String subReports)
     {
         if (StringUtils.isBlank(subReports))
             return;
-        
+
         StringTokenizer strtok = new StringTokenizer(subReports, ",");
-        
+
         while (strtok.hasMoreTokens())
         {
             checkIfReportCompiled(subReportsDirectory, strtok.nextToken().trim());
         }
     }
-    
-    
+
     public void checkIfReportCompiled(String base_dir, String report_name)
     {
         boolean reCreate = false;
-        
+
         File jasperFile = new File(base_dir + report_name + ".jasper");
         File jrxmlFile = new File(base_dir + report_name + ".jrxml");
-        
+
         if (!jasperFile.exists())
         {
             reCreate = true;
@@ -121,24 +117,23 @@ public abstract class JasperPrintManagerAbstract
         else
         {
             if (jrxmlFile.lastModified() > jasperFile.lastModified())
+            {
                 reCreate = true;
+            }
         }
-        
 
         if (reCreate)
         {
             try
             {
-                JasperCompileManager.compileReportToFile(
-                    base_dir + report_name + ".jrxml",
-                    base_dir + report_name + ".jasper");
+                JasperCompileManager.compileReportToFile(base_dir + report_name + ".jrxml", base_dir + report_name
+                        + ".jasper");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LOG.error("Error re/compiling report: " + ex, ex);
             }
         }
     }
-    
-    
+
 }

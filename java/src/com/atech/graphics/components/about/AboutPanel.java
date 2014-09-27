@@ -35,14 +35,13 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
 public abstract class AboutPanel extends JPanel
 {
     /**
      * 
      */
     private static final long serialVersionUID = -5811159426365329265L;
-    
+
     /**
      * The ic.
      */
@@ -71,5 +70,5 @@ public abstract class AboutPanel extends JPanel
      * @return the tab name
      */
     public abstract String getTabName();
-    
+
 }

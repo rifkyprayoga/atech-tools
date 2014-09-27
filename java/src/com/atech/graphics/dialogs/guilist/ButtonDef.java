@@ -36,28 +36,26 @@ public class ButtonDef
      * Button Text
      */
     public String text;
-    
+
     /**
      * Action 
      */
     public String action;
-    
+
     /**
      * Description 
      */
     public String desc;
-    
+
     /**
      * Icon Name 
      */
     public String icon_name;
-    
-    
+
     public ButtonDef()
     {
     }
-    
-    
+
     /**
      * Constructor
      * 

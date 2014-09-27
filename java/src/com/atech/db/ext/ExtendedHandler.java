@@ -36,15 +36,13 @@ import com.atech.utils.ATDataAccessAbstract;
  *
 */
 
-
 public abstract class ExtendedHandler
 {
     ATDataAccessAbstract m_da;
     String extended_packed;
-    protected Hashtable<Integer,String> ext_mapped_types = null;
+    protected Hashtable<Integer, String> ext_mapped_types = null;
     private String extended_divider = ";##;";
 
-    
     /**
      * Constructor
      * 
@@ -54,87 +52,75 @@ public abstract class ExtendedHandler
     {
         initExtended();
     }
-    
-    
+
     /**
      * Init Extended Values for type
      */
     public abstract void initExtended();
-    
-    
-    
+
     /**
      * Get Extended Object Name
      * 
      * @return
      */
     public abstract String getExtendedObject();
-    
-    
+
     /**
      * Load Extended
      * 
      * @param extended
      * @return
      */
-    public Hashtable<String,String> loadExtended(String extended)
+    public Hashtable<String, String> loadExtended(String extended)
     {
         this.extended_packed = extended;
-        
-        Hashtable<String,String> ht = new Hashtable<String,String>();
-        
-        
-        if ((this.extended_packed!=null) && (this.extended_packed.trim().length()>0))
+
+        Hashtable<String, String> ht = new Hashtable<String, String>();
+
+        if (this.extended_packed != null && this.extended_packed.trim().length() > 0)
         {
             StringTokenizer strtok = new StringTokenizer(this.extended_packed, this.extended_divider);
-            
-            while(strtok.hasMoreTokens())
+
+            while (strtok.hasMoreTokens())
             {
                 String val = strtok.nextToken();
                 int idx = val.indexOf("=");
-                ht.put(val.substring(0, idx), val.substring(idx+1));
+                ht.put(val.substring(0, idx), val.substring(idx + 1));
             }
-            
+
         }
-        
+
         return ht;
-        
+
     }
-    
-    
+
     public String getExtendedTypeDescription(int type)
     {
         if (this.ext_mapped_types.containsKey(type))
-        {
             return this.ext_mapped_types.get(type);
-        }
         else
             return null;
     }
-    
 
-    
     /**
      * Save Extended Entry for database
      * 
      * @param ht 
      * @return String value containing all set extended
      */
-    public String saveExtended(Hashtable<String,String> ht)
+    public String saveExtended(Hashtable<String, String> ht)
     {
         StringBuffer sb = new StringBuffer();
-        
-        for(Enumeration<String> en=ht.keys(); en.hasMoreElements(); )
+
+        for (Enumeration<String> en = ht.keys(); en.hasMoreElements();)
         {
             String key = en.nextElement();
             sb.append(key + "=" + ht.get(key) + extended_divider);
         }
-        
+
         return sb.toString();
     }
-    
-    
-    
+
     /**
      * Get Extended Value (after resolved)
      * 
@@ -142,7 +128,7 @@ public abstract class ExtendedHandler
      * @param ht 
      * @return
      */
-    public String getExtendedValue(int type, Hashtable<String,String> ht)
+    public String getExtendedValue(int type, Hashtable<String, String> ht)
     {
         if (ht.containsKey(this.ext_mapped_types.get(type)))
             return ht.get(this.ext_mapped_types.get(type));
@@ -150,7 +136,6 @@ public abstract class ExtendedHandler
             return "";
     }
 
-    
     /**
      * Set Extended Value (after resolved)
      * 
@@ -159,29 +144,26 @@ public abstract class ExtendedHandler
      * @param ht 
      * @return returns true, if value was changed
      */
-    public boolean setExtendedValue(int type, String val, Hashtable<String,String> ht)
+    public boolean setExtendedValue(int type, String val, Hashtable<String, String> ht)
     {
-        if ((val==null) || (val.trim().length()==0))
+        if (val == null || val.trim().length() == 0)
             return false;
-        
+
         if (ht.containsKey(this.ext_mapped_types.get(type)))
         {
             if (ht.get(this.ext_mapped_types.get(type)).equals(val))
-            {
                 return false;
-            }
             else
             {
                 ht.remove(this.ext_mapped_types.get(type));
             }
         }
-        
+
         ht.put(this.ext_mapped_types.get(type), val);
         return true;
-        
+
     }
-    
-    
+
     /**
      * Is Extended Value Set
      * 
@@ -189,11 +171,9 @@ public abstract class ExtendedHandler
      * @param ht
      * @return
      */
-    public boolean isExtendedValueSet(int type, Hashtable<String,String> ht)
+    public boolean isExtendedValueSet(int type, Hashtable<String, String> ht)
     {
-        return (ht.containsKey(this.ext_mapped_types.get(type)));
+        return ht.containsKey(this.ext_mapped_types.get(type));
     }
-    
-    
-    
+
 }

@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.info.LanguageInfo;
@@ -52,8 +53,10 @@ import com.atech.utils.ATDataAccessAbstract;
  *
  */
 
-
-public class LanguageCfgPanel extends JDialog implements ActionListener, /*ListSelectionListener,*/ ItemListener
+public class LanguageCfgPanel extends JDialog implements ActionListener, /*
+                                                                          * ListSelectionListener
+                                                                          * ,
+                                                                          */ItemListener
 {
 
     /**
@@ -81,7 +84,6 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*ListS
     I18nControlAbstract ic;
     LanguageInfo langInfo = null;
 
-
     /**
      * Constructor
      * @param da instance of DataAccess
@@ -92,7 +94,6 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*ListS
 
         ic = da.getI18nControlInstance();
         m_da = da;
-
 
         font_normal = m_da.getFont(1);
         font_normal_b = m_da.getFont(ATDataAccessAbstract.FONT_NORMAL_BOLD);
@@ -105,181 +106,157 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*ListS
         // Web Config
         // createPanelWebConfig();
 
-        //loadData();
-        //cmdConfig();
+        // loadData();
+        // cmdConfig();
 
     }
-
-
 
     /**
      * Creates Db Panel (for selecting database)
      */
-/*    public void createPanelDb()
-    {
-
-        JPanel panel = new JPanel();
-        panel.setBounds(140, 30, 420, 330);
-        panel.setLayout(null);
-
-        JLabel label = new JLabel(ic.getMessage("DB_SETTINGS"));
-        label.setFont(font_big);
-        label.setBounds(0, 05, 420, 36);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        panel.add(label);
-
-        label = new JLabel(ic.getMessage("DB_DESC"));
-        label.setFont(font_normal);
-        label.setBounds(40, 45, 360, 100);
-        panel.add(label);
-
-        label = new JLabel(ic.getMessage("NOTE_RESTART"));
-        label.setFont(font_normal);
-        label.setBounds(40, 140, 360, 50);
-        panel.add(label);
-
-        label = new JLabel(ic.getMessage("SELECT_DATABASE"));
-        label.setFont(m_da.getFont(DataAccess.FONT_NORMAL_BOLD));
-        label.setBounds(40, 230, 340, 25);
-        panel.add(label);
-
-        cb_DBs = new JComboBox(m_da.m_config_file.getAllDatabasesNamesPlusAsArray());
-        cb_DBs.setBounds(40, 260, 220, 25);
-        cb_DBs.setSelectedIndex(m_da.getSelectedDbIndex());
-        cb_DBs.setFont(font_normal);
-        cb_DBs.addItemListener(this);
-        cb_DBs.setActionCommand("select_db");
-        // cb_DBs.setEnabled(!m_da.isDemoVersion());
-        panel.add(cb_DBs);
-
-        if (m_da.isDemoVersion())
-        {
-            cb_DBs.setSelectedIndex(0);
-            cb_DBs.setEnabled(false);
-        }
-        else
-            cb_DBs.setEnabled(true);
-
-        panel.setVisible(false);
-        panels[0] = panel;
-    }*/
+    /*
+     * public void createPanelDb()
+     * {
+     * JPanel panel = new JPanel();
+     * panel.setBounds(140, 30, 420, 330);
+     * panel.setLayout(null);
+     * JLabel label = new JLabel(ic.getMessage("DB_SETTINGS"));
+     * label.setFont(font_big);
+     * label.setBounds(0, 05, 420, 36);
+     * label.setHorizontalAlignment(JLabel.CENTER);
+     * panel.add(label);
+     * label = new JLabel(ic.getMessage("DB_DESC"));
+     * label.setFont(font_normal);
+     * label.setBounds(40, 45, 360, 100);
+     * panel.add(label);
+     * label = new JLabel(ic.getMessage("NOTE_RESTART"));
+     * label.setFont(font_normal);
+     * label.setBounds(40, 140, 360, 50);
+     * panel.add(label);
+     * label = new JLabel(ic.getMessage("SELECT_DATABASE"));
+     * label.setFont(m_da.getFont(DataAccess.FONT_NORMAL_BOLD));
+     * label.setBounds(40, 230, 340, 25);
+     * panel.add(label);
+     * cb_DBs = new
+     * JComboBox(m_da.m_config_file.getAllDatabasesNamesPlusAsArray());
+     * cb_DBs.setBounds(40, 260, 220, 25);
+     * cb_DBs.setSelectedIndex(m_da.getSelectedDbIndex());
+     * cb_DBs.setFont(font_normal);
+     * cb_DBs.addItemListener(this);
+     * cb_DBs.setActionCommand("select_db");
+     * // cb_DBs.setEnabled(!m_da.isDemoVersion());
+     * panel.add(cb_DBs);
+     * if (m_da.isDemoVersion())
+     * {
+     * cb_DBs.setSelectedIndex(0);
+     * cb_DBs.setEnabled(false);
+     * }
+     * else
+     * cb_DBs.setEnabled(true);
+     * panel.setVisible(false);
+     * panels[0] = panel;
+     * }
+     */
 
     /**
      * Creates Look Panel (for setting Look and Feel)
      */
-/*    public void createPanelLook()
-    {
-        JPanel panel = new JPanel();
-        panel.setBounds(140, 30, 420, 330);
-        panel.setLayout(null);
-
-        JLabel label = new JLabel(ic.getMessage("LOOK"));
-        label.setFont(font_big);
-        label.setBounds(0, 05, 420, 36);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        panel.add(label);
-
-        label = new JLabel(ic.getMessage("LOOK_DESC"));
-        label.setFont(font_normal);
-        label.setBounds(40, 45, 360, 100);
-        panel.add(label);
-
-        label = new JLabel(ic.getMessage("NOTE_RESTART"));
-        label.setFont(font_normal);
-        label.setBounds(40, 140, 360, 50);
-        panel.add(label);
-
-        label = new JLabel(ic.getMessage("SELECT_LOOK"));
-        label.setFont(m_da.getFont(DataAccess.FONT_NORMAL_BOLD));
-        label.setBounds(40, 190, 340, 25);
-        panel.add(label);
-
-        cb_LFs = new JComboBox(m_da.m_config_file.getAvailableLFs());
-        cb_LFs.setBounds(40, 215, 120, 25);
-        cb_LFs.setSelectedItem(m_da.m_config_file.selected_LF_Name);
-        cb_LFs.setFont(font_normal);
-        cb_LFs.addItemListener(this);
-        cb_LFs.setActionCommand("select_lf");
-        panel.add(cb_LFs);
-
-        label = new JLabel(ic.getMessage("SELECT_SKINLF_LOOK"));
-        label.setFont(m_da.getFont(DataAccess.FONT_NORMAL_BOLD));
-        label.setBounds(40, 250, 340, 25);
-        panel.add(label);
-
-        tf_selLF = new JTextField();
-        tf_selLF.setBounds(40, 275, 260, 25);
-        tf_selLF.setText(m_da.m_config_file.skinLFSelected);
-        tf_selLF.setEnabled(false);
-        tf_selLF.setFont(font_normal);
-        panel.add(tf_selLF);
-
-        bt_browse = new JButton(ic.getMessage("BROWSE") + "...");
-        bt_browse.setBounds(300, 272, 120, 30);
-        bt_browse.setActionCommand("lf_browse");
-        bt_browse.addActionListener(this);
-        bt_browse.setFont(font_normal);
-        panel.add(bt_browse);
-
-        if (!m_da.m_config_file.selected_LF_Name.equals("SkinLF"))
-        {
-            bt_browse.setEnabled(false);
-        }
-
-        panel.setVisible(false);
-        panels[1] = panel;
-    }*/
-
+    /*
+     * public void createPanelLook()
+     * {
+     * JPanel panel = new JPanel();
+     * panel.setBounds(140, 30, 420, 330);
+     * panel.setLayout(null);
+     * JLabel label = new JLabel(ic.getMessage("LOOK"));
+     * label.setFont(font_big);
+     * label.setBounds(0, 05, 420, 36);
+     * label.setHorizontalAlignment(JLabel.CENTER);
+     * panel.add(label);
+     * label = new JLabel(ic.getMessage("LOOK_DESC"));
+     * label.setFont(font_normal);
+     * label.setBounds(40, 45, 360, 100);
+     * panel.add(label);
+     * label = new JLabel(ic.getMessage("NOTE_RESTART"));
+     * label.setFont(font_normal);
+     * label.setBounds(40, 140, 360, 50);
+     * panel.add(label);
+     * label = new JLabel(ic.getMessage("SELECT_LOOK"));
+     * label.setFont(m_da.getFont(DataAccess.FONT_NORMAL_BOLD));
+     * label.setBounds(40, 190, 340, 25);
+     * panel.add(label);
+     * cb_LFs = new JComboBox(m_da.m_config_file.getAvailableLFs());
+     * cb_LFs.setBounds(40, 215, 120, 25);
+     * cb_LFs.setSelectedItem(m_da.m_config_file.selected_LF_Name);
+     * cb_LFs.setFont(font_normal);
+     * cb_LFs.addItemListener(this);
+     * cb_LFs.setActionCommand("select_lf");
+     * panel.add(cb_LFs);
+     * label = new JLabel(ic.getMessage("SELECT_SKINLF_LOOK"));
+     * label.setFont(m_da.getFont(DataAccess.FONT_NORMAL_BOLD));
+     * label.setBounds(40, 250, 340, 25);
+     * panel.add(label);
+     * tf_selLF = new JTextField();
+     * tf_selLF.setBounds(40, 275, 260, 25);
+     * tf_selLF.setText(m_da.m_config_file.skinLFSelected);
+     * tf_selLF.setEnabled(false);
+     * tf_selLF.setFont(font_normal);
+     * panel.add(tf_selLF);
+     * bt_browse = new JButton(ic.getMessage("BROWSE") + "...");
+     * bt_browse.setBounds(300, 272, 120, 30);
+     * bt_browse.setActionCommand("lf_browse");
+     * bt_browse.addActionListener(this);
+     * bt_browse.setFont(font_normal);
+     * panel.add(bt_browse);
+     * if (!m_da.m_config_file.selected_LF_Name.equals("SkinLF"))
+     * {
+     * bt_browse.setEnabled(false);
+     * }
+     * panel.setVisible(false);
+     * panels[1] = panel;
+     * }
+     */
 
     /**
      * Creates Users Panel (for adding Users)
      */
-/*    public void createPanelUsers()
-    {
-
-        JPanel panel = new JPanel();
-        panel.setBounds(140, 30, 420, 330);
-        panel.setLayout(null);
-
-        JLabel label = new JLabel(ic.getMessage("USERS"));
-        label.setFont(font_big);
-        label.setBounds(0, 15, 420, 36);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        panel.add(label);
-
-        list_users = new JList();
-        list_users.setFont(font_normal);
-
-        JScrollPane pane = new JScrollPane(list_users);
-        pane.setBounds(40, 80, 340, 180);
-        panel.add(pane);
-
-        JButton button = new JButton(ic.getMessage("ADD"));
-        button.setBounds(60, 270, 100, 35);
-        button.setActionCommand("users_add");
-        button.setFont(font_normal);
-        button.addActionListener(this);
-        panel.add(button);
-
-        button = new JButton(ic.getMessage("EDIT"));
-        button.setBounds(160, 270, 100, 35);
-        button.setActionCommand("users_edit");
-        button.setFont(font_normal);
-        button.addActionListener(this);
-        panel.add(button);
-
-        button = new JButton(ic.getMessage("REMOVE"));
-        button.setBounds(260, 270, 100, 35);
-        button.setActionCommand("users_remove");
-        button.setFont(font_normal);
-        button.addActionListener(this);
-        panel.add(button);
-
-        panel.setVisible(false);
-        panels[4] = panel;
-
-    }
-*/
+    /*
+     * public void createPanelUsers()
+     * {
+     * JPanel panel = new JPanel();
+     * panel.setBounds(140, 30, 420, 330);
+     * panel.setLayout(null);
+     * JLabel label = new JLabel(ic.getMessage("USERS"));
+     * label.setFont(font_big);
+     * label.setBounds(0, 15, 420, 36);
+     * label.setHorizontalAlignment(JLabel.CENTER);
+     * panel.add(label);
+     * list_users = new JList();
+     * list_users.setFont(font_normal);
+     * JScrollPane pane = new JScrollPane(list_users);
+     * pane.setBounds(40, 80, 340, 180);
+     * panel.add(pane);
+     * JButton button = new JButton(ic.getMessage("ADD"));
+     * button.setBounds(60, 270, 100, 35);
+     * button.setActionCommand("users_add");
+     * button.setFont(font_normal);
+     * button.addActionListener(this);
+     * panel.add(button);
+     * button = new JButton(ic.getMessage("EDIT"));
+     * button.setBounds(160, 270, 100, 35);
+     * button.setActionCommand("users_edit");
+     * button.setFont(font_normal);
+     * button.addActionListener(this);
+     * panel.add(button);
+     * button = new JButton(ic.getMessage("REMOVE"));
+     * button.setBounds(260, 270, 100, 35);
+     * button.setActionCommand("users_remove");
+     * button.setFont(font_normal);
+     * button.addActionListener(this);
+     * panel.add(button);
+     * panel.setVisible(false);
+     * panels[4] = panel;
+     * }
+     */
     /**
      * Creates Users Panel (for adding Users)
      */
@@ -293,7 +270,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*ListS
         JLabel label = new JLabel(ic.getMessage("LANGUAGE"));
         label.setFont(font_big);
         label.setBounds(0, 05, 420, 36);
-        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
         label = new JLabel(ic.getMessage("LANGPACK_VERSION") + ":");
@@ -354,7 +331,6 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*ListS
 
     }
 
-
     /**
      * Action Listener
      */
@@ -372,8 +348,6 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*ListS
         }
 
     }
-
-
 
     /**
      * Invoked when an item has been selected or deselected by the user. The
@@ -410,7 +384,4 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*ListS
 
     }
 
-    
-    
-    
 }

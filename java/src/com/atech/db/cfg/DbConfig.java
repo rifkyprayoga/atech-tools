@@ -5,17 +5,16 @@ public class DbConfig
 
     /** The jdbc_url. */
     public String jdbc_url = null;
-    
+
     /** The jdbc_driver. */
     public String jdbc_driver = null;
 
     /** The jdbc_username. */
     public String jdbc_username = null;
-    
+
     /** The jdbc_password. */
     public String jdbc_password = null;
-    
-    
+
     /**
      * Gets the jdbc_url.
      * 
@@ -97,6 +96,5 @@ public class DbConfig
     {
         this.jdbc_password = jdbc_password;
     }
-    
-    
+
 }

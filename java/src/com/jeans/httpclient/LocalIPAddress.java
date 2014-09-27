@@ -87,10 +87,11 @@ public class LocalIPAddress
             return new String("");
         }
         /*
-        catch (UnknownHostException e) {
-            System.out.println("###unknown host: " + e);
-            return null;
-        }*/
+         * catch (UnknownHostException e) {
+         * System.out.println("###unknown host: " + e);
+         * return null;
+         * }
+         */
 
         InetAddress ia = s.getLocalAddress();
 

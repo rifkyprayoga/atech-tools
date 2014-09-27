@@ -1,4 +1,3 @@
-
 package com.atech.db;
 
 /**
@@ -31,8 +30,7 @@ package com.atech.db;
  *
 */
 
-
-public interface DbDataReadingFinishedInterface 
+public interface DbDataReadingFinishedInterface
 {
 
     /**

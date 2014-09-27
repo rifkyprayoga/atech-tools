@@ -34,7 +34,6 @@ import com.atech.update.startup.os.StartupOSAbstract;
  *
 */
 
-
 public abstract class AtechToolsApplication extends StartupFileAbstract
 {
 
@@ -48,7 +47,6 @@ public abstract class AtechToolsApplication extends StartupFileAbstract
     {
         super(uc, osa);
     }
-    
 
     /**
      * Get Class Path
@@ -60,8 +58,8 @@ public abstract class AtechToolsApplication extends StartupFileAbstract
     {
         ComponentEntry ce = this.upd_conf.components_ht.get("Atech Tools");
         String path = upd_conf.root + ce.root_dir;
-        
+
         return parseRoot(path, ce.files);
     }
-    
+
 }

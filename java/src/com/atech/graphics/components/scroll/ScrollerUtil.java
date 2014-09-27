@@ -1,6 +1,5 @@
 package com.atech.graphics.components.scroll;
 
-
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -32,8 +31,6 @@ package com.atech.graphics.components.scroll;
  *
 */
 
-
-
 public class ScrollerUtil extends Thread
 {
 
@@ -41,8 +38,6 @@ public class ScrollerUtil extends Thread
      * The should_run.
      */
     boolean should_run = true;
-
-
 
     /**
      * The real_run.
@@ -61,8 +56,6 @@ public class ScrollerUtil extends Thread
     {
     }
 
-
-
     /** 
      * run
      */
@@ -70,11 +63,11 @@ public class ScrollerUtil extends Thread
     public void run()
     {
 
-        while(should_run)
+        while (should_run)
         {
 
         }
-        
+
     }
 
 }

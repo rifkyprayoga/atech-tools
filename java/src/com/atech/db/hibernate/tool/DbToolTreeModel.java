@@ -38,217 +38,181 @@ import javax.swing.tree.TreePath;
  *
 */
 
-
-public class DbToolTreeModel implements TreeModel 
+public class DbToolTreeModel implements TreeModel
 {
 
     private boolean m_debug = false;
 
-//x    private boolean isRoot = false;
+    // x private boolean isRoot = false;
     private Vector<TreeModelListener> treeModelListeners = new Vector<TreeModelListener>();
     private DbToolTreeRoot rootObj = null;
-
 
     /**
      * Constructor
      * 
      * @param rt
      */
-    public DbToolTreeModel(DbToolTreeRoot rt) 
+    public DbToolTreeModel(DbToolTreeRoot rt)
     {
-        //xisRoot = true;
+        // xisRoot = true;
         rootObj = rt;
     }
-
 
     private void debug(String deb)
     {
         if (m_debug)
+        {
             System.out.println(deb);
+        }
     }
 
-
-
-    //////////////// Fire events //////////////////////////////////////////////
+    // ////////////// Fire events //////////////////////////////////////////////
 
     /**
      * The only event raised by this model is TreeStructureChanged with the
      * root as path, i.e. the whole tree has changed.
      */
-    protected void fireTreeStructureChanged(DbToolTreeRoot oldRoot) 
+    protected void fireTreeStructureChanged(DbToolTreeRoot oldRoot)
     {
         int len = treeModelListeners.size();
-        TreeModelEvent e = new TreeModelEvent(this, new Object[] {oldRoot});
+        TreeModelEvent e = new TreeModelEvent(this, new Object[] { oldRoot });
 
-	for (int i = 0; i < len; i++) 
-	{
-            (treeModelListeners.elementAt(i)).treeStructureChanged(e);
+        for (int i = 0; i < len; i++)
+        {
+            treeModelListeners.elementAt(i).treeStructureChanged(e);
         }
     }
 
-
-    //////////////// TreeModel interface implementation ///////////////////////
+    // ////////////// TreeModel interface implementation ///////////////////////
 
     /**
      * Adds a listener for the TreeModelEvent posted after the tree changes.
      */
-    public void addTreeModelListener(TreeModelListener l) 
+    public void addTreeModelListener(TreeModelListener l)
     {
         treeModelListeners.addElement(l);
     }
 
-
     /**
      * Removes a listener previously added with addTreeModelListener().
      */
-    public void removeTreeModelListener(TreeModelListener l) 
+    public void removeTreeModelListener(TreeModelListener l)
     {
-	treeModelListeners.removeElement(l);
+        treeModelListeners.removeElement(l);
     }
 
     /**
      * Messaged when the user has altered the value for the item
      * identified by path to newValue.  Not used by this model.
      */
-    public void valueForPathChanged(TreePath path, Object newValue) 
+    public void valueForPathChanged(TreePath path, Object newValue)
     {
-	System.out.println("*** valueForPathChanged : " + path + " --> " + newValue);
+        System.out.println("*** valueForPathChanged : " + path + " --> " + newValue);
     }
-
-
-
-
-
 
     /**
      * Returns the child of parent at index index in the parent's child array.
      */
-    public Object getChild(Object parent, int index) 
+    public Object getChild(Object parent, int index)
     {
 
         debug("getChild: " + index);
 
         if (parent instanceof DbToolTreeRoot)
         {
-	    if (rootObj.type==DbToolTreeRoot.ROOT_SINGLE)
-	    {
-		return rootObj.m_app_list.get(index);
-	    }
-	    else
+            if (rootObj.type == DbToolTreeRoot.ROOT_SINGLE)
+                return rootObj.m_app_list.get(index);
+            else
                 return rootObj.m_appGroup.get(index);
         }
-	else if (parent instanceof DbToolApplicationInterface)
-	{
-	    return null;
-	}
-/*	else if (parent instanceof FoodGroup)
-	{
-	    FoodGroup fg = (FoodGroup)parent;
-	    ArrayList lst = (ArrayList)this.rootObj.m_foodDescByGroup.get(""+fg.getId());
-	    return (FoodDescription)lst.get(index);
-	} */
-	else
-	    return null;
+        else if (parent instanceof DbToolApplicationInterface)
+            return null;
+        else
+            return null;
 
     }
 
     /**
      * Returns the number of children of parent.
      */
-    public int getChildCount(Object parent) 
+    public int getChildCount(Object parent)
     {
 
         debug("Parent (getChildCount()): " + parent);
 
         if (parent instanceof DbToolTreeRoot)
         {
-	    if (rootObj.type==DbToolTreeRoot.ROOT_SINGLE)
-	    {
-		return rootObj.m_app_list.size();
-	    }
-	    else
-		return rootObj.m_appGroup.size();
+            if (rootObj.type == DbToolTreeRoot.ROOT_SINGLE)
+                return rootObj.m_app_list.size();
+            else
+                return rootObj.m_appGroup.size();
         }
-	else if (parent instanceof DbToolApplicationInterface)
-	{
-	    return 0;
-	}
-	else if (parent instanceof DatabaseSettings)
-	{
-	    return 0;
-	}
-	else
-	    return 0;
+        else if (parent instanceof DbToolApplicationInterface)
+            return 0;
+        else if (parent instanceof DatabaseSettings)
+            return 0;
+        else
+            return 0;
 
     }
 
     /**
      * Returns the index of child in parent.
      */
-    public int getIndexOfChild(Object parent, Object child) 
+    public int getIndexOfChild(Object parent, Object child)
     {
 
         debug("getIndexofChild: ");
 
         if (parent instanceof DbToolTreeRoot)
         {
-            DbToolApplicationInterface dii = (DbToolApplicationInterface)child;
+            DbToolApplicationInterface dii = (DbToolApplicationInterface) child;
             Iterator<DbToolApplicationInterface> it = rootObj.m_appGroup.iterator();
 
             int i = -1;
 
-            while (it.hasNext()) 
+            while (it.hasNext())
             {
                 i++;
 
-                DbToolApplicationInterface c = (DbToolApplicationInterface)it.next();
+                DbToolApplicationInterface c = it.next();
 
-		if (dii.equals(c))
-		{
-		    return i;
-		}
+                if (dii.equals(c))
+                    return i;
             }
         }
-	else if (parent instanceof DbToolApplicationInterface)
-	{
-	    return -1;
-	}
-	else if (parent instanceof DatabaseSettings)
-	{
-	    return -1;
-	}
-	//else
+        else if (parent instanceof DbToolApplicationInterface)
+            return -1;
+        else if (parent instanceof DatabaseSettings)
+            return -1;
 
-	return -1;
-/*
-	else if (parent instanceof DatabaseSettings)
-	{
-/*
-	    FoodDescription dii = (FoodDescription)child;
-	    ArrayList lst = (ArrayList)this.rootObj.m_foodDescByGroup.get(""+dii.getFood_group_id());
-	    Iterator it = lst.iterator();
-
-	    int i = -1;
-
-	    while (it.hasNext()) 
-	    {
-		i++;
-
-		FoodDescription c = (FoodDescription)it.next();
-
-		if (dii.getId()==c.getId()) 
-		    return i;
-	    }
-	}
-*/
-
+        return -1;
+        /*
+         * else if (parent instanceof DatabaseSettings)
+         * {
+         * /*
+         * FoodDescription dii = (FoodDescription)child;
+         * ArrayList lst =
+         * (ArrayList)this.rootObj.m_foodDescByGroup.get(""+dii.getFood_group_id
+         * ());
+         * Iterator it = lst.iterator();
+         * int i = -1;
+         * while (it.hasNext())
+         * {
+         * i++;
+         * FoodDescription c = (FoodDescription)it.next();
+         * if (dii.getId()==c.getId())
+         * return i;
+         * }
+         * }
+         */
 
     }
 
     /**
      * Returns the root of the tree.
      */
-    public Object getRoot() 
+    public Object getRoot()
     {
         return rootObj;
     }
@@ -256,33 +220,23 @@ public class DbToolTreeModel implements TreeModel
     /**
      * Returns true if node is a leaf.
      */
-    public boolean isLeaf(Object node) 
+    public boolean isLeaf(Object node)
     {
 
         if (node instanceof DbToolTreeRoot)
         {
-	    if (rootObj.type==DbToolTreeRoot.ROOT_SINGLE)
-		return (rootObj.m_app_list.size()==0);
-	    else
-		return (rootObj.m_appGroup.size()==0);
+            if (rootObj.type == DbToolTreeRoot.ROOT_SINGLE)
+                return rootObj.m_app_list.size() == 0;
+            else
+                return rootObj.m_appGroup.size() == 0;
 
         }
-	else if (node instanceof DbToolApplicationInterface)
-	{
-	    return true;
-	}
-	else if (node instanceof DatabaseSettings)
-	{
-	    return true;
-	}
-/*	else if (node instanceof FoodGroup)
-	{
-	    FoodGroup fg = (FoodGroup)node;
-	    ArrayList lst = (ArrayList)this.rootObj.m_foodDescByGroup.get(""+fg.getId());
-	    return lst.size() == 0;
-	} */
-	else
-	    return true;
+        else if (node instanceof DbToolApplicationInterface)
+            return true;
+        else if (node instanceof DatabaseSettings)
+            return true;
+        else
+            return true;
 
     }
 

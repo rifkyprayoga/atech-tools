@@ -34,7 +34,6 @@ import com.atech.update.startup.os.StartupOSAbstract;
  *
 */
 
-
 public abstract class DbApplicationAbstract extends AtechToolsApplication
 {
 
@@ -48,8 +47,7 @@ public abstract class DbApplicationAbstract extends AtechToolsApplication
     {
         super(uc, osa);
     }
-    
-    
+
     /**
      * Get Class Path
      * 
@@ -59,7 +57,7 @@ public abstract class DbApplicationAbstract extends AtechToolsApplication
     public String getClassPath()
     {
         StringBuffer sb = new StringBuffer();
-        
+
         sb.append(getClasspathForComponent("Atech Tools"));
         sb.append(";");
         sb.append(getClasspathForComponent("Hibernate Framework"));
@@ -71,20 +69,19 @@ public abstract class DbApplicationAbstract extends AtechToolsApplication
         sb.append(getClasspathForComponent("Apache Commons Logging"));
 
         // GGC Core should be removed
-        
+
         return StartupUtil.replaceExpression(sb.toString(), ";", this.os_abstract.getSeparator());
     }
 
-    
     /**
      * Needs JDBC Drivers
      * 
      * @return true if application needs JDBC drivers
      */
+    @Override
     public boolean needsJdbcDrivers()
     {
         return true;
     }
-    
-    
+
 }

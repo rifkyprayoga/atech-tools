@@ -35,7 +35,6 @@ import com.atech.update.config.UpdateConfigurationXml;
  *
 */
 
-
 public class UpdateTest
 {
 
@@ -44,18 +43,14 @@ public class UpdateTest
      */
     public static void main(String args[])
     {
-        
+
         UpdateConfiguration uc = new UpdateConfiguration();
-        
+
         UpdateConfigurationXml ucx = new UpdateConfigurationXml();
-        
+
         ucx.writeXml(uc);
         ucx.readXml(new File("test_create.xml"), new UpdateConfiguration(true));
-        
-        
+
     }
-    
-    
-    
-    
+
 }

@@ -30,28 +30,25 @@ package com.atech.db.hibernate.transfer;
  *
 */
 
-
 // this one should be extended, we have several variables that need to be filled
 
-public interface BackupRestoreObject extends BackupRestoreBase 
+public interface BackupRestoreObject extends BackupRestoreBase
 {
 
-	/**
-	 * Get Target Name
-	 * 
-	 * @see com.atech.db.hibernate.transfer.BackupRestoreBase#getTargetName()
-	 */
-	public String getTargetName();
-	
-	
+    /**
+     * Get Target Name
+     * 
+     * @see com.atech.db.hibernate.transfer.BackupRestoreBase#getTargetName()
+     */
+    public String getTargetName();
+
     /**
      * Get Table Version - returns version of table
      * 
      * @return version information
      */
     int getTableVersion();
-    
-    
+
     /**
      * dbExport - returns export String, for current version 
      * 
@@ -60,7 +57,6 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * @throws Exception if export for table is not supported
      */
     String dbExport(int table_version) throws Exception;
-    
 
     /**
      * dbExport - returns export String, for current version 
@@ -69,9 +65,7 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * @throws Exception if export for table is not supported
      */
     String dbExport() throws Exception;
-    
-    
-    
+
     /**
      * dbExportHeader - header for export file
      * 
@@ -79,7 +73,6 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * @return
      */
     String dbExportHeader(int table_version);
-    
 
     /**
      * dbExportHeader - header for export file
@@ -87,9 +80,7 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * @return
      */
     String dbExportHeader();
-    
-    
-    
+
     /**
      * dbImport - processes input entry to right fields
      * 
@@ -108,38 +99,35 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * @throws Exception if import for selected table version is not supported or it fails
      */
     void dbImport(int table_version, String value_entry, Object[] parameters) throws Exception;
-    
-    
+
     /**
      * getBackupFile - name of backup file (base part)
      * 
      * @return
      */
-	String getBackupFile();
-	
-	
-	/**
-	 * getBackupClassName - name of class which will be updated/restored
-	 * 
-	 * @return
-	 */
-	String getBackupClassName();
-	
-	
-	/**
-	 * Has To Be Clean - if table needs to be cleaned before import
-	 * 
-	 * @return true if we need to clean
-	 */
-	boolean hasToBeCleaned();
-	
-    //public boolean isCollection();
+    String getBackupFile();
 
-	// old
-	//public String getObjectClassName();
-	
-	//public String getObjectHeader();
-	
-	//public String getObjectValues();
-	
+    /**
+     * getBackupClassName - name of class which will be updated/restored
+     * 
+     * @return
+     */
+    String getBackupClassName();
+
+    /**
+     * Has To Be Clean - if table needs to be cleaned before import
+     * 
+     * @return true if we need to clean
+     */
+    boolean hasToBeCleaned();
+
+    // public boolean isCollection();
+
+    // old
+    // public String getObjectClassName();
+
+    // public String getObjectHeader();
+
+    // public String getObjectValues();
+
 }

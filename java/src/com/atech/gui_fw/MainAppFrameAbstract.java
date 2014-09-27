@@ -1,7 +1,5 @@
 package com.atech.gui_fw;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,9 +8,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Observable;
 
 import javax.help.CSH;
 import javax.help.HelpBroker;
@@ -20,9 +16,7 @@ import javax.help.HelpSet;
 import javax.help.HelpSetException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -33,66 +27,51 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
-import com.atech.graphics.dialogs.guilist.GUIListDialog;
-import com.atech.graphics.graphs.GraphViewer;
 import com.atech.help.HelpContext;
 import com.atech.i18n.I18nControlAbstract;
-import com.atech.plugin.PlugInClient;
-import com.atech.update.client.UpdateDialog;
-import com.atech.utils.ATDataAccess;
 import com.atech.utils.ATDataAccessAbstract;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
-
-
-
-
 
 public abstract class MainAppFrameAbstract extends JFrame implements ActionListener
 {
 
     public abstract boolean hasSplashScreen();
-    
+
     public abstract void initSplashScreen();
-    
-    
+
     private static final long serialVersionUID = -8971779470148201332L;
 
-    
     /**
      * Skin Look and Feel
      */
     public static SkinLookAndFeel s_skinlf;
-
 
     /**
      * Developer version 
      */
     public static boolean developer_version = false;
 
-    
     /**
      * Menu Bar
      */
     private JMenuBar menuBar = new JMenuBar();
 
-    
     /**
      * Tool Bars
      */
-    private Hashtable<String,JToolBar> toolbars = null;
-    
-    
-    //private JToolBar toolBar = new JToolBar();
-    //private JToolBar toolbar_pen = new JToolBar();
-    //private JToolBar toolbar_pump = new JToolBar();
+    private Hashtable<String, JToolBar> toolbars = null;
+
+    // private JToolBar toolBar = new JToolBar();
+    // private JToolBar toolbar_pen = new JToolBar();
+    // private JToolBar toolbar_pump = new JToolBar();
 
     private ATDataAccessAbstract m_da = null;
     private static final String skinLFdir = "../data/skinlf_themes/";
     private I18nControlAbstract m_ic = null;
-    
-    
 
-//    private JMenu menu_file, menu_bgs, /*menu_food,*/ menu_doctor, menu_printing, menu_tools, menu_help, /*menu_meters, menu_pumps,*/ menu_data_graphs /*, menu_cgms  , menu_misc */;
+    // private JMenu menu_file, menu_bgs, /*menu_food,*/ menu_doctor,
+    // menu_printing, menu_tools, menu_help, /*menu_meters, menu_pumps,*/
+    // menu_data_graphs /*, menu_cgms , menu_misc */;
 
     private Hashtable<String, JMenu> menus = null;
     private Hashtable<String, GGCAction> actions = null;
@@ -100,18 +79,15 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
     private Hashtable<String, GGCAction> toolbar_pump_items = null;
     private int current_toolbar = -1;
 
-
     /**
      * Status panels
      */
-//    public StatusBar statusPanel;
-    
+    // public StatusBar statusPanel;
+
     /**
      * Information panels
      */
-//    public InfoPanel informationPanel;
-
-    
+    // public InfoPanel informationPanel;
 
     /**
      * Static definitions (Look and Feel)
@@ -121,7 +97,6 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         MainAppFrameAbstract.setLookAndFeel();
     }
 
-    
     /**
      * Set Look & Feel
      */
@@ -131,7 +106,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         try
         {
 
-            String data[] = null; //ATDataAccess.getLFData();
+            String data[] = null; // ATDataAccess.getLFData();
 
             if (data == null)
                 return;
@@ -172,150 +147,119 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         // GGCProperties has been created
         // m_ic.setLanguage();
 
-        
         initDataAccess();
         // System.out.println("MainFrame before creation");
-        //m_da = DataAccess.createInstance(this);
+        // m_da = DataAccess.createInstance(this);
 
-         //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  m_da: " + m_da);
-/*
-        m_ic = m_da.getI18nControlInstance();
-
-        m_da.addComponent(this);
-        
-        m_da.developer_version = developer_version;
-
-        statusPanel = new StatusBar(this);
-
-        this.actions = new Hashtable<String, GGCAction>();
-        MainFrame.developer_version = developer_version;
-
-        
-        String title_full = "GGC - GNU Gluco Control (" + GGC.full_version + ")";
-
-        if (developer_version)
-            title_full += " - Developer edition";
-        
-        setTitle(title_full);
-        
-        
-        setJMenuBar(menuBar);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new CloseListener());
-
-        helpInit();
-
-//        initPlugIns();
-
-        // menu_file, menu_bgs, menu_food, menu_doctor, menu_reports,
-        // menu_tools, menu_help;
-
-        //setTitle("");
-        
-        this.setSoftwareMode();
-  */      
+        // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  m_da: "
+        // + m_da);
+        /*
+         * m_ic = m_da.getI18nControlInstance();
+         * m_da.addComponent(this);
+         * m_da.developer_version = developer_version;
+         * statusPanel = new StatusBar(this);
+         * this.actions = new Hashtable<String, GGCAction>();
+         * MainFrame.developer_version = developer_version;
+         * String title_full = "GGC - GNU Gluco Control (" + GGC.full_version +
+         * ")";
+         * if (developer_version)
+         * title_full += " - Developer edition";
+         * setTitle(title_full);
+         * setJMenuBar(menuBar);
+         * setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+         * addWindowListener(new CloseListener());
+         * helpInit();
+         * // initPlugIns();
+         * // menu_file, menu_bgs, menu_food, menu_doctor, menu_reports,
+         * // menu_tools, menu_help;
+         * //setTitle("");
+         * this.setSoftwareMode();
+         */
         createMenus();
 
         createToolBar();
-        
+
         initAppGUI();
-        
-        
-//        m_da.addObserver(ATDataAccessAbstract.OBSERVABLE_STATUS, this);
-        
+
+        // m_da.addObserver(ATDataAccessAbstract.OBSERVABLE_STATUS, this);
+
         /*
          * addToolBarButtonWithName("view_daily");
          * addToolBarButtonWithName("view_course");
          * addToolBarButtonWithName("view_spread");
          * addToolBarButtonWithName("view_freq"); addToolBarSpacer();
          * addToolBarSpacer();
-         * 
          * addToolBarButtonWithName("view_hba1c"); addToolBarSpacer();
          * addToolBarSpacer(); //addToolBarButtonWithName("view_freq");
-         * 
-         * 
-         * 
          * addToolBarButtonWithName("tools_pref"); addToolBarSpacer();
          * addToolBarSpacer(); addToolBarButtonWithName("hlp_help");
          */
         // this.menu_help.add(GGCHelp.helpItem);
-        
-        //getContentPane().remove(this.toolbars.get("TOOLBAR_PEN"));
-        //getContentPane().remove(this.toolbars.get("TOOLBAR_PUMP")); 
 
-//        getContentPane().add(this.toolbars.get("TOOLBAR_PEN"), BorderLayout.NORTH);
-//        getContentPane().add(statusPanel, BorderLayout.SOUTH);
+        // getContentPane().remove(this.toolbars.get("TOOLBAR_PEN"));
+        // getContentPane().remove(this.toolbars.get("TOOLBAR_PUMP"));
 
-//        m_da.startDb(); //statusPanel);
+        // getContentPane().add(this.toolbars.get("TOOLBAR_PEN"),
+        // BorderLayout.NORTH);
+        // getContentPane().add(statusPanel, BorderLayout.SOUTH);
 
-//        statusPanel.setStatusMessage(m_ic.getMessage("INIT"));
+        // m_da.startDb(); //statusPanel);
+
+        // statusPanel.setStatusMessage(m_ic.getMessage("INIT"));
 
         // Information Portal Setup
-//        informationPanel = new InfoPanel();
-//        getContentPane().add(informationPanel, BorderLayout.CENTER);
+        // informationPanel = new InfoPanel();
+        // getContentPane().add(informationPanel, BorderLayout.CENTER);
 
         // setDbActions(false);
-//        setMenusByDbLoad(StatusBar.DB_STOPPED);
-        
-        
-//        initPlugIns();
-        
-//        m_da.startToObserve();
-        
-        
+        // setMenusByDbLoad(StatusBar.DB_STOPPED);
+
+        // initPlugIns();
+
+        // m_da.startToObserve();
+
         initAppSpecific();
-        
+
         this.setVisible(true);
 
     }
 
-    
     public abstract void initDataAccess();
-    
+
     public abstract void initAppSpecific();
-    
-    
-    
-    
-    
-/*
-    private void initPlugIns()
-    {
-        // TODO: deprecated
-        m_da.addPlugIn(DataAccess.PLUGIN_METERS, new MetersPlugIn(this, m_ic));
-        // m_da.getPlugIn(DataAccess.PLUGIN_METERS).checkIfInstalled();
 
-        m_da.addPlugIn(DataAccess.PLUGIN_PUMPS, new PumpsPlugIn(this, m_ic));
-        // m_da.getPlugIn(DataAccess.PLUGIN_PUMPS).checkIfInstalled();
+    /*
+     * private void initPlugIns()
+     * {
+     * // TODO: deprecated
+     * m_da.addPlugIn(DataAccess.PLUGIN_METERS, new MetersPlugIn(this, m_ic));
+     * // m_da.getPlugIn(DataAccess.PLUGIN_METERS).checkIfInstalled();
+     * m_da.addPlugIn(DataAccess.PLUGIN_PUMPS, new PumpsPlugIn(this, m_ic));
+     * // m_da.getPlugIn(DataAccess.PLUGIN_PUMPS).checkIfInstalled();
+     * m_da.addPlugIn(DataAccess.PLUGIN_CGMS, new CGMSPlugIn(this, m_ic));
+     * // m_da.getPlugIn(DataAccess.PLUGIN_CGMS).checkIfInstalled();
+     * }
+     */
 
-        m_da.addPlugIn(DataAccess.PLUGIN_CGMS, new CGMSPlugIn(this, m_ic));
-        // m_da.getPlugIn(DataAccess.PLUGIN_CGMS).checkIfInstalled();
-    }
-*/
-    
-    
     public abstract void initAppGUI();
-    
+
     public abstract void createMenus();
-    
+
     public abstract void createToolBar();
-    
-    
-    
-    
-    
+
     private void helpInit()
     {
-//        HelpContext hc = new HelpContext("../data/help/GGC.hs");
-//        m_da.setHelpContext(hc);
+        // HelpContext hc = new HelpContext("../data/help/GGC.hs");
+        // m_da.setHelpContext(hc);
         boolean help_debug = true;
-        
+
         if (help_debug)
+        {
             System.out.println("Help Init");
-        
+        }
+
         HelpContext hc = m_da.getHelpContext();
-        
-        
+
         JMenuItem helpItem = new JMenuItem(m_ic.getMessage("HELP") + "...");
         helpItem.setIcon(new ImageIcon(getClass().getResource("/icons/help.gif")));
         hc.setHelpItem(helpItem);
@@ -330,7 +274,9 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         {
 
             if (help_debug)
+            {
                 System.out.println("Help init broker");
+            }
 
             HelpSet main_help_set = null;
             // HelpContext.mainHelpSet = null;
@@ -345,9 +291,13 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
                 URL hsURL = new URL(help_url);
 
                 if (hsURL == null)
+                {
                     System.out.println("HelpSet " + help_url + " not found.");
+                }
                 else
+                {
                     main_help_set = new HelpSet(null, hsURL);
+                }
             }
             catch (HelpSetException ee)
             {
@@ -392,8 +342,6 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
     }
 
-    
-
     private JMenu createMenu(String name, String tool_tip)
     {
         JMenu item = new JMenu(m_ic.getMessageWithoutMnemonic(name));
@@ -426,7 +374,6 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         return item;
     }
 
-    
     /**
      * ToolBar: Pen/Injection
      */
@@ -438,45 +385,39 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
     public static final int TOOLBAR_PUMP = 2;
 
     /*
-    private void createToolbarAction(String name, String tip, String action_command, String icon_small, int toolbar_id)
-    {
-        GGCAction action = new GGCAction(name, tip, action_command);
-
-        if (icon_small != null)
-        {
-            action.putValue(Action.SMALL_ICON, m_da.getImageIcon(icon_small, 24, 24, this));
-        }
-
-        
-        if (toolbar_id == MainFrame.TOOLBAR_PEN_INJECTION)
-            this.toolbar_pen_items.put(action_command, action);
-        else
-            this.toolbar_pump_items.put(action_command, action);
-
-        addToolBarButton(action, toolbar_id);
-
-    }
-
-    private void createAction(JMenu menu, String name, String tip, String action_command, String icon_small)
-    {
-        GGCAction action = new GGCAction(name, tip, action_command);
-
-        if (icon_small != null)
-        {
-            action.putValue(Action.SMALL_ICON, m_da.getImageIcon(icon_small, 15, 15, this));
-            // new ImageIcon(getClass().getResource("/icons/" + icon_small)));
-            // action.putValue(Action.LARGE_ICON_KEY, new
-            // ImageIcon(getClass().getResource("/icons/" + icon_small)));
-        }
-
-        if (menu != null)
-            menu.add(action);
-
-        this.actions.put(action_command, action);
-
-        // return action;
-    }
-*/
+     * private void createToolbarAction(String name, String tip, String
+     * action_command, String icon_small, int toolbar_id)
+     * {
+     * GGCAction action = new GGCAction(name, tip, action_command);
+     * if (icon_small != null)
+     * {
+     * action.putValue(Action.SMALL_ICON, m_da.getImageIcon(icon_small, 24, 24,
+     * this));
+     * }
+     * if (toolbar_id == MainFrame.TOOLBAR_PEN_INJECTION)
+     * this.toolbar_pen_items.put(action_command, action);
+     * else
+     * this.toolbar_pump_items.put(action_command, action);
+     * addToolBarButton(action, toolbar_id);
+     * }
+     * private void createAction(JMenu menu, String name, String tip, String
+     * action_command, String icon_small)
+     * {
+     * GGCAction action = new GGCAction(name, tip, action_command);
+     * if (icon_small != null)
+     * {
+     * action.putValue(Action.SMALL_ICON, m_da.getImageIcon(icon_small, 15, 15,
+     * this));
+     * // new ImageIcon(getClass().getResource("/icons/" + icon_small)));
+     * // action.putValue(Action.LARGE_ICON_KEY, new
+     * // ImageIcon(getClass().getResource("/icons/" + icon_small)));
+     * }
+     * if (menu != null)
+     * menu.add(action);
+     * this.actions.put(action_command, action);
+     * // return action;
+     * }
+     */
     /**
      * Set menus by Db Loading status
      * 
@@ -484,7 +425,6 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
      */
     public abstract void setMenusByDbLoad(int status);
 
-    
     /**
      * Set Toolbar by Db Load
      * 
@@ -492,7 +432,6 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
      */
     public abstract void setToolbarByDbLoad(int status);
 
-    
     private void setToolBarItemEnabled(String item_name, boolean enabled)
     {
         if (this.toolbar_pump_items.containsKey(item_name))
@@ -504,50 +443,39 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         {
             this.toolbar_pen_items.get(item_name).setEnabled(enabled);
         }
-        
+
     }
-    
-    
-    
 
     // System.out.println("FIIIIIIIIIIIIIIIIIIIIIIXXXX this");
     // }
     private void close()
     {
-/*
-        if (m_da != null)
-        {
-            if (m_da.getDb() != null)
-                m_da.getDb().closeDb();
-
-            DataAccess.deleteInstance();
-        }
-*/
+        /*
+         * if (m_da != null)
+         * {
+         * if (m_da.getDb() != null)
+         * m_da.getDb().closeDb();
+         * DataAccess.deleteInstance();
+         * }
+         */
         dispose();
         System.exit(0);
     }
 
-    
-    
-    
-/*
-    private JButton addToolBarButton(Action action, int toolbar_id)
-    {
-        final JButton button;        
-
-        if (toolbar_id == MainFrame.TOOLBAR_PEN_INJECTION)
-            button = this.toolbars.get("TOOLBAR_PEN").add(action);
-        else
-            button = this.toolbars.get("TOOLBAR_PUMP").add(action);
-
-        button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(28, 28));
-
-        return button;
-    }
-*/
-    
+    /*
+     * private JButton addToolBarButton(Action action, int toolbar_id)
+     * {
+     * final JButton button;
+     * if (toolbar_id == MainFrame.TOOLBAR_PEN_INJECTION)
+     * button = this.toolbars.get("TOOLBAR_PEN").add(action);
+     * else
+     * button = this.toolbars.get("TOOLBAR_PUMP").add(action);
+     * button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+     * button.setFocusPainted(false);
+     * button.setPreferredSize(new Dimension(28, 28));
+     * return button;
+     * }
+     */
 
     class GGCAction extends AbstractAction
     {
@@ -575,7 +503,9 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
             }
 
             if (command != null)
+            {
                 putValue(ACTION_COMMAND_KEY, command);
+            }
 
             command = name;
         }
@@ -606,10 +536,14 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
             }
 
             if (tooltip != null)
+            {
                 putValue(SHORT_DESCRIPTION, m_ic.getMessage(tooltip));
+            }
 
             if (command != null)
+            {
                 putValue(ACTION_COMMAND_KEY, command);
+            }
         }
 
         public String getName()
@@ -619,7 +553,6 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
         public void actionPerformed(ActionEvent e)
         {
-
 
         }
     }
@@ -636,7 +569,6 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
     }
 
-    
     private void featureNotImplementedDescription(String desc, String version)
     {
         String text = m_ic.getMessage("FEATURE");
@@ -648,8 +580,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         JOptionPane.showMessageDialog(this, text, m_ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
 
     }
-    
-    
+
     private class CloseListener extends WindowAdapter
     {
         @Override
@@ -659,7 +590,6 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         }
     }
 
-    
     /**
      * To String
      * 
@@ -671,13 +601,6 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         return "MainFrame";
     }
 
-    
     boolean title_set = false;
-    
 
-    
-    
-
-    
-    
 }

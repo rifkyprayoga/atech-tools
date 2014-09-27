@@ -34,53 +34,51 @@ import com.atech.graphics.components.StatusReporterInterface;
  *
 */
 
-
-public abstract class DbDataWriterAbstract extends Thread 
+public abstract class DbDataWriterAbstract extends Thread
 {
 
     /**
      * Status - None
      */
     public static final int STATUS_NONE = 0;
-    
+
     /**
      * Status Ready - ready for writing  
      */
     public static final int STATUS_READY = 1;
-    
+
     /**
      * Status Reading - we are reading from db 
      */
     public static final int STATUS_READING = 2;
-    
+
     /**
      * Status Finished Reading - reading from db was stopped 
      */
     public static final int STATUS_FINISHED_READING = 3;
-    
+
     /**
      * Status Finished Reading with error - reading from db was stopped by error 
      */
     public static final int STATUS_FINISHED_READING_ERROR = 4;
-    
 
     protected int selected_data_type = 0;
     protected Object data = null;
     protected int current_status = 0;
     protected StatusReporterInterface stat_rep_int = null;
-    
+
     /**
      * Constructor
      * 
      * @param type
      * @param stat_rep_int
      */
-    public DbDataWriterAbstract(int type, /*Object data,*/ StatusReporterInterface stat_rep_int)
+    public DbDataWriterAbstract(int type, /* Object data, */StatusReporterInterface stat_rep_int)
     {
         this.selected_data_type = type;
         this.stat_rep_int = stat_rep_int;
     }
-    
+
     /**
      * Get Type Of Data - returns type of data
      * 
@@ -91,7 +89,6 @@ public abstract class DbDataWriterAbstract extends Thread
         return this.selected_data_type;
     }
 
-    
     /**
      * Get Status - returns status of current writing
      * 
@@ -101,8 +98,7 @@ public abstract class DbDataWriterAbstract extends Thread
     {
         return this.current_status;
     }
-    
-    
+
     /**
      * Set Status - sets status of writing
      * 
@@ -113,7 +109,6 @@ public abstract class DbDataWriterAbstract extends Thread
         this.current_status = status;
     }
 
-    
     /**
      * Is Finished - queries if reading is finished
      * 
@@ -121,14 +116,13 @@ public abstract class DbDataWriterAbstract extends Thread
      */
     public boolean isFinished()
     {
-        return (this.current_status > 2);
+        return this.current_status > 2;
     }
-    
+
     /** 
      * Run - method for running thread
      */
+    @Override
     public abstract void run();
-  
-
 
 }

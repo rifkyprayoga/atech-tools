@@ -6,7 +6,7 @@ package com.atech.graphics.components;
  */
 public interface MultiLineTooltipModel
 {
-    
+
     /**
      * Gets the tool tip value.
      * 
@@ -16,5 +16,5 @@ public interface MultiLineTooltipModel
      * @return the tool tip value
      */
     public String getToolTipValue(int row, int column);
-    
+
 }

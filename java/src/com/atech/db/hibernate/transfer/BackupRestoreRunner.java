@@ -9,7 +9,6 @@ import com.atech.graphics.components.tree.CheckNodeTree;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 
-
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -44,20 +43,18 @@ import com.atech.utils.ATDataAccessAbstract;
 public abstract class BackupRestoreRunner extends Thread implements BackupRestoreWorkGiver
 {
 
-    
     /**
      * The ic.
      */
     protected I18nControlAbstract ic = null;
-    
+
     /**
      * The m_da.
      */
     protected ATDataAccessAbstract m_da = null;
 
-
     /*
-     *  Globaly used variables
+     * Globaly used variables
      */
 
     /**
@@ -69,61 +66,59 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      * The progress_current.
      */
     JProgressBar progress_full, progress_current;
-    
+
     /**
      * The tree.
      */
     CheckNodeTree tree;
-    
+
     /**
      * The m_error.
      */
     int m_error = 0;
-    
+
     /**
      * The last action.
      */
-    int lastAction = 0;  // no event
+    int lastAction = 0; // no event
 
     /**
      * The count_of_backup_elements.
      */
     protected int count_of_backup_elements = 0;
-    
+
     /**
      * The done_backup_elements.
      */
     protected int done_backup_elements = 0;
-    
+
     /**
      * The is_backup.
      */
     boolean is_backup = false;
-    
-    
 
     /**
      * The ht_backup_objects.
      */
-    protected Hashtable<String,BackupRestoreObject> ht_backup_objects;
-    
+    protected Hashtable<String, BackupRestoreObject> ht_backup_objects;
+
     /**
      * The ht_restore_objects.
      */
-    Hashtable<String,RestoreFileInfo> ht_restore_objects;
-    
+    Hashtable<String, RestoreFileInfo> ht_restore_objects;
+
     /**
      * The work_giver.
      */
     protected BackupRestoreWorkGiver work_giver;
-    
+
     /**
      * Instantiates a new backup restore runner.
      * 
      * @param objects the objects
      * @param work_giver the work_giver
      */
-    public BackupRestoreRunner(Hashtable<String,BackupRestoreObject> objects, BackupRestoreWorkGiver work_giver)
+    public BackupRestoreRunner(Hashtable<String, BackupRestoreObject> objects, BackupRestoreWorkGiver work_giver)
     {
         super();
         this.ht_backup_objects = objects;
@@ -131,7 +126,6 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
         is_backup = true;
     }
 
-    
     /**
      * Instantiates a new backup restore runner.
      * 
@@ -139,17 +133,16 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      * @param work_giver the work_giver
      * @param special the special
      */
-    public BackupRestoreRunner(Hashtable<String,RestoreFileInfo> objects, BackupRestoreWorkGiver work_giver, String special)
+    public BackupRestoreRunner(Hashtable<String, RestoreFileInfo> objects, BackupRestoreWorkGiver work_giver,
+            String special)
     {
         super();
-        //this.ht_backup_objects = objects;
+        // this.ht_backup_objects = objects;
         this.ht_restore_objects = objects;
         this.work_giver = work_giver;
         is_backup = false;
     }
-    
-    
-    
+
     /** 
      * setTask
      */
@@ -157,8 +150,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     {
         this.work_giver.setTask(task);
     }
-    
-    
+
     /** 
      * setStatus
      */
@@ -167,8 +159,6 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
         this.work_giver.setStatus(status);
     }
 
-
-    
     /**
      * Checks if is backup object selected.
      * 
@@ -178,16 +168,15 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      */
     public boolean isBackupObjectSelected(String key)
     {
-        if (this.ht_backup_objects==null)
+        if (this.ht_backup_objects == null)
             return false;
-        
+
         if (this.ht_backup_objects.containsKey(key))
             return this.ht_backup_objects.get(key).isSelected();
         else
             return false;
     }
-    
-    
+
     /**
      * Checks if is restore object selected.
      * 
@@ -197,18 +186,15 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      */
     public boolean isRestoreObjectSelected(String key)
     {
-        if (this.ht_restore_objects==null)
+        if (this.ht_restore_objects == null)
             return false;
-        
+
         if (this.ht_restore_objects.containsKey(key))
-        {
             return this.ht_restore_objects.get(key).selected;
-        }
         else
             return false;
     }
-    
-    
+
     /**
      * Gets the restore object.
      * 
@@ -218,40 +204,39 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      */
     public RestoreFileInfo getRestoreObject(String key)
     {
-        if (this.ht_restore_objects==null)
+        if (this.ht_restore_objects == null)
             return null;
-        
+
         if (this.ht_restore_objects.containsKey(key))
             return this.ht_restore_objects.get(key);
         else
             return null;
     }
-    
-    
+
     /** 
      * run
      */
+    @Override
     public void run()
     {
         if (is_backup)
+        {
             executeBackup();
+        }
         else
+        {
             executeRestore();
+        }
     }
-    
-    
+
     /**
      * Execute backup.
      */
     public abstract void executeBackup();
-    
+
     /**
      * Execute restore.
      */
     public abstract void executeRestore();
 
-
-
 }
-
-

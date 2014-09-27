@@ -28,7 +28,6 @@ package weiss.util;
  *
  */
 
-
 // Random class
 //
 // CONSTRUCTION: with (a) no initializer or (b) an integer
@@ -64,9 +63,9 @@ public class Random
      * Construct this Random object with
      * initial state obtained from system clock.
      */
-    public Random( )
+    public Random()
     {
-        this( (int) ( System.currentTimeMillis( ) % Integer.MAX_VALUE ) );
+        this((int) (System.currentTimeMillis() % Integer.MAX_VALUE));
     }
 
     /**
@@ -74,14 +73,18 @@ public class Random
      * specified initial state.
      * @param initialValue the initial state.
      */
-    public Random( int initialValue )
+    public Random(int initialValue)
     {
-        if( initialValue < 0 )
+        if (initialValue < 0)
+        {
             initialValue += M;
+        }
 
         state = initialValue;
-        if( state == 0 )
+        if (state == 0)
+        {
             state = 1;
+        }
     }
 
     /**
@@ -89,26 +92,30 @@ public class Random
      * internal state.
      * @return the pseudorandom int.
      */
-    public int nextInt( )
+    public int nextInt()
     {
-        int tmpState = A * ( state % Q ) - R * ( state / Q );
-        if( tmpState >= 0 )
+        int tmpState = A * (state % Q) - R * (state / Q);
+        if (tmpState >= 0)
+        {
             state = tmpState;
+        }
         else
+        {
             state = tmpState + M;
+        }
 
         return state;
     }
-    
+
     /**
      * Return a pseudorandom int in range [0..high),
      * and change the internal state.
      * @param high 
      * @return the pseudorandom int.
      */
-    public int nextInt( int high )
+    public int nextInt(int high)
     {
-        return nextInt( ) % high;
+        return nextInt() % high;
     }
 
     /**
@@ -116,9 +123,9 @@ public class Random
      * internal state. DOES NOT WORK.
      * @return the pseudorandom int.
      */
-    public int nextIntWRONG( )
+    public int nextIntWRONG()
     {
-        return state = ( A * state ) % M;
+        return state = A * state % M;
     }
 
     /**
@@ -126,9 +133,9 @@ public class Random
      * and change the internal state.
      * @return the pseudorandom double.
      */
-    public double nextDouble( )
+    public double nextDouble()
     {
-        return (double) nextInt( ) / M;
+        return (double) nextInt() / M;
     }
 
     /**
@@ -138,11 +145,11 @@ public class Random
      * @param high the maximum value returned.
      * @return the pseudorandom int.
      */
-    public int nextInt( int low, int high )
+    public int nextInt(int low, int high)
     {
-        double partitionSize = (double) M / ( high - low + 1 );
+        double partitionSize = (double) M / (high - low + 1);
 
-        return (int) ( nextInt( ) / partitionSize ) + low;
+        return (int) (nextInt() / partitionSize) + low;
     }
 
     /**
@@ -150,9 +157,9 @@ public class Random
      * change the internal state.
      * @return the pseudorandom long.
      */
-    public long nextLong( )
+    public long nextLong()
     {
-        return  ( (long) nextInt( ) << 31 ) + nextInt( );
+        return ((long) nextInt() << 31) + nextInt();
     }
 
     /**
@@ -162,13 +169,13 @@ public class Random
      * @param high the maximum value returned.
      * @return the pseudorandom long.
      */
-    public long nextLong( long low, long high )
+    public long nextLong(long low, long high)
     {
-        long longVal =  ( (long) nextInt( ) << 31 ) + nextInt( );
-        long longM =  ( (long) M << 31 ) + M;
+        long longVal = ((long) nextInt() << 31) + nextInt();
+        long longM = ((long) M << 31) + M;
 
-        double partitionSize = (double) longM / ( high - low + 1 );
-        return (long) ( longVal / partitionSize ) + low;
+        double partitionSize = (double) longM / (high - low + 1);
+        return (long) (longVal / partitionSize) + low;
     }
 
     /**
@@ -177,14 +184,16 @@ public class Random
      * @param expectedValue the mean of the distribution.
      * @return the pseudorandom int.
      */
-    public int nextPoisson( double expectedValue )
+    public int nextPoisson(double expectedValue)
     {
         double limit = -expectedValue;
-        double product = Math.log( nextDouble( ) );
+        double product = Math.log(nextDouble());
         int count;
 
-        for( count = 0; product > limit; count++ )
-            product += Math.log( nextDouble( ) );
+        for (count = 0; product > limit; count++)
+        {
+            product += Math.log(nextDouble());
+        }
 
         return count;
     }
@@ -195,54 +204,53 @@ public class Random
      * @param expectedValue the mean of the distribution.
      * @return the pseudorandom double.
      */
-    public double nextNegExp( double expectedValue )
+    public double nextNegExp(double expectedValue)
     {
-        return - expectedValue * Math.log( nextDouble( ) );
+        return -expectedValue * Math.log(nextDouble());
     }
-    
+
     /**
      * Method to swap to elements in an array.
      * @param a an array of objects.
      * @param index1 the index of the first object.
      * @param index2 the index of the second object.
      */
-    private static final void swapReferences( Object [ ] a, int index1, int index2 )
+    private static final void swapReferences(Object[] a, int index1, int index2)
     {
-        Object tmp = a[ index1 ];
-        a[ index1 ] = a[ index2 ];
-        a[ index2 ] = tmp;
+        Object tmp = a[index1];
+        a[index1] = a[index2];
+        a[index2] = tmp;
     }
-        
+
     /**
      * Randomly rearrange an array.
      * The random numbers used depend on the time and day.
      * @param a the array.
      */
-    public static final void permute( Object [ ] a )
+    public static final void permute(Object[] a)
     {
-        Random r = new Random( );
+        Random r = new Random();
 
-        for( int j = 1; j < a.length; j++ )
-            swapReferences( a, j, r.nextInt( 0, j ) );
+        for (int j = 1; j < a.length; j++)
+        {
+            swapReferences(a, j, r.nextInt(0, j));
+        }
     }
 
     private int state;
-/*
-        // Test program
-    public static void main( String [ ] args )
-    {
-        Random r = new Random( );
-
-        for( int i = 0; i < 20; i++ )
-            System.out.println( r.nextInt( ) );
-            
-        int [ ] dist = new int[ 10000 ];
-        
-        final int SAMPLES = 1000000;
-        for( int i = 0; i < SAMPLES; i++ )
-            dist[ r.nextPoisson( 2 ) ]++;
-        for( int i = 0; i < 10; i++ )
-            System.out.println( i + ": " +  dist[ i ] / (double) SAMPLES );    
-    }
-*/    
+    /*
+     * // Test program
+     * public static void main( String [ ] args )
+     * {
+     * Random r = new Random( );
+     * for( int i = 0; i < 20; i++ )
+     * System.out.println( r.nextInt( ) );
+     * int [ ] dist = new int[ 10000 ];
+     * final int SAMPLES = 1000000;
+     * for( int i = 0; i < SAMPLES; i++ )
+     * dist[ r.nextPoisson( 2 ) ]++;
+     * for( int i = 0; i < 10; i++ )
+     * System.out.println( i + ": " + dist[ i ] / (double) SAMPLES );
+     * }
+     */
 }

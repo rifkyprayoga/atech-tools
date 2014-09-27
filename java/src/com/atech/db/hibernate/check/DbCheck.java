@@ -45,32 +45,31 @@ import com.atech.utils.ATDataAccessAbstract;
  *
 */
 
-
 public class DbCheck
 {
 
     // 1. load update configuration
-    //     a) get data (db)
-    // 2. load db configuration 
+    // a) get data (db)
+    // 2. load db configuration
     // 3. make check
     // 4. display if error found
-    
+
     ATDataAccessAbstract da = null;
-    
+
     UpdateConfiguration upd_conf;
-    
-    //private Log log = LogFactory.getLog(DbCheck.class);
-    
+
+    // private Log log = LogFactory.getLog(DbCheck.class);
+
     private String db_config_instance_class = "";
-    
+
     private String version_db = "0";
     private String version_db_required = "0";
-    
-    //private String report_file = "db_info.txt";
-    
+
+    // private String report_file = "db_info.txt";
+
     private boolean get_successful = false;
-    private HibernateConfiguration hc = null; 
-    
+    private HibernateConfiguration hc = null;
+
     /**
      * Constructor
      */
@@ -78,18 +77,18 @@ public class DbCheck
     {
         if (!StartupUtil.shouldDbCheckBeDone())
             return;
-        
+
         this.upd_conf = new BuildStartupFile().getConfiguration();
         da = ATDataAccess.getInstance();
-        //loadApplicationData();
-        
+        // loadApplicationData();
+
         readUpdateSystemData();
         readCurrentDbVersion();
         writeReport();
-        
+
         StartupUtil.writeStartupWithOldCopy(1);
     }
-    
+
     /**
      * Constructor
      * 
@@ -103,15 +102,14 @@ public class DbCheck
 
         da = ATDataAccess.getInstance();
         this.version_db_required = req_version;
-        this.db_config_instance_class = db_class; 
+        this.db_config_instance_class = db_class;
 
         readCurrentDbVersion();
         writeReport();
 
         StartupUtil.writeStartupWithOldCopy(1);
     }
-    
-    
+
     /**
      * Read Update System Data
      */
@@ -120,7 +118,7 @@ public class DbCheck
         this.version_db_required = "" + this.upd_conf.db_version_required;
         this.db_config_instance_class = this.upd_conf.db_config_class;
     }
-    
+
     /**
      * Read Current Db Version
      */
@@ -128,38 +126,38 @@ public class DbCheck
     {
         try
         {
-            
+
             System.out.println("*******************************************************");
             System.out.println("*****             Db Check  v0.1                 ******");
             System.out.println("*******************************************************");
-            
-            //System.out.println("Running class creation: ");
-        
+
+            // System.out.println("Running class creation: ");
+
             Class<?> c = Class.forName(this.db_config_instance_class);
 
-           
-            //System.out.println(this.db_config_instance_class);
-            //System.out.println("Found class[1]: " + c);
-            
+            // System.out.println(this.db_config_instance_class);
+            // System.out.println("Found class[1]: " + c);
+
             Constructor<?>[] constructors = c.getConstructors();
-            //System.out.println(Arrays.asList(constructors));
-            
-            //hc = (HibernateConfiguration)c.newInstance();
-            hc = (HibernateConfiguration)constructors[0].newInstance(true);
-            
-            //Configuration cfg = hc.getDbInfoConfiguration();
-            //HibernateUtil hu = new HibernateUtil(cfg);
-            
+            // System.out.println(Arrays.asList(constructors));
+
+            // hc = (HibernateConfiguration)c.newInstance();
+            hc = (HibernateConfiguration) constructors[0].newInstance(true);
+
+            // Configuration cfg = hc.getDbInfoConfiguration();
+            // HibernateUtil hu = new HibernateUtil(cfg);
+
             HibernateUtil hu = new HibernateUtil(hc, HibernateConfiguration.DB_CONTEXT_DBINFO);
             hu.setSession(1);
-            
-            Query q = hu.getSession().createQuery("select inf from com.atech.db.hibernate.check.DbInfoH as inf where inf.key='DB_INFO' ");
+
+            Query q = hu.getSession().createQuery(
+                "select inf from com.atech.db.hibernate.check.DbInfoH as inf where inf.key='DB_INFO' ");
 
             Iterator<?> it = q.iterate();
 
             if (it.hasNext())
             {
-                DbInfoH di = (DbInfoH)it.next();
+                DbInfoH di = (DbInfoH) it.next();
                 this.version_db = di.getValue();
                 this.get_successful = true;
             }
@@ -167,30 +165,29 @@ public class DbCheck
             {
                 this.get_successful = true;
             }
-            
+
         }
-        catch(ClassNotFoundException ex)
+        catch (ClassNotFoundException ex)
         {
             System.out.println("Class Not Found Exception: " + ex);
             ex.printStackTrace();
         }
-        catch(IllegalAccessException ex)
+        catch (IllegalAccessException ex)
         {
             System.out.println("Illegal Access Exception: " + ex);
             ex.printStackTrace();
         }
-        catch(InstantiationException ex)
+        catch (InstantiationException ex)
         {
             System.out.println("Illegal Access Exception: " + ex);
             ex.printStackTrace();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             System.out.println("Exception happened: " + ex);
             ex.printStackTrace();
         }
     }
-    
 
     /**
      * Write Report
@@ -199,11 +196,11 @@ public class DbCheck
     {
         StringBuffer sb = new StringBuffer();
         StringBuffer sb1 = new StringBuffer();
-        
+
         sb.append("DbInfo for ");
         sb.append(this.hc.getDbName());
         sb.append(": ");
-        
+
         if (this.get_successful)
         {
             sb.append("OK");
@@ -214,37 +211,32 @@ public class DbCheck
             sb.append("Failed");
             sb1.append("Failed");
         }
-        
+
         sb.append("\n");
-        
+
         sb.append("Current Db Version: " + this.version_db + "\n");
         sb.append("Required Db Version: " + this.version_db_required + "\n");
-        
+
         sb1.append("|" + this.version_db + "|" + this.version_db_required + "\n");
-        
-        
+
         sb.append(sb1.toString());
-        
-        
-        
-        //System.out.println(sb.toString());
-        
+
+        // System.out.println(sb.toString());
+
         try
         {
-        
+
             BufferedWriter bw = new BufferedWriter(new FileWriter(this.hc.getDbInfoReportFilename()));
             bw.write(sb.toString());
             bw.close();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             System.out.println("Error writing report to file: " + ex);
             ex.printStackTrace();
         }
-        
-    }
-    
 
+    }
 
     /**
      * Startup method
@@ -253,24 +245,14 @@ public class DbCheck
      */
     public static void main(String[] args)
     {
-        if (args.length==0)
+        if (args.length == 0)
         {
-            /*DbCheck dbc =*/ new DbCheck();
+            /* DbCheck dbc = */new DbCheck();
         }
         else
         {
-            /*DbCheck dbc =*/ new DbCheck(args[0], args[1]);
+            /* DbCheck dbc = */new DbCheck(args[0], args[1]);
         }
     }
 
-    
-    
-    
-    
 }
-
-
-
-
-
-

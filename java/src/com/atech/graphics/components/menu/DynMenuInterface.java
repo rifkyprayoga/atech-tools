@@ -39,13 +39,12 @@ public interface DynMenuInterface
      * @return
      */
     public int getType();
-    
-    
+
     /**
      * Get Name
      * 
      * @return
      */
     public String getName();
-    
+
 }

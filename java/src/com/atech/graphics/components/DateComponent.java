@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
@@ -55,17 +56,17 @@ public class DateComponent extends JPanel implements ChangeListener
     private static final long serialVersionUID = -1894748246277058611L;
 
     private String action_command = null;
-    
+
     /**
      * The m_command.
      */
-    //String m_command = "";
-    
+    // String m_command = "";
+
     /**
      * The m_note.
      */
     String m_note = "";
-    
+
     /**
      * The ic.
      */
@@ -74,8 +75,8 @@ public class DateComponent extends JPanel implements ChangeListener
     /**
      * The component_width.
      */
-    int component_width = 205;  // 182
-    
+    int component_width = 205; // 182
+
     /**
      * The component_height.
      */
@@ -93,16 +94,16 @@ public class DateComponent extends JPanel implements ChangeListener
 
     // DataAccess m_da;
 
-    //private static String months[];
-    //private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
+    // private static String months[];
+    // private ArrayList<ChangeListener> listeners = new
+    // ArrayList<ChangeListener>();
     @SuppressWarnings("unused")
     private long object_id = 0L;
 
-    ATDataAccessAbstract m_da; 
+    ATDataAccessAbstract m_da;
     ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
     boolean debug = false;
-    
-    
+
     /**
      * Constructor
      * 
@@ -138,13 +139,11 @@ public class DateComponent extends JPanel implements ChangeListener
 
         m_da = da;
         this.ic = da.getI18nControlInstance();
-        //initMonths();
+        // initMonths();
 
         initComponent(lower_year, higher_year_diff);
     }
 
-    
-    
     /**
      * Constructor
      * 
@@ -179,13 +178,11 @@ public class DateComponent extends JPanel implements ChangeListener
         super();
 
         this.ic = ic;
-        //initMonths();
+        // initMonths();
 
         initComponent(lower_year, higher_year_diff);
     }
-    
-    
-    
+
     private void initComponent(int lower_year, int higher_year_diff)
     {
         Font font_normal = new Font("SansSerif", Font.PLAIN, 12);
@@ -198,20 +195,17 @@ public class DateComponent extends JPanel implements ChangeListener
         day.addChangeListener(this);
         day.setFont(font_normal);
 
-        
-        
-        //SpinnerListModel listMonthsModel = new SpinnerListModel(months);
+        // SpinnerListModel listMonthsModel = new SpinnerListModel(months);
 
         SpinnerListModel listMonthsModel = new SpinnerListModel(m_da.getMonthsArray());
-        
-        
+
         month = new JSpinner(listMonthsModel);
         month.addChangeListener(this);
         month.setFont(font_normal);
 
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTimeInMillis(System.currentTimeMillis());
-        int yr = gc.get(GregorianCalendar.YEAR);
+        int yr = gc.get(Calendar.YEAR);
 
         SpinnerNumberModel listYearsModel = new SpinnerNumberModel(yr, lower_year, yr + higher_year_diff, 1);
 
@@ -223,22 +217,21 @@ public class DateComponent extends JPanel implements ChangeListener
         day.setBounds(0, 0, 45, 25);
         month.setBounds(50, 0, 90, 25);
         year.setBounds(145, 0, 60, 25);
-        
-/*        
-        day.setBounds(0, 0, 40, 25); // 40
-        month.setBounds(45, 0, 90, 25); // 40, 90
-        year.setBounds(140, 0, 80, 25); // 138
-*/
+
+        /*
+         * day.setBounds(0, 0, 40, 25); // 40
+         * month.setBounds(45, 0, 90, 25); // 40, 90
+         * year.setBounds(140, 0, 80, 25); // 138
+         */
         this.add(day, null);
         this.add(month, null);
         this.add(year, null);
 
-        Random generator2 = new Random( 19580427 );
+        Random generator2 = new Random(19580427);
         this.object_id = generator2.nextLong();
-        
+
     }
-    
-    
+
     /**
      * Date: Day and Month only
      */
@@ -252,30 +245,34 @@ public class DateComponent extends JPanel implements ChangeListener
     /**
      * Init Months
      */
-/*    public void initMonths()
-    {
-        if (months == null)
-        {
-            String m[] = { ic.getMessage("JANUARY"), ic.getMessage("FEBRUARY"), ic.getMessage("MARCH"),
-                          ic.getMessage("APRIL"), ic.getMessage("MAY"), ic.getMessage("JUNE"), ic.getMessage("JULY"),
-                          ic.getMessage("AUGUST"), ic.getMessage("SEPTEMBER"), ic.getMessage("OCTOBER"),
-                          ic.getMessage("NOVEMBER"), ic.getMessage("DECEMBER") };
-
-            months = m;
-        }
-
-
-    }*/
+    /*
+     * public void initMonths()
+     * {
+     * if (months == null)
+     * {
+     * String m[] = { ic.getMessage("JANUARY"), ic.getMessage("FEBRUARY"),
+     * ic.getMessage("MARCH"),
+     * ic.getMessage("APRIL"), ic.getMessage("MAY"), ic.getMessage("JUNE"),
+     * ic.getMessage("JULY"),
+     * ic.getMessage("AUGUST"), ic.getMessage("SEPTEMBER"),
+     * ic.getMessage("OCTOBER"),
+     * ic.getMessage("NOVEMBER"), ic.getMessage("DECEMBER") };
+     * months = m;
+     * }
+     * }
+     */
 
     /**
      * Add Action Listener
      * 
      * @param list
      */
-    /*public void addActionListener(ActionListener list)
-    {
-        this.listeners.add(list);
-    }*/
+    /*
+     * public void addActionListener(ActionListener list)
+     * {
+     * this.listeners.add(list);
+     * }
+     */
 
     /**
      * Set Date Interval
@@ -285,9 +282,13 @@ public class DateComponent extends JPanel implements ChangeListener
     public void setDateInterval(int input)
     {
         if (input == DATE_FULL)
+        {
             year.setVisible(true);
+        }
         else
+        {
             year.setVisible(false);
+        }
     }
 
     /**
@@ -300,15 +301,13 @@ public class DateComponent extends JPanel implements ChangeListener
 
         int d = ((Number) day.getModel().getValue()).intValue();
         String m = (String) ((SpinnerListModel) month.getModel()).getValue();
-        
-//        String m = (String)((SpinnerListModel)month.getModel()).getValue();
+
+        // String m = (String)((SpinnerListModel)month.getModel()).getValue();
 
         int y = ((Number) year.getModel().getValue()).intValue();
 
-        
-//        System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
-        
-        
+        // System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
+
         int mo = findMonth(m);
 
         int days_months[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -330,7 +329,9 @@ public class DateComponent extends JPanel implements ChangeListener
             int xx = 28;
 
             if (gc.isLeapYear(y))
+            {
                 xx = 29;
+            }
 
             if (d > xx)
             {
@@ -353,12 +354,18 @@ public class DateComponent extends JPanel implements ChangeListener
             String tmp = "";
 
             if (i == 0)
+            {
                 tmp = "" + (mo + 1);
+            }
             else
+            {
                 tmp = "" + d;
+            }
 
             if (tmp.length() == 1)
+            {
                 tmp = "0" + tmp;
+            }
 
             dat += tmp;
 
@@ -372,9 +379,9 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         String[] ms = m_da.getMonthsArray();
 
-    //    System.out.println("findMonth [" + se + "]");
-        
-        for (int i=0; i<ms.length; i++)
+        // System.out.println("findMonth [" + se + "]");
+
+        for (int i = 0; i < ms.length; i++)
         {
             if (ms[i].equals(se))
                 return i;
@@ -383,7 +390,6 @@ public class DateComponent extends JPanel implements ChangeListener
         return 0;
     }
 
-    
     /**
      * Get Month
      * 
@@ -393,10 +399,9 @@ public class DateComponent extends JPanel implements ChangeListener
     public String getMonth(String val)
     {
         int v = Integer.parseInt(val);
-        return m_da.getMonthsArray()[v-1];
+        return m_da.getMonthsArray()[v - 1];
     }
 
-    
     /**
      * Set Date
      * 
@@ -414,7 +419,7 @@ public class DateComponent extends JPanel implements ChangeListener
         if (date <= 0)
         {
             GregorianCalendar gc = new GregorianCalendar();
-            y = gc.get(GregorianCalendar.YEAR);
+            y = gc.get(Calendar.YEAR);
 
             m = 0;
             d = 1;
@@ -430,34 +435,39 @@ public class DateComponent extends JPanel implements ChangeListener
             d = date - y * 10000 - m * 100;
 
             if (m != 0)
+            {
                 m--;
+            }
 
             if (d == 0)
+            {
                 d = 1;
+            }
 
             if (y == 0)
             {
                 GregorianCalendar gc = new GregorianCalendar();
-                y = gc.get(GregorianCalendar.YEAR);
+                y = gc.get(Calendar.YEAR);
             }
 
         }
 
         if (debug)
+        {
             System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
-        
+        }
+
         year.setValue(y);
         day.setValue(d);
         month.setValue(m_da.getMonthsArray()[m]);
 
-        
         if (debug)
+        {
             System.out.println("setDate: y=" + year.getValue() + ",m=" + month.getValue() + ",d=" + day.getValue());
-        
-        
+        }
+
     }
 
-    
     /**
      * Set Date
      * 
@@ -469,25 +479,27 @@ public class DateComponent extends JPanel implements ChangeListener
         int m = 0;
         int d = 0;
 
-        y = gc.get(GregorianCalendar.YEAR);
-        d = gc.get(GregorianCalendar.DAY_OF_MONTH);
-        m = gc.get(GregorianCalendar.MONTH);
-        
+        y = gc.get(Calendar.YEAR);
+        d = gc.get(Calendar.DAY_OF_MONTH);
+        m = gc.get(Calendar.MONTH);
+
         year.setValue(y);
         day.setValue(d);
         month.setValue(m_da.getMonthsArray()[m]);
-        
+
         if (debug)
+        {
             System.out.println("setDate: y=" + y + ",m=" + m + ",d=" + d);
-        
+        }
+
         if (debug)
+        {
             System.out.println("setDate: y=" + year.getValue() + ",m=" + month.getValue() + ",d=" + day.getValue());
-        
+        }
+
         this.repaint();
     }
-    
-    
-    
+
     /**
      * Get Date
      * 
@@ -495,41 +507,43 @@ public class DateComponent extends JPanel implements ChangeListener
      */
     public int getDate()
     {
-            int d = ((Number)day.getModel().getValue()).intValue();
-            String m = (String)((SpinnerListModel)month.getModel()).getValue();
-            int y = ((Number)year.getModel().getValue()).intValue();
-    
-            //month.getValue();
-            
-            /*try
-            {
-                month.commitEdit();
-                ///month.
-            }
-            catch (ParseException e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }*/
-            
-            //System.out.println("getDate: y=" + y + ",m=" + month.getValue() + ",d=" + d);
-            
-            int mo = findMonth(m)+1;
-    
-            //System.out.println("findMonth: " + mo);
-            
-            int out = 0;
-    
-            out += y*10000L;
-            out += mo*100L;
-            out += d;
+        int d = ((Number) day.getModel().getValue()).intValue();
+        String m = (String) ((SpinnerListModel) month.getModel()).getValue();
+        int y = ((Number) year.getModel().getValue()).intValue();
 
-            
-            //System.out.println("getDate: " +  out);
-            
-            return out;
-        
-        //return checkDate();
+        // month.getValue();
+
+        /*
+         * try
+         * {
+         * month.commitEdit();
+         * ///month.
+         * }
+         * catch (ParseException e)
+         * {
+         * // TODO Auto-generated catch block
+         * e.printStackTrace();
+         * }
+         */
+
+        // System.out.println("getDate: y=" + y + ",m=" + month.getValue() +
+        // ",d=" + d);
+
+        int mo = findMonth(m) + 1;
+
+        // System.out.println("findMonth: " + mo);
+
+        int out = 0;
+
+        out += y * 10000L;
+        out += mo * 100L;
+        out += d;
+
+        // System.out.println("getDate: " + out);
+
+        return out;
+
+        // return checkDate();
     }
 
     /**
@@ -548,9 +562,9 @@ public class DateComponent extends JPanel implements ChangeListener
         int mo = findMonth(m);
 
         GregorianCalendar gc1 = new GregorianCalendar();
-        gc1.set(GregorianCalendar.DAY_OF_MONTH, d);
-        gc1.set(GregorianCalendar.MONTH, mo);
-        gc1.set(GregorianCalendar.YEAR, y);
+        gc1.set(Calendar.DAY_OF_MONTH, d);
+        gc1.set(Calendar.MONTH, mo);
+        gc1.set(Calendar.YEAR, y);
 
         return gc1;
 
@@ -559,6 +573,7 @@ public class DateComponent extends JPanel implements ChangeListener
     /** 
      * setBackground
      */
+    @Override
     public void setBackground(Color bg)
     {
         super.setBackground(bg);
@@ -567,37 +582,37 @@ public class DateComponent extends JPanel implements ChangeListener
     /** 
      * setEnabled
      */
+    @Override
     public void setEnabled(boolean isEnabled)
     {
         day.setEnabled(isEnabled);
         month.setEnabled(isEnabled);
         year.setEnabled(isEnabled);
-        
+
         /*
-        if (isEnabled)
-        {
-            day.setForeground(Color.black);
-        }
-        else
-        {
-            day.setForeground(Color.red);
-        }*/
-        
+         * if (isEnabled)
+         * {
+         * day.setForeground(Color.black);
+         * }
+         * else
+         * {
+         * day.setForeground(Color.red);
+         * }
+         */
+
     }
 
-    
     public void setEditable(boolean isEnabled)
     {
-        //this.day.setE
-        //JSpinner
-        //day.se
+        // this.day.setE
+        // JSpinner
+        // day.se
     }
-    
-    
-    
+
     /** 
      * setBounds
      */
+    @Override
     public void setBounds(int x, int y, int width, int height)
     {
         super.setBounds(x, y, component_width, component_height);
@@ -622,7 +637,6 @@ public class DateComponent extends JPanel implements ChangeListener
 
     }
 
-
     /**
      * Sets the note.
      * 
@@ -643,7 +657,6 @@ public class DateComponent extends JPanel implements ChangeListener
         return m_note;
     }
 
-    
     /**
      * Add Action Listener
      * 
@@ -653,7 +666,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         this.listeners.add(al);
     }
-    
+
     /**
      * Remove Action Listener
      * 
@@ -664,71 +677,59 @@ public class DateComponent extends JPanel implements ChangeListener
         this.listeners.remove(al);
     }
 
-    
-    
-    
-    
     /**
      * Invoked when the target of the listener has changed its state.
      * 
      * @param e
      *            a ChangeEvent object
      */
-/*    public void stateChanged(ChangeEvent e)
-    {
+    /*
+     * public void stateChanged(ChangeEvent e)
+     * {
+     * // System.out.println("DateComponent date changed");
+     * if (listeners.size() == 0)
+     * return;
+     * ChangeEvent ae = new ChangeEvent(this);
+     * for (int i = 0; i < this.listeners.size(); i++)
+     * {
+     * ChangeListener al = (ChangeListener) listeners.get(i);
+     * al.stateChanged(ae);
+     * }
+     * }
+     */
 
-        // System.out.println("DateComponent date changed");
-        if (listeners.size() == 0)
-            return;
-
-        ChangeEvent ae = new ChangeEvent(this);
-
-        for (int i = 0; i < this.listeners.size(); i++)
-        {
-            ChangeListener al = (ChangeListener) listeners.get(i);
-            al.stateChanged(ae);
-        }
-
-    }
-*/
-    
     /**
      * Add Change Listener
      * 
      * @param clin
      */
-   /*public void addChangeListener(ChangeListener clin)
-    {
-        this.listeners.add(clin);
-    }
-    
-
-    public boolean equals(Object o)
-    {
-        if (o instanceof DateComponent)
-        {
-            DateComponent dc = (DateComponent)o;
-            return dc.object_id == this.object_id;
-        }
-        else
-            return false;
-    }*/
-
-    
-    
-
+    /*
+     * public void addChangeListener(ChangeListener clin)
+     * {
+     * this.listeners.add(clin);
+     * }
+     * public boolean equals(Object o)
+     * {
+     * if (o instanceof DateComponent)
+     * {
+     * DateComponent dc = (DateComponent)o;
+     * return dc.object_id == this.object_id;
+     * }
+     * else
+     * return false;
+     * }
+     */
 
     public void stateChanged(ChangeEvent e)
     {
         this.getDate();
-        
+
         ActionEvent ae = new ActionEvent(this, (int) serialVersionUID, this.action_command);
         ae.setSource(this);
         notifyListeners(ae);
-        
+
     }
-    
-    
+
     /**
      * Set Action Command
      * 
@@ -738,7 +739,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         this.action_command = act_command;
     }
-    
+
     /**
      * Get Action Command
      * 
@@ -748,8 +749,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         return this.action_command;
     }
-    
-    
+
     /**
      * Notify Listeners
      * 
@@ -757,14 +757,11 @@ public class DateComponent extends JPanel implements ChangeListener
      */
     public void notifyListeners(ActionEvent e)
     {
-        for (int i = 0; i < listeners.size(); i++) 
+        for (int i = 0; i < listeners.size(); i++)
         {
             ActionListener l = listeners.get(i);
             l.actionPerformed(e);
         }
     }
-    
-    
-    
-    
+
 }

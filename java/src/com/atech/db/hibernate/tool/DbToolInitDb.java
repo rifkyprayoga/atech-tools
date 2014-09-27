@@ -37,54 +37,51 @@ import com.atech.db.hibernate.HibernateConfiguration;
  *
 */
 
-
 public abstract class DbToolInitDb
 {
 
-    private static Log log = LogFactory.getLog(DbToolInitDb.class); 
-    
-    
+    private static Log log = LogFactory.getLog(DbToolInitDb.class);
+
     /**
      * The Constant INIT_TYPE_NONE.
      */
     public static final int INIT_TYPE_NONE = 0;
-    
+
     /**
      * The Constant INIT_TYPE_INIT_DB.
      */
     public static final int INIT_TYPE_INIT_DB = 1;
-    
+
     /**
      * The Constant INIT_TYPE_INIT_DB_AND_BASE_IMPORT.
      */
     public static final int INIT_TYPE_INIT_DB_AND_BASE_IMPORT = 2;
-    
-    
+
     /**
      * The init_type.
      */
     int init_type;
-    
+
     /**
      * The hibernate_config.
      */
     protected HibernateConfiguration hibernate_config;
-    
+
     /**
      * The error_code.
      */
     int error_code;
-    
+
     /**
      * The error_desc.
      */
     String error_desc;
-    
+
     /**
      * The error_exception.
      */
     Exception error_exception;
-    
+
     /**
      * Instantiates a new db tool init db.
      * 
@@ -97,7 +94,6 @@ public abstract class DbToolInitDb
         this.init_type = init_type_;
     }
 
-
     /**
      * Checks if is inits the possible.
      * 
@@ -105,9 +101,8 @@ public abstract class DbToolInitDb
      */
     public boolean isInitPossible()
     {
-        return (init_type>0);
+        return init_type > 0;
     }
-
 
     /**
      * Db init.
@@ -117,30 +112,23 @@ public abstract class DbToolInitDb
     public boolean dbInit()
     {
         System.out.println("dbInit: " + init_type);
-        
+
         if (init_type == INIT_TYPE_NONE)
-        {
             return false;
-        }
         else if (init_type == INIT_TYPE_INIT_DB)
-        {
             return createTables();
-        }
         else if (init_type == INIT_TYPE_INIT_DB_AND_BASE_IMPORT)
         {
             boolean res = createTables();
             if (!res)
                 return false;
-            
+
             return this.fillData();
         }
         else
-        {
             return false;
-        }
     }
-    
-    
+
     /**
      * Gets the error code.
      * 
@@ -149,10 +137,9 @@ public abstract class DbToolInitDb
     public int getErrorCode()
     {
         return this.error_code;
-        
+
     }
-    
-    
+
     /**
      * Gets the error description.
      * 
@@ -162,7 +149,7 @@ public abstract class DbToolInitDb
     {
         return this.error_desc;
     }
-    
+
     /**
      * Gets the error exception.
      * 
@@ -172,7 +159,7 @@ public abstract class DbToolInitDb
     {
         return this.error_exception;
     }
-    
+
     /**
      * Creates the tables.
      * 
@@ -184,7 +171,7 @@ public abstract class DbToolInitDb
         {
             new SchemaExport(this.hibernate_config.getConfiguration()).create(true, true);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             log.error("createTables exception: " + ex, ex);
             return false;
@@ -193,7 +180,6 @@ public abstract class DbToolInitDb
         return true;
     }
 
-    
     /**
      * Drop Tables
      * 
@@ -205,14 +191,13 @@ public abstract class DbToolInitDb
         {
             new SchemaExport(this.hibernate_config.getConfiguration()).drop(true, true);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return false;
         }
 
         return true;
     }
-    
 
     /**
      * Fill data.
@@ -220,7 +205,5 @@ public abstract class DbToolInitDb
      * @return true, if successful
      */
     public abstract boolean fillData();
-    
-    
 
 }

@@ -33,7 +33,6 @@ import javax.swing.JMenu;
  * @author Andy
  */
 
-
 public class DynMenu implements DynMenuInterface
 {
 
@@ -49,8 +48,7 @@ public class DynMenu implements DynMenuInterface
         this.children = new ArrayList<DynMenuInterface>();
         this.tooltip = _tooltip;
     }
-    
-    
+
     public DynMenu(String _name, String _name_i18n, String _tooltip)
     {
         this.name = _name;
@@ -59,7 +57,6 @@ public class DynMenu implements DynMenuInterface
         this.children = new ArrayList<DynMenuInterface>();
     }
 
-    
     public DynMenu(String _name, String _name_i18n, String _tooltip, String parents[])
     {
         this.name = _name;
@@ -67,40 +64,35 @@ public class DynMenu implements DynMenuInterface
         this.children = new ArrayList<DynMenuInterface>();
         this.tooltip = _tooltip;
     }
-    
-    
+
     public String getName()
     {
         return this.name;
     }
-    
+
     public String getName_i18n()
     {
         return this.name_i18n;
     }
-    
+
     public String getTooltip()
     {
         return this.tooltip;
     }
-    
-    
+
     public void addChild(DynMenuInterface _menu)
     {
         this.children.add(_menu);
     }
-    
-    
+
     public int getType()
     {
         return 1;
     }
 
-    
     public void setMenu(JMenu _menu)
     {
         this.menu = _menu;
     }
-    
-    
+
 }

@@ -31,7 +31,6 @@ package com.atech.graphics.components.about;
  *
 */
 
-
 public class FeaturesEntry
 {
     private String content;
@@ -53,9 +52,9 @@ public class FeaturesEntry
      */
     public String getHTMLCode()
     {
-            return "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#990033\">" + this.content + "</font></td></tr></table>"; //+
-            //"<br>";
+        return "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#990033\">"
+                + this.content + "</font></td></tr></table>"; // +
+        // "<br>";
     }
-
 
 }

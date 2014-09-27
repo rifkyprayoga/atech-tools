@@ -43,7 +43,6 @@ import com.atech.web.util.I18nWebControl;
  *
 */
 
-
 public abstract class AppDbWebAbstract
 {
 
@@ -53,20 +52,20 @@ public abstract class AppDbWebAbstract
     /** The debug. */
     protected boolean debug = false;
 
-//    private static Log log = LogFactory.getLog(AppDbWebAbstract.class);
+    // private static Log log = LogFactory.getLog(AppDbWebAbstract.class);
     /** The m_context. */
-protected AppContextAbstract m_context;
-    //public Session m_session = null;
+    protected AppContextAbstract m_context;
+    // public Session m_session = null;
 
     /** The m_error code. */
     protected int m_errorCode = 0;
-    
+
     /** The m_error desc. */
     protected String m_errorDesc = "";
 
     /** The m_add id. */
     protected String m_addId = "";
-    //SessionFactory m_session_factory = null;
+    // SessionFactory m_session_factory = null;
 
     /** The config. */
     protected Hashtable<String, String> config = new Hashtable<String, String>();
@@ -74,11 +73,11 @@ protected AppContextAbstract m_context;
     /** The user. */
     protected User user = null;
 
-    //protected DataAccessWeb da = null;
+    // protected DataAccessWeb da = null;
     /** The users. */
     protected ArrayList<User> users = null;
 
-    //private String pis_web_version = "v0.5.3";
+    // private String pis_web_version = "v0.5.3";
     /** The ic. */
     I18nWebControl ic = null;
 
@@ -86,10 +85,10 @@ protected AppContextAbstract m_context;
 
     /** The week_days. */
     protected String week_days = "";
-    
+
     /** The months. */
     protected String months = "";
-    
+
     /** The daw. */
     protected DataAccessWeb daw;
 
@@ -112,35 +111,33 @@ protected AppContextAbstract m_context;
      */
     public AppDbWebAbstract(DataAccessWeb daw_, AppContextAbstract context_)
     {
-        
+
         this.daw = daw_;
         this.m_context = context_;
         /*
-        this.m_session_factory = sess_fact;
-        m_session = this.m_session_factory.openSession();
+         * this.m_session_factory = sess_fact;
+         * m_session = this.m_session_factory.openSession();
+         * this.da = daw;
+         */
 
-        this.da = daw;
-        */
-        
         this.initializeDb();
-        
+
         loadSettings();
         loadUsers();
 
-        //System.out.println("PIS_Web Loaded: " + pis_web_version);
+        // System.out.println("PIS_Web Loaded: " + pis_web_version);
     }
 
     /**
      * Initialize db.
      */
     public abstract void initializeDb();
-    
+
     /**
      * Destroy db.
      */
     public abstract void destroyDb();
-    
-    
+
     /**
      * Sets the i18n web control.
      * 
@@ -183,7 +180,6 @@ protected AppContextAbstract m_context;
 
     }
 
-
     // /
     // / WEB METHODS
     // /
@@ -192,48 +188,51 @@ protected AppContextAbstract m_context;
      * Load settings.
      */
     public abstract void loadSettings();
-/*    {
-        Query q = getSession()
-                .createQuery("select pst from com.atech.inf_sys.pis.db.hibernate.config.SettingsH as pst");
 
-        Iterator it = q.iterate();
-
-        while (it.hasNext())
-        {
-            SettingsH st = (SettingsH) it.next();
-            this.config.put(st.getProperty(), st.getValue());
-        }
-    }*/
+    /*
+     * {
+     * Query q = getSession()
+     * .createQuery(
+     * "select pst from com.atech.inf_sys.pis.db.hibernate.config.SettingsH as pst"
+     * );
+     * Iterator it = q.iterate();
+     * while (it.hasNext())
+     * {
+     * SettingsH st = (SettingsH) it.next();
+     * this.config.put(st.getProperty(), st.getValue());
+     * }
+     * }
+     */
 
     /**
- * Load users.
- */
-public abstract void loadUsers();
-/*    {
-        this.users = new ArrayList<UserH>();
+    * Load users.
+    */
+    public abstract void loadUsers();
 
-        System.out.println("Load Users");
+    /*
+     * {
+     * this.users = new ArrayList<UserH>();
+     * System.out.println("Load Users");
+     * Query q = getSession().createQuery(
+     * "select pst from com.atech.inf_sys.pis.db.hibernate.config.UserH as pst"
+     * );
+     * Iterator it = q.iterate();
+     * while (it.hasNext())
+     * {
+     * UserH st = (UserH) it.next();
+     * this.users.add(st);
+     * }
+     * }
+     */
 
-        Query q = getSession().createQuery("select pst from com.atech.inf_sys.pis.db.hibernate.config.UserH as pst");
-
-        Iterator it = q.iterate();
-
-        while (it.hasNext())
-        {
-            UserH st = (UserH) it.next();
-            this.users.add(st);
-        }
-    }
-*/
-    
     /**
- * Gets the message.
- * 
- * @param key
- *            the key
- * @return the message
- */
-public String getMessage(String key)
+    * Gets the message.
+    * 
+    * @param key
+    *            the key
+    * @return the message
+    */
+    public String getMessage(String key)
     {
         return key;
     }
@@ -246,9 +245,7 @@ public String getMessage(String key)
     public String getWebLanguage()
     {
         if (config.containsKey("WEB_LANG"))
-        {
             return config.get("WEB_LANG");
-        }
         else
             return "SI";
     }
@@ -261,9 +258,7 @@ public String getMessage(String key)
     public String getWebName()
     {
         if (config.containsKey("WEB_NAME"))
-        {
             return config.get("WEB_NAME");
-        }
         else
             return "Unknown";
     }
@@ -317,7 +312,6 @@ public String getMessage(String key)
         return doLogin(user, pass);
     }
 
-    
     /**
      * Gets the user.
      * 
@@ -331,12 +325,10 @@ public String getMessage(String key)
 
         while (it.hasNext())
         {
-            User st = (User) it.next();
+            User st = it.next();
 
             if (st.id == id)
-            {
                 return st;
-            }
         }
 
         return null;
@@ -440,7 +432,9 @@ public String getMessage(String key)
     public String getWeekDays()
     {
         if (this.week_days == null)
+        {
             initWeekDays();
+        }
 
         return this.week_days;
     }
@@ -459,7 +453,9 @@ public String getMessage(String key)
             sb_wd.append(ic.getMessage(days[i]));
 
             if (i != 6)
+            {
                 sb_wd.append(",");
+            }
         }
 
         this.week_days = sb_wd.toString();
@@ -473,7 +469,9 @@ public String getMessage(String key)
     public String getMonths()
     {
         if (this.months == null)
+        {
             initMonths();
+        }
 
         return this.months;
     }
@@ -493,13 +491,14 @@ public String getMessage(String key)
             sb_mon.append(ic.getMessage(mon[i]));
 
             if (i != 11)
+            {
                 sb_mon.append(",");
+            }
         }
 
         this.months = sb_mon.toString();
 
     }
-
 
     /**
      * Gets the empty string not null.
@@ -515,7 +514,6 @@ public String getMessage(String key)
         else
             return value;
     }
-
 
     /**
      * Gets the date time string.
@@ -545,144 +543,119 @@ public String getMessage(String key)
     /*
      * public ArrayList getMyPisEntries(long user_id, GregorianCalendar from,
      * GregorianCalendar till) { // TO-DO ArrayList list = new ArrayList();
-     * 
      * long ids[] = { 1718, 1719, 1, 1722, 1724 };
-     * 
-     * 
      * long time[] = { 200612170900L, 200612171100L, 200612171130L,
      * 200612171500L, 200612171800L };
-     * 
      * int type[] = { PlannerWeb.TYPE_MASS, PlannerWeb.TYPE_MASS,
      * PlannerWeb.TYPE_EVENT, PlannerWeb.TYPE_REMINDER, PlannerWeb.TYPE_MASS };
-     * 
      * String bodys[] = { "", "", "Krst", "Sestanek", "", "" };
-     * 
      * for(int i=0; i<time.length; i++) { PlannerWeb r = new PlannerWeb();
      * r.setId(ids[i]); r.setType(type[i]); r.setBody(bodys[i]);
      * r.setComment(""); r.setDateTime(time[i]);
-     * 
      * list.add(r); }
-     * 
      * return list;
-     * 
      * }
      */
 
-
     // **************************************************************
-    // ****              C O M B O  C R E A T I O N        ****
+    // **** C O M B O C R E A T I O N ****
     // **************************************************************
 
     /** The sort_by_cb. */
-    Hashtable<String,ArrayList<String>> sort_by_cb = null;
-    
+    Hashtable<String, ArrayList<String>> sort_by_cb = null;
+
     /** The filter_cb. */
-    Hashtable<String,ArrayList<String>> filter_cb = null;
-    
+    Hashtable<String, ArrayList<String>> filter_cb = null;
+
     /** The sort_way. */
     ArrayList<String> sort_way = null;
-    
+
     /** The owner. */
     ArrayList<String> owner = null;
 
-
-
     /** The types_key. */
-    private String[] types_key = { 
-                    "",
-                "MY_PIS", 
-                "NEWS", 
-                "WEEKLY_NEWS"
-                };
-
+    private String[] types_key = { "", "MY_PIS", "NEWS", "WEEKLY_NEWS" };
 
     /**
      * Inits the combo system.
      */
     public void initComboSystem()
     {
-    // sort way
-    sort_way = new ArrayList<String>();
-    sort_way.add(ic.getMessage("SORT_ASCENDING"));
-    sort_way.add(ic.getMessage("SORT_DESCENDING"));
+        // sort way
+        sort_way = new ArrayList<String>();
+        sort_way.add(ic.getMessage("SORT_ASCENDING"));
+        sort_way.add(ic.getMessage("SORT_DESCENDING"));
 
-    sort_by_cb = new Hashtable<String,ArrayList<String>>();
-    ArrayList<String> list = null; 
+        sort_by_cb = new Hashtable<String, ArrayList<String>>();
+        ArrayList<String> list = null;
 
-    // sort by (my pis)
-    list = new ArrayList<String>();
-    list.add(ic.getMessage("DATE_AND_TIME"));
-    list.add(ic.getMessage("DATE"));
-    list.add(ic.getMessage("TIME"));
-    list.add(ic.getMessage("TYPE"));
+        // sort by (my pis)
+        list = new ArrayList<String>();
+        list.add(ic.getMessage("DATE_AND_TIME"));
+        list.add(ic.getMessage("DATE"));
+        list.add(ic.getMessage("TIME"));
+        list.add(ic.getMessage("TYPE"));
 
-    sort_by_cb.put("MY_PIS", list);
+        sort_by_cb.put("MY_PIS", list);
 
-    // sort by (news)
-    list = new ArrayList<String>();
-    list.add(ic.getMessage("DATE"));
-    list.add(ic.getMessage("DATE_OF_EXPIRE"));
-    list.add(ic.getMessage("SUBJECT2"));
-    sort_by_cb.put("NEWS", list);
+        // sort by (news)
+        list = new ArrayList<String>();
+        list.add(ic.getMessage("DATE"));
+        list.add(ic.getMessage("DATE_OF_EXPIRE"));
+        list.add(ic.getMessage("SUBJECT2"));
+        sort_by_cb.put("NEWS", list);
 
+        // sort by (weekly news)
+        list = new ArrayList<String>();
+        list.add(ic.getMessage("DATE"));
+        list.add(ic.getMessage("SUB_TITLE"));
 
-    // sort by (weekly news)
-    list = new ArrayList<String>();
-    list.add(ic.getMessage("DATE"));
-    list.add(ic.getMessage("SUB_TITLE"));
+        sort_by_cb.put("WEEKLY_NEWS", list);
 
-    sort_by_cb.put("WEEKLY_NEWS", list);
+        filter_cb = new Hashtable<String, ArrayList<String>>();
 
+        // filter by (my pis)
+        list = new ArrayList<String>();
+        list.add(ic.getMessage("TODAY"));
+        list.add(ic.getMessage("TODAY_AND_TOMMOROW"));
+        list.add(ic.getMessage("TOMMOROW"));
+        list.add(ic.getMessage("THIS_WEEK"));
+        list.add(ic.getMessage("THIS_MONTH"));
+        list.add(ic.getMessage("ONE_WEEK"));
+        list.add(ic.getMessage("ONE_MONTH"));
+        filter_cb.put("MY_PIS", list);
 
+        // filter by (news)
+        list = new ArrayList<String>();
+        list.add(ic.getMessage("ALL"));
+        list.add(ic.getMessage("ALL_ACTIVE"));
+        list.add(ic.getMessage("TODAY"));
+        list.add(ic.getMessage("TODAY_AND_TOMMOROW"));
+        list.add(ic.getMessage("TOMMOROW"));
+        list.add(ic.getMessage("THIS_WEEK"));
+        list.add(ic.getMessage("THIS_MONTH"));
+        list.add(ic.getMessage("ONE_WEEK"));
+        list.add(ic.getMessage("ONE_MONTH"));
+        list.add(ic.getMessage("ARCHIVE"));
+        filter_cb.put("NEWS", list);
 
-    filter_cb = new Hashtable<String,ArrayList<String>>();
+        // filter by (news_weekly)
+        list = new ArrayList<String>();
+        list.add(ic.getMessage("ALL"));
+        list.add(ic.getMessage("THIS_MONTH"));
+        list.add(ic.getMessage("LAST_MONTH"));
+        list.add(ic.getMessage("LAST_3_MONTHS"));
+        list.add(ic.getMessage("LAST_6_MONTHS"));
+        list.add(ic.getMessage("THIS_YEAR"));
+        list.add(ic.getMessage("LAST_YEAR"));
+        filter_cb.put("WEEKLY_NEWS", list);
 
-    // filter by (my pis)
-    list = new ArrayList<String>();
-    list.add(ic.getMessage("TODAY"));
-    list.add(ic.getMessage("TODAY_AND_TOMMOROW"));
-    list.add(ic.getMessage("TOMMOROW"));
-    list.add(ic.getMessage("THIS_WEEK"));
-    list.add(ic.getMessage("THIS_MONTH"));
-    list.add(ic.getMessage("ONE_WEEK"));
-    list.add(ic.getMessage("ONE_MONTH"));
-    filter_cb.put("MY_PIS", list);
+        // owner
+        owner = new ArrayList<String>();
+        owner.add(ic.getMessage("OWNER_ME"));
+        owner.add(ic.getMessage("OWNER_ALL"));
 
-    // filter by (news)
-    list = new ArrayList<String>();
-    list.add(ic.getMessage("ALL"));
-    list.add(ic.getMessage("ALL_ACTIVE"));
-    list.add(ic.getMessage("TODAY"));
-    list.add(ic.getMessage("TODAY_AND_TOMMOROW"));
-    list.add(ic.getMessage("TOMMOROW"));
-    list.add(ic.getMessage("THIS_WEEK"));
-    list.add(ic.getMessage("THIS_MONTH"));
-    list.add(ic.getMessage("ONE_WEEK"));
-    list.add(ic.getMessage("ONE_MONTH"));
-    list.add(ic.getMessage("ARCHIVE"));
-    filter_cb.put("NEWS", list);
-
-
-    // filter by (news_weekly)
-    list = new ArrayList<String>();
-    list.add(ic.getMessage("ALL"));
-    list.add(ic.getMessage("THIS_MONTH"));
-    list.add(ic.getMessage("LAST_MONTH"));
-    list.add(ic.getMessage("LAST_3_MONTHS"));
-    list.add(ic.getMessage("LAST_6_MONTHS"));
-    list.add(ic.getMessage("THIS_YEAR"));
-    list.add(ic.getMessage("LAST_YEAR"));
-    filter_cb.put("WEEKLY_NEWS", list);
-
-
-
-    // owner
-    owner = new ArrayList<String>();
-    owner.add(ic.getMessage("OWNER_ME"));
-    owner.add(ic.getMessage("OWNER_ALL"));
-
-
-    //Hashtable<String,ArrayList<String>> sort_by_cb 
+        // Hashtable<String,ArrayList<String>> sort_by_cb
     }
 
     /**
@@ -694,34 +667,33 @@ public String getMessage(String key)
      */
     public String getSortWayCombo(int selection)
     {
-    //System.out.println("Sel: " + selection);
+        // System.out.println("Sel: " + selection);
 
-    String out = "<select size=\"1\" name=\"sort_way\">";
+        String out = "<select size=\"1\" name=\"sort_way\">";
 
-    for (int i=0; i<sort_way.size(); i++)
-    {
-        out += "<option value=\"";
-        out += i +"\" ";
-
-        if (i==selection)
+        for (int i = 0; i < sort_way.size(); i++)
         {
-        out += "selected=\"true\" ";
+            out += "<option value=\"";
+            out += i + "\" ";
+
+            if (i == selection)
+            {
+                out += "selected=\"true\" ";
+            }
+
+            out += ">";
+            out += sort_way.get(i);
+            out += "</option>";
+
         }
 
-        out += ">";
-        out += sort_way.get(i);
-        out += "</option>";
+        out += "</select>";
+
+        // System.out.println(out);
+
+        return out;
 
     }
-
-    out += "</select>";
-
-    //System.out.println(out);
-
-    return out;
-
-    }
-
 
     /**
      * Gets the sort combo.
@@ -735,35 +707,33 @@ public String getMessage(String key)
     public String getSortCombo(int type, int selection)
     {
 
-    ArrayList<String> list = sort_by_cb.get(this.types_key[type]);
+        ArrayList<String> list = sort_by_cb.get(this.types_key[type]);
 
+        String out = "<select size=\"1\" name=\"sort_type\">";
 
-    String out = "<select size=\"1\" name=\"sort_type\">";
-
-    for (int i=0; i<list.size(); i++)
-    {
-        out += "<option value=\"";
-        out += i +"\" ";
-
-        if (i==selection)
+        for (int i = 0; i < list.size(); i++)
         {
-        out += "selected=\"true\" ";
+            out += "<option value=\"";
+            out += i + "\" ";
+
+            if (i == selection)
+            {
+                out += "selected=\"true\" ";
+            }
+
+            out += ">";
+            out += list.get(i);
+            out += "</option>";
+
         }
 
-        out += ">";
-        out += list.get(i);
-        out += "</option>";
+        out += "</select>";
+
+        // System.out.println(out);
+
+        return out;
 
     }
-
-    out += "</select>";
-
-    //System.out.println(out);
-
-    return out;
-
-    }
-
 
     /**
      * Gets the filter combo.
@@ -776,32 +746,30 @@ public String getMessage(String key)
      */
     public String getFilterCombo(int type, int selection)
     {
-    ArrayList<String> list = filter_cb.get(this.types_key[type]);
+        ArrayList<String> list = filter_cb.get(this.types_key[type]);
 
+        String out = "<select size=\"1\" name=\"filter\">";
 
-    String out = "<select size=\"1\" name=\"filter\">";
-
-    for (int i=0; i<list.size(); i++)
-    {
-        out += "<option value=\"";
-        out += i +"\" ";
-
-        if (i==selection)
+        for (int i = 0; i < list.size(); i++)
         {
-        out += "selected=\"true\" ";
+            out += "<option value=\"";
+            out += i + "\" ";
+
+            if (i == selection)
+            {
+                out += "selected=\"true\" ";
+            }
+
+            out += ">";
+            out += list.get(i);
+            out += "</option>";
+
         }
 
-        out += ">";
-        out += list.get(i);
-        out += "</option>";
+        out += "</select>";
 
+        return out;
     }
-
-    out += "</select>";
-
-    return out;
-    }
-
 
     /**
      * Gets the owner combo.
@@ -812,36 +780,33 @@ public String getMessage(String key)
      */
     public String getOwnerCombo(int selection)
     {
-    //System.out.println("Sel: " + selection);
+        // System.out.println("Sel: " + selection);
 
-    String out = "<select size=\"1\" name=\"owner\">";
+        String out = "<select size=\"1\" name=\"owner\">";
 
-    for (int i=0; i<owner.size(); i++)
-    {
-        out += "<option value=\"";
-        out += i +"\" ";
-
-        if (i==selection)
+        for (int i = 0; i < owner.size(); i++)
         {
-        out += "selected=\"true\" ";
+            out += "<option value=\"";
+            out += i + "\" ";
+
+            if (i == selection)
+            {
+                out += "selected=\"true\" ";
+            }
+
+            out += ">";
+            out += owner.get(i);
+            out += "</option>";
+
         }
 
-        out += ">";
-        out += owner.get(i);
-        out += "</option>";
+        out += "</select>";
+
+        // System.out.println(out);
+
+        return out;
 
     }
-
-    out += "</select>";
-
-    //System.out.println(out);
-
-    return out;
-
-    }
-
-
-
 
     // **************************************************************
     // **** I N T E R V A L P R O C E S S I N G ****
@@ -849,37 +814,37 @@ public String getMessage(String key)
 
     /** The Constant TIME_INTERVAL_TODAY. */
     public static final int TIME_INTERVAL_TODAY = 1;
-    
+
     /** The Constant TIME_INTERVAL_TODAY_AND_TOMMOROW. */
     public static final int TIME_INTERVAL_TODAY_AND_TOMMOROW = 2;
-    
+
     /** The Constant TIME_INTERVAL_TOMMOROW. */
     public static final int TIME_INTERVAL_TOMMOROW = 3;
-    
+
     /** The Constant TIME_INTERVAL_THIS_WEEK. */
     public static final int TIME_INTERVAL_THIS_WEEK = 4;
-    
+
     /** The Constant TIME_INTERVAL_THIS_MONTH. */
     public static final int TIME_INTERVAL_THIS_MONTH = 5;
-    
+
     /** The Constant TIME_INTERVAL_ONE_WEEK. */
     public static final int TIME_INTERVAL_ONE_WEEK = 6;
-    
+
     /** The Constant TIME_INTERVAL_ONE_MONTH. */
     public static final int TIME_INTERVAL_ONE_MONTH = 7;
 
     /** The Constant TIME_INTERVAL_LAST_MONTH. */
     public static final int TIME_INTERVAL_LAST_MONTH = 8;
-    
+
     /** The Constant TIME_INTERVAL_LAST_3_MONTHS. */
     public static final int TIME_INTERVAL_LAST_3_MONTHS = 9;
-    
+
     /** The Constant TIME_INTERVAL_LAST_6_MONTHS. */
     public static final int TIME_INTERVAL_LAST_6_MONTHS = 10;
-    
+
     /** The Constant TIME_INTERVAL_LAST_YEAR. */
     public static final int TIME_INTERVAL_LAST_YEAR = 11;
-    
+
     /** The Constant TIME_INTERVAL_THIS_YEAR. */
     public static final int TIME_INTERVAL_THIS_YEAR = 12;
 
@@ -899,176 +864,176 @@ public String getMessage(String key)
 
         GregorianCalendar gc1 = new GregorianCalendar();
         getGCFrom(gc1, gc, Calendar.DAY_OF_MONTH);
-        getGCFrom(gc1, gc, GregorianCalendar.MONTH);
-        getGCFrom(gc1, gc, GregorianCalendar.YEAR);
+        getGCFrom(gc1, gc, Calendar.MONTH);
+        getGCFrom(gc1, gc, Calendar.YEAR);
 
         if (interval_type == TIME_INTERVAL_TODAY)
         {
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
         }
         else if (interval_type == TIME_INTERVAL_TODAY_AND_TOMMOROW)
         {
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.add(GregorianCalendar.DAY_OF_MONTH, 1);
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
+            gc1.add(Calendar.DAY_OF_MONTH, 1);
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
         }
         else if (interval_type == TIME_INTERVAL_TOMMOROW)
         {
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
-            gc1.add(GregorianCalendar.DAY_OF_MONTH, 1);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
+            gc1.add(Calendar.DAY_OF_MONTH, 1);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
         }
         else if (interval_type == TIME_INTERVAL_THIS_WEEK)
         {
             gc1 = getFirstDayInWeekAndSet(gc1);
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.add(GregorianCalendar.DAY_OF_MONTH, 6);
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
+            gc1.add(Calendar.DAY_OF_MONTH, 6);
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
         }
         else if (interval_type == TIME_INTERVAL_THIS_MONTH)
         {
-            gc1.set(GregorianCalendar.DAY_OF_MONTH, 1);
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
+            gc1.set(Calendar.DAY_OF_MONTH, 1);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.set(GregorianCalendar.DAY_OF_MONTH, gc.getActualMaximum(GregorianCalendar.DAY_OF_MONTH));
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
+            gc1.set(Calendar.DAY_OF_MONTH, gc.getActualMaximum(Calendar.DAY_OF_MONTH));
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
         }
         else if (interval_type == TIME_INTERVAL_ONE_WEEK)
         {
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.add(GregorianCalendar.DAY_OF_MONTH, 6);
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
+            gc1.add(Calendar.DAY_OF_MONTH, 6);
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
         }
         else if (interval_type == TIME_INTERVAL_ONE_MONTH)
         {
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.add(GregorianCalendar.MONTH, 1);
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
+            gc1.add(Calendar.MONTH, 1);
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
         }
         else if (interval_type == TIME_INTERVAL_LAST_MONTH)
         {
 
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
 
-            gc1.add(GregorianCalendar.MONTH, -1);
+            gc1.add(Calendar.MONTH, -1);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
         }
         else if (interval_type == TIME_INTERVAL_LAST_3_MONTHS)
         {
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
 
-            gc1.add(GregorianCalendar.MONTH, -3);
+            gc1.add(Calendar.MONTH, -3);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
         }
         else if (interval_type == TIME_INTERVAL_LAST_6_MONTHS)
         {
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
 
-            gc1.add(GregorianCalendar.MONTH, -6);
+            gc1.add(Calendar.MONTH, -6);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
         }
         else if (interval_type == TIME_INTERVAL_LAST_YEAR)
         {
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
 
-            gc1.add(GregorianCalendar.YEAR, -1);
+            gc1.add(Calendar.YEAR, -1);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
         }
         else if (interval_type == TIME_INTERVAL_THIS_YEAR)
         {
-            gc1.set(GregorianCalendar.DAY_OF_MONTH, 1);
-            gc1.set(GregorianCalendar.MONTH, 0);
-            gc1.set(GregorianCalendar.YEAR, gc.get(GregorianCalendar.YEAR));
+            gc1.set(Calendar.DAY_OF_MONTH, 1);
+            gc1.set(Calendar.MONTH, 0);
+            gc1.set(Calendar.YEAR, gc.get(Calendar.YEAR));
 
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 0);
-            gc1.set(GregorianCalendar.MINUTE, 0);
+            gc1.set(Calendar.HOUR_OF_DAY, 0);
+            gc1.set(Calendar.MINUTE, 0);
 
             time[0] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
 
-            gc1.set(GregorianCalendar.HOUR_OF_DAY, 23);
-            gc1.set(GregorianCalendar.MINUTE, 59);
-            gc1.set(GregorianCalendar.DAY_OF_MONTH, 31);
-            gc1.set(GregorianCalendar.MONTH, 11);
+            gc1.set(Calendar.HOUR_OF_DAY, 23);
+            gc1.set(Calendar.MINUTE, 59);
+            gc1.set(Calendar.DAY_OF_MONTH, 31);
+            gc1.set(Calendar.MONTH, 11);
 
             time[1] = daw.getATDateTimeFromGC(gc1, DataAccessWeb.DATE_TIME_ATECH_DATETIME);
         }
@@ -1093,15 +1058,15 @@ public String getMessage(String key)
     private GregorianCalendar getFirstDayInWeekAndSet(GregorianCalendar gc)
     {
 
-        int day_of_week = gc.get(GregorianCalendar.DAY_OF_WEEK);
+        int day_of_week = gc.get(Calendar.DAY_OF_WEEK);
 
         int first = getDayOfWeek(day_of_week);
 
         while (first != 0)
         {
-            gc.add(GregorianCalendar.DAY_OF_YEAR, -1);
+            gc.add(Calendar.DAY_OF_YEAR, -1);
 
-            day_of_week = gc.get(GregorianCalendar.DAY_OF_WEEK);
+            day_of_week = gc.get(Calendar.DAY_OF_WEEK);
             first = getDayOfWeek(day_of_week);
         }
 
@@ -1155,7 +1120,7 @@ public String getMessage(String key)
     // **** U T I L S ****
     // *************************************************************
 
-	/**
+    /**
      * Gets the long from string.
      * 
      * @param id_str
@@ -1174,8 +1139,7 @@ public String getMessage(String key)
                 id = Long.parseLong(id_str);
             }
             catch (Exception ex)
-            {
-            }
+            {}
         }
 
         return id;
@@ -1200,8 +1164,7 @@ public String getMessage(String key)
                 id = Integer.parseInt(id_str);
             }
             catch (Exception ex)
-            {
-            }
+            {}
         }
 
         return id;
@@ -1246,10 +1209,8 @@ public String getMessage(String key)
     public long getDateTimeFromDatePicker(String date_time)
     {
 
-        if ((date_time == null) || (date_time.length() == 0))
-        {
+        if (date_time == null || date_time.length() == 0)
             return 0L;
-        }
 
         // 22.1.2007 18:30:00
 
@@ -1337,9 +1298,9 @@ public String getMessage(String key)
     public void showByte(byte[] in)
     {
 
-        for (int i = 0; i < in.length; i++)
+        for (byte element : in)
         {
-            System.out.println((char) in[i] + " " + in[i]);
+            System.out.println((char) element + " " + element);
         }
 
     }
@@ -1359,10 +1320,14 @@ public String getMessage(String key)
         this.m_errorDesc = ex.getMessage();
 
         if (debug)
+        {
             System.out.println("  " + source + "::Exception: " + ex);
+        }
 
         if (debug)
+        {
             ex.printStackTrace();
+        }
 
     }
 

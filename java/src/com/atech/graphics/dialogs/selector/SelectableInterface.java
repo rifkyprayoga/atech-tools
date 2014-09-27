@@ -30,35 +30,29 @@ package com.atech.graphics.dialogs.selector;
  *
 */
 
-
 public interface SelectableInterface extends Comparable<SelectableInterface>
 {
 
-	
-	/**
-	 * Get Item Id
-	 * 
-	 * @return id of item
-	 */
-	public abstract long getItemId();
-	
-	
-	/**
-	 * Get Short Description of object
-	 * 
-	 * @return short description
-	 */
-	public abstract String getShortDescription();
-	
-	
-	
+    /**
+     * Get Item Id
+     * 
+     * @return id of item
+     */
+    public abstract long getItemId();
+
+    /**
+     * Get Short Description of object
+     * 
+     * @return short description
+     */
+    public abstract String getShortDescription();
+
     /**
      * getColumnCount - return number of displayable columns
      * 
      * @return number of displayable columns
      */
     public abstract int getColumnCount();
-
 
     /**
      * getColumnName - return name of specified column
@@ -68,7 +62,6 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      */
     public abstract String getColumnName(int num);
 
-
     /**
      * getColumnValue - return value of specified column
      * 
@@ -77,7 +70,6 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      */
     public abstract String getColumnValue(int num);
 
-
     /**
      * getColumnValueObject - return value of specified column
      * 
@@ -85,8 +77,6 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      * @return string value of column
      */
     public abstract Object getColumnValueObject(int num);
-
-
 
     /**
      * getColumnWidth - return width of specified column
@@ -97,7 +87,6 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      */
     public int getColumnWidth(int num, int width);
 
-
     /**
      * isFound(String) - if this object is filtered or not.
      * 
@@ -106,7 +95,6 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      */
     public abstract boolean isFound(String text);
 
-
     /**
      * isFound(int) - if this object is filtered or not.
      * 
@@ -114,7 +102,6 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      * @return true if object is correct, fakse if not.
      */
     public abstract boolean isFound(int value);
-
 
     /**
      * isFound(int,int,int) - if this object is filtered or not.
@@ -126,20 +113,15 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      */
     public abstract boolean isFound(int from, int till, int state);
 
-
     /**
      * setSearchContext - set context for searching
      */
     public abstract void setSearchContext();
 
-
-
     /**
      * getColumnDefinitions - returns types of columns in String
      */
-    //public abstract String[] getColumnDefinitions();
-
-
+    // public abstract String[] getColumnDefinitions();
 
     /**
      * setColumnSorter - sets class that will help with column sorting
@@ -147,9 +129,6 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      * @param cs ColumnSorter instance
      */
     public abstract void setColumnSorter(ColumnSorter cs);
-
-
-
 
     /**
      * Compares this object with the specified object for order.  Returns a
@@ -191,9 +170,4 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      */
     public abstract int compareTo(SelectableInterface o);
 
-
-
-
 }
-
-

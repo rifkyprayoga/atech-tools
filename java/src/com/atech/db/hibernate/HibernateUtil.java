@@ -38,13 +38,12 @@ import org.hibernate.Transaction;
  *
 */
 
-
 public class HibernateUtil
 {
 
-    //I18nControlAbstract ic = null;
+    // I18nControlAbstract ic = null;
     private Session m_session = null;
-    
+
     /**
      * The hconfig.
      */
@@ -57,7 +56,6 @@ public class HibernateUtil
     @SuppressWarnings("unused")
     private String m_addId = "";
 
-    
     /**
      * Instantiates a new hibernate util.
      * 
@@ -68,8 +66,7 @@ public class HibernateUtil
     {
         this(hconfig, type, true);
     }
-    
-    
+
     /**
      * Instantiates a new hibernate util.
      * 
@@ -80,37 +77,31 @@ public class HibernateUtil
     public HibernateUtil(HibernateConfiguration hconfig, int type, boolean init)
     {
         this.hconfig = hconfig;
-        
+
         if (init)
         {
             this.hconfig.reInitConfiguration(type);
         }
     }
-    
-    
+
     /*
-    public HibernateUtil(Configuration cfg)
-    {
-        this(cfg, true);
-    }
-    
-    
-    public HibernateUtil(Configuration cfg, boolean do_init)
-    {
-        this.m_cfg = cfg;
-        
-        if (do_init)
-            init();
-    }
+     * public HibernateUtil(Configuration cfg)
+     * {
+     * this(cfg, true);
+     * }
+     * public HibernateUtil(Configuration cfg, boolean do_init)
+     * {
+     * this.m_cfg = cfg;
+     * if (do_init)
+     * init();
+     * }
+     * public void init()
+     * {
+     * sessions = m_cfg.buildSessionFactory();
+     * m_session = sessions.openSession();
+     * }
+     */
 
-
-    public void init()
-    {
-        sessions = m_cfg.buildSessionFactory();
-        m_session = sessions.openSession();
-    }
-    */
-    
     /**
      * Sets the session.
      */
@@ -119,7 +110,6 @@ public class HibernateUtil
         setSession(1);
     }
 
-    
     /**
      * Sets the session.
      * 
@@ -129,7 +119,7 @@ public class HibernateUtil
     {
         this.m_session = this.hconfig.getSession(session_nr);
     }
-    
+
     /**
      * Gets the session.
      * 
@@ -137,10 +127,9 @@ public class HibernateUtil
      */
     public Session getSession()
     {
-        return this.m_session ;
+        return this.m_session;
     }
 
-   
     /**
      * Adds the.
      * 
@@ -192,8 +181,7 @@ public class HibernateUtil
         }
 
     }
-    
-    
+
     // this method is used for direct use with hibernate objects (unlike use
     // with our
     // datalayer classes)
@@ -226,8 +214,7 @@ public class HibernateUtil
         }
 
     }
-    
-    
+
     /**
      * Edits the.
      * 
@@ -276,8 +263,7 @@ public class HibernateUtil
         }
 
     }
-    
-    
+
     // this method is used for direct use with hibernate objects (unlike use
     // with our
     // datalayer classes)
@@ -312,8 +298,7 @@ public class HibernateUtil
         }
 
     }
-    
-    
+
     /**
      * Delete.
      * 
@@ -372,9 +357,7 @@ public class HibernateUtil
         }
 
     }
-    
-    
-    
+
     /**
      * Delete hibernate.
      * 
@@ -406,9 +389,7 @@ public class HibernateUtil
         }
 
     }
-    
-    
-    
+
     /**
      * Sets the error.
      * 
@@ -421,9 +402,5 @@ public class HibernateUtil
         this.m_errorCode = code;
         this.m_errorDesc = source + " : " + desc;
     }
-    
-    
-    
+
 }
-
-

@@ -36,10 +36,9 @@ import org.jfree.data.general.AbstractDataset;
  *
 */
 
-
 public interface GraphViewDataProcessorInterface
 {
-    
+
     /**
      * Set Controller Data - This is method where controller object should be
      *    set, so that data can be reloaded.
@@ -48,39 +47,34 @@ public interface GraphViewDataProcessorInterface
      */
     public void setControllerData(Object data);
 
-    
     /**
      * Reload Data - This is method which should be called after setControllerData is set
      *     with new data. This method should call loadData() and preprocessData(). 
      */
     public void reloadData();
-    
-    
+
     /**
      * Load Data
      */
     public void loadData();
 
-    
     /**
      * Preprocess Data
      */
     public void preprocessData();
-    
-    
+
     /**
      * Get Data Set
      * 
      * @return AbstractDataset instance
      */
     public AbstractDataset getDataSet();
-    
-    
+
     /**
      * Set Plot
      * 
      * @param chart JFreeChart instance
      */
     public void setPlot(JFreeChart chart);
-    
+
 }

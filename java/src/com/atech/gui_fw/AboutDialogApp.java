@@ -24,24 +24,18 @@ public abstract class AboutDialogApp extends com.atech.graphics.components.about
 {
 
     private static final long serialVersionUID = 700501667084363317L;
-    ATDataAccessAbstract m_da = null; 
-
+    ATDataAccessAbstract m_da = null;
 
     /**
      * Constructor
      * @param aac 
      */
-    public AboutDialogApp(AbstractApplicationContext aac) 
+    public AboutDialogApp(AbstractApplicationContext aac)
     {
         super(aac.getFrame(), true, aac.getI18nControl());
         initAbout();
     }
 
-
-    
     public abstract void initAbout();
-    
-    
-    
-    
+
 }

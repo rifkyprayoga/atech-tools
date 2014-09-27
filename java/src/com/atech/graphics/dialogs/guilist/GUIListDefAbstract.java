@@ -44,86 +44,85 @@ import com.atech.i18n.I18nControlAbstract;
 
 public abstract class GUIListDefAbstract
 {
-    
+
     /** The Constant ACTION_ADD. */
     public static final int ACTION_ADD = 1;
-    
+
     /** The Constant ACTION_EDIT. */
     public static final int ACTION_EDIT = 2;
-    
+
     /** The Constant ACTION_DELETE. */
     public static final int ACTION_DELETE = 3;
-    
+
     /** The ic. */
     protected I18nControlAbstract ic = null;
-    
+
     /** The translation_root. */
     protected String translation_root = null;
-    
+
     /** The table. */
     protected JTable table;
-    
+
     /** The model. */
     protected AbstractTableModel model;
-    //protected ArrayList full_list;
-    //protected ArrayList active_list;
-    
+    // protected ArrayList full_list;
+    // protected ArrayList active_list;
+
     /** The filter_options_combo1. */
     protected String[] filter_options_combo1 = null;
-    
+
     /** The filter_options_combo2. */
     protected String[] filter_options_combo2 = null;
-    
-    //protected boolean filter_enabled = false;
+
+    // protected boolean filter_enabled = false;
     /** The filter_texts. */
     protected String[] filter_texts = null;
-    
+
     /** The filter_type. */
     protected int filter_type = FILTER_NONE;
-    
+
     /** The button_defs. */
     protected ArrayList<ButtonDef> button_defs;
-    
-    
+
     /** 
      * Filter: Filter none
      */
     public static final int FILTER_NONE = 0;
-    
+
     /** 
      * Filter: Combo
      */
     public static final int FILTER_COMBO = 1;
-    
+
     /** 
      * Filter: Combo and text
      */
     public static final int FILTER_COMBO_AND_TEXT = 2;
-    
+
     /** 
      * Filter: Combo twice
      */
     public static final int FILTER_COMBO_TWICE = 3;
-    
+
     /** The parent_dialog. */
     public GUIListDialog parent_dialog;
-    
+
     /** The def_parameters. */
     protected String[] def_parameters;
-    
+
     // ic, translation root
     /**
      * Inits the.
      */
     public abstract void init();
-    
+
     /**
      * Gets the title.
      * 
      * @return the title
      */
     public abstract String getTitle();
-    
+
     /**
      * Gets the message.
      * 
@@ -145,7 +144,7 @@ public abstract class GUIListDefAbstract
     {
         return this.translation_root;
     }
-    
+
     /**
      * Gets the table.
      * 
@@ -153,7 +152,6 @@ public abstract class GUIListDefAbstract
      */
     public abstract JTable getJTable();
 
-    
     /**
      * Do table action.
      * 
@@ -161,21 +159,21 @@ public abstract class GUIListDefAbstract
      *            the action
      */
     public abstract void doTableAction(String action);
-    
+
     /**
      * Gets the def name.
      * 
      * @return the def name
      */
     public abstract String getDefName();
-    
+
     /**
      * Gets the window size.
      * 
      * @return the window size
      */
     public abstract Dimension getWindowSize();
-    
+
     /**
      * Gets the table size.
      * 
@@ -184,8 +182,7 @@ public abstract class GUIListDefAbstract
      * @return the table size
      */
     public abstract Rectangle getTableSize(int pos_y);
-  
-    
+
     /**
      * In this method you can add additional custom elements for this lister.
      * 
@@ -195,7 +192,7 @@ public abstract class GUIListDefAbstract
     public void additionalGUIInit(JPanel main_panel)
     {
     }
-    
+
     /**
      * Gets the filter options combo1.
      * 
@@ -204,7 +201,7 @@ public abstract class GUIListDefAbstract
     public String[] getFilterOptionsCombo1()
     {
         return this.filter_options_combo1;
-    }    
+    }
 
     /**
      * Gets the filter options combo2.
@@ -214,9 +211,8 @@ public abstract class GUIListDefAbstract
     public String[] getFilterOptionsCombo2()
     {
         return this.filter_options_combo2;
-    }    
-    
-    
+    }
+
     /**
      * Checks for filter.
      * 
@@ -225,8 +221,8 @@ public abstract class GUIListDefAbstract
     public boolean hasFilter()
     {
         return this.filter_type > FILTER_NONE;
-    }    
-    
+    }
+
     /**
      * Gets the filter type.
      * 
@@ -236,8 +232,7 @@ public abstract class GUIListDefAbstract
     {
         return this.filter_type;
     }
-    
-    
+
     /**
      * Sets the parent instance.
      * 
@@ -248,8 +243,7 @@ public abstract class GUIListDefAbstract
     {
         this.parent_dialog = _parent_dialog;
     }
-    
-    
+
     /**
      * Gets the filter texts.
      * 
@@ -258,8 +252,8 @@ public abstract class GUIListDefAbstract
     public String[] getFilterTexts()
     {
         return this.filter_texts;
-    }    
-    
+    }
+
     /**
      * Sets the filter combo.
      * 
@@ -275,7 +269,7 @@ public abstract class GUIListDefAbstract
      *            the new filter combo_2
      */
     public abstract void setFilterCombo_2(String val);
-    
+
     /**
      * Sets the filter text.
      * 
@@ -283,7 +277,7 @@ public abstract class GUIListDefAbstract
      *            the new filter text
      */
     public abstract void setFilterText(String val);
-    
+
     /**
      * Gets the button definitions.
      * 
@@ -293,7 +287,7 @@ public abstract class GUIListDefAbstract
     {
         return button_defs;
     }
-    
+
     /**
      * Gets the default parameters.
      * 
@@ -303,5 +297,5 @@ public abstract class GUIListDefAbstract
     {
         return def_parameters;
     }
-    
+
 }

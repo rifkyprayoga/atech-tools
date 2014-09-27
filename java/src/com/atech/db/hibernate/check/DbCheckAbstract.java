@@ -1,8 +1,6 @@
-
 package com.atech.db.hibernate.check;
 
 import org.hibernate.cfg.Configuration;
-
 
 /**
  *  This file is part of ATech Tools library.
@@ -34,17 +32,16 @@ import org.hibernate.cfg.Configuration;
  *
 */
 
-
 public abstract class DbCheckAbstract implements DbCheckInterface
 {
-    
+
     /**
      * Is Check Enabled
      * 
      * @see com.atech.db.hibernate.check.DbCheckInterface#isCheckEnabled()
      */
     public abstract boolean isCheckEnabled();
-    
+
     /**
      * Get DbInfo Resource
      * 
@@ -52,15 +49,14 @@ public abstract class DbCheckAbstract implements DbCheckInterface
      */
     public String[] getDbInfoResource()
     {
-        return (new String[] { "DbInfo.hbm.xml"});
+        return new String[] { "DbInfo.hbm.xml" };
     }
-    
+
     /**
      * Get DbInfo Configuration
      * 
      * @see com.atech.db.hibernate.check.DbCheckInterface#getDbInfoConfiguration()
      */
     public abstract Configuration getDbInfoConfiguration();
-
 
 }

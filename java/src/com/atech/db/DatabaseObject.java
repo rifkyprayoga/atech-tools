@@ -34,7 +34,6 @@ import java.sql.SQLException;
  *
 */
 
-
 public interface DatabaseObject
 {
 
@@ -43,8 +42,7 @@ public interface DatabaseObject
      * @return unique object id
      */
     String getObjectUniqueId();
-    
-    
+
     /**
      * DbAdd - Add this object to database
      * 
@@ -53,7 +51,6 @@ public interface DatabaseObject
      * @return id in type of String
      */
     boolean addElement(Connection conn);
-
 
     /**
      * editElement - Edit this object in database
@@ -73,7 +70,6 @@ public interface DatabaseObject
      */
     public boolean deleteElement(Connection conn);
 
-
     /**
      * DbHasChildren - Shows if this entry has any children object, this is needed for delete
      * 
@@ -81,8 +77,7 @@ public interface DatabaseObject
      * @throws Exception (HibernateException) with error
      * @return true if action done or Exception if not
      */
-    public boolean hasElementChildren(Connection conn) ;
-
+    public boolean hasElementChildren(Connection conn);
 
     /**
      * DbGet - Loads this object. Id must be set.
@@ -92,7 +87,6 @@ public interface DatabaseObject
      * @return true if action done or Exception if not
      */
     public boolean getElement(Connection conn);
-    
 
     /**
      * getObjectName - returns name of DatabaseObject
@@ -101,7 +95,6 @@ public interface DatabaseObject
      */
     String getObjectName();
 
-
     /**
      * isDebugMode - returns debug mode of object
      * 
@@ -109,12 +102,10 @@ public interface DatabaseObject
      */
     boolean isDebugMode();
 
-
     public boolean isNewEntry();
 
-    
     public void getData(ResultSet rs) throws SQLException;
-    
+
     /**
      * getAction - returns action that should be done on object
      *    0 = no action
@@ -128,8 +119,4 @@ public interface DatabaseObject
      */
     int getAction();
 
-
-
 }
-
-

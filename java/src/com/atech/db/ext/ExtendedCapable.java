@@ -32,13 +32,12 @@ package com.atech.db.ext;
 
 public interface ExtendedCapable
 {
-    
+
     /**
      * Get Extended Handler
      * 
      * @return
      */
     public ExtendedHandler getExtendedHandler();
-    
 
 }

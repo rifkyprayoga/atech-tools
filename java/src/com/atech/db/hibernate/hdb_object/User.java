@@ -36,8 +36,6 @@ import com.atech.utils.ATDataAccessAbstract;
  *
 */
 
-
-
 public class User extends UserH implements DatabaseObjectHibernate
 {
 
@@ -52,8 +50,7 @@ public class User extends UserH implements DatabaseObjectHibernate
      * Variable: default user
      */
     public boolean default_user = false;
-    
-    
+
     ATDataAccessAbstract m_da = null;
 
     /**
@@ -65,7 +62,6 @@ public class User extends UserH implements DatabaseObjectHibernate
     {
         this.m_da = da;
     }
-
 
     /**
      * Constructor
@@ -85,20 +81,19 @@ public class User extends UserH implements DatabaseObjectHibernate
         this.setUser_type_id(uh.getUser_type_id());
         this.setUser_access(uh.getUser_access());
 
-        //setSearchContext();
+        // setSearchContext();
 
     }
 
+    @Override
     public String toString()
     {
         return this.getUsername() + "(" + this.getReal_name() + ") = " + m_da.user_types[this.getUser_type()];
     }
 
-
-    //---
-    //---  DatabaseObjectHibernate
-    //---
-
+    // ---
+    // --- DatabaseObjectHibernate
+    // ---
 
     /**
      * DbAdd - Add this object to database
@@ -123,14 +118,12 @@ public class User extends UserH implements DatabaseObjectHibernate
         uh.setUser_type_id(this.getUser_type_id());
         uh.setUser_access(this.getUser_access());
 
-        Long id = (Long)sess.save(uh);
+        Long id = (Long) sess.save(uh);
         tx.commit();
 
-        return ""+id.longValue();
+        return "" + id.longValue();
 
     }
-
-
 
     /**
      * DbEdit - Edit this object in database
@@ -144,7 +137,7 @@ public class User extends UserH implements DatabaseObjectHibernate
 
         Transaction tx = sess.beginTransaction();
 
-        UserH uh = (UserH)sess.get(UserH.class, this.getId());
+        UserH uh = (UserH) sess.get(UserH.class, this.getId());
 
         uh.setId(this.getId());
         uh.setPassword(this.getPassword());
@@ -162,8 +155,6 @@ public class User extends UserH implements DatabaseObjectHibernate
 
     }
 
-
-
     /**
      * DbDelete - Delete this object in database
      * 
@@ -176,15 +167,13 @@ public class User extends UserH implements DatabaseObjectHibernate
 
         Transaction tx = sess.beginTransaction();
 
-        UserH uh = (UserH)sess.get(UserH.class, this.getId());
+        UserH uh = (UserH) sess.get(UserH.class, this.getId());
         sess.delete(uh);
         tx.commit();
 
         return true;
 
     }
-
-
 
     /**
      * DbHasChildren - Shows if this entry has any children object, this is needed for delete
@@ -196,11 +185,9 @@ public class User extends UserH implements DatabaseObjectHibernate
      */
     public boolean DbHasChildren(Session sess) throws Exception
     {
-        //DataAccess.notImplemented("Street::DbHasChildren");
+        // DataAccess.notImplemented("Street::DbHasChildren");
         return false;
     }
-
-
 
     /**
      * DbGet - Loads this object. Id must be set.
@@ -213,7 +200,7 @@ public class User extends UserH implements DatabaseObjectHibernate
     public boolean DbGet(Session sess) throws Exception
     {
 
-        UserH uh = (UserH)sess.get(UserH.class, new Long(this.getId()));
+        UserH uh = (UserH) sess.get(UserH.class, new Long(this.getId()));
 
         this.setId(uh.getId());
         this.setPassword(uh.getPassword());
@@ -224,12 +211,10 @@ public class User extends UserH implements DatabaseObjectHibernate
         this.setUser_type_id(uh.getUser_type_id());
         this.setUser_access(uh.getUser_access());
 
-        //setSearchContext();
+        // setSearchContext();
 
         return true;
     }
-
-
 
     /**
      * getObjectName - returns name of DatabaseObject
@@ -241,8 +226,6 @@ public class User extends UserH implements DatabaseObjectHibernate
         return "User";
     }
 
-
-
     /**
      * isDebugMode - returns debug mode of object
      * 
@@ -252,7 +235,6 @@ public class User extends UserH implements DatabaseObjectHibernate
     {
         return debug;
     }
-
 
     /**
      * getAction - returns action that should be done on object
@@ -270,7 +252,6 @@ public class User extends UserH implements DatabaseObjectHibernate
         return 0;
     }
 
-
     /**
      * getObjectUniqueId - get id of object
      * @return unique object id
@@ -281,7 +262,4 @@ public class User extends UserH implements DatabaseObjectHibernate
         return null;
     }
 
-
 }
-
-

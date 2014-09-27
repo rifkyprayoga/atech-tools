@@ -30,8 +30,7 @@ package com.atech.update.client.panel;
  *
  */
 
-
-public interface UpdateProgressPanelInterface 
+public interface UpdateProgressPanelInterface
 {
 
     /**
@@ -40,14 +39,14 @@ public interface UpdateProgressPanelInterface
      * @param status
      */
     public abstract void setBaseStatus(String status);
-    
+
     /**
      * Set Status
      * 
      * @param status
      */
     public abstract void setStatus(String status);
-    
+
     /**
      * Set Progress
      * 
@@ -61,5 +60,5 @@ public interface UpdateProgressPanelInterface
      * @param status
      */
     public abstract void setJobStatus(String status);
-    
+
 }

@@ -38,7 +38,6 @@ import java.util.ResourceBundle;
  *
 */
 
-
 public class I18nCheck
 {
 
@@ -54,20 +53,15 @@ public class I18nCheck
     Hashtable<String, ResourceBundle> resourceBundles;
 
     // Reversed Hashtable of Resource Bundles for different langauges
-    //Hashtable reverseRBs;
+    // Hashtable reverseRBs;
 
-
-    //public String[] lang_short = null;
+    // public String[] lang_short = null;
 
     private ArrayList<String> lang_short = null;
 
     private String m_prefix = null;
     private String default_lang = null;
 
-
-
-
-    
     /**
      * I18nCheck constructor; Since classes use Singleton Pattern,
      * constructor is protected and can be accessed only with getInstance() 
@@ -76,7 +70,7 @@ public class I18nCheck
      * @param prefix 
      * @param default_lang 
      *
-     */ 
+     */
     public I18nCheck(String prefix, String default_lang)
     {
         resourceBundles = new Hashtable<String, ResourceBundle>();
@@ -86,26 +80,25 @@ public class I18nCheck
 
         getAvailableFiles();
 
-        if (lang_short.size()<2) 
+        if (lang_short.size() < 2)
         {
             System.out.println("  WARNING: You need at least two language files to compare.");
             return;
         }
 
         loadLanguages();
-        //Enumeration<String> en = this.res.getKeys()
-        //System.out.println("Keywords count: " + this.res.getKeys());
-        
+        // Enumeration<String> en = this.res.getKeys()
+        // System.out.println("Keywords count: " + this.res.getKeys());
+
         checkLanguages();
-//        checkLanguages(lang);
+        // checkLanguages(lang);
 
-    } 
-
+    }
 
     private int getKeywordCount()
     {
         int i = 0;
-        for(Enumeration<String> en = this.res.getKeys(); en.hasMoreElements(); )
+        for (Enumeration<String> en = this.res.getKeys(); en.hasMoreElements();)
         {
             en.nextElement();
             i++;
@@ -113,7 +106,6 @@ public class I18nCheck
 
         return i;
     }
-
 
     /**
      * Gets the available files.
@@ -124,14 +116,13 @@ public class I18nCheck
 
         String[] files = fl.list();
 
-        for (int i=0; i< files.length; i++) 
+        for (String file : files)
         {
-            if ((files[i].startsWith(this.m_prefix + "_")) &&
-                (files[i].indexOf(".properties")!=-1))
+            if (file.startsWith(this.m_prefix + "_") && file.indexOf(".properties") != -1)
             {
-                String sub = files[i].substring(this.m_prefix.length() + 1, files[i].indexOf(".properties"));
+                String sub = file.substring(this.m_prefix.length() + 1, file.indexOf(".properties"));
 
-                if (sub.length()<=3) 
+                if (sub.length() <= 3)
                 {
                     this.lang_short.add(sub);
                     System.out.println(sub);
@@ -140,9 +131,6 @@ public class I18nCheck
         }
 
     }
-    
-
-
 
     /**
      * Load languages.
@@ -151,46 +139,48 @@ public class I18nCheck
     {
 
         System.out.println(" --- Load Resource Bundles ---");
-        for (int i=0; i<lang_short.size(); i++)
+        for (int i = 0; i < lang_short.size(); i++)
         {
             String lang = this.lang_short.get(i);
             String name = this.m_prefix + "_" + lang + ".properties";
 
-            //Locale l = new Locale(lang_short[i]);
+            // Locale l = new Locale(lang_short[i]);
 
             ResourceBundle rb = getResourceBundle(lang);
 
-            if (rb==null)
+            if (rb == null)
             {
                 System.out.println("Error loading: " + name);
-                //rb = getResourceBundle(lcls[0]);
+                // rb = getResourceBundle(lcls[0]);
             }
             else
+            {
                 System.out.println("Resource File " + name + " loaded succesfully");
+            }
 
-            //System.out.println("RB Full: " + resourceBundles + " loaded RB: " +rb);
+            // System.out.println("RB Full: " + resourceBundles + " loaded RB: "
+            // +rb);
 
-		    System.out.println("Def: " + this.default_lang + " current: '" + lang + "'");
-	
-		    
-		    System.out.println(this.default_lang);
-		    
-	        if (lang.equalsIgnoreCase(this.default_lang))
-		    {
-	        	res = rb;
-	        	System.out.println("Default language");
-		    }
-	        else
-	        	resourceBundles.put(lang, rb);
+            System.out.println("Def: " + this.default_lang + " current: '" + lang + "'");
+
+            System.out.println(this.default_lang);
+
+            if (lang.equalsIgnoreCase(this.default_lang))
+            {
+                res = rb;
+                System.out.println("Default language");
+            }
+            else
+            {
+                resourceBundles.put(lang, rb);
+            }
 
         }
         System.out.println(" --- End of loading of Resource Bundles ---");
 
         System.out.println("Keywords count: " + getKeywordCount());
-        
-        
-    }
 
+    }
 
     /**
      * Gets the resource bundle.
@@ -215,7 +205,6 @@ public class I18nCheck
         return rb;
 
     }
-
 
     /**
      * Gets the resource bundle.
@@ -243,30 +232,13 @@ public class I18nCheck
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * Check languages.
      */
     public void checkLanguages()
     {
 
-        for(Enumeration<String> en = this.resourceBundles.keys(); en.hasMoreElements(); )
+        for (Enumeration<String> en = this.resourceBundles.keys(); en.hasMoreElements();)
         {
             String key = en.nextElement();
             ResourceBundle rb = this.resourceBundles.get(key);
@@ -278,26 +250,21 @@ public class I18nCheck
             checkIfLangHasNoLongerUsedKeywords(rb);
         }
 
-/*
-        for (int i=0; i<lang_short.size(); i++)
-        {
-            String lang = (String)this.lang_short.get(i);
-
-
-            if (!lang_short.get(i)[i].equals(lang_def))
-            {
-//                System.out.println("Checking " + this.languages[i] + " language.");
-                //this.checkIfLangFileHasAllKeywords(lang_short[i]);
-                System.out.println("\n\n");
-            }
-
-        }
-        */
+        /*
+         * for (int i=0; i<lang_short.size(); i++)
+         * {
+         * String lang = (String)this.lang_short.get(i);
+         * if (!lang_short.get(i)[i].equals(lang_def))
+         * {
+         * // System.out.println("Checking " + this.languages[i] +
+         * " language.");
+         * //this.checkIfLangFileHasAllKeywords(lang_short[i]);
+         * System.out.println("\n\n");
+         * }
+         * }
+         */
 
     }
-
-
-
 
     /**
      * Check if lang file has all keywords.
@@ -310,7 +277,6 @@ public class I18nCheck
         checkIfLangFileHasAllKeywords(rb);
     }
 
-
     /**
      * Check if lang file has all keywords.
      * 
@@ -319,28 +285,30 @@ public class I18nCheck
     public void checkIfLangFileHasAllKeywords(ResourceBundle rb)
     {
 
-        //ResourceBundle rb = (ResourceBundle)resourceBundles.get(short_lang);
+        // ResourceBundle rb = (ResourceBundle)resourceBundles.get(short_lang);
 
         StringBuffer sb = new StringBuffer();
 
-        for (Enumeration<String> en = res.getKeys(); en.hasMoreElements(); )
+        for (Enumeration<String> en = res.getKeys(); en.hasMoreElements();)
         {
             String key = en.nextElement();
 
             try
             {
-                if (rb.getString(key)==null)
+                if (rb.getString(key) == null)
+                {
                     sb.append(key + "\n");
-                    //System.out.println(key);
+                    // System.out.println(key);
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                //System.out.println(key);
+                // System.out.println(key);
                 sb.append(key + "\n");
             }
         }
 
-        if (sb.length()==0) 
+        if (sb.length() == 0)
         {
             System.out.println("\nNO MISSING KEYWORDS !");
             System.out.println("---------------------");
@@ -354,8 +322,6 @@ public class I18nCheck
 
     }
 
-
-
     /**
      * Check if lang has no longer used keywords.
      * 
@@ -364,30 +330,31 @@ public class I18nCheck
     public void checkIfLangHasNoLongerUsedKeywords(ResourceBundle rb)
     {
 
-        //ResourceBundle rb = (ResourceBundle)resourceBundles.get(short_lang);
+        // ResourceBundle rb = (ResourceBundle)resourceBundles.get(short_lang);
 
         StringBuffer sb = new StringBuffer();
 
-        for (Enumeration<String> en = rb.getKeys(); en.hasMoreElements(); )
+        for (Enumeration<String> en = rb.getKeys(); en.hasMoreElements();)
         {
             String key = en.nextElement();
 
             try
             {
-                if (res.getString(key)==null)
+                if (res.getString(key) == null)
+                {
                     sb.append(key + "\n");
-                    //System.out.println(key);
+                    // System.out.println(key);
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                //System.out.println(key);
+                // System.out.println(key);
                 sb.append(key + "\n");
             }
         }
 
-        if (sb.length()==0) 
-        {
-        }
+        if (sb.length() == 0)
+        {}
         else
         {
             System.out.println("KEYWORDS NO LONGER USED:");
@@ -397,9 +364,6 @@ public class I18nCheck
 
     }
 
-    
-
-
     /**
      * The main method.
      * 
@@ -407,17 +371,14 @@ public class I18nCheck
      */
     public static void main(String args[])
     {
-        if (args.length!=2)
+        if (args.length != 2)
         {
             System.out.println(" Usage:  java I18nCheck <lang_file_prefix> <default_language_short>");
             System.exit(1);
         }
 
-
-        /*I18nCheck i1 =*/ new I18nCheck(args[0], args[1]);
+        /* I18nCheck i1 = */new I18nCheck(args[0], args[1]);
 
     }
 
 }
-
-

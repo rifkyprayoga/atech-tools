@@ -6,14 +6,14 @@ package com.atech.graphics.components;
  */
 public interface MultiLineTooltip
 {
-    
+
     /**
      * Checks if is indexed.
      * 
      * @return true, if is indexed
      */
     public boolean isIndexed();
-    
+
     /**
      * Gets the multi line tool tip.
      * 

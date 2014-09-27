@@ -1,6 +1,5 @@
 package com.atech.utils.file;
 
-
 /*
  * UNPACKING ZIP FILES
  * 
@@ -43,7 +42,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
-
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -75,16 +73,14 @@ import java.util.zip.ZipFile;
  *
 */
 
-
 public class UnPackFiles
 {
-    
+
     /**
      * The output_path.
      */
     String output_path;
-    
-    
+
     /**
      * Instantiates a new un pack files.
      * 
@@ -94,7 +90,7 @@ public class UnPackFiles
      */
     public UnPackFiles(String file, boolean dump_contents, String output_path)
     {
-        
+
         ZipFile zf = null;
         this.output_path = output_path;
 
@@ -114,13 +110,13 @@ public class UnPackFiles
         Enumeration<? extends ZipEntry> list = zf.entries();
         while (list.hasMoreElements())
         {
-            ZipEntry ze = (ZipEntry) list.nextElement();
+            ZipEntry ze = list.nextElement();
             if (!dump_contents || ze.isDirectory())
             {
                 System.out.println(ze.getName());
                 continue;
             }
-            
+
             try
             {
                 dumpFile(zf, ze);
@@ -131,9 +127,8 @@ public class UnPackFiles
             }
         }
 
-        
     }
-    
+
     /**
      * Dump file.
      * 
@@ -144,10 +139,10 @@ public class UnPackFiles
      */
     public void dumpFile(ZipFile zf, ZipEntry ze) throws IOException
     {
-//        System.out.println(">>>>> " + ze.getName());
+        // System.out.println(">>>>> " + ze.getName());
         InputStream istr = zf.getInputStream(ze);
         BufferedInputStream bis = new BufferedInputStream(istr);
-        //FileDescriptor out = FileDescriptor.out;
+        // FileDescriptor out = FileDescriptor.out;
         FileOutputStream fos = new FileOutputStream(this.output_path + "/" + ze.getName());
         int sz = (int) ze.getSize();
         final int N = 1024;
@@ -163,9 +158,6 @@ public class UnPackFiles
         fos.flush();
     }
 
-    
-    
-    
     /**
      * The main method.
      * 

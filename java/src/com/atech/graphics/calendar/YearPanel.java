@@ -39,15 +39,13 @@ import com.atech.utils.ATDataAccessAbstract;
  *  Author:   Andy
  */
 
-
 public class YearPanel extends JPanel implements CalendarListener
 {
-    
+
     private static final long serialVersionUID = -9126539917586584312L;
-    //private JTextField yearField;
+    // private JTextField yearField;
     private JSpinner yearSpinner;
 
-    
     /**
      * Constructor
      * 
@@ -56,56 +54,55 @@ public class YearPanel extends JPanel implements CalendarListener
      */
     public YearPanel(final CalendarModel cMod, ATDataAccessAbstract da)
     {
-        
-        SpinnerNumberModel listYearsModel = new SpinnerNumberModel(cMod.getYear(), da.getStartYear(), cMod.getYear() + 100, 1);
+
+        SpinnerNumberModel listYearsModel = new SpinnerNumberModel(cMod.getYear(), da.getStartYear(),
+                cMod.getYear() + 100, 1);
 
         yearSpinner = new JSpinner(listYearsModel);
         yearSpinner.setEditor(new JSpinner.NumberEditor(yearSpinner, "#"));
-        //yearSpinner.setMinimumSize(new Dimension(100, 25));
+        // yearSpinner.setMinimumSize(new Dimension(100, 25));
         yearSpinner.setSize(100, 25);
-        //yearSpinner.setFont(font_normal);
+        // yearSpinner.setFont(font_normal);
         yearSpinner.addChangeListener(new ChangeListener()
         {
 
             public void stateChanged(ChangeEvent e)
             {
-                cMod.setYear(((Integer)yearSpinner.getValue()).intValue());
+                cMod.setYear(((Integer) yearSpinner.getValue()).intValue());
             }
-            
+
         });
-        
+
         add(yearSpinner);
-        
+
         /*
-        yearField = new JTextField(cMod.getYear() + "", 4);
-        add(yearField);
-
-        yearField.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                cMod.setYear((new Integer(yearField.getText())).intValue());
-            }
-        }); */
+         * yearField = new JTextField(cMod.getYear() + "", 4);
+         * add(yearField);
+         * yearField.addActionListener(new ActionListener()
+         * {
+         * public void actionPerformed(ActionEvent e)
+         * {
+         * cMod.setYear((new Integer(yearField.getText())).intValue());
+         * }
+         * });
+         */
     }
-    
-    
-    
-/*    public YearPanel(final CalendarModel cMod, boolean old)
-    {
-        yearField = new JTextField(cMod.getYear() + "", 4);
-        add(yearField);
 
-        yearField.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                cMod.setYear((new Integer(yearField.getText())).intValue());
-            }
-        });
-    }
-*/
-    
+    /*
+     * public YearPanel(final CalendarModel cMod, boolean old)
+     * {
+     * yearField = new JTextField(cMod.getYear() + "", 4);
+     * add(yearField);
+     * yearField.addActionListener(new ActionListener()
+     * {
+     * public void actionPerformed(ActionEvent e)
+     * {
+     * cMod.setYear((new Integer(yearField.getText())).intValue());
+     * }
+     * });
+     * }
+     */
+
     /**
      * Date Has Changed
      * 
@@ -113,7 +110,7 @@ public class YearPanel extends JPanel implements CalendarListener
      */
     public void dateHasChanged(CalendarEvent e)
     {
-        //yearField.setText(e.getNewYear() + "");
+        // yearField.setText(e.getNewYear() + "");
         this.yearSpinner.setValue(e.getNewYear());
     }
 }

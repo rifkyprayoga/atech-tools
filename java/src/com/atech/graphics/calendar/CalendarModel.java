@@ -1,7 +1,5 @@
 package com.atech.graphics.calendar;
 
-
-
 /*
  *  Filename: CalendarModel
  *  Purpose:  A model for every JComponent which is involved in the Calendar
@@ -9,7 +7,6 @@ package com.atech.graphics.calendar;
  *
  *  Author:   schultd (taken from ggc project)
  */
-
 
 import java.util.Calendar;
 import java.util.Date;
@@ -45,7 +42,6 @@ import java.util.GregorianCalendar;
  *
 */
 
-
 public class CalendarModel
 {
     private GregorianCalendar gc;
@@ -61,7 +57,7 @@ public class CalendarModel
     {
         this.cp = cp;
         gc = date;
-        //gc.setTime(date);
+        // gc.setTime(date);
     }
 
     /**

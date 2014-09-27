@@ -1,7 +1,6 @@
 package com.atech.misc.refresh;
 
 import java.util.Observable;
- 
 
 // TODO: Auto-generated Javadoc
 /**
@@ -34,30 +33,29 @@ import java.util.Observable;
  *
 */
 
-
-public class EventSource extends Observable //implements Runnable
+public class EventSource extends Observable // implements Runnable
 {
 
     /**
      * The type.
      */
     int type = 0;
-    
+
     /**
      * The value_int.
      */
     int value_int = 0;
-    
+
     /**
      * The value_str.
      */
     String value_str = null;
-    
+
     /**
      * The value_obj.
      */
     Object value_obj = null;
-    
+
     /**
      * Send change notification.
      * 
@@ -66,7 +64,7 @@ public class EventSource extends Observable //implements Runnable
     public void sendChangeNotification(int value)
     {
         setChanged();
-        notifyObservers( value );
+        notifyObservers(value);
     }
 
     /**
@@ -77,7 +75,7 @@ public class EventSource extends Observable //implements Runnable
     public void sendChangeNotification(String value)
     {
         setChanged();
-        notifyObservers( value );
+        notifyObservers(value);
     }
 
     /**
@@ -88,43 +86,36 @@ public class EventSource extends Observable //implements Runnable
     public void sendChangeNotification(Object value)
     {
         setChanged();
-        notifyObservers( value );
+        notifyObservers(value);
     }
-    
-    
+
     /*
-    public void clear()
-    {
-        type = 0;
-        value_int = 0;
-        value_str = null;
-    }
-    
-    public void run()
-    {
-        while( true )
-        {
-            //System.out.println("Event Source");
-            
-            if (type>0)
-            {
-                if (type == 1)
-                    notifyObservers(value_int);
-                else
-                    notifyObservers(value_str);
-                
-                clear();
-                //notifyObservers( response );
-                
-            }
-            
-            try
-            {
-                Thread.sleep(500);
-            }
-            catch(Exception ex) {}
-        
-            
-        }
-    }*/
+     * public void clear()
+     * {
+     * type = 0;
+     * value_int = 0;
+     * value_str = null;
+     * }
+     * public void run()
+     * {
+     * while( true )
+     * {
+     * //System.out.println("Event Source");
+     * if (type>0)
+     * {
+     * if (type == 1)
+     * notifyObservers(value_int);
+     * else
+     * notifyObservers(value_str);
+     * clear();
+     * //notifyObservers( response );
+     * }
+     * try
+     * {
+     * Thread.sleep(500);
+     * }
+     * catch(Exception ex) {}
+     * }
+     * }
+     */
 }

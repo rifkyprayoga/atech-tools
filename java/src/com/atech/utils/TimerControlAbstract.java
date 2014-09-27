@@ -31,7 +31,6 @@ package com.atech.utils;
  *
 */
 
-
 public abstract class TimerControlAbstract
 {
 
@@ -39,12 +38,12 @@ public abstract class TimerControlAbstract
      * The allowed_change_time.
      */
     protected int allowed_change_time = 0;
-    
+
     /**
      * The timer_started.
      */
     protected boolean timer_started = false;
-    
+
     /**
      * The timer_stopped.
      */
@@ -64,12 +63,13 @@ public abstract class TimerControlAbstract
     public void setStopTime()
     {
         System.out.println("setSTopTime");
-        //this.timer_started = false;
+        // this.timer_started = false;
         if (this.timer_started)
+        {
             this.timer_stopped = true;
-        
-    }
+        }
 
+    }
 
     /**
      * Checks for timer started.
@@ -80,8 +80,7 @@ public abstract class TimerControlAbstract
     {
         return this.timer_started;
     }
-    
-    
+
     /**
      * Sets the allowed change time.
      * 
@@ -92,13 +91,11 @@ public abstract class TimerControlAbstract
         this.allowed_change_time = time_seconds * 1000;
     }
 
-
     /**
      * Stop action.
      */
     public abstract void stopAction();
 
-    
     /**
      * Checks for change been too long.
      * 
@@ -108,13 +105,12 @@ public abstract class TimerControlAbstract
     {
         if (!timer_started)
             return false;
-        
+
         if (timer_stopped)
             return true;
-            
-        
-//        if (!this.timer_started)
-//            return true;
+
+        // if (!this.timer_started)
+        // return true;
 
         long t = getLastChangedTime();
 
@@ -126,69 +122,57 @@ public abstract class TimerControlAbstract
             return false;
     }
 
-
-
-
-	/**
-	 * Sets the last changed time.
-	 */
-	public void setLastChangedTime()
-	{
+    /**
+     * Sets the last changed time.
+     */
+    public void setLastChangedTime()
+    {
         this.timer_started = true;
-		workWith(TimerControlAbstract.DATA_SET, System.currentTimeMillis());
-	}
-	
-	
-	/**
-	 * Gets the last changed time.
-	 * 
-	 * @return the last changed time
-	 */
-	public long getLastChangedTime()
-	{
-		return workWith(TimerControlAbstract.DATA_GET, 0L);
-	}
-	
-	/**
-	 * The Constant DATA_GET.
-	 */
-	public static final int DATA_GET = 1;
-	
-	/**
-	 * The Constant DATA_SET.
-	 */
-	public static final int DATA_SET = 2;
-	
-	/**
-	 * The current_time.
-	 */
-	public long current_time = 0L;
-	
-	/**
-	 * Work with.
-	 * 
-	 * @param type the type
-	 * @param data the data
-	 * 
-	 * @return the long
-	 */
-	public synchronized long workWith(int type, long data)
-	{
-		if (type == TimerControlAbstract.DATA_GET)
-		{
-			return this.current_time; 
-		}
-		else
-		{
-			this.current_time = data;
-			return 0L;
-		}
-	}
-    
-    
+        workWith(TimerControlAbstract.DATA_SET, System.currentTimeMillis());
+    }
 
-    
+    /**
+     * Gets the last changed time.
+     * 
+     * @return the last changed time
+     */
+    public long getLastChangedTime()
+    {
+        return workWith(TimerControlAbstract.DATA_GET, 0L);
+    }
+
+    /**
+     * The Constant DATA_GET.
+     */
+    public static final int DATA_GET = 1;
+
+    /**
+     * The Constant DATA_SET.
+     */
+    public static final int DATA_SET = 2;
+
+    /**
+     * The current_time.
+     */
+    public long current_time = 0L;
+
+    /**
+     * Work with.
+     * 
+     * @param type the type
+     * @param data the data
+     * 
+     * @return the long
+     */
+    public synchronized long workWith(int type, long data)
+    {
+        if (type == TimerControlAbstract.DATA_GET)
+            return this.current_time;
+        else
+        {
+            this.current_time = data;
+            return 0L;
+        }
+    }
 
 }
-
-

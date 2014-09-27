@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ServletUtilities
 {
-    
+
     /**
      * The Constant DOCTYPE.
      */
@@ -27,7 +27,7 @@ public class ServletUtilities
      */
     public static String headWithTitle(String title)
     {
-        return (DOCTYPE + "\n" + "<HTML>\n" + "<HEAD><TITLE>" + title + "</TITLE></HEAD>\n");
+        return DOCTYPE + "\n" + "<HTML>\n" + "<HEAD><TITLE>" + title + "</TITLE></HEAD>\n";
     }
 
     /**
@@ -52,7 +52,7 @@ public class ServletUtilities
         { // Handles null and bad format
             paramValue = defaultValue;
         }
-        return (paramValue);
+        return paramValue;
     }
 
     /**
@@ -66,13 +66,12 @@ public class ServletUtilities
      */
     public static String getCookieValue(Cookie[] cookies, String cookieName, String defaultValue)
     {
-        for (int i = 0; i < cookies.length; i++)
+        for (Cookie cookie : cookies)
         {
-            Cookie cookie = cookies[i];
             if (cookieName.equals(cookie.getName()))
-                return (cookie.getValue());
+                return cookie.getValue();
         }
-        return (defaultValue);
+        return defaultValue;
     }
 
     // Approximate values are fine.
@@ -81,7 +80,7 @@ public class ServletUtilities
      * The Constant SECONDS_PER_MONTH.
      */
     public static final int SECONDS_PER_MONTH = 60 * 60 * 24 * 30;
-    
+
     /**
      * The Constant SECONDS_PER_YEAR.
      */

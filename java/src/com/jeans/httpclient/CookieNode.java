@@ -1,6 +1,5 @@
 package com.jeans.httpclient;
 
-
 /**
  * This file is part of ATech Tools library.
  * 
@@ -28,7 +27,6 @@ package com.jeans.httpclient;
  * andyrozman@users.sourceforge.net or andy@atech-software.com
  */
 
-
 /**
  * This class handles the cookie information.
  */
@@ -41,4 +39,3 @@ class CookieNode extends Object
     int starttime;
     int maxage;
 }
-

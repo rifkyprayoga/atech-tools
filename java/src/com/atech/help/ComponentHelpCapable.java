@@ -1,6 +1,4 @@
-
 package com.atech.help;
-
 
 /**
  *  This file is part of ATech Tools library.
@@ -32,15 +30,14 @@ package com.atech.help;
  *
 */
 
-
-public interface ComponentHelpCapable 
+public interface ComponentHelpCapable
 {
-    
-	/**
-	 * Enable Help
-	 * 
-	 * @param help_id
-	 */
-	public void enableHelp(String help_id);
+
+    /**
+     * Enable Help
+     * 
+     * @param help_id
+     */
+    public void enableHelp(String help_id);
 
 }

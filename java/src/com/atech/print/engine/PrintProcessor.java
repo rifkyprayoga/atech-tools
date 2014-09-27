@@ -15,18 +15,16 @@ public class PrintProcessor
     private PrintRequester printRequester = null;
     private static final Log LOG = LogFactory.getLog(PrintProcessor.class);
 
-
     public PrintProcessor(I18nControlAbstract i18nControl, PrintRequester printRequester)
     {
         this.i18nControl = i18nControl;
         this.printRequester = printRequester;
     }
 
-
     public void displayPDF(String fileName) throws Exception
     {
-        if ((this.printRequester.isExternalPdfViewerActivated()) && //
-            (StringUtils.isNotBlank(this.printRequester.getExternalPdfViewer())))
+        if (this.printRequester.isExternalPdfViewerActivated() && //
+                StringUtils.isNotBlank(this.printRequester.getExternalPdfViewer()))
         {
             this.displayPDFExternal(fileName);
         }
@@ -36,25 +34,21 @@ public class PrintProcessor
         }
     }
 
-
-
     public void displayPDFInternal(String fileName) throws Exception
     {
         LOG.debug("displayPDFInternal: " + fileName);
 
+        // System.out.println("Name: " + fileName);
 
-
-        //System.out.println("Name: " + fileName);
-
-        //File fl = new File(".." + File.separator + "data" + File.separator + "temp" + File.separator);
-        //File file = new File(name);
-
+        // File fl = new File(".." + File.separator + "data" + File.separator +
+        // "temp" + File.separator);
+        // File file = new File(name);
 
         try
         {
 
             IcePdfViewer viewer = new IcePdfViewer(this.i18nControl.getSelectedLanguageLocale(),
-                !this.printRequester.disableLookAndFeelSettingForInternalPdfViewer());
+                    !this.printRequester.disableLookAndFeelSettingForInternalPdfViewer());
 
             viewer.openWithFilename(fileName);
 
@@ -68,7 +62,6 @@ public class PrintProcessor
             pdfViewerRunError(ex, null);
         }
     }
-
 
     /**
      * Display PDF
@@ -99,7 +92,7 @@ public class PrintProcessor
         {
             String par = this.printRequester.getExternalPdfViewerParameters().trim();
 
-            if (par.length()>0)
+            if (par.length() > 0)
             {
                 if (par.contains("%PDF_FILE%"))
                 {
@@ -127,19 +120,18 @@ public class PrintProcessor
         }
     }
 
-
     private void pdfViewerRunError(Exception ex, String execPath) throws Exception
     {
         this.printRequester.setErrorMessages(this.i18nControl.getMessage("PDF_VIEVER_RUN_ERROR"), null);
 
-        if (execPath!=null)
+        if (execPath != null)
         {
             LOG.debug("Exec path for PdfViewer: " + execPath);
         }
-        LOG.error(String.format("%s running AcrobatReader: %s", ex instanceof RuntimeException ? "RuntimeException" : "Error", ex), ex);
+        LOG.error(String.format("%s running AcrobatReader: %s", ex instanceof RuntimeException ? "RuntimeException"
+                : "Error", ex), ex);
         throw ex;
     }
-
 
     private void printerSettingsNotSetError() throws Exception
     {
@@ -149,7 +141,5 @@ public class PrintProcessor
 
         throw new Exception(this.i18nControl.getMessage("PRINTING_SETTINGS_NOT_SET"));
     }
-
-
 
 }

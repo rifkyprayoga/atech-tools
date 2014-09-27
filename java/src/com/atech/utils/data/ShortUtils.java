@@ -37,14 +37,14 @@ public class ShortUtils extends HexUtils
     public String getDebugShortArray(short[] arr)
     {
         StringBuilder sb = new StringBuilder();
-        //System.out.println("Byte array: ");
+        // System.out.println("Byte array: ");
 
         sb.append("Byte array: ");
 
         for (short element : arr)
         {
             sb.append(element + " ");
-            //System.out.print(arr[i] + " ");
+            // System.out.print(arr[i] + " ");
         }
 
         return sb.toString();
@@ -55,7 +55,7 @@ public class ShortUtils extends HexUtils
         short[] arr_out = new short[length];
         int j = 0;
 
-        for (int i = start; i < (start + length); i++)
+        for (int i = start; i < start + length; i++)
         {
             arr_out[j] = arr[i];
             j++;

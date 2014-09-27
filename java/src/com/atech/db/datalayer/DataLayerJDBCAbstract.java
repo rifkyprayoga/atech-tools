@@ -1,23 +1,9 @@
 package com.atech.db.datalayer;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
-
-import com.atech.update.web.data.Application;
-import com.atech.update.web.data.ApplicationComponent;
-import com.atech.update.web.data.ApplicationGroup;
-import com.atech.update.web.data.ApplicationVersion;
-import com.atech.update.web.data.ApplicationVersionComponent;
-import com.atech.update.web.data.ComponentElement;
-import com.atech.update.web.data.ComponentVersion;
-import com.atech.update.web.data.ComponentVersionSpecial;
-
 
 // TODO: Auto-generated Javadoc
 /**
@@ -47,47 +33,42 @@ import com.atech.update.web.data.ComponentVersionSpecial;
  *  Author: Andy {andy@atech-software.com}
  */
 
-
-public class DataLayerJDBCAbstract 
+public class DataLayerJDBCAbstract
 {
 
-    
-
-    
     /**
      * The jdbc_url.
      */
     protected String jdbc_url = null;
-    
+
     /**
      * The db_class_name.
      */
     protected String db_class_name = null;
-    
+
     /**
      * The m_connection.
      */
     Connection m_connection = null;
-    
+
     /**
      * The username.
      */
     protected String username = null;
-    
+
     /**
      * The password.
      */
     protected String password = null;
-    
-    
-    //public static final String DB_CLASS_MS_ACCESS_MDB_TOOLS = "mdbtools.jdbc.Driver";
-    //public static final String DB_CLASS_MS_ACCESS_JDBC_ODBC_BRIDGE = "sun.jdbc.odbc.JdbcOdbcDriver";
-    //public static final String URL_MS_ACCESS_MDB_TOOLS = "mdbtools.jdbc.Driver";
-    //public static final String URL_MS_ACCESS_JDBC_ODBC_BRIDGE = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=%FILENAME%";
-    
 
-    
-
+    // public static final String DB_CLASS_MS_ACCESS_MDB_TOOLS =
+    // "mdbtools.jdbc.Driver";
+    // public static final String DB_CLASS_MS_ACCESS_JDBC_ODBC_BRIDGE =
+    // "sun.jdbc.odbc.JdbcOdbcDriver";
+    // public static final String URL_MS_ACCESS_MDB_TOOLS =
+    // "mdbtools.jdbc.Driver";
+    // public static final String URL_MS_ACCESS_JDBC_ODBC_BRIDGE =
+    // "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=%FILENAME%";
 
     /**
      * Set JDBC Connection 
@@ -114,29 +95,30 @@ public class DataLayerJDBCAbstract
         this.username = user;
         this.password = pass;
     }
-    
-    
+
     private void createConnection()
     {
         try
         {
             Class.forName(this.db_class_name);
-        
-            if ((username==null) && (this.password==null))
+
+            if (username == null && this.password == null)
+            {
                 this.m_connection = DriverManager.getConnection(this.jdbc_url);
+            }
             else
+            {
                 this.m_connection = DriverManager.getConnection(this.jdbc_url, this.username, this.password);
+            }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             System.out.println("Error creating connection. Ex: " + ex);
             ex.printStackTrace();
         }
-        
-        
+
     }
-    
-    
+
     /**
      * Get Connection - returns opened connection, if none exists, new is created.
      * 
@@ -146,20 +128,19 @@ public class DataLayerJDBCAbstract
     {
         try
         {
-            if ((m_connection==null) || 
-                (m_connection.isClosed()))
+            if (m_connection == null || m_connection.isClosed())
+            {
                 createConnection();
+            }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             System.out.println("Error on getConnection. Ex: " + ex);
         }
-        
+
         return this.m_connection;
     }
-    
-    
-    
+
     /**
      * Execute Query, return ResultSet.
      * 
@@ -172,7 +153,7 @@ public class DataLayerJDBCAbstract
         Statement st = getConnection().createStatement();
         return st.executeQuery(sql);
     }
-    
+
     /**
      * Execute Update, returns row count, for statments returning something or 0 for thoose 
      *      that return nothing.
@@ -186,17 +167,13 @@ public class DataLayerJDBCAbstract
         Statement st = getConnection().createStatement();
         return st.executeUpdate(sql);
     }
-    
 
     /**
      * Show debug.
      */
     public void showDebug()
     {
-        
-    }
-    
-    
-    
-}
 
+    }
+
+}

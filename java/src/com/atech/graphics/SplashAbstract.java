@@ -21,7 +21,6 @@ import javax.swing.SwingConstants;
 
 import com.atech.i18n.I18nControlAbstract;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -52,21 +51,19 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
 public abstract class SplashAbstract extends JWindow
 {
-
 
     private static final long serialVersionUID = -8160100676472934164L;
 
     protected I18nControlAbstract m_ic = null;
     protected JProgressBar progress_bar = null;
     String m_version = "";
-    private static final String SPLASH_FONT = "SanSerif"; 
+    private static final String SPLASH_FONT = "SanSerif";
     protected JLabel lbl_picture;
     protected JLabel lbl_title;
     protected JLabel lbl_version_info;
-    
+
     /**
      * Create a splash window
      * @param version 
@@ -84,32 +81,28 @@ public abstract class SplashAbstract extends JWindow
         this.setVisible(true);
     }
 
-    
     /**
      * Get Image filename for display in Splash screen
      * 
      * @return
      */
     public abstract String getImageFilename();
-    
-    
+
     public abstract void postInit();
-    
-    
+
     /**
      * Get Title displayed in Splash screen
      * 
      * @return
      */
     public abstract String getTitle();
-    
+
     /**
      * Get first text item displayed in progress bar
      * @return
      */
     public abstract String getProgressStartupItem();
-    
-    
+
     /**
      * Init the graphics
      */
@@ -122,7 +115,7 @@ public abstract class SplashAbstract extends JWindow
             icon = new ImageIcon(url);
         }
 
-        //System.out.println("init");
+        // System.out.println("init");
 
         lbl_picture = new JLabel();
         lbl_picture.setBackground(Color.WHITE);
@@ -131,7 +124,6 @@ public abstract class SplashAbstract extends JWindow
         lbl_picture.setBorder(null);
         lbl_picture.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-        
         lbl_title = new JLabel();
         lbl_title.setFont(new Font(SPLASH_FONT, Font.BOLD, 22));
         lbl_title.setForeground(Color.black);
@@ -139,13 +131,13 @@ public abstract class SplashAbstract extends JWindow
         lbl_title.setVerticalAlignment(SwingConstants.BOTTOM);
         lbl_title.setHorizontalAlignment(SwingConstants.RIGHT);
         lbl_title.setText(getTitle());
-        
-        
 
         JPanel panel_display = new JPanel();
         panel_display.setLayout(new GridBagLayout());
-        panel_display.add(lbl_title, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 10), 0, 0));
-        panel_display.add(lbl_picture, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        panel_display.add(lbl_title, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH, new Insets(0, 0, 0, 10), 0, 0));
+        panel_display.add(lbl_picture, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
         lbl_version_info = new JLabel();
         lbl_version_info.setBorder(null);
@@ -154,23 +146,23 @@ public abstract class SplashAbstract extends JWindow
         lbl_version_info.setBackground(Color.BLACK);
         lbl_version_info.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
         lbl_version_info.setHorizontalAlignment(SwingConstants.RIGHT);
-        lbl_version_info.setText(m_version); //Msg.getVersionInfo()+" "); //$NON-NLS-1$
+        lbl_version_info.setText(m_version); // Msg.getVersionInfo()+" ");
         lbl_version_info.setOpaque(true);
 
         JPanel panel_info = new JPanel();
-        //JobsProgressBar pnlJobs = new JobsProgressBar(false);
+        // JobsProgressBar pnlJobs = new JobsProgressBar(false);
 
         progress_bar = new JProgressBar();
 
         progress_bar.setValue(0);
         this.setSplashProgress(0, getProgressStartupItem());
-        progress_bar.setForeground(new Color(16,78,139));
+        progress_bar.setForeground(new Color(16, 78, 139));
         progress_bar.setStringPainted(true);
 
         panel_info.setLayout(new BorderLayout(5, 0));
         panel_info.setBackground(Color.WHITE);
         panel_info.setOpaque(true);
-        //pnlInfo.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
+        // pnlInfo.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
         progress_bar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         panel_info.add(lbl_version_info, BorderLayout.CENTER);
         panel_info.add(progress_bar, BorderLayout.SOUTH);
@@ -181,10 +173,10 @@ public abstract class SplashAbstract extends JWindow
 
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension window = lbl_picture.getPreferredSize();
-        this.setLocation(screen.width / 2 - (window.width / 2), screen.height / 2 - (window.height / 2));
+        this.setLocation(screen.width / 2 - window.width / 2, screen.height / 2 - window.height / 2);
 
         this.pack();
-        
+
     }
 
     /**
@@ -196,7 +188,6 @@ public abstract class SplashAbstract extends JWindow
         dispose();
     }
 
-
     /**
      * Set splash progress. 
      * @param proc procent of progress
@@ -207,7 +198,5 @@ public abstract class SplashAbstract extends JWindow
         progress_bar.setValue(proc);
         progress_bar.setString(proc + "%  (" + text + ")");
     }
-
-
 
 }

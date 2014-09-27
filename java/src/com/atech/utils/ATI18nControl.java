@@ -1,8 +1,6 @@
 package com.atech.utils;
 
-
 import com.atech.i18n.I18nControlAbstract;
-
 
 /**
  *  This file is part of ATech Tools library.
@@ -34,7 +32,6 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
 /**
  *  This is abstract class for controling I18N. You need to extend this class, and set all variables. With setting 
  *  of variables half of work is done. Next half is way to create this class. You need to make constructor. Sample
@@ -43,37 +40,35 @@ import com.atech.i18n.I18nControlAbstract;
 public class ATI18nControl extends I18nControlAbstract
 {
 
-    //private static Log s_logger = LogFactory.getLog(ATI18nControl.class); 
+    // private static Log s_logger = LogFactory.getLog(ATI18nControl.class);
 
+    // protected String languages[] = null;
+    /*
+     * }
+     * {
+     * "English",
+     * "German",
+     * "Slovene",
+     * "Simp. Chinese"
+     * };
+     */
 
+    // protected Locale lcls[] = null;
+    /*
+     * {
+     * Locale.ENGLISH,
+     * Locale.GERMAN,
+     * new Locale("SI"),
+     * Locale.SIMPLIFIED_CHINESE
+     * };
+     */
 
-    //protected String languages[] = null;
-/*
-    }
-	{
-        "English",
-        "German",
-        "Slovene",
-        "Simp. Chinese"
-    };
-*/
+    // private Collator langaugeCollator = null;
 
-    //protected Locale lcls[] = null;
-/*	{
-        Locale.ENGLISH,
-        Locale.GERMAN,
-        new Locale("SI"),
-        Locale.SIMPLIFIED_CHINESE
-    };
-*/
+    static private ATI18nControl m_i18n = null; // This is handle to unique
+                                                // singelton instance
 
-    //private Collator langaugeCollator = null;
-
-    static private ATI18nControl m_i18n = null;   // This is handle to unique 
-                                                    // singelton instance
-                                               
-
-    //   Constructor:  I18nControl
+    // Constructor: I18nControl
     /**
      *
      *  This is I18nControl constructor; Since classes use Singleton Pattern,
@@ -81,32 +76,28 @@ public class ATI18nControl extends I18nControlAbstract
      *  method. 
      *  This constructor should be implemented by implementing class<br><br>
      *
-     */ 
+     */
     private ATI18nControl()
     {
         init();
         getSelectedLanguage();
         setLanguage();
 
-
-//        setLanguage("EN");
-    } 
-    
-
+        // setLanguage("EN");
+    }
 
     /**
      * Init
      */
+    @Override
     public void init()
     {
         def_language = "en";
         lang_file_root = "AtechTools";
     }
 
-
-    
-    //  Method:       getInstance
-    //  Author:       Andy
+    // Method: getInstance
+    // Author: Andy
     /**
      *
      *  This method returns reference to OmniI18nControl object created, or if no 
@@ -115,70 +106,68 @@ public class ATI18nControl extends I18nControlAbstract
      *
      *  @return Reference to OmniI18nControl object
      * 
-     */ 
+     */
     static public ATI18nControl getInstance()
     {
         if (m_i18n == null)
+        {
             m_i18n = new ATI18nControl();
+        }
         return m_i18n;
     }
 
-
-
-
-
-
-    //  Method:       deleteInstance
+    // Method: deleteInstance
     /**
      *
      *  This method sets handle to OmniI18NControl to null and deletes the instance. <br><br>
      *
-     */ 
+     */
     public void deleteInstance()
     {
-        m_i18n=null;
+        m_i18n = null;
     }
 
-
-/*
-    private void getSelectedLanguage()
-    {
-        this.selected_language = this.def_language;
-/*
-        try
-        {
-            Properties props = new Properties();
-
-            FileInputStream in = new FileInputStream("../data/GGC_Config.properties");
-            props.load(in);
-
-            String tempLang = (String)props.get("SELECTED_LANG");
-
-            if (tempLang != null)
-            this.selected_language = tempLang;
-        }
-        catch(Exception ex)
-        {
-            System.out.println("I18nControl: Configuration file not found. Using default langauge ('en')");
-            s_logger.warn("Configuration file not found. Using default langauge ('en')");
-        }
-*/
-  //  }
-
-
+    /*
+     * private void getSelectedLanguage()
+     * {
+     * this.selected_language = this.def_language;
+     * /*
+     * try
+     * {
+     * Properties props = new Properties();
+     * FileInputStream in = new
+     * FileInputStream("../data/GGC_Config.properties");
+     * props.load(in);
+     * String tempLang = (String)props.get("SELECTED_LANG");
+     * if (tempLang != null)
+     * this.selected_language = tempLang;
+     * }
+     * catch(Exception ex)
+     * {
+     * System.out.println(
+     * "I18nControl: Configuration file not found. Using default langauge ('en')"
+     * );
+     * s_logger.warn("Configuration file not found. Using default langauge ('en')"
+     * );
+     * }
+     */
+    // }
 
     /**
      * This method sets the language according to the preferences.<br>
      */
-    public void setLanguage() 
+    @Override
+    public void setLanguage()
     {
-        if (selected_language!=null)
+        if (selected_language != null)
+        {
             setLanguage(selected_language);
+        }
         else
+        {
             setLanguage(def_language);
+        }
     }
-
-
 
     @Override
     protected String getLanguageConfigFile()
@@ -187,8 +176,4 @@ public class ATI18nControl extends I18nControlAbstract
         return null;
     }
 
-
-
 }
-
-

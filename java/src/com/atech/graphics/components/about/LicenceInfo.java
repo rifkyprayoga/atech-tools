@@ -41,22 +41,21 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
 public class LicenceInfo extends AboutPanel
 {
 
     private static final long serialVersionUID = 674574877740779181L;
-    
+
     /**
      * The licence_text.
      */
     String licence_text = null;
-    
+
     /**
      * The licence_html.
      */
     boolean licence_html = true;
-    
+
     /**
      * The licence_text_id.
      */
@@ -65,39 +64,32 @@ public class LicenceInfo extends AboutPanel
     /**
      * The Constant NO_LICENCE.
      */
-    public static final int NO_LICENCE =  0;
-    
+    public static final int NO_LICENCE = 0;
+
     /**
      * The Constant LICENCE_LGPL_v3.
      */
     public static final int LICENCE_LGPL_v3 = 1;
-    
+
     /**
      * The Constant LICENCE_LGPL_v2_1.
      */
     public static final int LICENCE_LGPL_v2_1 = 2;
-    
+
     /**
      * The Constant LICENCE_GPL_v3.
      */
     public static final int LICENCE_GPL_v3 = 3;
-    
+
     /**
      * The Constant LICENCE_GPL_v2_0.
      */
     public static final int LICENCE_GPL_v2_0 = 4;
 
-
     /**
      * The files.
      */
-    public String[] files = { "",
-        "lgpl-v3.html",
-        "lgpl-v2.1.html",
-        "gpl-v3.html",
-        "gpl-v2.0.html"
-    };
-
+    public String[] files = { "", "lgpl-v3.html", "lgpl-v2.1.html", "gpl-v3.html", "gpl-v2.0.html" };
 
     /**
      * Instantiates a new licence info.
@@ -109,13 +101,12 @@ public class LicenceInfo extends AboutPanel
     {
         super(ic);
         this.licence_text_id = licence;
-        //setLicenceText(licence);
+        // setLicenceText(licence);
         loadLicenceText();
-        //this.licence_text_id = licence;
+        // this.licence_text_id = licence;
         init();
-        //loadLicenceText();
+        // loadLicenceText();
     }
-
 
     /**
      * Instantiates a new licence info.
@@ -132,13 +123,6 @@ public class LicenceInfo extends AboutPanel
         init();
     }
 
-
-    
-
-
-
-
-
     /**
      * Inits the.
      */
@@ -148,7 +132,7 @@ public class LicenceInfo extends AboutPanel
 
         JEditorPane jEditorPane1 = new JEditorPane();
         JScrollPane jScrollPane1 = new JScrollPane(jEditorPane1);
-        //jScrollPane1.setPreferredSize(new java.awt.Dimension(13, 1200));
+        // jScrollPane1.setPreferredSize(new java.awt.Dimension(13, 1200));
 
         jEditorPane1.setEditable(false);
         jEditorPane1.setContentType("text/html");
@@ -157,11 +141,9 @@ public class LicenceInfo extends AboutPanel
 
         this.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jEditorPane1.select(0,0);
+        jEditorPane1.select(0, 0);
 
     }
-
-
 
     /**
      * Load licence text.
@@ -169,45 +151,46 @@ public class LicenceInfo extends AboutPanel
     public void loadLicenceText()
     {
         /*
-        if (licence_text != null)
-        {
-            this.jEditorPane1.setText(this.licence_text);
-            return;
-        } */
+         * if (licence_text != null)
+         * {
+         * this.jEditorPane1.setText(this.licence_text);
+         * return;
+         * }
+         */
 
-        //System.out.println("Set licence - Start");
-        
+        // System.out.println("Set licence - Start");
+
         try
         {
             URL url = this.getClass().getResource("/licences/" + this.files[this.licence_text_id]);
             InputStreamReader ins = new InputStreamReader(url.openStream());
-            BufferedReader br = new BufferedReader( ins );
+            BufferedReader br = new BufferedReader(ins);
             String line;
             StringBuffer sb = new StringBuffer();
 
-            while ((line = br.readLine())!=null)
+            while ((line = br.readLine()) != null)
             {
                 sb.append(line);
             }
 
-            //System.out.println("Sb: " + sb);
+            // System.out.println("Sb: " + sb);
 
             this.licence_text = sb.toString();
-            //this.jEditorPane1.setText(sb.toString());
+            // this.jEditorPane1.setText(sb.toString());
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             System.out.println("LicenceInfo::error reading. Ex: " + ex);
             ex.printStackTrace();
         }
-        //System.out.println("Set licence - End");
+        // System.out.println("Set licence - End");
 
     }
-
 
     /** 
      * getTabName
      */
+    @Override
     public String getTabName()
     {
         return this.ic.getMessage("LICENCE");
@@ -216,10 +199,10 @@ public class LicenceInfo extends AboutPanel
     /** 
      * getTabPanel
      */
+    @Override
     public JPanel getTabPanel()
     {
         return this;
     }
-
 
 }

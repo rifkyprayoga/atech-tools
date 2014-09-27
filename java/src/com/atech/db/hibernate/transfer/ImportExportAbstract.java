@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.hibernate.Session;
@@ -15,6 +16,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.utils.ATDataAccess;
+import com.atech.utils.ATDataAccessAbstract;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -47,7 +49,6 @@ import com.atech.utils.ATDataAccess;
  *
 */
 
-
 public abstract class ImportExportAbstract
 {
 
@@ -55,17 +56,17 @@ public abstract class ImportExportAbstract
      * The m_cfg.
      */
     Configuration m_cfg = null;
-    
+
     /**
      * The m_session.
      */
     Session m_session = null;
-    
+
     /**
      * The status_type.
      */
     protected int status_type = 0;
-    
+
     /**
      * The status_max_entry.
      */
@@ -75,17 +76,17 @@ public abstract class ImportExportAbstract
      * The STATU s_ none.
      */
     public static int STATUS_NONE = 0;
-    
+
     /**
      * The STATU s_ dot.
      */
     public static int STATUS_DOT = 1;
-    
+
     /**
      * The STATU s_ procent.
      */
     public static int STATUS_PROCENT = 2;
-    
+
     /**
      * The STATU s_ special.
      */
@@ -95,7 +96,7 @@ public abstract class ImportExportAbstract
      * The path_root.
      */
     protected String path_root = null;
-    
+
     /**
      * The file_2nd_part.
      */
@@ -105,7 +106,7 @@ public abstract class ImportExportAbstract
      * The work_giver.
      */
     BackupRestoreWorkGiver work_giver = null;
-    
+
     /**
      * The hibernate_conf.
      */
@@ -115,13 +116,12 @@ public abstract class ImportExportAbstract
      * The bw_file.
      */
     protected BufferedWriter bw_file = null;
-    
+
     /**
      * The br_file.
      */
     protected BufferedReader br_file = null;
 
-    
     /**
      * Instantiates a new import export abstract.
      * 
@@ -148,15 +148,13 @@ public abstract class ImportExportAbstract
         this.hibernate_conf = hib_conf;
         this.m_session = this.hibernate_conf.getSession(2);
     }
- 
-    
+
     /**
      * Instantiates a new import export abstract.
      */
     public ImportExportAbstract()
     {
     }
-    
 
     /**
      * Gets the session.
@@ -218,15 +216,14 @@ public abstract class ImportExportAbstract
     {
         this.hibernate_conf = hconf;
     }
-    
+
     /**
      * Gets the active session.
      * 
      * @return the active session
      */
     public abstract int getActiveSession();
-    
-    
+
     /**
      * Println.
      * 
@@ -237,8 +234,6 @@ public abstract class ImportExportAbstract
         System.out.println(txt);
     }
 
-
-
     /**
      * Open file.
      * 
@@ -248,9 +243,9 @@ public abstract class ImportExportAbstract
     {
         try
         {
-            //bw_file = new BufferedWriter(new FileWriter(new File(file)));
-            
-            bw_file = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(file)),"UTF8"));
+            // bw_file = new BufferedWriter(new FileWriter(new File(file)));
+
+            bw_file = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(file)), "UTF8"));
         }
         catch (Exception ex)
         {
@@ -259,7 +254,6 @@ public abstract class ImportExportAbstract
 
     }
 
-    
     /**
      * Open file for reading.
      * 
@@ -269,8 +263,8 @@ public abstract class ImportExportAbstract
     {
         try
         {
-            //br_file = new BufferedReader(new FileReader(file));
-            br_file = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF8"));
+            // br_file = new BufferedReader(new FileReader(file));
+            br_file = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF8"));
         }
         catch (Exception ex)
         {
@@ -278,8 +272,6 @@ public abstract class ImportExportAbstract
         }
 
     }
-    
-    
 
     /**
      * Sets the type of status.
@@ -308,7 +300,7 @@ public abstract class ImportExportAbstract
      */
     public void statusSetMaxEntry(int max_entry)
     {
-        //System.out.println("max entries: " + max_entry);
+        // System.out.println("max entries: " + max_entry);
         this.status_max_entry = max_entry;
     }
 
@@ -320,14 +312,20 @@ public abstract class ImportExportAbstract
      */
     public void writeStatus(int every_x_entry, int count)
     {
-        if (this.status_type == ExportTool.STATUS_NONE)
+        if (this.status_type == ImportExportAbstract.STATUS_NONE)
             return;
-        else if (this.status_type == ExportTool.STATUS_PROCENT)
+        else if (this.status_type == ImportExportAbstract.STATUS_PROCENT)
+        {
             writeStatusProcent(every_x_entry, count);
-        else if (this.status_type == ExportTool.STATUS_DOT)
+        }
+        else if (this.status_type == ImportExportAbstract.STATUS_DOT)
+        {
             this.writeStatusDots(every_x_entry, count);
-        else if (this.status_type == ExportTool.STATUS_SPECIAL)
+        }
+        else if (this.status_type == ImportExportAbstract.STATUS_SPECIAL)
+        {
             this.writeStatusSpecial(every_x_entry, count);
+        }
     }
 
     /**
@@ -339,7 +337,9 @@ public abstract class ImportExportAbstract
     public void writeStatusDots(int every_x_entry, int count)
     {
         if (count % every_x_entry == 0)
+        {
             System.out.println(".");
+        }
     }
 
     /**
@@ -356,12 +356,16 @@ public abstract class ImportExportAbstract
                 return;
             else
             {
-                float val = (count * 1.0f) / this.status_max_entry;
+                float val = count * 1.0f / this.status_max_entry;
 
                 if (val > 1)
+                {
                     System.out.println("100% (?)");
+                }
                 else
+                {
                     System.out.println((int) (val * 100) + "%");
+                }
             }
         }
     }
@@ -381,7 +385,7 @@ public abstract class ImportExportAbstract
         }
         else
         {
-            float val = (count * 1.0f) / this.status_max_entry;
+            float val = count * 1.0f / this.status_max_entry;
 
             if (val > 1)
             {
@@ -397,7 +401,6 @@ public abstract class ImportExportAbstract
 
     }
 
-    
     /**
      * Write to file.
      * 
@@ -415,9 +418,7 @@ public abstract class ImportExportAbstract
             println("Exception on writeToFile: " + ex);
         }
     }
-    
-    
-    
+
     /**
      * Write to file.
      * 
@@ -445,10 +446,14 @@ public abstract class ImportExportAbstract
         try
         {
             if (bw_file != null)
+            {
                 bw_file.close();
+            }
 
             if (br_file != null)
+            {
                 br_file.close();
+            }
         }
         catch (Exception ex)
         {
@@ -467,12 +472,8 @@ public abstract class ImportExportAbstract
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTimeInMillis(System.currentTimeMillis());
 
-        return gc.get(GregorianCalendar.DAY_OF_MONTH) + "/"
-                + (gc.get(GregorianCalendar.MONTH) + 1) + "/"
-                + gc.get(GregorianCalendar.YEAR) + "  "
-                + gc.get(GregorianCalendar.HOUR_OF_DAY) + ":"
-                + gc.get(GregorianCalendar.MINUTE) + ":"
-                + gc.get(GregorianCalendar.SECOND);
+        return gc.get(Calendar.DAY_OF_MONTH) + "/" + (gc.get(Calendar.MONTH) + 1) + "/" + gc.get(Calendar.YEAR) + "  "
+                + gc.get(Calendar.HOUR_OF_DAY) + ":" + gc.get(Calendar.MINUTE) + ":" + gc.get(Calendar.SECOND);
     }
 
     /**
@@ -485,10 +486,8 @@ public abstract class ImportExportAbstract
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTimeInMillis(System.currentTimeMillis());
 
-        return gc.get(GregorianCalendar.YEAR) + "_"
-                + getLeadingZero((gc.get(GregorianCalendar.MONTH) + 1), 2)
-                + "_"
-                + getLeadingZero(gc.get(GregorianCalendar.DAY_OF_MONTH), 2);
+        return gc.get(Calendar.YEAR) + "_" + getLeadingZero(gc.get(Calendar.MONTH) + 1, 2) + "_"
+                + getLeadingZero(gc.get(Calendar.DAY_OF_MONTH), 2);
 
     }
 
@@ -502,9 +501,9 @@ public abstract class ImportExportAbstract
      */
     public String getLeadingZero(int number, int places)
     {
-        return ATDataAccess.getInstance().getLeadingZero(number, places);
+        ;
+        ATDataAccess.getInstance();
+        return ATDataAccessAbstract.getLeadingZero(number, places);
     }
-
-
 
 }

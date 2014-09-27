@@ -33,27 +33,27 @@ package com.atech.i18n.tool.simple.data;
 
 public class DataEntryRaw
 {
-    
+
     /**
      * The Constant DATA_ENTRY_HEADER.
      */
     public static final int DATA_ENTRY_HEADER = 1;
-    
+
     /**
      * The Constant DATA_ENTRY_GROUP.
      */
     public static final int DATA_ENTRY_GROUP = 2;
-    
+
     /**
      * The Constant DATA_ENTRY_SUBGROUP.
      */
     public static final int DATA_ENTRY_SUBGROUP = 3;
-    
+
     /**
      * The Constant DATA_ENTRY_TRANSLATION.
      */
     public static final int DATA_ENTRY_TRANSLATION = 4;
-    
+
     /**
      * The type.
      */
@@ -63,18 +63,16 @@ public class DataEntryRaw
      * The value_str.
      */
     public String value_str = "";
-    
+
     /**
      * The value_int.
      */
     public int value_int;
-    
+
     int priority = -1;
     DataEntryRaw group = null;
     DataEntryRaw sub_group = null;
-    
-    
-    
+
     /**
      * Instantiates a new data entry raw.
      * 
@@ -85,7 +83,6 @@ public class DataEntryRaw
         this.type = _type;
     }
 
-    
     /**
      * Instantiates a new data entry raw.
      * 
@@ -101,10 +98,9 @@ public class DataEntryRaw
 
         this.group = _group;
         this.sub_group = _sub_group;
-    
+
     }
 
-    
     /**
      * Instantiates a new data entry raw.
      * 
@@ -118,8 +114,7 @@ public class DataEntryRaw
         this.value_str = value;
         this.priority = _priority;
     }
-    
-    
+
     /**
      * Instantiates a new data entry raw.
      * 
@@ -131,38 +126,35 @@ public class DataEntryRaw
     {
         this.type = _type;
         this.value_str = value;
-        
+
         this.group = _group;
     }
-    
-    
+
     /**
      * Get Group Info
      * @return
      */
     public String getGroupInfo()
     {
-        if (group!=null)
+        if (group != null)
             return group.value_str;
         else
             return "Unknown group";
 
     }
 
-    
     /**
      * Get SubGroup Info
      * @return
      */
     public String getSubGroupInfo()
     {
-        if (this.sub_group!=null)
+        if (this.sub_group != null)
             return this.sub_group.value_str;
         else
             return " - ";
     }
 
-    
     /**
      * get Priority
      * 
@@ -170,21 +162,20 @@ public class DataEntryRaw
      */
     public String getPriority()
     {
-        if (this.type==DataEntryRaw.DATA_ENTRY_GROUP)
+        if (this.type == DataEntryRaw.DATA_ENTRY_GROUP)
             return "" + this.priority;
-        else if (this.type==DataEntryRaw.DATA_ENTRY_TRANSLATION)
+        else if (this.type == DataEntryRaw.DATA_ENTRY_TRANSLATION)
         {
-            if (group!=null)
+            if (group != null)
                 return this.group.getPriority();
             else
                 return "0";
-            
+
         }
-        else 
+        else
             return "-1";
     }
 
-    
     /**
      * Get Value
      * 
@@ -192,21 +183,12 @@ public class DataEntryRaw
      */
     public String getValue()
     {
-        if ((this.type==DATA_ENTRY_HEADER) ||
-            (this.type==DATA_ENTRY_TRANSLATION))
-        {
+        if (this.type == DATA_ENTRY_HEADER || this.type == DATA_ENTRY_TRANSLATION)
             return null;
-        }
-        else if (this.type==DATA_ENTRY_GROUP)
-        {
+        else if (this.type == DATA_ENTRY_GROUP)
             return "\n#\n#   " + this.value_str + "  [" + this.priority + "]\n#\n";
-        }
-        else  // subgroup
-        {
+        else
             return "\n#   " + this.value_str + "\n";
-        }
     }
-    
-    
-    
+
 }

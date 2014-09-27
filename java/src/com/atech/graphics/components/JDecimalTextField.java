@@ -41,12 +41,10 @@ import com.atech.utils.ATDataAccessAbstract;
  *
 */
 
-
 public class JDecimalTextField extends JFormattedTextField implements KeyListener
 {
 
     private static final long serialVersionUID = -742112156331004021L;
-
 
     /**
      * Instantiates a new j decimal text field.
@@ -57,7 +55,7 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
     public JDecimalTextField(Object value, int decimal_places)
     {
         super();
-        
+
         NumberFormat displayFormat, editFormat;
 
         displayFormat = NumberFormat.getNumberInstance();
@@ -68,20 +66,18 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
         editFormat.setMinimumFractionDigits(0);
         editFormat.setMaximumFractionDigits(decimal_places);
 
-        //new JFormatedTextField()
-        
-        //JFormattedTextField ftf = new JFormattedTextField(
-        this.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter(displayFormat),
-                        new NumberFormatter(displayFormat),
-                        new NumberFormatter(editFormat)));
+        // new JFormatedTextField()
+
+        // JFormattedTextField ftf = new JFormattedTextField(
+        this.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter(displayFormat), new NumberFormatter(
+                displayFormat), new NumberFormatter(editFormat)));
 
         this.setValue(value);
         this.setFocusLostBehavior(JFormattedTextField.COMMIT_OR_REVERT);
         this.addKeyListener(this);
-        
+
     }
 
-    
     /**
      * Gets the current value.
      * 
@@ -93,22 +89,20 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
         {
             this.commitEdit();
         }
-        catch(Exception ex)
-        {
-        }
-        
+        catch (Exception ex)
+        {}
+
         return this.getValue();
     }
-    
 
     /** 
      * setBounds
      */
+    @Override
     public void setBounds(int x, int y, int width, int height)
     {
         super.setBounds(x, y, width, height);
     }
-
 
     /** 
      * keyPressed
@@ -117,23 +111,19 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
     {
     }
 
-
     /** 
      * keyReleased
      */
     public void keyReleased(KeyEvent ke)
     {
-        if ((ke.getKeyCode() == KeyEvent.VK_PERIOD) ||
-            (ke.getKeyCode() == KeyEvent.VK_DECIMAL) ||
-            (ke.getKeyCode() == KeyEvent.VK_COMMA)
-            )
+        if (ke.getKeyCode() == KeyEvent.VK_PERIOD || ke.getKeyCode() == KeyEvent.VK_DECIMAL
+                || ke.getKeyCode() == KeyEvent.VK_COMMA)
         {
             String s = this.getText();
             s = s.replace(ATDataAccessAbstract.false_decimal, ATDataAccessAbstract.real_decimal);
             this.setText(s);
         }
     }
-
 
     /** 
      * keyTyped
@@ -142,5 +132,4 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
     {
     }
 
-    
 }

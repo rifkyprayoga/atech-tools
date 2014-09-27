@@ -37,108 +37,94 @@ import org.jfree.chart.JFreeChart;
  *
 */
 
-
 public interface GraphViewInterface
 {
-    
+
     /**
      * Get Title (used by GraphViewer)
      * 
      * @return title as string 
      */
     public String getTitle();
-    
+
     /**
      * Get Controler Interface instance
      * 
      * @return GraphViewControlerInterface instance or null
      */
     public GraphViewControlerInterface getControler();
-    
+
     /**
      * Set Controler Data - used by controler to change set of data
      * 
      * @param data objects (controler can implement custom class, which is recognized by view instance)
      */
     public void setControlerData(Object data);
-    
+
     /**
      * Get Viewer Dialog Bounds (used by GraphViewer)
      * 
      * @return Rectangle object
      */
     public Rectangle getViewerDialogBounds();
-    
+
     /**
      * Get Help Id
      * 
      * @return
      */
     public String getHelpId();
-    
+
     /**
      * Is Help Enabled
      * 
      * @return true if help is enabled
      */
     public boolean isHelpEnabled();
-    
+
     /**
      * Get Chart
      * 
      * @return JFreeChart instance
      */
     public JFreeChart getChart();
-    
-    
+
     /**
      * Get Chart Panel
      * 
      * @return ChartPanel instance
      */
     public ChartPanel getChartPanel();
-    
-    
-    
+
     /**
      * Get Processor
      * 
      * @return GraphViewDataProcessorInterface instance (typed)
      */
     public GraphViewDataProcessorInterface getProcessor();
-    
-    
-    
+
     /**
      * Repaint
      */
     public void repaint();
-    
-    
-    
+
     /**
      * Set Parent
      * 
      * @param cmp
      */
     public void setParent(Component cmp);
-    
-    
+
     /**
      * Get Parent
      * 
      * @return
      */
     public Component getParent();
-    
-    
+
     /**
      * Close
      */
     public void close();
-    
+
 }
-
-
-
-

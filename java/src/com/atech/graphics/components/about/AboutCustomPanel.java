@@ -35,17 +35,16 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
 public class AboutCustomPanel extends JPanel
 {
-	
+
     private static final long serialVersionUID = 6489212022366149587L;
-    
+
     /**
      * The ic.
      */
     I18nControlAbstract ic;
-    
+
     /**
      * The tab_name.
      */
@@ -91,5 +90,5 @@ public class AboutCustomPanel extends JPanel
     {
         this.tab_name = name;
     }
-    
+
 }

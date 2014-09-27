@@ -31,56 +31,54 @@ package com.atech.misc.statistics;
  *
 */
 
-
 public class StatisticsObject
 {
-    
+
     /**
      * The sum.
      */
     public float sum = 0.0f;
-    
+
     /**
      * The count.
      */
     public int count = 0;
-    
+
     /**
      * The operation.
      */
     public int operation = 0;
-    
+
     /**
      * The Constant OPERATION_SUM.
      */
     public static final int OPERATION_SUM = 1;
-    
+
     /**
      * The Constant OPERATION_AVERAGE.
      */
     public static final int OPERATION_AVERAGE = 2;
-    
+
     /**
      * The Constant OPERATION_COUNT.
      */
     public static final int OPERATION_COUNT = 3;
-    
+
     /**
      * The Constant OPERATION_MIN.
      */
     public static final int OPERATION_MIN = 4;
-    
+
     /**
      * The Constant OPERATION_MAX.
      */
     public static final int OPERATION_MAX = 5;
-    
+
     /**
      * The Constant OPERATION_SPECIAL.
      */
     public static final int OPERATION_SPECIAL = -1;
-    
-    
+
     /**
      * Sets the sum.
      * 
@@ -90,7 +88,7 @@ public class StatisticsObject
     {
         this.sum = _sum;
     }
-    
+
     /**
      * Sets the count.
      * 
@@ -100,8 +98,7 @@ public class StatisticsObject
     {
         this.count = value;
     }
-    
-    
+
     /**
      * Adds the to sum.
      * 
@@ -109,13 +106,12 @@ public class StatisticsObject
      */
     public void addToSum(float value)
     {
-        if (value==0.0f)
+        if (value == 0.0f)
             return;
-        
-        if ((this.operation == StatisticsObject.OPERATION_SUM) ||
-            (this.operation == StatisticsObject.OPERATION_COUNT) ||    
-            (this.operation == StatisticsObject.OPERATION_SPECIAL) ||    
-            (this.operation == StatisticsObject.OPERATION_AVERAGE))
+
+        if (this.operation == StatisticsObject.OPERATION_SUM || this.operation == StatisticsObject.OPERATION_COUNT
+                || this.operation == StatisticsObject.OPERATION_SPECIAL
+                || this.operation == StatisticsObject.OPERATION_AVERAGE)
         {
             sum += value;
             count++;
@@ -134,21 +130,17 @@ public class StatisticsObject
                 sum = value;
             }
         }
-            
-        
-        
+
     }
-    
-    
+
     /**
      * Clean.
      */
     public void clean()
     {
-        if ((this.operation == StatisticsObject.OPERATION_SUM) ||
-            (this.operation == StatisticsObject.OPERATION_COUNT) ||    
-            (this.operation == StatisticsObject.OPERATION_SPECIAL) ||    
-            (this.operation == StatisticsObject.OPERATION_AVERAGE))
+        if (this.operation == StatisticsObject.OPERATION_SUM || this.operation == StatisticsObject.OPERATION_COUNT
+                || this.operation == StatisticsObject.OPERATION_SPECIAL
+                || this.operation == StatisticsObject.OPERATION_AVERAGE)
         {
             sum = 0;
             count = 0;
@@ -165,7 +157,6 @@ public class StatisticsObject
         }
     }
 
-    
     /**
      * Gets the statistics.
      * 
@@ -174,15 +165,11 @@ public class StatisticsObject
     public float getStatistics()
     {
         if (this.operation == StatisticsObject.OPERATION_SUM)
-        {
             return this.sum;
-        }
         else if (this.operation == StatisticsObject.OPERATION_AVERAGE)
         {
-            if (count!=0)
-            {
+            if (count != 0)
                 return this.sum / this.count;
-            }
             else
                 return 0.0f;
         }
@@ -201,25 +188,12 @@ public class StatisticsObject
                 return sum;
         }
         else if (this.operation == StatisticsObject.OPERATION_COUNT)
-        {
             return this.count;
-        }
         else if (this.operation == StatisticsObject.OPERATION_SPECIAL)
-        {
             return this.sum;
-        }
         else
             return 0.0f;
-            
+
     }
-    
-    
-    
-    
-    
+
 }
-
-
-
-
-

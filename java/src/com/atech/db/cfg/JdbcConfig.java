@@ -7,8 +7,4 @@ package com.atech.db.cfg;
 public class JdbcConfig extends DbConfig
 {
 
-    
-
-    
-    
 }

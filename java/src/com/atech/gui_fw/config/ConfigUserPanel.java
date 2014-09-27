@@ -16,7 +16,6 @@ import com.atech.db.table.DbUserTable;
 import com.atech.help.HelpCapable;
 import com.atech.utils.ATSwingUtils;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -48,9 +47,6 @@ import com.atech.utils.ATSwingUtils;
  *
 */
 
-
-
-
 /**
  *  Application:   GGC - GNU Gluco Control
  *
@@ -76,19 +72,17 @@ import com.atech.utils.ATSwingUtils;
  *  Author: andyrozman {andy@atech-software.com}  
  */
 
-
 public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable, ActionListener
 {
 
     private static final long serialVersionUID = -6552718578105574894L;
 
-    //private JComboBox cb_database;
-    //private JTextField tf_lf;
-    //private JButton b_browse;
-    //DbToolApplicationAbstract m_dbc = null; //m_da.getDbConfig();
+    // private JComboBox cb_database;
+    // private JTextField tf_lf;
+    // private JButton b_browse;
+    // DbToolApplicationAbstract m_dbc = null; //m_da.getDbConfig();
     JList list_users = null;
     ArrayList<User> m_listUsers = null;
-    
 
     /**
      * Constructor
@@ -99,14 +93,15 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
     public ConfigUserPanel(AbstractConfigurationContext acc)
     {
         super(acc);
-        
-        //this.m_da = acc.getDataAccessInstance();
-        //this.m_dbc = m_da.getDbToolAbstract();
-        
-        //this.m_dbc.loadConfig();
 
-        //System.out.println("m_Da: ConfigDbPanel: " + acc.getDataAccessInstance());
-        
+        // this.m_da = acc.getDataAccessInstance();
+        // this.m_dbc = m_da.getDbToolAbstract();
+
+        // this.m_dbc.loadConfig();
+
+        // System.out.println("m_Da: ConfigDbPanel: " +
+        // acc.getDataAccessInstance());
+
         init();
         // m_da.enableHelp(this);
         // parent = this;
@@ -114,18 +109,18 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
 
     private void init()
     {
-        
+
         ATSwingUtils.initLibrary();
-        
-//        JPanel panel = new JPanel();
-//        panel.setBounds(140, 30, 420, 330);
+
+        // JPanel panel = new JPanel();
+        // panel.setBounds(140, 30, 420, 330);
         this.setLayout(null);
 
         ATSwingUtils.getTitleLabel(m_ic.getMessage("CFG_USERS"), 0, 25, 520, 36, this, ATSwingUtils.FONT_BIG_BOLD);
-        
-        
-//        JLabel label = ATSwingUtils.getLabel(m_ic.getMessage("USERS"), 0, 25, 520, 36, this, ATSwingUtils.FONT_BIG_BOLD);
-//        label.setHorizontalAlignment(JLabel.CENTER);
+
+        // JLabel label = ATSwingUtils.getLabel(m_ic.getMessage("USERS"), 0, 25,
+        // 520, 36, this, ATSwingUtils.FONT_BIG_BOLD);
+        // label.setHorizontalAlignment(JLabel.CENTER);
 
         list_users = new JList();
         list_users.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL));
@@ -155,21 +150,17 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
         button.addActionListener(this);
         this.add(button);
 
-        //panel.setVisible(false);
-        //panels[4] = panel;
+        // panel.setVisible(false);
+        // panels[4] = panel;
 
-        
     }
 
-
-
-
-    
+    @Override
     public void actionPerformed(ActionEvent ae)
     {
         changed = true;
         String action = ae.getActionCommand();
-        
+
         if (action.equals("users_add"))
         {
             ConfigUserDialog ud = new ConfigUserDialog(m_da, new User(m_da), this.m_acc);
@@ -227,12 +218,9 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
                 return;
 
         }
-        
-        
+
     }
-    
-    
-    
+
     /**
      * Populate JLists
      */
@@ -246,12 +234,14 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
 
             boolean add = false;
 
-            if (input.get(i) instanceof User) 
+            if (input.get(i) instanceof User)
             {
                 add = true;
             }
             else
+            {
                 System.out.println("ConfigurationDialog::Unknown type: " + input.get(i));
+            }
 
             if (type == 1)
             {
@@ -265,16 +255,18 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
             }
 
             if (add)
+            {
                 newListModel.addElement(input.get(i));
+            }
         }
 
         if (type == 1)
+        {
             list_users.setModel(newListModel);
+        }
 
     }
-    
-    
-    
+
     private int getSelectedUserIndex()
     {
 
@@ -289,18 +281,12 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
             User us = m_listUsers.get(i);
 
             if (us.getUsername().equals(name))
-            {
                 return i;
-            }
         }
 
         return -1;
     }
-    
-    
-    
-    
-    
+
     /**
      * Save Properties
      * 
@@ -309,63 +295,55 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
     @Override
     public void saveConfig()
     {
-//        settings.setUserName(fieldUserName.getText());
-//        settings.setLanguage(langBox.getSelectedItem().toString());
+        // settings.setUserName(fieldUserName.getText());
+        // settings.setLanguage(langBox.getSelectedItem().toString());
 
-        
-        //this.m_dbc.setSelectedDatabaseIndex(this.cb_database.getSelectedIndex());
-        //this.m_dbc.setSelectedLF(this.cb_lf_type.getSelectedIndex(), this.tf_lf.getText());
+        // this.m_dbc.setSelectedDatabaseIndex(this.cb_database.getSelectedIndex());
+        // this.m_dbc.setSelectedLF(this.cb_lf_type.getSelectedIndex(),
+        // this.tf_lf.getText());
     }
 
-    
     /*
-    private void processJFileChooser(Container c)
-    {
-        Component[] comps = c.getComponents();
+     * private void processJFileChooser(Container c)
+     * {
+     * Component[] comps = c.getComponents();
+     * for (int i = 0; i < comps.length; i++)
+     * {
+     * if (comps[i] instanceof JPanel)
+     * {
+     * processJFileChooser((Container) comps[i]);
+     * }
+     * if (comps[i] instanceof JButton)
+     * {
+     * JButton b = (JButton) comps[i];
+     * String ttText = b.getToolTipText();
+     * // x String buttonText = b.getText();
+     * if ((ttText != null)
+     * && (ttText.equals("Create New Folder") || ttText.equals("Desktop") ||
+     * ttText
+     * .equals("Up One Level")))
+     * {
+     * b.setEnabled(false);
+     * }
+     * }
+     * if (comps[i] instanceof JComboBox)
+     * {
+     * JComboBox box = (JComboBox) comps[i];
+     * String s = box.getSelectedItem().toString();
+     * if (s.indexOf("skinlf_themes") != -1)
+     * {
+     * box.setEnabled(false);
+     * }
+     * }
+     * }
+     * }
+     */
 
-        for (int i = 0; i < comps.length; i++)
-        {
-
-            if (comps[i] instanceof JPanel)
-            {
-                processJFileChooser((Container) comps[i]);
-            }
-
-            if (comps[i] instanceof JButton)
-            {
-                JButton b = (JButton) comps[i];
-
-                String ttText = b.getToolTipText();
-                // x String buttonText = b.getText();
-
-                if ((ttText != null)
-                        && (ttText.equals("Create New Folder") || ttText.equals("Desktop") || ttText
-                                .equals("Up One Level")))
-                {
-                    b.setEnabled(false);
-                }
-            }
-
-            if (comps[i] instanceof JComboBox)
-            {
-                JComboBox box = (JComboBox) comps[i];
-                String s = box.getSelectedItem().toString();
-                if (s.indexOf("skinlf_themes") != -1)
-                {
-                    box.setEnabled(false);
-                }
-            }
-
-        }
-    }*/
-
-    
     private DbUserTable getUserDb()
     {
-        return (DbUserTable)m_da.getHibernateDb();
+        return (DbUserTable) m_da.getHibernateDb();
     }
-    
-    
+
     // ****************************************************************
     // ****** HelpCapable Implementation *****
     // ****************************************************************

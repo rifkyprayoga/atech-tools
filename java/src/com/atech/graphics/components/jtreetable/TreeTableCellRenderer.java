@@ -46,12 +46,12 @@ public class TreeTableCellRenderer extends JTree implements TableCellRenderer
 {
 
     private static final long serialVersionUID = -6739868404878590702L;
-    
+
     /**
      * The visible row.
      */
     public int visibleRow;
-    
+
     /**
      * The table.
      */
@@ -63,7 +63,11 @@ public class TreeTableCellRenderer extends JTree implements TableCellRenderer
      * @param model the model
      * @param table the table
      */
-    public TreeTableCellRenderer(TreeTableModel model, JTreeTable table/*, boolean show_icons*/)
+    public TreeTableCellRenderer(TreeTableModel model, JTreeTable table/*
+                                                                        * ,
+                                                                        * boolean
+                                                                        * show_icons
+                                                                        */)
     {
         super(model);
         this.table = table;
@@ -73,6 +77,7 @@ public class TreeTableCellRenderer extends JTree implements TableCellRenderer
     /** 
      * setBounds
      */
+    @Override
     public void setBounds(int x, int y, int w, int h)
     {
         if (this.table.getShowGrid())
@@ -80,12 +85,15 @@ public class TreeTableCellRenderer extends JTree implements TableCellRenderer
             super.setBounds(x, 1, w, table.getHeight() - 1);
         }
         else
+        {
             super.setBounds(x, 0, w, table.getHeight());
+        }
     }
 
     /** 
      * paint
      */
+    @Override
     public void paint(Graphics g)
     {
         g.translate(0, -visibleRow * getRowHeight());
@@ -106,6 +114,7 @@ public class TreeTableCellRenderer extends JTree implements TableCellRenderer
     /** 
      * getBackground
      */
+    @Override
     public Color getBackground()
     {
         return super.getBackground();
@@ -114,6 +123,7 @@ public class TreeTableCellRenderer extends JTree implements TableCellRenderer
     /** 
      * setBackground
      */
+    @Override
     public void setBackground(Color clr)
     {
         super.setBackground(clr);
@@ -122,6 +132,7 @@ public class TreeTableCellRenderer extends JTree implements TableCellRenderer
     /** 
      * isOpaque
      */
+    @Override
     public boolean isOpaque()
     {
         return super.isOpaque();
@@ -130,6 +141,7 @@ public class TreeTableCellRenderer extends JTree implements TableCellRenderer
     /** 
      * setOpaque
      */
+    @Override
     public void setOpaque(boolean is)
     {
         super.setOpaque(is);
@@ -138,24 +150,29 @@ public class TreeTableCellRenderer extends JTree implements TableCellRenderer
     /** 
      * getTableCellRendererComponent
      */
-    public Component getTableCellRendererComponent(JTable table_int, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+    public Component getTableCellRendererComponent(JTable table_int, Object value, boolean isSelected,
+            boolean hasFocus, int row, int column)
     {
 
         // super.getTreeCellRendererComponent(table_int,value,isSelected,hasFocus,row,column);
 
         // x boolean grid = this.table.getShowGrid();
         /*
-                if (grid)
-                {
-                    //this.set
-                    setBorder(new LineBorder(Color.black));
-                }
-        */
+         * if (grid)
+         * {
+         * //this.set
+         * setBorder(new LineBorder(Color.black));
+         * }
+         */
 
         if (isSelected)
+        {
             setBackground(table.getSelectionBackground());
+        }
         else
+        {
             setBackground(table.getBackground());
+        }
 
         visibleRow = row;
         return this;

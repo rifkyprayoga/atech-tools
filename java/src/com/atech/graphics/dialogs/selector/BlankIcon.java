@@ -37,7 +37,6 @@ import javax.swing.Icon;
  *
 */
 
-
 /**
  * @version 1.0 02/26/99
  */

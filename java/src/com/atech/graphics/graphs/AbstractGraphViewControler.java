@@ -34,7 +34,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 
@@ -63,10 +62,11 @@ import com.atech.utils.ATDataAccessAbstract;
  *  Author: andyrozman {andy@atech-software.com}  
  */
 
-//WORK IN PROGRESS - DO NOT EDIT - Andy
+// WORK IN PROGRESS - DO NOT EDIT - Andy
 
-public abstract class AbstractGraphViewControler implements GraphViewControlerInterface, ActionListener //, HelpCapable 
-//extends JDialog implements ActionListener, HelpCapable // JFrame
+public abstract class AbstractGraphViewControler implements GraphViewControlerInterface, ActionListener // ,
+                                                                                                        // HelpCapable
+// extends JDialog implements ActionListener, HelpCapable // JFrame
 {
 
     protected GraphViewInterface graph_view;
@@ -75,7 +75,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
     protected JButton help_button = null;
     protected Object parameters;
     protected I18nControlAbstract m_ic = null;
-    
+
     /**
      * Constructor
      * 
@@ -89,7 +89,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         this.m_ic = da.getI18nControlInstance();
         init();
     }
-    
+
     /**
      * Constructor
      * 
@@ -105,68 +105,59 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         this.parameters = paramters;
         init();
     }
-    
 
     /**
      * Init
      */
     public abstract void init();
-    
+
     /*
-    {
-        JPanel cPanel = new JPanel(new BorderLayout());
+     * {
+     * JPanel cPanel = new JPanel(new BorderLayout());
+     * dRS = new DateRangeSelectionPanel(m_da);
+     * DataPlotSelectorPanel selectionPanel = new
+     * DataPlotSelectorPanel(DataPlotSelectorPanel.BG_AVG_MASK);
+     * selectionPanel.disableChoice(DataPlotSelectorPanel.BG_MASK |
+     * DataPlotSelectorPanel.CH_MASK
+     * | DataPlotSelectorPanel.INS1_MASK | DataPlotSelectorPanel.INS2_MASK
+     * | DataPlotSelectorPanel.INS_TOTAL_MASK);
+     * //cGV.setData(selectionPanel.getPlotData());
+     * JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+     * help_button = m_da.createHelpButtonBySize(120, 25, cPanel);
+     * buttonPanel.add(help_button);
+     * // Dimension dim = new Dimension(80, 20);
+     * Dimension dim = new Dimension(120, 25);
+     * JButton drawButton = new JButton("    " + m_ic.getMessage("DRAW"));
+     * drawButton.setPreferredSize(dim);
+     * drawButton.setIcon(m_da.getImageIcon_22x22("paint.png", cPanel));
+     * drawButton.setActionCommand("draw");
+     * drawButton.addActionListener(this);
+     * JButton closeButton = new JButton("    " + m_ic.getMessage("CLOSE"));
+     * closeButton.setPreferredSize(dim);
+     * closeButton.setActionCommand("close");
+     * closeButton.setIcon(m_da.getImageIcon_22x22("cancel.png", cPanel));
+     * closeButton.addActionListener(this);
+     * buttonPanel.add(drawButton);
+     * buttonPanel.add(closeButton);
+     * cPanel.add(dRS, BorderLayout.WEST);
+     * cPanel.add(selectionPanel, BorderLayout.CENTER);
+     * cPanel.add(buttonPanel, BorderLayout.SOUTH);
+     * this.control_panel = cPanel;
+     * }
+     */
 
-        dRS = new DateRangeSelectionPanel(m_da);
-
-        DataPlotSelectorPanel selectionPanel = new DataPlotSelectorPanel(DataPlotSelectorPanel.BG_AVG_MASK);
-        selectionPanel.disableChoice(DataPlotSelectorPanel.BG_MASK | DataPlotSelectorPanel.CH_MASK
-                | DataPlotSelectorPanel.INS1_MASK | DataPlotSelectorPanel.INS2_MASK
-                | DataPlotSelectorPanel.INS_TOTAL_MASK);
-        //cGV.setData(selectionPanel.getPlotData());
-
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-        help_button = m_da.createHelpButtonBySize(120, 25, cPanel);
-        buttonPanel.add(help_button);
-
-        // Dimension dim = new Dimension(80, 20);
-        Dimension dim = new Dimension(120, 25);
-        JButton drawButton = new JButton("    " + m_ic.getMessage("DRAW"));
-        drawButton.setPreferredSize(dim);
-        drawButton.setIcon(m_da.getImageIcon_22x22("paint.png", cPanel));
-        drawButton.setActionCommand("draw");
-        drawButton.addActionListener(this);
-
-        JButton closeButton = new JButton("    " + m_ic.getMessage("CLOSE"));
-        closeButton.setPreferredSize(dim);
-        closeButton.setActionCommand("close");
-        closeButton.setIcon(m_da.getImageIcon_22x22("cancel.png", cPanel));
-        closeButton.addActionListener(this);
-        buttonPanel.add(drawButton);
-        buttonPanel.add(closeButton);
-
-        cPanel.add(dRS, BorderLayout.WEST);
-        cPanel.add(selectionPanel, BorderLayout.CENTER);
-        cPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-        this.control_panel = cPanel;
-    }*/
-
-
-    
     /**
      * Run Draw - This method should communicate with processor from view, 
      *     and impose command changes  and call load
      */
     public abstract void runDraw();
-    
 
     /**
      * Invoked when an action occurs.
      */
     public void actionPerformed(ActionEvent e)
     {
-        //this.getGraphView().getProcessor()
+        // this.getGraphView().getProcessor()
         String action = e.getActionCommand();
 
         if (action.equals("draw"))
@@ -178,7 +169,9 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
             this.getGraphView().close();
         }
         else
+        {
             System.out.println("CourseGraphFrame: Unknown command: " + action);
+        }
     }
 
     // ****************************************************************
@@ -209,8 +202,6 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         return this.getGraphView().getHelpId();
     }
 
-    
-    
     /**
      * Get Graph View
      * 
@@ -221,7 +212,6 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         return this.graph_view;
     }
 
-    
     /**
      * Get Panel (with Controler)
      * @return
@@ -233,7 +223,6 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         return this.control_panel;
     }
 
-    
     /**
      * Get Controler Panel
 
@@ -242,6 +231,5 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
     {
         return this.control_panel;
     }
-    
-    
+
 }

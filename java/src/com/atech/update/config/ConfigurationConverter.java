@@ -32,8 +32,7 @@ package com.atech.update.config;
 
 public class ConfigurationConverter
 {
-    
-    
+
     /**
      * @param args
      */
@@ -49,11 +48,7 @@ public class ConfigurationConverter
         {
             System.out.println("ConfigurationConverter <input_file> <output_file>");
         }
-        
-        
-        
-        
+
     }
-    
 
 }

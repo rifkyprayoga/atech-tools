@@ -76,20 +76,18 @@ import javax.swing.tree.TreePath;
 /*
  * * An abstract implementation of the TreeTableModel interface, handling the
  * list of listeners.
- * 
  * @version %I% %G%
- * 
  * @author Philip Milne
  */
 
 public abstract class AbstractTreeTableModel implements TreeTableModel
 {
-    
+
     /**
      * The root.
      */
     protected Object root;
-    
+
     /**
      * The listener list.
      */
@@ -142,9 +140,7 @@ public abstract class AbstractTreeTableModel implements TreeTableModel
         for (int i = 0; i < getChildCount(parent); i++)
         {
             if (getChild(parent, i).equals(child))
-            {
                 return i;
-            }
         }
         return -1;
     }
@@ -167,8 +163,8 @@ public abstract class AbstractTreeTableModel implements TreeTableModel
 
     /*
      * Notify all listeners that have registered interest for
-     * notification on this event type.  The event instance 
-     * is lazily created using the parameters passed into 
+     * notification on this event type. The event instance
+     * is lazily created using the parameters passed into
      * the fire method.
      * @see EventListenerList
      */
@@ -193,7 +189,9 @@ public abstract class AbstractTreeTableModel implements TreeTableModel
             {
                 // Lazily create the event:
                 if (e == null)
+                {
                     e = new TreeModelEvent(source, path, childIndices, children);
+                }
                 ((TreeModelListener) listeners[i + 1]).treeNodesChanged(e);
             }
         }
@@ -201,8 +199,8 @@ public abstract class AbstractTreeTableModel implements TreeTableModel
 
     /*
      * Notify all listeners that have registered interest for
-     * notification on this event type.  The event instance 
-     * is lazily created using the parameters passed into 
+     * notification on this event type. The event instance
+     * is lazily created using the parameters passed into
      * the fire method.
      * @see EventListenerList
      */
@@ -227,7 +225,9 @@ public abstract class AbstractTreeTableModel implements TreeTableModel
             {
                 // Lazily create the event:
                 if (e == null)
+                {
                     e = new TreeModelEvent(source, path, childIndices, children);
+                }
                 ((TreeModelListener) listeners[i + 1]).treeNodesInserted(e);
             }
         }
@@ -235,8 +235,8 @@ public abstract class AbstractTreeTableModel implements TreeTableModel
 
     /*
      * Notify all listeners that have registered interest for
-     * notification on this event type.  The event instance 
-     * is lazily created using the parameters passed into 
+     * notification on this event type. The event instance
+     * is lazily created using the parameters passed into
      * the fire method.
      * @see EventListenerList
      */
@@ -261,7 +261,9 @@ public abstract class AbstractTreeTableModel implements TreeTableModel
             {
                 // Lazily create the event:
                 if (e == null)
+                {
                     e = new TreeModelEvent(source, path, childIndices, children);
+                }
                 ((TreeModelListener) listeners[i + 1]).treeNodesRemoved(e);
             }
         }
@@ -269,8 +271,8 @@ public abstract class AbstractTreeTableModel implements TreeTableModel
 
     /*
      * Notify all listeners that have registered interest for
-     * notification on this event type.  The event instance 
-     * is lazily created using the parameters passed into 
+     * notification on this event type. The event instance
+     * is lazily created using the parameters passed into
      * the fire method.
      * @see EventListenerList
      */
@@ -295,7 +297,9 @@ public abstract class AbstractTreeTableModel implements TreeTableModel
             {
                 // Lazily create the event:
                 if (e == null)
+                {
                     e = new TreeModelEvent(source, path, childIndices, children);
+                }
                 ((TreeModelListener) listeners[i + 1]).treeStructureChanged(e);
             }
         }
@@ -331,12 +335,12 @@ public abstract class AbstractTreeTableModel implements TreeTableModel
 
     // Left to be implemented in the subclass:
 
-    /* 
-     *   public Object getChild(Object parent, int index)
-     *   public int getChildCount(Object parent) 
-     *   public int getColumnCount() 
-     *   public String getColumnName(Object node, int column)  
-     *   public Object getValueAt(Object node, int column) 
+    /*
+     * public Object getChild(Object parent, int index)
+     * public int getChildCount(Object parent)
+     * public int getColumnCount()
+     * public String getColumnName(Object node, int column)
+     * public Object getValueAt(Object node, int column)
      */
 
 }

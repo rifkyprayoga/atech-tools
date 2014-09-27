@@ -39,44 +39,41 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
 public abstract class LanguageInfo
 {
 
-    private I18nControlAbstract m_i18n = null; //I18nControl.getInstance();
+    private I18nControlAbstract m_i18n = null; // I18nControl.getInstance();
 
     /**
      * The lp_version.
      */
     public String lp_version = null;
-    
+
     /**
      * The lp_release.
      */
     public String lp_release = null;
-    
+
     /**
      * The lp_langs_with_help.
      */
     public int lp_langs_with_help = 0;
-    
+
     /**
      * The lp_langs_without_help.
      */
     public int lp_langs_without_help = 0;
-    
+
     /**
      * The langs.
      */
     public String langs;
 
-    
     /**
      * The lang_root.
      */
     public String lang_root;
-    
-    
+
     /**
      * The default_help.
      */
@@ -86,41 +83,32 @@ public abstract class LanguageInfo
      * The available lang.
      */
     public Object availableLang[] = null;
-    
+
     /**
      * The available lang web.
      */
     public Object availableLangWeb[] = null;
-    
+
     /**
      * The available lang locale.
      */
     public String availableLangLocale[] = null;
-    //public String 
+    // public String
 
     /**
      * The langs_ht.
      */
-    Hashtable<String,LanguageInstance> langs_ht = null;
+    Hashtable<String, LanguageInstance> langs_ht = null;
 
     /**
      * The available real locale.
      */
     public Locale[] availableRealLocale = null;
-    
-    
-    
-    
-    
-    
+
     private String selected_language = null;
-    
-    private Hashtable<String,LanguageInstance> available_languages;
-    
-    
-    
-    
-    
+
+    private Hashtable<String, LanguageInstance> available_languages;
+
     /**
      * Instantiates a new language info.
      * 
@@ -128,9 +116,8 @@ public abstract class LanguageInfo
      */
     public LanguageInfo(I18nControlAbstract ic)
     {
-        this.m_i18n =  ic;
+        this.m_i18n = ic;
     }
-    
 
     /**
      * Load data.
@@ -143,21 +130,20 @@ public abstract class LanguageInfo
         {
             props = new Properties();
 
-            //InputStream in = getClass().getResourceAsStream("/PIS_Languages.properties");
-            
+            // InputStream in =
+            // getClass().getResourceAsStream("/PIS_Languages.properties");
+
             InputStream in = getClass().getResourceAsStream(this.getLangaugeConfigFile());
-            
-                //new FileInputStream("PIS_Languages.properties");
+
+            // new FileInputStream("PIS_Languages.properties");
             props.load(in);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             System.out.println("LanguageInfo::loadData::Exception> " + ex);
         }
 
-
-
-        int le = Integer.parseInt((String)props.get("AVAILABLE_LANGUAGES"));
+        int le = Integer.parseInt((String) props.get("AVAILABLE_LANGUAGES"));
 
         availableLang = new Object[le];
         availableLangWeb = new Object[le];
@@ -166,47 +152,49 @@ public abstract class LanguageInfo
         StringBuffer sb = new StringBuffer();
         sb.append("<html><body>");
 
-        this.langs_ht = new Hashtable<String,LanguageInstance>();
+        this.langs_ht = new Hashtable<String, LanguageInstance>();
 
-        for (int i=1; i<=le; i++ )
+        for (int i = 1; i <= le; i++)
         {
 
             LanguageInstance li = new LanguageInstance();
 
-            String name = (String)props.get("LANG_" + i + "_NAME");
-            String help = (String)props.get("LANG_" + i + "_HELP_AVAILABLE");
+            String name = (String) props.get("LANG_" + i + "_NAME");
+            String help = (String) props.get("LANG_" + i + "_HELP_AVAILABLE");
 
-            //li.name = name;
-            
+            // li.name = name;
+
             li.name_description = name;
-            li.name = (String)props.get("LANG_" + i);
+            li.name = (String) props.get("LANG_" + i);
 
-
-            if (i!=1)
-                sb.append(", ");
-
-            if ((help.equalsIgnoreCase("YES")) || (help.equalsIgnoreCase("TRUE")))
+            if (i != 1)
             {
-                availableLang[i-1] = name + " (" + m_i18n.getMessage("HELP_AVAILABLE") + ")";
+                sb.append(", ");
+            }
+
+            if (help.equalsIgnoreCase("YES") || help.equalsIgnoreCase("TRUE"))
+            {
+                availableLang[i - 1] = name + " (" + m_i18n.getMessage("HELP_AVAILABLE") + ")";
                 sb.append(name);
                 li.help_available = true;
             }
             else
             {
-                String tm = " (" + m_i18n.getMessage("NO_HELP_AVAILABLE")+ ")";
-                availableLang[i-1] = name + tm;
+                String tm = " (" + m_i18n.getMessage("NO_HELP_AVAILABLE") + ")";
+                availableLang[i - 1] = name + tm;
                 sb.append(name);
                 sb.append(tm);
                 li.help_available = false;
             }
 
-            availableLangWeb[i-1] = name;
-            availableLangLocale[i-1] = ((String)props.get("LANG_" + i + "_LOCALE")).toLowerCase();
+            availableLangWeb[i - 1] = name;
+            availableLangLocale[i - 1] = ((String) props.get("LANG_" + i + "_LOCALE")).toLowerCase();
 
-            //li.locale = ((String)props.get("LANG_" + i + "_LOCALE")).toLowerCase();
-            //li.file
+            // li.locale = ((String)props.get("LANG_" + i +
+            // "_LOCALE")).toLowerCase();
+            // li.file
 
-            //this.langs_ht.put(li.locale, li);
+            // this.langs_ht.put(li.locale, li);
             this.available_languages.put(li.name, li);
         }
 
@@ -214,27 +202,22 @@ public abstract class LanguageInfo
 
         langs = sb.toString();
 
-        lp_version = (String)props.get("VERSION");
-        lp_release = (String)props.get("LANGPACK_DATE");
+        lp_version = (String) props.get("VERSION");
+        lp_release = (String) props.get("LANGPACK_DATE");
 
-        this.default_help = (String)props.get("DEFAULT_HELP");
+        this.default_help = (String) props.get("DEFAULT_HELP");
 
-        this.lang_root = (String)props.get("LANGUAGE_ROOT");
-        
-        int l_help = Integer.parseInt((String)props.get("AVAILABLE_LANGUAGES_WITH_HELP"));
+        this.lang_root = (String) props.get("LANGUAGE_ROOT");
+
+        int l_help = Integer.parseInt((String) props.get("AVAILABLE_LANGUAGES_WITH_HELP"));
 
         System.out.println(le + " " + l_help);
 
         lp_langs_with_help = l_help;
         lp_langs_without_help = le - l_help;
 
-
     }
 
-    
-    
-    
-    
     /**
      * Find language in locale list.
      * 
@@ -246,21 +229,18 @@ public abstract class LanguageInfo
     {
         loc = loc.toLowerCase();
 
-        if (availableLangLocale!= null)
+        if (availableLangLocale != null)
         {
-            for (int i=0; i<availableLangLocale.length; i++)
+            for (int i = 0; i < availableLangLocale.length; i++)
             {
                 if (availableLangLocale[i].toLowerCase().equals(loc))
-                {
-                    return (i+1);
-                }
+                    return i + 1;
             }
         }
 
         return 0;
     }
 
-    
     /**
      * Get help path for naguage.
      * 
@@ -270,60 +250,48 @@ public abstract class LanguageInfo
      */
     public String getHelpPathForLanguage(String lang)
     {
-/*        if (new File("Eclipse_Enviroment.txt").exists())
-        {
-            return this.getHelpPathForLanguageEclipse(lang);
-        }
-        else */
-            return getHelpPathForLanguageJar(lang);
+        /*
+         * if (new File("Eclipse_Enviroment.txt").exists())
+         * {
+         * return this.getHelpPathForLanguageEclipse(lang);
+         * }
+         * else
+         */
+        return getHelpPathForLanguageJar(lang);
     }
-    
 
-    
     @SuppressWarnings("unused")
     private String getHelpPathForLanguageEclipse(String lang)
     {
         if (this.langs_ht.containsKey(lang))
         {
             if (this.langs_ht.get(lang).help_available)
-            {
                 return "../data/lang/" + lang + "/" + getHelpSetName();
-            }
             else
-            {
                 return "../data/lang/" + this.default_help + "/" + getHelpSetName();
-            }
         }
         else
-        {
-            //System.out.println("Error this language is not present !!! " + lang);
+            // System.out.println("Error this language is not present !!! " +
+            // lang);
             return "../data/lang/" + this.default_help + "/" + getHelpSetName();
-//            return "jar:file:" + getLanguageJarName() + "!/help/" + this.default_help + "/PIS.hs";
-        }
+        // return "jar:file:" + getLanguageJarName() + "!/help/" +
+        // this.default_help + "/PIS.hs";
     }
-    
-    
-    
+
     private String getHelpPathForLanguageJar(String lang)
     {
         if (this.langs_ht.containsKey(lang))
         {
             if (this.langs_ht.get(lang).help_available)
-            {
                 return "jar:file:" + getLanguageJarName() + "!/help/" + lang + "/" + getHelpSetName();
-            }
             else
-            {
                 return "jar:file:" + getLanguageJarName() + "!/help/" + this.default_help + "/" + getHelpSetName();
-            }
         }
         else
-        {
-            //System.out.println("Error this language is not present !!! " + lang);
+            // System.out.println("Error this language is not present !!! " +
+            // lang);
             return "jar:file:" + getLanguageJarName() + "!/help/" + this.default_help + "/" + getHelpSetName();
-        }
     }
-
 
     // jar:file:pis_lang-0.1.jar!/help/PIS.hs
 
@@ -338,16 +306,14 @@ public abstract class LanguageInfo
      * @return the jar base name
      */
     public abstract String getJarBaseName();
-    
-    
+
     /**
      * Gets the help set name.
      * 
      * @return the help set name
      */
     public abstract String getHelpSetName();
-    
-    
+
     /**
      * Gets the langauge config file.
      * 
@@ -355,8 +321,6 @@ public abstract class LanguageInfo
      */
     public abstract String getLangaugeConfigFile();
 
-
-    
     /**
      * Gets the selected language.
      * 
@@ -366,7 +330,7 @@ public abstract class LanguageInfo
     {
         return this.selected_language;
     }
-    
+
     /**
      * Sets the selected language.
      * 
@@ -376,10 +340,9 @@ public abstract class LanguageInfo
     {
         this.selected_language = lang;
     }
-    
 
-    //public 
-    
+    // public
+
     /**
      * Gets the selected language locale.
      * 
@@ -390,7 +353,6 @@ public abstract class LanguageInfo
         return this.available_languages.get(this.selected_language).locale;
     }
 
-
     /**
      * Gets the language root.
      * 
@@ -400,8 +362,5 @@ public abstract class LanguageInfo
     {
         return this.lang_root;
     }
-    
 
 }
-
-

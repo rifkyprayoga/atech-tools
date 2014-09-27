@@ -39,12 +39,11 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-
 public class FeaturesInfo extends AboutPanel
 {
 
     private static final long serialVersionUID = 7569658856214864210L;
-    
+
     /**
      * The features.
      */
@@ -63,7 +62,6 @@ public class FeaturesInfo extends AboutPanel
         init();
     }
 
-
     /**
      * Inits the.
      */
@@ -73,9 +71,8 @@ public class FeaturesInfo extends AboutPanel
 
         JEditorPane jEditorPane1 = new JEditorPane();
 
-
         JScrollPane jScrollPane1 = new JScrollPane(jEditorPane1);
-        //jScrollPane1.setPreferredSize(new java.awt.Dimension(13, 1200));
+        // jScrollPane1.setPreferredSize(new java.awt.Dimension(13, 1200));
 
         jEditorPane1.setEditable(false);
         jEditorPane1.setContentType("text/html");
@@ -84,9 +81,8 @@ public class FeaturesInfo extends AboutPanel
 
         this.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jEditorPane1.select(0,0);
+        jEditorPane1.select(0, 0);
     }
-
 
     /**
      * Generate page.
@@ -99,11 +95,11 @@ public class FeaturesInfo extends AboutPanel
 
         sb.append("<html><body>");
 
-        for(int i=0; i<this.features.size(); i++)
+        for (int i = 0; i < this.features.size(); i++)
         {
             sb.append(this.features.get(i).getGroupStartHTML());
 
-            for(int j=0; j<this.features.get(i).getEntries().size(); j++)
+            for (int j = 0; j < this.features.get(i).getEntries().size(); j++)
             {
                 sb.append(this.features.get(i).getEntries().get(j).getHTMLCode());
             }
@@ -116,24 +112,22 @@ public class FeaturesInfo extends AboutPanel
         return sb.toString();
     }
 
-
-
     /** 
      * getTabName
      */
+    @Override
     public String getTabName()
     {
         return this.ic.getMessage("FEATURES");
     }
-    
+
     /** 
      * getTabPanel
      */
+    @Override
     public JPanel getTabPanel()
     {
         return this;
     }
 
-
-    
 }

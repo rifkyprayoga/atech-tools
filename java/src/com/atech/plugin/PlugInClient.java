@@ -16,7 +16,6 @@ import com.atech.graphics.dialogs.TransferDialog;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessLMAbstract;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -48,33 +47,32 @@ import com.atech.utils.ATDataAccessLMAbstract;
  *
 */
 
-
 /*
- * This is abstract class which needs to be implemented in application to which we are adding some
- * plug-in functionality. This clinet in will at later time look for server component and execute
+ * This is abstract class which needs to be implemented in application to which
+ * we are adding some
+ * plug-in functionality. This clinet in will at later time look for server
+ * component and execute
  * action. If server is not found it needs to display something to user.
  */
 
 public abstract class PlugInClient implements ActionListener
 {
 
-
     protected boolean installed = false;
     protected I18nControlAbstract ic = null;
     protected Container parent = null;
     protected PlugInServer m_server;
-    
+
     protected String commands[] = null;
     protected boolean commands_implemented[] = null;
     protected String commands_will_be_done[] = null;
-    
+
     protected Object return_data;
     protected HibernateDb db;
     protected ArrayList<TransferDialog> transfer_objects = null;
 
     protected ATDataAccessLMAbstract da_parent = null;
-    
-    
+
     /**
      * Constructor
      * 
@@ -90,8 +88,7 @@ public abstract class PlugInClient implements ActionListener
         checkIfInstalled();
         initPlugin();
     }
-    
-    
+
     /**
      * Constructor
      * 
@@ -106,8 +103,6 @@ public abstract class PlugInClient implements ActionListener
         initPlugin();
     }
 
-    
-    
     /**
      * Constructor
      * 
@@ -118,16 +113,16 @@ public abstract class PlugInClient implements ActionListener
     {
         this.parent = parent;
         this.da_parent = da;
-        
-        //System.out.println("da_parent: " + this.da_parent);
-        //System.out.println("da_parent (LM): " + this.da_parent.getLanguageManager());
-        
+
+        // System.out.println("da_parent: " + this.da_parent);
+        // System.out.println("da_parent (LM): " +
+        // this.da_parent.getLanguageManager());
+
         this.ic = da.getI18nControlInstance();
         checkIfInstalled();
         initPlugin();
     }
-    
-    
+
     /**
      * Constructor
      */
@@ -135,20 +130,17 @@ public abstract class PlugInClient implements ActionListener
     {
         initPlugin();
     }
-    
-    
+
     /**
      * Init Plugin
      */
     public abstract void initPlugin();
-    
-    
+
     /**
      * Check If Installed
      */
     public abstract void checkIfInstalled();
-    
-    
+
     /**
      * Get Name of plugin
      * 
@@ -159,16 +151,13 @@ public abstract class PlugInClient implements ActionListener
         return ic.getMessage(getNameBase());
     }
 
-    
     /**
      * Get Name of plugin
      * 
      * @return
      */
     public abstract String getNameBase();
-    
-    
-    
+
     /**
      * Is PlugIn Installed
      * 
@@ -176,9 +165,9 @@ public abstract class PlugInClient implements ActionListener
      */
     public boolean isPlugInInstalled()
     {
-        return (m_server!=null);
+        return m_server != null;
     }
-    
+
     /**
      * Is Command Implemented
      * 
@@ -188,9 +177,9 @@ public abstract class PlugInClient implements ActionListener
     public boolean isCommandImplemented(int command)
     {
         return this.commands_implemented[command];
-        
+
     }
-    
+
     /**
      * Execute Command
      * 
@@ -200,8 +189,7 @@ public abstract class PlugInClient implements ActionListener
     {
         executeCommand(command, null);
     }
-    
-    
+
     /**
      * Execute Command
      * 
@@ -210,7 +198,7 @@ public abstract class PlugInClient implements ActionListener
      */
     public void executeCommand(int command, Object command_object)
     {
-        if (m_server==null)
+        if (m_server == null)
         {
             if (this.isCommandImplemented(command))
             {
@@ -224,23 +212,30 @@ public abstract class PlugInClient implements ActionListener
         else
         {
             if (this.isCommandImplemented(command))
+            {
                 m_server.executeCommand(command);
+            }
             else
             {
-                
-//                System.out.println("array commands_will_be_done: " + this.commands_will_be_done);
-//                System.out.println("array commands_will_be_done[command]: " + this.commands_will_be_done[command]);
-                
-                if ((this.commands_will_be_done==null) || (this.commands_will_be_done[command]==null))
+
+                // System.out.println("array commands_will_be_done: " +
+                // this.commands_will_be_done);
+                // System.out.println("array commands_will_be_done[command]: " +
+                // this.commands_will_be_done[command]);
+
+                if (this.commands_will_be_done == null || this.commands_will_be_done[command] == null)
+                {
                     this.featureNotImplementedInstalled(commands[command]);
+                }
                 else
+                {
                     this.featureNotImplementedInstalled(commands[command], this.commands_will_be_done[command]);
-                    
+                }
+
             }
         }
     }
 
-    
     /**
      * Execute Command
      * 
@@ -251,8 +246,7 @@ public abstract class PlugInClient implements ActionListener
     {
         executeCommandDialog(_parent, command, null);
     }
-    
-    
+
     /**
      * Execute Command with Dialog as Parent
      * 
@@ -263,7 +257,7 @@ public abstract class PlugInClient implements ActionListener
      */
     public boolean executeCommandDialog(JDialog _parent, int command, Object command_object)
     {
-        if (m_server==null)
+        if (m_server == null)
         {
             if (this.isCommandImplemented(command))
             {
@@ -280,22 +274,26 @@ public abstract class PlugInClient implements ActionListener
                 return m_server.executeCommandDialog(_parent, command, command_object);
             else
             {
-                
-//                System.out.println("array commands_will_be_done: " + this.commands_will_be_done);
-//                System.out.println("array commands_will_be_done[command]: " + this.commands_will_be_done[command]);
-                
-                if ((this.commands_will_be_done==null) || (this.commands_will_be_done[command]==null))
+
+                // System.out.println("array commands_will_be_done: " +
+                // this.commands_will_be_done);
+                // System.out.println("array commands_will_be_done[command]: " +
+                // this.commands_will_be_done[command]);
+
+                if (this.commands_will_be_done == null || this.commands_will_be_done[command] == null)
+                {
                     this.featureNotImplementedInstalled(commands[command]);
+                }
                 else
+                {
                     this.featureNotImplementedInstalled(commands[command], this.commands_will_be_done[command]);
-                    
+                }
+
             }
         }
         return false;
     }
-    
 
-    
     /**
      * Execute Command with Dialog as Parent
      * 
@@ -306,7 +304,7 @@ public abstract class PlugInClient implements ActionListener
      */
     public Object[] executeCommandDialogReturn(JDialog _parent, int command, Object command_object)
     {
-        if (m_server==null)
+        if (m_server == null)
         {
             if (this.isCommandImplemented(command))
             {
@@ -323,29 +321,31 @@ public abstract class PlugInClient implements ActionListener
                 return m_server.executeCommandDialogReturn(_parent, command, command_object);
             else
             {
-                
-                //System.out.println("array commands_will_be_done: " + this.commands_will_be_done);
-                //System.out.println("array commands_will_be_done[command]: " + this.commands_will_be_done[command]);
-                
-                if ((this.commands_will_be_done==null) || (this.commands_will_be_done[command]==null))
+
+                // System.out.println("array commands_will_be_done: " +
+                // this.commands_will_be_done);
+                // System.out.println("array commands_will_be_done[command]: " +
+                // this.commands_will_be_done[command]);
+
+                if (this.commands_will_be_done == null || this.commands_will_be_done[command] == null)
+                {
                     this.featureNotImplementedInstalled(commands[command]);
+                }
                 else
+                {
                     this.featureNotImplementedInstalled(commands[command], this.commands_will_be_done[command]);
-                    
+                }
+
             }
         }
         return null;
     }
-    
-    
-    
+
     /** 
      * Action Performed
      */
     public abstract void actionPerformed(ActionEvent e);
-    
-    
-    
+
     /**
      * Feature Not Implemented display message
      * 
@@ -354,17 +354,17 @@ public abstract class PlugInClient implements ActionListener
     public void featureNotImplemented(String command_desc)
     {
         String text = String.format(ic.getMessage("PLUGIN_NOT_INSTALLED_OR_AVAILABLE"), this.getName());
-            
-        text += "\n\n'" + ic.getMessage(command_desc) +"' ";
+
+        text += "\n\n'" + ic.getMessage(command_desc) + "' ";
         text += String.format(ic.getMessage("IMPLEMENTED_VERSION"), this.getWhenWillBeImplemented());
         text += "!\n\n";
-    
-        //JOptionPane.showMessageDialog(this.parent, text, ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+
+        // JOptionPane.showMessageDialog(this.parent, text,
+        // ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
 
         showMessage(text);
     }
 
-    
     /**
      * Feature Not Implemented and will be display message
      * 
@@ -373,17 +373,17 @@ public abstract class PlugInClient implements ActionListener
     public void featureNotImplementedInstalled(String command_desc)
     {
         String text = "";
-            
-        text += "\n'" + ic.getMessage(command_desc) +"' ";
+
+        text += "\n'" + ic.getMessage(command_desc) + "' ";
         text += String.format(ic.getMessage("IMPLEMENTED_VERSION"), this.getWhenWillBeImplemented());
         text += "!\n\n";
-    
-        //JOptionPane.showMessageDialog(this.parent, text, ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+
+        // JOptionPane.showMessageDialog(this.parent, text,
+        // ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
 
         showMessage(text);
     }
-    
-    
+
     /**
      * Feature Not Implemented and will be display message
      * 
@@ -392,18 +392,19 @@ public abstract class PlugInClient implements ActionListener
      */
     public void featureNotImplementedInstalled(String command_desc, String ver)
     {
-        String text = "\n"; //String.format(ic.getMessage("PLUGIN_NOT_INSTALLED_OR_AVAILABLE"), this.getName());
-            
-        text += "'" + ic.getMessage(command_desc) +"' ";
+        String text = "\n"; // String.format(ic.getMessage("PLUGIN_NOT_INSTALLED_OR_AVAILABLE"),
+                            // this.getName());
+
+        text += "'" + ic.getMessage(command_desc) + "' ";
         text += String.format(ic.getMessage("IMPLEMENTED_VERSION"), ver);
         text += "!\n\n";
-    
-        //JOptionPane.showMessageDialog(this.parent, text, ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+
+        // JOptionPane.showMessageDialog(this.parent, text,
+        // ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
 
         showMessage(text);
     }
-    
-    
+
     /**
      * Show Message
      * 
@@ -413,8 +414,7 @@ public abstract class PlugInClient implements ActionListener
     {
         JOptionPane.showMessageDialog(this.parent, text, ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    
+
     /**
      * Set Transfer Object (for passing elements to plugin)
      * 
@@ -425,7 +425,6 @@ public abstract class PlugInClient implements ActionListener
         this.transfer_objects = lst;
     }
 
-    
     /**
      * Get Transfer Object (for getting elements to plugin)
      * 
@@ -435,7 +434,6 @@ public abstract class PlugInClient implements ActionListener
     {
         return this.transfer_objects;
     }
-    
 
     /**
      * Get When Will Be Implemented
@@ -443,16 +441,14 @@ public abstract class PlugInClient implements ActionListener
      * @return
      */
     public abstract String getWhenWillBeImplemented();
-    
-    
+
     /**
      * Get Short Status
      * 
      * @return
      */
     public abstract String getShortStatus();
-    
-    
+
     /**
      * Set Return Data (for getting data from plugin - async)
      * 
@@ -460,8 +456,7 @@ public abstract class PlugInClient implements ActionListener
      * @param stat_rep_int
      */
     public abstract void setReturnData(Object return_data, StatusReporterInterface stat_rep_int);
-    
-    
+
     /**
      * Get Return Object (getting data from plugin - synch)
      * 
@@ -470,13 +465,12 @@ public abstract class PlugInClient implements ActionListener
      */
     public Object getReturnObject(int ret_obj_id)
     {
-        if (this.m_server==null)
+        if (this.m_server == null)
             return null;
         else
             return this.m_server.getReturnObject(ret_obj_id);
     }
-    
-    
+
     /**
      * Get Return Object (getting data from plugin - synch)
      * 
@@ -486,13 +480,12 @@ public abstract class PlugInClient implements ActionListener
      */
     public Object getReturnObject(int ret_obj_id, Object[] parameters)
     {
-        if (this.m_server==null)
+        if (this.m_server == null)
             return null;
         else
             return this.m_server.getReturnObject(ret_obj_id, parameters);
     }
-    
-    
+
     /**
      * Get PlugIn Main Menu 
      * 
@@ -503,13 +496,12 @@ public abstract class PlugInClient implements ActionListener
      */
     public JMenu getPlugInMainMenu()
     {
-        if (m_server==null)
+        if (m_server == null)
             return null;
         else
             return m_server.getPlugInMainMenu();
     }
-    
-    
+
     /**
      * Get PlugIn Print Menu 
      * 
@@ -519,14 +511,12 @@ public abstract class PlugInClient implements ActionListener
      */
     public JMenu[] getPlugInPrintMenus()
     {
-        if (m_server==null)
+        if (m_server == null)
             return null;
         else
             return m_server.getPlugInPrintMenus();
     }
-    
-    
-    
+
     /**
      * Is Backup Restore Enabled
      * 
@@ -534,14 +524,12 @@ public abstract class PlugInClient implements ActionListener
      */
     public boolean isBackupRestoreEnabled()
     {
-        if (m_server==null)
+        if (m_server == null)
             return false;
         else
             return m_server.isBackupRestoreEnabled();
     }
-    
-    
-    
+
     /**
      * Get Backup Restore Handler
      * 
@@ -549,13 +537,12 @@ public abstract class PlugInClient implements ActionListener
      */
     public BackupRestorePlugin getBackupRestoreHandler()
     {
-        if (m_server==null)
+        if (m_server == null)
             return null;
         else
             return m_server.getBackupRestoreHandler();
     }
 
-    
     /**
      * Get Backup Objects (if available)
      * 
@@ -563,13 +550,12 @@ public abstract class PlugInClient implements ActionListener
      */
     public BackupRestoreCollection getBackupObjects()
     {
-        if (m_server==null)
+        if (m_server == null)
             return null;
         else
             return m_server.getBackupObjects();
     }
-    
-    
+
     /**
      * Checks if plug-in is active. Plugin is active, when client side is connected to server side
      * of it.
@@ -578,10 +564,9 @@ public abstract class PlugInClient implements ActionListener
      */
     public boolean isActive()
     {
-        return (m_server!=null);
+        return m_server != null;
     }
-    
-    
+
     /**
      * Checks if plug-in is active. Plugin is active, when client side is connected to server side
      * of it.
@@ -595,19 +580,16 @@ public abstract class PlugInClient implements ActionListener
     {
         boolean act = isActive();
 
-        if ((!act) && (warn))
+        if (!act && warn)
         {
-            JOptionPane.showMessageDialog(dialog,
-                String.format(ic.getMessage("PLUGIN_NOT_ACTIVE"), getNameBase()),
-                ic.getMessage("WARNING"), 
-                JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(dialog, String.format(ic.getMessage("PLUGIN_NOT_ACTIVE"), getNameBase()),
+                ic.getMessage("WARNING"), JOptionPane.WARNING_MESSAGE);
         }
-        
+
         return act;
-        
+
     }
-    
-    
+
     /**
      * This is method which can be used by server side to do certain action. Mainly this will be used
      * to run refreshes and such actions. This needs to be implemented by Client side, if you wish to use
@@ -618,8 +600,5 @@ public abstract class PlugInClient implements ActionListener
     public void executeReturnAction(int action_type)
     {
     }
-    
-    
-    
-    
+
 }

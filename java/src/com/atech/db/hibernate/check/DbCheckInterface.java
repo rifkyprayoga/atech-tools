@@ -32,7 +32,6 @@ import org.hibernate.cfg.Configuration;
  *
 */
 
-
 public interface DbCheckInterface
 {
     /**
@@ -41,34 +40,33 @@ public interface DbCheckInterface
      * @return 
      */
     public boolean isCheckEnabled();
-    
+
     /**
      * Get DbInfo Resource
      * 
      * @return 
      */
     public String[] getDbInfoResource();
-    
+
     /**
      * Get DbInfo Configuration
      * 
      * @return 
      */
     public Configuration getDbInfoConfiguration();
-    
+
     /**
      * Get Db Name
      * 
      * @return
      */
     public String getDbName();
-    
+
     /**
      * Get DbInfo Report Filename
      * 
      * @return
      */
     public String getDbInfoReportFilename();
-
 
 }

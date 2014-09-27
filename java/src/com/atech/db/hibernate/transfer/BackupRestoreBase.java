@@ -2,7 +2,6 @@ package com.atech.db.hibernate.transfer;
 
 import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
 
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -33,7 +32,6 @@ import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
  *
 */
 
-
 // this one should be extended, we have several variables that need to be filled
 
 public interface BackupRestoreBase extends CheckBoxTreeNodeInterface
@@ -44,34 +42,34 @@ public interface BackupRestoreBase extends CheckBoxTreeNodeInterface
      * 
      * @return target name as string
      */
-	public String getTargetName();
-	
-	/**
-	 * Is Object Collection
-	 * 
-	 * @return true if it has children
-	 */
-	public boolean isCollection();
-	
-	/**
-	 * Set Selected
-	 * 
-	 * @param selected true if selected
-	 */
-	public void setSelected(boolean selected);
-	
-	/**
-	 * Is Selected
-	 * 
-	 * @return true if selected
-	 */
-	public boolean isSelected();
-	
-	/**
-	 * Get Class Name
-	 * 
-	 * @return name of class
-	 */
-	public String getClassName();
-	
+    public String getTargetName();
+
+    /**
+     * Is Object Collection
+     * 
+     * @return true if it has children
+     */
+    public boolean isCollection();
+
+    /**
+     * Set Selected
+     * 
+     * @param selected true if selected
+     */
+    public void setSelected(boolean selected);
+
+    /**
+     * Is Selected
+     * 
+     * @return true if selected
+     */
+    public boolean isSelected();
+
+    /**
+     * Get Class Name
+     * 
+     * @return name of class
+     */
+    public String getClassName();
+
 }

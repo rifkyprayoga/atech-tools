@@ -32,7 +32,6 @@ import org.hibernate.Session;
  *
 */
 
-
 public interface DatabaseObjectHibernate
 {
 
@@ -41,8 +40,7 @@ public interface DatabaseObjectHibernate
      * @return unique object id
      */
     String getObjectUniqueId();
-    
-    
+
     /**
      * DbAdd - Add this object to database
      * 
@@ -51,7 +49,6 @@ public interface DatabaseObjectHibernate
      * @return id in type of String
      */
     String DbAdd(Session sess) throws Exception;
-
 
     /**
      * DbEdit - Edit this object in database
@@ -62,7 +59,6 @@ public interface DatabaseObjectHibernate
      */
     boolean DbEdit(Session sess) throws Exception;
 
-
     /**
      * DbDelete - Delete this object in database
      * 
@@ -71,7 +67,6 @@ public interface DatabaseObjectHibernate
      * @return true if action done or Exception if not
      */
     boolean DbDelete(Session sess) throws Exception;
-
 
     /**
      * DbHasChildren - Shows if this entry has any children object, this is needed for delete
@@ -82,7 +77,6 @@ public interface DatabaseObjectHibernate
      */
     boolean DbHasChildren(Session sess) throws Exception;
 
-
     /**
      * DbGet - Loads this object. Id must be set.
      * 
@@ -91,7 +85,6 @@ public interface DatabaseObjectHibernate
      * @return true if action done or Exception if not
      */
     boolean DbGet(Session sess) throws Exception;
-    
 
     /**
      * getObjectName - returns name of DatabaseObject
@@ -100,15 +93,12 @@ public interface DatabaseObjectHibernate
      */
     String getObjectName();
 
-
     /**
      * isDebugMode - returns debug mode of object
      * 
      * @return true if object in debug mode
      */
     boolean isDebugMode();
-
-
 
     /**
      * getAction - returns action that should be done on object
@@ -123,8 +113,4 @@ public interface DatabaseObjectHibernate
      */
     int getAction();
 
-
-
 }
-
-

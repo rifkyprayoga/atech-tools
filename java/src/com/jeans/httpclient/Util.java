@@ -31,7 +31,6 @@ import java.net.UnknownHostException;
  *
  */
 
-
 public class Util
 {
     /**
@@ -51,52 +50,44 @@ public class Util
         InetAddress ia;
 
         try
-            {
+        {
             ia = InetAddress.getLocalHost();
         }
 
         catch (UnknownHostException e)
-            {
+        {
             System.out.print("1::" + e);
             return;
         }
         address = ia.getHostAddress();
 
-        /*		
-        		Socket s;
-        
-        		try {
-        			s = new Socket(testURL, port);
-        		}
-        
-        		catch (UnknownHostException e) {
-        			System.out.print("1::"+e);
-        			return;
-        		}
-        		catch (SecurityException e) {
-        			System.out.print("2::"+e);
-        
-        			return;
-        		}
-        		catch (IOException e) {
-        			System.out.print("3::"+e);
-        
-        			return;
-        		}
-        
-        		InetAddress ia = s.getLocalAddress();
-        
-        		
-        		address = new String(ia.getHostAddress());
-        */
+        /*
+         * Socket s;
+         * try {
+         * s = new Socket(testURL, port);
+         * }
+         * catch (UnknownHostException e) {
+         * System.out.print("1::"+e);
+         * return;
+         * }
+         * catch (SecurityException e) {
+         * System.out.print("2::"+e);
+         * return;
+         * }
+         * catch (IOException e) {
+         * System.out.print("3::"+e);
+         * return;
+         * }
+         * InetAddress ia = s.getLocalAddress();
+         * address = new String(ia.getHostAddress());
+         */
 
         System.out.print("LocalAddressOK:" + address);
 
         return;
 
     }
-    
-    
+
     /**
      * Print Hex
      * 
@@ -106,36 +97,21 @@ public class Util
      */
     public static String PrintHex(String str, int alignment)
     {
-        final char hex[] =
-            {
-                '0',
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-                '6',
-                '7',
-                '8',
-                '9',
-                'A',
-                'B',
-                'C',
-                'D',
-                'E',
-                'F' };
+        final char hex[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
         int len = str.length();
         int lines = str.length() / alignment;
-         StringBuffer result = new StringBuffer();
+        StringBuffer result = new StringBuffer();
         char line[] = null;
 
         for (int l = 0; l < lines + 1; l++)
         {
 
-            //	        line = new StringBuffer((int)(3 * alignment + 2));
+            // line = new StringBuffer((int)(3 * alignment + 2));
             line = new char[3 * alignment + 1];
             for (int j = 0; j < 3 * alignment + 1; j++)
+            {
                 line[j] = ' ';
+            }
             line[2 * alignment] = '\t';
 
             for (int i = 0; i < alignment; i++)
@@ -144,20 +120,25 @@ public class Util
                 int pos = l * alignment + i;
 
                 if (pos >= len)
-                	break;
-                	
-                
+                {
+                    break;
+                }
+
                 char c = str.charAt(pos);
-                int upper = (int) c / 16;
-                int lower = (int) c % 16;
+                int upper = c / 16;
+                int lower = c % 16;
 
                 line[2 * i] = hex[upper];
-                line[(2 * i) + 1] = hex[lower];
+                line[2 * i + 1] = hex[lower];
 
                 if (Character.isISOControl(c))
+                {
                     line[2 * alignment + i + 1] = '.';
+                }
                 else
-	                line[2 * alignment + i + 1] = new Character(c).toString().charAt(0);
+                {
+                    line[2 * alignment + i + 1] = new Character(c).toString().charAt(0);
+                }
 
             }
 

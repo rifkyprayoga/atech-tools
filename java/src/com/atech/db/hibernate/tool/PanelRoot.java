@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
 
 /**
@@ -70,9 +71,9 @@ public class PanelRoot extends JPanel implements ActionListener
         // m_dialog = dia;
         m_da = DbToolAccess.getInstance();
 
-        font_big = m_da.getFont(DbToolAccess.FONT_BIG_BOLD);
-        font_normal_b = m_da.getFont(DbToolAccess.FONT_NORMAL_BOLD);
-        font_normal = m_da.getFont(DbToolAccess.FONT_NORMAL);
+        font_big = m_da.getFont(ATDataAccessAbstract.FONT_BIG_BOLD);
+        font_normal_b = m_da.getFont(ATDataAccessAbstract.FONT_NORMAL_BOLD);
+        font_normal = m_da.getFont(ATDataAccessAbstract.FONT_NORMAL);
 
         createPanel();
 
@@ -86,17 +87,14 @@ public class PanelRoot extends JPanel implements ActionListener
 
         Font fnt_18 = new Font("Times New Roman", Font.BOLD, 18);
 
-        
         ATSwingUtils.initLibrary();
-        
-        ATSwingUtils.getTitleLabel(ic.getMessage("DB_TOOL"), 0, 35, 500, 40, this, ATSwingUtils.FONT_BIG_BOLD);
-        
-        
-//        label = new JLabel("Database Root");
 
-        
-//`        DB_TOOL
-        
+        ATSwingUtils.getTitleLabel(ic.getMessage("DB_TOOL"), 0, 35, 500, 40, this, ATSwingUtils.FONT_BIG_BOLD);
+
+        // label = new JLabel("Database Root");
+
+        // ` DB_TOOL
+
         // label = new JLabel(ic.getMessage("CONFIGURATION"));
         label.setBounds(0, 35, 420, 40);
         label.setFont(font_big);
@@ -119,13 +117,13 @@ public class PanelRoot extends JPanel implements ActionListener
         this.add(cb, null);
 
         /*
-                button = new JButton(ic.getMessage("ADD_"));
-                button.setBounds(110, 190, 170, 25);
-                button.setFont(font_normal);
-                button.addActionListener(this);
-                button.setActionCommand("add_");
-                this.add(button);
-        */
+         * button = new JButton(ic.getMessage("ADD_"));
+         * button.setBounds(110, 190, 170, 25);
+         * button.setFont(font_normal);
+         * button.addActionListener(this);
+         * button.setActionCommand("add_");
+         * this.add(button);
+         */
         button = new JButton(ic.getMessage("ADD_DB"));
         button.setBounds(110, 220, 170, 25);
         button.setFont(font_normal);

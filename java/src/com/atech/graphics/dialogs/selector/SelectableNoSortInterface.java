@@ -30,10 +30,8 @@ package com.atech.graphics.dialogs.selector;
  *
 */
 
-
 public interface SelectableNoSortInterface
 {
-
 
     /**
      * getColumnCount - return number of displayable columns
@@ -41,7 +39,6 @@ public interface SelectableNoSortInterface
      * @return number of displayable columns
      */
     public abstract int getColumnCount();
-
 
     /**
      * getColumnName - return name of specified column
@@ -51,7 +48,6 @@ public interface SelectableNoSortInterface
      */
     public abstract String getColumnName(int num);
 
-
     /**
      * getColumnValue - return value of specified column
      * 
@@ -59,7 +55,6 @@ public interface SelectableNoSortInterface
      * @return string value of column
      */
     public abstract String getColumnValue(int num);
-
 
     /**
      * getColumnWidth - return width of specified column
@@ -70,7 +65,6 @@ public interface SelectableNoSortInterface
      */
     public abstract int getColumnWidth(int num, int width);
 
-
     /**
      * isFound(String) - if this object is filtered or not.
      * 
@@ -79,7 +73,6 @@ public interface SelectableNoSortInterface
      */
     public abstract boolean isFound(String text);
 
-
     /**
      * isFound(int) - if this object is filtered or not.
      * 
@@ -87,7 +80,6 @@ public interface SelectableNoSortInterface
      * @return true if object is correct, false if not.
      */
     public abstract boolean isFound(int value);
-
 
     /**
      * isFound(int,int,int) - if this object is filtered or not.
@@ -99,14 +91,9 @@ public interface SelectableNoSortInterface
      */
     public abstract boolean isFound(int from, int till, int state);
 
-
     /**
      * setSearchContext - set context for searching
      */
     public abstract void setSearchContext();
 
-
-
 }
-
-

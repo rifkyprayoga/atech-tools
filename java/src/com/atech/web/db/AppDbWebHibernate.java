@@ -73,6 +73,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         // System.out.println("PIS_Web Loaded: " + pis_web_version);
     }
 
+    @Override
     public void setI18nWebControl(I18nWebControl ic)
     {
         this.ic = ic;
@@ -81,10 +82,12 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         initMonths();
     }
 
+    @Override
     public void closeDb()
     {
     }
 
+    @Override
     public void displayError(String source, Exception ex)
     {
 
@@ -118,50 +121,42 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
      * public void loadSettings(); { Query q =getSession().createQuery(
      * "select pst from com.atech.inf_sys.pis.db.hibernate.config.SettingsH as pst"
      * );
-     * 
      * Iterator it = q.iterate();
-     * 
      * while (it.hasNext()) { SettingsH st = (SettingsH )it.next();
      * this.config.put(st.getProperty(), st.getValue()); } }
      */
 
     /*
      * public void loadUsers() { this.users = new ArrayList<UserH>();
-     * 
      * System.out.println("Load Users");
-     * 
-     * 
      * Query q =getSession().createQuery(
      * "select pst from com.atech.inf_sys.pis.db.hibernate.config.UserH as pst"
      * );
-     * 
      * Iterator it = q.iterate();
-     * 
      * while (it.hasNext()) { UserH st = (UserH)it.next(); this.users.add(st); }
      * }
      */
 
+    @Override
     public String getMessage(String key)
     {
         return key;
     }
 
+    @Override
     public String getWebLanguage()
     {
         if (config.containsKey("WEB_LANG"))
-        {
             return config.get("WEB_LANG");
-        }
         else
             return "SI";
     }
 
+    @Override
     public String getWebName()
     {
         if (config.containsKey("WEB_NAME"))
-        {
             return config.get("WEB_NAME");
-        }
         else
             return "Unknown";
     }
@@ -170,6 +165,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
     // BASIC METHODS
     //
 
+    @Override
     public boolean add(Object obj)
     {
 
@@ -183,7 +179,9 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
 
             if (doh.isDebugMode())
+            {
                 System.out.println(doh.getObjectName() + "::DbAdd");
+            }
 
             try
             {
@@ -213,7 +211,6 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
                 ex.printStackTrace();
                 /*
                  * Exception eee = ex.getNextException();
-                 * 
                  * if (eee!=null) { eee.printStackTrace();
                  * System.out.println(eee); }
                  */
@@ -238,6 +235,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
 
     }
 
+    @Override
     public boolean edit(Object obj)
     {
 
@@ -249,7 +247,9 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
 
             if (doh.isDebugMode())
+            {
                 System.out.println(doh.getObjectName() + "::DbEdit");
+            }
 
             try
             {
@@ -278,6 +278,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
 
     }
 
+    @Override
     public boolean get(Object obj)
     {
 
@@ -288,7 +289,9 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
 
             if (doh.isDebugMode())
+            {
                 System.out.println(doh.getObjectName() + "::DbGet");
+            }
 
             try
             {
@@ -317,6 +320,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
 
     }
 
+    @Override
     public boolean delete(Object obj)
     {
 
@@ -325,7 +329,9 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
 
             if (doh.isDebugMode())
+            {
                 System.out.println(doh.getObjectName() + "::DbDelete");
+            }
 
             try
             {
@@ -356,21 +362,25 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
 
     }
 
+    @Override
     public String addGetId()
     {
         return this.m_addId;
     }
 
+    @Override
     public int getErrorCode()
     {
         return this.m_errorCode;
     }
 
+    @Override
     public String getErrorDescription()
     {
         return this.m_errorDesc;
     }
 
+    @Override
     public void setError(int code, String desc, String source)
     {
         this.m_errorCode = code;
@@ -381,14 +391,18 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
     // **** DAY AND MONTH HANDLING ****
     // *************************************************************
 
+    @Override
     public String getWeekDays()
     {
         if (this.week_days == null)
+        {
             initWeekDays();
+        }
 
         return this.week_days;
     }
 
+    @Override
     public void initWeekDays()
     {
         StringBuffer sb_wd = new StringBuffer();
@@ -400,20 +414,26 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
             sb_wd.append(ic.getMessage(days[i]));
 
             if (i != 6)
+            {
                 sb_wd.append(",");
+            }
         }
 
         this.week_days = sb_wd.toString();
     }
 
+    @Override
     public String getMonths()
     {
         if (this.months == null)
+        {
             initMonths();
+        }
 
         return this.months;
     }
 
+    @Override
     public void initMonths()
     {
         StringBuffer sb_mon = new StringBuffer();
@@ -426,7 +446,9 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
             sb_mon.append(ic.getMessage(mon[i]));
 
             if (i != 11)
+            {
                 sb_mon.append(",");
+            }
         }
 
         this.months = sb_mon.toString();

@@ -33,7 +33,6 @@ import com.atech.update.startup.os.StartupOSAbstract;
  *
 */
 
-
 public class DbApplication extends DbApplicationAbstract
 {
 
@@ -47,30 +46,29 @@ public class DbApplication extends DbApplicationAbstract
     {
         super(uc, osa);
     }
-    
-    
+
     /**
      * Has Application Parameters (something %1 %2)
      * 
      * @return true if application is called with parameters 
      */
+    @Override
     public boolean hasApplicationParameters()
     {
         return true;
     }
 
-    
     /**
      * Get Application Parameters
      * 
      * @return string with all parameters
      */
+    @Override
     public String getApplicationParameters()
     {
         return this.getApplicationParameters(5);
     }
 
-    
     /**
      * Get Class Name
      * 
@@ -81,7 +79,6 @@ public class DbApplication extends DbApplicationAbstract
     {
         return this.upd_conf.db_apps.get("db_application").app_class;
     }
-
 
     /**
      * Get File Name for batch file
@@ -94,5 +91,4 @@ public class DbApplication extends DbApplicationAbstract
         return "db." + this.os_abstract.getBatchFileExtension();
     }
 
-    
 }

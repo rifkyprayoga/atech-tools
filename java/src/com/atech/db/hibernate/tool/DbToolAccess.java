@@ -54,7 +54,7 @@ public class DbToolAccess extends ATDataAccessAbstract
      * The available lf.
      */
     Object[] availableLF = null;
-    
+
     /**
      * The available lang.
      */
@@ -64,7 +64,7 @@ public class DbToolAccess extends ATDataAccessAbstract
      * The selected lf.
      */
     String selectedLF = null;
-    
+
     /**
      * The sub selected lf.
      */
@@ -75,32 +75,32 @@ public class DbToolAccess extends ATDataAccessAbstract
      * The config_db_values.
      */
     Hashtable<String, String> config_db_values = null;
-    
+
     /**
      * The selected_db.
      */
     public int selected_db = -1;
-    
+
     /**
      * The selected_lang.
      */
     public int selected_lang = 1;
-    
+
     /**
      * The selected_ l f_ class.
      */
     public String selected_LF_Class = null; // class
-    
+
     /**
      * The selected_ l f_ name.
      */
     public String selected_LF_Name = null; // name
-    
+
     /**
      * The skin lf selected.
      */
     public String skinLFSelected = null;
-    
+
     /**
      * The all dbs.
      */
@@ -125,7 +125,6 @@ public class DbToolAccess extends ATDataAccessAbstract
      */
     public Component m_main = null;
 
-    
     /**
      * The m_databases_treeroot.
      */
@@ -202,7 +201,9 @@ public class DbToolAccess extends ATDataAccessAbstract
     public static DbToolAccess getInstance()
     {
         if (s_da == null)
+        {
             s_da = new DbToolAccess();
+        }
 
         return s_da;
     }
@@ -286,6 +287,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     /** 
      * loadFonts
      */
+    @Override
     public void loadFonts()
     {
         fonts = new Font[3];
@@ -297,6 +299,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     /** 
      * getFont
      */
+    @Override
     public Font getFont(int font_id)
     {
         return fonts[font_id];
@@ -317,50 +320,36 @@ public class DbToolAccess extends ATDataAccessAbstract
     }
 
     /*
-        public Component getParent()
-        {
-            return m_main;
-        }
-    */
+     * public Component getParent()
+     * {
+     * return m_main;
+     * }
+     */
     // ********************************************************
     // ****** Look and Feel *****
     // ********************************************************
     /*
      * public void loadAvailableLFs() {
-     * 
      * availableLF_full = new Hashtable<String,String>();
      * UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
-     * 
      * availableLF = new Object[info.length+1];
-     * 
      * //ring selectedLF = null; //String subSelectedLF = null;
-     * 
      * int i; for (i=0; i<info.length; i++) { String name = info[i].getName();
      * String className = info[i].getClassName();
-     * 
      * availableLF_full.put(name, className); availableLF[i] = name;
-     * 
      * //System.out.println(humanReadableName); }
-     * 
      * availableLF_full.put("SkinLF",
      * "com.l2fprod.gui.plaf.skin.SkinLookAndFeel"); availableLF[i] = "SkinLF";
-     *  }
-     * 
+     * }
      * public Object[] getAvailableLFs() { return availableLF; }
-     * 
-     * 
      * public static String[] getLFData() { String out[] = new String[2];
-     * 
      * try { Properties props = new Properties();
-     * 
      * FileInputStream in = new FileInputStream(pathPrefix +
      * "/data/PIS_Config.properties"); props.load(in);
-     * 
      * out[0] = (String)props.get("LF_CLASS"); out[1] =
      * (String)props.get("SKINLF_SELECTED");
-     * 
      * return out;
-     *  } catch(Exception ex) {
+     * } catch(Exception ex) {
      * System.out.println("DataAccess::getLFData::Exception> " + ex); return
      * null; } }
      */
@@ -408,26 +397,28 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
         File fl[] = f.listFiles();
 
-        for (int i = 0; i < fl.length; i++)
+        for (File element : fl)
         {
             // System.out.println(fl[i]);
 
-            if (fl[i].isDirectory())
+            if (element.isDirectory())
             {
-                processDirectory(root, fl[i], false);
+                processDirectory(root, element, false);
             }
             else
             {
-                String file = fl[i].getName();
+                String file = element.getName();
 
                 if (file.endsWith(".class"))
                 {
                     try
                     {
-                        String can = fl[i].getCanonicalPath();
+                        String can = element.getCanonicalPath();
 
                         if (can.contains("$"))
+                        {
                             continue;
+                        }
 
                         can = can.substring(root.length() + 1);
                         can = replaceExpression(can, File.separator, ".");
@@ -445,14 +436,11 @@ public class DbToolAccess extends ATDataAccessAbstract
                             }
                         }
                         catch (java.lang.NoClassDefFoundError ex)
-                        {
-                        }
+                        {}
                         catch (java.lang.ExceptionInInitializerError ex)
-                        {
-                        }
+                        {}
                         catch (Exception ex)
-                        {
-                        }
+                        {}
 
                     }
                     catch (Exception ex)
@@ -486,10 +474,8 @@ public class DbToolAccess extends ATDataAccessAbstract
             String interfaceName = theInterface.getName();
 
             if (interfaceName.equals("com.atech.db.tool.DbToolApplicationInterface"))
-            {
                 // System.out.println("Found Interface: " + interfaceName);
                 return true;
-            }
             else
                 return false;
         }
@@ -509,8 +495,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
 
         for (int i = 0; i < this.listOfClasses.size(); i++)
-        {
-        }
+        {}
 
         // listOfClasses
 
@@ -518,23 +503,17 @@ public class DbToolAccess extends ATDataAccessAbstract
 
         /*
          * //Hashtable config_db_values = null; //int selected_db = -1; //String
-         * selected_LF_Class = null; // class //String selected_LF_Name = null; //
+         * selected_LF_Class = null; // class //String selected_LF_Name = null;
+         * //
          * name //String skinLFSelected = null;
-         * 
          * config_db_values = new Hashtable<String, String>();
-         * 
          * try { Properties props = new Properties();
-         * 
          * FileInputStream in = new FileInputStream(s_pathPrefix +
          * dtai.getApplicationDatabaseConfig()); props.load(in);
-         * 
-         * 
          * for(Enumeration en = props.keys(); en.hasMoreElements(); ) { String
          * str = (String)en.nextElement();
-         * 
          * if (str.startsWith("DB")) { config_db_values.put(str,
          * props.getProperty(str)); } else {
-         * 
          * if (str.equals("LF_NAME")) { selected_LF_Name =
          * (String)props.get(str); } else if (str.equals("LF_CLASS")) {
          * selected_LF_Class = (String)props.get(str); } else if
@@ -545,28 +524,21 @@ public class DbToolAccess extends ATDataAccessAbstract
          * Integer.parseInt((String)props.get(str)); } else
          * System.out.println("DataAccess:loadConfig:: Unknown parameter : '" +
          * str +"'");
-         *  }
-         *  }
-         * 
+         * }
+         * }
          * ArrayList<String> list = new ArrayList<String>();
-         * 
          * int count_db = 0;
-         * 
          * list.add("0 - " + m_i18n.getMessage("INTERNAL_DATABASE")); for (int
          * i=1; i<20; i++) { if
          * (config_db_values.containsKey("DB"+i+"_CONN_NAME")) { count_db++;
          * list.add(i+" - " + config_db_values.get("DB"+i+"_CONN_NAME")); }
-         * 
          * if ((count_db*6)>=config_db_values.size()) break;
-         *  }
-         * 
+         * }
          * Iterator it = list.iterator();
-         * 
          * int j=0; allDbs = new String[list.size()];
-         * 
          * while (it.hasNext()) { String val = (String)it.next(); allDbs[j] =
          * val; j++; }
-         *  } catch(Exception ex) {
+         * } catch(Exception ex) {
          * System.out.println("DbToolAccess::loadConfig::Exception> " + ex);
          * ex.printStackTrace(); }
          */
@@ -584,7 +556,6 @@ public class DbToolAccess extends ATDataAccessAbstract
         /*
          * ArrayList<DatabaseSettings> list = new ArrayList<DatabaseSettings>();
          * int num = config_db_values.size()/7;
-         * 
          * for (int i=0; i<num; i++) { DatabaseSettings ds = new
          * DatabaseSettings(); ds.number = i; ds.name =
          * config_db_values.get("DB" +i +"_CONN_NAME"); ds.db_name =
@@ -593,14 +564,10 @@ public class DbToolAccess extends ATDataAccessAbstract
          * config_db_values.get("DB" +i +"_CONN_URL"); //ds.port =
          * config_db_values.get("DB" +i +"_CONN_NAME"); ds.dialect =
          * config_db_values.get("DB" +i +"_HIBERNATE_DIALECT");
-         * 
          * ds.username = config_db_values.get("DB" +i +"_CONN_USERNAME");
          * ds.password = config_db_values.get("DB" +i +"_CONN_PASSWORD");
-         * 
          * if (this.selected_db==i) { ds.isDefault = true; }
-         * 
          * list.add(ds); }
-         * 
          * return list;
          */
     }
@@ -613,21 +580,17 @@ public class DbToolAccess extends ATDataAccessAbstract
 
         /*
          * try {
-         * 
          * //Properties props = new Properties(); BufferedWriter bw = new
          * BufferedWriter(new FileWriter(pathPrefix +
          * "/data/PIS_Config.properties"));
-         * 
-         * 
          * bw.write("#\n" + "# ZISConfig (Settings for ZIS)\n" + "#\n"+ "# Don't
          * edit by hand\n" + "#\n\n"+ "#\n# Databases settings\n#\n");
-         * 
-         * 
          * int count_db = 0;
-         * 
          * for (int i=0; i<20; i++) { if
-         * (config_db_values.containsKey("DB"+i+"_CONN_NAME")) { String con_name =
-         * config_db_values.get("DB"+i+"_CONN_NAME"); bw.write("\n#\n# Database #" +
+         * (config_db_values.containsKey("DB"+i+"_CONN_NAME")) { String con_name
+         * =
+         * config_db_values.get("DB"+i+"_CONN_NAME");
+         * bw.write("\n#\n# Database #" +
          * i +" - " + con_name + "\n#\n"); count_db++; bw.write("DB" + i +
          * "_CONN_NAME=" + con_name +"\n"); bw.write("DB" + i +
          * "_CONN_DRIVER_CLASS=" +
@@ -639,42 +602,33 @@ public class DbToolAccess extends ATDataAccessAbstract
          * config_db_values.get("DB"+i+"_CONN_PASSWORD") +"\n"); bw.write("DB" +
          * i + "_HIBERNATE_DIALECT=" +
          * config_db_values.get("DB"+i+"_HIBERNATE_DIALECT") +"\n");
-         *  // list.add(i+" - " + config_db_values.get("DB"+i+"_CONN_NAME")); }
-         * 
+         * // list.add(i+" - " + config_db_values.get("DB"+i+"_CONN_NAME")); }
          * if ((count_db*6)>=config_db_values.size()) break;
-         *  }
-         *  /* for(Enumeration en=config_db_values.keys(); en.hasMoreElements(); ) {
+         * }
+         * /* for(Enumeration en=config_db_values.keys(); en.hasMoreElements();
+         * ) {
          * String key = (String)en.nextElement(); bw.write(key + "=" +
          * config_db_values.get(key)+"\n"); }
          */
         /*
          * bw.write("\n\n#\n# Look and Feel Settings\n#\n\n");
          * bw.write("LF_NAME=" + selected_LF_Name +"\n");
-         * 
          * //props.put("LF_NAME", selected_LF_Name);
-         * 
          * selected_LF_Class = availableLF_full.get(selected_LF_Name);
-         * 
          * bw.write("LF_CLASS=" + selected_LF_Class +"\n");
-         * 
          * //props.put("LF_CLASS", selected_LF_Name);
          * bw.write("SKINLF_SELECTED=" + skinLFSelected +"\n");
          * //props.put("SKINLF_SELECTED", skinLFSelected); bw.write("\n\n#\n# Db
          * Selector\n#\n\n");
-         * 
          * bw.write("SELECTED_DB=" + selected_db +"\n");
          * //props.put("SELECTED_DB", ""+selected_db);
-         * 
          * bw.write("SELECTED_LANG=" + selected_lang +"\n");
-         * 
-         *  // FileOutputStream out = new
+         * // FileOutputStream out = new
          * FileOutputStream("./ZISOut.properties");
-         * 
          * bw.close(); //props.s
-         * 
          * //props.store(out, " Settings for ZIS version 0.2.3 or higher (please
          * DON'T edit this file by hand!!)");
-         *  } catch(Exception ex) {
+         * } catch(Exception ex) {
          * System.out.println("DataAccess::saveConfig::Exception> " + ex);
          * ex.printStackTrace(); }
          */
@@ -709,6 +663,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     /** 
      * getMonthsArray
      */
+    @Override
     public String[] getMonthsArray()
     {
 
@@ -730,7 +685,6 @@ public class DbToolAccess extends ATDataAccessAbstract
         return arr;
 
     }
-
 
     /**
      * Not implemented.
@@ -858,6 +812,7 @@ public class DbToolAccess extends ATDataAccessAbstract
      * 
      * @see com.atech.utils.ATDataAccessAbstract#loadSpecialParameters()
      */
+    @Override
     public void loadSpecialParameters()
     {
     }
@@ -902,16 +857,15 @@ public class DbToolAccess extends ATDataAccessAbstract
 
     }
 
-    
     /**
      * Get Max Decimals that will be used by DecimalHandler
      * 
      * @return
      */
+    @Override
     public int getMaxDecimalsUsedByDecimalHandler()
     {
         return 1;
     }
-    
-    
+
 }

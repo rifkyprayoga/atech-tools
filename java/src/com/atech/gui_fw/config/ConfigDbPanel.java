@@ -6,6 +6,7 @@ import java.awt.event.ItemEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.help.HelpCapable;
@@ -47,7 +48,7 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
 
     private static final long serialVersionUID = 2916997490131345658L;
     private JComboBox cb_database;
-    DbToolApplicationAbstract m_dbc = null; //m_da.getDbConfig();
+    DbToolApplicationAbstract m_dbc = null; // m_da.getDbConfig();
 
     /**
      * Constructor
@@ -57,7 +58,7 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
     public ConfigDbPanel(AbstractConfigurationContext acc)
     {
         super(acc);
-        
+
         this.m_dbc = m_da.getDbToolAbstract();
         this.m_dbc.loadConfig();
 
@@ -67,16 +68,17 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
     private void init()
     {
         this.setLayout(null);
-        
-        ATSwingUtils.getTitleLabel(m_ic.getMessage("DATABASE_SETTINGS"), 0, 25, 520, 36, this, ATSwingUtils.FONT_BIG_BOLD);
-        
+
+        ATSwingUtils.getTitleLabel(m_ic.getMessage("DATABASE_SETTINGS"), 0, 25, 520, 36, this,
+            ATSwingUtils.FONT_BIG_BOLD);
+
         JLabel label;
         label = new JLabel(m_ic.getMessage("DATABASE_SETTINGS_DESC"));
         label.setBounds(50, 90, 410, 150);
         label.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL));
-        label.setVerticalAlignment(JLabel.TOP);
+        label.setVerticalAlignment(SwingConstants.TOP);
         this.add(label); // new
-                       // JLabel(m_ic.getMessage("DATABASE_SETTINGS_DESC")));
+                         // JLabel(m_ic.getMessage("DATABASE_SETTINGS_DESC")));
 
         label = new JLabel(m_ic.getMessage("SELECTED_DATABASE") + ":");
         label.setBounds(50, 240, 180, 25);
@@ -89,7 +91,6 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
         this.add(this.cb_database);
     }
 
-
     boolean in_change = false;
 
     /**
@@ -97,19 +98,21 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
      * 
      * @see ggc.gui.panels.prefs.AbstractPrefOptionsPanel#itemStateChanged(java.awt.event.ItemEvent)
      */
+    @Override
     public void itemStateChanged(ItemEvent e)
     {
         if (in_change)
             return;
         else
+        {
             in_change = true;
-       
-        this.changed = (this.m_dbc.getSelectedDatabaseIndex()!=this.cb_database.getSelectedIndex());
+        }
+
+        this.changed = this.m_dbc.getSelectedDatabaseIndex() != this.cb_database.getSelectedIndex();
 
         in_change = false;
     }
 
-    
     /**
      * Save Properties
      * 
@@ -120,8 +123,6 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
     {
         this.m_dbc.setSelectedDatabaseIndex(this.cb_database.getSelectedIndex());
     }
-
-    
 
     // ****************************************************************
     // ****** HelpCapable Implementation *****

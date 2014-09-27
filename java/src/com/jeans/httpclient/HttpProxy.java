@@ -3,7 +3,6 @@ package com.jeans.httpclient;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
 /**
  * This file is part of ATech Tools library.
  * 
@@ -31,7 +30,6 @@ import java.net.URL;
  * andyrozman@users.sourceforge.net or andy@atech-software.com
  */
 
-
 /**
  * This class stores the information necessary to access a proxy server.
  * It provides proxy-specific header storage and proxy authentication.
@@ -44,8 +42,8 @@ class HttpProxy
     public String ProxyPassword;
     public weiss.util.ArrayList ProxyHeader;
     public weiss.util.ArrayList ProxyHeaderValues;
-//    public java.util.Vector ProxyHeader;
-//    public java.util.Vector ProxyHeaderValues;
+    // public java.util.Vector ProxyHeader;
+    // public java.util.Vector ProxyHeaderValues;
     public boolean useProxy;
 
     public HttpProxy()
@@ -53,26 +51,29 @@ class HttpProxy
         ProxyHeader = new weiss.util.ArrayList();
         ProxyHeaderValues = new weiss.util.ArrayList();
     }
+
     /**
      * Returns the port number of the host name for the proxy server.
      * @return 
      */
     public int getProxyPort()
     {
-        if(ProxyServer == null) return -1;
+        if (ProxyServer == null)
+            return -1;
         return ProxyServer.getPort();
     }
-    
+
     /**
      * Returns the host name of the proxy server.
      * @return 
      */
     public String getProxyServer()
     {
-        if(ProxyServer == null) return "";
+        if (ProxyServer == null)
+            return "";
         return ProxyServer.getHost();
     }
-    
+
     /**
      * Removes a header from the proxy header list
      *
@@ -80,23 +81,24 @@ class HttpProxy
      */
     public void removeProxyHeader(String header)
     {
-/*	    
-        int x = ProxyHeader.indexOf(header);
-        ProxyHeader.removeElementAt(x);
-        ProxyHeaderValues.removeElementAt(x);
-*/        
+        /*
+         * int x = ProxyHeader.indexOf(header);
+         * ProxyHeader.removeElementAt(x);
+         * ProxyHeaderValues.removeElementAt(x);
+         */
     }
-    
+
     /**
      * Clears the proxy header list.
      */
     public void resetProxyHeaders()
     {
-/*	    
-        ProxyHeader.removeAllElements();
-        ProxyHeaderValues.removeAllElements();
-*/        
+        /*
+         * ProxyHeader.removeAllElements();
+         * ProxyHeaderValues.removeAllElements();
+         */
     }
+
     /**
      * Sets the username and password for proxy authentication
      *
@@ -109,6 +111,7 @@ class HttpProxy
         ProxyUser = u;
         ProxyPassword = p;
     }
+
     /**
      * Set headers that are sent to the proxy server or only on a proxy
      * request.
@@ -122,6 +125,7 @@ class HttpProxy
         ProxyHeader.add(header);
         ProxyHeaderValues.add(value);
     }
+
     /**
      * Sets the proxy server from a URL in typical HTTP URL format.
      * For example, http://proxyserver:8000/
@@ -131,9 +135,17 @@ class HttpProxy
 
     public void setProxyServer(String url)
     {
-        try { ProxyServer = new URL(url); }
-        catch(MalformedURLException e) { ProxyServer = null; return; }
+        try
+        {
+            ProxyServer = new URL(url);
+        }
+        catch (MalformedURLException e)
+        {
+            ProxyServer = null;
+            return;
+        }
     }
+
     /**
      * Sets the host name and port number for the proxy server.
      *
@@ -143,9 +155,17 @@ class HttpProxy
 
     public void setProxyServer(String host, int p)
     {
-        try { ProxyServer = new URL("http", host, p, ""); }
-        catch(MalformedURLException e) { ProxyServer = null; return; }
+        try
+        {
+            ProxyServer = new URL("http", host, p, "");
+        }
+        catch (MalformedURLException e)
+        {
+            ProxyServer = null;
+            return;
+        }
     }
+
     /**
      * Sets whether the proxy server should be used on the request.
      *
@@ -154,7 +174,13 @@ class HttpProxy
 
     public void useProxy(boolean use)
     {
-        if(ProxyServer == null) useProxy = false;
-        else useProxy = use;
+        if (ProxyServer == null)
+        {
+            useProxy = false;
+        }
+        else
+        {
+            useProxy = use;
+        }
     }
 }

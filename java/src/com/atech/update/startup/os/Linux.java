@@ -30,7 +30,6 @@ package com.atech.update.startup.os;
  *
 */
 
-
 public class Linux extends StartupOSAbstract
 {
 
@@ -42,8 +41,7 @@ public class Linux extends StartupOSAbstract
     @Override
     public String getHeader()
     {
-        return "#!/bin/sh\n\n" +
-               "#  Run Application\n";
+        return "#!/bin/sh\n\n" + "#  Run Application\n";
     }
 
     /**
@@ -56,7 +54,7 @@ public class Linux extends StartupOSAbstract
     {
         return ":";
     }
-    
+
     /**
      * Get Batch File Extension
      * 
@@ -90,5 +88,4 @@ public class Linux extends StartupOSAbstract
         return "$";
     }
 
-    
 }
