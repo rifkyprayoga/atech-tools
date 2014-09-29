@@ -6,7 +6,7 @@
 
 	<groupId>com.atech-software</groupId>
 	<artifactId>atech-tools</artifactId>
-	<version>0.7.8-SNAPSHOT</version>
+	<version>${atech-tools.version}</version>
 	<packaging>jar</packaging>
 
 	<repositories>
@@ -17,15 +17,15 @@
 			<url>http://www.atech-software.com:8081/nexus/content/groups/public/</url>
 		</repository>
 
-		<!-- <repository> <id>mvnrepository</id> <name>mvnrepository</name> <url>http://www.mvnrepository.com</url> 
-			</repository> <repository> <id>jbossrepository</id> <name>jbossrepository</name> 
-			<url>https://repository.jboss.org/nexus/</url> </repository> <repository> 
-			<id>sonatype</id> <name>Sonatype OSS Snapshots Repository</name> <url>http://oss.sonatype.org/content/groups/public</url> 
-			</repository> <repository> <id>javanet</id> <name>Download Java Net Repository</name> 
+		<!-- <repository> <id>mvnrepository</id> <name>mvnrepository</name> <url>http://www.mvnrepository.com</url>
+			</repository> <repository> <id>jbossrepository</id> <name>jbossrepository</name>
+			<url>https://repository.jboss.org/nexus/</url> </repository> <repository>
+			<id>sonatype</id> <name>Sonatype OSS Snapshots Repository</name> <url>http://oss.sonatype.org/content/groups/public</url>
+			</repository> <repository> <id>javanet</id> <name>Download Java Net Repository</name>
 			<url>http://download.java.net/maven/2/</url> </repository> -->
 
-		<!-- <url>http://repository.jboss.org/nexus/content/repositories/</url> 
-			<repository> <id>central</id> <name>Maven Repository Switchboard</name> <layout>default</layout> 
+		<!-- <url>http://repository.jboss.org/nexus/content/repositories/</url>
+			<repository> <id>central</id> <name>Maven Repository Switchboard</name> <layout>default</layout>
 			<url>http://repo1.maven.org/maven2</url> </repository> -->
 
 		<repository>
@@ -39,21 +39,22 @@
 		<repository>
 			<id>releases</id>
 			<name>Internal Releases</name>
-			<url>http://www.atech-software.com:8090/repository/internal/</url>
-			<!-- <url>http://www.atech-software.com:8080/nexus/content/repositories/releases/</url> -->
+			<!--  <url>http://www.atech-software.com:8090/repository/internal/</url>  -->
+		 	<url>http://www.atech-software.com:8081/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>Internal Snapshots</name>
-			<url>http://www.atech-software.com:8090/repository/snapshots/</url>
-			<!-- <url>http://www.atech-software.com:8080/nexus/content/repositories/snapshots/</url> -->
+			<!-- <url>http://www.atech-software.com:8090/repository/snapshots/</url>  -->
+		 	<url>http://www.atech-software.com:8081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
-	<!-- <pluginRepositories> <pluginRepository> <id>central</id> <name>Maven 
-		Plugin Repository</name> <url>http://repo1.maven.org/maven2</url> <layout>default</layout> 
-		<snapshots> <enabled>false</enabled> </snapshots> <releases> <updatePolicy>never</updatePolicy> 
-		</releases> </pluginRepository> </pluginRepositories> -->
+
+	<!-- <pluginRepositories> <pluginRepository> <id>central</id> <name>Maven
+		Plugin Repository</name> <url>http://repo1.maven.org/maven2</url> <layout>default</layout>
+		<snapshots> <enabled>false</enabled> </snapshots> <releases> <updatePolicy>never</updatePolicy>
+	-->
 
 	<build>
 		<defaultGoal>compile</defaultGoal>
@@ -109,7 +110,7 @@
 			<type>pom</type>
 		</dependency>
 
-		<!-- <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> 
+		<!-- <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId>
 			<version>3.8.1</version> <scope>test</scope> </dependency> -->
 
 		<dependency>
@@ -162,18 +163,18 @@
 		<dependency>
 			<groupId>org.icepdf</groupId>
 			<artifactId>icepdf-core</artifactId>
-			<version>5.0.6_P01</version>
+			<version>5.0.7</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.icepdf</groupId>
 			<artifactId>icepdf-viewer</artifactId>
-			<version>5.0.6_P01</version>
+			<version>5.0.7</version> <!-- 5.0.6_P01 -->
 		</dependency>
 	</dependencies>
 
 	<properties>
-		<atech-tools.version>0.7.8-SNAPSHOT</atech-tools.version>
+		<atech-tools.version>0.7.10-SNAPSHOT</atech-tools.version>
 
 		<jna.version>3.3.0</jna.version>
 		<rxtxcomm.version>2.2</rxtxcomm.version>
@@ -183,7 +184,7 @@
 		<log4j.version>1.2.16</log4j.version>
 		<jasperreports.version>3.7.1</jasperreports.version>
 		<jfreechart.version>1.0.13</jfreechart.version>
-		<hibernate.version>3.1</hibernate.version>
+		<hibernate.version>3.1</hibernate.version> <!-- 3.1 -->
 		<pygmy-core.version>0.2</pygmy-core.version>
 		<pygmy-handlers.version>0.2</pygmy-handlers.version>
 		<junit.version>4.10</junit.version>

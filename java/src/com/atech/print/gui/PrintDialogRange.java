@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.atech.graphics.GuiAction;
+import com.atech.graphics.GuiActionUtil;
 import com.atech.graphics.components.dates.DateFromToComponent;
 import com.atech.graphics.dialogs.ActionExceptionCatchDialog;
 import com.atech.i18n.I18nControlAbstract;
@@ -22,36 +24,29 @@ import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
 
 /**
- *  This file is part of ATech Tools library.
- *  
- *  PrintingDialogRange - Dialog for Printing when we have a range of dates (from, till)
- *  Copyright (C) 2011  Andy (Aleksander) Rozman (Atech-Software)
- *  
- *  
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
+ * This file is part of ATech Tools library.
+ * PrintingDialogRange - Dialog for Printing when we have a range of dates
+ * (from, till)
+ * Copyright (C) 2014 Andy (Aleksander) Rozman (Atech-Software)
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * For additional information about this project please visit our project site
+ * on
+ * http://atech-tools.sourceforge.net/ or contact us via this emails:
+ * andyrozman@users.sourceforge.net or andy@atech-software.com
+ * Filename: PrintingDialogRange
+ * Description: Dialog for Printing
  *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
- *  
- *  
- *  For additional information about this project please visit our project site on 
- *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
- *  andyrozman@users.sourceforge.net or andy@atech-software.com
- *  
- *  Filename:     PrintingDialog  
- *  Description:  Dialog for Printing
- *  
- *  @author Andy {andy@atech-software.com}
- *
+ * @author Andy {andy@atech-software.com}
  */
 public abstract class PrintDialogRange extends ActionExceptionCatchDialog implements PrintRequester
 {
@@ -77,7 +72,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     /**
      * Constructor
-     * 
+     *
      * @param frame
      * @param type
      * @param da
@@ -88,21 +83,19 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         this(frame, type, da, da.getI18nControlInstance(), _enable_help);
     }
 
-    // Exception
-
     /**
-     * Constructor 
-     * 
+     * Constructor
+     *
      * @param frame
      * @param type
-     * @param dataAccess 
-     * @param i18nControl 
-     * @param _enable_help 
+     * @param dataAccess
+     * @param i18nControl
+     * @param _enable_help
      */
     public PrintDialogRange(JFrame frame, int type, ATDataAccessAbstract dataAccess, I18nControlAbstract i18nControl,
             boolean _enable_help)
     {
-        super(dataAccess, "printing_dialog");
+        super(frame, type, dataAccess, "printing_dialog");
 
         this.enableHelp = _enable_help;
         preInitGUI(dataAccess, i18nControl);
@@ -192,9 +185,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         panel.add(helpButton);
 
         if (this.enableHelp)
-        {
             dataAccess.enableHelp(this);
-        }
 
         printProcessor = new PrintProcessor(i18nControl, this);
 
@@ -202,7 +193,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     /**
      * Get From Date Object
-     * 
+     *
      * @return
      */
     public GregorianCalendar getFromDateObject()
@@ -212,7 +203,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     /**
      * Get From Date
-     * 
+     *
      * @return
      */
     public int getFromDate()
@@ -222,7 +213,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     /**
      * Get To Date Object
-     * 
+     *
      * @return
      */
     public GregorianCalendar getToDateObject()
@@ -232,7 +223,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     /**
      * Get To Date
-     * 
+     *
      * @return
      */
     public int getToDate()
@@ -242,13 +233,15 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     /**
      * Get Printing Title
-     * 
+     *
      * @return
      */
     public String getPrintingTitle()
     {
         return "PRINTING";
     }
+
+    GuiAction lastAction = new GuiAction();
 
     /**
      * performAction
@@ -264,6 +257,13 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         }
         else if (action.equals("ok"))
         {
+            lastAction = GuiActionUtil.checkLastActionTime(lastAction);
+
+            if (!lastAction.isActionSuccess())
+            {
+                return;
+            }
+
             this.startPrintingAction();
         }
 
@@ -276,7 +276,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     /**
      * Was Action Successful
-     * 
+     *
      * @return true if action was successful (dialog closed with OK)
      */
     public boolean actionSuccessful()
@@ -286,7 +286,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     /**
      * Get Action Results
-     * 
+     *
      * @return String array of results
      */
     public String[] getActionResults()
@@ -294,13 +294,9 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         String[] res = new String[3];
 
         if (actionDone)
-        {
             res[0] = "1";
-        }
         else
-        {
             res[0] = "0";
-        }
 
         res[1] = this.tfName.getText();
         res[2] = this.cbTemplate.getSelectedItem().toString();
@@ -309,8 +305,8 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     }
 
     /**
-     * We have Secondary Type choice 
-     * 
+     * We have Secondary Type choice
+     *
      * @return
      */
     public boolean weHaveSecondaryType()
@@ -320,7 +316,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     /**
      * Get Secondary Types Description
-     * 
+     *
      * @return
      */
     public String getSecondaryTypeDescription()
@@ -330,7 +326,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     /**
      * Get Secondary Types
-     * 
+     *
      * @return
      */
     public String[] getSecondaryTypes()
@@ -374,43 +370,45 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     /**
      * Get Pdf Viewer (path to software)
-     * 
+     *
      * @return
      */
     public abstract String getExternalPdfViewer();
 
     /**
      * Get Report Types
-     * 
+     *
      * @return
      */
     public abstract String[] getReportTypes();
 
     /**
      * Start Printing Action.
-     * 
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     public abstract void startPrintingAction() throws Exception;
 
     /**
-     * Get Pdf Viewer parameters. If you want name of file we are reading in this
+     * Get Pdf Viewer parameters. If you want name of file we are reading in
+     * this
      * parameters, you need to add %PDF_FILE% variable into string. This one is
      * then resolved.
-     * 
-     * @return 
+     *
+     * @return
      */
     public abstract String getExternalPdfViewerParameters();
 
     /**
      * Is External PdfViewer Activated
-     * 
-     * Per default we use internal PdfViewer, but user can also use external PdfViewer if he wants.
+     * Per default we use internal PdfViewer, but user can also use external
+     * PdfViewer if he wants.
      */
     public abstract boolean isExternalPdfViewerActivated();
 
     /**
      * Disable setting of Look And Feel For Internal Pdf Viewer.
+     * 
      * @return
      */
     public abstract boolean disableLookAndFeelSettingForInternalPdfViewer();

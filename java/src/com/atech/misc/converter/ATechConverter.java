@@ -5,11 +5,11 @@ import java.util.Hashtable;
 
 /**
  *  This file is part of ATech Tools library.
- *  
+ *
  *  ATechConverter - Base class for converter
  *  Copyright (C) 2009  Andy (Aleksander) Rozman (Atech-Software)
- *  
- *  
+ *
+ *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
  *  License as published by the Free Software Foundation; either
@@ -22,13 +22,13 @@ import java.util.Hashtable;
  *
  *  You should have received a copy of the GNU Lesser General Public
  *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
- *  
- *  
- *  For additional information about this project please visit our project site on 
- *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ *
+ *  For additional information about this project please visit our project site on
+ *  http://atech-tools.sourceforge.net/ or contact us via this emails:
  *  andyrozman@users.sourceforge.net or andy@atech-software.com
- *  
+ *
  *  @author Andy
  *
 */
@@ -36,7 +36,7 @@ import java.util.Hashtable;
 public abstract class ATechConverter
 {
 
-    boolean m_debug = true;
+    boolean m_debug = false;
 
     /**
      * The decimal_formaters.
@@ -74,16 +74,16 @@ public abstract class ATechConverter
 
     /**
      * Instantiates a new a tech converter.
-     * @param U1 
-     * @param U2 
-     * @param U1_type 
-     * @param U2_type 
-     * @param U1_unit 
-     * @param U2_unit 
-     * @param convert_1_to_2 
-     * @param convert_2_to_1 
-     * @param dec_precission_U1 
-     * @param dec_precission_U2 
+     * @param U1
+     * @param U2
+     * @param U1_type
+     * @param U2_type
+     * @param U1_unit
+     * @param U2_unit
+     * @param convert_1_to_2
+     * @param convert_2_to_1
+     * @param dec_precission_U1
+     * @param dec_precission_U2
      */
     public ATechConverter(int U1, int U2, int U1_type, int U2_type, String U1_unit, String U2_unit,
             float convert_1_to_2, float convert_2_to_1, int dec_precission_U1, int dec_precission_U2)
@@ -105,7 +105,7 @@ public abstract class ATechConverter
 
     /**
      * Get BG Value By Type
-     * 
+     *
      * @param input_type
      * @param output_type
      * @param value
@@ -238,7 +238,7 @@ public abstract class ATechConverter
 
     /**
      * Get Decimaled Float
-     * 
+     *
      * @param num
      * @param precission
      * @return
@@ -250,7 +250,7 @@ public abstract class ATechConverter
 
     /**
      * Get Step
-     * 
+     *
      * @param unit_type
      * @param precission
      * @return
@@ -364,7 +364,7 @@ public abstract class ATechConverter
 
     /**
      * Get Unit
-     * 
+     *
      * @param unit
      * @return
      */
@@ -378,7 +378,7 @@ public abstract class ATechConverter
 
     /**
      * Get Value Different
-     * 
+     *
      * @param type
      * @param value
      * @return
@@ -390,7 +390,7 @@ public abstract class ATechConverter
 
     /**
      * Creates the decimal formaters.
-     * 
+     *
      * @param max_decs the max_decs
      */
     public static void createDecimalFormaters(int max_decs)
@@ -410,10 +410,10 @@ public abstract class ATechConverter
 
     /**
      * Gets the formated float.
-     * 
+     *
      * @param value the value
      * @param decimals the decimals
-     * 
+     *
      * @return the formated float
      */
     public static String getFormatedFloat(float value, int decimals)
@@ -423,10 +423,10 @@ public abstract class ATechConverter
 
     /**
      * Gets the formated double.
-     * 
+     *
      * @param value the value
      * @param decimals the decimals
-     * 
+     *
      * @return the formated double
      */
     public static String getFormatedDouble(double value, int decimals)
@@ -436,7 +436,7 @@ public abstract class ATechConverter
 
     /**
      * Gets the configured type.
-     * 
+     *
      * @return the configured type
      */
     public int getConfiguredType()
@@ -446,7 +446,7 @@ public abstract class ATechConverter
 
     /**
      * Sets the configured type.
-     * 
+     *
      * @param type the new configured type
      */
     public void setConfiguredType(int type)

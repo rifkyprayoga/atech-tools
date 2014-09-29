@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,51 +14,40 @@ import com.atech.utils.ATDataAccessAbstract;
 
 // TODO: Auto-generated Javadoc
 /**
- *  This file is part of ATech Tools library.
- *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
- *  
- *  
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
+ * This file is part of ATech Tools library.
+ * <one line to give the library's name and a brief idea of what it does.>
+ * Copyright (C) 2007 Andy (Aleksander) Rozman (Atech-Software)
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * For additional information about this project please visit our project site
+ * on
+ * http://atech-tools.sourceforge.net/ or contact us via this emails:
+ * andyrozman@users.sourceforge.net or andy@atech-software.com
  *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
- *  
- *  
- *  For additional information about this project please visit our project site on 
- *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
- *  andyrozman@users.sourceforge.net or andy@atech-software.com
- *  
- *  @author Andy
- *
-*/
+ * @author Andy
+ */
 
 /**
  * ActionExceptionCatchDialog is intended to be used with dialogs that perform
  * specific action. This is less restrictive form of ExceptionCatch dialogs.
  * You need to specify your own action and also handle them. Also creation of
- * dialog is up to user. 
- * 
- * In case that action is not handled, we need to set base error message (with 
- * something like 'Unknown exception occured...'. We have base message already 
+ * dialog is up to user.
+ * In case that action is not handled, we need to set base error message (with
+ * something like 'Unknown exception occured...'. We have base message already
  * set but this is in english.
- * 
  * Set static instance of log in each Dialog that extends this one... Use log
- * messages frequently, especially in situations where exception can fall. 
- * 
- * 
- * @author andy
+ * messages frequently, especially in situations where exception can fall.
  *
+ * @author andy
  */
 
 public abstract class ActionExceptionCatchDialog extends JDialog implements ActionListener, HelpCapable
@@ -94,8 +84,8 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     private String component_name;
 
     /**
-     * Constructor 
-     * 
+     * Constructor
+     *
      * @param da
      * @param component_name
      */
@@ -106,9 +96,17 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
         this.component_name = component_name;
     }
 
+    public ActionExceptionCatchDialog(JFrame frame, int type, ATDataAccessAbstract dataAccess, String componentName)
+    {
+        super(frame);
+        this.m_da = dataAccess;
+        this.m_da.addComponent(this);
+        this.component_name = componentName;
+    }
+
     /**
      * When disposing dialog, we need to remove dialog from list so we override
-     * original method. 
+     * original method.
      */
     @Override
     public void dispose()
@@ -118,9 +116,9 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     }
 
     /**
-     * setBaseErrorMessage - set base error message. 
-     * 
-     * @param msg 
+     * setBaseErrorMessage - set base error message.
+     *
+     * @param msg
      */
     public void setBaseErrorMessage(String msg)
     {
@@ -129,16 +127,18 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
 
     /**
      * Action handling... In this method we handle actions... Each action must
-     * call following method. setActionId(). We can handle each exception 
+     * call following method. setActionId(). We can handle each exception
      * here, or we can catch exception call setErrorMessages, which will
      * set messages displayed to user and re-throw the exception.
-     * @param e 
-     * @throws Exception 
+     * 
+     * @param e
+     * @throws Exception
      */
     public abstract void performAction(ActionEvent e) throws Exception;
 
     /**
      * Get Action Id
+     * 
      * @return
      */
     public String getActionId()
@@ -148,8 +148,9 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
 
     /**
      * Sets the action id.
-     * 
-     * @param action_id the new action id
+     *
+     * @param action_id
+     *            the new action id
      */
     public void setActionId(String action_id)
     {
@@ -158,9 +159,11 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
 
     /**
      * Sets the error messages.
-     * 
-     * @param err_msg the err_msg
-     * @param err_msg_tip the err_msg_tip
+     *
+     * @param err_msg
+     *            the err_msg
+     * @param err_msg_tip
+     *            the err_msg_tip
      */
     public void setErrorMessages(String err_msg, String err_msg_tip)
     {
@@ -193,9 +196,9 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     }
 
     /**
-     *  Gets info if action was performed.
-     * 
-     *  @return true if action was done, false if not.
+     * Gets info if action was performed.
+     *
+     * @return true if action was done, false if not.
      */
     public boolean wasAction()
     {
@@ -203,9 +206,9 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     }
 
     /**
-     *  Gets info if action was performed.
-     * 
-     *  @return true if action was done, false if not.
+     * Gets info if action was performed.
+     *
+     * @return true if action was done, false if not.
      */
     public int wasActionCode()
     {
@@ -213,9 +216,9 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     }
 
     /**
-     *  Returns object of this dialog or null
-     * 
-     *  @return object of type of Object
+     * Returns object of this dialog or null
+     *
+     * @return object of type of Object
      */
     public abstract Object getObject();
 

@@ -4,6 +4,17 @@ Changes file for atech-tools
 See Authors for more description on developers
 --------------------------------------------------
 
+0.7.10
+   - printing: new class for icepdf to display better window
+
+
+0.7.9
+   - printing icepdf changes
+
+0.7.8
+   - dexcom changes (Byte, Short Utils)
+
+
 0.7.7
    - for GGC 0.5.0.3 release, some minor changes
 
@@ -13,16 +24,16 @@ See Authors for more description on developers
 
 
 0.7.5
-   - MSP 0.8 changes 
+   - MSP 0.8 changes
 
 0.7.4 [16.4.2012]
    - Baralga changes
-   
+
 
 
 [16.8.2011]
      [GGC 0.5 [8] Minor changes]
- 
+
     * Minor chnages here and there
     * Release for GGC 0.5 project
 
@@ -32,7 +43,7 @@ See Authors for more description on developers
     //   0.7.3 [GGC: ExtendedDb, I18n Manager]
     //   0.7.4 [GGC 0.5.1, Baralga 1.7]
     //   0.7.5
-    //   
+    //
 
 0.5.2
     * Imported app and config handling from PIS project
@@ -49,7 +60,7 @@ See Authors for more description on developers
     * Added method getReturnObject with parameters for plugin structure
     * Changes to TranslationTool (some of unicode characters 00xx were not written correctly to
       output files)
-    * I18nControlLangMgr fixed to support loading files that are provided by translation tool 
+    * I18nControlLangMgr fixed to support loading files that are provided by translation tool
       (for integration into applications).
 
 0.4.2 (current)
@@ -67,7 +78,7 @@ See Authors for more description on developers
 
 0.3.13 [30.10.2009]
     * Translation Tool (v0.2)
-    
+
 0.3.12
     * Again changes to plugin framework
     * Started work on Converter Framework
@@ -88,8 +99,8 @@ See Authors for more description on developers
     * ATDataAbstract
     * started TranslationTool
     * ...
-    
-    
+
+
 0.3.8
     * ...
 
@@ -124,7 +135,7 @@ See Authors for more description on developers
 
 0.2.10
     * Added graph framework (ATGraphFramework), based on JFreeChart
-    * changed ant and some source files, so that startup files creation methods are now packed 
+    * changed ant and some source files, so that startup files creation methods are now packed
       as seperate jar. Changes to those methods, will be noted here, with STARTUP tag.
     * STARTUP 1.0: First version of standalone startup classes (support for windows, linux, freebsd)
 
@@ -159,7 +170,7 @@ See Authors for more description on developers
 0.2.1
     * Changes to DataAccess
 
-0.2 
+0.2
     * Advanced to version
 
 
@@ -180,28 +191,28 @@ See Authors for more description on developers
     * Restore code started
 
 0.1.17 (16/06/2008) - Andy
-    * DbCheck v0.1 finished. Whole idea was changed a little. DbCheck only creates report file, which can 
+    * DbCheck v0.1 finished. Whole idea was changed a little. DbCheck only creates report file, which can
       then be used with application through DbCheckReport class
 
 0.1.16 (08/06/2008) - Andy
-    * added java_parameters to custom application (we can call java with special parameters, for 
+    * added java_parameters to custom application (we can call java with special parameters, for
       example to change memory heap size)
 
 0.1.15 (24/05/2008) - Andy
     * Backup fixed
     * DbCheck functionality started
 
-0.1.14 (03/05/2008) - Andy 
+0.1.14 (03/05/2008) - Andy
     * Some bug fixes
 
 
-0.1.13 (03/05/2008) - Andy 
-    * Backup/Restore framework done for now. Backup is now fully supported, 
+0.1.13 (03/05/2008) - Andy
+    * Backup/Restore framework done for now. Backup is now fully supported,
       restore is planned for later time.
     * Startup mechanism is now reworked. We can have several applications startup
       files created and for several OSes. Nothing is hardcoded anymore. Each OS
       has it's own handling class (Update file has changed very much, added
-      seperate applications handling and also native files support (in 
+      seperate applications handling and also native files support (in
       components)).
 
 0.1.12 (11/04/2008) - Andy  (In Work)
@@ -212,29 +223,29 @@ See Authors for more description on developers
 
 0.1.11 (11/04/2008) - Andy
     * Changes to com.atech.hibernate.transfer (Export and Import)
-    
 
-0.1.10 (22/03/2008) - Andy 
+
+0.1.10 (22/03/2008) - Andy
     * Added DataAccessAbstract as base class
-    * Added Editable panel (EditablePanel, EditableAbstractPanel) for panels 
+    * Added Editable panel (EditablePanel, EditableAbstractPanel) for panels
       that can be edited (for tree's)
     * Started work on *ExceptionCatch Dialogs for use together with ErrorDialog
-    * Selector dialog added (and whole bunch of supoorting files 
+    * Selector dialog added (and whole bunch of supoorting files
       (.graphics.dialogs.selector)
     * Support for JavaHelp (HelpCapable interface and HelpContext)
     * started on extending startup code
 
-0.1.9  13/02/2008 - Andy 
-    * update/startup code added (development started), simple startup 
-      of application is possible (no extended features). Config file is 
+0.1.9  13/02/2008 - Andy
+    * update/startup code added (development started), simple startup
+      of application is possible (no extended features). Config file is
       only read at this point.
       Startup is supported for Windows and Linux only.
     * changed to code to support java 1.5
       MAINTIAN JAVA 1.5 COMPATIBILITY
-    
+
 0.1.8  01/02/2008 - Andy
     * minor changes to about code and overall look of library
-    * fixing Eclipse warnings 
+    * fixing Eclipse warnings
     * ATechDate fixed
 
 0.1.7  04/01/2008 - Andy
@@ -246,7 +257,7 @@ See Authors for more description on developers
 
 
 0.1.6  ~  Andy
-  
+
     *  DateTime componets fixed
     *  JTreeTable added
     *  I18nControl Check
@@ -257,17 +268,17 @@ See Authors for more description on developers
 v0.1 - First public Release (29/03/2007) - andyrozman
 ------------------------------------------------------
 
-First packaging of this tools. Before this time, this tools resided in different 
-personal projects I was working on. This is now the first time that everything 
-is together in one place. Most of stuff is tested, but some still stay as work 
-in progress. Comments are mostly missing, but this will be done as time 
-permits. 
-- added : Hibernate DbTool for creating database instances and managing databases 
+First packaging of this tools. Before this time, this tools resided in different
+personal projects I was working on. This is now the first time that everything
+is together in one place. Most of stuff is tested, but some still stay as work
+in progress. Comments are mostly missing, but this will be done as time
+permits.
+- added : Hibernate DbTool for creating database instances and managing databases
           used on certain application (work in progress)
-- added : Hibernate Export/Import: Export is working, import is still work in 
+- added : Hibernate Export/Import: Export is working, import is still work in
           progress, because it's quite difficult
 - added : Graphics: DateComponent, TimeComponent, DateTimeComponent
-- added : Graphics: Zero Layout manager 
+- added : Graphics: Zero Layout manager
 - added : Help:  Dummy Help Broker
 - added : I18n:  I18nControlAbstract, Tool
 - added : Hibernate: AssignedIncrementGenerator
