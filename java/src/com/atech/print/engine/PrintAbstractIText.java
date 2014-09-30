@@ -24,41 +24,32 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
- *  This file is part of ATech Tools library.
+ * This file is part of ATech Tools library.
+ * <one line to give the library's name and a brief idea of what it does.>
+ * Copyright (C) 2007 Andy (Aleksander) Rozman (Atech-Software)
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * For additional information about this project please visit our project site
+ * on
+ * http://atech-tools.sourceforge.net/ or contact us via this emails:
+ * andyrozman@users.sourceforge.net or andy@atech-software.com
  *
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
- *
- *
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
- *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- *
- *  For additional information about this project please visit our project site on
- *  http://atech-tools.sourceforge.net/ or contact us via this emails:
- *  andyrozman@users.sourceforge.net or andy@atech-software.com
- *
- *  @author Andy
- *
-*/
+ * @author Andy
+ */
 
 /**
- *
- *  Filename:     PrintAbstract
- *  Description:  Abstract class for printing via creation of PDF (iText)
- *
- *  Author: andyrozman {andy@atech-software.com}
+ * Filename: PrintAbstract
+ * Description: Abstract class for printing via creation of PDF (iText)
+ * Author: andyrozman {andy@atech-software.com}
  */
 
 public abstract class PrintAbstractIText extends PdfPageEventHelper
@@ -78,9 +69,12 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     protected ITextDocumentPrintSettings documentSettings;
 
     /**
-     * Print root must always contain trailing slash, so ../data/print/ is correct, while ../data/print is incorrect.
-     * It should be stored under GGC main structure, so that parent of last directory (in this case data) already
-     * exists. And of course unix path divider must be used. (/ instead of \ on windows)
+     * Print root must always contain trailing slash, so ../data/print/ is
+     * correct, while ../data/print is incorrect.
+     * It should be stored under GGC main structure, so that parent of last
+     * directory (in this case data) already
+     * exists. And of course unix path divider must be used. (/ instead of \ on
+     * windows)
      */
     private static String printRoot = "../data/print/";
 
@@ -115,6 +109,21 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         {
             init();
         }
+    }
+
+    public PrintAbstractIText(ATDataAccessAbstract dataAccess, boolean doInit, PrintParameters parameters)
+    {
+        this.i18nControl = i18nControl;
+
+        if (doInit)
+        {
+            initData();
+            init();
+        }
+    }
+
+    public void initData()
+    {
     }
 
     protected void init()
@@ -342,7 +351,8 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     /**
      * On End Page
      *
-     * @see com.lowagie.text.pdf.PdfPageEventHelper#onEndPage(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
+     * @see com.lowagie.text.pdf.PdfPageEventHelper#onEndPage(com.lowagie.text.pdf.PdfWriter,
+     *      com.lowagie.text.Document)
      */
     @Override
     public void onEndPage(PdfWriter writer, Document document)
@@ -387,14 +397,16 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     public abstract void fillDocumentBody(Document document) throws Exception;
 
     /**
-     * Returns base filename for printing job, this is just part of end filename (starting part)
+     * Returns base filename for printing job, this is just part of end filename
+     * (starting part)
      *
      * @return
      */
     public abstract String getFileNameBase();
 
     /**
-     * Returns data part of filename for printing job, showing which data is being printed
+     * Returns data part of filename for printing job, showing which data is
+     * being printed
      *
      * @return
      */
