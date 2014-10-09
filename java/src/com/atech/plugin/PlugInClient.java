@@ -9,6 +9,9 @@ import javax.swing.JDialog;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.graphics.components.StatusReporterInterface;
@@ -17,35 +20,28 @@ import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessLMAbstract;
 
 /**
- *  This file is part of ATech Tools library.
- *  
- *  PlugInClient - Abstract class which needs to be implemented by application
- *                 using certain plugins.
- *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
- *  
- *  
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
- *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
- *  
- *  
- *  For additional information about this project please visit our project site on 
- *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
- *  andyrozman@users.sourceforge.net or andy@atech-software.com
- *  
- *  @author Andy
- *
-*/
+ * This file is part of ATech Tools library.
+ * PlugInClient - Abstract class which needs to be implemented by application
+ * using certain plugins.
+ * Copyright (C) 2008 Andy (Aleksander) Rozman (Atech-Software)
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * For additional information about this project please visit our project site
+ * on
+ * http://atech-tools.sourceforge.net/ or contact us via this emails:
+ * andyrozman@users.sourceforge.net or andy@atech-software.com
+ * 
+ * @author Andy
+ */
 
 /*
  * This is abstract class which needs to be implemented in application to which
@@ -72,13 +68,14 @@ public abstract class PlugInClient implements ActionListener
     protected ArrayList<TransferDialog> transfer_objects = null;
 
     protected ATDataAccessLMAbstract da_parent = null;
+    private static final Log LOG = LogFactory.getLog(PlugInClient.class);
 
     /**
      * Constructor
      * 
-     * @param parent 
-     * @param ic 
-     * @param db 
+     * @param parent
+     * @param ic
+     * @param db
      */
     public PlugInClient(Container parent, I18nControlAbstract ic, HibernateDb db)
     {
@@ -92,8 +89,8 @@ public abstract class PlugInClient implements ActionListener
     /**
      * Constructor
      * 
-     * @param parent 
-     * @param ic 
+     * @param parent
+     * @param ic
      */
     public PlugInClient(Container parent, I18nControlAbstract ic)
     {
@@ -106,8 +103,8 @@ public abstract class PlugInClient implements ActionListener
     /**
      * Constructor
      * 
-     * @param parent 
-     * @param da 
+     * @param parent
+     * @param da
      */
     public PlugInClient(Container parent, ATDataAccessLMAbstract da)
     {
@@ -239,7 +236,7 @@ public abstract class PlugInClient implements ActionListener
     /**
      * Execute Command
      * 
-     * @param _parent 
+     * @param _parent
      * @param command
      */
     public void executeCommandDialog(JDialog _parent, int command)
@@ -253,7 +250,7 @@ public abstract class PlugInClient implements ActionListener
      * @param _parent
      * @param command
      * @param command_object
-     * @return 
+     * @return
      */
     public boolean executeCommandDialog(JDialog _parent, int command, Object command_object)
     {
@@ -300,7 +297,7 @@ public abstract class PlugInClient implements ActionListener
      * @param _parent
      * @param command
      * @param command_object
-     * @return 
+     * @return
      */
     public Object[] executeCommandDialogReturn(JDialog _parent, int command, Object command_object)
     {
@@ -341,7 +338,7 @@ public abstract class PlugInClient implements ActionListener
         return null;
     }
 
-    /** 
+    /**
      * Action Performed
      */
     public abstract void actionPerformed(ActionEvent e);
@@ -349,18 +346,19 @@ public abstract class PlugInClient implements ActionListener
     /**
      * Feature Not Implemented display message
      * 
-     * @param command_desc
+     * @param commandDesc
      */
-    public void featureNotImplemented(String command_desc)
+    public void featureNotImplemented(String commandDesc)
     {
         String text = String.format(ic.getMessage("PLUGIN_NOT_INSTALLED_OR_AVAILABLE"), this.getName());
 
-        text += "\n\n'" + ic.getMessage(command_desc) + "' ";
+        text += "\n\n'" + ic.getMessage(commandDesc) + "' ";
         text += String.format(ic.getMessage("IMPLEMENTED_VERSION"), this.getWhenWillBeImplemented());
         text += "!\n\n";
 
         // JOptionPane.showMessageDialog(this.parent, text,
         // ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+        LOG.debug("Feature not implemented: " + commandDesc);
 
         showMessage(text);
     }
@@ -368,16 +366,17 @@ public abstract class PlugInClient implements ActionListener
     /**
      * Feature Not Implemented and will be display message
      * 
-     * @param command_desc
+     * @param commandDesc
      */
-    public void featureNotImplementedInstalled(String command_desc)
+    public void featureNotImplementedInstalled(String commandDesc)
     {
         String text = "";
 
-        text += "\n'" + ic.getMessage(command_desc) + "' ";
+        text += "\n'" + ic.getMessage(commandDesc) + "' ";
         text += String.format(ic.getMessage("IMPLEMENTED_VERSION"), this.getWhenWillBeImplemented());
         text += "!\n\n";
 
+        LOG.debug("Feature not implemented or Installed: " + commandDesc);
         // JOptionPane.showMessageDialog(this.parent, text,
         // ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
 
@@ -388,19 +387,21 @@ public abstract class PlugInClient implements ActionListener
      * Feature Not Implemented and will be display message
      * 
      * @param command_desc
-     * @param ver 
+     * @param ver
      */
-    public void featureNotImplementedInstalled(String command_desc, String ver)
+    public void featureNotImplementedInstalled(String commandDesc, String ver)
     {
         String text = "\n"; // String.format(ic.getMessage("PLUGIN_NOT_INSTALLED_OR_AVAILABLE"),
                             // this.getName());
 
-        text += "'" + ic.getMessage(command_desc) + "' ";
+        text += "'" + ic.getMessage(commandDesc) + "' ";
         text += String.format(ic.getMessage("IMPLEMENTED_VERSION"), ver);
         text += "!\n\n";
 
         // JOptionPane.showMessageDialog(this.parent, text,
         // ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+
+        LOG.debug("Feature not implemented or Installed: " + commandDesc);
 
         showMessage(text);
     }
@@ -475,7 +476,7 @@ public abstract class PlugInClient implements ActionListener
      * Get Return Object (getting data from plugin - synch)
      * 
      * @param ret_obj_id
-     * @param parameters 
+     * @param parameters
      * @return
      */
     public Object getReturnObject(int ret_obj_id, Object[] parameters)
@@ -487,11 +488,11 @@ public abstract class PlugInClient implements ActionListener
     }
 
     /**
-     * Get PlugIn Main Menu 
-     * 
-     * This is new way to handle everything, previously we used to pass ActionListener items through
+     * Get PlugIn Main Menu
+     * This is new way to handle everything, previously we used to pass
+     * ActionListener items through
      * plugin framework, but in new way, we will use this one.
-     *  
+     * 
      * @return
      */
     public JMenu getPlugInMainMenu()
@@ -503,10 +504,10 @@ public abstract class PlugInClient implements ActionListener
     }
 
     /**
-     * Get PlugIn Print Menu 
+     * Get PlugIn Print Menu
+     * Since printing is also PlugIn specific we need to add Printing jobs to
+     * application.
      * 
-     * Since printing is also PlugIn specific we need to add Printing jobs to application.
-     *  
      * @return
      */
     public JMenu[] getPlugInPrintMenus()
@@ -557,7 +558,8 @@ public abstract class PlugInClient implements ActionListener
     }
 
     /**
-     * Checks if plug-in is active. Plugin is active, when client side is connected to server side
+     * Checks if plug-in is active. Plugin is active, when client side is
+     * connected to server side
      * of it.
      * 
      * @return
@@ -568,12 +570,12 @@ public abstract class PlugInClient implements ActionListener
     }
 
     /**
-     * Checks if plug-in is active. Plugin is active, when client side is connected to server side
+     * Checks if plug-in is active. Plugin is active, when client side is
+     * connected to server side
      * of it.
      * 
-     * @param warn 
-     * @param dialog 
-     * 
+     * @param warn
+     * @param dialog
      * @return
      */
     public boolean isActiveWarning(boolean warn, JDialog dialog)
@@ -591,8 +593,10 @@ public abstract class PlugInClient implements ActionListener
     }
 
     /**
-     * This is method which can be used by server side to do certain action. Mainly this will be used
-     * to run refreshes and such actions. This needs to be implemented by Client side, if you wish to use
+     * This is method which can be used by server side to do certain action.
+     * Mainly this will be used
+     * to run refreshes and such actions. This needs to be implemented by Client
+     * side, if you wish to use
      * it.
      * 
      * @param action_type
