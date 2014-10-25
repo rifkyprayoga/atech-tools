@@ -4,6 +4,8 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JMenu;
@@ -603,6 +605,24 @@ public abstract class PlugInClient implements ActionListener
      */
     public void executeReturnAction(int action_type)
     {
+    }
+
+    /**
+     * This method can be used to transfer data from plugin to other part of application. 
+     * Parameters are HashMap<String,Object> and can contain almost anything that is 
+     * visible in whole application, but mostly it is intended to be used with JDK java
+     * objects. Return is List<Object>, which can also contain anything. If plugin
+     * supports this, method should just be overriden in server implementation.
+     * 
+     * @param parameters
+     * @return
+     */
+    public List<Object> getDataFromPlugin(HashMap<String, Object> parameters)
+    {
+        if (m_server == null)
+            return null;
+        else
+            return m_server.getDataFromPlugin(parameters);
     }
 
 }

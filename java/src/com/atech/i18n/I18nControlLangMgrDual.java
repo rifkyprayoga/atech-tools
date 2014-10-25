@@ -94,7 +94,7 @@ public class I18nControlLangMgrDual extends I18nControlLangMgr
 
     public String getMessageFromCatalogSelectedLanaguge(String msg)
     {
-        String retString = super.getMessageFromCatalog(msg);
+        String retString = super.getMessageFromCatalog(msg); // super.getMessageFromCatalog(msg);
         if (debug_language)
         {
             log.debug("getMessageFromCatalogSelLang: [root=" + this.i18ncontrol_runner.getLanguageFileRoot()
