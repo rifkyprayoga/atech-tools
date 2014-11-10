@@ -1,6 +1,6 @@
 package com.atech.utils.data;
 
-public class CRCUtils extends HexUtils
+public class CRCUtils extends BitUtils // was HexUtils
 {
 
     private static int CRC8_LOOKUP_TABLE[] = { 0, 155, 173, 54, 193, 90, 108, 247, 25, 130, 180, 47, 216, 67, 117, 238,
@@ -279,6 +279,66 @@ public class CRCUtils extends HexUtils
         // Contract.pre(i >= 0 && i <= 15, "hexValue value of " + i +
         // " is out of expected range 0.." + 15);
         return i >= 10 ? i - 10 + 65 : i + 48;
+    }
+
+    public static int calculateCRC16(byte[] buff, int start, int end)
+    {
+        int crc = 0;
+        for (int i = start; i < end; i++)
+        {
+            crc = (crc >>> 8 | crc << 8) & 0xffff;
+            crc ^= buff[i] & 0xff;
+            crc ^= (crc & 0xff) >> 4;
+            crc ^= crc << 12 & 0xffff;
+            crc ^= (crc & 0xFF) << 5 & 0xffff;
+        }
+        crc &= 0xffff;
+        return crc;
+    }
+
+    public static int calculateCRC16(short[] buff, int start, int end)
+    {
+        int crc = 0;
+        for (int i = start; i < end; i++)
+        {
+            crc = (crc >>> 8 | crc << 8) & 0xffff;
+            crc ^= buff[i] & 0xff;
+            crc ^= (crc & 0xff) >> 4;
+            crc ^= crc << 12 & 0xffff;
+            crc ^= (crc & 0xFF) << 5 & 0xffff;
+        }
+        crc &= 0xffff;
+        return crc;
+    }
+
+    public static int calculateCRC16(int[] buff, int start, int end)
+    {
+        long crc = 0;
+        for (int i = start; i < end; i++)
+        {
+            crc = (crc >>> 8 | crc << 8) & 0xffff;
+            crc ^= buff[i] & 0xff;
+            crc ^= (crc & 0xff) >> 4;
+            crc ^= crc << 12 & 0xffff;
+            crc ^= (crc & 0xFF) << 5 & 0xffff;
+        }
+        crc &= 0xffff;
+        return (int) crc;
+    }
+
+    public static int calculateCRC16(char[] buff, int start, int end)
+    {
+        long crc = 0;
+        for (int i = start; i < end; i++)
+        {
+            crc = (crc >>> 8 | crc << 8) & 0xffff;
+            crc ^= buff[i] & 0xff;
+            crc ^= (crc & 0xff) >> 4;
+            crc ^= crc << 12 & 0xffff;
+            crc ^= (crc & 0xFF) << 5 & 0xffff;
+        }
+        crc &= 0xffff;
+        return (int) crc;
     }
 
 }
