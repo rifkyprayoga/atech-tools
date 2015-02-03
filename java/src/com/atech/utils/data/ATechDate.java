@@ -214,7 +214,7 @@ public class ATechDate
      * @param gc
      *            the gc
      */
-    public ATechDate(int type, GregorianCalendar gc)
+    public ATechDate(int type, Calendar gc) // GregorianCalendar
     {
         atechDatetimeType = type;
 

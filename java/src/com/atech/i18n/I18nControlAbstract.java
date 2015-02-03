@@ -661,6 +661,55 @@ public abstract class I18nControlAbstract
 
     }
 
+
+    public synchronized String getMessageFromCatalogOrNull(String msg)
+    {
+        try
+        {
+
+            if (msg == null)
+                return null;
+
+            if (!checkIfValidMessageKey(msg))
+                return null;
+
+            String ret = res.getString(msg);
+
+            if (ret == null)
+            {
+                return null;
+            }
+            else
+                return ret;
+
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+
+    public synchronized boolean isKeywordTranslated(String keyword)
+    {
+        try
+        {
+            if (keyword == null)
+                return false;
+
+            if (!checkIfValidMessageKey(keyword))
+                return false;
+
+            String ret = res.getString(keyword);
+            return (ret != null);
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+
     protected boolean checkIfValidMessageKey(String key)
     {
         if (key.trim().length() == 0)

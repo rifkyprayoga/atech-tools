@@ -63,6 +63,8 @@ public class DecimalHandler
      * 
      * @param dec_value
      * @param decimal_places
+     *
+     * @deprecated Use getDecimalNumberAsString instead.
      * @return
      */
     public String getDecimalAsString(float dec_value, int decimal_places)
@@ -70,16 +72,62 @@ public class DecimalHandler
         return formaters.get(decimal_places).format(dec_value);
     }
 
+
+    /**
+     * Get Decimal As String
+     *
+     * @param decimalValue
+     * @param decimalPlaces
+     * @return
+     */
+    public String getDecimalNumberAsString(float decimalValue, int decimalPlaces)
+    {
+        return formaters.get(decimalPlaces).format(decimalValue);
+    }
+
+
     /**
      * Get Decimal As String
      * 
-     * @param dec_value
-     * @param decimal_places
+     * @param decimalValue
+     * @param decimalPlaces
      * @return
      */
-    public String getDecimalAsString(double dec_value, int decimal_places)
+    public String getDecimalAsString(double decimalValue, int decimalPlaces)
     {
-        return formaters.get(decimal_places).format(dec_value);
+        return formaters.get(decimalPlaces).format(decimalValue);
+    }
+
+
+    /**
+     * Get Decimal As String
+     *
+     * @param decimalValue
+     * @param decimalPlaces
+     * @return
+     */
+    public String getDecimalNumberAsString(double decimalValue, int decimalPlaces)
+    {
+        return formaters.get(decimalPlaces).format(decimalValue);
+    }
+
+
+
+    /**
+     * Get Decimal As String
+     *
+     * @param decimalValue
+     * @param decimalPlaces
+     * @return
+     */
+    public String getDecimalNumberFormated(double decimalValue, int decimalPlaces)
+    {
+        return formaters.get(decimalPlaces).format(decimalValue);
+    }
+
+    public String getDecimalNumberFormatedWithDot(float value, int places, int decimalPlaces)
+    {
+        return String.format("%" + places + "." + decimalPlaces +"f", value).replaceAll(",", ".");
     }
 
 }

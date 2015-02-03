@@ -75,6 +75,18 @@ public class I18nControlLangMgrDual extends I18nControlLangMgr
         initPrimaryLangauge();
     }
 
+
+    private I18nControlLangMgr getInstance()
+    {
+        return this;
+    }
+
+    public I18nControlLangMgr getDefaultLanguageInstance()
+    {
+        return this.primaryLang;
+    }
+
+
     private void initPrimaryLangauge()
     {
         this.primaryLang = new I18nControlLangMgr(this.language_manager, this.i18ncontrol_runner, true);
