@@ -60,7 +60,7 @@ public class BitUtils
     /**
      * The byte_arr.
      */
-    protected byte[] byte_arr = null;
+    //protected byte[] byte_arr = null;
 
     /**
      * Read byte array.
@@ -68,10 +68,10 @@ public class BitUtils
      * @param array
      *            the array
      */
-    public void readByteArray(byte[] array)
-    {
-        this.byte_arr = array;
-    }
+//    public void readByteArray(byte[] array)
+//    {
+//        this.byte_arr = array;
+//    }
 
     /**
      * Gets the byte from array.
@@ -81,10 +81,10 @@ public class BitUtils
      *
      * @return the byte from array
      */
-    public byte getByteFromArray(int offset)
-    {
-        return getByte(this.byte_arr, offset);
-    }
+//    public byte getByteFromArray(int offset)
+//    {
+//        return getByte(this.byte_arr, offset);
+//    }
 
     /**
      * Gets the byte.
@@ -109,10 +109,10 @@ public class BitUtils
      *
      * @return the int from array
      */
-    public int getIntFromArray(int offset)
-    {
-        return getInt(this.byte_arr, offset);
-    }
+//    public int getIntFromArray(int offset)
+//    {
+//        return getInt(this.byte_arr, offset);
+//    }
 
     /**
      * Gets the int.
@@ -160,10 +160,10 @@ public class BitUtils
      *
      * @return the string from array
      */
-    public String getStringFromArray(int offset, int size)
-    {
-        return getString(this.byte_arr, offset, size);
-    }
+//    public String getStringFromArray(int offset, int size)
+//    {
+//        return getString(this.byte_arr, offset, size);
+//    }
 
     /**
      * Gets the string.
@@ -243,10 +243,10 @@ public class BitUtils
      *
      * @return the ascii from array
      */
-    public String getAsciiFromArray(int offset, int size)
-    {
-        return getAscii(this.byte_arr, offset, size);
-    }
+//    public String getAsciiFromArray(int offset, int size)
+//    {
+//        return getAscii(this.byte_arr, offset, size);
+//    }
 
     /**
      * Gets the ascii.
