@@ -6,6 +6,9 @@ import org.apache.commons.logging.LogFactory;
 import com.atech.i18n.I18nControlRunner;
 import com.atech.i18n.mgr.LanguageManager;
 
+import java.text.DateFormat;
+import java.util.GregorianCalendar;
+
 // TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
@@ -63,8 +66,7 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
      * <br>
      * @param lm 
      * @param icr 
-     * @param ic 
-     * 
+     *
      */
     public ATDataAccessLMAbstract(LanguageManager lm, I18nControlRunner icr)
     {
@@ -78,5 +80,41 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
     {
         return this.lang_mgr;
     }
+
+
+    /**
+     * Gets the as localized date string.
+     *
+     * @param gc_value the gc_value
+     * @param years_digits the years_digits
+     *
+     * @return the as localized date string
+     */
+    public String getAsLocalizedDateString(GregorianCalendar gc_value, int years_digits)
+    {
+        if (years_digits == 2)
+        {
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance()
+                    .getSelectedLanguageLocale());
+            return df.format(gc_value.getTime());
+        }
+        else
+        {
+
+            System.out.println("i18ControlInstance: " + getI18nControlInstance());
+            System.out.println("i18ControlInstance.selectedLocale: " + this.lang_mgr.getSelectedLanguageLocale());
+            System.out.println("i18ControlInstance.selectedLocale: " + this.lang_mgr.getSelectedLanguageInstance());
+            System.out.println("i18ControlInstance.selectedLocale:locale: " + this.lang_mgr.getSelectedLanguageInstance().locale);
+            System.out.println("i18ControlInstance.selectedLocale:real_locale: " + this.lang_mgr.getSelectedLanguageInstance().real_locale);
+            //System.out.println("i18ControlInstance.selectedLocale: " + this.lang_mgr.getSelectedLanguageInstance());
+
+            System.out.println("Time: " + gc_value.getTime());
+
+            // TODO: fix this
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, this.lang_mgr.getSelectedLanguageLocale());
+            return df.format(gc_value.getTime());
+        }
+    }
+
 
 }

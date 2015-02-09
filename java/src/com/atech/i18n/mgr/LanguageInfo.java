@@ -45,37 +45,37 @@ public abstract class LanguageInfo
     private I18nControlAbstract m_i18n = null; // I18nControl.getInstance();
 
     /**
-     * The lp_version.
+     * The languagePackVersion.
      */
     public String lp_version = null;
 
     /**
-     * The lp_release.
+     * The languagePackRelease.
      */
     public String lp_release = null;
 
     /**
-     * The lp_langs_with_help.
+     * The languagePackLanguagesWithHelp.
      */
     public int lp_langs_with_help = 0;
 
     /**
-     * The lp_langs_without_help.
+     * The languagePackLanguagesWithoutHelp.
      */
     public int lp_langs_without_help = 0;
 
     /**
-     * The langs.
+     * The languageManagerDataHTML.
      */
     public String langs;
 
     /**
-     * The lang_root.
+     * The languageRoot.
      */
     public String lang_root;
 
     /**
-     * The default_help.
+     * The defaultHelp.
      */
     public String default_help = null;
 
@@ -275,7 +275,7 @@ public abstract class LanguageInfo
             // lang);
             return "../data/lang/" + this.default_help + "/" + getHelpSetName();
         // return "jar:file:" + getLanguageJarName() + "!/help/" +
-        // this.default_help + "/PIS.hs";
+        // this.defaultHelp + "/PIS.hs";
     }
 
     private String getHelpPathForLanguageJar(String lang)

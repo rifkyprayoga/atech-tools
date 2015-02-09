@@ -1,10 +1,10 @@
 package com.atech.i18n.mgr;
 
-import java.io.File;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Locale;
 
+import org.apache.commons.lang.LocaleUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -47,77 +47,19 @@ import com.atech.utils.file.PropertiesFile;
 public class LanguageManager
 {
 
-    // private I18nControlAbstract m_i18n = null; //I18nControl.getInstance();
     private static Log log = LogFactory.getLog(LanguageManager.class);
 
-    /**
-     * The lp_version.
-     */
-    public String lp_version = null;
-
-    /**
-     * The lp_release.
-     */
-    public String lp_release = null;
-
-    /**
-     * The lp_langs_with_help.
-     */
-    public int lp_langs_with_help = 0;
-
-    /**
-     * The lp_langs_without_help.
-     */
-    public int lp_langs_without_help = 0;
-
-    /**
-     * The langs.
-     */
-    public String langs;
-
-    /**
-     * The lang_root.
-     */
-    public String lang_root;
-
-    /**
-     * The default_help.
-     */
-    public String default_help = null;
-
-    /**
-     * The available lang.
-     */
-    public Object availableLang[] = null;
-
-    /**
-     * The available lang web.
-     */
-    public Object availableLangWeb[] = null;
-
-    /**
-     * The available lang locale.
-     */
-    public String availableLangLocale[] = null;
-    // public String
-
-    /**
-     * The langs_ht.
-     */
-    Hashtable<String, LanguageInstance> langs_ht = null;
-
-    /**
-     * The available real locale.
-     */
-    public Locale[] availableRealLocale = null;
-
-    public boolean find_untraslated_keys = false;
-
-    private String selected_language = null;
-
-    private Hashtable<String, LanguageInstance> available_languages;
-
-    private LanguageManagerRunner language_manager_runnner = null;
+    public String languagePackVersion = null;
+    public String languagePackRelease = null;
+    public int languagePackLanguagesWithHelp = 0;
+    public int languagePackLanguagesWithoutHelp = 0;
+    public String languageManagerDataHTML;
+    public String languageRoot;
+    public String defaultHelp = null;
+    public boolean findUntranslatedKeys = false;
+    private String selectedLanguage = null;
+    private Hashtable<String, LanguageInstance> availableLanguages;
+    private LanguageManagerRunner languageManagerRunner = null;
 
     /**
      * Instantiates a new language manager.
@@ -126,7 +68,7 @@ public class LanguageManager
      */
     public LanguageManager(LanguageManagerRunner lmr)
     {
-        this.language_manager_runnner = lmr;
+        this.languageManagerRunner = lmr;
         loadData();
         loadSelectedLanguageData();
         this.loadStaticData();
@@ -137,54 +79,25 @@ public class LanguageManager
      */
     public void loadData()
     {
+        PropertiesFile props = new PropertiesFile(this.languageManagerRunner.getLanguageConfigFile());
 
-        PropertiesFile props = new PropertiesFile(this.language_manager_runnner.getLanguageConfigFile());
+        //System.out.println(this.languageManagerRunner.getLanguageConfigFile());
 
-        System.out.println(this.language_manager_runnner.getLanguageConfigFile());
-
-        File uu = new File(".");
-
-        System.out.println("ii" + uu.getAbsolutePath());
-
-        /*
-         * Properties props = null;
-         * try
-         * {
-         * props = new Properties();
-         * //InputStream in =
-         * getClass().getResourceAsStream("/PIS_Languages.properties");
-         * InputStream in =
-         * getClass().getResourceAsStream(this.getLangaugeConfigFile());
-         * //new FileInputStream("PIS_Languages.properties");
-         * props.load(in);
-         * }
-         * catch(Exception ex)
-         * {
-         * System.out.println("LanguageInfo::loadData::Exception> " + ex);
-         * }
-         */
-
-        // System.out.println("LoadData: " +
-        // this.language_manager_runnner.getLangaugeConfigFile());
+//        File uu = new File(".");
+//        System.out.println("ii" + uu.getAbsolutePath());
 
         if (!props.wasFileRead())
         {
-            log.error("LanguageManager: Configuration file " + this.language_manager_runnner.getLanguageConfigFile()
+            log.error("LanguageManager: Configuration file " + this.languageManagerRunner.getLanguageConfigFile()
                     + " was NOT read !");
         }
 
         int le = Integer.parseInt(props.get("AVAILABLE_LANGUAGES"));
 
-        availableLang = new Object[le];
-        availableLangWeb = new Object[le];
-        availableLangLocale = new String[le];
-
-        this.available_languages = new Hashtable<String, LanguageInstance>();
+        this.availableLanguages = new Hashtable<String, LanguageInstance>();
 
         StringBuffer sb = new StringBuffer();
         sb.append("<html><body>");
-
-        this.langs_ht = new Hashtable<String, LanguageInstance>();
 
         for (int i = 1; i <= le; i++)
         {
@@ -193,8 +106,7 @@ public class LanguageManager
 
             String name = props.get("LANG_" + i + "_NAME");
             String help = props.get("LANG_" + i + "_HELP_AVAILABLE");
-
-            // li.name = name;
+            String localeString = props.get("LANG_" + i + "_LOCALE");
 
             li.name_description = name;
             li.name = props.get("LANG_" + i);
@@ -206,80 +118,79 @@ public class LanguageManager
 
             if (help.equalsIgnoreCase("YES") || help.equalsIgnoreCase("TRUE"))
             {
-                // y availableLang[i-1] = name + " (" +
-                // m_i18n.getMessage("HELP_AVAILABLE") + ")";
-                // y sb.append(name);
                 li.help_available = true;
             }
             else
             {
-                // y String tm = " (" + m_i18n.getMessage("NO_HELP_AVAILABLE")+
-                // ")";
-                // y availableLang[i-1] = name + tm;
-                // y sb.append(name);
-                // y sb.append(tm);
                 li.help_available = false;
             }
 
-            // y availableLangWeb[i-1] = name;
-            // y availableLangLocale[i-1] = ((String)props.get("LANG_" + i +
-            // "_LOCALE")).toLowerCase();
-            // li.locale = ((String)props.get("LANG_" + i +
-            // "_LOCALE")).toLowerCase();
-            // li.file
+            try
+            {
+                if (localeString!=null)
+                {
+                    li.locale = LocaleUtils.toLocale(localeString);
+                }
+                else
+                {
+                    li.locale = Locale.getDefault();
+                }
+            }
+            catch(Exception ex)
+            {
+                System.out.println("Error creating locale: (keyword=" + localeString + "). Ex.: " + ex);
+            }
 
             // this.langs_ht.put(li.locale, li);
-            this.available_languages.put(li.name, li);
+            this.availableLanguages.put(li.name, li);
         }
 
         // sb.append("</html></body>");
 
-        langs = sb.toString();
+        languageManagerDataHTML = sb.toString();
 
-        lp_version = props.get("VERSION");
-        lp_release = props.get("LANGPACK_DATE");
+        languagePackVersion = props.get("VERSION");
+        languagePackRelease = props.get("LANGPACK_DATE");
 
-        this.default_help = props.get("DEFAULT_HELP");
+        this.defaultHelp = props.get("DEFAULT_HELP");
 
-        this.lang_root = props.get("LANGUAGE_ROOT");
+        this.languageRoot = props.get("LANGUAGE_ROOT");
 
         int l_help = Integer.parseInt(props.get("AVAILABLE_LANGUAGES_WITH_HELP"));
 
-        // System.out.println(le + " " + l_help);
+        languagePackLanguagesWithHelp = l_help;
+        languagePackLanguagesWithoutHelp = le - l_help;
 
-        lp_langs_with_help = l_help;
-        lp_langs_without_help = le - l_help;
-
-        if (this.language_manager_runnner.isTranslationToolLanguageSupported())
+        if (this.languageManagerRunner.isTranslationToolLanguageSupported())
         {
             this.loadTranslationData();
         }
 
-        // System.out.println("Available: " + this.available_languages);
+        // System.out.println("Available: " + this.availableLanguages);
 
     }
 
     private void loadSelectedLanguageData()
     {
-        PropertiesFile props = new PropertiesFile(this.language_manager_runnner.getLanguageSelectionConfigFile());
+        PropertiesFile props = new PropertiesFile(this.languageManagerRunner.getLanguageSelectionConfigFile());
 
         if (!props.wasFileRead())
         {
             System.out.println("LanguageManager: Configuration file for selected language: "
-                    + this.language_manager_runnner.getLanguageSelectionConfigFile() + " was NOT read !");
+                    + this.languageManagerRunner.getLanguageSelectionConfigFile() + " was NOT read !");
         }
         else
         {
-            this.selected_language = props.get("SELECTED_LANG");
+            this.selectedLanguage = props.get("SELECTED_LANG");
         }
 
-        System.out.println("!!!!! " + this.selected_language);
+        System.out.println("!!!!! " + this.selectedLanguage);
 
     }
 
     private void loadTranslationData()
     {
-        PropertiesFile pf = new PropertiesFile(this.language_manager_runnner.getTranslationToolConfigFile());
+        PropertiesFile pf = new PropertiesFile(this.languageManagerRunner.getTranslationToolConfigFile());
 
         // System.out.println("loadTranslationData: " + pf.wasFileRead());
 
@@ -297,7 +208,7 @@ public class LanguageManager
         li.is_translation_tool = true;
         li.language_path = pf.get("LANGUAGE_PATH");
 
-        this.available_languages.put("lt", li);
+        this.availableLanguages.put("lt", li);
 
     }
 
@@ -308,21 +219,26 @@ public class LanguageManager
      * 
      * @return the int
      */
-    public int findInLocale(String loc)
-    {
-        loc = loc.toLowerCase();
-
-        if (availableLangLocale != null)
-        {
-            for (int i = 0; i < availableLangLocale.length; i++)
-            {
-                if (availableLangLocale[i].toLowerCase().equals(loc))
-                    return i + 1;
-            }
-        }
-
-        return 0;
-    }
+//    public int findInLocale(String loc)
+//    {
+//        loc = loc.toLowerCase();
+//
+//
+//
+//
+//
+//
+//        if (availableLangLocale != null)
+//        {
+//            for (int i = 0; i < availableLangLocale.length; i++)
+//            {
+//                if (availableLangLocale[i].toLowerCase().equals(loc))
+//                    return i + 1;
+//            }
+//        }
+//
+//        return 0;
+//    }
 
     /**
      * Get help path for naguage.
@@ -346,41 +262,41 @@ public class LanguageManager
     @SuppressWarnings("unused")
     private String getHelpPathForLanguageEclipse(String lang)
     {
-        if (this.langs_ht.containsKey(lang))
+        if (this.availableLanguages.containsKey(lang))
         {
-            if (this.langs_ht.get(lang).help_available)
+            if (this.availableLanguages.get(lang).help_available)
                 return "../data/lang/" + lang + "/" + getHelpSetName();
             else
-                return "../data/lang/" + this.default_help + "/" + getHelpSetName();
+                return "../data/lang/" + this.defaultHelp + "/" + getHelpSetName();
         }
         else
             // System.out.println("Error this language is not present !!! " +
             // lang);
-            return "../data/lang/" + this.default_help + "/" + getHelpSetName();
+            return "../data/lang/" + this.defaultHelp + "/" + getHelpSetName();
         // return "jar:file:" + getLanguageJarName() + "!/help/" +
-        // this.default_help + "/PIS.hs";
+        // this.defaultHelp + "/PIS.hs";
     }
 
     private String getHelpPathForLanguageJar(String lang)
     {
-        if (this.langs_ht.containsKey(lang))
+        if (this.availableLanguages.containsKey(lang))
         {
-            if (this.langs_ht.get(lang).help_available)
+            if (this.availableLanguages.get(lang).help_available)
                 return "jar:file:" + getLanguageJarName() + "!/help/" + lang + "/" + getHelpSetName();
             else
-                return "jar:file:" + getLanguageJarName() + "!/help/" + this.default_help + "/" + getHelpSetName();
+                return "jar:file:" + getLanguageJarName() + "!/help/" + this.defaultHelp + "/" + getHelpSetName();
         }
         else
             // System.out.println("Error this language is not present !!! " +
             // lang);
-            return "jar:file:" + getLanguageJarName() + "!/help/" + this.default_help + "/" + getHelpSetName();
+            return "jar:file:" + getLanguageJarName() + "!/help/" + this.defaultHelp + "/" + getHelpSetName();
     }
 
     // jar:file:pis_lang-0.1.jar!/help/PIS.hs
 
     private String getLanguageJarName()
     {
-        return getJarBaseName() + "-" + this.lp_version + ".jar";
+        return getJarBaseName() + "-" + this.languagePackVersion + ".jar";
     }
 
     /**
@@ -410,7 +326,7 @@ public class LanguageManager
      */
     public String getSelectedLanguage()
     {
-        return this.selected_language;
+        return this.selectedLanguage;
     }
 
     /**
@@ -420,7 +336,7 @@ public class LanguageManager
      */
     public void setSelectedLanguage(String lang)
     {
-        this.selected_language = lang;
+        this.selectedLanguage = lang;
     }
 
     /**
@@ -430,7 +346,7 @@ public class LanguageManager
      */
     public LanguageInstance getSelectedLanguageInstance()
     {
-        return this.available_languages.get(this.selected_language);
+        return this.availableLanguages.get(this.selectedLanguage);
     }
 
     // public
@@ -442,7 +358,7 @@ public class LanguageManager
      */
     public Locale getSelectedLanguageLocale()
     {
-        return this.available_languages.get(this.selected_language).locale;
+        return this.availableLanguages.get(this.selectedLanguage).locale;
     }
 
     /**
@@ -453,13 +369,13 @@ public class LanguageManager
     /*
      * public String getLanguageRoot()
      * {
-     * return this.lang_root;
+     * return this.languageRoot;
      * }
      */
 
     public String getDefaultLanguage()
     {
-        return this.language_manager_runnner.getDefaultLanguage();
+        return this.languageManagerRunner.getDefaultLanguage();
     }
 
     /**
@@ -471,7 +387,7 @@ public class LanguageManager
      */
     public I18nControlLangMgr getI18nControl(I18nControlRunner icr)
     {
-        if (this.language_manager_runnner instanceof LanguageManagerRunnerDual)
+        if (this.languageManagerRunner instanceof LanguageManagerRunnerDual)
             return new I18nControlLangMgrDual(this, icr);
         else
             return new I18nControlLangMgr(this, icr);
@@ -483,13 +399,13 @@ public class LanguageManager
     public void loadStaticData()
     {
 
-        av_lang_array = new String[this.available_languages.size()];
+        av_lang_array = new String[this.availableLanguages.size()];
         int i = 0;
-        String sel_name = this.available_languages.get(this.selected_language).name;
+        String sel_name = this.availableLanguages.get(this.selectedLanguage).name;
 
-        for (Enumeration<String> en = this.available_languages.keys(); en.hasMoreElements();)
+        for (Enumeration<String> en = this.availableLanguages.keys(); en.hasMoreElements();)
         {
-            LanguageInstance li = this.available_languages.get(en.nextElement());
+            LanguageInstance li = this.availableLanguages.get(en.nextElement());
             this.av_lang_array[i] = li.name_description;
 
             if (li.name.equals(sel_name))
@@ -500,16 +416,16 @@ public class LanguageManager
             i++;
         }
 
-        if (this.language_manager_runnner instanceof LanguageManagerRunnerDual)
+        if (this.languageManagerRunner instanceof LanguageManagerRunnerDual)
         {
-            this.find_untraslated_keys = ((LanguageManagerRunnerDual) this.language_manager_runnner)
+            this.findUntranslatedKeys = ((LanguageManagerRunnerDual) this.languageManagerRunner)
                     .findUntranslatedKeysInLanguage();
         }
     }
 
     public boolean findUntraslatedKeys()
     {
-        return this.find_untraslated_keys;
+        return this.findUntranslatedKeys;
     }
 
     public String[] getAvailableLanguages()
@@ -524,12 +440,12 @@ public class LanguageManager
 
     public String getLanguageConfigFile()
     {
-        return this.language_manager_runnner.getTranslationToolConfigFile();
+        return this.languageManagerRunner.getTranslationToolConfigFile();
     }
 
     public String getNameFromDescription(String desc)
     {
-        for (Enumeration<LanguageInstance> en = this.available_languages.elements(); en.hasMoreElements();)
+        for (Enumeration<LanguageInstance> en = this.availableLanguages.elements(); en.hasMoreElements();)
         {
             LanguageInstance li = en.nextElement();
 
@@ -543,24 +459,24 @@ public class LanguageManager
 
     public String getDefaultHelp()
     {
-        return this.default_help;
+        return this.defaultHelp;
     }
 
     public String getHelpSet()
     {
         /*
-         * if (this.selected_language.equals("en"))
+         * if (this.selectedLanguage.equals("en"))
          * {
          * return "help/GGC.hs";
          * }
          * else
          * {
-         * //System.out.println("Selected lan: " + this.selected_language);
+         * //System.out.println("Selected lan: " + this.selectedLanguage);
          * LanguageInstance li =
-         * this.available_languages.get(this.selected_language);
+         * this.availableLanguages.get(this.selectedLanguage);
          * //System.out.println("Selected LI: " + li);
          * if (li.help_available)
-         * return "help/GGC_" + this.selected_language + ".hs";
+         * return "help/GGC_" + this.selectedLanguage + ".hs";
          * else
          * return "help/GGC.hs";
          * }
@@ -575,18 +491,18 @@ public class LanguageManager
         // | |- GGC.hs
         //
 
-        if (this.selected_language.equals("en"))
+        if (this.selectedLanguage.equals("en"))
             return "help/en/GGC.hs";
         else
         {
-            // System.out.println("Selected lan: " + this.selected_language);
+            // System.out.println("Selected lan: " + this.selectedLanguage);
 
-            LanguageInstance li = this.available_languages.get(this.selected_language);
+            LanguageInstance li = this.availableLanguages.get(this.selectedLanguage);
 
             // System.out.println("Selected LI: " + li);
 
             if (li.help_available)
-                return "help/" + this.selected_language + "/GGC.hs";
+                return "help/" + this.selectedLanguage + "/GGC.hs";
             else
                 return "help/en/GGC.hs";
         }

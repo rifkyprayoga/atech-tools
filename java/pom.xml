@@ -124,11 +124,12 @@
 			<artifactId>itextpdf</artifactId>
 			<version>5.1.2</version>
 		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.0</version>
-		</dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
 
 		<dependency>
 			<groupId>javax.help</groupId>
@@ -190,7 +191,7 @@
 		<junit.version>4.10</junit.version>
 		<servlet-api.version>2.5</servlet-api.version>
 		<itextpdf.version>5.1.2</itextpdf.version>
-		<commons-lang.version>2.0</commons-lang.version>
+		<commons-lang.version>2.6</commons-lang.version>
 		<javahelp.version>2.0.05</javahelp.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

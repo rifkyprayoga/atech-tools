@@ -218,6 +218,8 @@ public abstract class I18nControlAbstract
                 this.selected_language = tempLang;
             }
 
+            this.selected_language_locale = new Locale(this.selected_language);
+
             return this.selected_language;
             // System.out.println("selected language: " +
             // this.selected_language);
@@ -326,6 +328,15 @@ public abstract class I18nControlAbstract
      */
     public Locale getSelectedLanguageLocale()
     {
+        if (this.selected_language_locale==null)
+        {
+            System.out.println("sel_language=" + this.selected_language);
+
+            this.selected_language_locale = new Locale(this.selected_language);
+
+            System.out.println("Force created locale: " + this.selected_language_locale);
+        }
+
         return this.selected_language_locale;
     }
 

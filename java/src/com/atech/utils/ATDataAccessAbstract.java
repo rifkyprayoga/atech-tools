@@ -2743,6 +2743,11 @@ public abstract class ATDataAccessAbstract
         }
         else
         {
+            System.out.println("i18ControlInstance: " + getI18nControlInstance());
+            System.out.println("i18ControlInstance: " + getI18nControlInstance()
+                    .getSelectedLanguageLocale());
+            System.out.println("Time: " + gc_value.getTime());
+
             // TODO: fix this
             DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance()
                     .getSelectedLanguageLocale());
