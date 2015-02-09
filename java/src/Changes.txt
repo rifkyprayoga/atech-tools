@@ -4,6 +4,10 @@ Changes file for atech-tools
 See Authors for more description on developers
 --------------------------------------------------
 
+0.7.11
+   - fixed loading of Language Data (Locale was not read)
+
+
 0.7.10
    - printing: new class for icepdf to display better window
 

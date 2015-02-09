@@ -1,5 +1,0 @@
- Volume in drive D is cn_d
- Volume Serial Number is 82C6-C358
-
- Directory of D:\Andy\Personal\MSP_v2\lib\jasperreports
-
