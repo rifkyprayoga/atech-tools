@@ -17,14 +17,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
-import java.util.Properties;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -36,6 +29,7 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.ColorUIResource;
 
+import com.atech.utils.data.CodeEnumWithTranslation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -760,8 +754,14 @@ public abstract class ATDataAccessAbstract
         {
             try
             {
-                this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(), hc.getHelpId(), null);
-                this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
+                if (help_context == null || this.help_context.getMainHelpBroker()==null)
+                {
+                    log.warn("Help Context not available. Help not enabled.");
+                }
+                else {
+                    this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(), hc.getHelpId(), null);
+                    this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(), hc.getHelpId(), null);
+                }
             }
             catch (Exception ex)
             {
@@ -3965,5 +3965,23 @@ public abstract class ATDataAccessAbstract
     {
         return getDayOfWeekFromGC(gc).substring(0, length);
     }
+
+    public static int getTypeFromDescription(String selectedItem, Map<String,CodeEnumWithTranslation> translationMapping)
+    {
+        if (selectedItem==null)
+        {
+            return 0;
+        }
+
+        if (translationMapping.containsKey(selectedItem))
+        {
+            return translationMapping.get(selectedItem).getCode();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
 
 }
