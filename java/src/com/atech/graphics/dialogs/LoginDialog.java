@@ -135,7 +135,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         ATSwingUtils.getButton("  " + ic.getMessage("CANCEL"), 160, 180, 110, 30, panel, ATSwingUtils.FONT_NORMAL,
             "cancel.png", "cancel", this, m_da);
 
-        help_button = m_da.createHelpIconByBounds(280, 180, 50, 30, panel, ATSwingUtils.FONT_NORMAL);
+        help_button = ATSwingUtils.createHelpIconByBounds(280, 180, 50, 30, panel, ATSwingUtils.FONT_NORMAL, m_da.getImagesRoot());
         panel.add(help_button);
 
         this.m_da.enableHelp(this);

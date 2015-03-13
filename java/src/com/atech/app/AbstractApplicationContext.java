@@ -33,6 +33,7 @@ import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.I18nControlRunner;
 import com.atech.i18n.mgr.LanguageManager;
 import com.atech.utils.ATDataAccessLMAbstract;
+import com.atech.utils.ATSwingUtils;
 import com.atech.utils.DataAccessApp;
 import com.atech.utils.file.ClassFinder;
 
@@ -431,7 +432,7 @@ public abstract class AbstractApplicationContext implements ActionListener
 
         if (icon_small != null)
         {
-            mi.setIcon(this.data_access.getImageIcon(icon_small, 15, 15, this.frame));
+            mi.setIcon(ATSwingUtils.getImageIcon(icon_small, 15, 15, this.frame, data_access));
         }
 
         if (menu != null)

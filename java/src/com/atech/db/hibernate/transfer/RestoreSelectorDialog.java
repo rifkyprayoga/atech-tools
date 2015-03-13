@@ -24,6 +24,7 @@ import com.atech.help.ComponentHelpCapable;
 import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.ATSwingUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -197,16 +198,18 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 
         this.setBounds(130, 50, 450, 450); // 360
 
+        ATSwingUtils.initLibrary();
+
         ht_backup_objects = new Hashtable<String, BackupRestoreObject>();
 
-        font_big = m_da.getFont(ATDataAccessAbstract.FONT_BIG_BOLD);
-        font_normal = m_da.getFont(ATDataAccessAbstract.FONT_NORMAL);
-        font_normal_b = m_da.getFont(ATDataAccessAbstract.FONT_NORMAL_BOLD);
+        font_big = ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD);
+        font_normal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
+        font_normal_b = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
 
         this.cmdUpdate();
 
         this.setResizable(false);
-        this.m_da.centerJDialog(this, this.my_parent); // m_da.getParent());
+        ATSwingUtils.centerJDialog(this, this.my_parent); // m_da.getParent());
         this.m_da.addComponent(this);
     }
 
@@ -284,7 +287,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 
         button = new JButton(ic.getMessage("CLOSE"));
         button.setBounds(160, 365, 120, 25);
-        button.setIcon(m_da.getImageIcon_22x22("cancel.png", this));
+        button.setIcon(ATSwingUtils.getImageIcon_22x22("cancel.png", this, m_da));
         button.addActionListener(this);
         button.setFont(font_normal);
         button.setActionCommand("close");
@@ -305,7 +308,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         // ---
         // --- Help command
         // ---
-        button_help = m_da.createHelpButtonByBounds(25, 365, 120, 25, this);
+        button_help = ATSwingUtils.createHelpButtonByBounds(25, 365, 120, 25, this, ATSwingUtils.FONT_NORMAL, m_da);
         button_help.setFont(font_normal);
         panel.add(button_help);
 

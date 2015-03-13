@@ -38,6 +38,7 @@ import com.atech.graphics.components.DateComponent;
 import com.atech.graphics.layout.ZeroLayout;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccess;
+import com.atech.utils.ATSwingUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -1402,7 +1403,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
         // andy
         this.setBounds(100, 80, 720, 440);
-        ATDataAccess.getInstance().centerJDialog(this, getInternalParent());
+        ATSwingUtils.centerJDialog(this, getInternalParent());
 
         this.setResizable(false);
 

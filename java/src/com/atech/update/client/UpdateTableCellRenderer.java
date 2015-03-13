@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import com.atech.update.config.ComponentInterface;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.ATSwingUtils;
 
 /**
  *  This file is part of ATech Tools library.
@@ -46,6 +47,9 @@ public class UpdateTableCellRenderer extends DefaultTableCellRenderer
 
     private static final long serialVersionUID = -1163229361235496043L;
     ATDataAccessAbstract m_da;
+    Font treeHeaderFont;
+    Font treeItemFont;
+
 
     /**
      * Constructor
@@ -58,8 +62,11 @@ public class UpdateTableCellRenderer extends DefaultTableCellRenderer
 
         m_da = da;
 
-        m_da.fonts[ATDataAccessAbstract.FONT_UPDATE_TREE_HEADER] = getFont().deriveFont(Font.BOLD, 13.0f);
-        m_da.fonts[ATDataAccessAbstract.FONT_UPDATE_TREE_ITEM] = getFont().deriveFont(Font.ITALIC, 13.0f);
+        //ATSwingUtils
+        ATSwingUtils.initLibrary();
+
+        treeHeaderFont = getFont().deriveFont(Font.BOLD, 13.0f);
+        treeItemFont = getFont().deriveFont(Font.ITALIC, 13.0f);
 
     }
 
@@ -97,7 +104,7 @@ public class UpdateTableCellRenderer extends DefaultTableCellRenderer
             {
                 setBackground(Color.lightGray);
                 setForeground(Color.black);
-                setFont(m_da.fonts[ATDataAccessAbstract.FONT_UPDATE_TREE_HEADER]);
+                setFont(treeHeaderFont);
                 setOpaque(true);
             }
             else
@@ -129,7 +136,7 @@ public class UpdateTableCellRenderer extends DefaultTableCellRenderer
                         name = "dot_blue.gif";
                 }
 
-                lab.setIcon(m_da.getImageIcon("/icons/", name, m_da.getParent()));
+                lab.setIcon(ATSwingUtils.getImageIcon("/icons/", name, m_da.getParent()));
                 lab.setToolTipText("Unknown");
 
                 return lab;
@@ -166,13 +173,13 @@ public class UpdateTableCellRenderer extends DefaultTableCellRenderer
                     setBackground(table.getBackground());
                 }
                 setForeground(Color.black);
-                setFont(m_da.fonts[ATDataAccessAbstract.FONT_UPDATE_TREE_ITEM]);
+                setFont(treeItemFont);
             }
             else
             {
                 setBackground(Color.lightGray);
                 setForeground(Color.black);
-                setFont(m_da.fonts[ATDataAccessAbstract.FONT_UPDATE_TREE_HEADER]);
+                setFont(treeHeaderFont);
                 setOpaque(true);
             }
 

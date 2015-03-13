@@ -13,6 +13,7 @@ import com.atech.graphics.components.about.AboutCustomPanel;
 import com.atech.graphics.components.about.AboutDialog;
 import com.atech.graphics.components.about.LicenceInfo;
 import com.atech.i18n.tool.simple.TranslationTool;
+import com.atech.utils.ATSwingUtils;
 
 /**
  *  This file is part of ATech Tools library.
@@ -111,7 +112,7 @@ public class TTAboutDialog extends AboutDialog
 
         int[] sz = { 240, 160 };
 
-        JLabel l = new JLabel(m_da.getImageIcon("translation_about.jpg", sz[0], sz[1], this));
+        JLabel l = new JLabel(ATSwingUtils.getImageIcon("translation_about.jpg", sz[0], sz[1], this, m_da));
         p1.add(l, BorderLayout.CENTER);
 
         JLabel l2 = new JLabel();

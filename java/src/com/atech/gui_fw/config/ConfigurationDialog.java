@@ -21,6 +21,7 @@ import javax.swing.event.ListSelectionListener;
 import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.ATSwingUtils;
 
 /**
  *  This file is part of ATech Tools library.
@@ -131,6 +132,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
         this.help_enabled = acc.app_ctx.isHelpEnabled();
 
         this.m_da.addComponent(this);
+        ATSwingUtils.initLibrary();
 
         /*
          * Rectangle rec = parent.getBounds(); int x = rec.x + (rec.width/2);
@@ -139,9 +141,9 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
          */
         setSize(640, 480);
         setTitle(m_ic.getMessage("PREFERENCES"));
-        m_da.centerJDialog(this, frame);
+        ATSwingUtils.centerJDialog(this, frame);
 
-        help_button = m_da.createHelpButtonBySize(120, 25, this);
+        help_button = ATSwingUtils.createHelpButtonBySize(120, 25, this, this.m_da.getImagesRoot(), m_ic);
         createPanels();
 
         init();
@@ -211,19 +213,19 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
         // set the buttons up...
         JButton okButton = new JButton("   " + m_ic.getMessage("OK"));
         okButton.setPreferredSize(dim);
-        okButton.setIcon(m_da.getImageIcon_22x22("ok.png", this));
+        okButton.setIcon(ATSwingUtils.getImageIcon_22x22("ok.png", this, m_da));
         okButton.setActionCommand("ok");
         okButton.addActionListener(this);
 
         JButton cancelButton = new JButton("   " + m_ic.getMessage("CANCEL"));
         cancelButton.setPreferredSize(dim);
-        cancelButton.setIcon(m_da.getImageIcon_22x22("cancel.png", this));
+        cancelButton.setIcon(ATSwingUtils.getImageIcon_22x22("cancel.png", this, m_da));
         cancelButton.setActionCommand("cancel");
         cancelButton.addActionListener(this);
 
         JButton applyButton = new JButton("   " + m_ic.getMessage("APPLY"));
         applyButton.setPreferredSize(dim);
-        applyButton.setIcon(m_da.getImageIcon_22x22("flash.png", this));
+        applyButton.setIcon(ATSwingUtils.getImageIcon_22x22("flash.png", this, m_da));
         applyButton.setActionCommand("apply");
         applyButton.addActionListener(this);
 

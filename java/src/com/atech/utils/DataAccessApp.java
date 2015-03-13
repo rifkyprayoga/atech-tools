@@ -224,7 +224,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         // reg_info = new UserDat();
 
         // loadConfig();
-        loadFonts();
+
         // loadAvailableLFs();
         loadLanguageInfo();
         loadColors();
@@ -253,7 +253,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     /**
      * Creates the instance.
      * 
-     * @param main the main
+     * @param aac the main
      * 
      * @return the data access
      */
@@ -399,57 +399,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     // ****** Fonts *****
     // ********************************************************
 
-    /**
-     * The Constant FONT_BIG_BOLD.
-     */
-    public static final int FONT_BIG_BOLD = 0;
 
-    /**
-     * The Constant FONT_NORMAL.
-     */
-    public static final int FONT_NORMAL = 1;
-
-    /**
-     * The Constant FONT_NORMAL_BOLD.
-     */
-    public static final int FONT_NORMAL_BOLD = 2;
-
-    /**
-     * The Constant FONT_NORMAL_P2.
-     */
-    public static final int FONT_NORMAL_P2 = 3;
-
-    /**
-     * The Constant FONT_NORMAL_BOLD_P2.
-     */
-    public static final int FONT_NORMAL_BOLD_P2 = 4;
-
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#loadFonts()
-     */
-    @Override
-    public void loadFonts()
-    {
-
-        fonts = new Font[5];
-        fonts[0] = new Font("SansSerif", Font.BOLD, 22);
-        fonts[1] = new Font("SansSerif", Font.PLAIN, 12);
-        fonts[2] = new Font("SansSerif", Font.BOLD, 12);
-        fonts[3] = new Font("SansSerif", Font.PLAIN, 14);
-        fonts[4] = new Font("SansSerif", Font.BOLD, 14);
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getFont(int)
-     */
-    @Override
-    public Font getFont(int font_id)
-    {
-        return fonts[font_id];
-    }
 
     // ********************************************************
     // ****** Parent handling (for UIs) *****
@@ -1312,23 +1262,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
-    /**
-     * Enable help.
-     * 
-     * @param hc the hc
-     */
-    /*
-     * public void enableHelp(HelpCapable hc)
-     * {
-     * if (s_app_context.isHelpEnabled())
-     * {
-     * this.help_context.getMainHelpBroker().enableHelpOnButton(hc.getHelpButton(
-     * ), hc.getHelpId(), null);
-     * this.help_context.getMainHelpBroker().enableHelpKey(hc.getComponent(),
-     * hc.getHelpId(), null);
-     * }
-     * }
-     */
+
 
     public DbConfig getJdbcConfig()
     {

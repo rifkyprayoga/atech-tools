@@ -105,10 +105,13 @@ public abstract class GUIListDefAbstract
     public static final int FILTER_COMBO_TWICE = 3;
 
     /** The parent_dialog. */
-    public GUIListDialog parent_dialog;
+    public GUIListDialog parentDialog;
 
     /** The def_parameters. */
     protected String[] def_parameters;
+
+
+    private boolean customDisplayHeader = false;
 
     // ic, translation root
     /**
@@ -236,13 +239,21 @@ public abstract class GUIListDefAbstract
     /**
      * Sets the parent instance.
      * 
-     * @param _parent_dialog
+     * @param parentDialog
      *            the new parent instance
      */
-    public void setParentInstance(GUIListDialog _parent_dialog)
+    public void setParentDialog(GUIListDialog parentDialog)
     {
-        this.parent_dialog = _parent_dialog;
+        this.parentDialog = parentDialog;
     }
+
+
+    public GUIListDialog getParentDialog()
+    {
+        return this.parentDialog;
+    }
+
+
 
     /**
      * Gets the filter texts.
@@ -297,5 +308,22 @@ public abstract class GUIListDefAbstract
     {
         return def_parameters;
     }
+
+    public boolean hasCustomDisplayHeader()
+    {
+        return customDisplayHeader;
+    }
+
+    public void setCustomDisplayHeader(boolean customDisplayHeader)
+    {
+        this.customDisplayHeader = customDisplayHeader;
+    }
+
+    public JPanel getCustomDisplayHeader()
+    {
+        return null;
+    }
+
+    public abstract void editTableRow();
 
 }

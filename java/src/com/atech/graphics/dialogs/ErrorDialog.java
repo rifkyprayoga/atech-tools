@@ -26,6 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.text.AbstractDocument;
 
+import com.atech.utils.ATSwingUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -339,11 +340,12 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
      */
     public void init()
     {
+        ATSwingUtils.initLibrary();
 
         name = ic.getMessage("ERROR_DIALOG");
 
-        font_normal = da.getFont(ATDataAccessAbstract.FONT_NORMAL);
-        font_normal_bold = da.getFont(ATDataAccessAbstract.FONT_NORMAL_BOLD);
+        font_normal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
+        font_normal_bold = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
 
         this.setLayout(null);
         this.setTitle(name);

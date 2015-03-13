@@ -6,6 +6,9 @@ See Authors for more description on developers
 
 0.7.11
    - fixed loading of Language Data (Locale was not read)
+   - fixed CodeEnumWithTranslation, CodeEnum, TimeZoneUtils
+   - fixing I18nControl
+   - temporary codeminders hidapi added
 
 
 0.7.10

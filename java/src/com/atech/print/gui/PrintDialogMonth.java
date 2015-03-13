@@ -123,19 +123,19 @@ public abstract class PrintDialogMonth extends PrintDialogRange
         // button.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
         button.setActionCommand("ok");
         button.addActionListener(this);
-        button.setIcon(this.dataAccess.getImageIcon_22x22("ok.png", this));
+        button.setIcon(ATSwingUtils.getImageIcon_22x22("ok.png", this, dataAccess));
         button.setBounds(40, 240, 125, 25);
         panel.add(button);
 
         button = new JButton("   " + i18nControl.getMessage("CANCEL"));
         // button.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
         button.setActionCommand("cancel");
-        button.setIcon(this.dataAccess.getImageIcon_22x22("cancel.png", this));
+        button.setIcon(ATSwingUtils.getImageIcon_22x22("cancel.png", this, dataAccess));
         button.addActionListener(this);
         button.setBounds(175, 240, 125, 25);
         panel.add(button);
 
-        helpButton = this.dataAccess.createHelpButtonByBounds(185, 210, 115, 25, this);
+        helpButton = ATSwingUtils.createHelpButtonByBounds(185, 210, 115, 25, this, ATSwingUtils.FONT_NORMAL, dataAccess);
         panel.add(helpButton);
 
         if (this.enableHelp)

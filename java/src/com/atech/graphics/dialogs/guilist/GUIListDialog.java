@@ -4,22 +4,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.GregorianCalendar;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.AbstractDocument;
@@ -87,6 +75,9 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
     JButton help_button;
     Font font_normal, font_normal_bold;
 
+    private boolean dataChanged = false;
+
+
     /**
      * Constructor
      * 
@@ -103,25 +94,51 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
 
         this.definition = def;
 
-        this.definition.setParentInstance(this);
+        this.definition.setParentDialog(this);
 
         this.setSize(this.definition.getWindowSize());
-        m_da.centerJDialog(this, frame);
+        ATSwingUtils.centerJDialog(this, frame);
 
         // setBounds(x-175, y-150, 450, 380);
         this.setLayout(null);
 
         init();
 
-        // this.list_full = new ArrayList<DoctorH>();
-        // populateList();
+        processDefaultParameters();
 
-        // this.cb_template.setSelectedIndex(type-1);
+        this.setVisible(true);
+    }
+
+
+    /**
+     * Constructor
+     *
+     * @param dialog
+     * @param def
+     * @param da
+     */
+    public GUIListDialog(JDialog dialog, GUIListDefAbstract def, ATDataAccessAbstract da)
+    {
+        super(dialog, "", true);
+
+        this.m_da = da;
+        this.m_ic = da.getI18nControlInstance();
+
+        this.definition = def;
+        this.definition.setParentDialog(this);
+
+        this.setSize(this.definition.getWindowSize());
+        ATSwingUtils.centerJDialog(this, dialog);
+
+        this.setLayout(null);
+
+        init();
 
         processDefaultParameters();
 
         this.setVisible(true);
     }
+
 
     private void init()
     {
@@ -135,12 +152,14 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         this.getContentPane().add(panel);
 
         JLabel label = new JLabel(m_ic.getMessage(this.definition.getTitle()));
-        label.setFont(m_da.getFont(ATDataAccessAbstract.FONT_BIG_BOLD));
+        label.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBounds(0, 20, this.getWidth(), 35);
         panel.add(label);
 
         int y = 80;
+
+        int spaceBetweenTableAndFilter = 40;
 
         if (this.definition.hasFilter())
         {
@@ -201,13 +220,42 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
              * panel.add(cb_template);
              */
         }
+        else if (this.definition.hasCustomDisplayHeader())
+        {
+            JPanel panelDisplayHeader = this.definition.getCustomDisplayHeader();
+            panelDisplayHeader.setBounds(40, y, panelDisplayHeader.getWidth(), panelDisplayHeader.getHeight());
+            panel.add(panelDisplayHeader);
+
+            y += panelDisplayHeader.getHeight();
+
+            spaceBetweenTableAndFilter = 20;
+        }
+
 
         this.table = this.definition.getJTable();
-        Rectangle r = this.definition.getTableSize(y + 40);
+
+        table.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 2)
+                {
+                    definition.editTableRow();
+                }
+            }
+
+        });
+
+
+        Rectangle r = this.definition.getTableSize(y + spaceBetweenTableAndFilter);
 
         JScrollPane scp = new JScrollPane(this.table);
         scp.setBounds(r);
         panel.add(scp);
+
+
+
 
         int pos_x = r.x + r.width + 20;
         int pos_y = r.y;
@@ -224,11 +272,11 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
                 LabelDef ld = (LabelDef) bd;
                 JLabel lab = ATSwingUtils.getLabel(ld.label_text, pos_x, pos_y, 120, 25, panel,
                     ATSwingUtils.FONT_NORMAL_BOLD);
-                pos_y += 25;
+                pos_y += 35;
             }
             else if (bd instanceof DividerDef)
             {
-                pos_y += 25;
+                pos_y += 20;
             }
             else
             {
@@ -244,17 +292,32 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         pos_x = d.width - 40 - 220 - 10;
 
         JButton b = ATSwingUtils.getButton("   " + m_ic.getMessage("CLOSE"), pos_x, r.y + r.height + 20, 110, 30,
-            panel, ATSwingUtils.FONT_NORMAL, null /* Im"exit.png" */, "close", this, m_da, pic_size);
+            panel, ATSwingUtils.FONT_NORMAL, "exit.png", "close", this, m_da, pic_size);
         b.setHorizontalAlignment(SwingConstants.LEFT);
 
-        help_button = m_da.createHelpButtonByBounds(pos_x + 110 + 10, r.y + r.height + 20, 110, 30, panel,
-            ATSwingUtils.FONT_NORMAL);
+        help_button = ATSwingUtils.createHelpButtonByBounds(pos_x + 110 + 10, r.y + r.height + 20, 110, 30, panel,
+                ATSwingUtils.FONT_NORMAL, m_da.getImagesRoot(), m_ic);
         help_button.setHorizontalAlignment(SwingConstants.LEFT);
         panel.add(help_button);
 
         this.definition.additionalGUIInit(panel);
 
     }
+
+
+    public int getSelectedObjectIndexFromTable()
+    {
+        if (table.getSelectedRow() == -1)
+        {
+            JOptionPane.showMessageDialog(this, m_ic.getMessage("SELECT_ROW_FIRST"), m_ic.getMessage("ERROR"),
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+
+        return table.getSelectedRow();
+    }
+
+
 
     /**
      * Get All Filter Values
@@ -403,4 +466,14 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         return this.table;
     }
 
+
+    public boolean isDataChanged()
+    {
+        return dataChanged;
+    }
+
+    public void setDataChanged(boolean dataChanged)
+    {
+        this.dataChanged = dataChanged;
+    }
 }

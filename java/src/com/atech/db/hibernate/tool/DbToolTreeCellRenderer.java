@@ -7,6 +7,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.ATSwingUtils;
 
 /**
  *  This file is part of ATech Tools library.
@@ -57,9 +58,10 @@ public class DbToolTreeCellRenderer extends DefaultTreeCellRenderer
         super();
 
         DbToolAccess da = DbToolAccess.getInstance();
+        ATSwingUtils.initLibrary();
 
-        defFont = da.getFont(ATDataAccessAbstract.FONT_NORMAL);
-        boldFont = da.getFont(ATDataAccessAbstract.FONT_NORMAL_BOLD);
+        defFont = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
+        boldFont = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
         /*
          * defFont = super.getFont();
          * defFont =

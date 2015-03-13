@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.info.LanguageInfo;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.ATSwingUtils;
 
 /**
  *  This file is part of ATech Tools library.
@@ -95,9 +96,11 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
         ic = da.getI18nControlInstance();
         m_da = da;
 
-        font_normal = m_da.getFont(1);
-        font_normal_b = m_da.getFont(ATDataAccessAbstract.FONT_NORMAL_BOLD);
-        font_big = m_da.getFont(ATDataAccessAbstract.FONT_BIG_BOLD);
+        ATSwingUtils.initLibrary();
+
+        font_normal = ATSwingUtils.getFont(1);
+        font_normal_b = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
+        font_big = ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD);
         langInfo = m_da.getLanguageInfo();
         // this.loadWebSettings();
 
@@ -262,6 +265,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      */
     public void createPanelLanguage()
     {
+        ATSwingUtils.initLibrary();
 
         JPanel panel = new JPanel();
         panel.setBounds(140, 30, 420, 330);
@@ -314,7 +318,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
         panel.add(label);
 
         label = new JLabel(ic.getMessage("SELECT_LANGUAGE"));
-        label.setFont(m_da.getFont(ATDataAccessAbstract.FONT_NORMAL_BOLD));
+        label.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD));
         label.setBounds(40, 255, 340, 25);
         panel.add(label);
 

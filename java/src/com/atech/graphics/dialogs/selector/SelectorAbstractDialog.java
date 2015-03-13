@@ -39,6 +39,7 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.Document;
 
+import com.atech.utils.ATSwingUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -330,6 +331,7 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
      * The last action.
      */
     public int lastAction = 0;
+    private boolean debug = false;
 
     // CHANGE
 
@@ -407,6 +409,12 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     public SelectorAbstractDialog(JDialog parent, ATDataAccessAbstract da, int type, String except)
     {
         this(parent, da, type, except, true);
+    }
+
+
+    public void setDebugMode(boolean debugMode)
+    {
+        this.debug = debugMode;
     }
 
     /*
@@ -571,171 +579,11 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
         initSelectorValuesForType();
 
-        /*
-         * // CHANGE
-         * if (type==SELECTOR_POST)
-         * {
-         * select_typeObj = new Post();
-         * name = ic.getMessage("SELECTOR_POST");
-         * CSH.setHelpIDString(this, "selector.post");
-         * newString = ic.getMessage("NEW_F");
-         * }
-         * else if (type==SELECTOR_PERSON)
-         * {
-         * select_typeObj = new Person();
-         * name = ic.getMessage("SELECTOR_PERSON");
-         * CSH.setHelpIDString(this, "selector.person");
-         * newString = ic.getMessage("NEW_F");
-         * }
-         * else if ((type==SELECTOR_EVENT) ||
-         * (type==SELECTOR_EVENT_BY_TYPE))
-         * {
-         * select_typeObj = new Events();
-         * name = ic.getMessage("SELECTOR_EVENT");
-         * CSH.setHelpIDString(this, "selector.event");
-         * newString = ic.getMessage("NEW__EVENT");
-         * }
-         * else if (type==SELECTOR_COUNTRY)
-         * {
-         * select_typeObj = new Country();
-         * name = ic.getMessage("SELECTOR_COUNTRY");
-         * CSH.setHelpIDString(this, "selector.country");
-         * newString = ic.getMessage("NEW__EVENT");
-         * }
-         * else if (type==SELECTOR_OCCUPATION)
-         * {
-         * select_typeObj = new Profession();
-         * name = ic.getMessage("SELECTOR_OCCUPATION");
-         * CSH.setHelpIDString(this, "selector.occupation");
-         * newString = ic.getMessage("NEW_M");
-         * }
-         * else if (type==SELECTOR_RELIGION)
-         * {
-         * select_typeObj = new Religion();
-         * name = ic.getMessage("SELECTOR_RELIGION");
-         * CSH.setHelpIDString(this, "selector.religion");
-         * newString = ic.getMessage("NEW_M");
-         * }
-         * else if (type==SELECTOR_STREET)
-         * {
-         * select_typeObj = new Street();
-         * name = ic.getMessage("SELECTOR_STREET");
-         * CSH.setHelpIDString(this, "selector.street");
-         * newString = ic.getMessage("NEW_F");
-         * }
-         * else if (type==SELECTOR_PARISH)
-         * {
-         * select_typeObj = new Parish();
-         * name = ic.getMessage("SELECTOR_PARISH");
-         * CSH.setHelpIDString(this, "selector.parish");
-         * newString = ic.getMessage("NEW_F");
-         * }
-         * else if (type==SELECTOR_EVENT_PERFORMER)
-         * {
-         * select_typeObj = new InternalPerson();
-         * name = ic.getMessage("SELECTOR_EVENT_PERFORMER");
-         * CSH.setHelpIDString(this, "selector.pperson");
-         * newString = ic.getMessage("NEW_F");
-         * }
-         * else if (type==SELECTOR_PERSON_MULTIPLE)
-         * {
-         * select_typeObj = new Person();
-         * name = ic.getMessage("SELECTOR_PERSON_MULTIPLE");
-         * CSH.setHelpIDString(this, "selector.person_mult");
-         * newString = ic.getMessage("NEW_F");
-         * selected_ObjectS = new ArrayList<Selectable>();
-         * }
-         * else if(type ==SELECTOR_ADDRESS_SPECIAL)
-         * {
-         * select_typeObj = new PersonAddress(m_da);
-         * name = ic.getMessage("SELECTOR_ADDRESS_SPECIAL");
-         * CSH.setHelpIDString(this, "selector.address");
-         * newString = ic.getMessage("NEW__ADDRESS");
-         * }
-         * else if (type ==SELECTOR_PARISH_PERSON)
-         * {
-         * select_typeObj = new ParishPerson();
-         * name = ic.getMessage("SELECTOR_PARISH_PERSON");
-         * CSH.setHelpIDString(this, "selector.pperson");
-         * //newString = ic.getMessage("NEW__PPEADDRESS");
-         * }
-         * else if (type ==SELECTOR_INTERNAL_PERSON)
-         * {
-         * select_typeObj = new InternalPerson();
-         * name = ic.getMessage("SELECTOR_INTERNAL_PERSON");
-         * CSH.setHelpIDString(this, "selector.iperson");
-         * //newString = ic.getMessage("NEW__PPEADDRESS");
-         * }
-         * else if (type ==SELECTOR_DIOCESE)
-         * {
-         * select_typeObj = new Diocese();
-         * name = ic.getMessage("SELECTOR_DIOCESE");
-         * CSH.setHelpIDString(this, "selector.diocese");
-         * //newString = ic.getMessage("NEW__PPEADDRESS");
-         * }
-         * else if (type ==SELECTOR_NEWS)
-         * {
-         * select_typeObj = new News(1);
-         * name = ic.getMessage("SELECTOR_NEWS");
-         * CSH.setHelpIDString(this, "selector.news");
-         * newString = ic.getMessage("NEW__NEWS");
-         * }
-         * else if (type ==SELECTOR_WEEKLY_NEWS)
-         * {
-         * select_typeObj = new News(2);
-         * name = ic.getMessage("SELECTOR_WEEKLY_NEWS");
-         * CSH.setHelpIDString(this, "selector.weekly_news");
-         * newString = ic.getMessage("NEW__WEEKLY_NEWS");
-         * }
-         * else if (type ==SELECTOR_GROUP)
-         * {
-         * select_typeObj = new Group();
-         * name = ic.getMessage("SELECTOR_GROUP");
-         * CSH.setHelpIDString(this, "selector.group");
-         * newString = ic.getMessage("NEW__GROUP");
-         * }
-         * else if (type ==SELECTOR_YOUTH_GROUP)
-         * {
-         * select_typeObj = new YouthGroup();
-         * name = ic.getMessage("SELECTOR_YOUTH_GROUP");
-         * CSH.setHelpIDString(this, "selector.youth_group");
-         * newString = ic.getMessage("NEW__YOUTH_GROUP");
-         * }
-         */
 
         if (this.isColumnSortingEnabled())
         {
             this.columnSorter.setActive(true);
         }
-
-        /*
-         * if (
-         * //(type != SELECTOR_POST) &&
-         * //(type != SELECTOR_COUNTRY ) &&
-         * //(type != SELECTOR_PERSON ) &&
-         * //(type != SELECTOR_EVENT ) &&
-         * //(type != SELECTOR_OCCUPATION ) &&
-         * (type != SELECTOR_STREET ) &&
-         * (type != SELECTOR_RELIGION ) &&
-         * (type != SELECTOR_PARISH ) &&
-         * (type != SELECTOR_EVENT_PERFORMER ) &&
-         * (type != SELECTOR_PERSON_MULTIPLE ) &&
-         * (type != SELECTOR_ADDRESS_SPECIAL ) &&
-         * (type != SELECTOR_PARISH_PERSON ) &&
-         * (type != SELECTOR_INTERNAL_PERSON ) &&
-         * (type != SELECTOR_DIOCESE ) &&
-         * (type != SELECTOR_EVENT_BY_TYPE ) &&
-         * //(type != SELECTOR_NEWS ) &&
-         * //(type != SELECTOR_WEEKLY_NEWS ) &&
-         * (type != SELECTOR_GROUP ) &&
-         * (type != SELECTOR_YOUTH_GROUP))
-         * {
-         * //SelectableSort ss = (SelectableSort)select_typeObj;
-         * this.columnSorter.setActive(true);
-         * //this.columnSorter.setColumnDefinitions(select_typeObj.
-         * getColumnDefinitions());
-         * }
-         */
 
         getFullData();
         setSorterOnFullData();
@@ -998,115 +846,12 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
      */
     public abstract void getFullData();
 
-    /*
-     * {
-     * long st = System.currentTimeMillis();
-     * // CHANGE
-     * if (m_type==SELECTOR_POST)
-     * {
-     * full = m_da.m_db.getPosts();
-     * }
-     * else if (m_type==SELECTOR_EVENT)
-     * {
-     * full = m_da.m_db.getPublicEvents();
-     * }
-     * else if (m_type==SELECTOR_EVENT_BY_TYPE)
-     * {
-     * full = m_da.m_db.getEventsByType(Integer.parseInt(m_except));
-     * }
-     * else if ((m_type==SELECTOR_PERSON) ||
-     * (m_type==SELECTOR_PERSON_MULTIPLE))
-     * {
-     * full =
-     * m_da.m_db.getAllPersonsExcept(Person.getSortParameters(sortColumn,ascending
-     * ), m_except);
-     * }
-     * else if (m_type==SELECTOR_COUNTRY)
-     * {
-     * full = m_da.m_db.getCountries();
-     * }
-     * else if (m_type==SELECTOR_OCCUPATION)
-     * {
-     * full = m_da.m_db.getOccupations();
-     * }
-     * else if (m_type==SELECTOR_RELIGION)
-     * {
-     * full = m_da.m_db.getReligions();
-     * }
-     * else if (m_type==SELECTOR_STREET)
-     * {
-     * full = m_da.m_db.getStreets();
-     * }
-     * else if (m_type==SELECTOR_PARISH)
-     * {
-     * if (full_int==null)
-     * full_int = m_da.m_db.getAllParishesExcept(m_except);
-     * if (!par_selected)
-     * full = full_int;
-     * else
-     * full = m_da.m_db.getSelectedParishes();
-     * }
-     * else if (m_type==SELECTOR_EVENT_PERFORMER)
-     * {
-     * if (full_int==null)
-     * full_int = m_da.m_db.getEventPerformers();
-     * if (!par_selected)
-     * full = full_int;
-     * else
-     * full = m_da.m_db.getSelectedEventPerformers();
-     * //full = m_da.m_db.getEventPerformers();
-     * }
-     * else if(m_type == SELECTOR_ADDRESS_SPECIAL)
-     * {
-     * full = m_da.m_db.getSpecialAddresses(m_except);
-     * }
-     * else if(m_type == SELECTOR_PARISH_PERSON)
-     * {
-     * full = m_da.m_db.getParishPersonsExcept(m_except);
-     * }
-     * else if (m_type == SELECTOR_INTERNAL_PERSON)
-     * {
-     * full = m_da.m_db.getInternalPersonsExcept(m_except);
-     * }
-     * else if (m_type==SELECTOR_DIOCESE)
-     * {
-     * full = m_da.m_db.getAllDiocesesExcept(m_except);
-     * }
-     * else if (m_type==SELECTOR_NEWS)
-     * {
-     * full = m_da.m_db.getAllNews();
-     * }
-     * else if (m_type==SELECTOR_WEEKLY_NEWS)
-     * {
-     * full = m_da.m_db.getAllWeeklyNews();
-     * }
-     * else if (m_type==SELECTOR_GROUP)
-     * {
-     * full = m_da.m_db.getAllGroups();
-     * }
-     * else if (m_type==SELECTOR_GROUP)
-     * {
-     * full = m_da.m_db.getAllYouthGroups();
-     * }
-     * if (columnSorter.isActive())
-     * {
-     * for(int i=0; i<full.size(); i++)
-     * {
-     * full.get(i).setColumnSorter(this.columnSorter);
-     * }
-     * }
-     * System.out.println("Full read: " + (System.currentTimeMillis() - st) +
-     * " ms ");
-     * }
-     */
 
     /**
      * Gets the initial values.
      */
     public/* abstract */void getInitialValues()
     {
-
-        // System.out.println("Full: " + full);
 
         Iterator<SelectableInterface> it = full.iterator();
         list = new ArrayList<SelectableInterface>();
@@ -1126,7 +871,8 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
             Collections.sort(list);
         }
 
-        System.out.println("List: " + list.size());
+        if (debug)
+            System.out.println("List: " + list.size());
 
     }
 
@@ -1170,231 +916,6 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         label.setBounds(20, 9, 460, 36);
         panel.add(label);
 
-        // Font fnt = new Font("Times New Roman",Font.ITALIC|Font.BOLD,14);
-
-        // X String sm = "";
-
-        /*
-         * // CHANGE
-         * if (this.m_type==SelectorDialog.SELECTOR_POST)
-         * {
-         * sm = ic.getMessage("POST_NAME");
-         * }
-         * else if (this.m_type==SelectorDialog.SELECTOR_EVENT)
-         * {
-         * sm = ic.getMessage("TYPE_OF_EVENT");
-         * }
-         * else if ((this.m_type==SelectorDialog.SELECTOR_PERSON) ||
-         * (m_type==SELECTOR_PERSON_MULTIPLE))
-         * {
-         * sm = ic.getMessage("NAME_LNAME_PERSON");
-         * }
-         * else if (this.m_type==SelectorDialog.SELECTOR_COUNTRY)
-         * {
-         * sm = ic.getMessage("COUNTRY_NAME");
-         * }
-         * else if (this.m_type==SelectorDialog.SELECTOR_OCCUPATION)
-         * {
-         * sm = ic.getMessage("OCCUPATION_NAME");
-         * }
-         * else if (this.m_type==SelectorDialog.SELECTOR_RELIGION)
-         * {
-         * sm = ic.getMessage("RELIGION_NAME");
-         * }
-         * else if (this.m_type==SelectorDialog.SELECTOR_STREET)
-         * {
-         * sm = ic.getMessage("STREET_NAME");
-         * }
-         * else if (this.m_type==SelectorDialog.SELECTOR_PARISH)
-         * {
-         * sm = ic.getMessage("PARISH_NAME");
-         * }
-         * else if (this.m_type==SelectorDialog.SELECTOR_EVENT_PERFORMER)
-         * {
-         * sm = ic.getMessage("NAME_OF_PERFORMER");
-         * }
-         * else if(m_type == SELECTOR_ADDRESS_SPECIAL)
-         * {
-         * sm = ic.getMessage("ADDRESS");
-         * }
-         * else if (m_type == SELECTOR_PARISH_PERSON)
-         * sm = ic.getMessage("PARISH_PERSON");
-         * else if (m_type == SELECTOR_INTERNAL_PERSON)
-         * sm = ic.getMessage("INTERNAL_PERSON");
-         * else if (this.m_type==SelectorDialog.SELECTOR_DIOCESE)
-         * {
-         * sm = ic.getMessage("DIOCESE_NAME");
-         * }
-         * else if (this.m_type==SelectorDialog.SELECTOR_GROUP)
-         * {
-         * sm = ic.getMessage("GROUP_NAME");
-         * }
-         * else
-         * sm = "";
-         * label = new JLabel(sm+":");
-         * label.setFont(this.font_normal);
-         * label.setBounds(35,60,200,26);
-         * boolean tf_needed = false;
-         */
-        // CHANGE
-        /*
-         * if (this.m_type==SelectorDialog.SELECTOR_PERSON)
-         * {
-         * panel.add(label);
-         * textField1 = new JTextField();
-         * textField1.setBounds(110, 60, 160, 26);
-         * Document styledDoc = textField1.getDocument();
-         * if (styledDoc instanceof AbstractDocument)
-         * {
-         * doc = (AbstractDocument)styledDoc;
-         * //doc.setDocumentFilter(new DocumentSizeFilter(MAX_CHARACTERS));
-         * }
-         * else
-         * {
-         * System.err.println("Text pane's document isn't an AbstractDocument!");
-         * System.exit(-1);
-         * }
-         * doc.addDocumentListener(this);
-         * panel.add(textField1);
-         * tf_needed = true;
-         * }
-         * else
-         */
-
-        /*
-         * if ((this.m_type==SelectorDialog.SELECTOR_COUNTRY) ||
-         * (this.m_type==SelectorDialog.SELECTOR_OCCUPATION) ||
-         * (this.m_type==SelectorDialog.SELECTOR_RELIGION) ||
-         * (this.m_type==SelectorDialog.SELECTOR_STREET) ||
-         * (this.m_type==SelectorDialog.SELECTOR_PERSON) ||
-         * (this.m_type==SELECTOR_PERSON_MULTIPLE) ||
-         * (this.m_type==SELECTOR_ADDRESS_SPECIAL) ||
-         * (this.m_type==SELECTOR_DIOCESE) ||
-         * (this.m_type==SELECTOR_PARISH_PERSON) ||
-         * (this.m_type==SELECTOR_INTERNAL_PERSON) ||
-         * (this.m_type==SELECTOR_GROUP) ||
-         * (this.m_type==SELECTOR_YOUTH_GROUP) ||
-         * (this.m_type==SELECTOR_POST))
-         * {
-         * panel.add(label);
-         * textField1 = new JTextField();
-         * textField1.setBounds(30, 85, 210, 26);
-         * //textField1.setBounds(110, 60, 160, 26);
-         * Document styledDoc = textField1.getDocument();
-         * if (styledDoc instanceof AbstractDocument)
-         * {
-         * doc = (AbstractDocument)styledDoc;
-         * //doc.setDocumentFilter(new DocumentSizeFilter(MAX_CHARACTERS));
-         * }
-         * else
-         * {
-         * System.err.println("Text pane's document isn't an AbstractDocument!");
-         * System.exit(-1);
-         * }
-         * doc.addDocumentListener(this);
-         * panel.add(textField1);
-         * tf_needed = true;
-         * }
-         * else if ((this.m_type==SelectorDialog.SELECTOR_PARISH) ||
-         * (this.m_type==SelectorDialog.SELECTOR_EVENT_PERFORMER))
-         * {
-         * label = new JLabel(ic.getMessage("TYPE") + ":");
-         * label.setFont(this.font_normal);
-         * label.setBounds(35,70,100,26);
-         * panel.add(label);
-         * Object[] s = { ic.getMessage("ALL__PARISH"),
-         * ic.getMessage("SELECTED__PARISH") };
-         * comboBox1 = new JComboBox(s);
-         * comboBox1.setBounds(130, 70, 210, 26);
-         * comboBox1.addItemListener(this);
-         * panel.add(comboBox1, null);
-         * label = new JLabel(sm + ":");
-         * label.setFont(this.font_normal);
-         * label.setBounds(35,90,100,26);
-         * panel.add(label);
-         * textField1 = new JTextField();
-         * textField1.setBounds(30, 115, 210, 26);
-         * //textField1.setBounds(110, 60, 160, 26);
-         * Document styledDoc = textField1.getDocument();
-         * if (styledDoc instanceof AbstractDocument)
-         * {
-         * doc = (AbstractDocument)styledDoc;
-         * //doc.setDocumentFilter(new DocumentSizeFilter(MAX_CHARACTERS));
-         * }
-         * else
-         * {
-         * System.err.println("Text pane's document isn't an AbstractDocument!");
-         * System.exit(-1);
-         * }
-         * doc.addDocumentListener(this);
-         * panel.add(textField1);
-         * tf_needed = true;
-         * }
-         * else if (this.m_type==SelectorDialog.SELECTOR_EVENT)
-         * {
-         * panel.add(label);
-         * comboBox1 = new JComboBox(m_da.getTypesArray(1));
-         * comboBox1.setBounds(30, 85, 210, 26);
-         * comboBox1.addItemListener(this);
-         * panel.add(comboBox1, null);
-         * }
-         * else if ((this.m_type==SelectorDialog.SELECTOR_NEWS) ||
-         * (this.m_type==SelectorDialog.SELECTOR_WEEKLY_NEWS))
-         * {
-         * //panel.add(label);
-         * //dt_start, dt_end;
-         * // FIX
-         * this.checkBox1 = new JCheckBox();
-         * this.checkBox1.setText(" " + ic.getMessage("FROM") +":");
-         * this.checkBox1.setBounds(25, 60, 80, 26); // 85
-         * this.checkBox1.addChangeListener(this);
-         * panel.add(this.checkBox1, null);
-         * dt_start = new DateComponent(m_da.m_i18n);
-         * dt_start.setBounds(90, 60, 210, 26);
-         * dt_start.setEnabled(false);
-         * dt_start.addActionListener(this);
-         * dt_start.setActionCommand("date_changed");
-         * dt_start.setNote("start");
-         * //comboBox1.addItemListener(this);
-         * panel.add(dt_start, null);
-         * this.checkBox2 = new JCheckBox();
-         * this.checkBox2.setText(" " + ic.getMessage("TILL") +":");
-         * this.checkBox2.setBounds(25, 85, 80, 26); // 85
-         * this.checkBox2.setSelected(false);
-         * this.checkBox2.addChangeListener(this);
-         * panel.add(this.checkBox2, null);
-         * dt_end = new DateComponent(m_da.m_i18n);
-         * dt_end.addActionListener(this);
-         * dt_end.setBounds(90, 85, 210, 26);
-         * dt_end.setEnabled(false);
-         * dt_end.setActionCommand("date_changed");
-         * dt_end.setNote("end");
-         * //comboBox1.addItemListener(this);
-         * panel.add(dt_end, null);
-         * label = new JLabel(ic.getMessage("SUBJECT") + ":");
-         * label.setBounds(25, 112, 80, 26);
-         * panel.add(label, null);
-         * if (this.m_type==SelectorDialog.SELECTOR_WEEKLY_NEWS)
-         * {
-         * label.setText(ic.getMessage("SUB_TITLE") + ":");
-         * }
-         * textField1 = new JTextField();
-         * textField1.setBounds(100, 112, 168, 24);
-         * Document styledDoc = textField1.getDocument();
-         * if (styledDoc instanceof AbstractDocument)
-         * {
-         * doc = (AbstractDocument)styledDoc;
-         * //doc.setDocumentFilter(new DocumentSizeFilter(MAX_CHARACTERS));
-         * }
-         * else
-         * {
-         * System.err.println("Text pane's document isn't an AbstractDocument!");
-         * System.exit(-1);
-         * }
-         * doc.addDocumentListener(this);
-         * panel.add(textField1, null);
-         * }
-         */
 
         createTable();
 
@@ -1418,32 +939,6 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
             panel.add(button4);
         }
 
-        /*
-         * if (tf_needed)
-         * {
-         * textField1.setNextFocusableComponent(button1);
-         * }
-         * else
-         * {
-         * comboBox1.setNextFocusableComponent(button1);
-         * }
-         */
-        // CHANGE
-        /*
-         * if ((this.m_type!=SelectorDialog.SELECTOR_OCCUPATION) &&
-         * (this.m_type!=SelectorDialog.SELECTOR_COUNTRY) &&
-         * (this.m_type!=SelectorDialog.SELECTOR_RELIGION) &&
-         * (this.m_type!=SelectorDialog.SELECTOR_STREET) &&
-         * (this.m_type!=SelectorDialog.SELECTOR_PARISH) &&
-         * (this.m_type!=SelectorDialog.SELECTOR_EVENT_PERFORMER) &&
-         * (this.m_type!=SELECTOR_PERSON_MULTIPLE) &&
-         * (this.m_type!=SELECTOR_ADDRESS_SPECIAL) &&
-         * (this.m_type!=SELECTOR_PARISH_PERSON) &&
-         * (this.m_type!=SELECTOR_DIOCESE) &&
-         * (this.m_type!=SELECTOR_INTERNAL_PERSON) &&
-         * // (this.m_type!=SelectorDialog.SELECTOR_EVENT_BY_TYPE) &&
-         * (this.m_type!=SelectorDialog.SELECTOR_POST))
-         */
 
         if (this.isActionAllowed(SelectorAbstractDialog.SELECTOR_ACTION_NEW))
         {
@@ -1482,31 +977,10 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
         initByFilterType();
 
-        /*
-         * else
-         * {
-         * /* if (tf_needed)
-         * {
-         * textField1.setNextFocusableComponent(button1);
-         * }
-         * else
-         * {
-         * comboBox1.setNextFocusableComponent(button1);
-         * }
-         */
-        /*
-         * //button1.sel.selectN
-         * }
-         */
 
         this.setBounds(100, 80, 520, 440);
 
-        // ATDataAccess.getInstance().centerJDialog(this, getInternalParent());
-
-        // System.out.println("internalparent: " + getInternalParent());
-
-        m_da.centerJDialog(this, this.getParent()); // getInternalParent());
-        // m_da.centerJDialog(this); //, getInternalParent());
+        ATSwingUtils.centerJDialog(this, this.getParent()); // getInternalParent());
 
         this.setResizable(false);
 
@@ -1836,304 +1310,6 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         checkAndExecuteAction(action);
     }
 
-    /*
-     * // CHANGE
-     * if (action.equals("select"))
-     * {
-     * selected_id = -1;
-     * selected_txt = "";
-     * if (table!=null)
-     * {
-     * //long row = table.getSelectedRow();
-     * if (table.getSelectedRow()==-1)
-     * return;
-     * if (m_type==SELECTOR_POST)
-     * {
-     * Selectable sl = list.get(table.getSelectedRow());
-     * Post pst = (Post)sl;
-     * selected_id = pst.getId();
-     * selected_txt = pst.getShortDescription();
-     * selected_Object = pst;
-     * }
-     * else if ((m_type==SELECTOR_EVENT) ||
-     * (m_type==SELECTOR_EVENT_BY_TYPE))
-     * {
-     * Selectable sl = list.get(table.getSelectedRow());
-     * Events ev = (Events)sl;
-     * selected_id = ev.getId();
-     * selected_txt = ev.getShortDescription();
-     * selected_Object = ev;
-     * }
-     * else if (m_type==SELECTOR_PERSON)
-     * {
-     * Selectable sl = list.get(table.getSelectedRow());
-     * Person prs = (Person)sl;
-     * selected_id = prs.getId();
-     * selected_txt = prs.getShortDescription();
-     * selected_Object = prs;
-     * }
-     * else if (m_type==SELECTOR_COUNTRY)
-     * {
-     * Selectable sl = list.get(table.getSelectedRow());
-     * Country prs = (Country)sl;
-     * selected_id = -2;
-     * selected_id_str = prs.getIso();
-     * selected_txt = prs.getShortDescription();
-     * selected_Object = prs;
-     * }
-     * else if (m_type==SELECTOR_OCCUPATION)
-     * {
-     * Selectable sl = list.get(table.getSelectedRow());
-     * Profession prs = (Profession)sl;
-     * selected_id = prs.getId();
-     * selected_txt = prs.getName();
-     * selected_Object = prs;
-     * }
-     * else if (m_type==SELECTOR_RELIGION)
-     * {
-     * Selectable sl = list.get(table.getSelectedRow());
-     * Religion prs = (Religion)sl;
-     * selected_id = prs.getId();
-     * selected_txt = prs.getName();
-     * selected_Object = prs;
-     * }
-     * else if (m_type==SELECTOR_STREET)
-     * {
-     * Selectable sl = list.get(table.getSelectedRow());
-     * Street prs = (Street)sl;
-     * selected_id = prs.getId();
-     * selected_txt = prs.getName();
-     * selected_Object = prs;
-     * }
-     * else if (m_type==SELECTOR_PARISH)
-     * {
-     * Selectable sl = list.get(table.getSelectedRow());
-     * Parish prs = (Parish)sl;
-     * selected_id = prs.getId();
-     * selected_txt = prs.getName();
-     * selected_Object = prs;
-     * }
-     * else if (m_type==SELECTOR_EVENT_PERFORMER)
-     * {
-     * Selectable sl = list.get(table.getSelectedRow());
-     * InternalPerson prs = (InternalPerson)sl;
-     * selected_id = -1;
-     * //prs.
-     * //selected_id = prs..getId();
-     * //lected_txt = prs.g.m_linkName;
-     * selected_Object = prs;
-     * }
-     * else if (m_type==SELECTOR_PERSON_MULTIPLE)
-     * {
-     * if (table.getSelectedRowCount()>0)
-     * {
-     * this.selected_ObjectS.clear();
-     * int[] rws = table.getSelectedRows();
-     * for (int i=0; i<rws.length; i++)
-     * {
-     * Selectable sl = list.get(rws[i]);
-     * Person prs = (Person)sl;
-     * //selected_id = prs.getId();
-     * //selected_txt = prs.getShortDescription();
-     * //selected_Object = prs;
-     * selected_ObjectS.add(prs);
-     * }
-     * }
-     * }
-     * else if(m_type == SELECTOR_ADDRESS_SPECIAL)
-     * {
-     * Selectable sl = (Selectable)list.get(table.getSelectedRow());
-     * PersonAddress prs = (PersonAddress)sl;
-     * selected_id = -1L;
-     * // YYY selected_txt = prs.getLink_address();
-     * selected_Object = prs;
-     * }
-     * else if (m_type == SELECTOR_PARISH_PERSON)
-     * {
-     * Selectable sl = (Selectable)list.get(table.getSelectedRow());
-     * ParishPerson prs = (ParishPerson)sl;
-     * selected_id = -1L;
-     * selected_txt = prs.toString();
-     * selected_Object = prs;
-     * }
-     * else if(m_type == SELECTOR_INTERNAL_PERSON)
-     * {
-     * Selectable sl = (Selectable)list.get(table.getSelectedRow());
-     * InternalPerson prs = (InternalPerson)sl;
-     * selected_id = -1L;
-     * selected_txt = prs.toString();
-     * selected_Object = prs;
-     * }
-     * else if (m_type == SELECTOR_DIOCESE)
-     * {
-     * Selectable sl = (Selectable)list.get(table.getSelectedRow());
-     * Diocese prs = (Diocese)sl;
-     * selected_id = prs.getId();
-     * selected_txt = prs.toString();
-     * selected_Object = prs;
-     * }
-     * else if ((m_type == SELECTOR_NEWS) ||
-     * (m_type == SELECTOR_WEEKLY_NEWS))
-     * {
-     * Selectable sl = (Selectable)list.get(table.getSelectedRow());
-     * News nw = (News)sl;
-     * selected_id = nw.getId();
-     * selected_txt = nw.toString();
-     * selected_Object = nw;
-     * }
-     * else if (m_type == SELECTOR_GROUP)
-     * {
-     * Selectable sl = (Selectable)list.get(table.getSelectedRow());
-     * Group nw = (Group)sl;
-     * selected_id = nw.getId();
-     * selected_txt = nw.toString();
-     * selected_Object = nw;
-     * }
-     * else if (m_type == SELECTOR_YOUTH_GROUP)
-     * {
-     * Selectable sl = (Selectable)list.get(table.getSelectedRow());
-     * YouthGroup nw = (YouthGroup)sl;
-     * selected_id = nw.getId();
-     * selected_txt = nw.toString();
-     * selected_Object = nw;
-     * }
-     * }
-     * lastAction = 1;
-     * this.dispose();
-     * }
-     * else if (action.equals("cancel"))
-     * {
-     * selected_id = -1;
-     * selected_txt = "";
-     * lastAction = 0;
-     * this.dispose();
-     * }
-     * else if (action.equals("date_changed"))
-     * {
-     * if (this.date_selector_type==0)
-     * {
-     * return;
-     * }
-     * else if (this.date_selector_type==3)
-     * {
-     * DateComponent dc = (DateComponent)e.getSource();
-     * String note = dc.getNote();
-     * if ((note.equals("start")) &&
-     * (dt_start.getDate() > dt_end.getDate()))
-     * {
-     * this.dt_end.setDate(this.dt_start.getDate());
-     * }
-     * if ((note.equals("end")) &&
-     * (dt_start.getDate() > dt_end.getDate()))
-     * {
-     * this.dt_start.setDate(this.dt_end.getDate());
-     * }
-     * }
-     * this.filterEntries();
-     * }
-     * else if (action.equals("new"))
-     * {
-     * boolean act = false;
-     * // CHANGE
-     * if ((m_type==SELECTOR_EVENT) ||
-     * (m_type==SELECTOR_EVENT_BY_TYPE))
-     * {
-     * if (m_type==SELECTOR_EVENT_BY_TYPE)
-     * {
-     * m_da.m_settings.put("EVENT_TYPE", m_except);
-     * }
-     * EventDialog ed = new EventDialog(m_da, -1); //, true, 1);
-     * act = ed.wasAction();
-     * m_da.m_settings.remove("EVENT_TYPE");
-     * }
-     * else if ((m_type == SELECTOR_NEWS) ||
-     * (m_type == SELECTOR_WEEKLY_NEWS))
-     * {
-     * int type = 0;
-     * if (m_type == SELECTOR_NEWS)
-     * type = NewsDialog.NEWS_DAILY_NEWS;
-     * else
-     * type = NewsDialog.NEWS_WEEKLY_NEWS;
-     * NewsDialog nd = new NewsDialog(m_da, type);
-     * act = nd.wasAction();
-     * //Selectable sl = (Selectable)list.get(table.getSelectedRow());
-     * //News nw = (News)sl;
-     * //selected_id = nw.getId();
-     * //selected_txt = nw.toString();
-     * //selected_Object = nw;
-     * }
-     * else if (m_type==SELECTOR_PERSON)
-     * {
-     * PersonDialog ed = new PersonDialog(m_da, -1, 0);
-     * act = ed.wasAction();
-     * }
-     * else
-     * {
-     * // NA
-     * return;
-     * }
-     * if (act)
-     * {
-     * getFullData();
-     * getInitialValues();
-     * createTable();
-     * }
-     * }
-     * else if (action.equals("edit"))
-     * {
-     * boolean act = false;
-     * long id = getCurrentSelectedID();
-     * System.out.println("Edit id: " + id);
-     * if (id<0)
-     * return;
-     * // CHANGE
-     * if ((m_type==SELECTOR_EVENT) ||
-     * (m_type==SELECTOR_EVENT_BY_TYPE))
-     * {
-     * if (m_type==SELECTOR_EVENT_BY_TYPE)
-     * {
-     * m_da.m_settings.put("EVENT_TYPE", m_except);
-     * }
-     * EventDialog ed = new EventDialog(m_da, id); //, true, 1);
-     * act = ed.wasAction();
-     * m_da.m_settings.remove("EVENT_TYPE");
-     * }
-     * else if ((m_type == SELECTOR_NEWS) ||
-     * (m_type == SELECTOR_WEEKLY_NEWS))
-     * {
-     * int type = 0;
-     * Selectable sl = (Selectable)list.get(table.getSelectedRow());
-     * News nw = (News)sl;
-     * NewsDialog nd = new NewsDialog(m_da, nw);
-     * act = nd.wasAction();
-     * //Selectable sl = (Selectable)list.get(table.getSelectedRow());
-     * //News nw = (News)sl;
-     * //selected_id = nw.getId();
-     * //selected_txt = nw.toString();
-     * //selected_Object = nw;
-     * }
-     * else if (m_type==SELECTOR_PERSON)
-     * {
-     * PersonDialog ed = new PersonDialog(m_da, id, 0);
-     * act = ed.wasAction();
-     * }
-     * else
-     * {
-     * // NA
-     * return;
-     * }
-     * if (act)
-     * {
-     * getFullData();
-     * getInitialValues();
-     * createTable();
-     * }
-     * }
-     * else // new, edit
-     * System.out.println("Unknown command: " + action);
-     * // YYYY
-     * }
-     */
 
     /**
      * Close Dialog
@@ -2190,34 +1366,6 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
     }
 
-    /*
-     * {
-     * // CHANGE
-     * if ((m_type==this.SELECTOR_PARISH) ||
-     * (m_type==this.SELECTOR_EVENT_PERFORMER) )
-     * {
-     * old_value = par_selected;
-     * int x = comboBox1.getSelectedIndex();
-     * if (((!old_value) && (x==0)) ||
-     * (old_value) && (x==1))
-     * {
-     * // nothing
-     * }
-     * else
-     * {
-     * if (x==0)
-     * par_selected = false;
-     * else
-     * par_selected = true;
-     * getFullData();
-     * getInitialValues();
-     * createTable();
-     * }
-     * }
-     * else
-     * filterEntries();
-     * }
-     */
 
     /**
     * Filter entries.
@@ -2306,7 +1454,8 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
         }
 
-        System.out.println("Filter: " + list.size());
+        if (debug)
+            System.out.println("Filter: " + list.size());
 
         createTable();
 
@@ -2322,89 +1471,6 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         return comboBox1.getSelectedIndex();
     }
 
-    // CHANGE
-    // public abstract void filterEntries();
-    /*
-     * {
-     * long flt = System.currentTimeMillis();
-     * String flt_entry = "";
-     * int flt_idx= 0;
-     * int flt_from=0, flt_to=0;
-     * // System.out.println("Text: " + textField1.getText());
-     * if ((m_type==SelectorDialog.SELECTOR_POST) ||
-     * (m_type==SelectorDialog.SELECTOR_COUNTRY) ||
-     * (m_type==SelectorDialog.SELECTOR_OCCUPATION) ||
-     * (m_type==SelectorDialog.SELECTOR_RELIGION) ||
-     * (m_type==SelectorDialog.SELECTOR_STREET) ||
-     * (m_type==SelectorDialog.SELECTOR_PARISH) ||
-     * (m_type==SelectorDialog.SELECTOR_EVENT_PERFORMER) ||
-     * (m_type==SelectorDialog.SELECTOR_PERSON_MULTIPLE) ||
-     * (m_type==SelectorDialog.SELECTOR_ADDRESS_SPECIAL) ||
-     * (m_type==SelectorDialog.SELECTOR_PARISH_PERSON) ||
-     * (m_type==SelectorDialog.SELECTOR_DIOCESE) ||
-     * (m_type==SelectorDialog.SELECTOR_INTERNAL_PERSON) ||
-     * (m_type==SelectorDialog.SELECTOR_YOUTH_GROUP) ||
-     * (m_type==SelectorDialog.SELECTOR_GROUP) ||
-     * (m_type==SelectorDialog.SELECTOR_PERSON))
-     * {
-     * flt_entry = textField1.getText().toUpperCase();
-     * }
-     * else if (m_type==SelectorDialog.SELECTOR_EVENT)
-     * {
-     * flt_idx = m_da.getSelectedType((String)comboBox1.getSelectedItem());
-     * }
-     * else if ((m_type==SelectorDialog.SELECTOR_NEWS) ||
-     * (m_type==SelectorDialog.SELECTOR_WEEKLY_NEWS))
-     * {
-     * flt_entry = textField1.getText().toUpperCase();
-     * flt_from = this.dt_start.getDate();
-     * flt_to = this.dt_end.getDate();
-     * }
-     * Iterator<Selectable> it = full.iterator();
-     * list.clear();
-     * while (it.hasNext())
-     * {
-     * Selectable p = it.next();
-     * if ((m_type==SelectorDialog.SELECTOR_POST) ||
-     * (m_type==SelectorDialog.SELECTOR_COUNTRY) ||
-     * (m_type==SelectorDialog.SELECTOR_OCCUPATION) ||
-     * (m_type==SelectorDialog.SELECTOR_STREET) ||
-     * (m_type==SelectorDialog.SELECTOR_RELIGION) ||
-     * (m_type==SelectorDialog.SELECTOR_PARISH) ||
-     * (m_type==SelectorDialog.SELECTOR_EVENT_PERFORMER) ||
-     * (m_type==SelectorDialog.SELECTOR_PERSON_MULTIPLE) ||
-     * (m_type==SelectorDialog.SELECTOR_ADDRESS_SPECIAL) ||
-     * (m_type==SelectorDialog.SELECTOR_PARISH_PERSON) ||
-     * (m_type==SelectorDialog.SELECTOR_DIOCESE) ||
-     * (m_type==SelectorDialog.SELECTOR_INTERNAL_PERSON) ||
-     * (m_type==SelectorDialog.SELECTOR_YOUTH_GROUP) ||
-     * (m_type==SelectorDialog.SELECTOR_GROUP) ||
-     * (m_type==SelectorDialog.SELECTOR_PERSON))
-     * {
-     * if (p.isFound(flt_entry))
-     * list.add(p);
-     * }
-     * else if (m_type==this.SELECTOR_EVENT)
-     * {
-     * if (p.isFound(flt_idx))
-     * list.add(p);
-     * }
-     * else if ((m_type==SelectorDialog.SELECTOR_NEWS) ||
-     * (m_type==SelectorDialog.SELECTOR_WEEKLY_NEWS))
-     * {
-     * if ((p.isFound(flt_entry)) && (p.isFound(flt_from, flt_to,
-     * this.date_selector_type)))
-     * list.add(p);
-     * }
-     * // if ((p.m_post_name_idx.indexOf(flt_entry)!=-1) ||
-     * (flt_entry.length()==0))
-     * // list.add(p);
-     * }
-     * System.out.println("Flt: " + (System.currentTimeMillis() - flt) +
-     * " ms ");
-     * createTable();
-     * }
-     */
 
     /**
     * Gets the selected id.
@@ -2489,91 +1555,6 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
         return sl.getItemId();
 
-        /*
-         * // CHANGE
-         * if (m_type==SelectorDialog.SELECTOR_POST)
-         * {
-         * Post p = (Post)sl;
-         * return p.getId();
-         * }
-         * else if ((m_type==SelectorDialog.SELECTOR_EVENT) ||
-         * (m_type==SelectorDialog.SELECTOR_EVENT_BY_TYPE))
-         * {
-         * Events ev = (Events)sl;
-         * //System.out.println("Ev ID: "+ ev.getId());
-         * return ev.getId();
-         * }
-         * else if (m_type==SelectorDialog.SELECTOR_PERSON)
-         * {
-         * Person p = (Person)sl;
-         * return p.getId();
-         * }
-         * else if (m_type==SelectorDialog.SELECTOR_COUNTRY)
-         * {
-         * return -1;
-         * }
-         * else if (m_type==SelectorDialog.SELECTOR_OCCUPATION)
-         * {
-         * Profession p = (Profession)sl;
-         * return p.getId();
-         * }
-         * else if (m_type==SelectorDialog.SELECTOR_RELIGION)
-         * {
-         * Religion p = (Religion)sl;
-         * return p.getId();
-         * }
-         * else if (m_type==SelectorDialog.SELECTOR_STREET)
-         * {
-         * Street p = (Street)sl;
-         * return p.getId();
-         * }
-         * else if (m_type==SelectorDialog.SELECTOR_PARISH)
-         * {
-         * Parish p = (Parish)sl;
-         * return p.getId();
-         * }
-         * else if (m_type==SelectorDialog.SELECTOR_PERSON_MULTIPLE)
-         * {
-         * return -1;
-         * }
-         * else if (m_type==SelectorDialog.SELECTOR_PARISH_PERSON)
-         * {
-         * ParishPerson p = (ParishPerson)sl;
-         * return p.getId();
-         * }
-         * else if ((m_type==SelectorDialog.SELECTOR_INTERNAL_PERSON) ||
-         * (m_type==SelectorDialog.SELECTOR_EVENT_PERFORMER))
-         * {
-         * InternalPerson p = (InternalPerson)sl;
-         * return p.getId();
-         * }
-         * else if (m_type==SelectorDialog.SELECTOR_DIOCESE)
-         * {
-         * Diocese p = (Diocese)sl;
-         * return p.getId();
-         * }
-         * else if ((m_type==SelectorDialog.SELECTOR_NEWS) ||
-         * (m_type==SelectorDialog.SELECTOR_WEEKLY_NEWS))
-         * {
-         * News n = (News)sl;
-         * return n.getId();
-         * }
-         * else if (m_type==SelectorDialog.SELECTOR_GROUP)
-         * {
-         * Group g = (Group)sl;
-         * return g.getId();
-         * }
-         * else if (m_type==SelectorDialog.SELECTOR_YOUTH_GROUP)
-         * {
-         * YouthGroup yg = (YouthGroup)sl;
-         * return yg.getId();
-         * }
-         * else
-         * {
-         * System.out.println("getCurrentSelectedID:Undefined type");
-         * return -1;
-         * }
-         */
     }
 
     /** 

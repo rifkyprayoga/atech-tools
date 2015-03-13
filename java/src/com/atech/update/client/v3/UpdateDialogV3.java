@@ -1,8 +1,6 @@
-package com.atech.update.client;
+package com.atech.update.client.v3;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -11,17 +9,7 @@ import java.net.URL;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 
 import org.apache.commons.logging.Log;
@@ -30,6 +18,8 @@ import org.apache.commons.logging.LogFactory;
 import com.atech.help.ComponentHelpCapable;
 import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
+import com.atech.update.client.UpdateSystemModel;
+import com.atech.update.client.UpdateTableCellRenderer;
 import com.atech.update.client.data.UpdateSettings;
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.update.config.UpdateConfigurationXml;
@@ -69,12 +59,12 @@ import com.atech.utils.xml.XmlUtil;
 
 // NOT FULLY IMPLEMENTED YET.
 
-public class UpdateDialog extends JDialog implements ActionListener, HelpCapable, ComponentHelpCapable
+public class UpdateDialogV3 extends JDialog implements ActionListener, HelpCapable, ComponentHelpCapable
 {
 
     private static final long serialVersionUID = -8822530996424234341L;
 
-    private static Log log = LogFactory.getLog(UpdateDialog.class);
+    private static Log log = LogFactory.getLog(UpdateDialogV3.class);
     UpdateSystemModel model = null;
 
     ATDataAccessAbstract m_da = null;
@@ -104,14 +94,15 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
     long next_version = 0L;
 
+
     /**
      * Constructor
-     * 
+     *
      * @param parent
      * @param uconf
      * @param da
      */
-    public UpdateDialog(JDialog parent, UpdateConfiguration uconf, ATDataAccessAbstract da)
+    public UpdateDialogV3(JDialog parent, UpdateConfiguration uconf, ATDataAccessAbstract da)
     {
         super(parent, "", true);
         m_da = da;
@@ -121,6 +112,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
         init();
     }
+
 
     /*
      * public UpdateDialog(JFrame parent, UpdateSystem usys)
@@ -135,12 +127,12 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
     /**
      * Constructor
-     * 
+     *
      * @param parent
      * @param uconf
      * @param da
      */
-    public UpdateDialog(JFrame parent, UpdateConfiguration uconf, ATDataAccessAbstract da)
+    public UpdateDialogV3(JFrame parent, UpdateConfiguration uconf, ATDataAccessAbstract da)
     {
         super(parent, "", true);
 
@@ -152,16 +144,18 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         init();
     }
 
+
     /**
      * Constructor
-     * 
+     *
      * @param parent
      * @param da
      */
-    public UpdateDialog(JFrame parent, ATDataAccessAbstract da)
+    public UpdateDialogV3(JFrame parent, ATDataAccessAbstract da)
     {
         this(parent, da.getUpdateConfiguration(), da);
     }
+
 
     /**
      *   Constructor for PersonAddress
@@ -191,8 +185,6 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
         // m_mass = mse;
 
-
-
         // this.loadNeededData();
 
         // this.uo_root = uo_root;
@@ -214,6 +206,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
     }
 
+
     /**
      *   Displays title for dialog
      */
@@ -226,6 +219,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         label_title.setText(ev);
 
     }
+
 
     /**
      *   Displays GUI
@@ -284,11 +278,11 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         {
             label = new JLabel(leg_label[i]);
             label.setIcon(ATSwingUtils.getImageIcon("/icons/", pictures[i], this)); // width,
-                                                                            // height,
-                                                                            // comp)new
-                                                                            // ImageIcon(m_da.getImage("/icons/",
-                                                                            // pictures[i],
-                                                                            // this)));
+            // height,
+            // comp)new
+            // ImageIcon(m_da.getImage("/icons/",
+            // pictures[i],
+            // this)));
             label.setBounds(x_kors[i], 344, widths[i], 25);
             panel.add(label);
         }
@@ -388,7 +382,8 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         // --- Help command
         // ---
 
-        this.help_button = ATSwingUtils.createHelpButtonByBounds(485, 385, 120, 25, this, ATSwingUtils.FONT_NORMAL, m_da);
+        this.help_button = ATSwingUtils.createHelpButtonByBounds(485, 385, 120, 25, this, ATSwingUtils.FONT_NORMAL,
+            m_da);
         this.help_button.setFont(font_normal);
         panel.add(help_button);
 
@@ -407,6 +402,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
     }
 
+
     /**
      * Show Dialog
      */
@@ -414,6 +410,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     {
         this.setVisible(true);
     }
+
 
     /**
      *  Action Listener
@@ -453,6 +450,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
     }
 
+
     /**
      *  Gets info if action was performed.
      * 
@@ -465,6 +463,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         else
             return false;
     }
+
 
     /**
      *  Returns object saved
@@ -481,6 +480,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
      */
     private String help_id;
 
+
     /** 
      * enableHelp
      */
@@ -490,6 +490,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         m_da.enableHelp(this);
     }
 
+
     /** 
      * getComponent
      */
@@ -497,6 +498,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     {
         return this;
     }
+
 
     /** 
      * getHelpButton
@@ -506,6 +508,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         return this.help_button;
     }
 
+
     /** 
      * getHelpId
      */
@@ -513,6 +516,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     {
         return this.help_id;
     }
+
 
     /**
      * Update System v2.1
@@ -703,6 +707,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         }
     }
 
+
     private String getServletData(String full_url)
     {
         try
@@ -740,6 +745,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
     }
 
+
     @SuppressWarnings("unused")
     private String getParameter(String parameter, String text)
     {
@@ -754,6 +760,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
         return par;
     }
+
 
     /**
      * Run Update
@@ -792,6 +799,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         // m_da.showDialog(this, ATDataAccessAbstract.DIALOG_INFO,
         // "Run Update !");
     }
+
 
     private void processDetailsData(String xml)
     {

@@ -380,14 +380,7 @@ public class ATDataAccess extends ATDataAccessAbstract
     // ****** Fonts *****
     // ********************************************************
 
-    /** 
-     * getFont
-     */
-    @Override
-    public Font getFont(int font_id)
-    {
-        return fonts[font_id];
-    }
+
 
     // ********************************************************
     // ****** Parent handling (for UIs) *****
@@ -414,54 +407,7 @@ public class ATDataAccess extends ATDataAccessAbstract
 
     // public ImageIcon getImageIcon(String image)
 
-    /** 
-     * getImage
-     */
-    @Override
-    public Image getImage(String filename, Component cmp)
-    {
-        Image img;
 
-        InputStream is = this.getClass().getResourceAsStream(filename);
-
-        if (is == null)
-        {
-            System.out.println("Error reading image: " + filename);
-        }
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try
-        {
-            int c;
-            while ((c = is.read()) >= 0)
-            {
-                baos.write(c);
-            }
-
-            // JDialog.getT
-            // JFrame.getToolkit();
-            img = cmp.getToolkit().createImage(baos.toByteArray());
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-            return null;
-        }
-        finally
-        {
-            if (is != null)
-            {
-                try
-                {
-                    is.close();
-                    is = null;
-                }
-                catch (IOException e)
-                {}
-            }
-        }
-        return img;
-    }
 
     /** 
      * setParent

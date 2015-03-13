@@ -178,7 +178,6 @@ public class DbToolAccess extends ATDataAccessAbstract
         System.out.println("DbToolsAccess");
         // m_db = db;
         // loadConfig();
-        loadFonts();
 
         m_dataDefs = new DatabaseDefinitions();
         m_databases_treeroot = new DbToolTreeRoot(this);
@@ -284,26 +283,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     // public static final int FONT_NORMAL = 1;
     // public static final int FONT_NORMAL_BOLD = 2;
 
-    /** 
-     * loadFonts
-     */
-    @Override
-    public void loadFonts()
-    {
-        fonts = new Font[3];
-        fonts[0] = new Font("SansSerif", Font.BOLD, 22);
-        fonts[1] = new Font("SansSerif", Font.PLAIN, 12);
-        fonts[2] = new Font("SansSerif", Font.BOLD, 12);
-    }
 
-    /** 
-     * getFont
-     */
-    @Override
-    public Font getFont(int font_id)
-    {
-        return fonts[font_id];
-    }
 
     // ********************************************************
     // ****** Parent handling (for UIs) *****

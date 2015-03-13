@@ -169,19 +169,19 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         // button.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
         button.setActionCommand("ok");
         button.addActionListener(this);
-        button.setIcon(dataAccess.getImageIcon_22x22("ok.png", this));
+        button.setIcon(ATSwingUtils.getImageIcon_22x22("ok.png", this, dataAccess));
         button.setBounds(25, start_y + 150, 120, 25); // 145
         panel.add(button);
 
         button = new JButton("   " + i18nControl.getMessage("CANCEL"));
         // button.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
         button.setActionCommand("cancel");
-        button.setIcon(dataAccess.getImageIcon_22x22("cancel.png", this));
+        button.setIcon(ATSwingUtils.getImageIcon_22x22("cancel.png", this, dataAccess));
         button.addActionListener(this);
         button.setBounds(155, start_y + 150, 120, 25);
         panel.add(button);
 
-        helpButton = dataAccess.createHelpButtonByBounds(285, start_y + 150, 120, 25, this);
+        helpButton = ATSwingUtils.createHelpButtonByBounds(285, start_y + 150, 120, 25, this, ATSwingUtils.FONT_NORMAL, dataAccess);
         panel.add(helpButton);
 
         if (this.enableHelp)

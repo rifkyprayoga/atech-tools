@@ -1,12 +1,6 @@
 package com.atech.utils;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -16,25 +10,7 @@ import java.util.GregorianCalendar;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.ColorUIResource;
@@ -213,11 +189,11 @@ public class ATSwingUtils
      * @param cmp 
      * @return 
      */
-    public Image getImage(String filename, Component cmp)
+    public static Image getImage(String filename, Component cmp)
     {
         Image img;
 
-        InputStream is = this.getClass().getResourceAsStream(filename);
+        InputStream is = cmp.getClass().getResourceAsStream(filename);
 
         if (is == null)
         {
@@ -268,8 +244,12 @@ public class ATSwingUtils
         int y = rec.height / 2;
         y += rec.y;
 
+        //System.out.println("x=" + x + ", y=" + y);
+
         x -= dialog.getBounds().width / 2;
         y -= dialog.getBounds().height / 2;
+
+        //System.out.println("x=" + x + ", y=" + y);
 
         dialog.getBounds().x = x;
         dialog.getBounds().y = y;
@@ -803,7 +783,7 @@ public class ATSwingUtils
      * @param name the name
      * @param tool_tip the tool_tip
      * @param menu 
-     * @param bar the bar
+     *
      * 
      * @return the j menu
      */
@@ -819,7 +799,7 @@ public class ATSwingUtils
      * @param tool_tip the tool_tip
      * @param menu 
      * @param ic 
-     * @param bar the bar
+     *
      * 
      * @return the j menu
      */
@@ -898,13 +878,33 @@ public class ATSwingUtils
     public static JDecimalTextField getNumericTextField(int columns, int decimal_places, Object value, int x, int y,
             int width, int height, Container cont)
     {
+        return getNumericTextField(columns, decimal_places, value, x, y, width, height, cont, null);
+    }
+
+    public static JDecimalTextField getNumericTextField(int columns, int decimal_places, Object value, int x, int y,
+                                                        int width, int height, Container cont, int fontId)
+    {
+        return getNumericTextField(columns, decimal_places, value, x, y, width, height, cont, getFont(fontId));
+    }
+
+
+
+    public static JDecimalTextField getNumericTextField(int columns, int decimal_places, Object value, int x, int y,
+                                                        int width, int height, Container cont, Font font)
+    {
         JDecimalTextField tf = new JDecimalTextField(value, decimal_places);
         tf.setBounds(x, y, width, height);
+
+        if (font != null)
+        {
+            tf.setFont(font);
+        }
 
         cont.add(tf);
 
         return tf;
     }
+
 
     /**
      * Gets the label.
@@ -1146,7 +1146,7 @@ public class ATSwingUtils
             int icon_width, int icon_height, String action_cmd, ActionListener al, Container cont,
             ATDataAccessAbstract da)
     {
-        JButton button = new JButton(da.getImageIcon(icon_name, icon_width, icon_height, cont));
+        JButton button = new JButton(getImageIcon(da.getImagesRoot(), icon_name, icon_width, icon_height, cont));
         button.addActionListener(al);
         button.setActionCommand(action_cmd);
         button.setToolTipText(tooltip);
@@ -1214,11 +1214,11 @@ public class ATSwingUtils
         {
             if (icon_size == null)
             {
-                button.setIcon(da.getImageIcon_22x22(icon_name, cont));
+                button.setIcon(getImageIcon_22x22(icon_name, cont, da));
             }
             else
             {
-                button.setIcon(da.getImageIcon(icon_name, icon_size[0], icon_size[1], cont));
+                button.setIcon(getImageIcon(icon_name, icon_size[0], icon_size[1], cont, da));
             }
         }
         button.setActionCommand(action_cmd);
@@ -1501,7 +1501,7 @@ public class ATSwingUtils
 
         if (icon_small != null)
         {
-            mi.setIcon(da.getImageIcon(icon_small, 15, 15, c));
+            mi.setIcon(getImageIcon(da.getImagesRoot(), icon_small, 15, 15, c));
         }
 
         if (menu != null)
@@ -1626,5 +1626,734 @@ public class ATSwingUtils
 
         return jta;
     }
+
+    // ********************************************************
+    // ****** JFormatted Text Field *****
+    // ********************************************************
+
+    /**
+     * Gets the j formated text value int.
+     *
+     * @param ftf the ftf
+     *
+     * @return the j formated text value int
+     */
+    public static int getJFormatedTextValueInt(JFormattedTextField ftf)
+    {
+        try
+        {
+            ftf.commitEdit();
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Exception on commit value:" + ex);
+        }
+
+        Object o = ftf.getValue();
+
+        if (o instanceof Integer)
+        {
+            // System.out.println("Amount(long): " +
+            // this.amountField.getValue());
+            Integer l = (Integer) o;
+            return l.intValue();
+        }
+        else if (o instanceof Long)
+        {
+            Long l = (Long) o;
+            return l.intValue();
+        }
+        else if (o instanceof Byte)
+        {
+            Byte b = (Byte) o;
+            return b.intValue();
+        }
+        else if (o instanceof Short)
+        {
+            Short s = (Short) o;
+            return s.intValue();
+        }
+        else if (o instanceof Float)
+        {
+            Float f = (Float) o;
+            return f.intValue();
+        }
+        else
+        // if (o instanceof Double)
+        {
+            Double d = (Double) o;
+            return d.intValue();
+        }
+
+    }
+
+
+    public static int getJDecimalTextValueInt(JDecimalTextField ftf)
+    {
+        try
+        {
+            ftf.commitEdit();
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Exception on commit value:" + ex);
+        }
+
+        Object o = ftf.getValue();
+
+        if (o instanceof Integer)
+        {
+            // System.out.println("Amount(long): " +
+            // this.amountField.getValue());
+            Integer l = (Integer) o;
+            return l.intValue();
+        }
+        else if (o instanceof Long)
+        {
+            Long l = (Long) o;
+            return l.intValue();
+        }
+        else if (o instanceof Byte)
+        {
+            Byte b = (Byte) o;
+            return b.intValue();
+        }
+        else if (o instanceof Short)
+        {
+            Short s = (Short) o;
+            return s.intValue();
+        }
+        else if (o instanceof Float)
+        {
+            Float f = (Float) o;
+            return f.intValue();
+        }
+        else
+        // if (o instanceof Double)
+        {
+            Double d = (Double) o;
+            return d.intValue();
+        }
+
+    }
+
+
+    /**
+     * Gets the j formated text value long.
+     *
+     * @param ftf the ftf
+     *
+     * @return the j formated text value long
+     */
+    public static long getJFormatedTextValueLong(JFormattedTextField ftf)
+    {
+        try
+        {
+            ftf.commitEdit();
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Exception on commit value:" + ex);
+        }
+
+        Object o = ftf.getValue();
+
+        if (o instanceof Long)
+        {
+            Long l = (Long) o;
+            return l.longValue();
+        }
+        else if (o instanceof Integer)
+        {
+            Integer l = (Integer) o;
+            return l.longValue();
+        }
+        else if (o instanceof Byte)
+        {
+            Byte b = (Byte) o;
+            return b.longValue();
+        }
+        else if (o instanceof Short)
+        {
+            Short s = (Short) o;
+            return s.longValue();
+        }
+        else if (o instanceof Float)
+        {
+            Float f = (Float) o;
+            return f.longValue();
+        }
+        else
+        // if (o instanceof Double)
+        {
+            // System.out.println("Amount(double): " +
+            // this.amountField.getValue());
+            Double d = (Double) o;
+            return d.longValue();
+        }
+
+        // java.lang.Byte;
+        // java.lang.Double
+        // java.lang.Float;
+        // java.lang.Integer;
+        // java.lang.Long;
+        // java.lang.Short;
+
+    }
+
+    /**
+     * Gets the j formated text value byte.
+     *
+     * @param ftf the ftf
+     *
+     * @return the j formated text value byte
+     */
+    public static byte getJFormatedTextValueByte(JFormattedTextField ftf)
+    {
+        try
+        {
+            ftf.commitEdit();
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Exception on commit value:" + ex);
+        }
+
+        Object o = ftf.getValue();
+
+        if (o instanceof Byte)
+        {
+            Byte b = (Byte) o;
+            return b.byteValue();
+        }
+        else if (o instanceof Short)
+        {
+            Short s = (Short) o;
+            return s.byteValue();
+        }
+        else if (o instanceof Integer)
+        {
+            Integer l = (Integer) o;
+            return l.byteValue();
+        }
+        else if (o instanceof Long)
+        {
+            Long l = (Long) o;
+            return l.byteValue();
+        }
+        else if (o instanceof Float)
+        {
+            Float f = (Float) o;
+            return f.byteValue();
+        }
+        else
+        // if (o instanceof Double)
+        {
+            Double d = (Double) o;
+            return d.byteValue();
+        }
+
+    }
+
+    /**
+     * Gets the j formated text value short.
+     *
+     * @param ftf the ftf
+     *
+     * @return the j formated text value short
+     */
+    public static short getJFormatedTextValueShort(JFormattedTextField ftf)
+    {
+        try
+        {
+            ftf.commitEdit();
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Exception on commit value:" + ex);
+        }
+
+        Object o = ftf.getValue();
+
+        if (o instanceof Short)
+        {
+            Short s = (Short) o;
+            return s.shortValue();
+        }
+        else if (o instanceof Byte)
+        {
+            Byte b = (Byte) o;
+            return b.shortValue();
+        }
+        else if (o instanceof Integer)
+        {
+            Integer l = (Integer) o;
+            return l.shortValue();
+        }
+        else if (o instanceof Long)
+        {
+            Long l = (Long) o;
+            return l.shortValue();
+        }
+        else if (o instanceof Float)
+        {
+            Float f = (Float) o;
+            return f.shortValue();
+        }
+        else
+        // if (o instanceof Double)
+        {
+            Double d = (Double) o;
+            return d.shortValue();
+        }
+
+    }
+
+    /**
+     * Gets the j formated text value float.
+     *
+     * @param ftf the ftf
+     *
+     * @return the j formated text value float
+     */
+    public static float getJFormatedTextValueFloat(JFormattedTextField ftf)
+    {
+        try
+        {
+            ftf.commitEdit();
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Exception on commit value:" + ex + "\nValue:" + ftf.getValue());
+            ex.printStackTrace();
+        }
+
+        Object o = ftf.getValue();
+
+        if (o instanceof Float)
+        {
+            Float f = (Float) o;
+            return f.floatValue();
+        }
+        else if (o instanceof Double)
+        {
+            Double d = (Double) o;
+            return d.floatValue();
+        }
+        else if (o instanceof Long)
+        {
+            Long l = (Long) o;
+            return l.floatValue();
+        }
+        else if (o instanceof Integer)
+        {
+            Integer l = (Integer) o;
+            return l.floatValue();
+        }
+        else if (o instanceof Byte)
+        {
+            Byte b = (Byte) o;
+            return b.floatValue();
+        }
+        else
+        // if (o instanceof Short)
+        {
+            Short s = (Short) o;
+            return s.floatValue();
+        }
+
+    }
+
+    /**
+     * Gets the j formated text value double.
+     *
+     * @param ftf the ftf
+     *
+     * @return the j formated text value double
+     */
+    public static double getJFormatedTextValueDouble(JFormattedTextField ftf)
+    {
+        try
+        {
+            ftf.commitEdit();
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Exception on commit value:" + ex);
+        }
+
+        Object o = ftf.getValue();
+
+        if (o instanceof Double)
+        {
+            Double d = (Double) o;
+            return d.doubleValue();
+        }
+        else if (o instanceof Float)
+        {
+            Float f = (Float) o;
+            return f.doubleValue();
+        }
+        else if (o instanceof Long)
+        {
+            Long l = (Long) o;
+            return l.doubleValue();
+        }
+        else if (o instanceof Integer)
+        {
+            Integer l = (Integer) o;
+            return l.doubleValue();
+        }
+        else if (o instanceof Byte)
+        {
+            Byte b = (Byte) o;
+            return b.doubleValue();
+        }
+        else
+        // if (o instanceof Short)
+        {
+            Short s = (Short) o;
+            return s.doubleValue();
+        }
+
+    }
+
+
+    // ********************************************************
+    // ****** GUI *****
+    // ********************************************************
+
+
+
+    /**
+     * Center j dialog.
+     *
+     * @param dialog the dialog
+     * @param _parent the _parent
+     */
+    public static void centerJDialog(Component dialog, Component /* Container */_parent)
+    {
+
+        Rectangle rec = _parent.getBounds();
+
+        int x = rec.width / 2;
+        x += rec.x;
+
+        int y = rec.height / 2;
+        y += rec.y;
+
+        x -= dialog.getBounds().width / 2;
+        y -= dialog.getBounds().height / 2;
+
+        if (x < 0)
+        {
+            x = 0;
+        }
+
+        if (y < 0)
+        {
+            y = 0;
+        }
+
+        // dialog.getBounds().x = x;
+        // dialog.getBounds().y = y;
+
+        dialog.setBounds(x, y, dialog.getBounds().width, dialog.getBounds().height);
+
+        /*
+         * if (parent instanceof JDialog) { //centerJDialog(dialog,
+         * (JDialog)parent); } else System.out.println("CenterJDialog failed");
+         */
+    }
+
+    //
+    //     HELP
+    //
+
+    public static JButton createHelpButtonBySize(int width, int height, Container comp, ATDataAccessAbstract dataAccess)
+    {
+        return createHelpButtonBySize(width, height, comp, dataAccess.getImagesRoot(), dataAccess.getI18nControlInstance());
+    }
+
+
+    /**
+     * Creates the help button by size.
+     *
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     *
+     * @return the j button
+     */
+    public static JButton createHelpButtonBySize(int width, int height, Container comp, String imagesRoot, I18nControlAbstract ic)
+    {
+        JButton help_button = new JButton(" " + ic.getMessage("HELP"));
+        help_button.setPreferredSize(new Dimension(width, height));
+        help_button.setIcon(getImageIcon_22x22(imagesRoot, "help.png", comp));
+
+        // help_button.setIconTextGap(12);
+
+        return help_button;
+    }
+
+    /**
+     * Creates the help button by size.
+     *
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     *
+     * @return the j button
+     */
+    public static JButton createHelpIconBySize(int width, int height, Container comp, String imagesRoot)
+    {
+        JButton help_button = new JButton();
+        help_button.setPreferredSize(new Dimension(width, height));
+        help_button.setIcon(getImageIcon_22x22(imagesRoot, "help.png", comp));
+        return help_button;
+    }
+
+
+    /**
+     * Creates the help button by bounds.
+     *
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * @param font_id the font_id
+     *
+     * @return the j button
+     */
+    public static JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp, int font_id, ATDataAccessAbstract dataAccess)
+    {
+        return createHelpIconByBounds(x, y, width, height, comp, getFont(font_id), dataAccess.getImagesRoot());
+    }
+
+
+
+
+    /**
+     * Creates the help button by bounds.
+     *
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * @param font_id the font_id
+     *
+     * @return the j button
+     */
+    public static JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp, int font_id, String imagesRoot)
+    {
+        return createHelpIconByBounds(x, y, width, height, comp, getFont(font_id), imagesRoot);
+    }
+
+
+    /**
+     * Creates the help button by bounds.
+     *
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * @param font the font
+     *
+     * @return the j button
+     */
+    public static JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp, Font font, String imagesRoot)
+    {
+        JButton help_button = new JButton();
+        help_button.setBounds(x, y, width, height);
+        help_button.setIcon(getImageIcon(imagesRoot, "help.png", (int) (height * 0.88), (int) (height * 0.88), comp));
+
+        if (font != null)
+        {
+            help_button.setFont(font);
+        }
+
+        return help_button;
+    }
+
+
+
+    public static JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, int fontId, ATDataAccessAbstract da)
+    {
+        return createHelpButtonByBounds(x, y, width, height, comp, getFont(fontId), da.getImagesRoot(), da.getI18nControlInstance());
+    }
+
+
+
+    public static JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, int fontId, String imagesRoot, I18nControlAbstract ic)
+    {
+        return createHelpButtonByBounds(x, y, width, height, comp, getFont(fontId), imagesRoot, ic);
+    }
+
+
+    /**
+     * Creates the help button by bounds.
+     *
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     * @param font the font
+     *
+     * @return the j button
+     */
+    public static JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, Font font, String imagesRoot, I18nControlAbstract ic)
+    {
+        JButton help_button = new JButton("  " + ic.getMessage("HELP"));
+        help_button.setBounds(x, y, width, height);
+        help_button.setIcon(getImageIcon_22x22(imagesRoot, "help.png", comp));
+
+        if (font != null)
+        {
+            help_button.setFont(font);
+        }
+
+        return help_button;
+    }
+
+
+
+    //
+    //   Images
+    //
+
+    /**
+     * Gets the image icon_22x22.
+     *
+     * @param name the name
+     * @param comp the comp
+     *
+     * @return the image icon_22x22
+     */
+    public static ImageIcon getImageIcon_22x22(String name, Container comp, ATDataAccessAbstract dataAccess)
+    {
+        return ATSwingUtils.getImageIcon(dataAccess.getImagesRoot(), name, 22, 22, comp);
+    }
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Gets the image icon_22x22.
+     *
+     * @param name the name
+     * @param comp the comp
+     *
+     * @return the image icon_22x22
+     */
+    public static ImageIcon getImageIcon_22x22(String root, String name, Container comp)
+    {
+        return getImageIcon(root, name, 22, 22, comp);
+    }
+
+
+
+    /**
+     * Gets the image icon.
+     *
+     * @param root the root
+     * @param name the name
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     *
+     * @return the image icon
+     */
+    public static ImageIcon getImageIcon(String root, String name, int width, int height, Container comp)
+    {
+
+        return new ImageIcon(getImage(root + name, comp).getScaledInstance(width, height, Image.SCALE_SMOOTH));
+    }
+
+
+
+    /**
+     * Gets the image icon.
+     *
+     * @param root the root
+     * @param name the name
+     * @param comp the comp
+     *
+     * @return the image icon
+     */
+    public static ImageIcon getImageIcon(String root, String name, Component comp)
+    {
+        Image i = getImage(root + name, comp);
+        return new ImageIcon(i);
+    }
+
+
+
+
+    /**
+     * Gets the image icon.
+     *
+     * @param name the name
+     * @param width the width
+     * @param height the height
+     * @param comp the comp
+     *
+     * @return the image icon
+     */
+    public static ImageIcon getImageIcon(String name, int width, int height, Container comp, ATDataAccessAbstract dataAccess)
+    {
+        return ATSwingUtils.getImageIcon(dataAccess.getImagesRoot(), name, width, height, comp);
+    }
+
+
+    /**
+     * Gets the image icon.
+     *
+     * @param name the name
+     * @param comp the comp
+     *
+     * @return the image icon
+     */
+    public static ImageIcon getImageIcon(String name, Container comp, ATDataAccessAbstract dataAccess)
+    {
+        return ATSwingUtils.getImageIcon(dataAccess.getImagesRoot(), name, comp);
+    }
+
+
+
+
+    public static final int DIALOG_INFO = 1;
+    public static final int DIALOG_WARNING = 2;
+    public static final int DIALOG_ERROR = 3;
+
+    public static void showDialog(Container cont, int type, String message, I18nControlAbstract ic)
+    {
+        if (type == DIALOG_INFO)
+        {
+            JOptionPane.showMessageDialog(cont, message, ic.getMessage("INFORMATION"),
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if (type == DIALOG_WARNING)
+        {
+            JOptionPane.showMessageDialog(cont, message, ic.getMessage("WARNING"),
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        else if (type == DIALOG_ERROR)
+        {
+            JOptionPane.showMessageDialog(cont, message, ic.getMessage("ERROR"),
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
 
 }
