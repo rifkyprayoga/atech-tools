@@ -1,13 +1,13 @@
 package com.atech.utils;
 
+import java.text.DateFormat;
+import java.util.GregorianCalendar;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atech.i18n.I18nControlRunner;
 import com.atech.i18n.mgr.LanguageManager;
-
-import java.text.DateFormat;
-import java.util.GregorianCalendar;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -53,6 +53,7 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
     protected LanguageManager lang_mgr;
     protected I18nControlRunner m_icr = null;
 
+
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
@@ -75,6 +76,7 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
         lang_mgr = lm;
         this.m_icr = icr;
     }
+
 
     public LanguageManager getLanguageManager()
     {
@@ -101,20 +103,25 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
         else
         {
 
-            System.out.println("i18ControlInstance: " + getI18nControlInstance());
-            System.out.println("i18ControlInstance.selectedLocale: " + this.lang_mgr.getSelectedLanguageLocale());
-            System.out.println("i18ControlInstance.selectedLocale: " + this.lang_mgr.getSelectedLanguageInstance());
-            System.out.println("i18ControlInstance.selectedLocale:locale: " + this.lang_mgr.getSelectedLanguageInstance().locale);
-            System.out.println("i18ControlInstance.selectedLocale:real_locale: " + this.lang_mgr.getSelectedLanguageInstance().real_locale);
-            //System.out.println("i18ControlInstance.selectedLocale: " + this.lang_mgr.getSelectedLanguageInstance());
-
-            System.out.println("Time: " + gc_value.getTime());
+            // System.out.println("i18ControlInstance: " +
+            // getI18nControlInstance());
+            // System.out.println("i18ControlInstance.selectedLocale: " +
+            // this.lang_mgr.getSelectedLanguageLocale());
+            // System.out.println("i18ControlInstance.selectedLocale: " +
+            // this.lang_mgr.getSelectedLanguageInstance());
+            // System.out.println("i18ControlInstance.selectedLocale:locale: " +
+            // this.lang_mgr.getSelectedLanguageInstance().locale);
+            // System.out.println("i18ControlInstance.selectedLocale:real_locale: "
+            // + this.lang_mgr.getSelectedLanguageInstance().real_locale);
+            // //System.out.println("i18ControlInstance.selectedLocale: " +
+            // this.lang_mgr.getSelectedLanguageInstance());
+            //
+            // System.out.println("Time: " + gc_value.getTime());
 
             // TODO: fix this
             DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, this.lang_mgr.getSelectedLanguageLocale());
             return df.format(gc_value.getTime());
         }
     }
-
 
 }

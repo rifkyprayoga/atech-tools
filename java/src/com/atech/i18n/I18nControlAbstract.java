@@ -3,12 +3,7 @@ package com.atech.i18n;
 import java.io.FileInputStream;
 import java.text.Collator;
 import java.text.RuleBasedCollator;
-import java.util.Hashtable;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.Properties;
-import java.util.ResourceBundle;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -118,6 +113,7 @@ public abstract class I18nControlAbstract
 
     protected Locale lcls_real[] = null;
 
+
     // static private I18nControl m_i18n = null; // This is handle to unique
     // singelton instance
 
@@ -172,6 +168,7 @@ public abstract class I18nControlAbstract
 
     protected abstract String getLanguageConfigFile();
 
+
     // Method: setLanguage (String language)
     /**
      *
@@ -189,10 +186,12 @@ public abstract class I18nControlAbstract
         createCollationDefintion();
     }
 
+
     /**
      * Init - This method is used to set default language and language root file
      */
     public abstract void init();
+
 
     /**
      * Get Selected Language
@@ -228,10 +227,12 @@ public abstract class I18nControlAbstract
         {
             System.out.println("I18nControl: Configuration file not found. Using default langauge ('en')");
             s_logger.warn("Configuration file not found. Using default langauge ('en')");
+            ex.printStackTrace();
             return null;
         }
 
     }
+
 
     /**
      * Gets the selected langauge.
@@ -262,6 +263,7 @@ public abstract class I18nControlAbstract
         selected_language = language;
         setLanguage(l);
     }
+
 
     // Method: setLanguage (Locale)
     /**
@@ -311,6 +313,7 @@ public abstract class I18nControlAbstract
 
     }
 
+
     /**
      * Init Library
      */
@@ -321,6 +324,7 @@ public abstract class I18nControlAbstract
         setLanguage();
     }
 
+
     /**
      * Gets the selected language locale.
      * 
@@ -328,7 +332,7 @@ public abstract class I18nControlAbstract
      */
     public Locale getSelectedLanguageLocale()
     {
-        if (this.selected_language_locale==null)
+        if (this.selected_language_locale == null)
         {
             System.out.println("sel_language=" + this.selected_language);
 
@@ -339,6 +343,7 @@ public abstract class I18nControlAbstract
 
         return this.selected_language_locale;
     }
+
 
     /**
      * This method sets the language according to the preferences.<br>
@@ -354,6 +359,7 @@ public abstract class I18nControlAbstract
             setLanguage(def_language);
         }
     }
+
 
     // Method: hmmlize
     /**
@@ -381,6 +387,7 @@ public abstract class I18nControlAbstract
 
     }
 
+
     // Method: getMessageHTML(String)
     /**
      * 
@@ -399,6 +406,7 @@ public abstract class I18nControlAbstract
 
     }
 
+
     // Method: getString
     /**
      * 
@@ -413,6 +421,7 @@ public abstract class I18nControlAbstract
     {
         return this.getMessage(msg);
     }
+
 
     // Method: returnSameValue (String)
     /**
@@ -447,6 +456,7 @@ public abstract class I18nControlAbstract
         return out.toString();
 
     }
+
 
     // Method: resolveMnemonic(String)
     /**
@@ -556,6 +566,7 @@ public abstract class I18nControlAbstract
 
     }
 
+
     // temporary only - this is not core
     /**
      * Checks for mnemonic.
@@ -579,6 +590,7 @@ public abstract class I18nControlAbstract
 
         return false;
     }
+
 
     // Method: getMnemonic
     /**
@@ -605,6 +617,7 @@ public abstract class I18nControlAbstract
         }
 
     }
+
 
     /**
      *  Get Message Without Mnemonic
@@ -634,6 +647,7 @@ public abstract class I18nControlAbstract
             return returnSameValue(msg_id);
         }
     }
+
 
     // Method: getMessageFromCatalog
     /**
@@ -738,6 +752,7 @@ public abstract class I18nControlAbstract
 
     }
 
+
     // Method: getMessage (String)
     /**
      * 
@@ -750,6 +765,7 @@ public abstract class I18nControlAbstract
     {
         return getMessageFromCatalog(msg);
     }
+
 
     // this.m_collator = this.m_i18n.getCollationDefintion();
 
@@ -787,6 +803,7 @@ public abstract class I18nControlAbstract
 
     }
 
+
     /**
      * Gets the collation defintion.
      * 
@@ -801,6 +818,7 @@ public abstract class I18nControlAbstract
 
         return this.langaugeCollator;
     }
+
 
     /**
      * Get Partitial Translation
@@ -850,6 +868,7 @@ public abstract class I18nControlAbstract
 
     }
 
+
     private boolean checkStartEnd(String key, char char_el, StringBuffer sb)
     {
         if (key.charAt(0) == char_el)
@@ -875,6 +894,7 @@ public abstract class I18nControlAbstract
         return false;
 
     }
+
 
     /**
      *  Get Name
@@ -905,6 +925,7 @@ public abstract class I18nControlAbstract
 
     }
 
+
     /**
      * @param in
      * @return
@@ -934,6 +955,7 @@ public abstract class I18nControlAbstract
 
         return out;
     }
+
 
     /**
      * Change case of word (something -> Something)

@@ -33,6 +33,16 @@ package com.atech.update.config;
 public class ConfigurationConverter
 {
 
+    public static void writeHeader(String[] args)
+    {
+        System.out.println("ConfigurationConverter (for converting Upgrade.properties to Upgrade.xml)");
+        System.out.println("=========================================================================");
+        System.out.println("Source: " + args[0]);
+        System.out.println("Target: " + args[1]);
+        System.out.println("=========================================================================");
+    }
+
+
     /**
      * @param args
      */
@@ -41,8 +51,19 @@ public class ConfigurationConverter
         if (args.length == 2)
         {
             UpdateConfiguration uc = new UpdateConfiguration(args[0], "");
+
+            if (!uc.isConfigurationValid())
+            {
+                ConfigurationConverter.writeHeader(args);
+                System.out.println("Input file is not valid. Conversion stopped.");
+                return;
+            }
+
             UpdateConfigurationXml ucx = new UpdateConfigurationXml();
             ucx.writeXml(uc, args[1]);
+
+            ConfigurationConverter.writeHeader(args);
+            System.out.println("Conversion complete");
         }
         else
         {
@@ -50,5 +71,4 @@ public class ConfigurationConverter
         }
 
     }
-
 }

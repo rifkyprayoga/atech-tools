@@ -8,20 +8,8 @@ import org.apache.commons.logging.LogFactory;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.ExceptionConverter;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfPageEventHelper;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
 
 /**
  * This file is part of ATech Tools library.
@@ -54,6 +42,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public abstract class PrintAbstractIText extends PdfPageEventHelper
 {
+
     private static final Log LOG = LogFactory.getLog(PrintAbstractIText.class);
 
     protected ATDataAccessAbstract dataAccess = null;
@@ -78,6 +67,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      */
     private static String printRoot = "../data/print/";
 
+
     /**
      * Constructor
      *
@@ -95,25 +85,11 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         }
     }
 
-    /**
-     * Constructor
-     *
-     * @param i18nControl
-     * @param doInit
-     */
-    public PrintAbstractIText(I18nControlAbstract i18nControl, boolean doInit)
-    {
-        this.i18nControl = i18nControl;
-
-        if (doInit)
-        {
-            init();
-        }
-    }
 
     public PrintAbstractIText(ATDataAccessAbstract dataAccess, boolean doInit, PrintParameters parameters)
     {
-        this.i18nControl = i18nControl;
+        this.dataAccess = dataAccess;
+        this.i18nControl = dataAccess.getI18nControlInstance();
 
         if (doInit)
         {
@@ -122,9 +98,11 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         }
     }
 
+
     public void initData()
     {
     }
+
 
     protected void init()
     {
@@ -146,25 +124,30 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         createDocument();
     }
 
+
     protected Phrase createBoldTextPhrase(String text)
     {
         return new Phrase(this.i18nControl.getMessage(text), this.textFontBold);
     }
+
 
     protected Phrase createNormalTextPhrase(String text)
     {
         return new Phrase(this.i18nControl.getMessage(text), this.textFontNormal);
     }
 
+
     protected Phrase createEmptyTextPhrase()
     {
         return new Phrase("", this.textFontNormal);
     }
 
+
     protected Phrase createItalicTextPhrase(String text)
     {
         return new Phrase(this.i18nControl.getMessage(text), this.textFontItalic);
     }
+
 
     /**
      * Get Text Size
@@ -172,6 +155,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      * @return
      */
     public abstract int getTextSize();
+
 
     /**
      * Get Name
@@ -182,6 +166,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     {
         return name;
     }
+
 
     /**
      * Returns Name of report with Full Path
@@ -194,6 +179,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         return f.getAbsolutePath();
     }
 
+
     /**
      * Returns Name of report with Full Path
      *
@@ -203,6 +189,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     {
         return printRoot + getName();
     }
+
 
     /**
      * Returns report name as File instance
@@ -214,6 +201,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         File f = new File(printRoot + getName());
         return f;
     }
+
 
     /**
      * Create Name
@@ -237,12 +225,14 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
 
     }
 
+
     /**
      * Get Title
      *
      * @return
      */
     public abstract Paragraph getTitle();
+
 
     public void discoverDocumentSettings()
     {
@@ -258,7 +248,9 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         }
     }
 
+
     public abstract ITextDocumentPrintSettings getCustomDocumentSettings();
+
 
     /**
      * Create Document
@@ -316,6 +308,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
 
     }
 
+
     protected void setBackground(int element_cnt, PdfPTable table)
     {
         table.getDefaultCell().setVerticalAlignment(Element.ALIGN_BASELINE);
@@ -330,6 +323,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         }
 
     }
+
 
     private void checkIfRootExists()
     {
@@ -347,6 +341,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
             }
         }
     }
+
 
     /**
      * On End Page
@@ -388,6 +383,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
         }
     }
 
+
     /**
      * Create document body.
      *
@@ -396,6 +392,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      */
     public abstract void fillDocumentBody(Document document) throws Exception;
 
+
     /**
      * Returns base filename for printing job, this is just part of end filename
      * (starting part)
@@ -403,6 +400,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      * @return
      */
     public abstract String getFileNameBase();
+
 
     /**
      * Returns data part of filename for printing job, showing which data is

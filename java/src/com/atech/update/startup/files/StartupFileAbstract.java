@@ -37,8 +37,10 @@ import com.atech.update.startup.os.StartupOSAbstract;
 
 public abstract class StartupFileAbstract
 {
+
     UpdateConfiguration upd_conf;
     StartupOSAbstract os_abstract;
+
 
     /**
      * Constructor
@@ -52,6 +54,7 @@ public abstract class StartupFileAbstract
         this.upd_conf = uc;
     }
 
+
     /**
      * Get Class Path
      * 
@@ -59,12 +62,14 @@ public abstract class StartupFileAbstract
      */
     public abstract String getClassPath();
 
+
     /**
      * Get Class Name
      * 
      * @return get class for application
      */
     public abstract String getClassName();
+
 
     /**
      * Does Need Binary Path (if application will run with libraries that have binaries)
@@ -76,12 +81,14 @@ public abstract class StartupFileAbstract
         return false;
     }
 
+
     /**
      * Get File Name for batch file
      * 
      * @return filename for batch file
      */
     public abstract String getFileName();
+
 
     /**
      * Get File Content
@@ -131,6 +138,7 @@ public abstract class StartupFileAbstract
         return sb.toString();
     }
 
+
     /**
      * Has Application Parameters (something %1 %2)
      * 
@@ -141,6 +149,7 @@ public abstract class StartupFileAbstract
         return false;
     }
 
+
     /**
      * Get Application Parameters
      * 
@@ -150,6 +159,7 @@ public abstract class StartupFileAbstract
     {
         return "";
     }
+
 
     /**
      * Get Application Parameters
@@ -170,6 +180,7 @@ public abstract class StartupFileAbstract
         return sb.toString();
     }
 
+
     /**
      * Needs JDBC Drivers
      * 
@@ -180,19 +191,28 @@ public abstract class StartupFileAbstract
         return false;
     }
 
+
     protected String parseRoot(String path, String full_string)
     {
         full_string = full_string.replaceAll(";", this.os_abstract.getSeparator());
         return full_string.replaceAll("%ROOT%", path);
     }
 
+
     protected String getClasspathForComponent(String component_name)
     {
-        ComponentEntry ce = this.upd_conf.components_ht.get(component_name);
-        String path = upd_conf.root + ce.root_dir;
+        if (this.upd_conf.components_ht.containsKey(component_name))
+        {
 
-        return parseRoot(path, ce.files);
+            ComponentEntry ce = this.upd_conf.components_ht.get(component_name);
+            String path = upd_conf.root + ce.root_dir;
+
+            return parseRoot(path, ce.files);
+        }
+        else
+            return null;
     }
+
 
     /**
      * Get Binary Path
@@ -204,6 +224,7 @@ public abstract class StartupFileAbstract
         return "-Djava.library.path=" + this.upd_conf.root + "/lib/native/" + this.os_abstract.getShortOSName();
     }
 
+
     /**
      * Has Java Parameters
      * 
@@ -213,6 +234,7 @@ public abstract class StartupFileAbstract
     {
         return false;
     }
+
 
     /**
      * Get Special Java Parameters

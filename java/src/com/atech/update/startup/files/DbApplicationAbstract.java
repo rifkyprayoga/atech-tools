@@ -1,5 +1,7 @@
 package com.atech.update.startup.files;
 
+import java.util.StringTokenizer;
+
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.update.startup.StartupUtil;
 import com.atech.update.startup.os.StartupOSAbstract;
@@ -48,6 +50,7 @@ public abstract class DbApplicationAbstract extends AtechToolsApplication
         super(uc, osa);
     }
 
+
     /**
      * Get Class Path
      * 
@@ -58,20 +61,44 @@ public abstract class DbApplicationAbstract extends AtechToolsApplication
     {
         StringBuffer sb = new StringBuffer();
 
-        sb.append(getClasspathForComponent("Atech Tools"));
-        sb.append(";");
-        sb.append(getClasspathForComponent("Hibernate Framework"));
-        sb.append(";");
-        sb.append(getClasspathForComponent("GGC Core"));
-        sb.append(";");
-        sb.append(getClasspathForComponent("Log4j"));
-        sb.append(";");
-        sb.append(getClasspathForComponent("Apache Commons Logging"));
+        if (this.upd_conf.dbClasspathComponents != null)
+        {
+            StringTokenizer strtok = new StringTokenizer(this.upd_conf.dbClasspathComponents, ";");
 
-        // GGC Core should be removed
+            while (strtok.hasMoreTokens())
+            {
+                String cp = getClasspathForComponent(strtok.nextToken());
+
+                if (cp != null)
+                {
+                    sb.append(cp);
+
+                    if (strtok.hasMoreTokens())
+                        sb.append(";");
+                }
+            }
+
+        }
+        else
+        {
+            sb.append(getClasspathForComponent("Atech Tools"));
+            sb.append(";");
+            sb.append(getClasspathForComponent("Hibernate Framework"));
+            sb.append(";");
+            sb.append(getClasspathForComponent("GGC Core"));
+            sb.append(";");
+            sb.append(getClasspathForComponent("Log4j"));
+            sb.append(";");
+            sb.append(getClasspathForComponent("Apache Commons Logging"));
+
+            // GGC Core should be removed, actually this whole things should be
+            // removed, but since this parameter was not available in
+            // old versions it must stay
+        }
 
         return StartupUtil.replaceExpression(sb.toString(), ";", this.os_abstract.getSeparator());
     }
+
 
     /**
      * Needs JDBC Drivers

@@ -1,6 +1,7 @@
 package com.atech.utils.data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -57,10 +58,11 @@ public class BitUtils
      */
     protected int byte_order = BIT_ORDER_BIG_ENDIAN;
 
+
     /**
      * The byte_arr.
      */
-    //protected byte[] byte_arr = null;
+    // protected byte[] byte_arr = null;
 
     /**
      * Read byte array.
@@ -68,10 +70,10 @@ public class BitUtils
      * @param array
      *            the array
      */
-//    public void readByteArray(byte[] array)
-//    {
-//        this.byte_arr = array;
-//    }
+    // public void readByteArray(byte[] array)
+    // {
+    // this.byte_arr = array;
+    // }
 
     /**
      * Gets the byte from array.
@@ -81,10 +83,10 @@ public class BitUtils
      *
      * @return the byte from array
      */
-//    public byte getByteFromArray(int offset)
-//    {
-//        return getByte(this.byte_arr, offset);
-//    }
+    // public byte getByteFromArray(int offset)
+    // {
+    // return getByte(this.byte_arr, offset);
+    // }
 
     /**
      * Gets the byte.
@@ -101,6 +103,7 @@ public class BitUtils
         return arr[offset];
     }
 
+
     /**
      * Gets the int from array.
      *
@@ -109,10 +112,10 @@ public class BitUtils
      *
      * @return the int from array
      */
-//    public int getIntFromArray(int offset)
-//    {
-//        return getInt(this.byte_arr, offset);
-//    }
+    // public int getIntFromArray(int offset)
+    // {
+    // return getInt(this.byte_arr, offset);
+    // }
 
     /**
      * Gets the int.
@@ -143,12 +146,14 @@ public class BitUtils
 
     }
 
+
     // endian is here not supported
     public int getByteFromIntsAsInt(int num1, int num2)
     {
         int k = num1 << 4 | num2 & 0xf;
         return k;
     }
+
 
     /**
      * Gets the string from array.
@@ -160,10 +165,10 @@ public class BitUtils
      *
      * @return the string from array
      */
-//    public String getStringFromArray(int offset, int size)
-//    {
-//        return getString(this.byte_arr, offset, size);
-//    }
+    // public String getStringFromArray(int offset, int size)
+    // {
+    // return getString(this.byte_arr, offset, size);
+    // }
 
     /**
      * Gets the string.
@@ -199,6 +204,7 @@ public class BitUtils
         }
     }
 
+
     /**
      * Gets the string.
      *
@@ -233,6 +239,7 @@ public class BitUtils
         }
     }
 
+
     /**
      * Gets the ascii from array.
      *
@@ -243,10 +250,10 @@ public class BitUtils
      *
      * @return the ascii from array
      */
-//    public String getAsciiFromArray(int offset, int size)
-//    {
-//        return getAscii(this.byte_arr, offset, size);
-//    }
+    // public String getAsciiFromArray(int offset, int size)
+    // {
+    // return getAscii(this.byte_arr, offset, size);
+    // }
 
     /**
      * Gets the ascii.
@@ -283,6 +290,7 @@ public class BitUtils
         }
     }
 
+
     /**
      * Gets the byte sub array.
      *
@@ -312,6 +320,7 @@ public class BitUtils
         return arr_out;
     }
 
+
     public byte[] getByteSubArray(byte[] arr, int start, int length)
     {
         byte[] arr_out = new byte[length];
@@ -329,10 +338,12 @@ public class BitUtils
 
     protected boolean short_hex_used = false;
 
+
     public void setUseShortHex(boolean short_true)
     {
         this.short_hex_used = short_true;
     }
+
 
     public int[] getIntSubArray(int[] arr, int start, int end, int length)
     {
@@ -362,6 +373,7 @@ public class BitUtils
          * return arr_out;
          */
     }
+
 
     /**
      * Gets the correct hex value.
@@ -393,6 +405,7 @@ public class BitUtils
         return null;
     }
 
+
     /**
      * Gets the correct hex value.
      *
@@ -423,6 +436,7 @@ public class BitUtils
         return null;
     }
 
+
     /**
      * Show byte array hex.
      *
@@ -444,6 +458,7 @@ public class BitUtils
 
     }
 
+
     public void showIntArrayHex(int[] arr)
     {
         System.out.print("Int array: ");
@@ -458,6 +473,7 @@ public class BitUtils
         System.out.print("\n");
 
     }
+
 
     public String getIntArrayShow(int[] arr)
     {
@@ -474,6 +490,7 @@ public class BitUtils
         return sb.toString();
 
     }
+
 
     /**
      * Show byte array hex.
@@ -500,6 +517,7 @@ public class BitUtils
         return sb.toString();
     }
 
+
     /**
      * Show byte array hex.
      *
@@ -525,6 +543,7 @@ public class BitUtils
         return sb.toString();
     }
 
+
     /**
      * Show byte array.
      *
@@ -542,6 +561,7 @@ public class BitUtils
 
     }
 
+
     public void showByteArrayAsString(byte[] arr)
     {
         System.out.println("Byte array as String: ");
@@ -556,6 +576,7 @@ public class BitUtils
 
         System.out.println(sb.toString());
     }
+
 
     public String getDebugByteArrayHex(byte[] arr)
     {
@@ -577,6 +598,44 @@ public class BitUtils
         return sb.toString();
 
     }
+
+
+    public String getDebugByteArrayHexValue(byte[] arr)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (byte element : arr)
+        {
+            sb.append(getCorrectHexValue(element) + " ");
+        }
+
+        return sb.toString();
+
+    }
+
+
+    public String getDebugByteListHex(List<Byte> list)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Byte array [Hex]: ");
+        sb.append(getDebugByteListHexValue(list));
+
+        return sb.toString();
+    }
+
+
+    public String getDebugByteListHexValue(List<Byte> list)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (byte element : list)
+        {
+            sb.append(getCorrectHexValue(element) + " ");
+        }
+
+        return sb.toString();
+    }
+
 
     /**
      * Show byte array.
@@ -600,6 +659,7 @@ public class BitUtils
         return sb.toString();
     }
 
+
     public String getDebugByteArrayAsString(byte[] arr)
     {
         StringBuilder sb = new StringBuilder();
@@ -615,6 +675,7 @@ public class BitUtils
 
         return sb.toString();
     }
+
 
     /**
      * Reconvert.
@@ -679,6 +740,7 @@ public class BitUtils
 
     }
 
+
     public static byte[] cloneByteArray(byte[] ba)
     {
         byte[] b = new byte[ba.length];
@@ -691,6 +753,7 @@ public class BitUtils
         return b;
     }
 
+
     public static int[] cloneIntArray(int[] ba)
     {
         int[] b = new int[ba.length];
@@ -702,6 +765,7 @@ public class BitUtils
 
         return b;
     }
+
 
     public int[] makePackedBCD(String s)
     {
@@ -730,6 +794,7 @@ public class BitUtils
         return ai1;
     }
 
+
     public int[] makeIntArray(String s)
     {
         if (s != null)
@@ -746,6 +811,7 @@ public class BitUtils
             return null;
     }
 
+
     public int[] concatIntArrays(int arr_in1[], int arr_in2[])
     {
         int arr_out[] = new int[arr_in1.length + arr_in2.length];
@@ -759,6 +825,7 @@ public class BitUtils
         return arr_out;
     }
 
+
     public int getByteAsInt(int i, int j)
     {
         // Contract.pre(i >= 0 && i <= 15, "highNibble value of " + i +
@@ -769,6 +836,7 @@ public class BitUtils
         // Contract.post(k >= 0 && k <= 255, "value of " + k +
         // " is out of expected range 0.." + 255);
     }
+
 
     public byte[] convertIntArrayToByteArray(int[] arr_in)
     {
@@ -788,11 +856,13 @@ public class BitUtils
 
     }
 
+
     public int convertIntsToUnsignedShort(int i, int j)
     {
         // int k = (i & 0xff) << 8 | j & 0xff;
         return (i & 0xff) << 8 | j & 0xff;
     }
+
 
     public int[] getIntArrayFromAL(ArrayList<Integer> list)
     {
@@ -806,6 +876,7 @@ public class BitUtils
         return out;
     }
 
+
     public void addIntArrayToAL(ArrayList<Integer> list, int[] array)
     {
         for (int element : array)
@@ -814,11 +885,13 @@ public class BitUtils
         }
     }
 
+
     public String getHex(long l)
     {
         String s = l != -1L ? "0x" : "";
         return s + getHexCompact(l);
     }
+
 
     public String getHex(int i)
     {
@@ -836,11 +909,13 @@ public class BitUtils
         return s + getHexCompact(i);
     }
 
+
     public String getHex(byte byte0)
     {
         String s = byte0 != -1 ? "0x" : "";
         return s + getHexCompact(byte0);
     }
+
 
     public String getHex(byte abyte0[], int i)
     {
@@ -861,6 +936,7 @@ public class BitUtils
         return new String(stringbuffer);
     }
 
+
     public String getHex(int ai[], int i)
     {
         StringBuffer stringbuffer = new StringBuffer();
@@ -880,15 +956,18 @@ public class BitUtils
         return new String(stringbuffer);
     }
 
+
     public String getHex(byte abyte0[])
     {
         return abyte0 != null ? getHex(abyte0, abyte0.length) : null;
     }
 
+
     public String getHex(int ai[])
     {
         return ai != null ? getHex(ai, ai.length) : null;
     }
+
 
     public String getHexCompact(long l)
     {
@@ -897,17 +976,20 @@ public class BitUtils
         return l != -1L ? s1 + s : "-1";
     }
 
+
     public String getHexCompact(int i)
     {
         long l = i != -1 ? convertUnsignedIntToLong(i) : i;
         return getHexCompact(l);
     }
 
+
     public String getHexCompact(byte byte0)
     {
         int i = byte0 != -1 ? convertUnsignedByteToInt(byte0) : (int) byte0;
         return getHexCompact(i);
     }
+
 
     public String getHexCompact(byte abyte0[], int i)
     {
@@ -928,6 +1010,7 @@ public class BitUtils
         return new String(stringbuffer);
     }
 
+
     public String getHexCompact(int ai[], int i)
     {
         StringBuffer stringbuffer = new StringBuffer();
@@ -947,6 +1030,7 @@ public class BitUtils
         return new String(stringbuffer);
     }
 
+
     public String getHexCompact(byte abyte0[])
     {
         if (abyte0 != null)
@@ -954,6 +1038,7 @@ public class BitUtils
         else
             return null;
     }
+
 
     public String getHexCompact(int ai[])
     {
@@ -963,25 +1048,30 @@ public class BitUtils
             return null;
     }
 
+
     public int convertUnsignedByteToInt(byte byte0)
     {
         return byte0 & 0xff;
     }
+
 
     public long convertUnsignedIntToLong(int i)
     {
         return i & 0xffffffffL;
     }
 
+
     public boolean isEven(int i)
     {
         return i % 2 == 0;
     }
 
+
     public boolean isOdd(int i)
     {
         return !isEven(i);
     }
+
 
     public boolean isZeros(int ai[])
     {
@@ -997,11 +1087,13 @@ public class BitUtils
             return false;
     }
 
+
     public int makeByte(int i, int j)
     {
         int k = i << 4 | j & 0xf;
         return k;
     }
+
 
     public long makeLong(int i, int j, int k, int l)
     {
@@ -1009,17 +1101,20 @@ public class BitUtils
         return l1;
     }
 
+
     public int makeInt(int i, int j)
     {
         int k = (i & 0xff) << 8 | j & 0xff;
         return k;
     }
 
+
     public int makeInt(int i, int j, int k)
     {
         int l = (i & 0xff) << 16 | (j & 0xff) << 8 | k & 0xff;
         return l;
     }
+
 
     public byte[] convertIntsToBytes(int ai[])
     {
@@ -1032,11 +1127,13 @@ public class BitUtils
         return abyte0;
     }
 
+
     public int makeUnsignedShort(int i, int j)
     {
         int k = (i & 0xff) << 8 | j & 0xff;
         return k;
     }
+
 
     public byte[] makeByteArray(int ai[])
     {
@@ -1054,6 +1151,7 @@ public class BitUtils
             return null;
     }
 
+
     public int[] makeIntArray(byte abyte0[])
     {
         int ai[] = new int[abyte0.length];
@@ -1065,10 +1163,12 @@ public class BitUtils
         return ai;
     }
 
+
     public String makeString(int ai[])
     {
         return makeString(ai, 0, ai.length);
     }
+
 
     public String makeString(int ai[], int i, int j)
     {
@@ -1087,6 +1187,7 @@ public class BitUtils
             return null;
     }
 
+
     public int[] concat(int ai[], int ai1[])
     {
         int ai2[] = new int[ai.length + ai1.length];
@@ -1094,6 +1195,7 @@ public class BitUtils
         System.arraycopy(ai1, 0, ai2, ai.length, ai1.length);
         return ai2;
     }
+
 
     public int[] getIntSubArray(int[] arr, int start, int length)
     {
@@ -1118,6 +1220,7 @@ public class BitUtils
 
     }
 
+
     public String getDebugShortArray(short[] arr)
     {
         StringBuilder sb = new StringBuilder();
@@ -1134,6 +1237,7 @@ public class BitUtils
         return sb.toString();
     }
 
+
     public short[] getShortSubArray(short[] arr, int start, int length)
     {
         short[] arr_out = new short[length];
@@ -1146,6 +1250,22 @@ public class BitUtils
         }
 
         return arr_out;
+    }
+
+
+    public byte[] concat(byte[] a, byte[] b)
+    {
+        if ((a == null) || (a.length == 0))
+        {
+            return b;
+        }
+
+        int aLen = a.length;
+        int bLen = b.length;
+        byte[] c = new byte[aLen + bLen];
+        System.arraycopy(a, 0, c, 0, aLen);
+        System.arraycopy(b, 0, c, aLen, bLen);
+        return c;
     }
 
 }

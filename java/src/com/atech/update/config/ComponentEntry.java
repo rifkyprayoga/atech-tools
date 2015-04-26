@@ -9,71 +9,71 @@ import com.atech.update.startup.os.StartupOSAbstract;
 import com.atech.utils.xml.XmlUtil;
 
 /**
- *  This file is part of ATech Tools library.
- *  
- *  ComponentEntry - Component Entry
- *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
- *  
- *  
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
+ * This file is part of ATech Tools library.
+ * <p/>
+ * ComponentEntry - Component Entry
+ * Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
+ * <p/>
+ * <p/>
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * <p/>
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * <p/>
+ * <p/>
+ * For additional information about this project please visit our project site on
+ * http://atech-tools.sourceforge.net/ or contact us via this emails:
+ * andyrozman@users.sourceforge.net or andy@atech-software.com
  *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
- *  
- *  
- *  For additional information about this project please visit our project site on 
- *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
- *  andyrozman@users.sourceforge.net or andy@atech-software.com
- *  
- *  @author Andy
- *
-*/
+ * @author Andy
+ */
 
 public class ComponentEntry implements ComponentInterface
 {
+
     int id = 0;
 
     /**
-     * Group 
+     * Group
      */
     public int group = 0;
 
     /**
-     * Name 
+     * Name
      */
     public String name = "";
 
     /**
-     * Version 
+     * Version
      */
     public String version = "";
 
     /**
-     * Version (num) 
+     * Version (num)
      */
     public int version_num = 1;
 
     /**
-     * Root Directory 
+     * Root Directory
      */
     public String root_dir = "";
 
     /**
-     * Files 
+     * Files
      */
     public String files = "";
 
     /**
-     * Comment 
+     * Comment
      */
     public String comment = "";
 
@@ -90,7 +90,9 @@ public class ComponentEntry implements ComponentInterface
     /**
      * Status
      */
-    public int status = 4;
+    public ComponentEntryStatus status = ComponentEntryStatus.Unknown;
+
+    public boolean enabled = true;
 
     // native stuff
 
@@ -137,32 +139,32 @@ public class ComponentEntry implements ComponentInterface
     // Update System
 
     /**
-     * Update Data: Module Version Id 
+     * Update Data: Module Version Id
      */
     public long module_version_id = 0L;
 
     /**
-     * Update Data: Archive File 
+     * Update Data: Archive File
      */
     public String archive_file = null;
 
     /**
-     * Update Data: Archive CRC 
+     * Update Data: Archive CRC
      */
     public long archive_crc = 0L;
 
     /**
-     * Update Data: Archive Size 
+     * Update Data: Archive Size
      */
     public long archive_size = 0L;
 
     /**
-     * Update Data: Action 
+     * Update Data: Action
      */
     public int update_action = 0;
 
     /**
-     * Update Action: Get File Binary 
+     * Update Action: Get File Binary
      */
     public static final int ACTION_GET_FILE_BINARY = 1;
 
@@ -175,26 +177,6 @@ public class ComponentEntry implements ComponentInterface
     // public String output_file = null;
 
     // public long file_size = 0L;
-
-    /**
-     * Status: Newest (Up to date)
-     */
-    public static final int STATUS_NEWEST = 1;
-
-    /**
-     * Status: Not Updated
-     */
-    public static final int STATUS_NOT_UPDATED = 2;
-
-    /**
-     * Status: New 
-     */
-    public static final int STATUS_NEW = 3;
-
-    /**
-     * Status: Unknown 
-     */
-    public static final int STATUS_UNKNOWN = 4;
 
     /*
      * #COMPONENT_13_PLATFORM_SPECIFIC=true
@@ -209,7 +191,8 @@ public class ComponentEntry implements ComponentInterface
 
     String column_names[] = { "NAME", "CURRENT_VERSION", "SERVER_VERSION", "UPDATEABLE", "COMMENT" };
 
-    /** 
+
+    /**
      * getColumnValue
      */
     public String getColumnValue(int index)
@@ -223,7 +206,7 @@ public class ComponentEntry implements ComponentInterface
             case 2:
                 return this.server_version;
             case 3:
-                return "" + this.status;
+                return "" + this.status.code;
             default:
             case 4:
                 return "";
@@ -231,7 +214,8 @@ public class ComponentEntry implements ComponentInterface
         // return "";
     }
 
-    /** 
+
+    /**
      * isGroup
      */
     public boolean isGroup()
@@ -239,9 +223,10 @@ public class ComponentEntry implements ComponentInterface
         return false;
     }
 
+
     /**
      * Get Files
-     * 
+     *
      * @param os_abs StartupOSAbstract instance
      * @return
      */
@@ -320,6 +305,7 @@ public class ComponentEntry implements ComponentInterface
         return sb.toString();
     }
 
+
     @Override
     public String toString()
     {
@@ -370,6 +356,7 @@ public class ComponentEntry implements ComponentInterface
 
     }
 
+
     /**
      * Copy to Server Settings
      */
@@ -384,9 +371,10 @@ public class ComponentEntry implements ComponentInterface
         setStatus();
     }
 
+
     /**
      * Set Server Settings
-     * 
+     *
      * @param ce
      */
     public void setVersionSettings(ComponentEntry ce)
@@ -399,29 +387,35 @@ public class ComponentEntry implements ComponentInterface
         setStatus();
     }
 
+
     private void setStatus()
     {
         if (this.version_num == 0 && this.server_version_num > 0)
         {
-            this.status = ComponentEntry.STATUS_NEW;
+            this.status = ComponentEntryStatus.New;
         }
         else if (this.version_num < this.server_version_num)
         {
-            this.status = ComponentEntry.STATUS_NOT_UPDATED;
+            this.status = ComponentEntryStatus.WillBeUpdated;
         }
         else if (this.version_num == this.server_version_num)
         {
-            this.status = ComponentEntry.STATUS_NEWEST;
+            this.status = ComponentEntryStatus.CorrectVersion;
+        }
+        else if (this.server_version_num == 0)
+        {
+            this.status = ComponentEntryStatus.Removed;
         }
         else
         {
-            this.status = ComponentEntry.STATUS_UNKNOWN;
+            this.status = ComponentEntryStatus.Unknown;
         }
     }
 
+
     /**
      * Set Extended Server Data
-     * 
+     *
      * @param parent_node
      */
     public void setExtendedServerData(Node parent_node)

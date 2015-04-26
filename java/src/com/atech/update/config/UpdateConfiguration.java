@@ -131,10 +131,14 @@ public class UpdateConfiguration
      */
     public int db_update_site_version = 0;
 
+    public String dbClasspathComponents;
+
     /**
      * JDBC Files.
      */
     public String jdbc_files = "";
+
+    private boolean configurationValid = false;
 
     /**
      * Applications.
@@ -143,14 +147,10 @@ public class UpdateConfiguration
 
     /** The needed_params. */
     private String[] needed_params = { "PRODUCT_ID", "DB_TOOL", "DB_CHECK", "APP_CUSTOM_COUNT", "APP_CUSTOM_1_ID",
+                                      "DB_UPDATE_SITE", "DB_UPDATE_SITE_VERSION", "DB_VERSION_REQUIRED", "DB_ENABLED",
+                                      "DB_CONFIGURATION_CLASS", "LAST_COMPONENT", "GROUP_1_NAME", "COMPONENT_1_NAME",
+                                      "VERSION_NAME", "VERSION_NUMERIC" };
 
-    "DB_UPDATE_SITE", "DB_UPDATE_SITE_VERSION",
-
-    "DB_VERSION_REQUIRED", "DB_ENABLED", "DB_CONFIGURATION_CLASS",
-
-    "LAST_COMPONENT", "GROUP_1_NAME", "COMPONENT_1_NAME",
-
-    "VERSION_NAME", "VERSION_NUMERIC" };
 
     /**
      * Constructor.
@@ -162,6 +162,7 @@ public class UpdateConfiguration
         init(cfg_1.get("UPDATE_CONFIG"), cfg_1.get("JAVA_EXE"));
     }
 
+
     /**
      * Constructor
      * 
@@ -170,6 +171,7 @@ public class UpdateConfiguration
     public UpdateConfiguration(boolean as_empty)
     {
     }
+
 
     /**
      * Constructor.
@@ -181,6 +183,7 @@ public class UpdateConfiguration
     {
         init(upd_cfg_file, java_exe);
     }
+
 
     /**
      * Init
@@ -195,8 +198,9 @@ public class UpdateConfiguration
 
         discoverJdbcClasses();
 
-        loadConfiguration(upd_cfg_file);
+        configurationValid = loadConfiguration(upd_cfg_file);
     }
+
 
     /**
      * Discover jdbc classes
@@ -225,6 +229,7 @@ public class UpdateConfiguration
 
         FileFilter fileFilter = new FileFilter()
         {
+
             public boolean accept(File f1)
             {
                 if (f1.isDirectory())
@@ -268,6 +273,7 @@ public class UpdateConfiguration
         // System.out.println("Jdbc: " + this.jdbc_files);
 
     }
+
 
     /**
      * Load Configuration
@@ -314,6 +320,7 @@ public class UpdateConfiguration
 
     }
 
+
     private void getCoreData()
     {
         this.product_id = cfg.get("PRODUCT_ID");
@@ -348,6 +355,7 @@ public class UpdateConfiguration
 
     }
 
+
     /**
      * Gets the Db data
      */
@@ -359,6 +367,7 @@ public class UpdateConfiguration
         this.db_enabled = StartupUtil.isOptionEnabled(cfg.get("DB_ENABLED"));
         this.db_config_class = cfg.get("DB_CONFIGURATION_CLASS");
     }
+
 
     /**
      * Gets the Db application data
@@ -389,6 +398,16 @@ public class UpdateConfiguration
         cda.app_class = cfg.get("DB_IMPORT_CLASS");
         this.db_apps.put("db_import", cda);
 
+        if (cfg.containsKey("DB_CLASSPATH_COMPONENTS"))
+        {
+            this.dbClasspathComponents = cfg.get("DB_CLASSPATH_COMPONENTS");
+
+            if ((this.dbClasspathComponents != null) && (this.dbClasspathComponents.trim().length() == 0))
+            {
+                this.dbClasspathComponents = null;
+            }
+        }
+
         /*
          * this.db_app_db_check =
          * StartupUtil.isOptionEnabled(cfg.get("DB_CHECK"));
@@ -405,6 +424,7 @@ public class UpdateConfiguration
          * this.db_app_db_import_class = cfg.get("DB_IMPORT_CLASS");
          */
     }
+
 
     /**
      * Gets the application data
@@ -424,6 +444,7 @@ public class UpdateConfiguration
         }
 
     }
+
 
     /**
      * Gets the components data
@@ -454,6 +475,13 @@ public class UpdateConfiguration
             ComponentEntry ce = new ComponentEntry();
 
             ce.id = i;
+
+            if (!cfg.containsKey("COMPONENT_" + i + "_NAME")) // if entry was
+                                                              // deleted
+            {
+                continue;
+            }
+
             ce.group = Integer.parseInt(cfg.get("COMPONENT_" + i + "_GROUP"));
             ce.name = cfg.get("COMPONENT_" + i + "_NAME");
             ce.version = cfg.get("COMPONENT_" + i + "_VERSION");
@@ -464,6 +492,14 @@ public class UpdateConfiguration
             ce.platform_specific = StartupUtil.isOptionEnabled(cfg.get("COMPONENT_" + i + "_PLATFORM_SPECIFIC"));
 
             ce.platform_supported = cfg.get("COMPONENT_" + i + "_PLATFORM_SUPPORTED");
+
+            ce.enabled = true;
+
+            if (cfg.containsKey("COMPONENT_" + i + "_ENABLED"))
+            {
+                // we can disable // component
+                ce.enabled = StartupUtil.isOptionEnabled(cfg.get("COMPONENT_" + i + "_ENABLED"));
+            }
 
             if (ce.platform_specific)
             {
@@ -494,6 +530,7 @@ public class UpdateConfiguration
 
     }
 
+
     /**
      * Get Components
      * 
@@ -503,6 +540,7 @@ public class UpdateConfiguration
     {
         return this.components;
     }
+
 
     /**
      * Get Flat Update List
@@ -530,6 +568,7 @@ public class UpdateConfiguration
 
     }
 
+
     /**
      * Get Update Table
      * 
@@ -539,6 +578,7 @@ public class UpdateConfiguration
     {
         return this.getFlatUpdateList();
     }
+
 
     /**
      * Get Int Parameter.
@@ -561,6 +601,7 @@ public class UpdateConfiguration
         }
         return 0;
     }
+
 
     /**
      * Get String Array.
@@ -587,6 +628,28 @@ public class UpdateConfiguration
 
         return ext;
 
+    }
+
+
+    public boolean isConfigurationValid()
+    {
+        return configurationValid;
+    }
+
+
+    public void setConfigurationValid(boolean configurationValid)
+    {
+        this.configurationValid = configurationValid;
+    }
+
+
+    public static void main(String[] args)
+    {
+        UpdateConfiguration uc = new UpdateConfiguration(false);
+        uc.init(args[0], "java.exe");
+
+        System.out.println("Configuration: " + args[0]);
+        System.out.println("Valid: " + uc.isConfigurationValid());
     }
 
 }

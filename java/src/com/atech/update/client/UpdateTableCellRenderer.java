@@ -1,13 +1,11 @@
 package com.atech.update.client;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
+import java.awt.*;
 
-import javax.swing.JLabel;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import com.atech.update.config.ComponentEntryStatus;
 import com.atech.update.config.ComponentInterface;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
@@ -47,8 +45,8 @@ public class UpdateTableCellRenderer extends DefaultTableCellRenderer
 
     private static final long serialVersionUID = -1163229361235496043L;
     ATDataAccessAbstract m_da;
-    Font treeHeaderFont;
-    Font treeItemFont;
+    static Font treeHeaderFont;
+    static Font treeItemFont;
 
 
     /**
@@ -62,13 +60,20 @@ public class UpdateTableCellRenderer extends DefaultTableCellRenderer
 
         m_da = da;
 
-        //ATSwingUtils
+        // ATSwingUtils
         ATSwingUtils.initLibrary();
 
-        treeHeaderFont = getFont().deriveFont(Font.BOLD, 13.0f);
-        treeItemFont = getFont().deriveFont(Font.ITALIC, 13.0f);
+        if (treeHeaderFont == null)
+        {
+            treeHeaderFont = getFont().deriveFont(Font.BOLD, 13.0f);
+        }
 
+        if (treeItemFont == null)
+        {
+            treeItemFont = getFont().deriveFont(Font.ITALIC, 13.0f);
+        }
     }
+
 
     /**
      *
@@ -109,35 +114,13 @@ public class UpdateTableCellRenderer extends DefaultTableCellRenderer
             }
             else
             {
-
                 JLabel lab = new JLabel();
 
-                int stat = Integer.parseInt(value.toString());
+                ComponentEntryStatus ces = ComponentEntryStatus.getByCodeString(value.toString());
 
-                String name = "";
-
-                // 0 = unset (unallowed state), 1=ok, 2=not updated, 3=not
-                // updatebale, 4=unknown
-                switch (stat)
-                {
-
-                    case 1:
-                        name = "dot_green.gif";
-                        break;
-                    case 2:
-                        name = "dot_red.gif";
-                        break;
-                    case 3:
-                        name = "dot_orange.gif";
-                        break;
-                    case 0:
-                    case 4:
-                    default:
-                        name = "dot_blue.gif";
-                }
-
-                lab.setIcon(ATSwingUtils.getImageIcon("/icons/", name, m_da.getParent()));
-                lab.setToolTipText("Unknown");
+                lab.setIcon(ces.getImageIcon());
+                lab.setToolTipText(m_da.getI18nControlInstance().getMessage(ces.getI18nKeyword()));
+                lab.setHorizontalAlignment(JLabel.CENTER);
 
                 return lab;
             }

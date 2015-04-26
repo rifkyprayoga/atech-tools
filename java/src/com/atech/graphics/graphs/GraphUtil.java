@@ -1,20 +1,20 @@
 package com.atech.graphics.graphs;
 
-import java.awt.Color;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.RenderingHints.Key;
-import java.awt.Shape;
-import java.util.HashMap;
-import java.util.SimpleTimeZone;
-import java.util.TimeZone;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.DefaultDrawingSupplier;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.time.DateRange;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.data.TimeZoneUtil;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -56,7 +56,11 @@ public abstract class GraphUtil // extends JPanel
     /**
      * The m_ic.
      */
-    protected I18nControlAbstract m_ic; // = I18nControl.getInstance();
+    // protected I18nControlAbstract m_ic; // = I18nControl.getInstance();
+
+    private static ATDataAccessAbstract dataAccess;
+
+    private static I18nControlAbstract i18nControl;
 
     /**
      * The config.
@@ -119,6 +123,7 @@ public abstract class GraphUtil // extends JPanel
      */
     public static final int SHAPE_TRIANGLE_DOWN_RIGHT = 9;
 
+
     /**
      * Constructor 
      * 
@@ -136,10 +141,12 @@ public abstract class GraphUtil // extends JPanel
         init();
     }
 
+
     /**
      * Inits the local.
      */
     public abstract void initLocal();
+
 
     private void initTZ()
     {
@@ -149,6 +156,7 @@ public abstract class GraphUtil // extends JPanel
                 tz.getID(), 0, 0, 0, 0, 0, 0, 0, 0);
 
     }
+
 
     /**
      *  Init
@@ -163,6 +171,7 @@ public abstract class GraphUtil // extends JPanel
         initTZ();
     }
 
+
     /**
      * Gets the empty time zone.
      * 
@@ -173,6 +182,7 @@ public abstract class GraphUtil // extends JPanel
         return this.empty_tzi;
     }
 
+
     /**
      * Gets the rendering hints.
      * 
@@ -182,6 +192,7 @@ public abstract class GraphUtil // extends JPanel
     {
         return this.renderingHints;
     }
+
 
     /**
      * Set Shape And Color
@@ -196,6 +207,13 @@ public abstract class GraphUtil // extends JPanel
         renderer.setShape(GraphUtil.shapes[shape]);
         renderer.setFillPaint(color);
     }
+
+
+    public Shape getShape(int shapeIndex)
+    {
+        return shapes[shapeIndex];
+    }
+
 
     /**
      * Gets the current rendering quality settings from the
@@ -291,6 +309,7 @@ public abstract class GraphUtil // extends JPanel
         renderingHints = new RenderingHints(hintsMap);
     }
 
+
     /**
      * Gets the color.
      * 
@@ -301,6 +320,54 @@ public abstract class GraphUtil // extends JPanel
     public Color getColor(int key)
     {
         return new Color(key);
+    }
+
+
+    public static void setDataAccess(ATDataAccessAbstract dataAccess)
+    {
+        dataAccess = dataAccess;
+        i18nControl = dataAccess.getI18nControlInstance();
+    }
+
+
+    public static DateAxis prepareDateAxis(DateAxis dateAxis, DateAxisSupportInterface dateAxisSupportInterface)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat(i18nControl.getMessage("FORMAT_DATE_HOURS"));
+        sdf.setTimeZone(TimeZoneUtil.getInstance().getEmptyTimeZone());
+
+        dateAxis.setDateFormatOverride(sdf);
+        dateAxis.setAutoRange(false);
+        dateAxis.setRange(dateAxisSupportInterface.getFrom().getTime(), dateAxisSupportInterface.getTill().getTime());
+        dateAxis.setDefaultAutoRange(new DateRange(dateAxisSupportInterface.getFrom().getTime(),
+                dateAxisSupportInterface.getTill().getTime()));
+        dateAxis.setTimeZone(TimeZoneUtil.getInstance().getEmptyTimeZone());
+
+        return dateAxis;
+    }
+
+
+    public static GregorianCalendar prepareFromCalendar(GregorianCalendar calendar)
+    {
+        GregorianCalendar fromDate = (GregorianCalendar) calendar.clone();
+
+        fromDate.set(Calendar.HOUR_OF_DAY, 0);
+        fromDate.set(Calendar.MINUTE, 0);
+        fromDate.set(Calendar.SECOND, 0);
+        fromDate.setTimeZone(TimeZoneUtil.getInstance().getEmptyTimeZone());
+
+        return fromDate;
+    }
+
+
+    public static GregorianCalendar prepareTillCalendar(GregorianCalendar calendar)
+    {
+        GregorianCalendar toDate = (GregorianCalendar) calendar.clone();
+        toDate.set(Calendar.HOUR_OF_DAY, 23);
+        toDate.set(Calendar.MINUTE, 59);
+        toDate.set(Calendar.SECOND, 59);
+        toDate.setTimeZone(TimeZoneUtil.getInstance().getEmptyTimeZone());
+
+        return toDate;
     }
 
 }

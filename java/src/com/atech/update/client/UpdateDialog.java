@@ -1,27 +1,10 @@
 package com.atech.update.client;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Hashtable;
-import java.util.StringTokenizer;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 
 import org.apache.commons.logging.Log;
@@ -31,8 +14,10 @@ import com.atech.help.ComponentHelpCapable;
 import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.update.client.data.UpdateSettings;
+import com.atech.update.client.handler.UpgradeHandlerInterface;
+import com.atech.update.client.handler.UpgradeHandlerV3;
+import com.atech.update.config.ComponentEntryStatus;
 import com.atech.update.config.UpdateConfiguration;
-import com.atech.update.config.UpdateConfigurationXml;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
 import com.atech.utils.xml.XmlUtil;
@@ -69,6 +54,14 @@ import com.atech.utils.xml.XmlUtil;
 
 // NOT FULLY IMPLEMENTED YET.
 
+// NOTE !!!!!!!!!!!!!!!!!!!!!
+// There are currently two versions of UpgradeSystem V2 and V3. Both are
+// incomplete though... Work started
+// on new simplified version (V3) and thus version 2 will be discared. When
+// implementation of V3 is finished
+// and it works accordimg to plan V2 will be discarded, but so far will have
+// both of them.
+
 public class UpdateDialog extends JDialog implements ActionListener, HelpCapable, ComponentHelpCapable
 {
 
@@ -77,18 +70,18 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     private static Log log = LogFactory.getLog(UpdateDialog.class);
     UpdateSystemModel model = null;
 
-    ATDataAccessAbstract m_da = null;
-    I18nControlAbstract ic = null;
+    ATDataAccessAbstract dataAccess = null;
+    I18nControlAbstract i18nControl = null;
 
-    JTabbedPane tabbedPane;
+    // JTabbedPane tabbedPane;
     // ArrayList<ComponentInterface> list;
 
     /*
      * Globaly used variables
      */
     JPanel panel;
-    JLabel label, label_title, status_label;
-    JButton btn_check, btn_update, button, help_button;
+    JLabel label, labelTitle, lblStatus;
+    JButton btnCheck, btnUpdate, button, help_button;
     Font font_big, font_normal, font_normal_b;
     JTable table;
 
@@ -104,6 +97,12 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
     long next_version = 0L;
 
+    UpgradeHandlerInterface upgradeHandler;
+
+    private long nextVersion;
+    private JButton btnNotes;
+
+
     /**
      * Constructor
      * 
@@ -114,24 +113,39 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     public UpdateDialog(JDialog parent, UpdateConfiguration uconf, ATDataAccessAbstract da)
     {
         super(parent, "", true);
-        m_da = da;
-        ic = m_da.getI18nControlInstance();
+        dataAccess = da;
+        i18nControl = dataAccess.getI18nControlInstance();
 
         this.update_config = uconf;
+
+        initHandler();
 
         init();
     }
 
-    /*
-     * public UpdateDialog(JFrame parent, UpdateSystem usys)
-     * {
-     * super(parent, "", true);
-     * m_da = ATDataAccess.getInstance();
-     * m_da.setParent(parent);
-     * this.update_system = usys;
-     * init();
-     * }
-     */
+
+    private void initHandler()
+    {
+        if (this.update_config.isConfigurationValid())
+        {
+            // if (this.update_config.db_update_site_version == 3)
+            {
+                this.upgradeHandler = UpgradeHandlerV3.createInstance(this, this.update_config, this.dataAccess);
+            }
+            // else
+            // {
+            // this.upgradeHandler = new UpgradeHandlerV2(this,
+            // this.update_config, this.dataAccess);
+            // }
+        }
+    }
+
+
+    public UpdateSettings getUpdateSettings()
+    {
+        return this.update_settings;
+    }
+
 
     /**
      * Constructor
@@ -144,13 +158,15 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     {
         super(parent, "", true);
 
-        m_da = da;
-        ic = m_da.getI18nControlInstance();
+        dataAccess = da;
+        i18nControl = dataAccess.getI18nControlInstance();
 
         this.update_config = uconf;
 
+        initHandler();
         init();
     }
+
 
     /**
      * Constructor
@@ -163,173 +179,124 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         this(parent, da.getUpdateConfiguration(), da);
     }
 
-    /**
-     *   Constructor for PersonAddress
-     *   Builds starting UI (all menus with pictures and all other frames)
-     */
-    // public MassDialog(DataAccess da, News nws, int type)
-    /*
-     * public UpdateDialog(ATDataAccess da, UpdateSystem usys)
-     * {
-     * super((Frame)null, "", true);
-     * //super.setModal(true);
-     * //new JDialog()
-     * m_da = da;
-     * this.update_system = usys;
-     * init();
-     * }
-     */
 
     public void init()
     {
         ATSwingUtils.initLibrary();
-        this.setBounds(130, 50, 650, 450); // 360
+        this.setBounds(130, 50, 650, 550); // 360
 
         font_big = ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD);
         font_normal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
         font_normal_b = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
 
-        // m_mass = mse;
-
-
-
-        // this.loadNeededData();
-
-        // this.uo_root = uo_root;
-        // this.update_system = usys;
-        // this.list = this.update_config.getUpdateTable();
-        // update_system.getUpdateTable();
-
         this.cmdUpdate();
-        // this.loadMass();
 
         this.setResizable(false);
-        ATSwingUtils.centerJDialog(this, m_da.getParent());
+        ATSwingUtils.centerJDialog(this, dataAccess.getParent());
 
-        this.m_da.addComponent(this);
-
-        // this.setVisible(true);
+        this.dataAccess.addComponent(this);
 
         update_settings = new UpdateSettings();
-
     }
+
 
     /**
      *   Displays title for dialog
      */
     public void showTitle()
     {
-        // label_title
-        String ev = ic.getMessage("UPDATE_APPLICATION");
+        // labelTitle
+        String ev = i18nControl.getMessage("UPDATE_APPLICATION");
 
         this.setTitle(ev);
-        label_title.setText(ev);
+        labelTitle.setText(ev);
 
     }
+
 
     /**
      *   Displays GUI
      */
     public void cmdUpdate()
     {
+        // FIXME
+
+        // - removed components
+        // - new components
 
         Container dgPane = this.getContentPane();
 
+        ATSwingUtils.initLibrary();
+
         panel = new JPanel();
-        panel.setBounds(5, 5, 620, 400);
+        panel.setBounds(5, 5, 620, 550);
         panel.setLayout(null); // 600 450
         dgPane.add(panel);
 
-        label_title = new JLabel();
-        label_title.setBounds(30, 20, 450, 40);
-        label_title.setFont(font_big);
-        label_title.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(label_title, null);
+        labelTitle = new JLabel();
+        labelTitle.setBounds(30, 20, 450, 40);
+        labelTitle.setFont(font_big);
+        labelTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(labelTitle, null);
 
         showTitle();
 
-        /*
-         * StringBuffer sb = new StringBuffer();
-         * sb.append(ic.getMessage("LEGEND"));
-         * sb.append(":                  ");
-         * sb.append(ic.getMessage("NEWEST"));
-         * sb.append("                  ");
-         * sb.append(ic.getMessage("NOT_UPDATED"));
-         * sb.append("                  ");
-         * sb.append(ic.getMessage("NOT_UPDATABLE"));
-         * sb.append("                  ");
-         * sb.append(ic.getMessage("UNKNOWN_STATUS"));
-         * this.label = new JLabel(sb.toString());
-         * label.setBounds(30, 340, 600, 30);
-         * panel.add(label, null);
-         */
-
-        this.label = ATSwingUtils.getLabel(ic.getMessage("SERVER_STATUS") + ":", 30, 70, 120, 25, panel,
+        ATSwingUtils.getLabel(i18nControl.getMessage("SERVER_STATUS") + ":", 30, 70, 120, 25, panel,
             ATSwingUtils.FONT_NORMAL_BOLD);
 
-        this.status_label = ATSwingUtils.getLabel(ic.getMessage("NO_STATUS"), 160, 70, 320, 25, panel,
+        this.lblStatus = ATSwingUtils.getLabel(i18nControl.getMessage("NO_STATUS"), 160, 70, 320, 25, panel,
             ATSwingUtils.FONT_NORMAL);
+        this.lblStatus.setBackground(Color.blue);
 
-        this.label = new JLabel(ic.getMessage("LEGEND") + ":");
-        label.setBounds(30, 340, 100, 30);
-        panel.add(label, null);
+        ATSwingUtils.getLabel(i18nControl.getMessage("LEGEND"), 30, 435, 100, 30, panel, ATSwingUtils.FONT_NORMAL);
 
-        int[] x_kors = { 105, 200, 330, 470 };
-        int[] widths = { 100, 150, 150, 200 };
-        String[] pictures = { "dot_green.gif", "dot_red.gif", "dot_orange.gif", "dot_blue.gif" };
-        String[] leg_label = { "  " + ic.getMessage("NEWEST"), "  " + ic.getMessage("NOT_UPDATED"),
-                              "  " + ic.getMessage("NEW"), "  " + ic.getMessage("UNKNOWN_STATUS") };
+        int[] x_kors = { 105, 200, 350, 470, 105 };
+        int[] widths = { 100, 150, 150, 200, 100 };
 
+        ComponentEntryStatus statuses[] = { ComponentEntryStatus.WillBeUpdated, ComponentEntryStatus.CorrectVersion, //
+                                           ComponentEntryStatus.New, //
+                                           ComponentEntryStatus.Unknown, //
+                                           ComponentEntryStatus.Removed };
+
+        // String[] pictures = { "dot_green.gif", "led_gray.gif",
+        // "dot_orange.gif", "dot_blue.gif", "dot_red.gif" };
+        String[] leg_label = { "  " + i18nControl.getMessage("NEWEST"), "  " + i18nControl.getMessage("NOT_UPDATED"),
+                              "  " + i18nControl.getMessage("NEW"), "  " + i18nControl.getMessage("UNKNOWN_STATUS"),
+                              " " + i18nControl.getMessage("REMOVED") };
+        int y_kor = 440;
         for (int i = 0; i < x_kors.length; i++)
         {
-            label = new JLabel(leg_label[i]);
-            label.setIcon(ATSwingUtils.getImageIcon("/icons/", pictures[i], this)); // width,
-                                                                            // height,
-                                                                            // comp)new
-                                                                            // ImageIcon(m_da.getImage("/icons/",
-                                                                            // pictures[i],
-                                                                            // this)));
-            label.setBounds(x_kors[i], 344, widths[i], 25);
+
+            ComponentEntryStatus ces = statuses[i];
+
+            label = new JLabel(i18nControl.getMessage(ces.getI18nKeyword()));
+
+            ImageIcon imageIcon = null;
+
+            if (ces == ComponentEntryStatus.Unknown)
+            {
+                imageIcon = ATSwingUtils.getImageIcon("/icons/", statuses[i].getIconName(), 14, 14, this);
+            }
+            else
+            {
+                imageIcon = ATSwingUtils.getImageIcon("/icons/", statuses[i].getIconName(), this);
+            }
+            ces.setImageIcon(imageIcon);
+
+            label.setIcon(imageIcon);
+
+            if (i == 4)
+            {
+                y_kor = 470;
+            }
+
+            label.setBounds(x_kors[i], y_kor, widths[i], 25);
             panel.add(label);
         }
 
-        this.model = new UpdateSystemModel(this.update_config, m_da);
+        this.model = new UpdateSystemModel(this.update_config, dataAccess);
 
         table = new JTable(this.model);
-
-        /*
-         * new AbstractTableModel()
-         * {
-         * //Object work[] = alist.toArray();
-         * public int getColumnCount()
-         * {
-         * UpdateObject uo = new UpdateObject();
-         * return 5; //uo.getColumnCount();
-         * //select_typeObj.getColumnCount();
-         * //return 2;
-         * }
-         * public int getRowCount()
-         * {
-         * if (list==null)
-         * return 0;
-         * else
-         * return list.size();
-         * }
-         * public Object getValueAt(int rowIndex, int columnIndex)
-         * {
-         * String result= "";
-         * //Post pst = list.get(rowIndex);
-         * //Selectable sel = list.get(rowIndex);
-         * return list.get(rowIndex).getColumnValue(columnIndex);
-         * //..getColumnValue(columnIndex+1);
-         * }
-         * }); // table
-         */
-        // table.setDefaultRenderer(new UpdateTableCellRenderer(m_da));
-
-        // int procent = (int)((panel.getWidth()-50)/100);
-
-        // int twidth = panel.getWidth()-50;
 
         table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         table.setRowSelectionAllowed(false);
@@ -337,7 +304,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setDoubleBuffered(true);
 
-        UpdateTableCellRenderer utcr = new UpdateTableCellRenderer(m_da);
+        UpdateTableCellRenderer utcr = new UpdateTableCellRenderer(dataAccess);
 
         TableColumnModel cm = table.getColumnModel();
         for (int i = 0; i < model.getColumnCount(); i++)
@@ -347,65 +314,60 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         }
 
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setBounds(30, 100, 580, 240);
+        scroll.setBounds(30, 125, 580, 310);
         panel.add(scroll);
         scroll.repaint();
 
         scroll.updateUI();
 
-        // ---
-        // --- OK Command
-        // ---
-        this.btn_check = new JButton("   " + ic.getMessage("CHECK_SERVER"));
-        this.btn_check.setBounds(455, 30, 150, 25);
-        this.btn_check.setIcon(ATSwingUtils.getImageIcon("/icons/", "up_down_question.png", 22, 22, this));
-        this.btn_check.addActionListener(this);
-        this.btn_check.setFont(font_normal);
-        this.btn_check.setActionCommand("check_server");
-        panel.add(this.btn_check);
+        this.btnCheck = ATSwingUtils.getButton("   " + i18nControl.getMessage("CHECK_SERVER"), 455, 30, 150, 25, panel, //
+            ATSwingUtils.FONT_NORMAL, "up_down_question.png", "check_server", this, dataAccess, new int[] { 22, 22 });
 
-        this.btn_update = new JButton("   " + ic.getMessage("RUN_UPDATE"));
-        this.btn_update.setBounds(455, 60, 150, 25);
-        this.btn_update.addActionListener(this);
-        this.btn_update.setIcon(ATSwingUtils.getImageIcon("/icons/", "download.png", 22, 22, this));
-        this.btn_update.setEnabled(false);
-        this.btn_update.setFont(font_normal);
-        this.btn_update.setActionCommand("run_update");
-        panel.add(this.btn_update);
+        this.btnUpdate = ATSwingUtils.getButton("   " + i18nControl.getMessage("RUN_UPDATE"), 455, 60, 150, 25, panel, //
+            ATSwingUtils.FONT_NORMAL, //
+            "download.png", "run_update", this, dataAccess, new int[] { 22, 22 });
+        this.btnUpdate.setEnabled(false);
 
-        // ---
-        // --- Cancel Command
-        // ---
-        button = new JButton("   " + ic.getMessage("CLOSE"));
-        button.setBounds(350, 385, 120, 25);
-        button.setIcon(ATSwingUtils.getImageIcon("/icons/", "cancel.png", 22, 22, this));
-        button.addActionListener(this);
-        button.setFont(font_normal);
-        button.setActionCommand("close");
-        panel.add(button);
+        this.btnNotes = ATSwingUtils.getButton("   " + i18nControl.getMessage("NOTES") + "...", 455, 90, 150, 25,
+            panel, //
+            ATSwingUtils.FONT_NORMAL, "download.png", "notes", this, dataAccess, new int[] { 22, 22 });
 
-        // ---
-        // --- Help command
-        // ---
+        this.btnNotes.setEnabled(false);
 
-        this.help_button = ATSwingUtils.createHelpButtonByBounds(485, 385, 120, 25, this, ATSwingUtils.FONT_NORMAL, m_da);
-        this.help_button.setFont(font_normal);
+        ATSwingUtils.getButton("   " + i18nControl.getMessage("CLOSE"), 350, 475, 120, 25, panel, //
+            ATSwingUtils.FONT_NORMAL, "cancel.png", "close", this, dataAccess, new int[] { 22, 22 });
+
+        this.help_button = ATSwingUtils.createHelpButtonByBounds(485, 475, 120, 25, this, ATSwingUtils.FONT_NORMAL,
+            dataAccess);
+
         panel.add(help_button);
 
-        /*
-         * button = new JButton(ic.getMessage("HELP"));
-         * button.setBounds(325, 380, 80, 25);
-         * button.setFont(font_normal);
-         * //button.addActionListener(this);
-         * //button.setActionCommand("help");
-         * // PISMainHelp.mainHelpBroker.enableHelpOnButton(button,
-         * "pages.PISMassAdd", null);
-         * // PISMainHelp.mainHelpBroker.enableHelpKey(this.getRootPane(),
-         * "pages.PISMassAdd", null);
-         */
-        // panel.add(button);
+        checkConfiguration();
 
     }
+
+
+    private void checkConfiguration()
+    {
+        if (!this.update_config.isConfigurationValid())
+        {
+            this.setStatusText(i18nControl.getMessage("AT_UPD_ERR_CONFIGURATION_INVALID"));
+            this.btnCheck.setEnabled(false);
+        }
+    }
+
+
+    public void setStatusText(String text)
+    {
+        this.lblStatus.setText(text);
+    }
+
+
+    public void setStatusTooltip(String text)
+    {
+        this.lblStatus.setToolTipText(text);
+    }
+
 
     /**
      * Show Dialog
@@ -414,6 +376,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     {
         this.setVisible(true);
     }
+
 
     /**
      *  Action Listener
@@ -428,18 +391,23 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         }
         else if (action.equals("run_update"))
         {
-            this.runUpdate();
+            this.upgradeHandler.runUpdate();
         }
         else if (action.equals("check_server"))
         {
-            this.checkServer();
+            this.upgradeHandler.checkServer();
         }
         else if (action.equals("close"))
         {
             lastAction = 0;
-            this.m_da.removeComponent(this);
+            this.dataAccess.removeComponent(this);
             this.dispose();
         }
+        else if (action.equals("notes"))
+        {
+            new UpdateNewsDialog(this, dataAccess);
+        }
+
         /*
          * else if (action.equals("help"))
          * {
@@ -453,6 +421,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
     }
 
+
     /**
      *  Gets info if action was performed.
      * 
@@ -465,6 +434,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         else
             return false;
     }
+
 
     /**
      *  Returns object saved
@@ -481,14 +451,16 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
      */
     private String help_id;
 
+
     /** 
      * enableHelp
      */
     public void enableHelp(String _help_id)
     {
         this.help_id = _help_id;
-        m_da.enableHelp(this);
+        dataAccess.enableHelp(this);
     }
+
 
     /** 
      * getComponent
@@ -498,6 +470,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         return this;
     }
 
+
     /** 
      * getHelpButton
      */
@@ -506,6 +479,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         return this.help_button;
     }
 
+
     /** 
      * getHelpId
      */
@@ -513,6 +487,7 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
     {
         return this.help_id;
     }
+
 
     /**
      * Update System v2.1
@@ -529,217 +504,6 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
      * 
      */
 
-    /**
-     * Check Server
-     */
-    public void checkServer()
-    {
-
-        if (!m_da.getDeveloperMode())
-        {
-            JOptionPane.showMessageDialog(this, ic.getMessage("UPDATE_SERVER_NA"), ic.getMessage("INFORMATION"),
-                JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-
-        try
-        {
-
-            String server_name = this.update_settings.update_server;
-            long current_version = 4;
-            long current_db = 7;
-
-            String iLine2;
-
-            iLine2 = getServletData(server_name + "ATechUpdateSystem?action=get_update_status&" + "product_id="
-                    + m_da.getAppName() + "&" + "current_version=" + current_version + "&" + "current_db=" + current_db);
-
-            if (iLine2 == null)
-                return;
-
-            String ret_msg = iLine2.substring(
-                iLine2.indexOf("RETURN_DATA_START__") + "RETURN_DATA_START__<br>".length(),
-                iLine2.indexOf("<br>__RETURN_DATA_END"));
-
-            // resolve result for update system v2
-            if (ret_msg.contains("ERR"))
-            {
-                String err = "";
-
-                if (ret_msg.startsWith("ERR_NO_SUCH_APP"))
-                {
-                    err = "UPD_ERR_NO_SUCH_APP";
-                }
-                else if (ret_msg.startsWith("ERR_INTERNAL_ERROR"))
-                {
-                    err = "UPD_ERR_INTERNAL_ERROR";
-                }
-
-                m_da.showDialog(this, ATDataAccessAbstract.DIALOG_ERROR, ic.getMessage(err));
-                status_label.setText(ic.getMessage("STATUS_UPD_FAILED_DATA"));
-
-            }
-            else if (ret_msg.contains(";"))
-            {
-                StringTokenizer strtok = new StringTokenizer(ret_msg, ";");
-                Hashtable<String, String> msges = new Hashtable<String, String>();
-
-                String return_info = null;
-
-                while (strtok.hasMoreTokens())
-                {
-                    String t = strtok.nextToken();
-                    msges.put(t.substring(0, t.indexOf("=")), t.substring(t.indexOf("=") + 1));
-                }
-
-                // System.out.println(msges);
-
-                next_version = Long.parseLong(msges.get("NEXT_VERSION"));
-                boolean cont = false;
-
-                if (next_version == current_version)
-                {
-                    if (msges.containsKey("NEXT_DB_VERSION"))
-                    {
-                        System.out.println("UPDATE_FOR_HIGHER_DB_FOUND");
-                        return_info = String.format(ic.getMessage("UPDATE_FOR_HIGHER_DB_FOUND"),
-                            msges.get("NEXT_DB_VERSION_STR"));
-                        status_label.setText(ic.getMessage("STATUS_UPD_NO_VALID_UPDATE"));
-                    }
-                    else
-                    {
-                        System.out.println("NO_UPDATE_FOUND");
-                        return_info = ic.getMessage("NO_UPDATE_FOUND");
-                        status_label.setText(ic.getMessage("STATUS_UPD_NO_UPDATE"));
-                    }
-
-                    // status_label.setText(ic.getMessage("STATUS_UPD_NO_VALID_UPDATE"));
-
-                }
-                else
-                {
-                    cont = true;
-                    if (msges.containsKey("NEXT_DB_VERSION"))
-                    {
-                        System.out.println("UPDATE_FOUND_ALSO_HIGHER_DB");
-                        return_info = String.format(ic.getMessage("UPDATE_FOUND_ALSO_HIGHER_DB"),
-                            msges.get("NEXT_DB_VERSION_STR"), msges.get("NEXT_VERSION_STR"));
-                    }
-                    else
-                    {
-                        System.out.println("UPDATE_FOUND_VERSION");
-                        return_info = String.format(ic.getMessage("UPDATE_FOUND_VERSION"),
-                            msges.get("NEXT_VERSION_STR"));
-                    }
-                    status_label.setText(ic.getMessage("STATUS_UPD_UPDATE_FOUND"));
-
-                }
-
-                if (cont)
-                {
-
-                    // Custom button text
-                    Object[] options = { ic.getMessage("YES"), ic.getMessage("NO") };
-
-                    int n = JOptionPane.showOptionDialog(this, return_info, ic.getMessage("QUESTION"),
-                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
-                    if (n == JOptionPane.YES_OPTION)
-                    {
-
-                        iLine2 = this.getServletData(server_name + "ATechUpdateSystem?action=get_xml&" + "product_id="
-                                + m_da.getAppName() + "&" + "current_version=" + msges.get("NEXT_VERSION"));
-
-                        if (iLine2 == null)
-                            // 3.
-                            // m_da.showDialog(this,
-                            // ATDataAccessAbstract.DIALOG_WARNING,
-                            // "Error reading xml data !");
-                            return;
-                        else
-                        {
-                            ret_msg = iLine2.substring(iLine2.indexOf("RETURN_DATA_START__")
-                                    + "RETURN_DATA_START__<br>".length(), iLine2.indexOf("<br>__RETURN_DATA_END"));
-                            UpdateConfigurationXml ucxml = new UpdateConfigurationXml(ret_msg);
-
-                            this.model.updateModel(ucxml.getUpdateConfiguration());
-                            this.model.fireTableDataChanged();
-
-                            this.btn_update.setEnabled(true);
-
-                            // System.out.println("Got xml: \"" + ret_msg +
-                            // "\"");
-                            // m_da.showDialog(this,
-                            // ATDataAccessAbstract.DIALOG_INFO, "Got xml !");
-                        }
-
-                        // 3.
-                        // m_da.showDialog(this,
-                        // ATDataAccessAbstract.DIALOG_INFO, "Update YAY !");
-
-                    }
-                }
-                else
-                {
-                    m_da.showDialog(this, ATDataAccessAbstract.DIALOG_INFO, return_info);
-                }
-
-            }
-            else
-            {
-                m_da.showDialog(this, ATDataAccessAbstract.DIALOG_ERROR, ic.getMessage("UPD_ERR_INTERNAL_ERROR"));
-                status_label.setText(ic.getMessage("STATUS_UPD_FAILED_COMM_ERROR"));
-            }
-
-        }
-        catch (Exception ex)
-        {
-            this.status_label.setText(ic.getMessage("UPD_ERROR_CONTACTING_SERVER"));
-            // System.out.println(ex);
-
-            m_da.showDialog(this, ATDataAccessAbstract.DIALOG_ERROR, ic.getMessage("UPD_ERROR_CONTACTING_SERVER"));
-
-            ex.printStackTrace();
-        }
-    }
-
-    private String getServletData(String full_url)
-    {
-        try
-        {
-            URL url = new URL(full_url);
-
-            log.debug("Servlet::URL (" + full_url + ")");
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-
-            String iLine, iLine2;
-            iLine2 = "";
-
-            while ((iLine = in.readLine()) != null)
-            {
-                iLine2 += iLine;
-                // System.out.println(iLine);
-            } // while file
-
-            in.close();
-
-            return iLine2;
-        }
-        catch (Exception ex)
-        {
-            log.error("Servlet::URL (" + full_url + ")");
-            log.error("Error contacting servlet: " + ex, ex);
-            // ex.printStackTrace();
-            this.status_label.setText(ic.getMessage("UPD_ERROR_CONTACTING_SERVER"));
-            m_da.showDialog(this, ATDataAccessAbstract.DIALOG_ERROR, ic.getMessage("UPD_ERROR_CONTACTING_SERVER"));
-
-            // System.out.println("Exception reading Web. Ex: " + ex);
-            return null;
-        }
-
-    }
-
     @SuppressWarnings("unused")
     private String getParameter(String parameter, String text)
     {
@@ -755,45 +519,8 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
         return par;
     }
 
-    /**
-     * Run Update
-     */
-    public void runUpdate()
-    {
-        try
-        {
-            String server_name = this.update_settings.update_server;
-            long current_version = 4;
-            // long current_db = 7;
 
-            String iLine2;
-
-            iLine2 = getServletData(server_name + "ATechUpdateSystem?action=get_update_list&" + "product_id="
-                    + m_da.getAppName() + "&" + "current_version=" + current_version + "&" + "next_version="
-                    + this.next_version);
-
-            if (iLine2 == null)
-            {
-                System.out.println("No data returned !");
-                return;
-            }
-
-            String ret_msg = iLine2.substring(
-                iLine2.indexOf("RETURN_DATA_START__") + "RETURN_DATA_START__<br>".length(),
-                iLine2.indexOf("<br>__RETURN_DATA_END"));
-
-            processDetailsData(ret_msg);
-
-        }
-        catch (Exception ex)
-        {
-            System.out.println("runUpdate(). Ex.: " + ex);
-        }
-        // m_da.showDialog(this, ATDataAccessAbstract.DIALOG_INFO,
-        // "Run Update !");
-    }
-
-    private void processDetailsData(String xml)
+    public void processDetailsData(String xml)
     {
         try
         {
@@ -809,4 +536,39 @@ public class UpdateDialog extends JDialog implements ActionListener, HelpCapable
 
     }
 
+
+    public long getNextVersion()
+    {
+        return nextVersion;
+    }
+
+
+    public void setNextVersion(long nextVersion)
+    {
+        this.nextVersion = nextVersion;
+    }
+
+
+    public UpdateSystemModel getModel()
+    {
+        return this.model;
+    }
+
+
+    public JButton getUpdateButton()
+    {
+        return this.btnUpdate;
+    }
+
+
+    public JButton getBtnNotes()
+    {
+        return btnNotes;
+    }
+
+
+    public void setBtnNotes(JButton btnNotes)
+    {
+        this.btnNotes = btnNotes;
+    }
 }

@@ -37,7 +37,9 @@ import com.atech.update.startup.os.StartupOSAbstract;
 
 public class ApplicationFile extends StartupFileAbstract
 {
+
     ComponentCustomApp custom_app;
+
 
     /**
      * Constructor
@@ -52,6 +54,7 @@ public class ApplicationFile extends StartupFileAbstract
         this.custom_app = custom_app;
     }
 
+
     /**
      * Does Need Binary Path (if application will run with libraries that have binaries)
      * 
@@ -64,6 +67,7 @@ public class ApplicationFile extends StartupFileAbstract
         return this.custom_app.binary_needed;
     }
 
+
     /**
      * Get Class Name
      * 
@@ -74,6 +78,7 @@ public class ApplicationFile extends StartupFileAbstract
     {
         return this.custom_app.main_class;
     }
+
 
     /**
      * Get Class Path
@@ -90,6 +95,10 @@ public class ApplicationFile extends StartupFileAbstract
         for (int i = 0; i <= count; i++)
         {
             ComponentEntry ce = this.upd_conf.Components().get(i);
+
+            if (!ce.enabled)
+                continue;
+
             String path = upd_conf.root + ce.root_dir;
 
             files.append(parseRoot(path, ce.getFiles(this.os_abstract)));
@@ -103,6 +112,7 @@ public class ApplicationFile extends StartupFileAbstract
         return files.toString();
     }
 
+
     /**
      * Get File Name for batch file
      * 
@@ -113,6 +123,7 @@ public class ApplicationFile extends StartupFileAbstract
     {
         return this.custom_app.filename + "." + this.os_abstract.getBatchFileExtension();
     }
+
 
     /**
      * Has Java Parameters
@@ -125,6 +136,7 @@ public class ApplicationFile extends StartupFileAbstract
         return this.custom_app.special_parameters != null && this.custom_app.special_parameters.length() > 2;
     }
 
+
     /**
      * Get Special Java Parameters
      * 
@@ -135,6 +147,7 @@ public class ApplicationFile extends StartupFileAbstract
     {
         return this.custom_app.special_parameters;
     }
+
 
     /**
      * Needs JDBC Drivers

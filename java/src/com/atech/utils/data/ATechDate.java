@@ -34,6 +34,7 @@ import com.atech.i18n.I18nControlAbstract;
 
 public class ATechDate
 {
+
     private static Log log = LogFactory.getLog(ATechDate.class);
 
     /**
@@ -131,6 +132,7 @@ public class ATechDate
      */
     public int atechDatetimeType;
 
+
     /**
      * ATechDate (long)
      * Default constructor, with one parameter, where type is DATE_AND_TIME.
@@ -142,6 +144,7 @@ public class ATechDate
         process(ATechDate.FORMAT_DATE_AND_TIME_MIN, entry);
     }
 
+
     /**
      * Instantiates a new a tech date.
      *
@@ -152,6 +155,7 @@ public class ATechDate
     {
         this.atechDatetimeType = type;
     }
+
 
     /**
      * ATechDate (long)
@@ -165,6 +169,7 @@ public class ATechDate
         process(type, entry);
     }
 
+
     /**
      * Constructor
      *
@@ -176,6 +181,7 @@ public class ATechDate
     {
         this(_day, _month, _year, 0, 0, ATechDate.FORMAT_DATE_ONLY);
     }
+
 
     /**
      * Instantiates a new a tech date.
@@ -205,6 +211,21 @@ public class ATechDate
 
         atechDatetimeType = type;
     }
+
+
+    public ATechDate(int _day, int _month, int _year, int _hour, int _minute, int sec, ATechDateType type)
+    {
+        this.dayOfMonth = _day;
+        this.month = _month;
+        this.year = _year;
+        this.hourOfDay = _hour;
+        this.minute = _minute;
+        this.second = sec;
+        this.msecond = 0;
+
+        atechDatetimeType = type.getCode();
+    }
+
 
     /**
      * Instantiates a new a tech date.
@@ -267,6 +288,7 @@ public class ATechDate
         }
 
     }
+
 
     /**
      * Process.
@@ -365,6 +387,7 @@ public class ATechDate
 
     }
 
+
     /**
      * Gets the time string.
      *
@@ -379,6 +402,7 @@ public class ATechDate
         ATechDate dt = new ATechDate(type, date);
         return dt.getTimeString();
     }
+
 
     /**
      * Gets the time string.
@@ -395,6 +419,7 @@ public class ATechDate
         return dt.getTimeString();
     }
 
+
     /**
      * Gets the date time string.
      *
@@ -409,6 +434,7 @@ public class ATechDate
         ATechDate dt = new ATechDate(type, date);
         return dt.getDateTimeString();
     }
+
 
     /**
      * Gets the date time string.
@@ -425,6 +451,7 @@ public class ATechDate
         return dt.getDateTimeString();
     }
 
+
     /**
      * Gets the date string.
      *
@@ -440,6 +467,7 @@ public class ATechDate
         return dt.getDateString();
     }
 
+
     /**
      * Gets the date string.
      *
@@ -454,6 +482,7 @@ public class ATechDate
         ATechDate dt = new ATechDate(type, gc);
         return dt.getDateString();
     }
+
 
     private void checkAndCorrectValues()
     {
@@ -473,6 +502,7 @@ public class ATechDate
         }
     }
 
+
     /**
      * Gets the date string.
      *
@@ -486,6 +516,7 @@ public class ATechDate
             return getLeadingZero(this.dayOfMonth, 2) + "/" + getLeadingZero(this.month, 2) + "/" + this.year;
     }
 
+
     /**
      * Gets the date filename string.
      *
@@ -498,6 +529,7 @@ public class ATechDate
         else
             return getLeadingZero(this.dayOfMonth, 2) + "_" + getLeadingZero(this.month, 2) + "_" + this.year;
     }
+
 
     /**
      * Gets the time filename string
@@ -513,6 +545,7 @@ public class ATechDate
             return getLeadingZero(this.hourOfDay, 2) + "_" + getLeadingZero(this.minute, 2);
 
     }
+
 
     /**
      * Gets the time string.
@@ -531,6 +564,7 @@ public class ATechDate
         else
             return "? " + getLeadingZero(this.hourOfDay, 2) + ":" + getLeadingZero(this.minute, 2);
     }
+
 
     /**
      * Gets the time.
@@ -556,6 +590,7 @@ public class ATechDate
             return -1;
     }
 
+
     /**
      * Gets the date time string.
      *
@@ -565,6 +600,7 @@ public class ATechDate
     {
         return getDateString() + " " + getTimeString();
     }
+
 
     /*
      * public String getDateTimeString(long date)
@@ -596,6 +632,7 @@ public class ATechDate
         return atd.getATDateTimeAsLong();
     }
 
+
     /**
      * Gets the aT date time from gc.
      *
@@ -614,6 +651,7 @@ public class ATechDate
         ATechDate atd = new ATechDate(_day, _month, _year, hour, minute, type);
         return atd.getATDateTimeAsLong();
     }
+
 
     /**
      * Gets the aT date time from gc.
@@ -666,6 +704,7 @@ public class ATechDate
         return dt;
     }
 
+
     /**
      * Gets the ATech DateTime from gc.
      *
@@ -686,6 +725,7 @@ public class ATechDate
         return ATechDate.getATDateTimeFromGC(gc, type);
     }
 
+
     /**
      * Convert at date.
      *
@@ -702,6 +742,7 @@ public class ATechDate
         ATechDate atd = new ATechDate(input_format, dt);
         return atd.getATDateTimeAsLong(output_format);
     }
+
 
     /**
      * Gets the aT date time from parts.
@@ -752,6 +793,7 @@ public class ATechDate
         return dt;
     }
 
+
     /**
      * Gets the aT date time as long.
      *
@@ -762,6 +804,7 @@ public class ATechDate
         return this.getATDateTimeAsLong(this.atechDatetimeType);
     }
 
+
     /**
      * Gets the aT date time as long.
      *
@@ -771,6 +814,7 @@ public class ATechDate
     {
         return this.getATDateTimeAsLongString(this.atechDatetimeType);
     }
+
 
     /**
      * Gets the aT date time as long.
@@ -820,6 +864,7 @@ public class ATechDate
 
     }
 
+
     public String getATDateTimeAsLongString(int output_format) // throws
                                                                // Exception
     {
@@ -868,6 +913,7 @@ public class ATechDate
 
     }
 
+
     /**
      * Gets the date from at date.
      *
@@ -893,6 +939,7 @@ public class ATechDate
         return -1;
     }
 
+
     /**
      * Gets the date time as time string.
      *
@@ -911,6 +958,7 @@ public class ATechDate
 
     private final static int DT_DATETIME = 1;
     private final static int DT_DATE = 2;
+
 
     // private final static int DT_TIME = 3;
 
@@ -964,6 +1012,7 @@ public class ATechDate
 
     }
 
+
     /*
      * public String getGCObjectFromDateTimeLong(long dt)
      * {
@@ -997,6 +1046,7 @@ public class ATechDate
         return atd.getGregorianCalendar();
     }
 
+
     /**
      * Gets the gregorian calendar.
      *
@@ -1022,6 +1072,7 @@ public class ATechDate
         return gc;
     }
 
+
     /**
      * Sets the Gregorian Calendar
      *
@@ -1038,6 +1089,7 @@ public class ATechDate
         this.msecond = gc.get(Calendar.MILLISECOND);
     }
 
+
     /**
      * Adds the.
      *
@@ -1053,6 +1105,7 @@ public class ATechDate
 
         setGregorianCalendar(gc);
     }
+
 
     /*
      * public void addHour(int hours)
@@ -1152,6 +1205,7 @@ public class ATechDate
 
     }
 
+
     /**
      * Checks if is leap year.
      *
@@ -1175,6 +1229,7 @@ public class ATechDate
         // years both divisible by 100 and not divisible by 400.
 
     }
+
 
     /**
      * equals
@@ -1242,85 +1297,102 @@ public class ATechDate
 
     }
 
+
     public int getDayOfMonth()
     {
         return dayOfMonth;
     }
+
 
     public void setDayOfMonth(int dayOfMonth)
     {
         this.dayOfMonth = dayOfMonth;
     }
 
+
     public int getMonth()
     {
         return month;
     }
+
 
     public void setMonth(int month)
     {
         this.month = month;
     }
 
+
     public int getYear()
     {
         return year;
     }
+
 
     public void setYear(int year)
     {
         this.year = year;
     }
 
+
     public int getHourOfDay()
     {
         return hourOfDay;
     }
+
 
     public void setHourOfDay(int hourOfDay)
     {
         this.hourOfDay = hourOfDay;
     }
 
+
     public int getMinute()
     {
         return minute;
     }
+
 
     public void setMinute(int minute)
     {
         this.minute = minute;
     }
 
+
     public int getSecond()
     {
         return second;
     }
+
 
     public void setSecond(int second)
     {
         this.second = second;
     }
 
+
     public int getMsecond()
     {
         return msecond;
     }
+
 
     public void setMsecond(int msecond)
     {
         this.msecond = msecond;
     }
 
+
     public int getAtechDatetimeType()
     {
         return atechDatetimeType;
     }
 
+
     public void setAtechDatetimeType(int atechDatetimeType)
     {
         this.atechDatetimeType = atechDatetimeType;
     }
+
 
     /**
      * To String
@@ -1329,6 +1401,33 @@ public class ATechDate
     public String toString()
     {
         return this.getDateString() + " " + this.getTimeString();
+    }
+
+    public enum ATechDateType
+    {
+        DateOnly(1, ""), //
+        TimeOnlyMin(2, ""), //
+        TimeOnlySec(3, ""), //
+        TimeOnlyMSec(4, ""), //
+        DateAndTimeMin(5, ""), //
+        DateAndTimeSec(6, ""), //
+        DateAndTimeMsec(7, "") //
+        ;
+
+        int code;
+
+
+        ATechDateType(int code, String desc)
+        {
+            this.code = code;
+        }
+
+
+        public int getCode()
+        {
+            return code;
+        }
+
     }
 
 }

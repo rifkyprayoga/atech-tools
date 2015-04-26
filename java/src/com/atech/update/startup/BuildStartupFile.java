@@ -37,8 +37,10 @@ import com.atech.update.startup.os.OSUtil;
 
 public class BuildStartupFile
 {
+
     UpdateConfiguration upd_conf;
     StartupFilesCreator sfc; // = new StartupFileCreator(UpdateConfiguration uc)
+
 
     // StartupUtil m_da;
 
@@ -110,6 +112,7 @@ public class BuildStartupFile
         StartupUtil.writeStartupWithOldCopy(2);
     }
 
+
     private boolean buildStartupFiles()
     {
 
@@ -149,6 +152,7 @@ public class BuildStartupFile
 
     }
 
+
     /**
      * Get Configuration
      * 
@@ -158,6 +162,7 @@ public class BuildStartupFile
     {
         return this.upd_conf;
     }
+
 
     /**
      * Main startup method

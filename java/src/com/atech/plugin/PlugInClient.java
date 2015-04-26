@@ -1,15 +1,13 @@
 package com.atech.plugin;
 
-import java.awt.Container;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.JDialog;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,6 +70,7 @@ public abstract class PlugInClient implements ActionListener
     protected ATDataAccessLMAbstract da_parent = null;
     private static final Log LOG = LogFactory.getLog(PlugInClient.class);
 
+
     /**
      * Constructor
      * 
@@ -88,6 +87,7 @@ public abstract class PlugInClient implements ActionListener
         initPlugin();
     }
 
+
     /**
      * Constructor
      * 
@@ -101,6 +101,7 @@ public abstract class PlugInClient implements ActionListener
         checkIfInstalled();
         initPlugin();
     }
+
 
     /**
      * Constructor
@@ -122,6 +123,7 @@ public abstract class PlugInClient implements ActionListener
         initPlugin();
     }
 
+
     /**
      * Constructor
      */
@@ -130,15 +132,18 @@ public abstract class PlugInClient implements ActionListener
         initPlugin();
     }
 
+
     /**
      * Init Plugin
      */
     public abstract void initPlugin();
 
+
     /**
      * Check If Installed
      */
     public abstract void checkIfInstalled();
+
 
     /**
      * Get Name of plugin
@@ -150,12 +155,14 @@ public abstract class PlugInClient implements ActionListener
         return ic.getMessage(getNameBase());
     }
 
+
     /**
      * Get Name of plugin
      * 
      * @return
      */
     public abstract String getNameBase();
+
 
     /**
      * Is PlugIn Installed
@@ -167,6 +174,7 @@ public abstract class PlugInClient implements ActionListener
         return m_server != null;
     }
 
+
     /**
      * Is Command Implemented
      * 
@@ -175,9 +183,12 @@ public abstract class PlugInClient implements ActionListener
      */
     public boolean isCommandImplemented(int command)
     {
-        return this.commands_implemented[command];
-
+        if (this.commands_implemented == null)
+            return true;
+        else
+            return this.commands_implemented[command];
     }
+
 
     /**
      * Execute Command
@@ -188,6 +199,7 @@ public abstract class PlugInClient implements ActionListener
     {
         executeCommand(command, null);
     }
+
 
     /**
      * Execute Command
@@ -235,6 +247,7 @@ public abstract class PlugInClient implements ActionListener
         }
     }
 
+
     /**
      * Execute Command
      * 
@@ -245,6 +258,7 @@ public abstract class PlugInClient implements ActionListener
     {
         executeCommandDialog(_parent, command, null);
     }
+
 
     /**
      * Execute Command with Dialog as Parent
@@ -293,6 +307,7 @@ public abstract class PlugInClient implements ActionListener
         return false;
     }
 
+
     /**
      * Execute Command with Dialog as Parent
      * 
@@ -340,10 +355,12 @@ public abstract class PlugInClient implements ActionListener
         return null;
     }
 
+
     /**
      * Action Performed
      */
     public abstract void actionPerformed(ActionEvent e);
+
 
     /**
      * Feature Not Implemented display message
@@ -365,6 +382,7 @@ public abstract class PlugInClient implements ActionListener
         showMessage(text);
     }
 
+
     /**
      * Feature Not Implemented and will be display message
      * 
@@ -384,6 +402,7 @@ public abstract class PlugInClient implements ActionListener
 
         showMessage(text);
     }
+
 
     /**
      * Feature Not Implemented and will be display message
@@ -408,6 +427,7 @@ public abstract class PlugInClient implements ActionListener
         showMessage(text);
     }
 
+
     /**
      * Show Message
      * 
@@ -417,6 +437,7 @@ public abstract class PlugInClient implements ActionListener
     {
         JOptionPane.showMessageDialog(this.parent, text, ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
     }
+
 
     /**
      * Set Transfer Object (for passing elements to plugin)
@@ -428,6 +449,7 @@ public abstract class PlugInClient implements ActionListener
         this.transfer_objects = lst;
     }
 
+
     /**
      * Get Transfer Object (for getting elements to plugin)
      * 
@@ -438,12 +460,14 @@ public abstract class PlugInClient implements ActionListener
         return this.transfer_objects;
     }
 
+
     /**
      * Get When Will Be Implemented
      * 
      * @return
      */
     public abstract String getWhenWillBeImplemented();
+
 
     /**
      * Get Short Status
@@ -452,6 +476,7 @@ public abstract class PlugInClient implements ActionListener
      */
     public abstract String getShortStatus();
 
+
     /**
      * Set Return Data (for getting data from plugin - async)
      * 
@@ -459,6 +484,7 @@ public abstract class PlugInClient implements ActionListener
      * @param stat_rep_int
      */
     public abstract void setReturnData(Object return_data, StatusReporterInterface stat_rep_int);
+
 
     /**
      * Get Return Object (getting data from plugin - synch)
@@ -474,6 +500,7 @@ public abstract class PlugInClient implements ActionListener
             return this.m_server.getReturnObject(ret_obj_id);
     }
 
+
     /**
      * Get Return Object (getting data from plugin - synch)
      * 
@@ -488,6 +515,7 @@ public abstract class PlugInClient implements ActionListener
         else
             return this.m_server.getReturnObject(ret_obj_id, parameters);
     }
+
 
     /**
      * Get PlugIn Main Menu
@@ -505,6 +533,7 @@ public abstract class PlugInClient implements ActionListener
             return m_server.getPlugInMainMenu();
     }
 
+
     /**
      * Get PlugIn Print Menu
      * Since printing is also PlugIn specific we need to add Printing jobs to
@@ -520,6 +549,7 @@ public abstract class PlugInClient implements ActionListener
             return m_server.getPlugInPrintMenus();
     }
 
+
     /**
      * Is Backup Restore Enabled
      * 
@@ -532,6 +562,7 @@ public abstract class PlugInClient implements ActionListener
         else
             return m_server.isBackupRestoreEnabled();
     }
+
 
     /**
      * Get Backup Restore Handler
@@ -546,6 +577,7 @@ public abstract class PlugInClient implements ActionListener
             return m_server.getBackupRestoreHandler();
     }
 
+
     /**
      * Get Backup Objects (if available)
      * 
@@ -559,6 +591,7 @@ public abstract class PlugInClient implements ActionListener
             return m_server.getBackupObjects();
     }
 
+
     /**
      * Checks if plug-in is active. Plugin is active, when client side is
      * connected to server side
@@ -570,6 +603,7 @@ public abstract class PlugInClient implements ActionListener
     {
         return m_server != null;
     }
+
 
     /**
      * Checks if plug-in is active. Plugin is active, when client side is
@@ -594,6 +628,7 @@ public abstract class PlugInClient implements ActionListener
 
     }
 
+
     /**
      * This is method which can be used by server side to do certain action.
      * Mainly this will be used
@@ -606,6 +641,7 @@ public abstract class PlugInClient implements ActionListener
     public void executeReturnAction(int action_type)
     {
     }
+
 
     /**
      * This method can be used to transfer data from plugin to other part of application. 
