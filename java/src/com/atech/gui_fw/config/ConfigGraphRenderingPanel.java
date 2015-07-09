@@ -27,17 +27,10 @@
 
 package com.atech.gui_fw.config;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.GridLayout;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import com.atech.help.HelpCapable;
@@ -76,6 +69,7 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
     private JComboBox comboAntiAliasing, comboColorRendering, comboDithering, comboFractionalMetrics,
             comboInterpolation, comboTextAntiAliasing, comboRendering;
 
+
     // private DailyGraphView dgv;
     // private JPanel testingPanel;
 
@@ -90,6 +84,7 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
 
         init();
     }
+
 
     private void init()
     {
@@ -144,18 +139,23 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
         // FIXME
 
         /*
-         * comboAntiAliasing.setSelectedIndex(m_da.getSettings().getAntiAliasing(
+         * comboAntiAliasing.setSelectedIndex(dataAccess.getSettings().
+         * getAntiAliasing(
          * ));
-         * comboColorRendering.setSelectedIndex(m_da.getSettings().getColorRendering
+         * comboColorRendering.setSelectedIndex(dataAccess.getSettings().
+         * getColorRendering
          * ());
-         * comboDithering.setSelectedIndex(m_da.getSettings().getDithering());
-         * comboFractionalMetrics.setSelectedIndex(m_da.getSettings().
+         * comboDithering.setSelectedIndex(dataAccess.getSettings().getDithering(
+         * ));
+         * comboFractionalMetrics.setSelectedIndex(dataAccess.getSettings().
          * getFractionalMetrics());
-         * comboInterpolation.setSelectedIndex(m_da.getSettings().getInterpolation
+         * comboInterpolation.setSelectedIndex(dataAccess.getSettings().
+         * getInterpolation
          * ());
-         * comboTextAntiAliasing.setSelectedIndex(m_da.getSettings().
+         * comboTextAntiAliasing.setSelectedIndex(dataAccess.getSettings().
          * getTextAntiAliasing());
-         * comboRendering.setSelectedIndex(m_da.getSettings().getRendering());
+         * comboRendering.setSelectedIndex(dataAccess.getSettings().getRendering(
+         * ));
          */
         comboAntiAliasing.addItemListener(this);
         comboColorRendering.addItemListener(this);
@@ -176,6 +176,7 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
          * add(dgv, BorderLayout.CENTER);
          */
     }
+
 
     /**
      * Save Properties
@@ -199,6 +200,7 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
          */
     }
 
+
     /**
      * Item State Changed
      * 
@@ -212,6 +214,7 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
         // dgv.settingsChanged();
     }
 
+
     // ****************************************************************
     // ****** HelpCapable Implementation *****
     // ****************************************************************
@@ -224,6 +227,7 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
         return this.getRootPane();
     }
 
+
     /**
      * getHelpButton - get Help button
      */
@@ -231,6 +235,7 @@ public class ConfigGraphRenderingPanel extends AbstractConfigPanel implements He
     {
         return this.parent.getHelpButton();
     }
+
 
     /**
      * getHelpId - get id for Help

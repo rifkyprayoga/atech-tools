@@ -1,22 +1,11 @@
 package com.atech.db.hibernate.tool;
 
-import java.awt.AWTEvent;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTree;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreeSelectionModel;
@@ -87,6 +76,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
         {}
     }
 
+
     /**
      * Instantiates a new db tool.
      */
@@ -105,6 +95,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
 
     }
 
+
     /**
      * Instantiates a new db tool.
      * 
@@ -116,12 +107,13 @@ public class DbTool extends JFrame implements TreeSelectionListener
         super();
 
         m_da = DbToolAccess.createInstance(this);
-        // m_da.loadApplicationData();
+        // dataAccess.loadApplicationData();
         preInit();
         m_da.m_databases_treeroot.loadData(intr);
         postInit();
 
     }
+
 
     private void preInit()
     {
@@ -132,6 +124,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
         menu_items = new Hashtable<String, JMenuItem>();
     }
 
+
     /**
      * Test_for_feature.
      */
@@ -139,6 +132,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
     {
 
     }
+
 
     /**
      * Post init.
@@ -156,6 +150,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
         this.setVisible(true);
 
     }
+
 
     /**
      * Creates the gui.
@@ -258,6 +253,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
         this.add(panel);
 
     }
+
 
     /**
      * Creates the menus.
@@ -367,6 +363,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
          */
     }
 
+
     /**
      * Creates the toolbar.
      */
@@ -374,6 +371,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
     {
 
     }
+
 
     /**
      * Load available database definitions.
@@ -385,7 +383,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
         Hashtable<String, String> table = dd.getTableOfAvailableDatabases();
         ArrayList<String> list = dd.getListOfAvailableDatabases();
 
-        // System.out.println(m_da);
+        // System.out.println(dataAccess);
 
         m_da.createAvailableDatabases(list.size());
 
@@ -406,6 +404,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
         }
 
     }
+
 
     /**
      * Creates the panels.
@@ -453,6 +452,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
      */
     public static final int PANEL_DATABASE = 2;
 
+
     /**
      *  Windows Process Event
      *  Used for redefining windows command (Close)
@@ -466,6 +466,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
             System.exit(0);
         }
     }
+
 
     /** 
      * Makes selected panel visible
@@ -485,6 +486,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
                 panels[i].setVisible(false);
             }
     }
+
 
     /** Required by TreeSelectionListener interface. */
     public void valueChanged(TreeSelectionEvent e)
@@ -519,6 +521,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
         }
 
     }
+
 
     /**
      * The main method.

@@ -3,8 +3,7 @@ package com.atech.graphics.dialogs;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -58,7 +57,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     private String m_action_id = "unknown";
 
     /**
-     * The m_da.
+     * The dataAccess.
      */
     ATDataAccessAbstract m_da;
 
@@ -83,6 +82,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
 
     private String component_name;
 
+
     /**
      * Constructor
      *
@@ -96,6 +96,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
         this.component_name = component_name;
     }
 
+
     public ActionExceptionCatchDialog(JFrame frame, int type, ATDataAccessAbstract dataAccess, String componentName)
     {
         super(frame);
@@ -103,6 +104,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
         this.m_da.addComponent(this);
         this.component_name = componentName;
     }
+
 
     /**
      * When disposing dialog, we need to remove dialog from list so we override
@@ -115,6 +117,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
         super.dispose();
     }
 
+
     /**
      * setBaseErrorMessage - set base error message.
      *
@@ -124,6 +127,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     {
         this.base_error_message = msg;
     }
+
 
     /**
      * Action handling... In this method we handle actions... Each action must
@@ -136,6 +140,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
      */
     public abstract void performAction(ActionEvent e) throws Exception;
 
+
     /**
      * Get Action Id
      * 
@@ -145,6 +150,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     {
         return this.m_action_id;
     }
+
 
     /**
      * Sets the action id.
@@ -156,6 +162,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     {
         this.m_action_id = action_id;
     }
+
 
     /**
      * Sets the error messages.
@@ -170,6 +177,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
         this.error_message = err_msg;
         this.error_message_tip = err_msg_tip;
     }
+
 
     /**
      * Invoked when an action occurs.
@@ -195,6 +203,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
         }
     }
 
+
     /**
      * Gets info if action was performed.
      *
@@ -205,6 +214,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
         return m_action_done == 0;
     }
 
+
     /**
      * Gets info if action was performed.
      *
@@ -214,6 +224,7 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
     {
         return m_action_done;
     }
+
 
     /**
      * Returns object of this dialog or null

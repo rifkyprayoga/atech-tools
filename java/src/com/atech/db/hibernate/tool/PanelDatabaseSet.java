@@ -1,24 +1,14 @@
 package com.atech.db.hibernate.tool;
 
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.StringTokenizer;
+import java.util.*;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
-import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
 
 /**
@@ -96,6 +86,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
     PanelDbAction db_action = null;
     DbTool m_dialog;
 
+
     /**
      * Constructor
      * 
@@ -118,6 +109,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
         createPanel();
 
     }
+
 
     private void createPanel()
     {
@@ -236,6 +228,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
         return;
     }
 
+
     /**
      * Set Data
      * 
@@ -250,6 +243,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
         // this.db_action.setDatabaseSettings
     }
 
+
     /**
      * Get Database Settings
      * 
@@ -260,6 +254,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
         return this.m_database_settings;
     }
 
+
     /**
      * Get JDBC URL
      * 
@@ -269,6 +264,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
     {
         return this.tf_url.getText();
     }
+
 
     private void clearElements()
     {
@@ -291,6 +287,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
         // this.parameters_textfield
     }
 
+
     private void reDraw()
     {
 
@@ -310,8 +307,8 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
             }
         }
 
-        // System.out.println("m_da: " + m_da);
-        // System.out.println("tableOfDb: " + m_da.m_tableOfDatabases);
+        // System.out.println("dataAccess: " + dataAccess);
+        // System.out.println("tableOfDb: " + dataAccess.m_tableOfDatabases);
         // System.out.println("dbName: " + dbName);
 
         DatabaseDefObject ddo = m_da.m_tableOfDatabases.get(dbName);
@@ -325,6 +322,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
         unpackURL(ddo.url);
 
     }
+
 
     private void unpackURL(String url)
     {
@@ -362,6 +360,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
         processParameters();
 
     }
+
 
     private void processParameters()
     {
@@ -402,6 +401,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
         this.db_action.setBounds(0, posy + 40, 485, 65);
 
     }
+
 
     private void processExistingUrl(String url)
     {
@@ -449,6 +449,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
 
     }
 
+
     /**
      *  Action Listener
      */
@@ -468,12 +469,14 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
 
     }
 
+
     /** 
      * keyPressed
      */
     public void keyPressed(KeyEvent arg0)
     {
     }
+
 
     /** 
      * Key Released
@@ -483,12 +486,14 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
         refreshUrl();
     }
 
+
     /** 
      * keyTyped
      */
     public void keyTyped(KeyEvent arg0)
     {
     }
+
 
     private void refreshUrl()
     {

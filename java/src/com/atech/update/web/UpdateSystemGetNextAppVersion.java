@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.atech.update.web.db.DataLayerUpdateServlet_v2;
+import com.atech.update.web.db.DataLayerUpdateServletV2;
 import com.atech.utils.web.ServletUtilities;
 
 /**
@@ -46,13 +46,14 @@ public class UpdateSystemGetNextAppVersion extends HttpServlet
 
     private static final long serialVersionUID = -2760238837962215561L;
 
+
     /**
      * doGet
      */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        DataLayerUpdateServlet_v2 dl = DataLayerUpdateServlet_v2.getInstance();
+        DataLayerUpdateServletV2 dl = DataLayerUpdateServletV2.getInstance();
 
         String product_id = getParameter(request, "product_id");
         int current_version = Integer.parseInt(getParameter(request, "current_version"));
@@ -83,6 +84,7 @@ public class UpdateSystemGetNextAppVersion extends HttpServlet
 
     }
 
+
     /** 
      * doPost
      */
@@ -91,6 +93,7 @@ public class UpdateSystemGetNextAppVersion extends HttpServlet
     {
         doGet(request, response);
     }
+
 
     /**
      * Gets the parameter.

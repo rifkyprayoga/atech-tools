@@ -57,7 +57,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     private Log log = LogFactory.getLog(HibernateConfiguration.class);
 
     /**
-     * The m_da.
+     * The dataAccess.
      */
     protected ATDataAccessAbstract m_da = null;
 
@@ -146,6 +146,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
      */
     protected int db_context_selected = HibernateConfiguration.DB_CONTEXT_NONE;
 
+
     /**
      * Instantiates a new hibernate configuration.
      */
@@ -153,6 +154,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     {
         this(-1);
     }
+
 
     /**
      * Instantiates a new hibernate configuration.
@@ -164,6 +166,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         loadConfiguration(-1);
     }
 
+
     /**
      * Instantiates a new hibernate configuration.
      * 
@@ -174,6 +177,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         loadConfiguration(sel_db);
     }
 
+
     /**
      * Instantiates a new hibernate configuration.
      * 
@@ -183,6 +187,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     {
         this(ic, null);
     }
+
 
     /**
      * Instantiates a new hibernate configuration.
@@ -202,6 +207,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     int splash_diff = 100;
     int splash_object_progress = -1;
 
+
     /**
      * Instantiates a new hibernate configuration.
      * 
@@ -216,6 +222,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         loadConfiguration(-1);
     }
 
+
     private void setSplashProperties(SplashAbstract splash, int starting, int ending)
     {
         this.m_splash = splash;
@@ -224,6 +231,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         splash_set = true;
         this.splash_diff = ending - starting;
     }
+
 
     /**
      * Instantiates a new hibernate configuration.
@@ -240,6 +248,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         loadConfiguration();
     }
 
+
     /**
      * Inits the i18n.
      */
@@ -250,6 +259,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         this.cfg_file_missing_str = setI18nVariable("CFG_FILE_MISSING", this.cfg_file_missing_str);
         this.cfg_file_error_read_exc = setI18nVariable("CFG_FILE_ERROR_READ", this.cfg_file_error_read_exc);
     }
+
 
     /**
      * Sets the i18n variable.
@@ -267,6 +277,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
             return original_value;
     }
 
+
     /**
      * Gets the connection name.
      * 
@@ -277,6 +288,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         return this.db_conn_name;
     }
 
+
     /**
      * Gets the hibernate dialect.
      * 
@@ -286,6 +298,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     {
         return this.db_hib_dialect;
     }
+
 
     /**
      *  In this method we need to set configuration_file variable, with path and filename of 
@@ -354,6 +367,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
 
     }
 
+
     /**
      * Load configuration.
      */
@@ -361,6 +375,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     {
         loadConfiguration(-1);
     }
+
 
     /**
      * Does configuration exist.
@@ -375,9 +390,12 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         return f.exists();
     }
 
+
     public abstract boolean canShemaBeAutomaticallyChanged();
 
+
     public abstract String getShemaChangeType();
+
 
     /**
      * Gets the configuration.
@@ -391,6 +409,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         return cfg;
     }
 
+
     /** 
      * getDbInfoConfiguration
      */
@@ -401,6 +420,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         this.db_context_selected = HibernateConfiguration.DB_CONTEXT_DBINFO;
         return cfg;
     }
+
 
     protected Configuration getCustomConfiguration(String[] res_files)
     {
@@ -447,12 +467,14 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         return cfg;
     }
 
+
     // setSplashProgress(i, res_files[i]);
 
     public void setSplashProgress(int item, String item_name)
     {
         this.setSplashProgress(item, item_name, false);
     }
+
 
     /**
      * Set Splash Progress
@@ -479,6 +501,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
 
     }
 
+
     private String parseItemName(String item_name)
     {
         item_name = item_name.replace(".hbm.xml", "");
@@ -491,12 +514,14 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         return ic.getMessage("DB_CFG_" + item_name.toUpperCase());
     }
 
+
     /**
      * Load Default Database
      * 
      * @param config_found
      */
     public abstract void loadDefaultDatabase(boolean config_found);
+
 
     /**
      * Get Configuration File
@@ -505,6 +530,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
      */
     public abstract String getConfigurationFile();
 
+
     /**
      * Get Resource Files
      * 
@@ -512,12 +538,14 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
      */
     public abstract String[] getResourceFiles();
 
+
     /**
      * Get Number Of Sessions
      * 
      * @return 
      */
     public abstract int getNumberOfSessions();
+
 
     /**
      * Creates the session factory.
@@ -534,6 +562,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
 
     }
 
+
     /**
      * Get Mapping Location
      * 
@@ -543,6 +572,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     {
         return null;
     }
+
 
     /**
      * Gets the session.
@@ -555,6 +585,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     {
         return getSession(num, false);
     }
+
 
     /**
      * Gets the session.
@@ -581,6 +612,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         return s;
     }
 
+
     /**
      * Reset configuration.
      */
@@ -589,6 +621,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         closeSessions();
         createSessionFactory();
     }
+
 
     /**
      * Close sessions.
@@ -612,6 +645,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         }
     }
 
+
     /**
      * Gets the session.
      * 
@@ -628,6 +662,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
 
         return this.session_factory;
     }
+
 
     /**
      * Close db.
@@ -650,6 +685,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         closeSessions();
 
     }
+
 
     /**
      * Re init configuration.

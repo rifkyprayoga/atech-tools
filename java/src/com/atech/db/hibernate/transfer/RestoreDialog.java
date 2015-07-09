@@ -1,8 +1,6 @@
 package com.atech.db.hibernate.transfer;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -11,14 +9,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
 import com.atech.graphics.components.tree.CheckNode;
@@ -73,7 +64,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     protected I18nControlAbstract ic = null;
 
     /**
-     * The m_da.
+     * The dataAccess.
      */
     protected ATDataAccessAbstract m_da = null;
 
@@ -165,6 +156,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
      */
     String filename;
 
+
     /**
      * Instantiates a new restore dialog.
      * 
@@ -181,7 +173,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         m_da = da;
         this.ic = m_da.getI18nControlInstance();
         // ATDataAccess.getInstance();
-        // m_da.setParent(parent);
+        // dataAccess.setParent(parent);
         this.backuprestore_root = br_coll;
 
         // System.out.println("Br Coll: " + br_coll);
@@ -191,6 +183,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
 
         init();
     }
+
 
     /**
      * Instantiates a new restore dialog.
@@ -203,8 +196,8 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     public RestoreDialog(JFrame parent, ATDataAccessAbstract da, BackupRestoreCollection br_coll, String filename)
     {
         super(parent, "", true);
-        // m_da = ATDataAccess.getInstance();
-        // m_da.setParent(parent);
+        // dataAccess = ATDataAccess.getInstance();
+        // dataAccess.setParent(parent);
         my_parent = parent;
         m_da = da;
         this.ic = m_da.getI18nControlInstance();
@@ -216,10 +209,12 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         init();
     }
 
+
     /**
      * Perform restore.
      */
     public abstract void performRestore();
+
 
     /**
      * Inits the.
@@ -250,10 +245,11 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
 
         this.setResizable(false);
         this.m_da.addComponent(this);
-        this.m_da.centerJDialog(this); // m_da.getParent());
+        this.m_da.centerJDialog(this); // dataAccess.getParent());
 
         // this.setVisible(true);
     }
+
 
     /**
      * Show dialog.
@@ -262,6 +258,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     {
         this.setVisible(true);
     }
+
 
     /**
      *   Displays title for dialog
@@ -278,6 +275,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
      */
     boolean restore_possible = true;
 
+
     /**
      * Prepare restore.
      */
@@ -292,10 +290,12 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
 
     }
 
+
     private void processBackupRestoreCollection()
     {
         processCollection(this.backuprestore_root);
     }
+
 
     private void processCollection(BackupRestoreCollection brc)
     {
@@ -338,6 +338,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
             }
         } while (!finished);
     }
+
 
     /**
      *   Displays GUI
@@ -438,6 +439,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
 
     }
 
+
     /**
      * If there are any special options you need displayed, you need to put them here, and then add them
      * to panel (called panel). You also need to resize this panel and also whole dialog.
@@ -445,6 +447,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
      *   this.setBounds(130, 50, 450, 450); 
      */
     public abstract void initSpecial();
+
 
     /** 
      * setTask
@@ -474,6 +477,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         }
     }
 
+
     private void cleanRestoreDirectory()
     {
         File f = new File("../data");
@@ -498,6 +502,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         }
     }
 
+
     /**
      * Unpack restore files.
      */
@@ -519,12 +524,14 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
 
     }
 
+
     private void getFilesStatus()
     {
         File f = new File("../data/import");
 
         File[] lst = f.listFiles(new FilenameFilter()
         {
+
             public boolean accept(File dir, String name)
             {
                 return name.endsWith(".dbe");
@@ -543,6 +550,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         }
 
     }
+
 
     /** 
      * setStatus
@@ -563,6 +571,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         // this.progress_current.setString("" + procent + " %");
 
     }
+
 
     /** 
      * actionPerformed
@@ -588,6 +597,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         }
 
     }
+
 
     /*
      * cleanBackupDirectory();
@@ -618,6 +628,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
 
         this.count_of_backup_elements = elements_count;
     }
+
 
     /*
      * a2
@@ -662,6 +673,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         }
     }
 
+
     /*
      * public void performBackup()
      * {
@@ -681,6 +693,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
             return false;
     }
 
+
     /**
      *  Returns object saved
      * 
@@ -696,6 +709,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
      */
     String help_id = null;
 
+
     /** 
      * enableHelp
      */
@@ -705,6 +719,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         m_da.enableHelp(this);
     }
 
+
     /** 
      * getComponent
      */
@@ -713,6 +728,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         return this;
     }
 
+
     /** 
      * getHelpButton
      */
@@ -720,6 +736,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     {
         return button_help;
     }
+
 
     /** 
      * getHelpId

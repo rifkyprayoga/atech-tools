@@ -24,6 +24,7 @@ public class DevTranslationProcessor extends DataListProcessor
 
     }
 
+
     public void processLangaugeFile(MasterFileReader mfr_)
     {
         /*
@@ -32,6 +33,7 @@ public class DevTranslationProcessor extends DataListProcessor
          * readMasterFileConfig();
          */
     }
+
 
     public void temmpp()
     {
@@ -45,10 +47,11 @@ public class DevTranslationProcessor extends DataListProcessor
          * getTextLine(this.user_config.get("TRANSLATOR_NAME") + " (" +
          * this.user_config.get("TRANSLATOR_EMAIL") + ")", 48) + "###\n");
          * sb.append("#  ###    Version: " +
-         * getTextLine(m_da.getTranslationConfig().get("MODULE_VERSION"), 51) +
+         * getTextLine(dataAccess.getTranslationConfig().get("MODULE_VERSION"),
+         * 51) +
          * "###\n");
          * sb.append("#  ###    Last change: " +
-         * getTextLine(m_da.getCurrentDateTimeString(), 47) + "###\n");
+         * getTextLine(dataAccess.getCurrentDateTimeString(), 47) + "###\n");
          * sb.append(this.user_config.get("COLLATION_RULES") + "\n");
          * if (this.user_config.containsKey("HEADER_COMMENT_" +part+ i))
          * {

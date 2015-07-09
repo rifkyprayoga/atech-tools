@@ -5,8 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -45,10 +44,11 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
 
     private static final long serialVersionUID = -6416972855325230538L;
     protected ATDataAccessAbstract m_da = null;
-    protected I18nControlAbstract m_ic = null; // m_da.getI18nControlInstance();
+    protected I18nControlAbstract m_ic = null; // dataAccess.getI18nControlInstance();
     protected boolean changed = false;
     ConfigurationDialog parent;
     AbstractConfigurationContext m_acc;
+
 
     /**
      * Constructor
@@ -61,10 +61,11 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
         this.parent = acc.getConfigurationDialog();
         this.m_da = acc.getDataAccessInstance();
 
-        System.out.println("AbstractConfigPanel::m_da: " + m_da);
+        System.out.println("AbstractConfigPanel::dataAccess: " + m_da);
 
         this.m_ic = m_da.getI18nControlInstance();
     }
+
 
     /**
      * Set Changed
@@ -76,6 +77,7 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
         changed = change;
     }
 
+
     /**
      * Has Changed
      * 
@@ -85,6 +87,7 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
     {
         return changed;
     }
+
 
     /**
      * Insert Update
@@ -96,6 +99,7 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
         changed = true;
     }
 
+
     /**
      * Remove Update
      * 
@@ -106,6 +110,7 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
         changed = true;
     }
 
+
     /**
      * Changed Update
      * 
@@ -114,6 +119,7 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
     public void changedUpdate(DocumentEvent e)
     {
     }
+
 
     /**
      * Action Performed
@@ -125,6 +131,7 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
         changed = true;
     }
 
+
     /**
      * Item State Changed
      * 
@@ -135,10 +142,12 @@ public abstract class AbstractConfigPanel extends JPanel implements DocumentList
         changed = true;
     }
 
+
     /**
      * Save Properties
      */
     public abstract void saveConfig();
+
 
     /**
      * Kill - If changed, it asks if values should be changed

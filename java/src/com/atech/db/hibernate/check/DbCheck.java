@@ -54,7 +54,7 @@ public class DbCheck
     // 3. make check
     // 4. display if error found
 
-    ATDataAccessAbstract da = null;
+    //ATDataAccessAbstract da = null;
 
     UpdateConfiguration upd_conf;
 
@@ -79,7 +79,7 @@ public class DbCheck
             return;
 
         this.upd_conf = new BuildStartupFile().getConfiguration();
-        da = ATDataAccess.getInstance();
+        // da = ATDataAccess.getInstance();
         // loadApplicationData();
 
         readUpdateSystemData();
@@ -100,7 +100,7 @@ public class DbCheck
         if (!StartupUtil.shouldDbCheckBeDone())
             return;
 
-        da = ATDataAccess.getInstance();
+        //da = ATDataAccess.getInstance();
         this.version_db_required = req_version;
         this.db_config_instance_class = db_class;
 

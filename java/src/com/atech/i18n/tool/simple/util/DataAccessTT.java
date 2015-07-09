@@ -1,7 +1,6 @@
 package com.atech.i18n.tool.simple.util;
 
-import java.awt.Component;
-import java.awt.Font;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -229,31 +228,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     // ****** Languages *****
     // ********************************************************
 
-    /** 
-     * getMonthsArray
-     */
-    @Override
-    public String[] getMonthsArray()
-    {
 
-        String arr[] = new String[12];
-
-        arr[0] = m_i18n.getMessage("JANUARY");
-        arr[1] = m_i18n.getMessage("FEBRUARY");
-        arr[2] = m_i18n.getMessage("MARCH");
-        arr[3] = m_i18n.getMessage("APRIL");
-        arr[4] = m_i18n.getMessage("MAY");
-        arr[5] = m_i18n.getMessage("JUNE");
-        arr[6] = m_i18n.getMessage("JULY");
-        arr[7] = m_i18n.getMessage("AUGUST");
-        arr[8] = m_i18n.getMessage("SEPTEMBER");
-        arr[9] = m_i18n.getMessage("OCTOBER");
-        arr[10] = m_i18n.getMessage("NOVEMBER");
-        arr[11] = m_i18n.getMessage("DECEMBER");
-
-        return arr;
-
-    }
 
     /**
      * Not implemented.

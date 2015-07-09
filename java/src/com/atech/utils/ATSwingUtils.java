@@ -80,6 +80,7 @@ public class ATSwingUtils
      */
     Hashtable<String, String> availableLF_full = null;
 
+
     // Object[] availableLF = null;
     // Object[] availableLang = null;
     // private LanguageInfo m_lang_info = null;
@@ -96,6 +97,7 @@ public class ATSwingUtils
     {
         ATSwingUtils.i18n_control = ic;
     }
+
 
     /**
      * Inits the library.
@@ -140,6 +142,7 @@ public class ATSwingUtils
      */
     public static final int FONT_NORMAL_SMALLER = 5;
 
+
     /**
      * Load fonts.
      */
@@ -170,6 +173,7 @@ public class ATSwingUtils
 
     }
 
+
     /**
      * Gets the font.
      * 
@@ -181,6 +185,7 @@ public class ATSwingUtils
     {
         return fonts[font_id];
     }
+
 
     /**
      * Returns image. Used for extracting images from JAR files.
@@ -221,6 +226,7 @@ public class ATSwingUtils
         return img;
     }
 
+
     // ********************************************************
     // ****** GUI *****
     // ********************************************************
@@ -244,12 +250,12 @@ public class ATSwingUtils
         int y = rec.height / 2;
         y += rec.y;
 
-        //System.out.println("x=" + x + ", y=" + y);
+        // System.out.println("x=" + x + ", y=" + y);
 
         x -= dialog.getBounds().width / 2;
         y -= dialog.getBounds().height / 2;
 
-        //System.out.println("x=" + x + ", y=" + y);
+        // System.out.println("x=" + x + ", y=" + y);
 
         dialog.getBounds().x = x;
         dialog.getBounds().y = y;
@@ -257,6 +263,7 @@ public class ATSwingUtils
         dialog.setBounds(x, y, dialog.getBounds().width, dialog.getBounds().height);
 
     }
+
 
     // ********************************************************
     // ****** Look and Feel *****
@@ -327,16 +334,6 @@ public class ATSwingUtils
         this.border_line = new LineBorder(this.color_foreground);
     }
 
-    /**
-     * Gets the months array.
-     * 
-     * @return the months array
-     */
-    public String[] getMonthsArray()
-    {
-        return null;
-        // return this.months;
-    }
 
     /*
      * public void loadComboOptions()
@@ -391,6 +388,7 @@ public class ATSwingUtils
 
     }
 
+
     /**
      * Gets the time string.
      * 
@@ -409,6 +407,7 @@ public class ATSwingUtils
 
     }
 
+
     /**
      * Gets the date time string.
      * 
@@ -420,6 +419,7 @@ public class ATSwingUtils
     {
         return getDateTimeString(date, 1);
     }
+
 
     /**
      * Gets the date time as date string.
@@ -447,6 +447,7 @@ public class ATSwingUtils
      * The Constant DATE_TIME_ATECH_TIME.
      */
     public static final int DATE_TIME_ATECH_TIME = 3;
+
 
     /**
      * Gets the aT date time from gc.
@@ -482,6 +483,7 @@ public class ATSwingUtils
 
         return dt;
     }
+
 
     /**
      * Gets the aT date time from parts.
@@ -522,6 +524,7 @@ public class ATSwingUtils
         return dt;
     }
 
+
     /**
      * Gets the date from at date.
      * 
@@ -542,6 +545,7 @@ public class ATSwingUtils
         // System.out.println(data);
         return d2;
     }
+
 
     /**
      * Gets the date time as time string.
@@ -573,6 +577,7 @@ public class ATSwingUtils
      * The Constant DT_TIME.
      */
     public final static int DT_TIME = 3;
+
 
     /**
      * Gets the date time string.
@@ -623,6 +628,7 @@ public class ATSwingUtils
 
     }
 
+
     /*
      * x
      * public String getGCObjectFromDateTimeLong(long dt)
@@ -657,6 +663,7 @@ public class ATSwingUtils
 
     }
 
+
     /**
      * Gets the leading zero.
      * 
@@ -679,6 +686,7 @@ public class ATSwingUtils
 
     }
 
+
     /**
      * Gets the start year.
      * 
@@ -689,6 +697,7 @@ public class ATSwingUtils
         // FIX set in Db
         return 1800;
     }
+
 
     /**
      * Not implemented.
@@ -702,6 +711,7 @@ public class ATSwingUtils
         // source);
     }
 
+
     /**
      * Not implemented.
      * 
@@ -713,6 +723,7 @@ public class ATSwingUtils
         System.out.println("Not Implemented: " + source);
         JOptionPane.showMessageDialog(parent, "Not Implemented: \n" + source);
     }
+
 
     /**
      * Creates the menu.
@@ -738,10 +749,12 @@ public class ATSwingUtils
         return item;
     }
 
+
     public static JMenu createMenu(String name, String tool_tip, JMenuBar bar, I18nControlAbstract ic)
     {
         return createMenu(name, tool_tip, bar, ic, -1);
     }
+
 
     /**
      * Creates the menu.
@@ -777,6 +790,7 @@ public class ATSwingUtils
         return item;
     }
 
+
     /**
      * Creates the menu.
      * 
@@ -791,6 +805,7 @@ public class ATSwingUtils
     {
         return ATSwingUtils.createMenu(name, tool_tip, menu, ATSwingUtils.i18n_control);
     }
+
 
     /**
      * Creates the menu.
@@ -818,6 +833,7 @@ public class ATSwingUtils
         menu.add(item);
         return item;
     }
+
 
     /**
      * Creates the menu item.
@@ -857,6 +873,7 @@ public class ATSwingUtils
 
     }
 
+
     // ********************************************************
     // ****** Swing Components *****
     // ********************************************************
@@ -881,16 +898,16 @@ public class ATSwingUtils
         return getNumericTextField(columns, decimal_places, value, x, y, width, height, cont, null);
     }
 
+
     public static JDecimalTextField getNumericTextField(int columns, int decimal_places, Object value, int x, int y,
-                                                        int width, int height, Container cont, int fontId)
+            int width, int height, Container cont, int fontId)
     {
         return getNumericTextField(columns, decimal_places, value, x, y, width, height, cont, getFont(fontId));
     }
 
 
-
     public static JDecimalTextField getNumericTextField(int columns, int decimal_places, Object value, int x, int y,
-                                                        int width, int height, Container cont, Font font)
+            int width, int height, Container cont, Font font)
     {
         JDecimalTextField tf = new JDecimalTextField(value, decimal_places);
         tf.setBounds(x, y, width, height);
@@ -923,6 +940,7 @@ public class ATSwingUtils
         return getLabel(text, x, y, width, height, cont, null);
     }
 
+
     /**
      * Gets the label.
      * 
@@ -940,6 +958,7 @@ public class ATSwingUtils
     {
         return getLabel(text, x, y, width, height, cont, getFont(font_id));
     }
+
 
     /**
      * Gets the label.
@@ -975,6 +994,7 @@ public class ATSwingUtils
         return label_1;
     }
 
+
     /**
      * Gets the title label.
      * 
@@ -992,6 +1012,7 @@ public class ATSwingUtils
     {
         return getTitleLabel(text, x, y, width, height, cont, getFont(font_id));
     }
+
 
     /**
      * Gets the title label.
@@ -1013,6 +1034,7 @@ public class ATSwingUtils
         return label_1;
     }
 
+
     /**
      * Gets the combo box.
      * 
@@ -1031,6 +1053,7 @@ public class ATSwingUtils
         return ATSwingUtils.getComboBox(data, x, y, width, height, cont, getFont(font_id));
 
     }
+
 
     /**
      * Gets the combo box.
@@ -1055,6 +1078,7 @@ public class ATSwingUtils
         return cb;
     }
 
+
     /**
      * Gets the combo box.
      * 
@@ -1072,6 +1096,7 @@ public class ATSwingUtils
     {
         return ATSwingUtils.getComboBox(data, x, y, width, height, cont, getFont(font_id));
     }
+
 
     /**
      * Gets the combo box.
@@ -1096,6 +1121,7 @@ public class ATSwingUtils
         return cb;
     }
 
+
     /**
      * Gets the button.
      * 
@@ -1118,6 +1144,7 @@ public class ATSwingUtils
     {
         return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da);
     }
+
 
     /**
      * Gets the button.
@@ -1142,6 +1169,7 @@ public class ATSwingUtils
         return ATSwingUtils.getButton(text, x, y, width, height, cont, font, icon_name, action_cmd, al, da, null);
     }
 
+
     public static JButton getIconButton(int x, int y, int width, int height, String tooltip, String icon_name,
             int icon_width, int icon_height, String action_cmd, ActionListener al, Container cont,
             ATDataAccessAbstract da)
@@ -1155,6 +1183,7 @@ public class ATSwingUtils
 
         return button;
     }
+
 
     /**
      * @param text
@@ -1177,6 +1206,7 @@ public class ATSwingUtils
         return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da,
             icon_size);
     }
+
 
     /**
      * Gets the button.
@@ -1230,6 +1260,7 @@ public class ATSwingUtils
         return button;
     }
 
+
     /**
      * Gets the check box.
      * 
@@ -1247,6 +1278,7 @@ public class ATSwingUtils
     {
         return ATSwingUtils.getCheckBox(text, x, y, width, height, cont, getFont(font_id));
     }
+
 
     /**
      * Gets the check box.
@@ -1272,6 +1304,7 @@ public class ATSwingUtils
 
         return chb;
     }
+
 
     /**
      * Gets the panel.
@@ -1302,6 +1335,7 @@ public class ATSwingUtils
         return panel;
     }
 
+
     /**
      * Gets the text field.
      * 
@@ -1330,6 +1364,7 @@ public class ATSwingUtils
         return text_1;
     }
 
+
     /**
      * Gets the text field.
      * 
@@ -1347,6 +1382,7 @@ public class ATSwingUtils
     {
         return getTextField(text, x, y, width, height, cont, getFont(font_id));
     }
+
 
     /**
      * Gets the text field.
@@ -1382,6 +1418,7 @@ public class ATSwingUtils
         return text_1;
     }
 
+
     /**
      * Get Scroll Pane
      * 
@@ -1403,6 +1440,7 @@ public class ATSwingUtils
         return scr2;
     }
 
+
     /**
      * Adds the component.
      * 
@@ -1417,6 +1455,7 @@ public class ATSwingUtils
     {
         addComponent(comp, posX, posY, width, height, FONT_NORMAL, parent);
     }
+
 
     /**
      * Adds the component.
@@ -1436,6 +1475,7 @@ public class ATSwingUtils
         comp.setFont(getFont(font_id));
         parent.add(comp);
     }
+
 
     /**
      * Create Menu
@@ -1458,11 +1498,13 @@ public class ATSwingUtils
         return item;
     }
 
+
     public static JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command,
             ActionListener al, String icon_small, I18nControlAbstract ic, ATDataAccessAbstract da, Container c)
     {
         return createMenuItem(menu, name, tip, action_command, al, icon_small, ic, da, c, -1);
     }
+
 
     /**
      * Create Menu Item 
@@ -1513,6 +1555,7 @@ public class ATSwingUtils
         // return action;
     }
 
+
     /**
      * Gets the numeric text field.
      * 
@@ -1542,6 +1585,7 @@ public class ATSwingUtils
 
         return sp;
     }
+
 
     /**
      * Gets the numeric text field.
@@ -1573,6 +1617,7 @@ public class ATSwingUtils
         return sp;
     }
 
+
     /**
      * Show Error Dialog
      * 
@@ -1584,6 +1629,7 @@ public class ATSwingUtils
     {
         JOptionPane.showMessageDialog(cont, ic.getMessage(message), ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
     }
+
 
     /**
      * Show Warning Dialog
@@ -1597,6 +1643,7 @@ public class ATSwingUtils
         JOptionPane.showMessageDialog(cont, ic.getMessage(message), ic.getMessage("WARNING"),
             JOptionPane.WARNING_MESSAGE);
     }
+
 
     /**
      * Gets the text area (is JScrollPane)
@@ -1626,6 +1673,7 @@ public class ATSwingUtils
 
         return jta;
     }
+
 
     // ********************************************************
     // ****** JFormatted Text Field *****
@@ -1801,6 +1849,7 @@ public class ATSwingUtils
 
     }
 
+
     /**
      * Gets the j formated text value byte.
      *
@@ -1854,6 +1903,7 @@ public class ATSwingUtils
         }
 
     }
+
 
     /**
      * Gets the j formated text value short.
@@ -1909,6 +1959,7 @@ public class ATSwingUtils
 
     }
 
+
     /**
      * Gets the j formated text value float.
      *
@@ -1963,6 +2014,7 @@ public class ATSwingUtils
         }
 
     }
+
 
     /**
      * Gets the j formated text value double.
@@ -2023,8 +2075,6 @@ public class ATSwingUtils
     // ****** GUI *****
     // ********************************************************
 
-
-
     /**
      * Center j dialog.
      *
@@ -2066,13 +2116,15 @@ public class ATSwingUtils
          */
     }
 
+
     //
-    //     HELP
+    // HELP
     //
 
     public static JButton createHelpButtonBySize(int width, int height, Container comp, ATDataAccessAbstract dataAccess)
     {
-        return createHelpButtonBySize(width, height, comp, dataAccess.getImagesRoot(), dataAccess.getI18nControlInstance());
+        return createHelpButtonBySize(width, height, comp, dataAccess.getImagesRoot(),
+            dataAccess.getI18nControlInstance());
     }
 
 
@@ -2085,7 +2137,8 @@ public class ATSwingUtils
      *
      * @return the j button
      */
-    public static JButton createHelpButtonBySize(int width, int height, Container comp, String imagesRoot, I18nControlAbstract ic)
+    public static JButton createHelpButtonBySize(int width, int height, Container comp, String imagesRoot,
+            I18nControlAbstract ic)
     {
         JButton help_button = new JButton(" " + ic.getMessage("HELP"));
         help_button.setPreferredSize(new Dimension(width, height));
@@ -2095,6 +2148,7 @@ public class ATSwingUtils
 
         return help_button;
     }
+
 
     /**
      * Creates the help button by size.
@@ -2126,12 +2180,11 @@ public class ATSwingUtils
      *
      * @return the j button
      */
-    public static JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp, int font_id, ATDataAccessAbstract dataAccess)
+    public static JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp, int font_id,
+            ATDataAccessAbstract dataAccess)
     {
         return createHelpIconByBounds(x, y, width, height, comp, getFont(font_id), dataAccess.getImagesRoot());
     }
-
-
 
 
     /**
@@ -2146,7 +2199,8 @@ public class ATSwingUtils
      *
      * @return the j button
      */
-    public static JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp, int font_id, String imagesRoot)
+    public static JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp, int font_id,
+            String imagesRoot)
     {
         return createHelpIconByBounds(x, y, width, height, comp, getFont(font_id), imagesRoot);
     }
@@ -2164,7 +2218,8 @@ public class ATSwingUtils
      *
      * @return the j button
      */
-    public static JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp, Font font, String imagesRoot)
+    public static JButton createHelpIconByBounds(int x, int y, int width, int height, Container comp, Font font,
+            String imagesRoot)
     {
         JButton help_button = new JButton();
         help_button.setBounds(x, y, width, height);
@@ -2179,15 +2234,16 @@ public class ATSwingUtils
     }
 
 
-
-    public static JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, int fontId, ATDataAccessAbstract da)
+    public static JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, int fontId,
+            ATDataAccessAbstract da)
     {
-        return createHelpButtonByBounds(x, y, width, height, comp, getFont(fontId), da.getImagesRoot(), da.getI18nControlInstance());
+        return createHelpButtonByBounds(x, y, width, height, comp, getFont(fontId), da.getImagesRoot(),
+            da.getI18nControlInstance());
     }
 
 
-
-    public static JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, int fontId, String imagesRoot, I18nControlAbstract ic)
+    public static JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, int fontId,
+            String imagesRoot, I18nControlAbstract ic)
     {
         return createHelpButtonByBounds(x, y, width, height, comp, getFont(fontId), imagesRoot, ic);
     }
@@ -2205,7 +2261,8 @@ public class ATSwingUtils
      *
      * @return the j button
      */
-    public static JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, Font font, String imagesRoot, I18nControlAbstract ic)
+    public static JButton createHelpButtonByBounds(int x, int y, int width, int height, Container comp, Font font,
+            String imagesRoot, I18nControlAbstract ic)
     {
         JButton help_button = new JButton("  " + ic.getMessage("HELP"));
         help_button.setBounds(x, y, width, height);
@@ -2220,9 +2277,8 @@ public class ATSwingUtils
     }
 
 
-
     //
-    //   Images
+    // Images
     //
 
     /**
@@ -2239,14 +2295,6 @@ public class ATSwingUtils
     }
 
 
-
-
-
-
-
-
-
-
     /**
      * Gets the image icon_22x22.
      *
@@ -2259,7 +2307,6 @@ public class ATSwingUtils
     {
         return getImageIcon(root, name, 22, 22, comp);
     }
-
 
 
     /**
@@ -2280,7 +2327,6 @@ public class ATSwingUtils
     }
 
 
-
     /**
      * Gets the image icon.
      *
@@ -2297,8 +2343,6 @@ public class ATSwingUtils
     }
 
 
-
-
     /**
      * Gets the image icon.
      *
@@ -2309,7 +2353,8 @@ public class ATSwingUtils
      *
      * @return the image icon
      */
-    public static ImageIcon getImageIcon(String name, int width, int height, Container comp, ATDataAccessAbstract dataAccess)
+    public static ImageIcon getImageIcon(String name, int width, int height, Container comp,
+            ATDataAccessAbstract dataAccess)
     {
         return ATSwingUtils.getImageIcon(dataAccess.getImagesRoot(), name, width, height, comp);
     }
@@ -2328,32 +2373,25 @@ public class ATSwingUtils
         return ATSwingUtils.getImageIcon(dataAccess.getImagesRoot(), name, comp);
     }
 
-
-
-
     public static final int DIALOG_INFO = 1;
     public static final int DIALOG_WARNING = 2;
     public static final int DIALOG_ERROR = 3;
+
 
     public static void showDialog(Container cont, int type, String message, I18nControlAbstract ic)
     {
         if (type == DIALOG_INFO)
         {
-            JOptionPane.showMessageDialog(cont, message, ic.getMessage("INFORMATION"),
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(cont, message, ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
         }
         else if (type == DIALOG_WARNING)
         {
-            JOptionPane.showMessageDialog(cont, message, ic.getMessage("WARNING"),
-                    JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(cont, message, ic.getMessage("WARNING"), JOptionPane.WARNING_MESSAGE);
         }
         else if (type == DIALOG_ERROR)
         {
-            JOptionPane.showMessageDialog(cont, message, ic.getMessage("ERROR"),
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(cont, message, ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
 
 }

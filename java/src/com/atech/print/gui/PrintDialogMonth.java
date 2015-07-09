@@ -2,14 +2,7 @@ package com.atech.print.gui;
 
 import java.util.Calendar;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
@@ -43,12 +36,12 @@ import com.atech.utils.ATSwingUtils;
  *  @author Andy {andy@atech-software.com}
  */
 
-
 public abstract class PrintDialogMonth extends PrintDialogRange
 {
 
     private static final long serialVersionUID = -5516522343993408360L;
     JSpinner spinnerYear = null, spinnerMonth = null;
+
 
     /**
      * Constructor
@@ -66,6 +59,7 @@ public abstract class PrintDialogMonth extends PrintDialogRange
         this.cbTemplate.setSelectedIndex(type - 1);
         this.setVisible(true);
     }
+
 
     private void init()
     {
@@ -120,7 +114,7 @@ public abstract class PrintDialogMonth extends PrintDialogRange
         panel.add(spinnerMonth);
 
         JButton button = new JButton("   " + i18nControl.getMessage("OK"));
-        // button.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
+        // button.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL));
         button.setActionCommand("ok");
         button.addActionListener(this);
         button.setIcon(ATSwingUtils.getImageIcon_22x22("ok.png", this, dataAccess));
@@ -128,14 +122,15 @@ public abstract class PrintDialogMonth extends PrintDialogRange
         panel.add(button);
 
         button = new JButton("   " + i18nControl.getMessage("CANCEL"));
-        // button.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
+        // button.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL));
         button.setActionCommand("cancel");
         button.setIcon(ATSwingUtils.getImageIcon_22x22("cancel.png", this, dataAccess));
         button.addActionListener(this);
         button.setBounds(175, 240, 125, 25);
         panel.add(button);
 
-        helpButton = ATSwingUtils.createHelpButtonByBounds(185, 210, 115, 25, this, ATSwingUtils.FONT_NORMAL, dataAccess);
+        helpButton = ATSwingUtils.createHelpButtonByBounds(185, 210, 115, 25, this, ATSwingUtils.FONT_NORMAL,
+            dataAccess);
         panel.add(helpButton);
 
         if (this.enableHelp)
@@ -146,5 +141,3 @@ public abstract class PrintDialogMonth extends PrintDialogRange
     }
 
 }
-
-

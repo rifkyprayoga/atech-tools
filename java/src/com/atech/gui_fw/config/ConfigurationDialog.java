@@ -1,20 +1,12 @@
 package com.atech.gui_fw.config;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -97,6 +89,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
     int current_index = 0;
     boolean ok_action = false;
 
+
     /**
      * Config types
      */
@@ -113,6 +106,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
     {
         this(acc, acc.getDataAccessInstance().getMainParent(), acc.getDataAccessInstance());
     }
+
 
     /**
      * Constructor
@@ -151,6 +145,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
         this.setResizable(false);
         this.setVisible(true);
     }
+
 
     private void init()
     {
@@ -286,6 +281,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
     private int PANEL_PRINTING = 5;
     private int PANEL_LANGUAGE = 6;
 
+
     // private int PANEL_METER = 4;
 
     /**
@@ -320,6 +316,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
          * PrefMeterConfPane(this));
          */
     }
+
 
     // ---
     // --- End
@@ -356,6 +353,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
 
     JPanel selected_panel = null;
 
+
     /**
      * Select Panel (int)
      * 
@@ -381,6 +379,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
             m_da.enableHelp(this);
         }
     }
+
 
     /**
      * Invoked when an action occurs.
@@ -413,6 +412,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
 
     }
 
+
     /**
      * Was Action Successful
      * 
@@ -423,6 +423,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
         return ok_action;
     }
 
+
     private void save()
     {
         for (int i = 0; i < panels.size(); i++)
@@ -431,20 +432,22 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
             pn.saveConfig();
         }
 
-        // m_da.getSettings().save();
+        // dataAccess.getSettings().save();
 
         this.m_acc.saveSettings();
 
         /*
-         * if (m_da.getDbConfig().hasChanged()) {
-         * m_da.getDbConfig().saveConfig(); }
+         * if (dataAccess.getDbConfig().hasChanged()) {
+         * dataAccess.getDbConfig().saveConfig(); }
          */
     }
+
 
     private void reset()
     {
         this.m_acc.resetSettings();
     }
+
 
     /**
      * Called whenever the value of the selection changes.
@@ -462,6 +465,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
         }
     }
 
+
     // ****************************************************************
     // ****** HelpCapable Implementation *****
     // ****************************************************************
@@ -474,6 +478,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
         return this.getRootPane();
     }
 
+
     /**
      * getHelpButton - get Help button
      */
@@ -481,6 +486,7 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
     {
         return this.help_button;
     }
+
 
     /**
      * getHelpId - get id for Help

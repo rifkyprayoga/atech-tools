@@ -1,14 +1,10 @@
 package com.atech.graphics.components;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerListModel;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.*;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
@@ -112,7 +108,7 @@ public class DateTimeComponent extends JPanel
     public static final int TIME_MAXIMAL_SECOND = 2;
 
     /**
-     * The m_da.
+     * The dataAccess.
      */
     ATDataAccessAbstract m_da;
 
@@ -120,6 +116,7 @@ public class DateTimeComponent extends JPanel
      * The m_time_type.
      */
     public int m_time_type = TIME_MAXIMAL_MINUTE;
+
 
     /**
      * Instantiates a new date time component.
@@ -131,6 +128,7 @@ public class DateTimeComponent extends JPanel
         // this(1800,5,da, ALIGN_HORIZONTAL, m_gap);
         this(da.getStartYear(), 5, da, ALIGN_HORIZONTAL, m_gap, DateTimeComponent.TIME_MAXIMAL_MINUTE);
     }
+
 
     /**
      * Instantiates a new date time component.
@@ -144,6 +142,7 @@ public class DateTimeComponent extends JPanel
         this(da.getStartYear(), 5, da, ALIGN_HORIZONTAL, m_gap, time_type);
     }
 
+
     /**
      * Instantiates a new date time component.
      * 
@@ -155,6 +154,7 @@ public class DateTimeComponent extends JPanel
     {
         this(da.getStartYear(), 5, da, type_align, gap, DateTimeComponent.TIME_MAXIMAL_MINUTE);
     }
+
 
     /**
      * Instantiates a new date time component.
@@ -170,6 +170,7 @@ public class DateTimeComponent extends JPanel
         this(da.getStartYear(), 5, da, type_align, gap, time_type);
     }
 
+
     /**
      * Instantiates a new date time component.
      * 
@@ -182,6 +183,7 @@ public class DateTimeComponent extends JPanel
     {
         this(lower_year, 5, da, type_align, gap, DateTimeComponent.TIME_MAXIMAL_MINUTE);
     }
+
 
     /**
      * Instantiates a new date time component.
@@ -197,6 +199,7 @@ public class DateTimeComponent extends JPanel
         // this(lower_year,5, da, type_align, gap);
         this(lower_year, 5, da, type_align, gap, time_type);
     }
+
 
     /**
      * Instantiates a new date time component.
@@ -216,7 +219,7 @@ public class DateTimeComponent extends JPanel
         this.m_da = da;
 
         this.ic = da.getI18nControlInstance();
-        // m_da = da;
+        // dataAccess = da;
         // initMonths();
 
         int sec_x, sec_y;
@@ -324,6 +327,7 @@ public class DateTimeComponent extends JPanel
 
     }
 
+
     /*
      * public void initMonths()
      * {
@@ -417,6 +421,7 @@ public class DateTimeComponent extends JPanel
 
     }
 
+
     /**
      * Find month.
      * 
@@ -437,6 +442,7 @@ public class DateTimeComponent extends JPanel
         return 0;
     }
 
+
     /**
      * Gets the month.
      * 
@@ -449,10 +455,11 @@ public class DateTimeComponent extends JPanel
 
         int v = Integer.parseInt(val);
 
-        // String[] ms = m_da.getMonthsArray();
+        // String[] ms = dataAccess.getMonthsArray();
         return m_da.getMonthsArray()[v - 1];
 
     }
+
 
     /**
      * Sets the date time.
@@ -558,6 +565,7 @@ public class DateTimeComponent extends JPanel
 
     }
 
+
     /*
      * public void setDate(int date)
      * {
@@ -570,7 +578,7 @@ public class DateTimeComponent extends JPanel
      * System.out.println(date + " year: "+ y + " month: "+ m + " day: " + d);
      * year.setValue(y);
      * day.setValue(d);
-     * month.setValue(m_da.getMonthsArray()[m-1]);
+     * month.setValue(dataAccess.getMonthsArray()[m-1]);
      * }
      */
 
@@ -592,6 +600,7 @@ public class DateTimeComponent extends JPanel
 
         this.setDateTime(ATechDate.getATDateTimeFromGC(new GregorianCalendar(), type));
     }
+
 
     /**
      * Get DateTime (long)
@@ -653,6 +662,7 @@ public class DateTimeComponent extends JPanel
 
     }
 
+
     /**
      * Get DateTime Object (ATechDate)
      * 
@@ -671,6 +681,7 @@ public class DateTimeComponent extends JPanel
         }
 
     }
+
 
     /*
      * public void setTime(int date)
@@ -697,6 +708,7 @@ public class DateTimeComponent extends JPanel
 
     }
 
+
     /** 
      * setBackground
      */
@@ -705,6 +717,7 @@ public class DateTimeComponent extends JPanel
     {
         super.setBackground(bg);
     }
+
 
     /** 
      * setEnabled
@@ -724,6 +737,7 @@ public class DateTimeComponent extends JPanel
         }
     }
 
+
     /** 
      * setVisible
      */
@@ -742,6 +756,7 @@ public class DateTimeComponent extends JPanel
         }
     }
 
+
     /** 
      * setBounds
      */
@@ -750,6 +765,7 @@ public class DateTimeComponent extends JPanel
     {
         super.setBounds(x, y, component_width, component_height);
     }
+
 
     /**
      * The main method.
@@ -773,6 +789,7 @@ public class DateTimeComponent extends JPanel
         // month.setValue(getMonth(dt.substring(4,6));
 
     }
+
 
     /**
      * Sets the date time type.

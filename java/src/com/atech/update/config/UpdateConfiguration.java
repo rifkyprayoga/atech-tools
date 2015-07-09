@@ -157,7 +157,7 @@ public class UpdateConfiguration
      */
     public UpdateConfiguration()
     {
-        // m_da = ATDataAccess.getInstance();
+        // dataAccess = ATDataAccess.getInstance();
         Hashtable<String, String> cfg_1 = StartupUtil.getConfiguration("StartupConfig.properties");
         init(cfg_1.get("UPDATE_CONFIG"), cfg_1.get("JAVA_EXE"));
     }

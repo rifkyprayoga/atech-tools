@@ -1,17 +1,10 @@
 package com.atech.print.gui;
 
-import java.awt.Component;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.GregorianCalendar;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import com.atech.graphics.GuiAction;
 import com.atech.graphics.GuiActionUtil;
@@ -70,6 +63,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     protected boolean enableHelp = true;
     PrintDialogType type;
 
+
     /**
      * Constructor
      *
@@ -82,6 +76,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         this(frame, type, da, da.getI18nControlInstance(), _enable_help);
     }
+
 
     /**
      * Constructor
@@ -104,6 +99,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         this.setVisible(true);
     }
 
+
     protected void preInitGUI(ATDataAccessAbstract dataAccess, I18nControlAbstract i18nControl)
     {
         this.setLayout(null);
@@ -118,6 +114,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         gc = new GregorianCalendar();
         setTitle(i18nControl.getMessage(this.getPrintingTitle()));
     }
+
 
     protected void initRange()
     {
@@ -166,7 +163,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         panel.add(dateFromToComponent);
 
         JButton button = new JButton("   " + i18nControl.getMessage("OK"));
-        // button.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
+        // button.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL));
         button.setActionCommand("ok");
         button.addActionListener(this);
         button.setIcon(ATSwingUtils.getImageIcon_22x22("ok.png", this, dataAccess));
@@ -174,14 +171,15 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         panel.add(button);
 
         button = new JButton("   " + i18nControl.getMessage("CANCEL"));
-        // button.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
+        // button.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL));
         button.setActionCommand("cancel");
         button.setIcon(ATSwingUtils.getImageIcon_22x22("cancel.png", this, dataAccess));
         button.addActionListener(this);
         button.setBounds(155, start_y + 150, 120, 25);
         panel.add(button);
 
-        helpButton = ATSwingUtils.createHelpButtonByBounds(285, start_y + 150, 120, 25, this, ATSwingUtils.FONT_NORMAL, dataAccess);
+        helpButton = ATSwingUtils.createHelpButtonByBounds(285, start_y + 150, 120, 25, this, ATSwingUtils.FONT_NORMAL,
+            dataAccess);
         panel.add(helpButton);
 
         if (this.enableHelp)
@@ -190,6 +188,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         printProcessor = new PrintProcessor(i18nControl, this);
 
     }
+
 
     /**
      * Get From Date Object
@@ -201,6 +200,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return dateFromToComponent.getFromDateObject();
     }
 
+
     /**
      * Get From Date
      *
@@ -210,6 +210,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         return dateFromToComponent.getFromDate();
     }
+
 
     /**
      * Get To Date Object
@@ -221,6 +222,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return dateFromToComponent.getTillDateObject();
     }
 
+
     /**
      * Get To Date
      *
@@ -230,6 +232,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         return dateFromToComponent.getTillDate();
     }
+
 
     /**
      * Get Printing Title
@@ -242,6 +245,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     }
 
     GuiAction lastAction = new GuiAction();
+
 
     /**
      * performAction
@@ -269,10 +273,12 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     }
 
+
     public void displayPDF(String name) throws Exception
     {
         printProcessor.displayPDF(name);
     }
+
 
     /**
      * Was Action Successful
@@ -283,6 +289,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         return actionDone;
     }
+
 
     /**
      * Get Action Results
@@ -304,6 +311,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return res;
     }
 
+
     /**
      * We have Secondary Type choice
      *
@@ -313,6 +321,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         return false;
     }
+
 
     /**
      * Get Secondary Types Description
@@ -324,6 +333,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return null;
     }
 
+
     /**
      * Get Secondary Types
      *
@@ -333,6 +343,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         return null;
     }
+
 
     // ****************************************************************
     // ****** HelpCapable Implementation *****
@@ -346,6 +357,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return this.getRootPane();
     }
 
+
     /**
      * getHelpButton - get Help button
      */
@@ -353,6 +365,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     {
         return this.helpButton;
     }
+
 
     /**
      * getObject
@@ -363,10 +376,12 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
         return this;
     }
 
+
     /**
      * getHelpId - get id for Help
      */
     public abstract String getHelpId();
+
 
     /**
      * Get Pdf Viewer (path to software)
@@ -375,6 +390,7 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
      */
     public abstract String getExternalPdfViewer();
 
+
     /**
      * Get Report Types
      *
@@ -382,12 +398,14 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
      */
     public abstract String[] getReportTypes();
 
+
     /**
      * Start Printing Action.
      *
      * @throws Exception
      */
     public abstract void startPrintingAction() throws Exception;
+
 
     /**
      * Get Pdf Viewer parameters. If you want name of file we are reading in
@@ -399,12 +417,14 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
      */
     public abstract String getExternalPdfViewerParameters();
 
+
     /**
      * Is External PdfViewer Activated
      * Per default we use internal PdfViewer, but user can also use external
      * PdfViewer if he wants.
      */
     public abstract boolean isExternalPdfViewerActivated();
+
 
     /**
      * Disable setting of Look And Feel For Internal Pdf Viewer.

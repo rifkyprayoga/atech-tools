@@ -38,7 +38,7 @@ import java.util.*;
 public class TimeZoneUtil
 {
 
-    // DataAccess m_da = DataAccess.getInstance();
+    // DataAccess dataAccess = DataAccess.getInstance();
     /**
      * The tzi.
      */
@@ -69,6 +69,7 @@ public class TimeZoneUtil
     protected static Vector<String> time_zones_vector = null;
     protected static Hashtable<String, String> time_zones = null;
 
+
     /**
      * Gets the single instance of TimeZoneUtil.
      * 
@@ -83,6 +84,7 @@ public class TimeZoneUtil
 
         return TimeZoneUtil.s_timezoneutil;
     }
+
 
     private TimeZoneUtil()
     {
@@ -119,6 +121,7 @@ public class TimeZoneUtil
 
     }
 
+
     /**
      * Sets the winter time change.
      * 
@@ -129,6 +132,7 @@ public class TimeZoneUtil
         this.winter_time_change = val;
         checkActive();
     }
+
 
     private void checkActive()
     {
@@ -142,6 +146,7 @@ public class TimeZoneUtil
         }
     }
 
+
     /**
      * Gets the empty time zone.
      * 
@@ -151,6 +156,7 @@ public class TimeZoneUtil
     {
         return this.empty_tzi;
     }
+
 
     /**
      * Sets the summer time change.
@@ -162,6 +168,7 @@ public class TimeZoneUtil
         this.summer_time_change = val;
         checkActive();
     }
+
 
     /**
      * Sets the values.
@@ -177,6 +184,7 @@ public class TimeZoneUtil
         setSummerTimeChange(summer_time_change);
     }
 
+
     /**
      * Checks if is winter time.
      * 
@@ -189,6 +197,7 @@ public class TimeZoneUtil
         return !tzi.inDaylightTime(gc.getTime());
     }
 
+
     /**
      * Checks if is summer time.
      * 
@@ -200,6 +209,7 @@ public class TimeZoneUtil
     {
         return tzi.inDaylightTime(gc.getTime());
     }
+
 
     /**
      * Gets the corrected date time.
@@ -243,17 +253,20 @@ public class TimeZoneUtil
         // return null;
     }
 
+
     // FIX
 
     /*
      * public Vector<String> getTimeZoneDescs()
      * {
      * Vector<String> vec = new Vector<String>();
-     * for(Enumeration<String> en = m_da.timeZones.keys(); en.hasMoreElements();
+     * for(Enumeration<String> en = dataAccess.timeZones.keys();
+     * en.hasMoreElements();
      * )
      * {
      * String key = en.nextElement();
-     * System.out.println("Key: " + key + " Value: " + m_da.timeZones.get(key));
+     * System.out.println("Key: " + key + " Value: " +
+     * dataAccess.timeZones.get(key));
      * vec.add(key);
      * }
      * Collections.sort(vec, new TimeZoneComparator());
@@ -261,12 +274,13 @@ public class TimeZoneUtil
      * }
      * public String getTimeZoneKeyFromValue(String value)
      * {
-     * for(Enumeration<String> en = m_da.timeZones.keys(); en.hasMoreElements();
+     * for(Enumeration<String> en = dataAccess.timeZones.keys();
+     * en.hasMoreElements();
      * )
      * {
      * String key = en.nextElement();
-     * System.out.println(m_da.timeZones.get(key) + " = " + value);
-     * if (m_da.timeZones.get(key).contains(value))
+     * System.out.println(dataAccess.timeZones.get(key) + " = " + value);
+     * if (dataAccess.timeZones.get(key).contains(value))
      * {
      * return key;
      * }
@@ -274,7 +288,6 @@ public class TimeZoneUtil
      * return "(GMT) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London";
      * }
      */
-
 
     /**
      * Load Time Zones
@@ -365,6 +378,7 @@ public class TimeZoneUtil
 
     }
 
+
     /**
      * Add Time Zone Entry
      *
@@ -377,15 +391,16 @@ public class TimeZoneUtil
         time_zones_vector.add(long_desc);
     }
 
+
     public Vector<String> getTimezonesAsVector()
     {
         return time_zones_vector;
     }
 
-
     @SuppressWarnings("unused")
     private class TimeZoneComparator implements Comparator<String>
     {
+
         /**
           * Compare two TimeZones. 
           *
@@ -418,6 +433,7 @@ public class TimeZoneUtil
             }
         } // end compare
 
+
         public int typeChanger(String first, String second)
         {
             if (first.startsWith("(GMT-") && second.startsWith("(GMT-"))
@@ -425,6 +441,7 @@ public class TimeZoneUtil
             else
                 return 1;
         }
+
 
         public boolean areSameType(String first, String second)
         {

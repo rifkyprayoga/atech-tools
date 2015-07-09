@@ -1,25 +1,10 @@
 package com.atech.i18n.tool.simple;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.io.File;
 import java.util.Hashtable;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,6 +66,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
 
     private class TranslationBoxListener extends KeyAdapter implements MouseListener
     {
+
         /**
          * Checks to see if there are changes in the translation box and change
          * the status combo box automatically.
@@ -109,28 +95,34 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
             }
         }
 
+
         @Override
         public void keyReleased(KeyEvent e)
         {
             applyChanges();
         }
 
+
         public void mouseClicked(MouseEvent e)
         {
         }
 
+
         public void mousePressed(MouseEvent e)
         {
         }
+
 
         public void mouseReleased(MouseEvent e)
         {
             applyChanges();
         }
 
+
         public void mouseEntered(MouseEvent e)
         {
         }
+
 
         public void mouseExited(MouseEvent e)
         {
@@ -154,6 +146,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
     JButton priority;
     JTextArea jt_source, jt_desc, jt_mine;
     JComboBox cmb_status;
+
 
     /**
      * Constructor
@@ -205,6 +198,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         }
     }
 
+
     private void showTypesDialog(String msg, int type)
     {
         String type_desc = "";
@@ -224,6 +218,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
 
         JOptionPane.showMessageDialog(this, msg, type_desc, type);
     }
+
 
     private void init()
     {
@@ -316,6 +311,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         // this.setLayout(null);
     }
 
+
     private void checkPaths()
     {
         String[] paths = { "../files/", "../files/master_files/", "../files/translation/",
@@ -332,6 +328,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
 
     }
 
+
     /**
      * Read Module Info
      */
@@ -344,6 +341,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
 
         module.setText(md);
     }
+
 
     /**
      * Read Data
@@ -386,6 +384,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
 
     }
 
+
     /**
      * Save Data
      */
@@ -420,8 +419,9 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
                     // + "be true. Select status for this translation.",
                     // "Change Status",
                     // JOptionPane.OK_CANCEL_OPTION,
-                    // JOptionPane.WARNING_MESSAGE, null, this.m_da.status,
-                    // this.m_da.status[2]);
+                    // JOptionPane.WARNING_MESSAGE, null,
+                    // this.dataAccess.status,
+                    // this.dataAccess.status[2]);
 
                     de.status = st;
                     this.dlp.resetStatus();
@@ -451,6 +451,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         }
 
     }
+
 
     private void initMenus()
     {
@@ -488,6 +489,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
 
     }
 
+
     /**
      * @param args
      */
@@ -510,10 +512,12 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
          */
     }
 
+
     private void cmdQuit()
     {
         System.exit(0);
     }
+
 
     /**
      * Action Performed
@@ -605,6 +609,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         }
     }
 
+
     /**
      * Exit, possibly after saving.
      */
@@ -627,30 +632,37 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         cmdQuit();
     }
 
+
     public void windowOpened(WindowEvent e)
     {
     }
+
 
     public void windowClosing(WindowEvent e)
     {
         saveAndExit();
     }
 
+
     public void windowClosed(WindowEvent e)
     {
     }
+
 
     public void windowIconified(WindowEvent e)
     {
     }
 
+
     public void windowDeiconified(WindowEvent e)
     {
     }
 
+
     public void windowActivated(WindowEvent e)
     {
     }
+
 
     public void windowDeactivated(WindowEvent e)
     {

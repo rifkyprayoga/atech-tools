@@ -1,17 +1,10 @@
 package com.atech.utils;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
-import java.util.Properties;
+import java.util.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.ColorUIResource;
 
@@ -194,6 +187,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     public long selected_customer_id = 0L;
 
+
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
@@ -234,6 +228,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
+
     /*
      * private DataAccess(ClockDb db)
      * {
@@ -272,8 +267,8 @@ public class DataAccessApp extends ATDataAccessLMAbstract
             // MDODb db = new MDODb();
 
             m_da = new DataAccessApp(aac);
-            // m_da.setParent(main);
-            // m_da.setMainParent(main);
+            // dataAccess.setParent(main);
+            // dataAccess.setMainParent(main);
 
             m_da.help_enabled = s_app_context.isHelpEnabled();
 
@@ -281,6 +276,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
         return m_da;
     }
+
 
     /**
      * Creates the instance.
@@ -320,6 +316,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         return m_da;
     }
 
+
     /**
      * Gets the single instance of DataAccess.
      * 
@@ -329,6 +326,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     {
         return m_da;
     }
+
 
     // Method: deleteInstance
     /**
@@ -341,6 +339,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
+
     /**
      * Gets the db.
      * 
@@ -350,6 +349,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     {
         return s_app_context.getDb();
     }
+
 
     /*
      * public void loadDioceseRoot()
@@ -372,6 +372,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         this.db_loading_status = status;
     }
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#getDbLoadingStatus()
@@ -381,6 +382,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     {
         return this.db_loading_status;
     }
+
 
     /*
      * (non-Javadoc)
@@ -395,11 +397,10 @@ public class DataAccessApp extends ATDataAccessLMAbstract
             return false;
     }
 
+
     // ********************************************************
     // ****** Fonts *****
     // ********************************************************
-
-
 
     // ********************************************************
     // ****** Parent handling (for UIs) *****
@@ -415,6 +416,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         m_main = main;
     }
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#getParent()
@@ -424,6 +426,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     {
         return m_main;
     }
+
 
     // ********************************************************
     // ****** Look and Feel *****
@@ -476,6 +479,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         this.border_line = new LineBorder(this.color_foreground);
     }
 
+
     // ********************************************************
     // ****** Languages *****
     // ********************************************************
@@ -510,6 +514,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#getLanguageInfo()
@@ -519,6 +524,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     {
         return m_lang_info;
     }
+
 
     /**
      * Gets the selected locale.
@@ -595,6 +601,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
+
     // ********************************************************
     // ****** Login/Logout *****
     // ********************************************************
@@ -615,6 +622,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         return this.all_users;
     }
 
+
     /**
      * Process login.
      */
@@ -631,39 +639,12 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         }
     }
 
+
     // ********************************************************
     // ****** Config File Handling *****
     // ********************************************************
 
     // -----------------------
-
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getMonthsArray()
-     */
-    @Override
-    public String[] getMonthsArray()
-    {
-        return this.months;
-
-        /*
-         * String arr[] = new String[12];
-         * arr[0] = m_i18n.getMessage("JANUARY");
-         * arr[1] = m_i18n.getMessage("FEBRUARY");
-         * arr[2] = m_i18n.getMessage("MARCH");
-         * arr[3] = m_i18n.getMessage("APRIL");
-         * arr[4] = m_i18n.getMessage("MAY");
-         * arr[5] = m_i18n.getMessage("JUNE");
-         * arr[6] = m_i18n.getMessage("JULY");
-         * arr[7] = m_i18n.getMessage("AUGUST");
-         * arr[8] = m_i18n.getMessage("SEPTEMBER");
-         * arr[9] = m_i18n.getMessage("OCTOBER");
-         * arr[10] = m_i18n.getMessage("NOVEMBER");
-         * arr[11] = m_i18n.getMessage("DECEMBER");
-         * return arr;
-         */
-
-    }
 
     /**
      * Gets the selected contact type.
@@ -698,6 +679,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
+
     /**
      * Gets the selected contact type part.
      * 
@@ -731,6 +713,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
             return 0;
 
     }
+
 
     /**
      * Gets the selected config type part.
@@ -849,6 +832,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
      */
     public static final int DATE_TIME_ATECH_TIME = 3;
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#getATDateTimeFromGC(java.util.
@@ -882,6 +866,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         return dt;
     }
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#getATDateTimeFromParts(int,
@@ -914,6 +899,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
         return dt;
     }
+
 
     /*
      * (non-Javadoc)
@@ -953,6 +939,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
      */
     public final static int DT_TIME = 3;
 
+
     /**
      * Gets the gC object from date time long.
      * 
@@ -984,6 +971,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#getDateTimeString(int, int)
@@ -995,6 +983,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         return getDateString(date) + " " + getTimeString(time);
 
     }
+
 
     /*
      * (non-Javadoc)
@@ -1042,6 +1031,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
      */
     public String[] userTypes = null;
 
+
     /*
      * {
      * m_i18n.getMessage("SELECT"),
@@ -1080,6 +1070,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         // source);
     }
 
+
     /**
      * Not implemented.
      * 
@@ -1091,6 +1082,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         System.out.println("Not Implemented: " + source);
         JOptionPane.showMessageDialog(parent, "Not Implemented: \n" + source);
     }
+
 
     /**
      * Checks if is found.
@@ -1109,6 +1101,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         return text.trim().indexOf(search_str.trim()) != -1;
     }
 
+
     /**
      * The main method.
      * 
@@ -1122,6 +1115,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         // System.out.println(da.getDateString(20051012));
     }
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#checkPrerequisites()
@@ -1133,11 +1127,13 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
+
     @Override
     public String getApplicationName()
     {
         return s_app_context.getTitle();
     }
+
 
     /*
      * (non-Javadoc)
@@ -1153,6 +1149,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         return DataAccessApp.s_app_context.getDb();
     }
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#getImagesRoot()
@@ -1162,6 +1159,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     {
         return "/images/";
     }
+
 
     /*
      * (non-Javadoc)
@@ -1174,6 +1172,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#loadBackupRestoreCollection()
@@ -1184,6 +1183,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         // TODO Auto-generated method stub
 
     }
+
 
     /*
      * (non-Javadoc)
@@ -1196,6 +1196,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#loadSpecialParameters()
@@ -1206,6 +1207,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         // TODO Auto-generated method stub
 
     }
+
 
     /*
      * (non-Javadoc)
@@ -1218,6 +1220,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#loadPlugIns()
@@ -1228,6 +1231,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         // TODO Auto-generated method stub
 
     }
+
 
     /*
      * (non-Javadoc)
@@ -1240,6 +1244,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         return 2;
     }
 
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#getSelectedLangIndex()
@@ -1250,6 +1255,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         // TODO Auto-generated method stub
         return 0;
     }
+
 
     @Override
     public void loadDbApplicationContext()
@@ -1263,11 +1269,11 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     }
 
 
-
     public DbConfig getJdbcConfig()
     {
         return this.jdbc_config;
     }
+
 
     /**
      * Gets the backup restore collection.

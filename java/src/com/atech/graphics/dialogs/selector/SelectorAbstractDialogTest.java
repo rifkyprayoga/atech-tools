@@ -1,7 +1,6 @@
 package com.atech.graphics.dialogs.selector;
 
-import java.awt.Container;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -12,19 +11,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import javax.help.CSH;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -37,7 +24,6 @@ import javax.swing.text.Document;
 import com.atech.graphics.components.DateComponent;
 import com.atech.graphics.layout.ZeroLayout;
 import com.atech.i18n.I18nControlAbstract;
-import com.atech.utils.ATDataAccess;
 import com.atech.utils.ATSwingUtils;
 
 // TODO: Auto-generated Javadoc
@@ -84,7 +70,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      */
     protected I18nControlAbstract ic; // = I18nControl.getInstance();
 
-    // ATDataAccess m_da = null;
+    // ATDataAccess dataAccess = null;
     // PISDb m_db = null;
 
     /**
@@ -365,6 +351,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      */
     public int lastAction = 0;
 
+
     // CHANGE
 
     /**
@@ -379,6 +366,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         this(parent, ic, type, null, true);
     }
 
+
     /**
      * Instantiates a new selector abstract dialog test.
      * 
@@ -390,6 +378,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         this(parent, ic, type, null, true);
     }
+
 
     /**
      * Instantiates a new selector abstract dialog test.
@@ -404,6 +393,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         this(parent, ic, type, null, can_be_selected);
     }
 
+
     /**
      * Instantiates a new selector abstract dialog test.
      * 
@@ -416,6 +406,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         this(parent, ic, type, null, can_be_selected);
     }
+
 
     /**
      * Instantiates a new selector abstract dialog test.
@@ -430,6 +421,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         this(parent, ic, type, except, true);
     }
 
+
     /**
      * Instantiates a new selector abstract dialog test.
      * 
@@ -442,6 +434,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         this(parent, ic, type, except, true);
     }
+
 
     /**
      *   Constructor.
@@ -475,6 +468,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
     }
 
+
     // init must be called at later time
 
     /**
@@ -504,6 +498,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         this.setVisible(true);
 
     }
+
 
     /**
      * Inits the.
@@ -592,7 +587,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * }
          * else if(type ==SELECTOR_ADDRESS_SPECIAL)
          * {
-         * select_typeObj = new PersonAddress(m_da);
+         * select_typeObj = new PersonAddress(dataAccess);
          * name = ic.getMessage("SELECTOR_ADDRESS_SPECIAL");
          * CSH.setHelpIDString(this, "selector.address");
          * newString = ic.getMessage("NEW__ADDRESS");
@@ -696,10 +691,12 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
     }
 
+
     /**
      * Inits the selector values for type.
      */
     public abstract void initSelectorValuesForType();
+
 
     // ---
     // --- Methods
@@ -715,6 +712,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         return this.descriptions;
     }
 
+
     /**
      * Gets the help button.
      * 
@@ -724,6 +722,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         return this.help_button;
     }
+
 
     /**
      * Gets the help id.
@@ -735,6 +734,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         return help_id;
     }
 
+
     /**
      * Sets the selector object.
      * 
@@ -745,6 +745,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         this.selector_type_object = obj;
     }
 
+
     /**
      * Sets the selector name.
      * 
@@ -754,6 +755,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         this.name = title;
     }
+
 
     /**
      * Sets the help string id.
@@ -766,6 +768,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         CSH.setHelpIDString(this, id);
     }
 
+
     /**
      * Sets the new item string.
      * 
@@ -775,6 +778,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         this.new_item_string = value;
     }
+
 
     /**
      * Checks if is column sorting enabled.
@@ -787,6 +791,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
     }
 
+
     /**
      * Sets the column sorting enabled.
      * 
@@ -796,6 +801,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         column_sorting_enabled = value;
     }
+
 
     /**
      * Sets the allowed actions.
@@ -807,6 +813,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         this.allowed_actions = value;
     }
 
+
     /**
      * Gets the allowed actions.
      * 
@@ -816,6 +823,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         return this.allowed_actions;
     }
+
 
     /**
      * Checks if is action allowed.
@@ -832,6 +840,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
             return false;
     }
 
+
     /**
      * Sets the filter type.
      * 
@@ -841,6 +850,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         this.filter_type = value;
     }
+
 
     /**
      * Gets the filter type.
@@ -852,6 +862,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         return this.filter_type;
     }
 
+
     /**
      * Checks if is multiple selection enabled.
      * 
@@ -861,6 +872,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         return this.multiple_selection_enabled;
     }
+
 
     /**
      * Sets the multiple selection enabled.
@@ -872,6 +884,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         this.multiple_selection_enabled = value;
     }
 
+
     /**
      * Gets the selector type.
      * 
@@ -881,6 +894,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         return this.selector_type;
     }
+
 
     private void setSorterOnFullData()
     {
@@ -894,6 +908,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
     }
 
+
     // ---
     // --- Abstract methods
     // ---
@@ -903,95 +918,97 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      */
     public abstract void getFullData();
 
+
     /*
      * {
      * long st = System.currentTimeMillis();
      * // CHANGE
      * if (m_type==SELECTOR_POST)
      * {
-     * full = m_da.m_db.getPosts();
+     * full = dataAccess.m_db.getPosts();
      * }
      * else if (m_type==SELECTOR_EVENT)
      * {
-     * full = m_da.m_db.getPublicEvents();
+     * full = dataAccess.m_db.getPublicEvents();
      * }
      * else if (m_type==SELECTOR_EVENT_BY_TYPE)
      * {
-     * full = m_da.m_db.getEventsByType(Integer.parseInt(m_except));
+     * full = dataAccess.m_db.getEventsByType(Integer.parseInt(m_except));
      * }
      * else if ((m_type==SELECTOR_PERSON) ||
      * (m_type==SELECTOR_PERSON_MULTIPLE))
      * {
      * full =
-     * m_da.m_db.getAllPersonsExcept(Person.getSortParameters(sortColumn,ascending
+     * dataAccess.m_db.getAllPersonsExcept(Person.getSortParameters(sortColumn,
+     * ascending
      * ), m_except);
      * }
      * else if (m_type==SELECTOR_COUNTRY)
      * {
-     * full = m_da.m_db.getCountries();
+     * full = dataAccess.m_db.getCountries();
      * }
      * else if (m_type==SELECTOR_OCCUPATION)
      * {
-     * full = m_da.m_db.getOccupations();
+     * full = dataAccess.m_db.getOccupations();
      * }
      * else if (m_type==SELECTOR_RELIGION)
      * {
-     * full = m_da.m_db.getReligions();
+     * full = dataAccess.m_db.getReligions();
      * }
      * else if (m_type==SELECTOR_STREET)
      * {
-     * full = m_da.m_db.getStreets();
+     * full = dataAccess.m_db.getStreets();
      * }
      * else if (m_type==SELECTOR_PARISH)
      * {
      * if (full_int==null)
-     * full_int = m_da.m_db.getAllParishesExcept(m_except);
+     * full_int = dataAccess.m_db.getAllParishesExcept(m_except);
      * if (!par_selected)
      * full = full_int;
      * else
-     * full = m_da.m_db.getSelectedParishes();
+     * full = dataAccess.m_db.getSelectedParishes();
      * }
      * else if (m_type==SELECTOR_EVENT_PERFORMER)
      * {
      * if (full_int==null)
-     * full_int = m_da.m_db.getEventPerformers();
+     * full_int = dataAccess.m_db.getEventPerformers();
      * if (!par_selected)
      * full = full_int;
      * else
-     * full = m_da.m_db.getSelectedEventPerformers();
-     * //full = m_da.m_db.getEventPerformers();
+     * full = dataAccess.m_db.getSelectedEventPerformers();
+     * //full = dataAccess.m_db.getEventPerformers();
      * }
      * else if(m_type == SELECTOR_ADDRESS_SPECIAL)
      * {
-     * full = m_da.m_db.getSpecialAddresses(m_except);
+     * full = dataAccess.m_db.getSpecialAddresses(m_except);
      * }
      * else if(m_type == SELECTOR_PARISH_PERSON)
      * {
-     * full = m_da.m_db.getParishPersonsExcept(m_except);
+     * full = dataAccess.m_db.getParishPersonsExcept(m_except);
      * }
      * else if (m_type == SELECTOR_INTERNAL_PERSON)
      * {
-     * full = m_da.m_db.getInternalPersonsExcept(m_except);
+     * full = dataAccess.m_db.getInternalPersonsExcept(m_except);
      * }
      * else if (m_type==SELECTOR_DIOCESE)
      * {
-     * full = m_da.m_db.getAllDiocesesExcept(m_except);
+     * full = dataAccess.m_db.getAllDiocesesExcept(m_except);
      * }
      * else if (m_type==SELECTOR_NEWS)
      * {
-     * full = m_da.m_db.getAllNews();
+     * full = dataAccess.m_db.getAllNews();
      * }
      * else if (m_type==SELECTOR_WEEKLY_NEWS)
      * {
-     * full = m_da.m_db.getAllWeeklyNews();
+     * full = dataAccess.m_db.getAllWeeklyNews();
      * }
      * else if (m_type==SELECTOR_GROUP)
      * {
-     * full = m_da.m_db.getAllGroups();
+     * full = dataAccess.m_db.getAllGroups();
      * }
      * else if (m_type==SELECTOR_GROUP)
      * {
-     * full = m_da.m_db.getAllYouthGroups();
+     * full = dataAccess.m_db.getAllYouthGroups();
      * }
      * if (columnSorter.isActive())
      * {
@@ -1033,6 +1050,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
     }
 
+
     private boolean isIdPresentInExclussion(long id)
     {
         if (this.m_except == null || this.m_except.length() == 0)
@@ -1041,13 +1059,14 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
             return this.m_except.contains("." + id + ".");
     }
 
+
     /**
      *  Returns this instance, for use with sub-windows.
      */
     // public abstract JFrame getMyParent();
     /*
      * {
-     * return m_da.getParent();
+     * return dataAccess.getParent();
      * }
      */
 
@@ -1237,7 +1256,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * else if (this.m_type==SelectorDialog.SELECTOR_EVENT)
          * {
          * panel.add(label);
-         * comboBox1 = new JComboBox(m_da.getTypesArray(1));
+         * comboBox1 = new JComboBox(dataAccess.getTypesArray(1));
          * comboBox1.setBounds(30, 85, 210, 26);
          * comboBox1.addItemListener(this);
          * panel.add(comboBox1, null);
@@ -1253,7 +1272,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * this.checkBox1.setBounds(25, 60, 80, 26); // 85
          * this.checkBox1.addChangeListener(this);
          * panel.add(this.checkBox1, null);
-         * dt_start = new DateComponent(m_da.m_i18n);
+         * dt_start = new DateComponent(dataAccess.m_i18n);
          * dt_start.setBounds(90, 60, 210, 26);
          * dt_start.setEnabled(false);
          * dt_start.addActionListener(this);
@@ -1267,7 +1286,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * this.checkBox2.setSelected(false);
          * this.checkBox2.addChangeListener(this);
          * panel.add(this.checkBox2, null);
-         * dt_end = new DateComponent(m_da.m_i18n);
+         * dt_end = new DateComponent(dataAccess.m_i18n);
          * dt_end.addActionListener(this);
          * dt_end.setBounds(90, 85, 210, 26);
          * dt_end.setEnabled(false);
@@ -1409,6 +1428,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
     }
 
+
     /**
      * Gets the internal parent.
      * 
@@ -1421,6 +1441,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         else
             return this.parent_dialog;
     }
+
 
     /**
      * Inits the by filter type.
@@ -1450,6 +1471,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         }
 
     }
+
 
     /**
      * Inits the filter type_ single text.
@@ -1483,6 +1505,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
     }
 
+
     /**
      * Inits the filter type_ combo box.
      */
@@ -1490,6 +1513,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
 
     }
+
 
     /**
      * Creates the table.
@@ -1511,10 +1535,12 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
             private static final long serialVersionUID = 5863373682073897277L;
 
+
             public int getColumnCount()
             {
                 return selector_type_object.getColumnCount();
             }
+
 
             public int getRowCount()
             {
@@ -1524,6 +1550,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
                 else
                     return list.size();
             }
+
 
             public Object getValueAt(int rowIndex, int columnIndex)
             {
@@ -1592,6 +1619,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
     }
 
+
     /**
      *  Menu item listener, waits for user to issue command through menu.
      *
@@ -1602,6 +1630,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         System.out.println("Action: " + action);
         checkAndExecuteAction(action);
     }
+
 
     /*
      * // CHANGE
@@ -1807,11 +1836,11 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * {
      * if (m_type==SELECTOR_EVENT_BY_TYPE)
      * {
-     * m_da.m_settings.put("EVENT_TYPE", m_except);
+     * dataAccess.m_settings.put("EVENT_TYPE", m_except);
      * }
-     * EventDialog ed = new EventDialog(m_da, -1); //, true, 1);
+     * EventDialog ed = new EventDialog(dataAccess, -1); //, true, 1);
      * act = ed.wasAction();
-     * m_da.m_settings.remove("EVENT_TYPE");
+     * dataAccess.m_settings.remove("EVENT_TYPE");
      * }
      * else if ((m_type == SELECTOR_NEWS) ||
      * (m_type == SELECTOR_WEEKLY_NEWS))
@@ -1821,7 +1850,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * type = NewsDialog.NEWS_DAILY_NEWS;
      * else
      * type = NewsDialog.NEWS_WEEKLY_NEWS;
-     * NewsDialog nd = new NewsDialog(m_da, type);
+     * NewsDialog nd = new NewsDialog(dataAccess, type);
      * act = nd.wasAction();
      * //Selectable sl = (Selectable)list.get(table.getSelectedRow());
      * //News nw = (News)sl;
@@ -1831,7 +1860,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * }
      * else if (m_type==SELECTOR_PERSON)
      * {
-     * PersonDialog ed = new PersonDialog(m_da, -1, 0);
+     * PersonDialog ed = new PersonDialog(dataAccess, -1, 0);
      * act = ed.wasAction();
      * }
      * else
@@ -1859,11 +1888,11 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * {
      * if (m_type==SELECTOR_EVENT_BY_TYPE)
      * {
-     * m_da.m_settings.put("EVENT_TYPE", m_except);
+     * dataAccess.m_settings.put("EVENT_TYPE", m_except);
      * }
-     * EventDialog ed = new EventDialog(m_da, id); //, true, 1);
+     * EventDialog ed = new EventDialog(dataAccess, id); //, true, 1);
      * act = ed.wasAction();
-     * m_da.m_settings.remove("EVENT_TYPE");
+     * dataAccess.m_settings.remove("EVENT_TYPE");
      * }
      * else if ((m_type == SELECTOR_NEWS) ||
      * (m_type == SELECTOR_WEEKLY_NEWS))
@@ -1871,7 +1900,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * int type = 0;
      * Selectable sl = (Selectable)list.get(table.getSelectedRow());
      * News nw = (News)sl;
-     * NewsDialog nd = new NewsDialog(m_da, nw);
+     * NewsDialog nd = new NewsDialog(dataAccess, nw);
      * act = nd.wasAction();
      * //Selectable sl = (Selectable)list.get(table.getSelectedRow());
      * //News nw = (News)sl;
@@ -1881,7 +1910,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * }
      * else if (m_type==SELECTOR_PERSON)
      * {
-     * PersonDialog ed = new PersonDialog(m_da, id, 0);
+     * PersonDialog ed = new PersonDialog(dataAccess, id, 0);
      * act = ed.wasAction();
      * }
      * else
@@ -1915,6 +1944,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         filterEntries();
     }
 
+
     /**
      * Gives notification that a portion of the document has been
      * removed.  The range is given in terms of what the view last
@@ -1927,6 +1957,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         filterEntries();
     }
 
+
     /** 
      * changedUpdate
      */
@@ -1934,12 +1965,14 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
     }
 
+
     /**
      * Invoked when an item has been selected or deselected by the user.
      * The code written for this method performs the operations
      * that need to occur when an item is selected (or deselected).
      */
     public abstract void itemStateChanged(ItemEvent e);
+
 
     /*
      * {
@@ -2061,6 +2094,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
     }
 
+
     /**
      * In case that we don't use ComboBox index as index of collection we resolve 
      * it here.
@@ -2070,6 +2104,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         return comboBox1.getSelectedIndex();
     }
+
 
     // CHANGE
     // public abstract void filterEntries();
@@ -2100,7 +2135,8 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * }
      * else if (m_type==SelectorDialog.SELECTOR_EVENT)
      * {
-     * flt_idx = m_da.getSelectedType((String)comboBox1.getSelectedItem());
+     * flt_idx =
+     * dataAccess.getSelectedType((String)comboBox1.getSelectedItem());
      * }
      * else if ((m_type==SelectorDialog.SELECTOR_NEWS) ||
      * (m_type==SelectorDialog.SELECTOR_WEEKLY_NEWS))
@@ -2165,6 +2201,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         return this.selected_object.getItemId();
     }
 
+
     /**
      * Gets the selected id string.
      * 
@@ -2174,6 +2211,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         return "" + this.selected_object.getItemId();
     }
+
 
     /**
      * Gets the selected value.
@@ -2185,6 +2223,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         return this.selected_object.getShortDescription();
     }
 
+
     /**
      * Gets the selected object.
      * 
@@ -2194,6 +2233,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         return this.selected_object;
     }
+
 
     /**
      * Gets the selected objects.
@@ -2205,6 +2245,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         return this.selected_objects;
     }
 
+
     /**
      * Was action.
      * 
@@ -2214,6 +2255,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     {
         return this.selected_object != null;
     }
+
 
     /**
      * Gets the current selected id.
@@ -2324,6 +2366,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          */
     }
 
+
     /** 
      * resortColumns
      */
@@ -2358,6 +2401,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          */
     }
 
+
     /** 
      * stateChanged
      */
@@ -2384,6 +2428,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
     }
 
+
     /**
      * This needs to be implemented by end user.
      * @param action 
@@ -2409,20 +2454,24 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
     }
 
+
     /**
      * Check and execute action new.
      */
     public abstract void checkAndExecuteActionNew();
+
 
     /**
      * Check and execute action edit.
      */
     public abstract void checkAndExecuteActionEdit();
 
+
     /**
      * Check and execute action select.
      */
     public abstract void checkAndExecuteActionSelect();
+
 
     /**
      * Check and execute action cancel.

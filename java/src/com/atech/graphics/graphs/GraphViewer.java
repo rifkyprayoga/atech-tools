@@ -1,14 +1,12 @@
 package com.atech.graphics.graphs;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.atech.utils.ATDataAccessAbstract;
 
@@ -60,6 +58,7 @@ public class GraphViewer extends JDialog implements ComponentListener
     private boolean in_resize = true;
     String help_id = null;
 
+
     /**
      * Constructor if we don't need modal dialog
      * 
@@ -70,7 +69,7 @@ public class GraphViewer extends JDialog implements ComponentListener
      * public GraphViewer(GraphViewInterface gvi, ATDataAccessAbstract da)
      * {
      * super();
-     * this.m_da = da;
+     * this.dataAccess = da;
      * this.gvi = gvi;
      * this.gvi.setParent(this);
      * init();
@@ -94,6 +93,7 @@ public class GraphViewer extends JDialog implements ComponentListener
         init();
     }
 
+
     /**
      * Constructor for modal dialogs
      * 
@@ -110,6 +110,7 @@ public class GraphViewer extends JDialog implements ComponentListener
         this.gvi = gvi;
         init();
     }
+
 
     private void init()
     {
@@ -177,9 +178,9 @@ public class GraphViewer extends JDialog implements ComponentListener
             /*
              * this.help_id = gvcont.getHelpId();
              * if ((help_id != null) && (help_id.length()>3))
-             * m_da.enableHelp(this);
+             * dataAccess.enableHelp(this);
              */
-            // m_da.enableHelp(gvcont);
+            // dataAccess.enableHelp(gvcont);
 
             if (controler_instance != null)
             {
@@ -222,7 +223,7 @@ public class GraphViewer extends JDialog implements ComponentListener
              * if (gvcont!=null)
              * {
              * panel.add(gvcont.getChartPanel(), BorderLayout.SOUTH);
-             * //m_da.enableHelp(gvcont);
+             * //dataAccess.enableHelp(gvcont);
              * }
              */
             // else
@@ -240,7 +241,7 @@ public class GraphViewer extends JDialog implements ComponentListener
          * if (gvcont!=null)
          * {
          * panel.add(gvcont.getPanel(), BorderLayout.SOUTH);
-         * m_da.enableHelp(gvcont);
+         * dataAccess.enableHelp(gvcont);
          * }
          * else
          * System.out.println("GraphViewer: AbstractGraohViewControler not found"
@@ -263,11 +264,13 @@ public class GraphViewer extends JDialog implements ComponentListener
 
     }
 
+
     private void initGraph()
     {
         gvi.getProcessor().loadData();
         gvi.getProcessor().preprocessData();
     }
+
 
     /*
      * public void repaint()
@@ -288,6 +291,7 @@ public class GraphViewer extends JDialog implements ComponentListener
 
     private class WindowEventHandler extends WindowAdapter
     {
+
         @Override
         public void windowClosing(WindowEvent evt)
         {
@@ -296,13 +300,16 @@ public class GraphViewer extends JDialog implements ComponentListener
 
     }
 
+
     public void componentHidden(ComponentEvent ce)
     {
     }
 
+
     public void componentMoved(ComponentEvent ce)
     {
     }
+
 
     public void componentResized(ComponentEvent ce)
     {
@@ -354,6 +361,7 @@ public class GraphViewer extends JDialog implements ComponentListener
 
         in_resize = false;
     }
+
 
     public void componentShown(ComponentEvent ce)
     {

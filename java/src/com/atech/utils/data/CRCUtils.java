@@ -1,6 +1,6 @@
 package com.atech.utils.data;
 
-public class CRCUtils extends BitUtils // was HexUtils
+public abstract class CRCUtils // extends BitUtils // was HexUtils
 {
 
     private static int CRC8_LOOKUP_TABLE[] = { 0, 155, 173, 54, 193, 90, 108, 247, 25, 130, 180, 47, 216, 67, 117, 238,
@@ -83,11 +83,10 @@ public class CRCUtils extends BitUtils // was HexUtils
                                               36, 62, 120, 98, 76, 86, 77, 87, 121, 99, 37, 63, 17, 11, 39, 61, 19, 9,
                                               79, 85, 123, 97, 122, 96, 78, 84, 18, 8, 38, 60 };
 
+
     public int computeCRC7(int ai[], int i, int j)
     {
         int k = 127;
-        // Contract.pre(ai != null, "data is null.");
-        // Contract.pre(ai.length >= i + j, "data array is too small.");
         for (int l = 0; l < j; l++)
         {
             k = CRCUtils.CRC7_LOOKUP_TABLE[k] ^ ai[l + i];
@@ -96,11 +95,10 @@ public class CRCUtils extends BitUtils // was HexUtils
         return k;
     }
 
+
     public int computeCRC8(int ai[], int i, int j)
     {
         int k = 0;
-        // Contract.pre(ai != null, "data is null.");
-        // Contract.pre(ai.length >= i + j, "data array is too small.");
         for (int l = 0; l < j; l++)
         {
             k = CRCUtils.CRC8_LOOKUP_TABLE[(k ^ ai[l + i]) & 0xff];
@@ -108,6 +106,7 @@ public class CRCUtils extends BitUtils // was HexUtils
 
         return k;
     }
+
 
     public int computeCRC8BD(int ai[], int i, int j)
     {
@@ -122,11 +121,10 @@ public class CRCUtils extends BitUtils // was HexUtils
         return k;
     }
 
+
     public int computeCRC8E1381(int ai[])
     {
         int i = 0;
-        // Contract.pre(ai != null, "data is null.");
-        // Contract.pre(ai.length >= 2, "data array is too small.");
         boolean flag = false;
         boolean flag1 = false;
         boolean flag2 = false;
@@ -169,10 +167,9 @@ public class CRCUtils extends BitUtils // was HexUtils
         return i;
     }
 
+
     public int computeCRC16CCITT(int ai[], int i, int j)
     {
-        // Contract.pre(ai != null, "data is null.");
-        // Contract.pre(ai.length >= i + j, "data array is too small.");
         int k = 65535;
         for (int i1 = i; i1 < i + j; i1++)
         {
@@ -183,10 +180,9 @@ public class CRCUtils extends BitUtils // was HexUtils
         return k;
     }
 
+
     public int computeCRC16sum(int ai[], int i, int j)
     {
-        // Contract.pre(ai != null, "data is null.");
-        // Contract.pre(ai.length >= i + j, "data array is too small.");
         int k = 0;
         for (int l = i; l < i + j; l++)
         {
@@ -196,10 +192,9 @@ public class CRCUtils extends BitUtils // was HexUtils
         return k;
     }
 
+
     public int computeCRC8XOR(int i, String s, int j, int k)
     {
-        // Contract.preNonNull(s, "data");
-        // Contract.pre(s.length() >= j + k, "data is too small.");
         int l = i;
         for (int i1 = j; i1 < j + k; i1++)
         {
@@ -209,11 +204,10 @@ public class CRCUtils extends BitUtils // was HexUtils
         return l;
     }
 
+
     public boolean isCRC8E1381Valid(String s)
     {
         boolean flag = false;
-        // Contract.pre(s != null, "reply is null.");
-        // Contract.pre(s.length() >= 2, "reply is too small.");
         String s1;
         try
         {
@@ -245,6 +239,10 @@ public class CRCUtils extends BitUtils // was HexUtils
         return flag;
     }
 
+
+    public abstract int[] makeIntArray(String data);
+
+
     public String remainderOf(String s, String s1) throws Exception
     {
         int i = s.indexOf(s1);
@@ -260,6 +258,7 @@ public class CRCUtils extends BitUtils // was HexUtils
             throw new Exception("Can't find '" + s1 + "' in string '" + s + "'");
     }
 
+
     public int getLowNibble(int i)
     {
         // Contract.pre(i >= 0 && i <= 255, "oneByte value of " + i +
@@ -267,19 +266,18 @@ public class CRCUtils extends BitUtils // was HexUtils
         return i & 0xf;
     }
 
+
     public int getHighNibble(int i)
     {
-        // Contract.pre(i >= 0 && i <= 255, "oneByte value of " + i +
-        // " is out of expected range 0.." + 255);
         return i >> 4 & 0xf;
     }
 
+
     public int convertHexToASCII(int i)
     {
-        // Contract.pre(i >= 0 && i <= 15, "hexValue value of " + i +
-        // " is out of expected range 0.." + 15);
         return i >= 10 ? i - 10 + 65 : i + 48;
     }
+
 
     public static int calculateCRC16(byte[] buff, int start, int end)
     {
@@ -296,6 +294,7 @@ public class CRCUtils extends BitUtils // was HexUtils
         return crc;
     }
 
+
     public static int calculateCRC16(short[] buff, int start, int end)
     {
         int crc = 0;
@@ -310,6 +309,7 @@ public class CRCUtils extends BitUtils // was HexUtils
         crc &= 0xffff;
         return crc;
     }
+
 
     public static int calculateCRC16(int[] buff, int start, int end)
     {
@@ -326,6 +326,7 @@ public class CRCUtils extends BitUtils // was HexUtils
         return (int) crc;
     }
 
+
     public static int calculateCRC16(char[] buff, int start, int end)
     {
         long crc = 0;
@@ -340,5 +341,6 @@ public class CRCUtils extends BitUtils // was HexUtils
         crc &= 0xffff;
         return (int) crc;
     }
+
 
 }

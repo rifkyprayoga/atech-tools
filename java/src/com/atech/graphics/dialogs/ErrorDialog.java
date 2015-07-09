@@ -1,32 +1,15 @@
 package com.atech.graphics.dialogs;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 import javax.help.CSH;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 
-import com.atech.utils.ATSwingUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -34,6 +17,7 @@ import com.atech.graphics.components.DateComponent;
 import com.atech.graphics.dialogs.selector.SelectableInterface;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.ATSwingUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -67,7 +51,7 @@ import com.atech.utils.ATDataAccessAbstract;
 */
 
 public class ErrorDialog extends JDialog implements ActionListener // ,
-                                                                   // ItemListener
+// ItemListener
 {
 
     // CHANGE this marking is set where you need to implement
@@ -89,7 +73,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
      */
     protected ATDataAccessAbstract da;
 
-    // ATDataAccess m_da = null;
+    // ATDataAccess dataAccess = null;
     // PISDb m_db = null;
 
     /**
@@ -243,6 +227,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
      */
     String error_message_sollution;
 
+
     // CHANGE
 
     /**
@@ -262,6 +247,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
         this(parent, da, application, module, action, exception, error_message, null);
     }
 
+
     /**
      * Instantiates a new error dialog.
      * 
@@ -278,6 +264,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
     {
         this(parent, da, application, module, action, exception, error_message, null);
     }
+
 
     /**
      * Instantiates a new error dialog.
@@ -307,6 +294,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
 
     }
 
+
     /**
      * Instantiates a new error dialog.
      * 
@@ -334,6 +322,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
         init();
 
     }
+
 
     /**
      * Inits the.
@@ -363,6 +352,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
 
     }
 
+
     // ---
     // --- Methods
     // ---
@@ -377,6 +367,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
         return this.descriptions;
     }
 
+
     /**
      * Gets the help button.
      * 
@@ -386,6 +377,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
     {
         return this.help_button;
     }
+
 
     /**
      * Gets the help id.
@@ -397,6 +389,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
         return help_id;
     }
 
+
     /**
      * Sets the selector name.
      * 
@@ -406,6 +399,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
     {
         this.name = title;
     }
+
 
     /**
      * Sets the help string id.
@@ -418,6 +412,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
         CSH.setHelpIDString(this, id);
     }
 
+
     /**
      * Checks if is column sorting enabled.
      * 
@@ -429,6 +424,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
 
     }
 
+
     /**
      * Sets the column sorting enabled.
      * 
@@ -438,6 +434,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
     {
         column_sorting_enabled = value;
     }
+
 
     /**
      * Sets the allowed actions.
@@ -449,6 +446,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
         this.allowed_actions = value;
     }
 
+
     /**
      * Gets the allowed actions.
      * 
@@ -458,6 +456,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
     {
         return this.allowed_actions;
     }
+
 
     /**
      * Checks if is action allowed.
@@ -473,6 +472,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
         else
             return false;
     }
+
 
     // ---
     // --- Abstract methods
@@ -622,6 +622,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
 
     }
 
+
     /**
      *  Menu item listener, waits for user to issue command through menu.
      *
@@ -662,6 +663,7 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
 
         // checkAndExecuteAction(action);
     }
+
 
     /**
      * Was action.

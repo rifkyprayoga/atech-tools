@@ -191,10 +191,10 @@ public abstract class PlugInClient implements ActionListener
 
 
     /**
-     * Execute Command
-     * 
-     * @param command
-     */
+    * Execute Command
+    *
+    * @param command
+    */
     public void executeCommand(int command)
     {
         executeCommand(command, null);
@@ -202,11 +202,11 @@ public abstract class PlugInClient implements ActionListener
 
 
     /**
-     * Execute Command
-     * 
-     * @param command
-     * @param command_object
-     */
+    * Execute Command
+    *
+    * @param command
+    * @param command_object
+    */
     public void executeCommand(int command, Object command_object)
     {
         if (m_server == null)

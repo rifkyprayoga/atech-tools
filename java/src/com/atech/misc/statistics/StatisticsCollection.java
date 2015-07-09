@@ -55,7 +55,7 @@ public class StatisticsCollection
     protected StatisticsItem base_item;
 
     /**
-     * The m_da.
+     * The dataAccess.
      */
     protected ATDataAccessAbstract m_da;
 
@@ -68,6 +68,7 @@ public class StatisticsCollection
      * The special_processed.
      */
     protected boolean special_processed = false;
+
 
     /**
      * Instantiates a new statistics collection.
@@ -90,6 +91,7 @@ public class StatisticsCollection
         createStatisticsObjects();
     }
 
+
     /**
      * Clean statistics objects.
      */
@@ -108,6 +110,7 @@ public class StatisticsCollection
         this.special_processed = false;
     }
 
+
     /**
      * Process full collection.
      * 
@@ -124,6 +127,7 @@ public class StatisticsCollection
 
         special_processed = false;
     }
+
 
     /**
      * Adds the item.
@@ -142,6 +146,7 @@ public class StatisticsCollection
         special_processed = false;
     }
 
+
     /**
      * Process item.
      * 
@@ -154,6 +159,7 @@ public class StatisticsCollection
             this.stat_objects.get(i - 1).addToSum(item.getValueForItem(i));
         }
     }
+
 
     /**
      * Creates the statistics objects.
@@ -169,6 +175,7 @@ public class StatisticsCollection
         }
     }
 
+
     /**
      * Gets the max statistics object.
      * 
@@ -179,6 +186,7 @@ public class StatisticsCollection
         return this.base_item.getMaxStatisticsObject();
     }
 
+
     /**
      * Gets the statistics item sample.
      * 
@@ -188,6 +196,7 @@ public class StatisticsCollection
     {
         return this.base_item;
     }
+
 
     /**
      * Gets the item statistics value.
@@ -209,6 +218,7 @@ public class StatisticsCollection
             return getSpecialActionStatisticsValue(index);
     }
 
+
     /**
      * Gets the special action statistics value.
      * 
@@ -224,6 +234,7 @@ public class StatisticsCollection
         return this.stat_objects.get(index - 1).getStatistics();
     }
 
+
     /**
      * This method needs to be reimplemented. 
      */
@@ -231,6 +242,7 @@ public class StatisticsCollection
     {
         this.special_processed = true;
     }
+
 
     /**
      * Gets the item statistic value as int.
@@ -244,6 +256,7 @@ public class StatisticsCollection
         return (int) this.getItemStatisticsValue(index);
     }
 
+
     /**
      * Gets the item statistic value as string float.
      * 
@@ -256,6 +269,7 @@ public class StatisticsCollection
     {
         return this.decimal_handler.getDecimalAsString(this.getItemStatisticsValue(index), dec_places);
     }
+
 
     /**
      * Gets the item statistic value as int.

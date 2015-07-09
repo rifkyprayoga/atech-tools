@@ -1,8 +1,6 @@
 package com.atech.db.hibernate.transfer;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,14 +8,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
 import com.atech.graphics.components.tree.CheckNode;
@@ -95,6 +86,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
 
     Container my_parent = null;
 
+
     /**
      * Constructor 
      * 
@@ -115,6 +107,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         init();
     }
 
+
     /**
      * Constructor 
      * 
@@ -134,6 +127,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         init();
     }
 
+
     private void init()
     {
         ATSwingUtils.initLibrary();
@@ -149,11 +143,12 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         this.cmdUpdate();
 
         this.setResizable(false);
-        ATSwingUtils.centerJDialog(this, this.my_parent); // m_da.getParent());
+        ATSwingUtils.centerJDialog(this, this.my_parent); // dataAccess.getParent());
 
         this.m_da.addComponent(this);
 
     }
+
 
     /**
      * Show Dialog
@@ -162,6 +157,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
     {
         this.setVisible(true);
     }
+
 
     /**
      * Displays title for dialog
@@ -181,6 +177,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
             label_title.setText(ic.getMessage("RESTORE_DB_TITLE_SHORT"));
         }
     }
+
 
     /**
      *   Displays GUI
@@ -296,6 +293,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
 
     }
 
+
     /**
      * Set Task
      * 
@@ -326,6 +324,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         }
     }
 
+
     /**
      * Set Status
      * 
@@ -347,6 +346,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         // this.progress_current.setString("" + procent + " %");
 
     }
+
 
     /**
      * Action Performed
@@ -375,6 +375,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         }
 
     }
+
 
     private void cleanBackupDirectory()
     {
@@ -407,6 +408,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         }
     }
 
+
     /**
      * Pack Backup Files
      */
@@ -414,6 +416,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
     {
 
     }
+
 
     /*
      * cleanBackupDirectory();
@@ -440,6 +443,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         this.count_of_backup_elements = elements_count;
     }
 
+
     /**
      * Is BackupRestore Object Selected
      * @param key
@@ -452,6 +456,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         else
             return false;
     }
+
 
     /**
      * Traverse Tree
@@ -484,10 +489,12 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         }
     }
 
+
     /**
      * Perform Backup
      */
     public abstract void performBackup();
+
 
     /**
      *  Gets info if action was performed.
@@ -502,6 +509,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
             return false;
     }
 
+
     /**
      *  Returns object saved
      * 
@@ -514,6 +522,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
 
     String help_id = null;
 
+
     /** 
      * enableHelp
      */
@@ -523,6 +532,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         m_da.enableHelp(this);
     }
 
+
     /** 
      * getComponent
      */
@@ -531,6 +541,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         return this;
     }
 
+
     /** 
      * getHelpButton
      */
@@ -538,6 +549,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
     {
         return button_help;
     }
+
 
     /** 
      * getHelpId

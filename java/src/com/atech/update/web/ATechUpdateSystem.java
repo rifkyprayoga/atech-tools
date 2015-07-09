@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.atech.update.web.db.DataLayerUpdateServlet_v2;
+import com.atech.update.web.db.DataLayerUpdateServletV2;
 import com.atech.utils.web.ServletUtilities;
 
 /**
@@ -45,6 +45,7 @@ public class ATechUpdateSystem extends HttpServlet
 {
 
     private static final long serialVersionUID = -5622091320679694087L;
+
 
     /**
      * doGet
@@ -87,6 +88,7 @@ public class ATechUpdateSystem extends HttpServlet
         // this.doDownload(request, response, "d:/test.jar", "test.jar");
     }
 
+
     /**
      * @param request
      * @param parameter
@@ -103,16 +105,18 @@ public class ATechUpdateSystem extends HttpServlet
 
     }
 
+
     @SuppressWarnings("unused")
     private void getFile(HttpServletRequest request, HttpServletResponse response, long module_id, long version_id)
     {
 
     }
 
+
     private void getDetailedUpdateList(HttpServletResponse response, String product_id, int current_version,
             int next_version) throws ServletException, IOException
     {
-        DataLayerUpdateServlet_v2 dl = DataLayerUpdateServlet_v2.getInstance();
+        DataLayerUpdateServletV2 dl = DataLayerUpdateServletV2.getInstance();
 
         String xml = dl.getProductUpdateList(product_id, current_version, next_version);
 
@@ -142,6 +146,7 @@ public class ATechUpdateSystem extends HttpServlet
 
     }
 
+
     /**
      * get Next Version
      * 
@@ -156,7 +161,7 @@ public class ATechUpdateSystem extends HttpServlet
     private void getNextVersion(HttpServletResponse response, String product_id, int current_version, int current_db)
             throws ServletException, IOException
     {
-        DataLayerUpdateServlet_v2 dl = DataLayerUpdateServlet_v2.getInstance();
+        DataLayerUpdateServletV2 dl = DataLayerUpdateServletV2.getInstance();
 
         response.setContentType("text/html");
         // response.setContentLength(message.length());
@@ -183,6 +188,7 @@ public class ATechUpdateSystem extends HttpServlet
 
     }
 
+
     /**
      * get Product Xml
      * 
@@ -196,7 +202,7 @@ public class ATechUpdateSystem extends HttpServlet
     public void getProductXml(HttpServletResponse response, String product_id, int current_version)
             throws ServletException, IOException
     {
-        DataLayerUpdateServlet_v2 dl = DataLayerUpdateServlet_v2.getInstance();
+        DataLayerUpdateServletV2 dl = DataLayerUpdateServletV2.getInstance();
 
         response.setContentType("text/html");
         // response.setContentLength(message.length());

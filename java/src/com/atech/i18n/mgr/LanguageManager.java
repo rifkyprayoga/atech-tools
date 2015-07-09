@@ -184,7 +184,7 @@ public class LanguageManager
             this.selectedLanguage = props.get("SELECTED_LANG");
         }
 
-        System.out.println("!!!!! " + this.selectedLanguage);
+        // System.out.println("!!!!! " + this.selectedLanguage);
 
     }
 

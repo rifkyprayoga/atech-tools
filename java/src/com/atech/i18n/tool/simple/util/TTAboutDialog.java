@@ -1,13 +1,8 @@
 package com.atech.i18n.tool.simple.util;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 
-import javax.swing.BoxLayout;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.atech.graphics.components.about.AboutCustomPanel;
 import com.atech.graphics.components.about.AboutDialog;
@@ -52,6 +47,7 @@ public class TTAboutDialog extends AboutDialog
     private static final long serialVersionUID = 586495485605943204L;
     DataAccessTT m_da = DataAccessTT.getInstance();
 
+
     /**
      * Constructor 
      * 
@@ -62,22 +58,22 @@ public class TTAboutDialog extends AboutDialog
     {
         super(parent, true, DataAccessTT.getInstance().getI18nControlInstance());
 
-        // this.m_da = da;
+        // this.dataAccess = da;
 
         // licence
         this.setLicenceType(LicenceInfo.LICENCE_GPL_v2_0);
 
         // credits
-        // this.setCredits(m_da.getPlugInDevelopers());
+        // this.setCredits(dataAccess.getPlugInDevelopers());
 
         // set display system properties
         this.setDisplayProperties(true);
 
         // libraries
-        // this.setLibraries(m_da.getPlugInLibraries());
+        // this.setLibraries(dataAccess.getPlugInLibraries());
 
         // features
-        // this.setFeatures(m_da.getPlugInFeatures());
+        // this.setFeatures(dataAccess.getPlugInFeatures());
 
         // custom page
         createCustomTab();
@@ -91,6 +87,7 @@ public class TTAboutDialog extends AboutDialog
 
         this.showAbout();
     }
+
 
     /*
      * public void initCustom()

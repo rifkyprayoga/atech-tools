@@ -1,19 +1,12 @@
 package com.atech.i18n.info.config;
 
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.info.LanguageInfo;
@@ -85,6 +78,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
     I18nControlAbstract ic;
     LanguageInfo langInfo = null;
 
+
     /**
      * Constructor
      * @param da instance of DataAccess
@@ -114,6 +108,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
 
     }
 
+
     /**
      * Creates Db Panel (for selecting database)
      */
@@ -137,19 +132,19 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      * label.setBounds(40, 140, 360, 50);
      * panel.add(label);
      * label = new JLabel(ic.getMessage("SELECT_DATABASE"));
-     * label.setFont(m_da.getFont(DataAccess.FONT_NORMAL_BOLD));
+     * label.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL_BOLD));
      * label.setBounds(40, 230, 340, 25);
      * panel.add(label);
      * cb_DBs = new
-     * JComboBox(m_da.m_config_file.getAllDatabasesNamesPlusAsArray());
+     * JComboBox(dataAccess.m_config_file.getAllDatabasesNamesPlusAsArray());
      * cb_DBs.setBounds(40, 260, 220, 25);
-     * cb_DBs.setSelectedIndex(m_da.getSelectedDbIndex());
+     * cb_DBs.setSelectedIndex(dataAccess.getSelectedDbIndex());
      * cb_DBs.setFont(font_normal);
      * cb_DBs.addItemListener(this);
      * cb_DBs.setActionCommand("select_db");
-     * // cb_DBs.setEnabled(!m_da.isDemoVersion());
+     * // cb_DBs.setEnabled(!dataAccess.isDemoVersion());
      * panel.add(cb_DBs);
-     * if (m_da.isDemoVersion())
+     * if (dataAccess.isDemoVersion())
      * {
      * cb_DBs.setSelectedIndex(0);
      * cb_DBs.setEnabled(false);
@@ -184,23 +179,23 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      * label.setBounds(40, 140, 360, 50);
      * panel.add(label);
      * label = new JLabel(ic.getMessage("SELECT_LOOK"));
-     * label.setFont(m_da.getFont(DataAccess.FONT_NORMAL_BOLD));
+     * label.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL_BOLD));
      * label.setBounds(40, 190, 340, 25);
      * panel.add(label);
-     * cb_LFs = new JComboBox(m_da.m_config_file.getAvailableLFs());
+     * cb_LFs = new JComboBox(dataAccess.m_config_file.getAvailableLFs());
      * cb_LFs.setBounds(40, 215, 120, 25);
-     * cb_LFs.setSelectedItem(m_da.m_config_file.selected_LF_Name);
+     * cb_LFs.setSelectedItem(dataAccess.m_config_file.selected_LF_Name);
      * cb_LFs.setFont(font_normal);
      * cb_LFs.addItemListener(this);
      * cb_LFs.setActionCommand("select_lf");
      * panel.add(cb_LFs);
      * label = new JLabel(ic.getMessage("SELECT_SKINLF_LOOK"));
-     * label.setFont(m_da.getFont(DataAccess.FONT_NORMAL_BOLD));
+     * label.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL_BOLD));
      * label.setBounds(40, 250, 340, 25);
      * panel.add(label);
      * tf_selLF = new JTextField();
      * tf_selLF.setBounds(40, 275, 260, 25);
-     * tf_selLF.setText(m_da.m_config_file.skinLFSelected);
+     * tf_selLF.setText(dataAccess.m_config_file.skinLFSelected);
      * tf_selLF.setEnabled(false);
      * tf_selLF.setFont(font_normal);
      * panel.add(tf_selLF);
@@ -210,7 +205,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      * bt_browse.addActionListener(this);
      * bt_browse.setFont(font_normal);
      * panel.add(bt_browse);
-     * if (!m_da.m_config_file.selected_LF_Name.equals("SkinLF"))
+     * if (!dataAccess.m_config_file.selected_LF_Name.equals("SkinLF"))
      * {
      * bt_browse.setEnabled(false);
      * }
@@ -335,6 +330,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
 
     }
 
+
     /**
      * Action Listener
      */
@@ -353,6 +349,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
 
     }
 
+
     /**
      * Invoked when an item has been selected or deselected by the user. The
      * code written for this method performs the operations that need to occur
@@ -368,8 +365,8 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
         {
 
             /*
-             * if (m_da.isDemoVersion()) { m_da.selected_db=0;
-             * m_da.saveConfig(); return; }
+             * if (dataAccess.isDemoVersion()) { dataAccess.selected_db=0;
+             * dataAccess.saveConfig(); return; }
              */
 
             int num = cb.getSelectedIndex();

@@ -1,14 +1,11 @@
 package com.atech.db.hibernate.tool;
 
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.DriverManager;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import org.apache.commons.logging.Log;
@@ -68,6 +65,7 @@ public class PanelDbAction extends JPanel implements ActionListener
     PanelDatabaseSet pds;
     DbTool m_dialog;
 
+
     /**
      * Constructor
      * 
@@ -84,15 +82,16 @@ public class PanelDbAction extends JPanel implements ActionListener
         m_dialog = dia;
         m_da = DbToolAccess.getInstance();
 
-        // font_big = m_da.getFont(DbToolAccess.FONT_BIG_BOLD);
-        // font_normal_b = m_da.getFont(DbToolAccess.FONT_NORMAL_BOLD);
-        // font_normal = m_da.getFont(DbToolAccess.FONT_NORMAL);
+        // font_big = dataAccess.getFont(DbToolAccess.FONT_BIG_BOLD);
+        // font_normal_b = dataAccess.getFont(DbToolAccess.FONT_NORMAL_BOLD);
+        // font_normal = dataAccess.getFont(DbToolAccess.FONT_NORMAL);
 
         ATSwingUtils.initLibrary();
 
         createPanel();
 
     }
+
 
     private void createPanel()
     {
@@ -142,6 +141,7 @@ public class PanelDbAction extends JPanel implements ActionListener
         return;
     }
 
+
     /**
      * Set Data
      * 
@@ -153,6 +153,7 @@ public class PanelDbAction extends JPanel implements ActionListener
         reDraw();
     }
 
+
     /**
      * Re Draw
      */
@@ -160,6 +161,7 @@ public class PanelDbAction extends JPanel implements ActionListener
     {
         System.out.println("Redraw Not working");
     }
+
 
     /**
      *  Action Listener
@@ -179,6 +181,7 @@ public class PanelDbAction extends JPanel implements ActionListener
         }
 
     }
+
 
     private void testConnection()
     {
@@ -203,11 +206,13 @@ public class PanelDbAction extends JPanel implements ActionListener
         }
     }
 
+
     @SuppressWarnings("unused")
     private void showStatus()
     {
         // TODO
     }
+
 
     @SuppressWarnings("unused")
     private void initDb()

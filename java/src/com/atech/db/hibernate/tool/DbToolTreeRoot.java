@@ -68,9 +68,10 @@ public class DbToolTreeRoot
     public ArrayList<DatabaseSettings> m_app_list = null;
 
     /**
-     * The m_da.
+     * The dataAccess.
      */
     public DbToolAccess m_da = null;
+
 
     /**
      * Instantiates a new db tool tree root.
@@ -81,7 +82,7 @@ public class DbToolTreeRoot
     {
 
         m_da = da;
-        // m_appGroup = m_da.getApplicationDatas();
+        // m_appGroup = dataAccess.getApplicationDatas();
 
         /*
          * m_foodGroups = db.getFoodGroups();
@@ -105,6 +106,7 @@ public class DbToolTreeRoot
 
     }
 
+
     /**
      * Load data.
      */
@@ -113,6 +115,7 @@ public class DbToolTreeRoot
         m_appGroup = m_da.getApplicationDatas();
         type = ROOT_MULTIPLE;
     }
+
 
     /**
      * Load data.
@@ -130,6 +133,7 @@ public class DbToolTreeRoot
         type = ROOT_SINGLE;
     }
 
+
     /**
      * Gets the list of databases.
      * 
@@ -143,9 +147,10 @@ public class DbToolTreeRoot
         return m_da.getArrayOfDatabaseSettings(intr.getAllDatabases());
         // new ArrayList(intr.getAllDatabases().values());
 
-        // m_da.loadConfig(intr);
-        // return m_da.getListOfDatabases();
+        // dataAccess.loadConfig(intr);
+        // return dataAccess.getListOfDatabases();
     }
+
 
     /** 
      * toString

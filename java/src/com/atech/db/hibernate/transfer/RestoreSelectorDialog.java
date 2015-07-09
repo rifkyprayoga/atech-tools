@@ -1,22 +1,12 @@
 package com.atech.db.hibernate.transfer;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Hashtable;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 
 import com.atech.graphics.components.tree.CheckNodeTree;
@@ -70,7 +60,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
     protected I18nControlAbstract ic = null;
 
     /**
-     * The m_da.
+     * The dataAccess.
      */
     protected ATDataAccessAbstract m_da = null;
 
@@ -157,6 +147,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
      */
     protected Container my_parent = null;
 
+
     /**
      * Instantiates a new restore selector dialog.
      * 
@@ -174,6 +165,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         init();
     }
 
+
     /**
      * Instantiates a new restore selector dialog.
      * 
@@ -189,6 +181,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 
         init();
     }
+
 
     /**
      * Inits the.
@@ -209,9 +202,10 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         this.cmdUpdate();
 
         this.setResizable(false);
-        ATSwingUtils.centerJDialog(this, this.my_parent); // m_da.getParent());
+        ATSwingUtils.centerJDialog(this, this.my_parent); // dataAccess.getParent());
         this.m_da.addComponent(this);
     }
+
 
     /**
      * Show dialog.
@@ -220,6 +214,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
     {
         this.setVisible(true);
     }
+
 
     /*
      * Displays title for dialog
@@ -234,6 +229,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         this.setTitle(ic.getMessage("RESTORE_DB_TITLE"));
         label_title.setText(ic.getMessage("RESTORE_DB_TITLE_SHORT"));
     }
+
 
     /*
      * Displays GUI
@@ -279,7 +275,8 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         // ---
         button = new JButton(ic.getMessage("BROWSE") + "...");
         button.setBounds(290, 305, 120, 25);
-        // button_backup.setIcon(m_da.getImageIcon_22x22("export1.png", this));
+        // button_backup.setIcon(dataAccess.getImageIcon_22x22("export1.png",
+        // this));
         button.addActionListener(this);
         button.setFont(font_normal);
         button.setActionCommand("select_file");
@@ -298,7 +295,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         // ---
         button_next = new JButton("   " + ic.getMessage("NEXT_STEP") + " >>> ");
         button_next.setBounds(290, 365, 120, 25);
-        // button.setIcon(m_da.getImageIcon_22x22("cancel.png", this));
+        // button.setIcon(dataAccess.getImageIcon_22x22("cancel.png", this));
         button_next.addActionListener(this);
         button_next.setFont(font_normal);
         button_next.setEnabled(false);
@@ -314,10 +311,12 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 
     }
 
+
     /**
      * Cmd next step.
      */
     public abstract void cmdNextStep();
+
 
     /**
      * Gets the browse startup directory.
@@ -328,6 +327,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
     {
         return ".";
     }
+
 
     /** 
      * actionPerformed
@@ -363,6 +363,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
                     return f.getName().endsWith(".dbe");
                 }
 
+
                 @Override
                 public String getDescription()
                 {
@@ -373,6 +374,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 
             file_chooser.addChoosableFileFilter(new FileFilter()
             {
+
                 @Override
                 public boolean accept(File f)
                 {
@@ -381,6 +383,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
 
                     return f.getName().endsWith(".zip");
                 }
+
 
                 @Override
                 public String getDescription()
@@ -414,6 +417,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
      */
     String help_id = null;
 
+
     /**
      * Enable Help
      */
@@ -423,6 +427,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         m_da.enableHelp(this);
     }
 
+
     /**
      * Get Component
      */
@@ -431,6 +436,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         return this;
     }
 
+
     /**
      * Get Help Button
      */
@@ -438,6 +444,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
     {
         return button_help;
     }
+
 
     /**
      * Get Help Id

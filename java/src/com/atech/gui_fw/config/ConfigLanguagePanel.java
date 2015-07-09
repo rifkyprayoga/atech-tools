@@ -1,12 +1,8 @@
 package com.atech.gui_fw.config;
 
-import java.awt.Component;
+import java.awt.*;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.help.HelpCapable;
@@ -78,10 +74,11 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
     // private JComboBox langBox, cb_database, cb_lf_type, cb_lf_type_class;
     // private JTextField tf_lf;
     // private JButton b_browse;
-    DbToolApplicationAbstract m_dbc = null; // m_da.getDbConfig();
+    DbToolApplicationAbstract m_dbc = null; // dataAccess.getDbConfig();
     JComboBox cb_language;
     ATDataAccessLMAbstract da = null;
     LanguageManager lang_mgr = null;
+
 
     /**
      * Constructor
@@ -105,6 +102,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
         // init();
 
     }
+
 
     @SuppressWarnings("unused")
     private void init()
@@ -193,7 +191,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
         /*
          * cb_DBs = new JComboBox(langInfo.availableLang);
          * cb_DBs.setBounds(40, 280, 300, 25);
-         * cb_DBs.setSelectedIndex(m_da.getSelectedLangIndex() - 1);
+         * cb_DBs.setSelectedIndex(dataAccess.getSelectedLangIndex() - 1);
          * cb_DBs.setFont(font_normal);
          * cb_DBs.addItemListener(this);
          * cb_DBs.setActionCommand("select_lang");
@@ -206,6 +204,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
         this.add(panel);
 
     }
+
 
     private void initSimple()
     {
@@ -238,10 +237,10 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
             ATSwingUtils.FONT_NORMAL);
         cb_language.setSelectedIndex(this.lang_mgr.getSelectedLanguageFromArray());
 
-        // m_da.getL
+        // dataAccess.getL
         /*
-         * langBox = new JComboBox(m_da.getL.getAvailableLanguages());
-         * langBox.setSelectedIndex(m_da.getSelectedLanguageIndex());
+         * langBox = new JComboBox(dataAccess.getL.getAvailableLanguages());
+         * langBox.setSelectedIndex(dataAccess.getSelectedLanguageIndex());
          * langBox.setBounds(120, 50, 150, 25);
          */
 
@@ -278,6 +277,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
 
     }
 
+
     /**
      * Save Properties
      * 
@@ -303,6 +303,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
          */
     }
 
+
     // ****************************************************************
     // ****** HelpCapable Implementation *****
     // ****************************************************************
@@ -315,6 +316,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
         return this.getRootPane();
     }
 
+
     /**
      * getHelpButton - get Help button
      */
@@ -322,6 +324,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
     {
         return this.parent.getHelpButton();
     }
+
 
     /**
      * getHelpId - get id for Help

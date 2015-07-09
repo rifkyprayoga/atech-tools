@@ -1,6 +1,6 @@
 package com.atech.gui_fw;
 
-import java.awt.Event;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -14,18 +14,7 @@ import javax.help.CSH;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
 import javax.help.HelpSetException;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JToolBar;
-import javax.swing.KeyStroke;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import com.atech.help.HelpContext;
 import com.atech.i18n.I18nControlAbstract;
@@ -36,6 +25,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 {
 
     public abstract boolean hasSplashScreen();
+
 
     public abstract void initSplashScreen();
 
@@ -97,6 +87,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         MainAppFrameAbstract.setLookAndFeel();
     }
 
+
     /**
      * Set Look & Feel
      */
@@ -135,6 +126,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
     }
 
+
     /**
      * Constructor
      * 
@@ -149,14 +141,14 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
         initDataAccess();
         // System.out.println("MainFrame before creation");
-        // m_da = DataAccess.createInstance(this);
+        // dataAccess = DataAccess.createInstance(this);
 
-        // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  m_da: "
-        // + m_da);
+        // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  dataAccess: "
+        // + dataAccess);
         /*
-         * m_ic = m_da.getI18nControlInstance();
-         * m_da.addComponent(this);
-         * m_da.developer_version = developer_version;
+         * m_ic = dataAccess.getI18nControlInstance();
+         * dataAccess.addComponent(this);
+         * dataAccess.developer_version = developer_version;
          * statusPanel = new StatusBar(this);
          * this.actions = new Hashtable<String, GGCAction>();
          * MainFrame.developer_version = developer_version;
@@ -181,7 +173,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
         initAppGUI();
 
-        // m_da.addObserver(ATDataAccessAbstract.OBSERVABLE_STATUS, this);
+        // dataAccess.addObserver(ATDataAccessAbstract.OBSERVABLE_STATUS, this);
 
         /*
          * addToolBarButtonWithName("view_daily");
@@ -203,7 +195,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         // BorderLayout.NORTH);
         // getContentPane().add(statusPanel, BorderLayout.SOUTH);
 
-        // m_da.startDb(); //statusPanel);
+        // dataAccess.startDb(); //statusPanel);
 
         // statusPanel.setStatusMessage(m_ic.getMessage("INIT"));
 
@@ -216,7 +208,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
         // initPlugIns();
 
-        // m_da.startToObserve();
+        // dataAccess.startToObserve();
 
         initAppSpecific();
 
@@ -224,33 +216,41 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
     }
 
+
     public abstract void initDataAccess();
 
+
     public abstract void initAppSpecific();
+
 
     /*
      * private void initPlugIns()
      * {
      * // TODO: deprecated
-     * m_da.addPlugIn(DataAccess.PLUGIN_METERS, new MetersPlugIn(this, m_ic));
-     * // m_da.getPlugIn(DataAccess.PLUGIN_METERS).checkIfInstalled();
-     * m_da.addPlugIn(DataAccess.PLUGIN_PUMPS, new PumpsPlugIn(this, m_ic));
-     * // m_da.getPlugIn(DataAccess.PLUGIN_PUMPS).checkIfInstalled();
-     * m_da.addPlugIn(DataAccess.PLUGIN_CGMS, new CGMSPlugIn(this, m_ic));
-     * // m_da.getPlugIn(DataAccess.PLUGIN_CGMS).checkIfInstalled();
+     * dataAccess.addPlugIn(DataAccess.PLUGIN_METERS, new MetersPlugIn(this,
+     * m_ic));
+     * // dataAccess.getPlugIn(DataAccess.PLUGIN_METERS).checkIfInstalled();
+     * dataAccess.addPlugIn(DataAccess.PLUGIN_PUMPS, new PumpsPlugIn(this,
+     * m_ic));
+     * // dataAccess.getPlugIn(DataAccess.PLUGIN_PUMPS).checkIfInstalled();
+     * dataAccess.addPlugIn(DataAccess.PLUGIN_CGMS, new CGMSPlugIn(this, m_ic));
+     * // dataAccess.getPlugIn(DataAccess.PLUGIN_CGMS).checkIfInstalled();
      * }
      */
 
     public abstract void initAppGUI();
 
+
     public abstract void createMenus();
 
+
     public abstract void createToolBar();
+
 
     private void helpInit()
     {
         // HelpContext hc = new HelpContext("../data/help/GGC.hs");
-        // m_da.setHelpContext(hc);
+        // dataAccess.setHelpContext(hc);
         boolean help_debug = true;
 
         if (help_debug)
@@ -342,6 +342,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
     }
 
+
     private JMenu createMenu(String name, String tool_tip)
     {
         JMenu item = new JMenu(m_ic.getMessageWithoutMnemonic(name));
@@ -358,6 +359,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
         return item;
     }
+
 
     private JMenu createMenu(JMenu parent, String name, String tool_tip)
     {
@@ -384,6 +386,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
      */
     public static final int TOOLBAR_PUMP = 2;
 
+
     /*
      * private void createToolbarAction(String name, String tip, String
      * action_command, String icon_small, int toolbar_id)
@@ -391,7 +394,8 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
      * GGCAction action = new GGCAction(name, tip, action_command);
      * if (icon_small != null)
      * {
-     * action.putValue(Action.SMALL_ICON, m_da.getImageIcon(icon_small, 24, 24,
+     * action.putValue(Action.SMALL_ICON, dataAccess.getImageIcon(icon_small,
+     * 24, 24,
      * this));
      * }
      * if (toolbar_id == MainFrame.TOOLBAR_PEN_INJECTION)
@@ -406,7 +410,8 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
      * GGCAction action = new GGCAction(name, tip, action_command);
      * if (icon_small != null)
      * {
-     * action.putValue(Action.SMALL_ICON, m_da.getImageIcon(icon_small, 15, 15,
+     * action.putValue(Action.SMALL_ICON, dataAccess.getImageIcon(icon_small,
+     * 15, 15,
      * this));
      * // new ImageIcon(getClass().getResource("/icons/" + icon_small)));
      * // action.putValue(Action.LARGE_ICON_KEY, new
@@ -425,12 +430,14 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
      */
     public abstract void setMenusByDbLoad(int status);
 
+
     /**
      * Set Toolbar by Db Load
      * 
      * @param status
      */
     public abstract void setToolbarByDbLoad(int status);
+
 
     private void setToolBarItemEnabled(String item_name, boolean enabled)
     {
@@ -446,15 +453,16 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
     }
 
+
     // System.out.println("FIIIIIIIIIIIIIIIIIIIIIIXXXX this");
     // }
     private void close()
     {
         /*
-         * if (m_da != null)
+         * if (dataAccess != null)
          * {
-         * if (m_da.getDb() != null)
-         * m_da.getDb().closeDb();
+         * if (dataAccess.getDb() != null)
+         * dataAccess.getDb().closeDb();
          * DataAccess.deleteInstance();
          * }
          */
@@ -485,6 +493,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
          */
         private static final long serialVersionUID = -1022459758999093522L;
 
+
         GGCAction(String name, String command)
         {
             super();
@@ -509,6 +518,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
             command = name;
         }
+
 
         GGCAction(String name, String tooltip, String command)
         {
@@ -546,16 +556,19 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
             }
         }
 
+
         public String getName()
         {
             return (String) getValue(Action.NAME);
         }
+
 
         public void actionPerformed(ActionEvent e)
         {
 
         }
     }
+
 
     private void featureNotImplemented(String cmd, String version)
     {
@@ -568,6 +581,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         JOptionPane.showMessageDialog(this, text, m_ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
 
     }
+
 
     private void featureNotImplementedDescription(String desc, String version)
     {
@@ -583,12 +597,14 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
     private class CloseListener extends WindowAdapter
     {
+
         @Override
         public void windowClosing(WindowEvent e)
         {
             close();
         }
     }
+
 
     /**
      * To String

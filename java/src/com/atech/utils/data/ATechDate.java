@@ -1,9 +1,8 @@
 package com.atech.utils.data;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -132,6 +131,8 @@ public class ATechDate
      */
     public int atechDatetimeType;
 
+    public ATechDateType atechDatetimeTypeObject;
+
 
     /**
      * ATechDate (long)
@@ -154,6 +155,7 @@ public class ATechDate
     public ATechDate(int type)
     {
         this.atechDatetimeType = type;
+        atechDatetimeTypeObject = ATechDateType.getByType(this.atechDatetimeType);
     }
 
 
@@ -210,6 +212,7 @@ public class ATechDate
         this.msecond = 0;
 
         atechDatetimeType = type;
+        atechDatetimeTypeObject = ATechDateType.getByType(this.atechDatetimeType);
     }
 
 
@@ -224,6 +227,7 @@ public class ATechDate
         this.msecond = 0;
 
         atechDatetimeType = type.getCode();
+        atechDatetimeTypeObject = type;
     }
 
 
@@ -238,6 +242,7 @@ public class ATechDate
     public ATechDate(int type, Calendar gc) // GregorianCalendar
     {
         atechDatetimeType = type;
+        atechDatetimeTypeObject = ATechDateType.getByType(this.atechDatetimeType);
 
         switch (type)
         {
@@ -301,6 +306,7 @@ public class ATechDate
     public void process(int type, long date)
     {
         atechDatetimeType = type;
+        atechDatetimeTypeObject = ATechDateType.getByType(this.atechDatetimeType);
 
         if (type == ATechDate.FORMAT_DATE_ONLY)
         {
@@ -385,6 +391,24 @@ public class ATechDate
             System.out.println("*****************************************************************");
         }
 
+    }
+
+
+    public boolean after(ATechDate newDate)
+    {
+        return this.getATDateTimeAsLong() > newDate.getATDateTimeAsLong();
+    }
+
+
+    public boolean before(ATechDate newDate)
+    {
+        return this.getATDateTimeAsLong() < newDate.getATDateTimeAsLong();
+    }
+
+
+    public boolean same(ATechDate newDate)
+    {
+        return this.getATDateTimeAsLong() == newDate.getATDateTimeAsLong();
     }
 
 
@@ -563,6 +587,26 @@ public class ATechDate
                     + getLeadingZero(this.second, 2);
         else
             return "? " + getLeadingZero(this.hourOfDay, 2) + ":" + getLeadingZero(this.minute, 2);
+    }
+
+
+    /**
+     * Gets the time string.
+     *
+     * @return the time string
+     */
+    public String getTimeStringAsOnlyMinutes()
+    {
+        String time = getTimeString();
+
+        if (StringUtils.countMatches(time, ":") > 1)
+        {
+            return time.substring(0, time.lastIndexOf(":"));
+        }
+        else
+        {
+            return time;
+        }
     }
 
 
@@ -1090,6 +1134,15 @@ public class ATechDate
     }
 
 
+    public ATechDate clone()
+    {
+        ATechDate dt = new ATechDate(this.dayOfMonth, this.month, this.year, this.hourOfDay, this.minute, this.second,
+                this.getAtechDatetimeTypeObject());
+
+        return dt;
+    }
+
+
     /**
      * Adds the.
      *
@@ -1403,6 +1456,12 @@ public class ATechDate
         return this.getDateString() + " " + this.getTimeString();
     }
 
+
+    public ATechDateType getAtechDatetimeTypeObject()
+    {
+        return atechDatetimeTypeObject;
+    }
+
     public enum ATechDateType
     {
         DateOnly(1, ""), //
@@ -1416,6 +1475,16 @@ public class ATechDate
 
         int code;
 
+        private static Map<Integer, ATechDateType> mapByCode = new HashMap<Integer, ATechDateType>();
+
+        static
+        {
+            for (ATechDateType adt : values())
+            {
+                mapByCode.put(adt.code, adt);
+            }
+        }
+
 
         ATechDateType(int code, String desc)
         {
@@ -1426,6 +1495,12 @@ public class ATechDate
         public int getCode()
         {
             return code;
+        }
+
+
+        public static ATechDateType getByType(int code)
+        {
+            return mapByCode.get(code);
         }
 
     }

@@ -1,14 +1,12 @@
 package com.atech.plugin;
 
-import java.awt.Container;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.JDialog;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
@@ -59,14 +57,16 @@ import com.atech.utils.ATDataAccessLMAbstract;
 public abstract class PlugInServer
 {
 
+    protected ATDataAccessAbstract dataAccess;
+
     protected boolean installed = false;
     protected I18nControlAbstract ic = null;
     protected Container parent = null;
     protected String selected_lang = "en";
-    protected ATDataAccessAbstract m_da;
     protected boolean backup_restore_enabled = false;
     protected PlugInClient client;
     protected HibernateDb db;
+
 
     /**
      * Constructor
@@ -74,6 +74,7 @@ public abstract class PlugInServer
     public PlugInServer()
     {
     }
+
 
     /**
      * Constructor
@@ -88,6 +89,7 @@ public abstract class PlugInServer
         init(cont, selected_lang, da, null, db);
     }
 
+
     /**
      * Constructor
      * 
@@ -100,6 +102,7 @@ public abstract class PlugInServer
         init(cont, selected_lang, da, null, null);
     }
 
+
     /**
      * Constructor
      * 
@@ -110,6 +113,7 @@ public abstract class PlugInServer
     {
         init(cont, da, null);
     }
+
 
     /**
      * Init PlugIn
@@ -125,35 +129,36 @@ public abstract class PlugInServer
     {
         this.parent = cont;
         this.selected_lang = selected_lang_in;
-        this.m_da = da;
+        this.dataAccess = da;
         this.client = client_in;
         this.db = db_in;
         initPlugIn();
     }
 
+
     /**
      * Init PlugIn
      * 
      * @param cont
-     * @param selected_lang_in
      * @param da
      * @param client_in
-     * @param db_in
      */
     public void init(Container cont, ATDataAccessLMAbstract da, PlugInClient client_in)
     {
         this.parent = cont;
         // this.selected_lang = selected_lang_in;
-        this.m_da = da;
+        this.dataAccess = da;
         this.client = client_in;
         this.db = da.getHibernateDb();
         initPlugIn();
     }
 
+
     /**
      * Init PlugIn which needs to be implemented 
      */
     public abstract void initPlugIn();
+
 
     /**
      * Get Name of plugin
@@ -162,6 +167,7 @@ public abstract class PlugInServer
      */
     public abstract String getName();
 
+
     /**
      * Get Version of plugin
      * 
@@ -169,23 +175,28 @@ public abstract class PlugInServer
      */
     public abstract String getVersion();
 
+
     /**
-     * Execute Command on Server Side
-     * 
-     * @param command
-     */
+    * Execute Command on Server Side
+    *
+    * @param command
+    */
+    @Deprecated
     public void executeCommand(int command)
     {
         this.executeCommand(command, null);
     }
 
+
     /**
-     * Execute Command on Server Side, with object parameter
-     * 
-     * @param command
-     * @param data
-     */
+    * Execute Command on Server Side, with object parameter
+    *
+    * @param command
+    * @param data
+    */
+    @Deprecated
     public abstract void executeCommand(int command, Object data);
+
 
     /**
      * Execute Command Dialog Return - This one executes command that starts dialog, with
@@ -202,6 +213,7 @@ public abstract class PlugInServer
         System.out.println("ExecuteCommandDialog is not implemented for " + getName());
         return false;
     }
+
 
     /**
      * Execute Command Dialog Return - This one executes command that starts dialog, with
@@ -221,6 +233,7 @@ public abstract class PlugInServer
         return null;
     }
 
+
     /**
      * Feature not implemented message
      * @param command_desc
@@ -237,12 +250,14 @@ public abstract class PlugInServer
 
     }
 
+
     /**
      * Get Information When will it be implemented
      * 
      * @return
      */
     public abstract String getWhenWillBeImplemented();
+
 
     /**
      * Set Return Data
@@ -262,6 +277,7 @@ public abstract class PlugInServer
         }
     }
 
+
     /**
      * Get Parent
      * 
@@ -271,6 +287,7 @@ public abstract class PlugInServer
     {
         return this.parent;
     }
+
 
     /**
      * Get Transfer objects for communicating with certain classes in main application
@@ -284,6 +301,7 @@ public abstract class PlugInServer
             return this.client.getTransferObjects();
     }
 
+
     /**
      * Get Return Object
      * 
@@ -291,6 +309,7 @@ public abstract class PlugInServer
      * @return
      */
     public abstract Object getReturnObject(int ret_obj_id);
+
 
     /**
      * Get Return Object
@@ -300,6 +319,7 @@ public abstract class PlugInServer
      * @return
      */
     public abstract Object getReturnObject(int ret_obj_id, Object[] parameters);
+
 
     /**
      * Get PlugIn Main Menu 
@@ -312,6 +332,7 @@ public abstract class PlugInServer
      */
     public abstract JMenu getPlugInMainMenu();
 
+
     /**
      * Get PlugIn Print Menus 
      * 
@@ -320,6 +341,7 @@ public abstract class PlugInServer
      * @return
      */
     public abstract JMenu[] getPlugInPrintMenus();
+
 
     /**
      * Is Backup Restore Enabled
@@ -330,6 +352,7 @@ public abstract class PlugInServer
     {
         return this.backup_restore_enabled;
     }
+
 
     /**
      * Get Backup Objects (if available)
@@ -342,6 +365,7 @@ public abstract class PlugInServer
         return null;
     }
 
+
     /**
      * Get Backup Restore Handler
      * 
@@ -353,12 +377,14 @@ public abstract class PlugInServer
         return null;
     }
 
+
     /**
      * Action Performed
      * 
      * @param ae
      */
     public abstract void actionPerformed(ActionEvent ae);
+
 
     /**
      * This method can be used to transfer data from plugin to other part of application. 

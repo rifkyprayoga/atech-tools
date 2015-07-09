@@ -11,8 +11,7 @@ package com.atech.graphics.calendar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.atech.utils.ATDataAccessAbstract;
 
@@ -52,22 +51,6 @@ public class MonthPanel extends JPanel implements CalendarListener
     private static final long serialVersionUID = -1761816913587729300L;
 
     private ATDataAccessAbstract m_da = null;
-
-    /*
-     * private String[] months = {
-     * m_ic.getMessage("JANUARY"),
-     * m_ic.getMessage("FEBRUARY"),
-     * m_ic.getMessage("MARCH"),
-     * m_ic.getMessage("APRIL"),
-     * m_ic.getMessage("MAY"),
-     * m_ic.getMessage("JUNE"),
-     * m_ic.getMessage("JULY"),
-     * m_ic.getMessage("AUGUST"),
-     * m_ic.getMessage("SEPTEMBER"),
-     * m_ic.getMessage("OCTOBER"),
-     * m_ic.getMessage("NOVEMBER"),
-     * m_ic.getMessage("DECEMBER") };
-     */
 
     private JComboBox monthCombo;
 

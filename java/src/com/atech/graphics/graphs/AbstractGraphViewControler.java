@@ -27,12 +27,11 @@
 
 package com.atech.graphics.graphs;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
@@ -65,7 +64,7 @@ import com.atech.utils.ATDataAccessAbstract;
 // WORK IN PROGRESS - DO NOT EDIT - Andy
 
 public abstract class AbstractGraphViewControler implements GraphViewControlerInterface, ActionListener // ,
-                                                                                                        // HelpCapable
+// HelpCapable
 // extends JDialog implements ActionListener, HelpCapable // JFrame
 {
 
@@ -75,6 +74,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
     protected JButton help_button = null;
     protected Object parameters;
     protected I18nControlAbstract m_ic = null;
+
 
     /**
      * Constructor
@@ -89,6 +89,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         this.m_ic = da.getI18nControlInstance();
         init();
     }
+
 
     /**
      * Constructor
@@ -106,15 +107,17 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         init();
     }
 
+
     /**
      * Init
      */
     public abstract void init();
 
+
     /*
      * {
      * JPanel cPanel = new JPanel(new BorderLayout());
-     * dRS = new DateRangeSelectionPanel(m_da);
+     * dRS = new DateRangeSelectionPanel(dataAccess);
      * DataPlotSelectorPanel selectionPanel = new
      * DataPlotSelectorPanel(DataPlotSelectorPanel.BG_AVG_MASK);
      * selectionPanel.disableChoice(DataPlotSelectorPanel.BG_MASK |
@@ -123,19 +126,19 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
      * | DataPlotSelectorPanel.INS_TOTAL_MASK);
      * //cGV.setData(selectionPanel.getPlotData());
      * JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-     * help_button = m_da.createHelpButtonBySize(120, 25, cPanel);
+     * help_button = dataAccess.createHelpButtonBySize(120, 25, cPanel);
      * buttonPanel.add(help_button);
      * // Dimension dim = new Dimension(80, 20);
      * Dimension dim = new Dimension(120, 25);
      * JButton drawButton = new JButton("    " + m_ic.getMessage("DRAW"));
      * drawButton.setPreferredSize(dim);
-     * drawButton.setIcon(m_da.getImageIcon_22x22("paint.png", cPanel));
+     * drawButton.setIcon(dataAccess.getImageIcon_22x22("paint.png", cPanel));
      * drawButton.setActionCommand("draw");
      * drawButton.addActionListener(this);
      * JButton closeButton = new JButton("    " + m_ic.getMessage("CLOSE"));
      * closeButton.setPreferredSize(dim);
      * closeButton.setActionCommand("close");
-     * closeButton.setIcon(m_da.getImageIcon_22x22("cancel.png", cPanel));
+     * closeButton.setIcon(dataAccess.getImageIcon_22x22("cancel.png", cPanel));
      * closeButton.addActionListener(this);
      * buttonPanel.add(drawButton);
      * buttonPanel.add(closeButton);
@@ -151,6 +154,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
      *     and impose command changes  and call load
      */
     public abstract void runDraw();
+
 
     /**
      * Invoked when an action occurs.
@@ -174,6 +178,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         }
     }
 
+
     // ****************************************************************
     // ****** HelpCapable Implementation *****
     // ****************************************************************
@@ -186,6 +191,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         return this.getGraphView().getParent();
     }
 
+
     /**
      * getHelpButton - get Help button
      */
@@ -194,6 +200,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         return this.help_button;
     }
 
+
     /**
      * getHelpId - get id for Help
      */
@@ -201,6 +208,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
     {
         return this.getGraphView().getHelpId();
     }
+
 
     /**
      * Get Graph View
@@ -212,6 +220,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
         return this.graph_view;
     }
 
+
     /**
      * Get Panel (with Controler)
      * @return
@@ -222,6 +231,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
     {
         return this.control_panel;
     }
+
 
     /**
      * Get Controler Panel

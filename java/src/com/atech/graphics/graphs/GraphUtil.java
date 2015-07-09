@@ -44,7 +44,7 @@ public abstract class GraphUtil // extends JPanel
     ChartPanel chartPanel;
 
     /**
-     * The m_da.
+     * The dataAccess.
      */
     protected ATDataAccessAbstract m_da = null; // DataAccess.getInstance();
 

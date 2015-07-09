@@ -3,7 +3,7 @@ package com.atech.graphics.dialogs;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JDialog;
+import javax.swing.*;
 
 import com.atech.utils.ATDataAccessAbstract;
 
@@ -46,9 +46,10 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
     private int m_error = 0;
 
     /**
-     * The m_da.
+     * The dataAccess.
      */
     ATDataAccessAbstract m_da;
+
 
     /**
      * Instantiates a new data exception catch dialog.
@@ -57,6 +58,7 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
     {
         m_da.addComponent(this);
     }
+
 
     /**
      * When disposing dialog, we need to remove dialog from list so we override
@@ -68,10 +70,12 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
         m_da.removeComponent(this);
     }
 
+
     /**
      * Inits the dialog.
      */
     public abstract void initDialog();
+
 
     /**
      * Load data.
@@ -80,6 +84,7 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
      */
     public abstract boolean loadData();
 
+
     /**
      * Save data.
      * 
@@ -87,16 +92,19 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
      */
     public abstract boolean saveData();
 
+
     /**
      * Show title.
      */
     public abstract void showTitle();
+
 
     /**
      * Part of action that is done, outside of normal action
      * @param e 
      */
     public abstract void performAction(ActionEvent e);
+
 
     /**
      * Gets the error.
@@ -108,6 +116,7 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
         return m_error;
     }
 
+
     /**
      * Sets the error.
      * 
@@ -117,6 +126,7 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
     {
         this.m_error = error_code;
     }
+
 
     /**
      * Invoked when an action occurs.
@@ -159,6 +169,7 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
         }
     }
 
+
     /**
      *  Gets info if action was performed.
      * 
@@ -169,6 +180,7 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
         return m_action_done == 0;
     }
 
+
     /**
      *  Gets info if action was performed.
      * 
@@ -178,6 +190,7 @@ public abstract class DataExceptionCatchDialog extends JDialog implements Action
     {
         return m_action_done;
     }
+
 
     /**
      *  Returns object of this dialog or null

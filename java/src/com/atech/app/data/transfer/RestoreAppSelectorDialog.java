@@ -1,7 +1,6 @@
 package com.atech.app.data.transfer;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import com.atech.app.AbstractApplicationContext;
 import com.atech.db.hibernate.transfer.RestoreSelectorDialog;
@@ -39,6 +38,7 @@ public class RestoreAppSelectorDialog extends RestoreSelectorDialog
     private static final long serialVersionUID = 3536165659702725457L;
     AbstractApplicationContext m_aac;
 
+
     /**
      * Constructor
      * 
@@ -52,6 +52,7 @@ public class RestoreAppSelectorDialog extends RestoreSelectorDialog
         this.m_aac = aac;
         this.enableHelp(aac.getHelpKeyword("Tools_Restore_File_Selector", "Tools_Restore_File_Selector")); // "GGC_Tools_Restore_File_Selector");
     }
+
 
     /**
      * Constructor
@@ -67,6 +68,7 @@ public class RestoreAppSelectorDialog extends RestoreSelectorDialog
         this.enableHelp(aac.getHelpKeyword("Tools_Restore_File_Selector", "Tools_Restore_File_Selector")); // "GGC_Tools_Restore_File_Selector");
     }
 
+
     /**
      * Get Browse Startup Directory
      * 
@@ -78,6 +80,7 @@ public class RestoreAppSelectorDialog extends RestoreSelectorDialog
         return "../data/export/";
     }
 
+
     /**
      * Command Next Step
      * 
@@ -87,7 +90,7 @@ public class RestoreAppSelectorDialog extends RestoreSelectorDialog
     public void cmdNextStep()
     {
         // System.out.println("Res Coll: " +
-        // this.m_da.getBackupRestoreCollection());
+        // this.dataAccess.getBackupRestoreCollection());
         RestoreAppDialog rgd = new RestoreAppDialog((JFrame) this.my_parent, this.m_da,
                 this.m_da.getBackupRestoreCollection(), this.tf_file.getText(), this.m_aac);
         rgd.enableHelp(m_aac.getHelpKeyword("Tools_Restore", "Tools_Restore")); // "GGC_Tools_Restore_File_Selector");

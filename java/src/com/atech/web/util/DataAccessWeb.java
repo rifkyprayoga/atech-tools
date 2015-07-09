@@ -1,11 +1,7 @@
 package com.atech.web.util;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
-import java.util.Properties;
+import java.awt.*;
+import java.util.*;
 
 // LOAD
 // SAVE
@@ -92,6 +88,7 @@ public class DataAccessWeb
 
     public String months[] = null;
 
+
     /*
      * public String months[] = {
      * m_i18n.getMessage("JANUARY"),
@@ -138,6 +135,7 @@ public class DataAccessWeb
 
     }
 
+
     // Method: getInstance
     // Author: Andy
     /**
@@ -150,16 +148,18 @@ public class DataAccessWeb
      */
     static public DataAccessWeb getInstance()
     {
-        // if (m_da == null)
-        // m_da = new DataAccessWeb();
+        // if (dataAccess == null)
+        // dataAccess = new DataAccessWeb();
         return m_da;
     }
+
 
     static public DataAccessWeb createInstance(Hashtable<String, I18nWebControl> i18ns, String lang)
     {
         m_da = new DataAccessWeb(i18ns, lang);
         return m_da;
     }
+
 
     // Method: deleteInstance
     /**
@@ -181,15 +181,18 @@ public class DataAccessWeb
 
     I18nWebControl ic = null;
 
+
     public void setI18nWebControl(I18nWebControl ic)
     {
         this.ic = ic;
     }
 
+
     public I18nWebControl getI18nWebControl()
     {
         return this.ic;
     }
+
 
     // -----------------------
 
@@ -198,33 +201,12 @@ public class DataAccessWeb
         this.m_settings = sett;
     }
 
+
     public Hashtable<String, String> getSettings()
     {
         return this.m_settings;
     }
 
-    public String[] getMonthsArray()
-    {
-        return this.months;
-
-        /*
-         * String arr[] = new String[12];
-         * arr[0] = m_i18n.getMessage("JANUARY");
-         * arr[1] = m_i18n.getMessage("FEBRUARY");
-         * arr[2] = m_i18n.getMessage("MARCH");
-         * arr[3] = m_i18n.getMessage("APRIL");
-         * arr[4] = m_i18n.getMessage("MAY");
-         * arr[5] = m_i18n.getMessage("JUNE");
-         * arr[6] = m_i18n.getMessage("JULY");
-         * arr[7] = m_i18n.getMessage("AUGUST");
-         * arr[8] = m_i18n.getMessage("SEPTEMBER");
-         * arr[9] = m_i18n.getMessage("OCTOBER");
-         * arr[10] = m_i18n.getMessage("NOVEMBER");
-         * arr[11] = m_i18n.getMessage("DECEMBER");
-         * return arr;
-         */
-
-    }
 
     /*
      * public int getSelectedContactType(String value)
@@ -395,10 +377,12 @@ public class DataAccessWeb
 
     }
 
+
     public boolean isDemoVersion()
     {
         return m_demo;
     }
+
 
     public String getTimeString(int time)
     {
@@ -411,15 +395,18 @@ public class DataAccessWeb
 
     }
 
+
     public String getDateTimeString(long date)
     {
         return getDateTimeString(date, 1);
     }
 
+
     public String getDateTimeAsDateString(long date)
     {
         return getDateTimeString(date, 2);
     }
+
 
     public String getDateTimeAsTimeString(long date)
     {
@@ -433,6 +420,7 @@ public class DataAccessWeb
     public final static int DT_DATETIME = 1;
     public final static int DT_DATE = 2;
     public final static int DT_TIME = 3;
+
 
     public String getDateTimeString(long dt, int ret_type)
     {
@@ -475,10 +463,12 @@ public class DataAccessWeb
 
     }
 
+
     public String getDateTimeString(int date, int time)
     {
         return getDateString(date) + " " + getTimeString(time);
     }
+
 
     public String getLeadingZero(int number, int places)
     {
@@ -493,11 +483,13 @@ public class DataAccessWeb
 
     }
 
+
     public int getStartYear()
     {
         // FIX set in Db
         return 1800;
     }
+
 
     /*
      * public Object[] getGenderCombo()
@@ -537,6 +529,7 @@ public class DataAccessWeb
 
     }
 
+
     public ArrayList<String> getSelectedParishesIDs()
     {
 
@@ -552,6 +545,7 @@ public class DataAccessWeb
     public static final int DATE_TIME_ATECH_DATETIME = 1;
     public static final int DATE_TIME_ATECH_DATE = 2;
     public static final int DATE_TIME_ATECH_TIME = 3;
+
 
     public long getATDateTimeFromGC(GregorianCalendar gc, int type)
     {
@@ -579,6 +573,7 @@ public class DataAccessWeb
 
         return dt;
     }
+
 
     public static boolean isFound(String text, String search_str)
     {

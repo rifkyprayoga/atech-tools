@@ -1,0 +1,77 @@
+Possible requests:
+
+   1.) Get Info
+
+       Sample: ATechUpdateSystemV3?action=get_info&
+
+       Parameters:  - action=get_info
+                    - application=<application short name>
+                    - version=<valid_version>
+
+       Optional parameters: -
+
+       Return: Html, with data in comment as xml (not displayed)
+
+
+       Return data:
+
+         a.) Error:  Error Xml
+
+         b.) When latest version present:  Status OK Xml, Notes status
+
+         c.) When new version present: Data about new version Xml, Notes status
+
+
+
+   2.) Get Xml for version
+
+       Sample: ATechUpdateSystemV3?action=get_xml_data&application=ggc&version=12
+
+       Parameters:  - action=get_xml_data
+                    - application=<application short name>
+                    - version=<valid_version>
+
+       Optional parameters: -
+
+       Return: Xml (Xmlized version of Update properties file)
+
+
+   3.) Get Notes
+
+       Sample: ATechUpdateSystemV3?action=get_xml_data&
+
+       Parameters:  - action=get_notes
+                    - application=<application short name>
+                    - version=<valid_version>
+
+       Optional parameters: -
+
+       Return: Xml (Xmlized notes)
+
+
+   4.) Download file
+
+
+        Sample: ATechUpdateSystemV3?action=get_xml_data&
+
+       Parameters:  - action=get_upgrade_file
+                    - application=<application short name>
+                    - version=<valid_version>
+
+       Optional parameters: -
+
+       Return: Binary Download file
+
+    //
+    // Get Notes
+    // Sample: ATechUpdateSystemV3?action=get_info&
+    // Parameters:
+    // Optional parameters: -
+    // Return: Html, with data in comment as xml (not displayed)
+    //
+    // Get Info
+    // Sample: ATechUpdateSystemV3?action=get_info&
+    // Parameters:
+    // Optional parameters: -
+    // Return: Html, with data in comment as xml (not displayed)
+    //

@@ -1,6 +1,6 @@
 package com.atech.db.ext;
 
-import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
 
@@ -43,6 +43,9 @@ public abstract class ExtendedHandler
     protected Hashtable<Integer, String> ext_mapped_types = null;
     private String extended_divider = ";##;";
 
+
+    // private int maxParameters = 0;
+
     /**
      * Constructor
      * 
@@ -71,11 +74,11 @@ public abstract class ExtendedHandler
      * @param extended
      * @return
      */
-    public Hashtable<String, String> loadExtended(String extended)
+    public HashMap<String, String> loadExtended(String extended)
     {
         this.extended_packed = extended;
 
-        Hashtable<String, String> ht = new Hashtable<String, String>();
+        HashMap<String, String> ht = new HashMap<String, String>();
 
         if (this.extended_packed != null && this.extended_packed.trim().length() > 0)
         {
@@ -102,23 +105,36 @@ public abstract class ExtendedHandler
             return null;
     }
 
+
     /**
      * Save Extended Entry for database
      * 
-     * @param ht 
+     * @param hashMap
      * @return String value containing all set extended
      */
-    public String saveExtended(Hashtable<String, String> ht)
+    public String saveExtended(HashMap<String, String> hashMap)
     {
         StringBuffer sb = new StringBuffer();
+        boolean found = false;
 
-        for (Enumeration<String> en = ht.keys(); en.hasMoreElements();)
+        for (int i = 0; i <= ext_mapped_types.size(); i++)
         {
-            String key = en.nextElement();
-            sb.append(key + "=" + ht.get(key) + extended_divider);
+            String key = ext_mapped_types.get(i);
+            if (hashMap.containsKey(key))
+            {
+                sb.append(key + "=" + hashMap.get(key) + extended_divider);
+                found = true;
+            }
         }
 
-        return sb.toString();
+        if (found)
+        {
+            return sb.substring(0, sb.length() - extended_divider.length());
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
@@ -128,7 +144,7 @@ public abstract class ExtendedHandler
      * @param ht 
      * @return
      */
-    public String getExtendedValue(int type, Hashtable<String, String> ht)
+    public String getExtendedValue(int type, HashMap<String, String> ht)
     {
         if (ht.containsKey(this.ext_mapped_types.get(type)))
             return ht.get(this.ext_mapped_types.get(type));
@@ -144,7 +160,7 @@ public abstract class ExtendedHandler
      * @param ht 
      * @return returns true, if value was changed
      */
-    public boolean setExtendedValue(int type, String val, Hashtable<String, String> ht)
+    public boolean setExtendedValue(int type, String val, HashMap<String, String> ht)
     {
         if (val == null || val.trim().length() == 0)
             return false;
@@ -171,9 +187,10 @@ public abstract class ExtendedHandler
      * @param ht
      * @return
      */
-    public boolean isExtendedValueSet(int type, Hashtable<String, String> ht)
+    public boolean isExtendedValueSet(int type, HashMap<String, String> ht)
     {
         return ht.containsKey(this.ext_mapped_types.get(type));
     }
+
 
 }

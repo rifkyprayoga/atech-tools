@@ -1,7 +1,6 @@
 package com.atech.app.data.transfer;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import com.atech.app.AbstractApplicationContext;
 import com.atech.db.hibernate.transfer.BackupRestoreDialog;
@@ -39,6 +38,7 @@ public class BackupAppDialog extends BackupRestoreDialog
     private static final long serialVersionUID = -9066907986768713200L;
     AbstractApplicationContext m_aac;
 
+
     /**
      * Constructor
      * 
@@ -57,23 +57,21 @@ public class BackupAppDialog extends BackupRestoreDialog
         showDialog();
     }
 
+
     /**
      * Constructor
      * 
      * @param parent
      * @param da
      */
-    public BackupAppDialog(JFrame parent, ATDataAccessAbstract da, AbstractApplicationContext aac /*
-                                                                                                   * ,
-                                                                                                   * BackupRestoreCollection
-                                                                                                   * br_coll
-                                                                                                   */)
+    public BackupAppDialog(JFrame parent, ATDataAccessAbstract da, AbstractApplicationContext aac)
     {
         super(parent, da, da.getBackupRestoreCollection());
         this.m_aac = aac;
         this.enableHelp(aac.getHelpKeyword("Tools_Backup", "Tools_Backup"));
         showDialog();
     }
+
 
     /** 
      * Perform Backup

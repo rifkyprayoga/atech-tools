@@ -1,0 +1,66 @@
+<graph_definition>
+    <basic_definition_data>
+        <id>GGC_0001</id>
+        <title>Some graph</title>
+        <description>Some Graph</description>
+        <initial_size>800x600</initial_size>
+        <resizable>true</resizable>
+        <!-- <datarange_type>LAST_WEEK</datarange_type> -->
+
+        <!--
+        <data_range>
+            <type>EndChangeable</type> -->
+        <!-- FIXED, PART-FIXED, SELECTABLE -->
+        <!-- <range>LastWeek</range> -->
+        <!-- if used with FIXED last weeks if with PART-FIXED then last week displayed with specific start date -->
+
+        <!-- </data_range> -->
+
+        <show_legend>true</show_legend>
+    </basic_definition_data>
+
+    <data_sources>
+        <data_source>
+            <type>PEN_DATA</type>
+            <data_types>
+                <data_type>BG</data_type>
+                <data_type>CH</data_type>
+                <data_type>INSULIN_1</data_type>
+                <data_type>INSULIN_2</data_type>
+                <data_type>INSULIN_3</data_type>
+            </data_types>
+        </data_source>
+        <data_source>
+            <type>PUMP_DATA</type>
+            <data_types>
+                <data_type>BOLUS</data_type>
+                <data_type>BASAL</data_type>
+                <data_type>BG</data_type>
+                <data_type>CH</data_type>
+                <data_type>INSULIN_3</data_type>
+            </data_types>
+        </data_source>
+        <data_source>
+            <type>CGMSData</type>
+            <data_types>
+                <data_type>BGReading</data_type>
+                <data_type>BGCalibration</data_type>
+            </data_types>
+        </data_source>
+
+    </data_sources>
+
+
+    <!--
+    <graph_display>
+        <values>
+            <value>
+                <data_type>PUMP_DATA;BOLUS</data_type>
+                <graph_type></graph_type>
+            </value>
+        </values>
+
+    </graph_display>
+    -->
+
+</graph_definition>

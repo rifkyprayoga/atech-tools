@@ -1,15 +1,11 @@
 package com.atech.gui_fw.config;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 import com.atech.db.hibernate.hdb_object.User;
 import com.atech.db.table.DbUserTable;
@@ -80,9 +76,10 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
     // private JComboBox cb_database;
     // private JTextField tf_lf;
     // private JButton b_browse;
-    // DbToolApplicationAbstract m_dbc = null; //m_da.getDbConfig();
+    // DbToolApplicationAbstract m_dbc = null; //dataAccess.getDbConfig();
     JList list_users = null;
     ArrayList<User> m_listUsers = null;
+
 
     /**
      * Constructor
@@ -94,8 +91,8 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
     {
         super(acc);
 
-        // this.m_da = acc.getDataAccessInstance();
-        // this.m_dbc = m_da.getDbToolAbstract();
+        // this.dataAccess = acc.getDataAccessInstance();
+        // this.m_dbc = dataAccess.getDbToolAbstract();
 
         // this.m_dbc.loadConfig();
 
@@ -103,9 +100,10 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
         // acc.getDataAccessInstance());
 
         init();
-        // m_da.enableHelp(this);
+        // dataAccess.enableHelp(this);
         // parent = this;
     }
+
 
     private void init()
     {
@@ -154,6 +152,7 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
         // panels[4] = panel;
 
     }
+
 
     @Override
     public void actionPerformed(ActionEvent ae)
@@ -221,6 +220,7 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
 
     }
 
+
     /**
      * Populate JLists
      */
@@ -267,6 +267,7 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
 
     }
 
+
     private int getSelectedUserIndex()
     {
 
@@ -287,6 +288,7 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
         return -1;
     }
 
+
     /**
      * Save Properties
      * 
@@ -302,6 +304,7 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
         // this.m_dbc.setSelectedLF(this.cb_lf_type.getSelectedIndex(),
         // this.tf_lf.getText());
     }
+
 
     /*
      * private void processJFileChooser(Container c)
@@ -344,6 +347,7 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
         return (DbUserTable) m_da.getHibernateDb();
     }
 
+
     // ****************************************************************
     // ****** HelpCapable Implementation *****
     // ****************************************************************
@@ -356,6 +360,7 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
         return this.getRootPane();
     }
 
+
     /**
      * getHelpButton - get Help button
      */
@@ -363,6 +368,7 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
     {
         return this.parent.getHelpButton();
     }
+
 
     /**
      * getHelpId - get id for Help

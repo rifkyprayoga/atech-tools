@@ -1,6 +1,6 @@
 package com.atech.graphics.components.dates;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.atech.graphics.components.DateComponent;
 import com.atech.i18n.I18nControlAbstract;
@@ -80,6 +78,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
     boolean prefefined_same_line = false;
     int orientation = ORIENTATION_VERTICAL;
 
+
     /**
      * Constructor
      * 
@@ -91,12 +90,13 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
         System.out.println("Minimal Constructor");
         /*
          * super();
-         * m_da = da;
+         * dataAccess = da;
          * this.ic = da.getI18nControlInstance();
          * //initMonths();
          * initComponent(1800, 5);
          */
     }
+
 
     /**
      * Constructor
@@ -114,6 +114,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
         this(1970, 2, da, orientation_, prefefined_same_line_, label_gap_, component_gap_);
 
     }
+
 
     /**
      * Constructor
@@ -163,6 +164,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
     int label_gap = 0;
     int component_gap = 0;
 
+
     private void initComponentVertical(int lower_year, int higher_year_diff)
     {
         System.out.println(component_width + ", " + component_height + ", Vertical");
@@ -208,6 +210,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
          */
     }
 
+
     private void initComponentHorizontal(int lower_year, int higher_year_diff)
     {
         // FIXME NOT IMPLEMENTED YET
@@ -245,6 +248,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
 
     }
 
+
     private String[] getPredefinedFilterValues()
     {
         String[] cmb_data = { ic.getMessage("DTCMP_FILTER_TODAY"), ic.getMessage("DTCMP_FILTER_YESTERDAY"),
@@ -262,6 +266,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
                              ic.getMessage("DTCMP_FILTER_CUSTOM") };
         return cmb_data;
     }
+
 
     private void cbPredefined_SelectedIndexChanged() // object sender, EventArgs
                                                      // e)
@@ -498,6 +503,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
          */
     }
 
+
     private GregorianCalendar[] determineByWeek(GregorianCalendar gc, int weekddd, int difference)
     {
         GregorianCalendar[] gc_out = new GregorianCalendar[2];
@@ -557,6 +563,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
      */
     public static final int DATE_FULL = 0;
 
+
     /**
      * Init Months
      */
@@ -607,6 +614,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
     static int days_months[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     static GregorianCalendar gc_test = new GregorianCalendar();
 
+
     /**
      * Get Days in Month
      * 
@@ -628,6 +636,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
 
     }
 
+
     /** 
      * setBackground
      */
@@ -636,6 +645,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
     {
         super.setBackground(bg);
     }
+
 
     /** 
      * setEnabled
@@ -650,6 +660,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
          */
     }
 
+
     /**
      * Get From Date
      * 
@@ -660,6 +671,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
         return this.dc_from.getDate();
     }
 
+
     /**
      * Get From Date Object (Gregorian Calendar)
      * @return
@@ -668,6 +680,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
     {
         return this.dc_from.getDateObject();
     }
+
 
     /**
      * Get To Date 
@@ -679,6 +692,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
         return this.dc_till.getDate();
     }
 
+
     /**
      * Get To Date Object (Gregorian Calendar)
      * 
@@ -689,6 +703,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
         return this.dc_till.getDateObject();
     }
 
+
     /** 
      * setBounds
      */
@@ -697,6 +712,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
     {
         super.setBounds(x, y, component_width, component_height);
     }
+
 
     /**
      * The main method.
@@ -737,6 +753,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
 
     }
 
+
     /**
      * Sets the note.
      * 
@@ -746,6 +763,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
     {
         m_note = note;
     }
+
 
     /**
      * Gets the note.
@@ -757,6 +775,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
         return m_note;
     }
 
+
     /**
      * Add Action Listener
      * 
@@ -767,6 +786,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
         this.listeners.add(al);
     }
 
+
     /**
      * Remove Action Listener
      * 
@@ -776,6 +796,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
     {
         this.listeners.remove(al);
     }
+
 
     /**
      * Invoked when the target of the listener has changed its state.
@@ -841,6 +862,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
         this.action_command = act_command;
     }
 
+
     /**
      * Get Action Command
      * 
@@ -850,6 +872,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
     {
         return this.action_command;
     }
+
 
     /**
      * Notify Listeners
@@ -873,6 +896,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
      */
 
     long lastchange = 0;
+
 
     public void itemStateChanged(ItemEvent e)
     {

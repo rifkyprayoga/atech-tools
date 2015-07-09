@@ -7,12 +7,7 @@ import java.io.RandomAccessFile;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 import com.atech.update.client.action.ActionThread;
 import com.atech.update.client.action.BinaryDownloadThread;
@@ -40,6 +35,7 @@ public class DownloadFileClient extends JFrame implements ActionListener
     /** The threads. */
     ArrayList<ActionThread> threads = new ArrayList<ActionThread>();
 
+
     /**
      * Instantiates a new download file client.
      */
@@ -50,6 +46,7 @@ public class DownloadFileClient extends JFrame implements ActionListener
         doAction();
         this.setVisible(true);
     }
+
 
     /**
      * Inits the gui.
@@ -85,6 +82,7 @@ public class DownloadFileClient extends JFrame implements ActionListener
         this.setSize(600, 500);
     }
 
+
     /**
      * Do action.
      */
@@ -107,6 +105,7 @@ public class DownloadFileClient extends JFrame implements ActionListener
 
     }
 
+
     /**
      * Do actionxxx.
      */
@@ -115,9 +114,10 @@ public class DownloadFileClient extends JFrame implements ActionListener
 
         try
         {
-            // System.out.println("app: " + m_da.getAppName() + ",version=" +
-            // m_da.getCurrentVersion() + ",db_version=" +
-            // m_da.getCurrentDbVersion());
+            // System.out.println("app: " + dataAccess.getAppName() +
+            // ",version=" +
+            // dataAccess.getCurrentVersion() + ",db_version=" +
+            // dataAccess.getCurrentDbVersion());
 
             System.out.println("app: ggc");
 
@@ -215,6 +215,7 @@ public class DownloadFileClient extends JFrame implements ActionListener
 
     }
 
+
     /**
      * The main method.
      * 
@@ -225,6 +226,7 @@ public class DownloadFileClient extends JFrame implements ActionListener
     {
         new DownloadFileClient();
     }
+
 
     /*
      * (non-Javadoc)

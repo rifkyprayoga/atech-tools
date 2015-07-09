@@ -42,7 +42,7 @@ public class BuildStartupFile
     StartupFilesCreator sfc; // = new StartupFileCreator(UpdateConfiguration uc)
 
 
-    // StartupUtil m_da;
+    // StartupUtil dataAccess;
 
     /**
      * Constructor

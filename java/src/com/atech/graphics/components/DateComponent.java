@@ -1,7 +1,6 @@
 package com.atech.graphics.components;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,10 +8,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerListModel;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -92,7 +88,7 @@ public class DateComponent extends JPanel implements ChangeListener
      */
     int m_lower_year = 1970;
 
-    // DataAccess m_da;
+    // DataAccess dataAccess;
 
     // private static String months[];
     // private ArrayList<ChangeListener> listeners = new
@@ -104,6 +100,7 @@ public class DateComponent extends JPanel implements ChangeListener
     ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
     boolean debug = false;
 
+
     /**
      * Constructor
      * 
@@ -113,6 +110,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         this(1800, 5, da);
     }
+
 
     /**
      * Constructor
@@ -124,6 +122,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         this(lower_year, 5, da);
     }
+
 
     /**
      * Constructor
@@ -144,6 +143,7 @@ public class DateComponent extends JPanel implements ChangeListener
         initComponent(lower_year, higher_year_diff);
     }
 
+
     /**
      * Constructor
      * 
@@ -153,6 +153,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         this(1800, 5, ic);
     }
+
 
     /**
      * Constructor
@@ -164,6 +165,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         this(lower_year, 5, ic);
     }
+
 
     /**
      * Constructor
@@ -182,6 +184,7 @@ public class DateComponent extends JPanel implements ChangeListener
 
         initComponent(lower_year, higher_year_diff);
     }
+
 
     private void initComponent(int lower_year, int higher_year_diff)
     {
@@ -242,6 +245,7 @@ public class DateComponent extends JPanel implements ChangeListener
      */
     public static final int DATE_FULL = 0;
 
+
     /**
      * Init Months
      */
@@ -290,6 +294,7 @@ public class DateComponent extends JPanel implements ChangeListener
             year.setVisible(false);
         }
     }
+
 
     /**
      * Check Date
@@ -375,6 +380,7 @@ public class DateComponent extends JPanel implements ChangeListener
 
     }
 
+
     private int findMonth(String se)
     {
         String[] ms = m_da.getMonthsArray();
@@ -390,6 +396,7 @@ public class DateComponent extends JPanel implements ChangeListener
         return 0;
     }
 
+
     /**
      * Get Month
      * 
@@ -401,6 +408,7 @@ public class DateComponent extends JPanel implements ChangeListener
         int v = Integer.parseInt(val);
         return m_da.getMonthsArray()[v - 1];
     }
+
 
     /**
      * Set Date
@@ -468,6 +476,7 @@ public class DateComponent extends JPanel implements ChangeListener
 
     }
 
+
     /**
      * Set Date
      * 
@@ -499,6 +508,7 @@ public class DateComponent extends JPanel implements ChangeListener
 
         this.repaint();
     }
+
 
     /**
      * Get Date
@@ -546,6 +556,7 @@ public class DateComponent extends JPanel implements ChangeListener
         // return checkDate();
     }
 
+
     /**
      * Get Date Object (GregorianCalendar)
      * 
@@ -570,6 +581,7 @@ public class DateComponent extends JPanel implements ChangeListener
 
     }
 
+
     /** 
      * setBackground
      */
@@ -578,6 +590,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         super.setBackground(bg);
     }
+
 
     /** 
      * setEnabled
@@ -602,12 +615,14 @@ public class DateComponent extends JPanel implements ChangeListener
 
     }
 
+
     public void setEditable(boolean isEnabled)
     {
         // this.day.setE
         // JSpinner
         // day.se
     }
+
 
     /** 
      * setBounds
@@ -617,6 +632,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         super.setBounds(x, y, component_width, component_height);
     }
+
 
     /**
      * The main method.
@@ -637,6 +653,7 @@ public class DateComponent extends JPanel implements ChangeListener
 
     }
 
+
     /**
      * Sets the note.
      * 
@@ -646,6 +663,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         m_note = note;
     }
+
 
     /**
      * Gets the note.
@@ -657,6 +675,7 @@ public class DateComponent extends JPanel implements ChangeListener
         return m_note;
     }
 
+
     /**
      * Add Action Listener
      * 
@@ -667,6 +686,7 @@ public class DateComponent extends JPanel implements ChangeListener
         this.listeners.add(al);
     }
 
+
     /**
      * Remove Action Listener
      * 
@@ -676,6 +696,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         this.listeners.remove(al);
     }
+
 
     /**
      * Invoked when the target of the listener has changed its state.
@@ -730,6 +751,7 @@ public class DateComponent extends JPanel implements ChangeListener
 
     }
 
+
     /**
      * Set Action Command
      * 
@@ -740,6 +762,7 @@ public class DateComponent extends JPanel implements ChangeListener
         this.action_command = act_command;
     }
 
+
     /**
      * Get Action Command
      * 
@@ -749,6 +772,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         return this.action_command;
     }
+
 
     /**
      * Notify Listeners

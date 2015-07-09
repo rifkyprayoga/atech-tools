@@ -47,9 +47,10 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
     private static Log log = LogFactory.getLog(MasterFileReader.class);
 
     /**
-     * The m_da.
+     * The dataAccess.
      */
     DataAccessTT m_da = null;
+
 
     /**
      * Instantiates a new master file reader
@@ -61,6 +62,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
         super(filename);
         log.debug("MasterFileReader: " + this + ", filename=" + filename);
     }
+
 
     /** 
      * Special Init
@@ -76,6 +78,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
 
     DataEntryRaw group = null;
     DataEntryRaw sub_group = null;
+
 
     /** 
      * processFileEntry
@@ -148,6 +151,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
         // else ignore
 
     }
+
 
     /**
      * Is Master File

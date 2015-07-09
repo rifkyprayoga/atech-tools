@@ -1,20 +1,10 @@
 package com.atech.gui_fw.config;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import com.atech.db.hibernate.hdb_object.User;
 import com.atech.help.HelpCapable;
@@ -89,6 +79,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
     // InternalPerson m_ip = null;
     AbstractConfigurationContext m_acc;
 
+
     /**
      * Constructor
      *   
@@ -156,6 +147,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
 
     }
 
+
     /**
      *  Loads user data into GUI
      */
@@ -187,7 +179,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          * {
          * m_ip = new InternalPerson();
          * m_ip.setId(m_user.getUser_type_id());
-         * m_da.getDb().get(m_ip);
+         * dataAccess.getDb().get(m_ip);
          * this.label_person.setText(m_ip.getShortDescriptionWithType());
          * this.bt_select.setEnabled(true);
          * }
@@ -198,6 +190,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          */
 
     }
+
 
     /**
      * Save user data, from GUI
@@ -323,6 +316,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
 
     }
 
+
     /**
      * Create GUI
      */
@@ -409,7 +403,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          * label.setBounds(55, 228, 120, 25);
          * label.setFont(font_normal_b);
          * panel.add(label, null);
-         * cb_type_basic = new JComboBox(m_da.userTypesBasic);
+         * cb_type_basic = new JComboBox(dataAccess.userTypesBasic);
          * cb_type_basic.setBounds(200, 225, 150, 25);
          * cb_type_basic.setFont(font_normal);
          * cb_type_basic.addItemListener(new ItemListener(){
@@ -499,6 +493,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
 
     }
 
+
     /**
      *  Action Listener
      */
@@ -540,12 +535,12 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          * SelectorDialog sd;
          * if (this.m_ip==null)
          * {
-         * sd = new SelectorDialog(m_da,
+         * sd = new SelectorDialog(dataAccess,
          * SelectorDialog.SELECTOR_INTERNAL_PERSON);
          * }
          * else
          * {
-         * sd = new SelectorDialog(m_da,
+         * sd = new SelectorDialog(dataAccess,
          * SelectorDialog.SELECTOR_INTERNAL_PERSON, "|"+this.m_ip.getId()+"|");
          * }
          * if (sd.wasAction())
@@ -563,6 +558,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
 
     }
 
+
     /**
      * Determines if there was change of data
      * @return 
@@ -574,6 +570,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         else
             return false;
     }
+
 
     /** 
      * Returns User object
@@ -587,6 +584,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
 
     JButton help_button;
 
+
     /**
      * getComponent - this method returns instance of this component, for
      * attaching it to help context.
@@ -598,6 +596,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         return this;
     }
 
+
     /**
      * getHelpButton - returns help button, for attaching to help context
      * 
@@ -607,6 +606,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
     {
         return help_button;
     }
+
 
     /**
      * getHelpId - returns help id, for attachment to help context

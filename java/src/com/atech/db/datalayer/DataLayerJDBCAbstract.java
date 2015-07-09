@@ -1,9 +1,6 @@
 package com.atech.db.datalayer;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -61,6 +58,7 @@ public class DataLayerJDBCAbstract
      */
     protected String password = null;
 
+
     // public static final String DB_CLASS_MS_ACCESS_MDB_TOOLS =
     // "mdbtools.jdbc.Driver";
     // public static final String DB_CLASS_MS_ACCESS_JDBC_ODBC_BRIDGE =
@@ -81,6 +79,7 @@ public class DataLayerJDBCAbstract
         this.jdbc_url = _jdbc_url;
     }
 
+
     /**
      * Set JDBC Connection 
      * @param db_class_name class name for database
@@ -95,6 +94,7 @@ public class DataLayerJDBCAbstract
         this.username = user;
         this.password = pass;
     }
+
 
     private void createConnection()
     {
@@ -119,6 +119,7 @@ public class DataLayerJDBCAbstract
 
     }
 
+
     /**
      * Get Connection - returns opened connection, if none exists, new is created.
      * 
@@ -141,6 +142,7 @@ public class DataLayerJDBCAbstract
         return this.m_connection;
     }
 
+
     /**
      * Execute Query, return ResultSet.
      * 
@@ -153,6 +155,20 @@ public class DataLayerJDBCAbstract
         Statement st = getConnection().createStatement();
         return st.executeQuery(sql);
     }
+
+
+    /**
+     * Execute Query, return ResultSet.
+     *
+     * @param sql
+     * @return
+     * @throws Exception
+     */
+    public PreparedStatement prepareStatement(String sql) throws Exception
+    {
+        return getConnection().prepareStatement(sql);
+    }
+
 
     /**
      * Execute Update, returns row count, for statments returning something or 0 for thoose 
@@ -167,6 +183,7 @@ public class DataLayerJDBCAbstract
         Statement st = getConnection().createStatement();
         return st.executeUpdate(sql);
     }
+
 
     /**
      * Show debug.

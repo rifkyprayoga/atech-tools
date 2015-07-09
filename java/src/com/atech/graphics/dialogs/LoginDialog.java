@@ -1,17 +1,11 @@
 package com.atech.graphics.dialogs;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import com.atech.app.AbstractApplicationContext;
 import com.atech.db.hibernate.hdb_object.User;
@@ -69,6 +63,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
     int tries_left = 0;
     AbstractApplicationContext app_ctx;
 
+
     /**
      * Constructor
      * 
@@ -100,6 +95,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         this.cmdLogin();
         this.setVisible(true);
     }
+
 
     private void cmdLogin()
     {
@@ -135,11 +131,13 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         ATSwingUtils.getButton("  " + ic.getMessage("CANCEL"), 160, 180, 110, 30, panel, ATSwingUtils.FONT_NORMAL,
             "cancel.png", "cancel", this, m_da);
 
-        help_button = ATSwingUtils.createHelpIconByBounds(280, 180, 50, 30, panel, ATSwingUtils.FONT_NORMAL, m_da.getImagesRoot());
+        help_button = ATSwingUtils.createHelpIconByBounds(280, 180, 50, 30, panel, ATSwingUtils.FONT_NORMAL,
+            m_da.getImagesRoot());
         panel.add(help_button);
 
         this.m_da.enableHelp(this);
     }
+
 
     /*
      * Action Listener
@@ -183,6 +181,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
 
     }
 
+
     @SuppressWarnings("deprecation")
     private boolean doLogin()
     {
@@ -210,7 +209,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
                 {
                     // LOGIN SUCCESS
                     m_da.setUser(us);
-                    // m_da.processLogin();
+                    // dataAccess.processLogin();
                     return true;
                 }
                 else
@@ -250,6 +249,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         }
     }
 
+
     private User getUser(String username)
     {
         ArrayList<User> all = m_da.getAllUsers();
@@ -268,6 +268,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         return null;
     }
 
+
     /**
      * Gets info if action was performed.
      * 
@@ -281,6 +282,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
             return false;
     }
 
+
     /**
      * getComponent - this method returns instance of this component, for
      * attaching it to help context.
@@ -292,6 +294,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         return this;
     }
 
+
     /**
      * getHelpButton - returns help button, for attaching to help context
      * 
@@ -301,6 +304,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
     {
         return help_button;
     }
+
 
     /**
      * getHelpId - returns help id, for attachment to help context
@@ -314,6 +318,7 @@ public class LoginDialog extends JDialog implements ActionListener, HelpCapable
         else
             return this.app_ctx.getHelpKeyword("Application.Login", "Application.Login");
     }
+
 
     /**
      * Logout

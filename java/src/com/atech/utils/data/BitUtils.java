@@ -38,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
  *
  */
 
-public class BitUtils
+public class BitUtils extends CRCUtils
 {
 
     private static Log log = LogFactory.getLog(ByteUtils.class);
@@ -205,6 +205,30 @@ public class BitUtils
     }
 
 
+    public String getString(List<Integer> arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                int d = arr.get(offset + i);
+                destinationArray[i] = (char) d;
+            }
+
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
+            return str;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+
+
     /**
      * Gets the string.
      *
@@ -224,6 +248,52 @@ public class BitUtils
             char[] destinationArray = new char[size];
 
             for (int i = 0; i < size; i++)
+            {
+                destinationArray[i] = (char) arr[offset + i];
+            }
+
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
+            return str;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+
+
+    public String getString(int[] arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                destinationArray[i] = (char) arr[offset + i];
+            }
+
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
+            return str;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+
+
+    public String getStringInverted(int[] arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+
+            for (int i = size; i > 0; i--)
             {
                 destinationArray[i] = (char) arr[offset + i];
             }
@@ -268,6 +338,30 @@ public class BitUtils
      * @return the ascii
      */
     public String getAscii(byte[] arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                // byte b = (byte)(arr[offset+i] + 0x41);
+                destinationArray[i] = (char) (arr[offset + i] + 0x41);
+            }
+
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
+            return str;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+
+
+    public String getAscii(int[] arr, int offset, int size)
     {
         try
         {
@@ -600,11 +694,25 @@ public class BitUtils
     }
 
 
-    public String getDebugByteArrayHexValue(byte[] arr)
+    public String getDebugArrayHexValue(byte[] arr)
     {
         StringBuilder sb = new StringBuilder();
 
         for (byte element : arr)
+        {
+            sb.append(getCorrectHexValue(element) + " ");
+        }
+
+        return sb.toString();
+
+    }
+
+
+    public String getDebugArrayHexValue(int[] arr)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (int element : arr)
         {
             sb.append(getCorrectHexValue(element) + " ");
         }
@@ -629,6 +737,19 @@ public class BitUtils
         StringBuilder sb = new StringBuilder();
 
         for (byte element : list)
+        {
+            sb.append(getCorrectHexValue(element) + " ");
+        }
+
+        return sb.toString();
+    }
+
+
+    public String getDebugIntegerListHexValue(List<Integer> list)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (int element : list)
         {
             sb.append(getCorrectHexValue(element) + " ");
         }
@@ -864,7 +985,7 @@ public class BitUtils
     }
 
 
-    public int[] getIntArrayFromAL(ArrayList<Integer> list)
+    public int[] getIntArrayFromList(List<Integer> list)
     {
         int[] out = new int[list.size()];
 
@@ -877,7 +998,20 @@ public class BitUtils
     }
 
 
-    public void addIntArrayToAL(ArrayList<Integer> list, int[] array)
+    public List<Integer> getListFromIntArray(int[] array)
+    {
+        List<Integer> listOut = new ArrayList<Integer>();
+
+        for (int val : array)
+        {
+            listOut.add(val);
+        }
+
+        return listOut;
+    }
+
+
+    public void addIntArrayToList(List<Integer> list, int[] array)
     {
         for (int element : array)
         {
@@ -1049,9 +1183,15 @@ public class BitUtils
     }
 
 
-    public int convertUnsignedByteToInt(byte byte0)
+    public int convertUnsignedByteToInt(byte data)
     {
-        return byte0 & 0xff;
+        return data & 0xff;
+    }
+
+
+    public int convertByteToInt(byte data)
+    {
+        return data & 0xff;
     }
 
 
@@ -1095,10 +1235,23 @@ public class BitUtils
     }
 
 
-    public long makeLong(int i, int j, int k, int l)
+    public int makeLong(int b1, int b2, int b3, int b4)
     {
-        long l1 = (long) i << 24 | j << 16 | k << 8 | l;
-        return l1;
+        return makeLong(b1, b2, b3, b4, BitConversion.BIG_ENDIAN);
+    }
+
+
+    public int makeLong(int b1, int b2, int b3, int b4, BitConversion flag)
+    {
+        switch (flag)
+        {
+            case LITTLE_ENDIAN:
+                return (b4 & 0xff) << 24 | (b3 & 0xff) << 16 | (b2 & 0xff) << 8 | b1 & 0xff;
+
+            default:
+            case BIG_ENDIAN: // BitConverter.FLAG_JAVA:
+                return (b1 & 0xff) << 24 | (b2 & 0xff) << 16 | (b3 & 0xff) << 8 | b4 & 0xff;
+        }
     }
 
 
@@ -1113,6 +1266,54 @@ public class BitUtils
     {
         int l = (i & 0xff) << 16 | (j & 0xff) << 8 | k & 0xff;
         return l;
+    }
+
+
+    public int makeInt(int b1, int b2, int b3, int b4)
+    {
+        return makeInt(b1, b2, b3, b4, BitConversion.BIG_ENDIAN);
+    }
+
+
+    public int makeInt(int b1, int b2, BitConversion flag)
+    {
+        switch (flag)
+        {
+            case LITTLE_ENDIAN:
+                return (b2 & 0xff) << 8 | b1 & 0xff;
+
+            default:
+            case BIG_ENDIAN:
+                return (b1 & 0xff) << 8 | b2 & 0xff;
+        }
+    }
+
+
+    public int makeInt(int b1, int b2, int b3, BitConversion flag)
+    {
+        switch (flag)
+        {
+            case LITTLE_ENDIAN:
+                return (b3 & 0xff) << 16 | (b2 & 0xff) << 8 | b1 & 0xff;
+
+            default:
+            case BIG_ENDIAN:
+                return (b1 & 0xff) << 16 | (b2 & 0xff) << 8 | b3 & 0xff;
+        }
+    }
+
+
+    public int makeInt(int b1, int b2, int b3, int b4, BitConversion flag)
+    {
+        switch (flag)
+        {
+            case LITTLE_ENDIAN:
+                return (b4 & 0xff) << 24 | (b3 & 0xff) << 16 | (b2 & 0xff) << 8 | b1 & 0xff;
+
+            default:
+            case BIG_ENDIAN:
+                return (b1 & 0xff) << 24 | (b2 & 0xff) << 16 | (b3 & 0xff) << 8 | b4 & 0xff;
+        }
     }
 
 
@@ -1221,6 +1422,28 @@ public class BitUtils
     }
 
 
+    public int[] getIntSubArray(List<Integer> list, int start, int length)
+    {
+        try
+        {
+            int[] arr_out = new int[length];
+
+            for (int i = start, j = 0; i < start + length; i++, j++)
+            {
+                arr_out[j] = list.get(i);
+            }
+
+            return arr_out;
+        }
+        catch (Exception ex)
+        {
+            // log.error("getIntSubArray(). Ex.: " + ex, ex);
+            return null;
+        }
+
+    }
+
+
     public String getDebugShortArray(short[] arr)
     {
         StringBuilder sb = new StringBuilder();
@@ -1266,6 +1489,27 @@ public class BitUtils
         System.arraycopy(a, 0, c, 0, aLen);
         System.arraycopy(b, 0, c, aLen, bLen);
         return c;
+    }
+
+    public enum BitConversion
+    {
+        LITTLE_ENDIAN, // 20 0 0 0 = reverse
+        BIG_ENDIAN // 0 0 0 20 = normal - java
+    }
+
+
+    public int[] createIntArray(int... forArray)
+    {
+        return forArray;
+
+        // int[] outArray = new int[forArray.length];
+        //
+        // for (int i = 0; i < forArray.length; i++)
+        // {
+        // outArray[i] = forArray[i];
+        // }
+        //
+        // return outArray;
     }
 
 }

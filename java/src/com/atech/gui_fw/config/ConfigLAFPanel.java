@@ -1,17 +1,12 @@
 package com.atech.gui_fw.config;
 
-import java.awt.Component;
-import java.awt.Container;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.io.File;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.help.HelpCapable;
@@ -75,11 +70,13 @@ import com.atech.utils.ATSwingUtils;
 
 public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
 {
+
     private static final long serialVersionUID = 6927307265371709344L;
     private JComboBox cb_lf_type, cb_lf_type_class;
     private JTextField tf_lf;
     private JButton b_browse;
-    DbToolApplicationAbstract m_dbc = null; // m_da.getDbConfig();
+    DbToolApplicationAbstract m_dbc = null; // dataAccess.getDbConfig();
+
 
     /**
      * Constructor
@@ -95,6 +92,7 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
 
         init();
     }
+
 
     private void init()
     {
@@ -157,6 +155,7 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
         this.b_browse.setBounds(330, 275, 120, 22);
         this.b_browse.addActionListener(new ActionListener()
         {
+
             public void actionPerformed(ActionEvent e)
             {
                 File f = new File("./../data/skinlf_themes");
@@ -190,6 +189,7 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
     }
 
     boolean in_change = false;
+
 
     /**
      * Item State Changed
@@ -228,6 +228,7 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
         in_change = false;
     }
 
+
     /**
      * Save Properties
      * 
@@ -246,6 +247,7 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
          */
         this.m_dbc.setSelectedLF(this.cb_lf_type.getSelectedIndex(), this.tf_lf.getText());
     }
+
 
     private void processJFileChooser(Container c)
     {
@@ -287,6 +289,7 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
         }
     }
 
+
     // ****************************************************************
     // ****** HelpCapable Implementation *****
     // ****************************************************************
@@ -299,6 +302,7 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
         return this.getRootPane();
     }
 
+
     /**
      * getHelpButton - get Help button
      */
@@ -306,6 +310,7 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
     {
         return this.parent.getHelpButton();
     }
+
 
     /**
      * getHelpId - get id for Help

@@ -162,7 +162,7 @@ public class UpgradeHandlerV2 implements UpgradeHandlerInterface
 
                         if (iLine2 == null)
                             // 3.
-                            // m_da.showDialog(this,
+                            // dataAccess.showDialog(this,
                             // ATDataAccessAbstract.DIALOG_WARNING,
                             // "Error reading xml data !");
                             return;
@@ -179,12 +179,12 @@ public class UpgradeHandlerV2 implements UpgradeHandlerInterface
 
                             // System.out.println("Got xml: \"" + ret_msg +
                             // "\"");
-                            // m_da.showDialog(this,
+                            // dataAccess.showDialog(this,
                             // ATDataAccessAbstract.DIALOG_INFO, "Got xml !");
                         }
 
                         // 3.
-                        // m_da.showDialog(this,
+                        // dataAccess.showDialog(this,
                         // ATDataAccessAbstract.DIALOG_INFO, "Update YAY !");
 
                     }
@@ -287,7 +287,7 @@ public class UpgradeHandlerV2 implements UpgradeHandlerInterface
         {
             System.out.println("runUpdate(). Ex.: " + ex);
         }
-        // m_da.showDialog(this, ATDataAccessAbstract.DIALOG_INFO,
+        // dataAccess.showDialog(this, ATDataAccessAbstract.DIALOG_INFO,
         // "Run Update !");
 
     }

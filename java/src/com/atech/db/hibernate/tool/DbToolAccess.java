@@ -1,13 +1,8 @@
 package com.atech.db.hibernate.tool;
 
-import java.awt.Component;
-import java.awt.Font;
+import java.awt.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.*;
 
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.utils.ATDataAccessAbstract;
@@ -159,6 +154,7 @@ public class DbToolAccess extends ATDataAccessAbstract
      */
     public DatabaseDefinitions m_dataDefs = null;
 
+
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
@@ -186,6 +182,7 @@ public class DbToolAccess extends ATDataAccessAbstract
 
     }
 
+
     // Method: getInstance
     // Author: Andy
     /**
@@ -207,6 +204,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         return s_da;
     }
 
+
     /**
      * Creates the instance.
      * 
@@ -225,8 +223,9 @@ public class DbToolAccess extends ATDataAccessAbstract
         return s_da;
     }
 
+
     /*
-     * static public DataAccess getInstance() { return m_da; }
+     * static public DataAccess getInstance() { return dataAccess; }
      */
 
     /**
@@ -241,6 +240,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         return m_availableDatabases;
     }
 
+
     /**
      * Creates the available databases.
      * 
@@ -250,6 +250,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
         m_availableDatabases = new Object[number];
     }
+
 
     /**
      * Adds the available database.
@@ -261,6 +262,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
         m_availableDatabases[index] = obj;
     }
+
 
     // Method: deleteInstance
     /**
@@ -275,6 +277,7 @@ public class DbToolAccess extends ATDataAccessAbstract
 
     }
 
+
     // ********************************************************
     // ****** Fonts *****
     // ********************************************************
@@ -282,8 +285,6 @@ public class DbToolAccess extends ATDataAccessAbstract
     // public static final int FONT_BIG_BOLD = 0;
     // public static final int FONT_NORMAL = 1;
     // public static final int FONT_NORMAL_BOLD = 2;
-
-
 
     // ********************************************************
     // ****** Parent handling (for UIs) *****
@@ -298,6 +299,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
         m_main = main;
     }
+
 
     /*
      * public Component getParent()
@@ -346,6 +348,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         return listOfClasses;
     }
 
+
     /**
      * Load application data.
      */
@@ -365,6 +368,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         }
 
     }
+
 
     /**
      * Process directory.
@@ -438,6 +442,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         }
     }
 
+
     /**
      * Gets the correct interface.
      * 
@@ -462,6 +467,7 @@ public class DbToolAccess extends ATDataAccessAbstract
 
         return false;
     }
+
 
     // ********************************************************
     // ****** Config File Handling *****
@@ -524,6 +530,7 @@ public class DbToolAccess extends ATDataAccessAbstract
          */
     }
 
+
     /**
      * Gets the list of databases.
      * 
@@ -551,6 +558,7 @@ public class DbToolAccess extends ATDataAccessAbstract
          * return list;
          */
     }
+
 
     /**
      * Save config.
@@ -615,6 +623,7 @@ public class DbToolAccess extends ATDataAccessAbstract
 
     }
 
+
     /**
      * Gets the available dbs.
      * 
@@ -624,6 +633,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
         return allDbs;
     }
+
 
     /**
      * Gets the selected db index.
@@ -640,31 +650,6 @@ public class DbToolAccess extends ATDataAccessAbstract
         return 0;
     }
 
-    /** 
-     * getMonthsArray
-     */
-    @Override
-    public String[] getMonthsArray()
-    {
-
-        String arr[] = new String[12];
-
-        arr[0] = m_i18n.getMessage("JANUARY");
-        arr[1] = m_i18n.getMessage("FEBRUARY");
-        arr[2] = m_i18n.getMessage("MARCH");
-        arr[3] = m_i18n.getMessage("APRIL");
-        arr[4] = m_i18n.getMessage("MAY");
-        arr[5] = m_i18n.getMessage("JUNE");
-        arr[6] = m_i18n.getMessage("JULY");
-        arr[7] = m_i18n.getMessage("AUGUST");
-        arr[8] = m_i18n.getMessage("SEPTEMBER");
-        arr[9] = m_i18n.getMessage("OCTOBER");
-        arr[10] = m_i18n.getMessage("NOVEMBER");
-        arr[11] = m_i18n.getMessage("DECEMBER");
-
-        return arr;
-
-    }
 
     /**
      * Not implemented.
@@ -675,6 +660,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
         System.out.println("Not Implemented: " + source);
     }
+
 
     // ---
     // --- Array Utils
@@ -698,6 +684,7 @@ public class DbToolAccess extends ATDataAccessAbstract
 
         return al;
     }
+
 
     /**
      * Gets the array of database settings.
@@ -725,6 +712,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         return al;
     }
 
+
     /** 
      * checkPrerequisites
      */
@@ -734,6 +722,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         // TODO Auto-generated method stub
 
     }
+
 
     /** 
      * getApplicationName
@@ -745,6 +734,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         return null;
     }
 
+
     /** 
      * getHibernateDb
      */
@@ -753,6 +743,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
         return null;
     }
+
 
     /** 
      * getImagesRoot
@@ -763,6 +754,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         return null;
     }
 
+
     /** 
      * initSpecial
      */
@@ -770,6 +762,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     public void initSpecial()
     {
     }
+
 
     /** 
      * loadBackupRestoreCollection
@@ -779,6 +772,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
     }
 
+
     /** 
      * loadGraphConfigProperties
      */
@@ -786,6 +780,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     public void loadGraphConfigProperties()
     {
     }
+
 
     /**
      * Load Special Parameters
@@ -797,6 +792,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
     }
 
+
     /**
      * This method is intended to load additional Language info. Either special langauge configuration
      * or special data required for real Locale handling.
@@ -806,6 +802,7 @@ public class DbToolAccess extends ATDataAccessAbstract
     {
         // TODO Auto-generated method stub
     }
+
 
     /** 
      * getSelectedLangIndex
@@ -817,6 +814,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         return 0;
     }
 
+
     /** 
      * setSelectedLangIndex
      */
@@ -827,6 +825,7 @@ public class DbToolAccess extends ATDataAccessAbstract
 
     }
 
+
     /** 
      * loadPlugIns
      */
@@ -836,6 +835,7 @@ public class DbToolAccess extends ATDataAccessAbstract
         // TODO Auto-generated method stub
 
     }
+
 
     /**
      * Get Max Decimals that will be used by DecimalHandler

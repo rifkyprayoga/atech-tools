@@ -2,8 +2,7 @@ package com.atech.db.hibernate.transfer;
 
 import java.util.Hashtable;
 
-import javax.swing.JLabel;
-import javax.swing.JProgressBar;
+import javax.swing.*;
 
 import com.atech.graphics.components.tree.CheckNodeTree;
 import com.atech.i18n.I18nControlAbstract;
@@ -49,7 +48,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     protected I18nControlAbstract ic = null;
 
     /**
-     * The m_da.
+     * The dataAccess.
      */
     protected ATDataAccessAbstract m_da = null;
 
@@ -112,6 +111,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      */
     protected BackupRestoreWorkGiver work_giver;
 
+
     /**
      * Instantiates a new backup restore runner.
      * 
@@ -125,6 +125,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
         this.work_giver = work_giver;
         is_backup = true;
     }
+
 
     /**
      * Instantiates a new backup restore runner.
@@ -143,6 +144,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
         is_backup = false;
     }
 
+
     /** 
      * setTask
      */
@@ -151,6 +153,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
         this.work_giver.setTask(task);
     }
 
+
     /** 
      * setStatus
      */
@@ -158,6 +161,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     {
         this.work_giver.setStatus(status);
     }
+
 
     /**
      * Checks if is backup object selected.
@@ -177,6 +181,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
             return false;
     }
 
+
     /**
      * Checks if is restore object selected.
      * 
@@ -194,6 +199,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
         else
             return false;
     }
+
 
     /**
      * Gets the restore object.
@@ -213,6 +219,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
             return null;
     }
 
+
     /** 
      * run
      */
@@ -229,10 +236,12 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
         }
     }
 
+
     /**
      * Execute backup.
      */
     public abstract void executeBackup();
+
 
     /**
      * Execute restore.

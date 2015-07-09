@@ -1,12 +1,9 @@
 package com.atech.gui_fw.config;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.help.HelpCapable;
@@ -48,7 +45,8 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
 
     private static final long serialVersionUID = 2916997490131345658L;
     private JComboBox cb_database;
-    DbToolApplicationAbstract m_dbc = null; // m_da.getDbConfig();
+    DbToolApplicationAbstract m_dbc = null; // dataAccess.getDbConfig();
+
 
     /**
      * Constructor
@@ -64,6 +62,7 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
 
         init();
     }
+
 
     private void init()
     {
@@ -93,6 +92,7 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
 
     boolean in_change = false;
 
+
     /**
      * Item State Changed
      * 
@@ -113,6 +113,7 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
         in_change = false;
     }
 
+
     /**
      * Save Properties
      * 
@@ -123,6 +124,7 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
     {
         this.m_dbc.setSelectedDatabaseIndex(this.cb_database.getSelectedIndex());
     }
+
 
     // ****************************************************************
     // ****** HelpCapable Implementation *****
@@ -136,6 +138,7 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
         return this.getRootPane();
     }
 
+
     /**
      * getHelpButton - get Help button
      */
@@ -143,6 +146,7 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
     {
         return this.parent.getHelpButton();
     }
+
 
     /**
      * getHelpId - get id for Help

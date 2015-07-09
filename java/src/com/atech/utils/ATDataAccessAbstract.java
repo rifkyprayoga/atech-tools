@@ -317,8 +317,9 @@ public abstract class ATDataAccessAbstract
      *
      */
     /*
-     * static public ATDataAccessAbstract getInstance() { if (m_da == null) m_da
-     * = new ATDataAccessAbstract(); return m_da; }
+     * static public ATDataAccessAbstract getInstance() { if (dataAccess ==
+     * null) dataAccess
+     * = new ATDataAccessAbstract(); return dataAccess; }
      */
 
     // Method: deleteInstance
@@ -337,36 +338,49 @@ public abstract class ATDataAccessAbstract
 
     public void loadArraysTranslation()
     {
-        // months
-        months[0] = m_i18n.getMessage("JANUARY");
-        months[1] = m_i18n.getMessage("FEBRUARY");
-        months[2] = m_i18n.getMessage("MARCH");
-        months[3] = m_i18n.getMessage("APRIL");
-        months[4] = m_i18n.getMessage("MAY");
-        months[5] = m_i18n.getMessage("JUNE");
-        months[6] = m_i18n.getMessage("JULY");
-        months[7] = m_i18n.getMessage("AUGUST");
-        months[8] = m_i18n.getMessage("SEPTEMBER");
-        months[9] = m_i18n.getMessage("OCTOBER");
-        months[10] = m_i18n.getMessage("NOVEMBER");
-        months[11] = m_i18n.getMessage("DECEMBER");
+        loadArraysTranslation(m_i18n);
+    }
 
-        // days
-        days[0] = m_i18n.getMessage("MONDAY");
-        days[1] = m_i18n.getMessage("TUESDAY");
-        days[2] = m_i18n.getMessage("WEDNESDAY");
-        days[3] = m_i18n.getMessage("THURSDAY");
-        days[4] = m_i18n.getMessage("FRIDAY");
-        days[5] = m_i18n.getMessage("SATURDAY");
-        days[6] = m_i18n.getMessage("SUNDAY");
 
-        gcDays[0] = m_i18n.getMessage("SUNDAY");
-        gcDays[1] = m_i18n.getMessage("MONDAY");
-        gcDays[2] = m_i18n.getMessage("TUESDAY");
-        gcDays[3] = m_i18n.getMessage("WEDNESDAY");
-        gcDays[4] = m_i18n.getMessage("THURSDAY");
-        gcDays[5] = m_i18n.getMessage("FRIDAY");
-        gcDays[6] = m_i18n.getMessage("SATURDAY");
+    public void loadArraysTranslation(I18nControlAbstract ic)
+    {
+
+        if ((months[0] == null) || ("JANUARY".equals(months[0])))
+        {
+            // months
+            months[0] = ic.getMessage("JANUARY");
+            months[1] = ic.getMessage("FEBRUARY");
+            months[2] = ic.getMessage("MARCH");
+            months[3] = ic.getMessage("APRIL");
+            months[4] = ic.getMessage("MAY");
+            months[5] = ic.getMessage("JUNE");
+            months[6] = ic.getMessage("JULY");
+            months[7] = ic.getMessage("AUGUST");
+            months[8] = ic.getMessage("SEPTEMBER");
+            months[9] = ic.getMessage("OCTOBER");
+            months[10] = ic.getMessage("NOVEMBER");
+            months[11] = ic.getMessage("DECEMBER");
+        }
+
+        if ((days[0] == null) || ("MONDAY".equals(days[0])))
+        {
+            // days
+            days[0] = ic.getMessage("MONDAY");
+            days[1] = ic.getMessage("TUESDAY");
+            days[2] = ic.getMessage("WEDNESDAY");
+            days[3] = ic.getMessage("THURSDAY");
+            days[4] = ic.getMessage("FRIDAY");
+            days[5] = ic.getMessage("SATURDAY");
+            days[6] = ic.getMessage("SUNDAY");
+
+            gcDays[0] = ic.getMessage("SUNDAY");
+            gcDays[1] = ic.getMessage("MONDAY");
+            gcDays[2] = ic.getMessage("TUESDAY");
+            gcDays[3] = ic.getMessage("WEDNESDAY");
+            gcDays[4] = ic.getMessage("THURSDAY");
+            gcDays[5] = ic.getMessage("FRIDAY");
+            gcDays[6] = ic.getMessage("SATURDAY");
+        }
 
     }
 
@@ -1214,7 +1228,7 @@ public abstract class ATDataAccessAbstract
      */
     public String[] getMonthsArray()
     {
-        return this.months;
+        return months;
 
         /*
          * String arr[] = new String[12];
@@ -3218,6 +3232,31 @@ public abstract class ATDataAccessAbstract
     }
 
 
+    public String createKeyValueString(HashMap<String, String> map, String delimiter, boolean readable)
+    {
+        return createKeyValueString(map, "", delimiter, readable);
+    }
+
+
+    public String createKeyValueString(HashMap<String, String> map, String equalsSign, String delimiter,
+            boolean readable)
+    {
+        StringBuffer sb = new StringBuffer();
+
+        for (String key : map.keySet())
+        {
+            sb.append(key + equalsSign + map.get(key));
+            sb.append(delimiter);
+            if (readable)
+                sb.append(" ");
+        }
+
+        sb.substring(0, sb.length() - (delimiter.length() + (readable ? 1 : 0)));
+
+        return sb.toString();
+    }
+
+
     /**
      * We check (bitwise) if value_we_are looking for is set in bitwise_containing_value
      *
@@ -3296,6 +3335,15 @@ public abstract class ATDataAccessAbstract
     public ImageIcon getImageIcon(String root, String name)
     {
         return new ImageIcon(ATSwingUtils.getImage(root + name, this.getCurrentComponentParent()));
+    }
+
+
+    public static String getTimeFromMinutes(int minutes)
+    {
+        int h = minutes / 60;
+        int m = minutes - (h * 60);
+
+        return getLeadingZero(h, 2) + ":" + getLeadingZero(m, 2);
     }
 
 }

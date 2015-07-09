@@ -1,7 +1,6 @@
 package com.atech.app.data.transfer;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import com.atech.app.AbstractApplicationContext;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
@@ -41,6 +40,7 @@ public class RestoreAppDialog extends RestoreDialog
     // JCheckBox cb_daily;
     AbstractApplicationContext m_aac;
 
+
     /**
      * Constructor
      * 
@@ -55,6 +55,7 @@ public class RestoreAppDialog extends RestoreDialog
         super(parent, da, br_coll, filename);
         this.m_aac = aac;
     }
+
 
     /**
      * Constructor
@@ -71,6 +72,7 @@ public class RestoreAppDialog extends RestoreDialog
         this.m_aac = aac;
     }
 
+
     /**
      * Init Special
      * 
@@ -85,13 +87,14 @@ public class RestoreAppDialog extends RestoreDialog
          * this.cb_daily = new JCheckBox(ic.getMessage("DAILY_VALUES_APPEND"));
          * this.cb_daily.setBounds(25, 390, 380, 70);
          * this.cb_daily.setVerticalTextPosition(SwingConstants.TOP);
-         * this.cb_daily.setFont(m_da.getFont(DataAccess.FONT_NORMAL));
+         * this.cb_daily.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL));
          * this.cb_daily.setEnabled(this.restore_files.containsKey(
          * "ggc.core.db.hibernate.DayValueH"));
          * panel.add(this.cb_daily);
          * this.setBounds(130, 50, 450, 520);
          */
     }
+
 
     /**
      * Perform Restore
