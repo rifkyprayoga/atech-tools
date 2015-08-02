@@ -53,33 +53,28 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
 {
 
     private static final long serialVersionUID = -5125099590281275283L;
-    private int m_action_done = 0;
-    private String m_action_id = "unknown";
-
-    /**
-     * The dataAccess.
-     */
-    ATDataAccessAbstract m_da;
-
-    /**
-     * The error_message.
-     */
-    String error_message = null;
-
-    /**
-     * The error_message_tip.
-     */
-    String error_message_tip = null;
-
-    /**
-     * The base_error_message.
-     */
-    String base_error_message = "Unknown exception occured. Please consider sending report to us, so that we can resolve problem";
     // private static Log log =
     // LogFactory.getLog(ActionExceptionCatchDialog.class);
     @SuppressWarnings("unused")
     private static Log log = LogFactory.getLog(ActionExceptionCatchDialog.class);
-
+    /**
+     * The dataAccess.
+     */
+    ATDataAccessAbstract m_da;
+    /**
+     * The errorMessage.
+     */
+    String error_message = null;
+    /**
+     * The error_message_tip.
+     */
+    String error_message_tip = null;
+    /**
+     * The base_error_message.
+     */
+    String base_error_message = "Unknown exception occured. Please consider sending report to us, so that we can resolve problem";
+    private int m_action_done = 0;
+    private String m_action_id = "unknown";
     private String component_name;
 
 

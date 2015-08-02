@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.ColorUIResource;
+import javax.swing.text.View;
 
 import com.atech.graphics.components.JDecimalTextField;
 import com.atech.i18n.I18nControlAbstract;
@@ -53,33 +54,31 @@ public class ATSwingUtils
 {
 
     /**
-     * The color_background.
+     * The Constant FONT_BIG_BOLD.
      */
-    public Color color_background;
-
+    public static final int FONT_BIG_BOLD = 0;
     /**
-     * The color_foreground.
+     * The Constant FONT_NORMAL.
      */
-    public Color color_foreground;
-
+    public static final int FONT_NORMAL = 1;
     /**
-     * The border_line.
+     * The Constant FONT_NORMAL_BOLD.
      */
-    LineBorder border_line;
-
+    public static final int FONT_NORMAL_BOLD = 2;
     /**
-     * The fonts.
+     * The Constant FONT_NORMAL_P2.
      */
-    static Font[] fonts;
-
-    private static I18nControlAbstract i18n_control = null;
+    public static final int FONT_NORMAL_P2 = 3;
+    /**
+     * The Constant FONT_NORMAL_BOLD_P2.
+     */
+    public static final int FONT_NORMAL_BOLD_P2 = 4;
 
     // LF
     /**
-     * The available l f_full.
+     * The Constant FONT_NORMAL_BOLD_P2.
      */
-    Hashtable<String, String> availableLF_full = null;
-
+    public static final int FONT_NORMAL_SMALLER = 5;
 
     // Object[] availableLF = null;
     // Object[] availableLang = null;
@@ -87,6 +86,146 @@ public class ATSwingUtils
 
     // String selectedLF = null;
     // String subSelectedLF = null;
+    /**
+     * The Constant DATE_TIME_ATECH_DATETIME.
+     */
+    public static final int DATE_TIME_ATECH_DATETIME = 1;
+    /**
+     * The Constant DATE_TIME_ATECH_DATE.
+     */
+    public static final int DATE_TIME_ATECH_DATE = 2;
+
+    // ********************************************************
+    // ****** Fonts *****
+    // ********************************************************
+    /**
+     * The Constant DATE_TIME_ATECH_TIME.
+     */
+    public static final int DATE_TIME_ATECH_TIME = 3;
+    /**
+     * The Constant DT_DATETIME.
+     */
+    public final static int DT_DATETIME = 1;
+    /**
+     * The Constant DT_DATE.
+     */
+    public final static int DT_DATE = 2;
+    /**
+     * The Constant DT_TIME.
+     */
+    public final static int DT_TIME = 3;
+    public static final int DIALOG_INFO = 1;
+    public static final int DIALOG_WARNING = 2;
+    public static final int DIALOG_ERROR = 3;
+    /**
+     * The fonts.
+     */
+    static Font[] fonts;
+    private static I18nControlAbstract i18n_control = null;
+
+    // ********************************************************
+    // ****** GUI *****
+    // ********************************************************
+    /**
+     * The color_background.
+     */
+    public Color color_background;
+
+    // ********************************************************
+    // ****** Look and Feel *****
+    // ********************************************************
+    /*
+     * public void loadAvailableLFs()
+     * {
+     * availableLF_full = new Hashtable<String, String>();
+     * UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
+     * availableLF = new Object[info.length + 1];
+     * // ring selectedLF = null;
+     * // String subSelectedLF = null;
+     * int i;
+     * for (i = 0; i < info.length; i++)
+     * {
+     * String name = info[i].getName();
+     * String className = info[i].getClassName();
+     * availableLF_full.put(name, className);
+     * availableLF[i] = name;
+     * // System.out.println(humanReadableName);
+     * }
+     * availableLF_full.put("SkinLF",
+     * "com.l2fprod.gui.plaf.skin.SkinLookAndFeel");
+     * availableLF[i] = "SkinLF";
+     * }
+     * public Object[] getAvailableLFs()
+     * {
+     * return availableLF;
+     * }
+     */
+    /*
+     * XX
+     * public static String[] getLFData()
+     * {
+     * String out[] = new String[2];
+     * try
+     * {
+     * Properties props = new Properties();
+     * FileInputStream in = new FileInputStream(pathPrefix +
+     * "/data/PIS_Config.properties");
+     * props.load(in);
+     * out[0] = (String)props.get("LF_CLASS");
+     * out[1] = (String)props.get("SKINLF_SELECTED");
+     * return out;
+     * }
+     * catch(Exception ex)
+     * {
+     * System.out.println("DataAccess::getLFData::Exception> " + ex);
+     * return null;
+     * }
+     * }
+     */
+
+    // ********************************************************
+    // ****** Colors *****
+    // ********************************************************
+    /**
+     * The color_foreground.
+     */
+    public Color color_foreground;
+
+    /*
+     * public void loadComboOptions()
+     * {
+     * yes_no_combo = new Object[2];
+     * yes_no_combo[0] = ATSwingUtils.i18n_control.getMessage("OPTION_YES");
+     * yes_no_combo[1] = ATSwingUtils.i18n_control.getMessage("OPTION_NO");
+     * Hashtable ht = m_db.getProductType(-1);
+     * typesAll = new Object[ht.size()];
+     * int i = 0;
+     * for(Enumeration en=ht.keys(); en.hasMoreElements(); )
+     * {
+     * String key = (String)en.nextElement();
+     * String key2 = "";
+     * if (key.length()==1)
+     * {
+     * key2 = "0"+key;
+     * }
+     * else
+     * key2 = key;
+     * typesAll[i] = key2 + " - " +
+     * ((ProductType)ht.get(key)).path.substring(1);
+     * i++;
+     * }
+     * Arrays.sort(typesAll);
+     * }
+     */
+    /**
+     * The border_line.
+     */
+    LineBorder border_line;
+    /**
+     * The available l f_full.
+     */
+    Hashtable<String, String> availableLF_full = null;
+
 
     /**
      * Sets the i18n control.
@@ -107,40 +246,6 @@ public class ATSwingUtils
         loadFonts();
 
     }
-
-    // ********************************************************
-    // ****** Fonts *****
-    // ********************************************************
-
-    /**
-     * The Constant FONT_BIG_BOLD.
-     */
-    public static final int FONT_BIG_BOLD = 0;
-
-    /**
-     * The Constant FONT_NORMAL.
-     */
-    public static final int FONT_NORMAL = 1;
-
-    /**
-     * The Constant FONT_NORMAL_BOLD.
-     */
-    public static final int FONT_NORMAL_BOLD = 2;
-
-    /**
-     * The Constant FONT_NORMAL_P2.
-     */
-    public static final int FONT_NORMAL_P2 = 3;
-
-    /**
-     * The Constant FONT_NORMAL_BOLD_P2.
-     */
-    public static final int FONT_NORMAL_BOLD_P2 = 4;
-
-    /**
-     * The Constant FONT_NORMAL_BOLD_P2.
-     */
-    public static final int FONT_NORMAL_SMALLER = 5;
 
 
     /**
@@ -227,10 +332,6 @@ public class ATSwingUtils
     }
 
 
-    // ********************************************************
-    // ****** GUI *****
-    // ********************************************************
-
     /**
      * Center j dialog.
      * 
@@ -262,440 +363,6 @@ public class ATSwingUtils
 
         dialog.setBounds(x, y, dialog.getBounds().width, dialog.getBounds().height);
 
-    }
-
-
-    // ********************************************************
-    // ****** Look and Feel *****
-    // ********************************************************
-    /*
-     * public void loadAvailableLFs()
-     * {
-     * availableLF_full = new Hashtable<String, String>();
-     * UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
-     * availableLF = new Object[info.length + 1];
-     * // ring selectedLF = null;
-     * // String subSelectedLF = null;
-     * int i;
-     * for (i = 0; i < info.length; i++)
-     * {
-     * String name = info[i].getName();
-     * String className = info[i].getClassName();
-     * availableLF_full.put(name, className);
-     * availableLF[i] = name;
-     * // System.out.println(humanReadableName);
-     * }
-     * availableLF_full.put("SkinLF",
-     * "com.l2fprod.gui.plaf.skin.SkinLookAndFeel");
-     * availableLF[i] = "SkinLF";
-     * }
-     * public Object[] getAvailableLFs()
-     * {
-     * return availableLF;
-     * }
-     */
-    /*
-     * XX
-     * public static String[] getLFData()
-     * {
-     * String out[] = new String[2];
-     * try
-     * {
-     * Properties props = new Properties();
-     * FileInputStream in = new FileInputStream(pathPrefix +
-     * "/data/PIS_Config.properties");
-     * props.load(in);
-     * out[0] = (String)props.get("LF_CLASS");
-     * out[1] = (String)props.get("SKINLF_SELECTED");
-     * return out;
-     * }
-     * catch(Exception ex)
-     * {
-     * System.out.println("DataAccess::getLFData::Exception> " + ex);
-     * return null;
-     * }
-     * }
-     */
-
-    // ********************************************************
-    // ****** Colors *****
-    // ********************************************************
-    /**
-     * Load colors.
-     */
-    public void loadColors()
-    {
-        ColorUIResource cui = (ColorUIResource) UIManager.getLookAndFeel().getDefaults().get("textText");
-        this.color_foreground = new Color(cui.getRed(), cui.getGreen(), cui.getBlue(), cui.getAlpha());
-
-        ColorUIResource cui2 = (ColorUIResource) UIManager.getLookAndFeel().getDefaults().get("Label.background");
-        this.color_background = new Color(cui2.getRed(), cui2.getGreen(), cui2.getBlue(), cui2.getAlpha());
-
-        this.border_line = new LineBorder(this.color_foreground);
-    }
-
-
-    /*
-     * public void loadComboOptions()
-     * {
-     * yes_no_combo = new Object[2];
-     * yes_no_combo[0] = ATSwingUtils.i18n_control.getMessage("OPTION_YES");
-     * yes_no_combo[1] = ATSwingUtils.i18n_control.getMessage("OPTION_NO");
-     * Hashtable ht = m_db.getProductType(-1);
-     * typesAll = new Object[ht.size()];
-     * int i = 0;
-     * for(Enumeration en=ht.keys(); en.hasMoreElements(); )
-     * {
-     * String key = (String)en.nextElement();
-     * String key2 = "";
-     * if (key.length()==1)
-     * {
-     * key2 = "0"+key;
-     * }
-     * else
-     * key2 = key;
-     * typesAll[i] = key2 + " - " +
-     * ((ProductType)ht.get(key)).path.substring(1);
-     * i++;
-     * }
-     * Arrays.sort(typesAll);
-     * }
-     */
-
-    /**
-     * Gets the date string.
-     * 
-     * @param date the date
-     * 
-     * @return the date string
-     */
-    public String getDateString(int date)
-    {
-
-        // 20051012
-
-        int year = date / 10000;
-        int months = date - year * 10000;
-
-        months = months / 100;
-
-        int days = date - year * 10000 - months * 100;
-
-        if (year == 0)
-            return getLeadingZero(days, 2) + "/" + getLeadingZero(months, 2);
-        else
-            return getLeadingZero(days, 2) + "/" + getLeadingZero(months, 2) + "/" + year;
-
-    }
-
-
-    /**
-     * Gets the time string.
-     * 
-     * @param time the time
-     * 
-     * @return the time string
-     */
-    public String getTimeString(int time)
-    {
-
-        int hours = time / 100;
-
-        int min = time - hours * 100;
-
-        return getLeadingZero(hours, 2) + ":" + getLeadingZero(min, 2);
-
-    }
-
-
-    /**
-     * Gets the date time string.
-     * 
-     * @param date the date
-     * 
-     * @return the date time string
-     */
-    public String getDateTimeString(long date)
-    {
-        return getDateTimeString(date, 1);
-    }
-
-
-    /**
-     * Gets the date time as date string.
-     * 
-     * @param date the date
-     * 
-     * @return the date time as date string
-     */
-    public String getDateTimeAsDateString(long date)
-    {
-        return getDateTimeString(date, 2);
-    }
-
-    /**
-     * The Constant DATE_TIME_ATECH_DATETIME.
-     */
-    public static final int DATE_TIME_ATECH_DATETIME = 1;
-
-    /**
-     * The Constant DATE_TIME_ATECH_DATE.
-     */
-    public static final int DATE_TIME_ATECH_DATE = 2;
-
-    /**
-     * The Constant DATE_TIME_ATECH_TIME.
-     */
-    public static final int DATE_TIME_ATECH_TIME = 3;
-
-
-    /**
-     * Gets the aT date time from gc.
-     * 
-     * @param gc the gc
-     * @param type the type
-     * 
-     * @return the aT date time from gc
-     */
-    public long getATDateTimeFromGC(GregorianCalendar gc, int type)
-    {
-        long dt = 0L;
-
-        if (type == DATE_TIME_ATECH_DATETIME)
-        {
-            dt += gc.get(Calendar.YEAR) * 100000000L;
-            dt += (gc.get(Calendar.MONTH) + 1) * 1000000L;
-            dt += gc.get(Calendar.DAY_OF_MONTH) * 10000L;
-            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(Calendar.MINUTE);
-        }
-        else if (type == DATE_TIME_ATECH_DATE)
-        {
-            dt += gc.get(Calendar.YEAR) * 10000L;
-            dt += (gc.get(Calendar.MONTH) + 1) * 100L;
-            dt += gc.get(Calendar.DAY_OF_MONTH);
-        }
-        else if (type == DATE_TIME_ATECH_TIME)
-        {
-            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(Calendar.MINUTE);
-        }
-
-        return dt;
-    }
-
-
-    /**
-     * Gets the aT date time from parts.
-     * 
-     * @param day the day
-     * @param month the month
-     * @param year the year
-     * @param hour the hour
-     * @param minute the minute
-     * @param type the type
-     * 
-     * @return the aT date time from parts
-     */
-    public long getATDateTimeFromParts(int day, int month, int year, int hour, int minute, int type)
-    {
-        long dt = 0L;
-
-        if (type == DATE_TIME_ATECH_DATETIME)
-        {
-            dt += year * 100000000L;
-            dt += month * 1000000L;
-            dt += day * 10000L;
-            dt += hour * 100L;
-            dt += minute;
-        }
-        else if (type == DATE_TIME_ATECH_DATE)
-        {
-            dt += year * 10000L;
-            dt += month * 100L;
-            dt += day;
-        }
-        else if (type == DATE_TIME_ATECH_TIME)
-        {
-            dt += hour * 100L;
-            dt += minute;
-        }
-
-        return dt;
-    }
-
-
-    /**
-     * Gets the date from at date.
-     * 
-     * @param data the data
-     * 
-     * @return the date from at date
-     */
-    public long getDateFromATDate(long data)
-    {
-        // 200701011222
-        int d2 = (int) (data / 10000);
-
-        // long dd = data%10000;
-        // data -= dd;
-
-        // System.out.println("D2: " +d2);
-
-        // System.out.println(data);
-        return d2;
-    }
-
-
-    /**
-     * Gets the date time as time string.
-     * 
-     * @param date the date
-     * 
-     * @return the date time as time string
-     */
-    public String getDateTimeAsTimeString(long date)
-    {
-        return getDateTimeString(date, 3);
-    }
-
-    // ret_type = 1 (Date and time)
-    // ret_type = 2 (Date)
-    // ret_type = 3 (Time)
-
-    /**
-     * The Constant DT_DATETIME.
-     */
-    public final static int DT_DATETIME = 1;
-
-    /**
-     * The Constant DT_DATE.
-     */
-    public final static int DT_DATE = 2;
-
-    /**
-     * The Constant DT_TIME.
-     */
-    public final static int DT_TIME = 3;
-
-
-    /**
-     * Gets the date time string.
-     * 
-     * @param dt the dt
-     * @param ret_type the ret_type
-     * 
-     * @return the date time string
-     */
-    public String getDateTimeString(long dt, int ret_type)
-    {
-
-        // System.out.println("DT process: " + dt);
-        /*
-         * int y = (int)(dt/10000000L);
-         * dt -= y*10000000L;
-         * int m = (int)(dt/1000000L);
-         * dt -= m*1000000L;
-         * int d = (int)(dt/10000L);
-         * dt -= d*10000L;
-         * int h = (int)(dt/100L);
-         * dt -= h*100L;
-         * int min = (int)dt;
-         */
-
-        // 200612051850
-        int y = (int) (dt / 100000000L);
-        dt -= y * 100000000L;
-
-        int m = (int) (dt / 1000000L);
-        dt -= m * 1000000L;
-
-        int d = (int) (dt / 10000L);
-        dt -= d * 10000L;
-
-        int h = (int) (dt / 100L);
-        dt -= h * 100L;
-
-        int min = (int) dt;
-
-        if (ret_type == DT_DATETIME)
-            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y + "  " + getLeadingZero(h, 2) + ":"
-                    + getLeadingZero(min, 2);
-        else if (ret_type == DT_DATE)
-            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y;
-        else
-            return getLeadingZero(h, 2) + ":" + getLeadingZero(min, 2);
-
-    }
-
-
-    /*
-     * x
-     * public String getGCObjectFromDateTimeLong(long dt)
-     * {
-     * int y = (int)(dt/100000000L);
-     * dt -= y*100000000L;
-     * int m = (int)(dt/1000000L);
-     * dt -= m*1000000L;
-     * int d = (int)(dt/10000L);
-     * dt -= d*10000L;
-     * int h = (int)(dt/100L);
-     * dt -= h*100L;
-     * int min = (int)dt;
-     * GregorianCalendar gc1 = new GregorianCalendar();
-     * //gc1.set(GregorianCalendar.
-     * return null;
-     * }
-     */
-
-    /**
-     * Gets the date time string.
-     * 
-     * @param date the date
-     * @param time the time
-     * 
-     * @return the date time string
-     */
-    public String getDateTimeString(int date, int time)
-    {
-
-        return getDateString(date) + " " + getTimeString(time);
-
-    }
-
-
-    /**
-     * Gets the leading zero.
-     * 
-     * @param number the number
-     * @param places the places
-     * 
-     * @return the leading zero
-     */
-    public String getLeadingZero(int number, int places)
-    {
-
-        String nn = "" + number;
-
-        while (nn.length() < places)
-        {
-            nn = "0" + nn;
-        }
-
-        return nn;
-
-    }
-
-
-    /**
-     * Gets the start year.
-     * 
-     * @return the start year
-     */
-    public int getStartYear()
-    {
-        // FIX set in Db
-        return 1800;
     }
 
 
@@ -749,6 +416,10 @@ public class ATSwingUtils
         return item;
     }
 
+
+    // ret_type = 1 (Date and time)
+    // ret_type = 2 (Date)
+    // ret_type = 3 (Time)
 
     public static JMenu createMenu(String name, String tool_tip, JMenuBar bar, I18nControlAbstract ic)
     {
@@ -835,48 +506,24 @@ public class ATSwingUtils
     }
 
 
-    /**
-     * Creates the menu item.
-     * 
-     * @param menu the menu
-     * @param name the name
-     * @param tip the tip
-     * @param action_command the action_command
-     * @param icon_small the icon_small
-     * 
-     * @return the j menu item
+    /*
+     * x
+     * public String getGCObjectFromDateTimeLong(long dt)
+     * {
+     * int y = (int)(dt/100000000L);
+     * dt -= y*100000000L;
+     * int m = (int)(dt/1000000L);
+     * dt -= m*1000000L;
+     * int d = (int)(dt/10000L);
+     * dt -= d*10000L;
+     * int h = (int)(dt/100L);
+     * dt -= h*100L;
+     * int min = (int)dt;
+     * GregorianCalendar gc1 = new GregorianCalendar();
+     * //gc1.set(GregorianCalendar.
+     * return null;
+     * }
      */
-    public JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, String icon_small)
-    {
-
-        JMenuItem mi = new JMenuItem();
-
-        mi.setText(i18n_control.getMessageWithoutMnemonic(name));
-        mi.setActionCommand(action_command);
-
-        if (tip != null)
-        {
-            mi.setToolTipText(i18n_control.getMessage(tip));
-        }
-
-        if (icon_small != null)
-        {
-            mi.setIcon(new ImageIcon(getClass().getResource(icon_small)));
-        }
-
-        if (menu != null)
-        {
-            menu.add(mi);
-        }
-
-        return mi;
-
-    }
-
-
-    // ********************************************************
-    // ****** Swing Components *****
-    // ********************************************************
 
     /**
      * Gets the numeric text field.
@@ -1048,7 +695,8 @@ public class ATSwingUtils
      * 
      * @return the combo box
      */
-    public static JComboBox getComboBox(Vector<?> data, int x, int y, int width, int height, Container cont, int font_id)
+    public static JComboBox getComboBox(Vector<?> data, int x, int y, int width, int height, Container cont,
+            int font_id)
     {
         return ATSwingUtils.getComboBox(data, x, y, width, height, cont, getFont(font_id));
 
@@ -1097,6 +745,10 @@ public class ATSwingUtils
         return ATSwingUtils.getComboBox(data, x, y, width, height, cont, getFont(font_id));
     }
 
+
+    // ********************************************************
+    // ****** Swing Components *****
+    // ********************************************************
 
     /**
      * Gets the combo box.
@@ -1675,10 +1327,6 @@ public class ATSwingUtils
     }
 
 
-    // ********************************************************
-    // ****** JFormatted Text Field *****
-    // ********************************************************
-
     /**
      * Gets the j formated text value int.
      *
@@ -2071,17 +1719,13 @@ public class ATSwingUtils
     }
 
 
-    // ********************************************************
-    // ****** GUI *****
-    // ********************************************************
-
     /**
      * Center j dialog.
      *
      * @param dialog the dialog
      * @param _parent the _parent
      */
-    public static void centerJDialog(Component dialog, Component /* Container */_parent)
+    public static void centerJDialog(Component dialog, Component /* Container */ _parent)
     {
 
         Rectangle rec = _parent.getBounds();
@@ -2116,10 +1760,6 @@ public class ATSwingUtils
          */
     }
 
-
-    //
-    // HELP
-    //
 
     public static JButton createHelpButtonBySize(int width, int height, Container comp, ATDataAccessAbstract dataAccess)
     {
@@ -2167,6 +1807,10 @@ public class ATSwingUtils
         return help_button;
     }
 
+
+    // ********************************************************
+    // ****** JFormatted Text Field *****
+    // ********************************************************
 
     /**
      * Creates the help button by bounds.
@@ -2277,10 +1921,6 @@ public class ATSwingUtils
     }
 
 
-    //
-    // Images
-    //
-
     /**
      * Gets the image icon_22x22.
      *
@@ -2295,6 +1935,10 @@ public class ATSwingUtils
     }
 
 
+    // ********************************************************
+    // ****** GUI *****
+    // ********************************************************
+
     /**
      * Gets the image icon_22x22.
      *
@@ -2308,6 +1952,10 @@ public class ATSwingUtils
         return getImageIcon(root, name, 22, 22, comp);
     }
 
+
+    //
+    // HELP
+    //
 
     /**
      * Gets the image icon.
@@ -2373,10 +2021,6 @@ public class ATSwingUtils
         return ATSwingUtils.getImageIcon(dataAccess.getImagesRoot(), name, comp);
     }
 
-    public static final int DIALOG_INFO = 1;
-    public static final int DIALOG_WARNING = 2;
-    public static final int DIALOG_ERROR = 3;
-
 
     public static void showDialog(Container cont, int type, String message, I18nControlAbstract ic)
     {
@@ -2394,4 +2038,370 @@ public class ATSwingUtils
         }
     }
 
+
+    public static String createHtmlText(String message)
+    {
+        return "<html><body>" + message + "</body></html>";
+    }
+
+
+    public static String createHtmlTextWithWidth(String message, int width)
+    {
+        return "<html><body>" + "<table width=" + width + "><tr><td>" + message + "</td></tr></table>"
+                + "</body></html>";
+    }
+
+
+    public static Dimension calculateJLabelSizeWithText(JLabel label, String text)
+    {
+        View view = (View) javax.swing.plaf.basic.BasicHTML.createHTMLView(label, text);
+        int width = (int) view.getPreferredSpan(View.X_AXIS);
+        int height = (int) view.getPreferredSpan(View.Y_AXIS);
+
+        // System.out.println("Width: " + width + ", height: " + height);
+
+        return new Dimension(width, height);
+    }
+
+
+    /**
+     * Load colors.
+     */
+    public void loadColors()
+    {
+        ColorUIResource cui = (ColorUIResource) UIManager.getLookAndFeel().getDefaults().get("textText");
+        this.color_foreground = new Color(cui.getRed(), cui.getGreen(), cui.getBlue(), cui.getAlpha());
+
+        ColorUIResource cui2 = (ColorUIResource) UIManager.getLookAndFeel().getDefaults().get("Label.background");
+        this.color_background = new Color(cui2.getRed(), cui2.getGreen(), cui2.getBlue(), cui2.getAlpha());
+
+        this.border_line = new LineBorder(this.color_foreground);
+    }
+
+
+    /**
+     * Gets the date string.
+     * 
+     * @param date the date
+     * 
+     * @return the date string
+     */
+    public String getDateString(int date)
+    {
+
+        // 20051012
+
+        int year = date / 10000;
+        int months = date - year * 10000;
+
+        months = months / 100;
+
+        int days = date - year * 10000 - months * 100;
+
+        if (year == 0)
+            return getLeadingZero(days, 2) + "/" + getLeadingZero(months, 2);
+        else
+            return getLeadingZero(days, 2) + "/" + getLeadingZero(months, 2) + "/" + year;
+
+    }
+
+
+    //
+    // Images
+    //
+
+    /**
+     * Gets the time string.
+     * 
+     * @param time the time
+     * 
+     * @return the time string
+     */
+    public String getTimeString(int time)
+    {
+
+        int hours = time / 100;
+
+        int min = time - hours * 100;
+
+        return getLeadingZero(hours, 2) + ":" + getLeadingZero(min, 2);
+
+    }
+
+
+    /**
+     * Gets the date time string.
+     * 
+     * @param date the date
+     * 
+     * @return the date time string
+     */
+    public String getDateTimeString(long date)
+    {
+        return getDateTimeString(date, 1);
+    }
+
+
+    /**
+     * Gets the date time as date string.
+     * 
+     * @param date the date
+     * 
+     * @return the date time as date string
+     */
+    public String getDateTimeAsDateString(long date)
+    {
+        return getDateTimeString(date, 2);
+    }
+
+
+    /**
+     * Gets the aT date time from gc.
+     * 
+     * @param gc the gc
+     * @param type the type
+     * 
+     * @return the aT date time from gc
+     */
+    public long getATDateTimeFromGC(GregorianCalendar gc, int type)
+    {
+        long dt = 0L;
+
+        if (type == DATE_TIME_ATECH_DATETIME)
+        {
+            dt += gc.get(Calendar.YEAR) * 100000000L;
+            dt += (gc.get(Calendar.MONTH) + 1) * 1000000L;
+            dt += gc.get(Calendar.DAY_OF_MONTH) * 10000L;
+            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
+            dt += gc.get(Calendar.MINUTE);
+        }
+        else if (type == DATE_TIME_ATECH_DATE)
+        {
+            dt += gc.get(Calendar.YEAR) * 10000L;
+            dt += (gc.get(Calendar.MONTH) + 1) * 100L;
+            dt += gc.get(Calendar.DAY_OF_MONTH);
+        }
+        else if (type == DATE_TIME_ATECH_TIME)
+        {
+            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
+            dt += gc.get(Calendar.MINUTE);
+        }
+
+        return dt;
+    }
+
+
+    /**
+     * Gets the aT date time from parts.
+     * 
+     * @param day the day
+     * @param month the month
+     * @param year the year
+     * @param hour the hour
+     * @param minute the minute
+     * @param type the type
+     * 
+     * @return the aT date time from parts
+     */
+    public long getATDateTimeFromParts(int day, int month, int year, int hour, int minute, int type)
+    {
+        long dt = 0L;
+
+        if (type == DATE_TIME_ATECH_DATETIME)
+        {
+            dt += year * 100000000L;
+            dt += month * 1000000L;
+            dt += day * 10000L;
+            dt += hour * 100L;
+            dt += minute;
+        }
+        else if (type == DATE_TIME_ATECH_DATE)
+        {
+            dt += year * 10000L;
+            dt += month * 100L;
+            dt += day;
+        }
+        else if (type == DATE_TIME_ATECH_TIME)
+        {
+            dt += hour * 100L;
+            dt += minute;
+        }
+
+        return dt;
+    }
+
+
+    /**
+     * Gets the date from at date.
+     * 
+     * @param data the data
+     * 
+     * @return the date from at date
+     */
+    public long getDateFromATDate(long data)
+    {
+        // 200701011222
+        int d2 = (int) (data / 10000);
+
+        // long dd = data%10000;
+        // data -= dd;
+
+        // System.out.println("D2: " +d2);
+
+        // System.out.println(data);
+        return d2;
+    }
+
+
+    /**
+     * Gets the date time as time string.
+     * 
+     * @param date the date
+     * 
+     * @return the date time as time string
+     */
+    public String getDateTimeAsTimeString(long date)
+    {
+        return getDateTimeString(date, 3);
+    }
+
+
+    /**
+     * Gets the date time string.
+     * 
+     * @param dt the dt
+     * @param ret_type the ret_type
+     * 
+     * @return the date time string
+     */
+    public String getDateTimeString(long dt, int ret_type)
+    {
+
+        // System.out.println("DT process: " + dt);
+        /*
+         * int y = (int)(dt/10000000L);
+         * dt -= y*10000000L;
+         * int m = (int)(dt/1000000L);
+         * dt -= m*1000000L;
+         * int d = (int)(dt/10000L);
+         * dt -= d*10000L;
+         * int h = (int)(dt/100L);
+         * dt -= h*100L;
+         * int min = (int)dt;
+         */
+
+        // 200612051850
+        int y = (int) (dt / 100000000L);
+        dt -= y * 100000000L;
+
+        int m = (int) (dt / 1000000L);
+        dt -= m * 1000000L;
+
+        int d = (int) (dt / 10000L);
+        dt -= d * 10000L;
+
+        int h = (int) (dt / 100L);
+        dt -= h * 100L;
+
+        int min = (int) dt;
+
+        if (ret_type == DT_DATETIME)
+            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y + "  " + getLeadingZero(h, 2) + ":"
+                    + getLeadingZero(min, 2);
+        else if (ret_type == DT_DATE)
+            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y;
+        else
+            return getLeadingZero(h, 2) + ":" + getLeadingZero(min, 2);
+
+    }
+
+
+    /**
+     * Gets the date time string.
+     * 
+     * @param date the date
+     * @param time the time
+     * 
+     * @return the date time string
+     */
+    public String getDateTimeString(int date, int time)
+    {
+
+        return getDateString(date) + " " + getTimeString(time);
+
+    }
+
+
+    /**
+     * Gets the leading zero.
+     * 
+     * @param number the number
+     * @param places the places
+     * 
+     * @return the leading zero
+     */
+    public String getLeadingZero(int number, int places)
+    {
+
+        String nn = "" + number;
+
+        while (nn.length() < places)
+        {
+            nn = "0" + nn;
+        }
+
+        return nn;
+
+    }
+
+
+    /**
+     * Gets the start year.
+     * 
+     * @return the start year
+     */
+    public int getStartYear()
+    {
+        // FIX set in Db
+        return 1800;
+    }
+
+
+    /**
+     * Creates the menu item.
+     * 
+     * @param menu the menu
+     * @param name the name
+     * @param tip the tip
+     * @param action_command the action_command
+     * @param icon_small the icon_small
+     * 
+     * @return the j menu item
+     */
+    public JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, String icon_small)
+    {
+
+        JMenuItem mi = new JMenuItem();
+
+        mi.setText(i18n_control.getMessageWithoutMnemonic(name));
+        mi.setActionCommand(action_command);
+
+        if (tip != null)
+        {
+            mi.setToolTipText(i18n_control.getMessage(tip));
+        }
+
+        if (icon_small != null)
+        {
+            mi.setIcon(new ImageIcon(getClass().getResource(icon_small)));
+        }
+
+        if (menu != null)
+        {
+            menu.add(mi);
+        }
+
+        return mi;
+
+    }
 }

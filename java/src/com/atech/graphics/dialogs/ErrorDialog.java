@@ -3,21 +3,19 @@ package com.atech.graphics.dialogs;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Hashtable;
 
 import javax.help.CSH;
 import javax.swing.*;
-import javax.swing.text.AbstractDocument;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atech.graphics.components.DateComponent;
-import com.atech.graphics.dialogs.selector.SelectableInterface;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
+import com.atech.utils.data.ClipboardUtil;
+import com.atech.utils.data.HtmlUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -50,18 +48,22 @@ import com.atech.utils.ATSwingUtils;
  *
 */
 
-public class ErrorDialog extends JDialog implements ActionListener // ,
-// ItemListener
+public class ErrorDialog extends JDialog implements ActionListener
 {
 
-    // CHANGE this marking is set where you need to implement
+    private static final long serialVersionUID = 202192475384598913L;
 
     private static Log log = LogFactory.getLog(ActionExceptionCatchDialog.class);
 
     /**
-     * 
+     * The isOpened.
      */
-    private static final long serialVersionUID = 202192475384598913L;
+    public boolean isOpened = true;
+
+    /**
+     * The last action.
+     */
+    public int lastAction = 0;
 
     /**
      * The ic.
@@ -73,93 +75,10 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
      */
     protected ATDataAccessAbstract da;
 
-    // ATDataAccess dataAccess = null;
-    // PISDb m_db = null;
-
-    /**
-     * The full_int.
-     */
-    public ArrayList<SelectableInterface> full_int;
-
-    // public ArrayList<SelectableInterface> full;
-    /**
-     * The list.
-     */
-    protected ArrayList<SelectableInterface> list;
-
-    /**
-     * The date_selector_type.
-     */
-    public int date_selector_type = 0;
-
-    // public int indexes
-
-    //
-    // as interface -- start
-    //
-    /**
-     * The is_opened.
-     */
-    public boolean is_opened = true;
-
-    //
-    // REMOVE
-
-    /**
-     * The descriptions.
-     */
-    public Hashtable<String, String> descriptions = new Hashtable<String, String>();
-
-    /**
-     * The column_sorting_enabled.
-     */
-    boolean column_sorting_enabled = true;
-
-    /**
-     * Allowed actions (new, edit, select, cancel)
-     */
-    int allowed_actions = 0;
-
-    /**
-     * Help id
-     */
-    private String help_id = "";
-
     /**
      * Help Button
      */
     JButton help_button = null;
-
-    /**
-     * Exception string. This is list of ids in form like this (.1.2.20.) to exclude 
-     * entries from list (in case we can add only one instance of some element).
-     */
-    // private String m_except = null;
-
-    /**
-     * Selected object
-     */
-    protected SelectableInterface selected_object;
-
-    /**
-     * Selected objects
-     */
-    // private ArrayList<SelectableInterface> selected_objects;
-
-    protected JTable table;
-
-    //
-    // as interface -- end
-    //
-
-    /*
-     * Globaly used variables
-     */
-    // JTable table;
-    /**
-     * The scroll.
-     */
-    JScrollPane scroll;
 
     /**
      * The panel.
@@ -167,30 +86,9 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
     JPanel panel;
 
     /**
-     * The check box2.
-     */
-    JCheckBox checkBox1, checkBox2;
-
-    /**
-     * The text field2.
-     */
-    JTextField textField1, textField2; // , textField3, textField4, textField5,
-                                       // textField6,
-    // textField7, textField8, textField9;
-    /**
-     * The combo box2.
-     */
-    JComboBox comboBox1, comboBox2; // , comboBox3;
-
-    /**
      * The button4.
      */
-    JButton button1, button2, button3, button4;
-
-    /**
-     * The dt_end.
-     */
-    DateComponent dt_start, dt_end;
+    JButton button4;
 
     /**
      * The font_normal_bold.
@@ -198,34 +96,32 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
     Font font_normal, font_normal_bold;
 
     /**
-     * The doc.
-     */
-    AbstractDocument doc;
-
-    /**
      * The name.
      */
     String name;
-
-    /**
-     * The last action.
-     */
-    public int lastAction = 0;
-
     /**
      * The exception.
      */
     Exception exception;
 
     /**
-     * The error_message.
+     * The errorMessage.
      */
-    String error_message;
+    String errorMessage;
+
+    String errorMessageToolTip;
 
     /**
-     * The error_message_sollution.
+     * The errorSolution.
      */
-    String error_message_sollution;
+    String errorSolution;
+
+    String errorSolutionToolTip;
+    int posYDifference = 0;
+    /**
+     * Help id
+     */
+    private String help_id = "";
 
 
     // CHANGE
@@ -239,12 +135,12 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
     * @param module the module
     * @param action the action
     * @param exception the exception
-    * @param error_message the error_message
+    * @param errorMessage the errorMessage
     */
     public ErrorDialog(JFrame parent, ATDataAccessAbstract da, String application, String module, String action,
-            Exception exception, String error_message)
+            Exception exception, String errorMessage)
     {
-        this(parent, da, application, module, action, exception, error_message, null);
+        this(parent, da, application, module, action, exception, errorMessage, errorMessage, null, null);
     }
 
 
@@ -257,12 +153,12 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
      * @param module the module
      * @param action the action
      * @param exception the exception
-     * @param error_message the error_message
+     * @param errorMessage the errorMessage
      */
     public ErrorDialog(JDialog parent, ATDataAccessAbstract da, String application, String module, String action,
-            Exception exception, String error_message)
+            Exception exception, String errorMessage)
     {
-        this(parent, da, application, module, action, exception, error_message, null);
+        this(parent, da, application, module, action, exception, errorMessage, errorMessage, null, null);
     }
 
 
@@ -275,23 +171,25 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
      * @param module the module
      * @param action the action
      * @param exception the exception
-     * @param error_message the error_message
-     * @param extended_error_message the extended_error_message
+     * @param errorMessage the errorMessage
+     * @param solutionMessage the solutionMessage
      */
     public ErrorDialog(JFrame parent, ATDataAccessAbstract da, String application, String module, String action,
-            Exception exception, String error_message, String extended_error_message)
+            Exception exception, String errorMessage, String solutionMessage)
+    {
+        this(parent, da, application, module, action, exception, errorMessage, errorMessage, solutionMessage,
+                solutionMessage);
+    }
+
+
+    public ErrorDialog(JFrame parent, ATDataAccessAbstract da, String application, String module, String action,
+            Exception exception, String errorMessage, String errorMessageToolTip, String solutionMessage,
+            String sollutionMessageToolTip)
     {
         super(parent, "Selector", true);
 
-        this.da = da;
-        this.ic = da.getI18nControlInstance();
-
-        this.exception = exception;
-        this.error_message = error_message;
-        this.error_message_sollution = extended_error_message;
-
-        init();
-
+        this.initDialog(da, application, module, action, exception, errorMessage, errorMessageToolTip, solutionMessage,
+            sollutionMessageToolTip);
     }
 
 
@@ -304,23 +202,56 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
      * @param module the module
      * @param action the action
      * @param exception the exception
-     * @param error_message the error_message
-     * @param extended_error_message the extended_error_message
+     * @param errorMessage the errorMessage
+     * @param solutionMessage the solutionMessage
      */
     public ErrorDialog(JDialog parent, ATDataAccessAbstract da, String application, String module, String action,
-            Exception exception, String error_message, String extended_error_message)
+            Exception exception, String errorMessage, String solutionMessage)
     {
-        super(parent, "Selector", true);
+        this(parent, da, application, module, action, exception, errorMessage, errorMessage, solutionMessage,
+                solutionMessage);
+    }
 
+
+    /**
+     * Instantiates a new error dialog.
+     *
+     * @param parent the parent
+     * @param dataAccessAbstract the da
+     * @param application the application
+     * @param module the module
+     * @param action the action
+     * @param exception the exception
+     * @param errorMessage the errorMessage
+     * @param errorMessageToolTip the extended_error_message
+     */
+    public ErrorDialog(JDialog parent, ATDataAccessAbstract dataAccessAbstract, String application, String module,
+            String action, Exception exception, String errorMessage, String errorMessageToolTip, String solutionMessage,
+            String sollutionMessageToolTip)
+    {
+        super(parent, "Error Message", true);
+
+        this.initDialog(da, application, module, action, exception, errorMessage, errorMessageToolTip, solutionMessage,
+            sollutionMessageToolTip);
+    }
+
+
+    private void initDialog(ATDataAccessAbstract da, String application, String module, String action,
+            Exception exception, String errorMessage, String errorMessageToolTip, String solutionMessage,
+            String solutionMessageToolTip)
+    {
         this.da = da;
         this.ic = da.getI18nControlInstance();
 
         this.exception = exception;
-        this.error_message = error_message;
-        this.error_message_sollution = extended_error_message;
+        this.errorMessage = errorMessage;
+        this.errorMessageToolTip = errorMessageToolTip;
+        this.errorSolution = solutionMessage;
+        this.errorSolutionToolTip = solutionMessageToolTip;
+
+        System.out.println("errorMsg: " + this.errorMessage + "\n\nToolTip: " + this.errorMessageToolTip);
 
         init();
-
     }
 
 
@@ -340,32 +271,20 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
         this.setTitle(name);
         this.setResizable(false);
 
-        if (this.error_message_sollution == null)
+        if (this.errorSolution == null)
         {
-            this.error_message_sollution = ic.getMessage("NO_SOLUTION_AVAILABLE");
+            this.errorSolution = ic.getMessage("NO_SOLUTION_AVAILABLE");
+            this.errorSolutionToolTip = ic.getMessage("NO_SOLUTION_AVAILABLE");
         }
 
-        System.out.println("Error Dialog 0.1 ");
+        System.out.println("Error Dialog 0.2 ");
 
-        // getInitialValues();
-        cmdSelector();
-
+        cmdDialog();
     }
-
 
     // ---
     // --- Methods
     // ---
-
-    /**
-     * Gets the descriptions.
-     * 
-     * @return the descriptions
-     */
-    public Hashtable<String, String> getDescriptions()
-    {
-        return this.descriptions;
-    }
 
 
     /**
@@ -391,17 +310,6 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
 
 
     /**
-     * Sets the selector name.
-     * 
-     * @param title the new selector name
-     */
-    public void setSelectorName(String title)
-    {
-        this.name = title;
-    }
-
-
-    /**
      * Sets the help string id.
      * 
      * @param id the new help string id
@@ -413,213 +321,131 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
     }
 
 
-    /**
-     * Checks if is column sorting enabled.
-     * 
-     * @return true, if is column sorting enabled
-     */
-    public boolean isColumnSortingEnabled()
-    {
-        return column_sorting_enabled;
-
-    }
-
-
-    /**
-     * Sets the column sorting enabled.
-     * 
-     * @param value the new column sorting enabled
-     */
-    public void setColumnSortingEnabled(boolean value)
-    {
-        column_sorting_enabled = value;
-    }
-
-
-    /**
-     * Sets the allowed actions.
-     * 
-     * @param value the new allowed actions
-     */
-    public void setAllowedActions(int value)
-    {
-        this.allowed_actions = value;
-    }
-
-
-    /**
-     * Gets the allowed actions.
-     * 
-     * @return the allowed actions
-     */
-    public int getAllowedActions()
-    {
-        return this.allowed_actions;
-    }
-
-
-    /**
-     * Checks if is action allowed.
-     * 
-     * @param action the action
-     * 
-     * @return true, if is action allowed
-     */
-    public boolean isActionAllowed(int action)
-    {
-        if ((this.allowed_actions & action) == action)
-            return true;
-        else
-            return false;
-    }
-
-
-    // ---
-    // --- Abstract methods
-    // ---
-
-    /** 
-     *
-     */
-    public void cmdSelector()
+    public void cmdDialog()
     {
         name = ic.getMessage("ERROR_DIALOG");
-
-        Container dgPane = this.getContentPane();
 
         panel = new JPanel();
         panel.setBounds(0, 5, 520, 440);
         panel.setLayout(null);
 
-        dgPane.add(panel);
+        this.getContentPane().add(panel);
 
         JLabel label;
-        label = new JLabel(name);
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setFont(new Font("SansSerif", 3, 22));
-        label.setBounds(20, 8, 460, 36);
-        panel.add(label);
 
-        // x Font fnt = new Font("Times New Roman",Font.ITALIC|Font.BOLD,14);
+        ATSwingUtils.getTitleLabel(name, 20, 5, 460, 36, panel, ATSwingUtils.FONT_BIG_BOLD);
 
-        label = new JLabel(ic.getMessage("ERROR") + ":");
-        label.setFont(this.font_normal_bold);
-        label.setBounds(35, 55, 295, 25);
-        panel.add(label);
+        ATSwingUtils.getLabel(ic.getMessage("ERROR") + ":", 35, 45, 295, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
 
-        label = new JLabel("<html><body>" + this.error_message + "</body></html>");
+        String text = ATSwingUtils.createHtmlTextWithWidth(this.errorMessage, 300);
+
+        label = new JLabel(text);
         label.setFont(this.font_normal);
         label.setVerticalAlignment(SwingConstants.TOP);
-        label.setBounds(35, 80, 295, 50);
+        // label.setBorder(new LineBorder(Color.green));
+        label.setBounds(35, 70, 300, 50);
+        label.setToolTipText(ATSwingUtils.createHtmlTextWithWidth(this.errorMessageToolTip, 500));
+
+        calculateJLabelDifference(label, text, 70);
+
         panel.add(label);
 
-        label = new JLabel(ic.getMessage("ERROR_SOLUTION") + ":");
-        label.setFont(this.font_normal_bold);
-        label.setBounds(35, 120, 295, 25);
-        panel.add(label);
+        ATSwingUtils.getLabel(ic.getMessage("ERROR_SOLUTION") + ":", 35, 115 + posYDifference, 295, 25, panel,
+            ATSwingUtils.FONT_NORMAL_BOLD);
 
-        label = new JLabel("<html><body>" + this.error_message_sollution + "</body></html>");
+        text = ATSwingUtils.createHtmlTextWithWidth(this.errorSolution, 300);
+
+        label = new JLabel(text);
         label.setFont(this.font_normal);
         label.setVerticalAlignment(SwingConstants.TOP);
-        label.setBounds(35, 145, 295, 50);
+        label.setBounds(35, 135 + posYDifference, 300, 50);
         label.setFont(this.font_normal);
+
+        System.out.println("PosDifference: before sollution: " + posYDifference);
+
+        calculateJLabelDifference(label, text, (135 + posYDifference));
+
+        System.out.println("PosDifference: after sollution: " + posYDifference);
+
         panel.add(label);
 
         Color c = (Color) UIManager.get("activeCaption"); // ,
                                                           // Color.ANY_COLOR_YOU_WANT);
 
+        // line
         JPanel pan = new JPanel();
         pan.setBackground(c);
-        pan.setBounds(0, 200, 520, 4);
-
+        pan.setBounds(0, 200 + posYDifference, 520, 4);
         panel.add(pan);
 
-        // createTable();
-
-        // if
-        // (this.isActionAllowed(SelectorAbstractDialog.SELECTOR_ACTION_SELECT))
-        {
-            button1 = new JButton(ic.getMessage("CLOSE"));
-            button1.setBounds(365, 60, 110, 25);
-            button1.setActionCommand("close");
-            button1.addActionListener(this);
-            button1.setFont(this.font_normal);
-            panel.add(button1);
-        }
+        ATSwingUtils.getButton(ic.getMessage("CLOSE"), 365, 50, 110, 25, panel, ATSwingUtils.FONT_NORMAL, null, "close",
+            this, da);
 
         // ---
         // --- Help command
         // ---
         this.help_button = new JButton(ic.getMessage("HELP"));
-        this.help_button.setBounds(365, 120, 110, 25);
+        this.help_button.setBounds(365, 100, 110, 25);
         this.help_button.setFont(font_normal);
         // button.addActionListener(this);
         // button.setActionCommand("help");
         panel.add(this.help_button);
 
-        // if
-        // (this.isActionAllowed(SelectorAbstractDialog.SELECTOR_ACTION_CANCEL))
-        {
-            button4 = new JButton(ic.getMessage("DETAILS") + " >>");
-            button4.setBounds(365, 150, 110, 25);
-            button4.setActionCommand("details");
-            button4.addActionListener(this);
-            button4.setFont(this.font_normal);
-            panel.add(button4);
-        }
+        ATSwingUtils.getButton(ic.getMessage("DETAILS") + " >>", 365, 130, 110, 25, panel, ATSwingUtils.FONT_NORMAL,
+            null, "details", this, da);
+
+        button4 = new JButton(ic.getMessage("COPY_TO_CLIPBOARD"));
+        button4.setActionCommand("copy_to_clipboard");
+        button4.addActionListener(this);
+        button4.setVerticalAlignment(SwingConstants.CENTER);
+        button4.setVerticalTextPosition(SwingConstants.CENTER);
+        button4.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_SMALLER));
+        button4.setBounds(205, 170 + posYDifference, 150, 20);
+        panel.add(button4);
 
         label = new JLabel(ic.getMessage("EXCEPTION_LOG") + ":");
         label.setVerticalAlignment(SwingConstants.TOP);
         label.setFont(this.font_normal_bold);
-        label.setBounds(35, 225, 295, 50);
+        label.setBounds(35, 225 + posYDifference, 295, 50);
         panel.add(label);
 
         button4 = new JButton(ic.getMessage("SEND_TO_SERVER"));
-        button4.setBounds(305, 215, 170, 25);
+        button4.setBounds(305, 215 + posYDifference, 170, 25);
         button4.setActionCommand("send_to_server");
         button4.addActionListener(this);
         button4.setFont(this.font_normal);
-        panel.add(button4);
+        // panel.add(button4);
+        // TODO this is now disabled, we need to add additional functionality at
+        // later time.
 
-        /*
-         * // ---
-         * // --- Help command
-         * // ---
-         * this.help_button = new JButton(ic.getMessage("HELP"));
-         * this.help_button.setBounds(395,122,80,23);
-         * this.help_button.setFont(font_normal);
-         * //button.addActionListener(this);
-         * //button.setActionCommand("help");
-         * panel.add(this.help_button);
-         */
-
-        // initByFilterType();
-
-        log.error("Error dialog opened: Ex: " + this.exception, this.exception);
-
-        JList list_ = new JList(this.exception.getStackTrace());
-
-        // list.setComponents(this.exception.getStackTrace());
-        // list.setBounds(20, 240, 300, 160);
-        // panel.add(list);
+        JTextArea list_ = new JTextArea(ExceptionUtils.getStackTrace(exception));
 
         JScrollPane scroll_ = new JScrollPane(list_, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scroll_.setBounds(30, 250, 445, 145);
+        scroll_.setBounds(30, 250 + posYDifference, 445, 145);
         panel.add(scroll_);
 
-        this.setBounds(100, 80, 520, 440);
+        panel.setBounds(0, 5, 520, 440 + posYDifference);
+
+        this.setBounds(100, 80, 520, 440 + posYDifference);
+        this.da.centerJDialog(this);
         this.repaint();
-
-        // this.setBounds(100, 80, 520, 440);
-
-        // this.setBounds(100, 80, 520, 240);
-        // ATDataAccess.getInstance().centerJDialog(this, getInternalParent());
-        // this.setBounds(100, 80, 520, 232);
 
         this.setResizable(false);
         this.setVisible(true);
 
+    }
+
+
+    private void calculateJLabelDifference(JLabel label, String text, int posY)
+    {
+        int height = ATSwingUtils.calculateJLabelSizeWithText(label, text).height;
+
+        if (height > 50)
+        {
+            label.setBounds(35, posY, 300, height);
+            posYDifference += (height - 50) + 10;
+        }
     }
 
 
@@ -630,7 +456,6 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
     public void actionPerformed(ActionEvent e)
     {
         String action = e.getActionCommand();
-        // System.out.println("Action: " + action);
 
         if (action.equals("close"))
         {
@@ -643,36 +468,42 @@ public class ErrorDialog extends JDialog implements ActionListener // ,
         }
         else if (action.equals("details"))
         {
-            if (is_opened)
+            int x = (int) this.getBounds().getX();
+            int y = (int) this.getBounds().getY();
+
+            if (isOpened)
             {
-                this.setBounds(100, 80, 520, 232);
-                is_opened = !is_opened;
+                this.setBounds(x, y, 520, 232 + posYDifference);
+                // this.da.centerJDialog(this);
+                isOpened = !isOpened;
                 this.repaint();
             }
             else
             {
-                this.setBounds(100, 80, 520, 440);
-                is_opened = !is_opened;
+                this.setBounds(x, y, 520, 440 + posYDifference);
+                // this.da.centerJDialog(this);
+                isOpened = !isOpened;
                 this.repaint();
             }
+        }
+        else if (action.equals("copy_to_clipboard"))
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(ic.getMessage("ERROR") + ":\n");
+            sb.append(HtmlUtils.convertToPlainText(this.errorMessageToolTip));
+            sb.append("\n\n" + ic.getMessage("ERROR_SOLUTION") + ":\n");
+            sb.append(HtmlUtils.convertToPlainText(this.errorSolutionToolTip));
+            sb.append("\n\n" + ic.getMessage("EXCEPTION_LOG") + ":\n");
+            sb.append(ExceptionUtils.getStackTrace(exception));
+
+            ClipboardUtil.copyToClipboard(sb.toString());
         }
         else
         {
             System.out.println("ErrorDialog:UnknownAction: " + action);
         }
 
-        // checkAndExecuteAction(action);
-    }
-
-
-    /**
-     * Was action.
-     * 
-     * @return true, if successful
-     */
-    public boolean wasAction()
-    {
-        return this.selected_object != null;
     }
 
 }

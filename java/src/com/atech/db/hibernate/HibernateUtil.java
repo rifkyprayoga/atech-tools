@@ -62,8 +62,7 @@ public class HibernateUtil
      * @param hconfig the hconfig
      * @param type the type
      */
-    public HibernateUtil(HibernateConfiguration hconfig, int type)
-    {
+    public HibernateUtil(HibernateConfiguration hconfig, int type)  {
         this(hconfig, type, true);
     }
 
@@ -105,8 +104,7 @@ public class HibernateUtil
     /**
      * Sets the session.
      */
-    public void setSession()
-    {
+    public void setSession()  {
         setSession(1);
     }
 
