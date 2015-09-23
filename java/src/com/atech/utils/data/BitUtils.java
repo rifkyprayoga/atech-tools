@@ -229,6 +229,36 @@ public class BitUtils extends CRCUtils
     }
 
 
+    public String getStringFromByteList(List<Byte> arr)
+    {
+        return getStringFromByteList(arr, 0, arr.size());
+    }
+
+
+    public String getStringFromByteList(List<Byte> arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                int d = arr.get(offset + i);
+                destinationArray[i] = (char) d;
+            }
+
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
+            return str;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+
+
     /**
      * Gets the string.
      *
@@ -1011,9 +1041,44 @@ public class BitUtils extends CRCUtils
     }
 
 
+    public byte[] getByteArrayFromList(List<Byte> list)
+    {
+        byte[] out = new byte[list.size()];
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            out[i] = list.get(i);
+        }
+
+        return out;
+    }
+
+
+    public List<Byte> getListFromByteArray(byte[] array)
+    {
+        List<Byte> listOut = new ArrayList<Byte>();
+
+        for (byte val : array)
+        {
+            listOut.add(val);
+        }
+
+        return listOut;
+    }
+
+
     public void addIntArrayToList(List<Integer> list, int[] array)
     {
         for (int element : array)
+        {
+            list.add(element);
+        }
+    }
+
+
+    public void addByteArrayToList(List<Byte> list, byte[] array)
+    {
+        for (byte element : array)
         {
             list.add(element);
         }

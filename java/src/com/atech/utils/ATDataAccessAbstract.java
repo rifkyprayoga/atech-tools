@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.text.*;
 import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -444,11 +445,11 @@ public abstract class ATDataAccessAbstract
         // initSpecial();
     }
 
+
     /*
      * public void setI18nControlInstance(I18nControlAbstract i18n) { this.i18n
      * = i18n; }
      */
-
 
     // ********************************************************
     // ****** Plug-ins *****
@@ -512,9 +513,9 @@ public abstract class ATDataAccessAbstract
         return getDateTimeString(date, 1);
     }
 
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     // ********************************************************
     // ****** Config Loader *****
@@ -747,6 +748,7 @@ public abstract class ATDataAccessAbstract
             return false;
     }
 
+
     // ********************************************************
     // ****** Help stuff *****
     // ********************************************************
@@ -759,7 +761,6 @@ public abstract class ATDataAccessAbstract
      * The Constant FONT_UPDATE_TREE_HEADER.
      */
     // public static final int FONT_UPDATE_TREE_HEADER = 5;
-
 
     /**
      * The Constant FONT_UPDATE_TREE_ITEM.
@@ -778,6 +779,7 @@ public abstract class ATDataAccessAbstract
         return (value & value_we_check_for) == value_we_check_for;
     }
 
+
     // ********************************************************
     // ****** Parent handling (for UIs) *****
     // ********************************************************
@@ -795,7 +797,6 @@ public abstract class ATDataAccessAbstract
      * null;
      * }
      */
-
 
     // public ImageIcon getImageIcon(String image)
 
@@ -835,6 +836,7 @@ public abstract class ATDataAccessAbstract
      * Inits the special.
      */
     public abstract void initSpecial();
+
 
     /*
      * public void centerJDialog(JDialog dialog, JComponent parent) {
@@ -883,7 +885,6 @@ public abstract class ATDataAccessAbstract
      * ex.printStackTrace(); return null; } }
      */
 
-
     // ********************************************************
     // ****** Colors *****
     // ********************************************************
@@ -904,6 +905,7 @@ public abstract class ATDataAccessAbstract
      * Load plug ins.
      */
     public abstract void loadPlugIns();
+
 
     /*
      * public Object[] getAvailableLanguages() { return new Object[] = { "en"
@@ -929,7 +931,6 @@ public abstract class ATDataAccessAbstract
      * return locale;
      * }
      */
-
 
     /*
      * public String[] getAvailableDbs() { //this.m_config_file. //return
@@ -959,6 +960,7 @@ public abstract class ATDataAccessAbstract
         loadArraysTranslation(m_i18n);
     }
 
+
     /*
      * public void loadComboOptions() {
      * yes_no_combo = new Object[2];
@@ -977,7 +979,6 @@ public abstract class ATDataAccessAbstract
      * Arrays.sort(typesAll);
      * }
      */
-
 
     /*
      * public void makeNewConfig() {
@@ -1181,8 +1182,8 @@ public abstract class ATDataAccessAbstract
         }
         else
         {
-            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module, action,
-                    ex, errorMessage, solutionMessage);
+            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module,
+                    action, ex, errorMessage, solutionMessage);
         }
     }
 
@@ -1198,8 +1199,8 @@ public abstract class ATDataAccessAbstract
         }
         else
         {
-            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module, action,
-                    ex, errorMessage, errorMessageToolTip, solutionMessage, solutionMessageToolTip);
+            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module,
+                    action, ex, errorMessage, errorMessageToolTip, solutionMessage, solutionMessageToolTip);
         }
     }
 
@@ -1345,13 +1346,13 @@ public abstract class ATDataAccessAbstract
         this.plugins.put(key, plugin);
     }
 
+
     /*
      * public static final int USER_NORMAL = 1; public static final int
      * USER_WORKER = 2; public static final int USER_ADMINISTRATOR = 3; public
      * static final int USER_SUPERADMINISTRATOR = 4;
      * public int user_type = 3;
      */
-
 
     /*
      * public int authorizeUser(String username, String password) {
@@ -2075,8 +2076,8 @@ public abstract class ATDataAccessAbstract
     {
         if (years_digits == 2)
         {
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
-                getI18nControlInstance().getSelectedLanguageLocale());
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance()
+                    .getSelectedLanguageLocale());
             return df.format(gc_value.getTime());
         }
         else
@@ -2086,8 +2087,8 @@ public abstract class ATDataAccessAbstract
             System.out.println("Time: " + gc_value.getTime());
 
             // TODO: fix this
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
-                getI18nControlInstance().getSelectedLanguageLocale());
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance()
+                    .getSelectedLanguageLocale());
             return df.format(gc_value.getTime());
         }
     }
@@ -3217,6 +3218,29 @@ public abstract class ATDataAccessAbstract
             {
                 sb.append(delimiter);
             }
+        }
+
+        return sb.toString();
+    }
+
+
+    public String createStringFromList(List<?> list, String delimiter)
+    {
+        StringBuffer sb = new StringBuffer();
+        boolean first = true;
+
+        for (Object o : list)
+        {
+            if (first)
+            {
+                first = false;
+            }
+            else
+            {
+                sb.append(delimiter + " ");
+            }
+
+            sb.append(o.toString());
         }
 
         return sb.toString();
