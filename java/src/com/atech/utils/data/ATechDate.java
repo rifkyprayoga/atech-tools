@@ -1,12 +1,15 @@
 package com.atech.utils.data;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atech.i18n.I18nControlAbstract;
+import com.atech.utils.ATDataAccess;
 
 /**
  * This file is part of ATech Tools library.
@@ -152,10 +155,24 @@ public class ATechDate
      * @param type
      *            the type
      */
+    @Deprecated
     public ATechDate(int type)
     {
         this.atechDatetimeType = type;
         atechDatetimeTypeObject = ATechDateType.getByType(this.atechDatetimeType);
+    }
+
+
+    /**
+     * Instantiates a new a tech date.
+     *
+     * @param type
+     *            the type
+     */
+    public ATechDate(ATechDateType type)
+    {
+        this.atechDatetimeType = type.getCode();
+        atechDatetimeTypeObject = type;
     }
 
 
@@ -166,7 +183,21 @@ public class ATechDate
      * @param type
      * @param entry
      */
+    @Deprecated
     public ATechDate(int type, long entry)
+    {
+        process(type, entry);
+    }
+
+
+    /**
+     * ATechDate (long)
+     * Default constructor, with one parameter, where type is DATE_AND_TIME.
+     *
+     * @param type
+     * @param entry
+     */
+    public ATechDate(ATechDateType type, long entry)
     {
         process(type, entry);
     }
@@ -231,22 +262,29 @@ public class ATechDate
     }
 
 
+    @Deprecated
+    public ATechDate(int type, Calendar gc) // GregorianCalendar
+    {
+        this(getATechDateType(type), gc);
+    }
+
+
     /**
-     * Instantiates a new a tech date.
+     * Instantiates a new ATech date.
      *
      * @param type
      *            the type
      * @param gc
      *            the gc
      */
-    public ATechDate(int type, Calendar gc) // GregorianCalendar
+    public ATechDate(ATechDateType type, Calendar gc)
     {
-        atechDatetimeType = type;
-        atechDatetimeTypeObject = ATechDateType.getByType(this.atechDatetimeType);
+        atechDatetimeType = type.getCode();
+        atechDatetimeTypeObject = type;
 
         switch (type)
         {
-            case ATechDate.FORMAT_DATE_ONLY:
+            case DateOnly:
                 {
                     this.dayOfMonth = gc.get(Calendar.DAY_OF_MONTH);
                     this.month = gc.get(Calendar.MONTH) + 1;
@@ -254,7 +292,7 @@ public class ATechDate
                 }
                 break;
 
-            case ATechDate.FORMAT_DATE_AND_TIME_S:
+            case DateAndTimeSec:
                 {
                     this.dayOfMonth = gc.get(Calendar.DAY_OF_MONTH);
                     this.month = gc.get(Calendar.MONTH) + 1;
@@ -265,7 +303,7 @@ public class ATechDate
                 }
                 break;
 
-            case ATechDate.FORMAT_DATE_AND_TIME_MS:
+            case DateAndTimeMsec:
                 {
                     this.dayOfMonth = gc.get(Calendar.DAY_OF_MONTH);
                     this.month = gc.get(Calendar.MONTH) + 1;
@@ -278,7 +316,7 @@ public class ATechDate
                 break;
 
             default:
-            case ATechDate.FORMAT_DATE_AND_TIME_MIN:
+            case DateAndTimeMin:
                 {
                     this.dayOfMonth = gc.get(Calendar.DAY_OF_MONTH);
                     this.month = gc.get(Calendar.MONTH) + 1;
@@ -291,7 +329,13 @@ public class ATechDate
                 break;
 
         }
+    }
 
+
+    @Deprecated
+    public void process(int type, long date)
+    {
+        process(getATechDateType(type), date);
     }
 
 
@@ -303,12 +347,12 @@ public class ATechDate
      * @param date
      *            the date
      */
-    public void process(int type, long date)
+    public void process(ATechDateType type, long date)
     {
-        atechDatetimeType = type;
-        atechDatetimeTypeObject = ATechDateType.getByType(this.atechDatetimeType);
+        atechDatetimeType = type.getCode();
+        atechDatetimeTypeObject = type;
 
-        if (type == ATechDate.FORMAT_DATE_ONLY)
+        if (type == ATechDateType.DateOnly)
         {
             // 20051012
 
@@ -320,9 +364,8 @@ public class ATechDate
 
             this.dayOfMonth = (int) date;
         }
-        else if (type == ATechDate.FORMAT_DATE_AND_TIME_MIN)
+        else if (type == ATechDateType.DateAndTimeMin)
         {
-
             this.year = (int) (date / 100000000L);
             date -= this.year * 100000000L;
 
@@ -338,9 +381,8 @@ public class ATechDate
             this.minute = (int) date;
 
         }
-        else if (type == ATechDate.FORMAT_DATE_AND_TIME_S)
+        else if (type == ATechDateType.DateAndTimeSec)
         {
-
             this.year = (int) (date / 10000000000L);
             date -= this.year * 10000000000L;
 
@@ -359,7 +401,7 @@ public class ATechDate
             this.second = (int) date;
 
         }
-        else if (type == ATechDate.FORMAT_TIME_ONLY_S)
+        else if (type == ATechDateType.TimeOnlySec)
         {
 
             this.hourOfDay = (int) (date / 10000L);
@@ -373,7 +415,7 @@ public class ATechDate
             checkAndCorrectValues();
 
         }
-        else if (type == ATechDate.FORMAT_TIME_ONLY_MIN)
+        else if (type == ATechDateType.TimeOnlyMin)
         {
 
             this.hourOfDay = (int) (date / 100L);
@@ -387,10 +429,16 @@ public class ATechDate
         else
         {
             System.out.println("*****************************************************************");
-            System.out.println("Not possible to handle. Type not suppported yet: " + this.desc[type]);
+            System.out.println("   Not possible to handle. Type not suppported yet: " + type.name());
             System.out.println("*****************************************************************");
         }
 
+    }
+
+
+    private static ATechDateType getATechDateType(int type)
+    {
+        return ATechDateType.getByType(type);
     }
 
 
@@ -415,16 +463,35 @@ public class ATechDate
     /**
      * Gets the time string.
      *
-     * @param type
-     *            the type
-     * @param date
-     *            the date
+     * @param type the type
+     * @param date the date as long
      * @return the time string
      */
+    @Deprecated
     public static String getTimeString(int type, long date)
+    {
+        return getTimeString(getATechDateType(type), date);
+    }
+
+
+    /**
+     * Gets the time string.
+     *
+     * @param type type as ATechDateType
+     * @param date datetime as long
+     * @return the time string
+     */
+    public static String getTimeString(ATechDateType type, long date)
     {
         ATechDate dt = new ATechDate(type, date);
         return dt.getTimeString();
+    }
+
+
+    @Deprecated
+    public static String getTimeString(int type, GregorianCalendar gc)
+    {
+        return getTimeString(getATechDateType(type), gc);
     }
 
 
@@ -437,13 +504,20 @@ public class ATechDate
      *            the gc
      * @return the time string
      */
-    public static String getTimeString(int type, GregorianCalendar gc)
+    public static String getTimeString(ATechDateType type, GregorianCalendar gc)
     {
         ATechDate dt = new ATechDate(type, gc);
         return dt.getTimeString();
     }
 
 
+    @Deprecated
+    public static String getDateTimeString(int type, long date)
+    {
+        return getDateTimeString(getATechDateType(type), date);
+    }
+
+
     /**
      * Gets the date time string.
      *
@@ -453,10 +527,17 @@ public class ATechDate
      *            the date
      * @return the date time string
      */
-    public static String getDateTimeString(int type, long date)
+    public static String getDateTimeString(ATechDateType type, long date)
     {
         ATechDate dt = new ATechDate(type, date);
         return dt.getDateTimeString();
+    }
+
+
+    @Deprecated
+    public static String getDateTimeString(int type, GregorianCalendar gc)
+    {
+        return getDateTimeString(getATechDateType(type), gc);
     }
 
 
@@ -469,13 +550,20 @@ public class ATechDate
      *            the gc
      * @return the date time string
      */
-    public static String getDateTimeString(int type, GregorianCalendar gc)
+    public static String getDateTimeString(ATechDateType type, GregorianCalendar gc)
     {
         ATechDate dt = new ATechDate(type, gc);
         return dt.getDateTimeString();
     }
 
 
+    @Deprecated
+    public static String getDateString(int type, long date)
+    {
+        return getDateString(getATechDateType(type), date);
+    }
+
+
     /**
      * Gets the date string.
      *
@@ -485,10 +573,16 @@ public class ATechDate
      *            the date
      * @return the date string
      */
-    public static String getDateString(int type, long date)
+    public static String getDateString(ATechDateType type, long date)
     {
         ATechDate dt = new ATechDate(type, date);
         return dt.getDateString();
+    }
+
+
+    public static String getDateString(int type, GregorianCalendar gc)
+    {
+        return getDateString(getATechDateType(type), gc);
     }
 
 
@@ -501,7 +595,7 @@ public class ATechDate
      *            the gc
      * @return the date string
      */
-    public static String getDateString(int type, GregorianCalendar gc)
+    public static String getDateString(ATechDateType type, GregorianCalendar gc)
     {
         ATechDate dt = new ATechDate(type, gc);
         return dt.getDateString();
@@ -524,6 +618,17 @@ public class ATechDate
         {
             this.second = 59;
         }
+    }
+
+
+    /**
+     * Gets the time.
+     *
+     * @return the time
+     */
+    public int getDate()
+    {
+        return (this.year * 10000 + this.month * 100 + this.dayOfMonth);
     }
 
 
@@ -578,6 +683,7 @@ public class ATechDate
      */
     public String getTimeString()
     {
+        // FIXME refactor
         if (this.atechDatetimeType == ATechDate.FORMAT_DATE_AND_TIME_MIN
                 || this.atechDatetimeType == ATechDate.FORMAT_TIME_ONLY_MIN)
             return getLeadingZero(this.hourOfDay, 2) + ":" + getLeadingZero(this.minute, 2);
@@ -617,21 +723,25 @@ public class ATechDate
      */
     public int getTime()
     {
-        if (this.atechDatetimeType == ATechDate.FORMAT_DATE_AND_TIME_MIN
-                || this.atechDatetimeType == ATechDate.FORMAT_TIME_ONLY_MIN)
-            // return getLeadingZero(this.hour_of_day,2) + ":" +
-            // getLeadingZero(this.minute,2);
-            return this.hourOfDay * 100 + this.minute;
-        else if (this.atechDatetimeType == ATechDate.FORMAT_DATE_AND_TIME_S
-                || this.atechDatetimeType == ATechDate.FORMAT_TIME_ONLY_S)
-            // return getLeadingZero(this.hour_of_day,2) + ":" +
-            // getLeadingZero(this.minute,2) + ":" +
-            // getLeadingZero(this.second,2);
-            return -1;
-        else
-            // return "? " + getLeadingZero(this.hour_of_day,2) + ":" +
-            // getLeadingZero(this.minute,2);
-            return -1;
+        switch (this.atechDatetimeTypeObject)
+        {
+            case TimeOnlyMin:
+            case DateAndTimeMin:
+                return (this.hourOfDay * 100 + this.minute);
+
+            case TimeOnlySec:
+            case DateAndTimeSec:
+                return (this.hourOfDay * 10000 + this.minute * 100 + this.second);
+
+            case TimeOnlyMSec:
+            case DateAndTimeMsec:
+                return (this.hourOfDay * 1000000 + this.minute * 10000 + this.second * 100 + this.msecond);
+
+            case DateOnly:
+            default:
+                return 0;
+
+        }
     }
 
 
@@ -645,21 +755,6 @@ public class ATechDate
         return getDateString() + " " + getTimeString();
     }
 
-
-    /*
-     * public String getDateTimeString(long date)
-     * {
-     * return getDateTimeString(date, 1);
-     * }
-     * public String getDateTimeAsDateString(long date)
-     * {
-     * return getDateTimeString(date, 2);
-     * }
-     */
-
-    // public static final int DATE_TIME_ATECH_DATETIME = 1;
-    // public static final int DATE_TIME_ATECH_DATE = 2;
-    // public static final int DATE_TIME_ATECH_TIME = 3;
 
     /**
      * Gets the aT date time from gc.
@@ -1057,23 +1152,12 @@ public class ATechDate
     }
 
 
-    /*
-     * public String getGCObjectFromDateTimeLong(long dt)
-     * {
-     * int y = (int)(dt/100000000L);
-     * dt -= y*100000000L;
-     * int m = (int)(dt/1000000L);
-     * dt -= m*1000000L;
-     * int d = (int)(dt/10000L);
-     * dt -= d*10000L;
-     * int h = (int)(dt/100L);
-     * dt -= h*100L;
-     * int min = (int)dt;
-     * GregorianCalendar gc1 = new GregorianCalendar();
-     * //gc1.set(GregorianCalendar.
-     * return null;
-     * }
-     */
+    @Deprecated
+    public static GregorianCalendar getGregorianCalendar(int format, long dt)
+    {
+        return getGregorianCalendar(getATechDateType(format), dt);
+    }
+
 
     /**
      * Gets the gregorian calendar.
@@ -1084,7 +1168,7 @@ public class ATechDate
      *            the dt
      * @return the gregorian calendar
      */
-    public static GregorianCalendar getGregorianCalendar(int format, long dt)
+    public static GregorianCalendar getGregorianCalendar(ATechDateType format, long dt)
     {
         ATechDate atd = new ATechDate(format, dt);
         return atd.getGregorianCalendar();
@@ -1160,81 +1244,6 @@ public class ATechDate
     }
 
 
-    /*
-     * public void addHour(int hours)
-     * {
-     * GregorianCalendar gc = getGregorianCalendar();
-     * // gc.add(
-     * /*
-     * if (hours==0)
-     * {
-     * }
-     * else if (hours <0)
-     * {
-     * // negative
-     * this.hour_of_day += hours;
-     * if (this.hour_of_day<0)
-     * {
-     * this.hour_of_day = 23 + this.hour_of_day;
-     * this.day_of_month--;
-     * if (this.day_of_month<1)
-     * {
-     * if (this.month==1)
-     * {
-     * this.month=12;
-     * this.year--;
-     * }
-     * else
-     * {
-     * this.month--;
-     * }
-     * if (month==2)
-     * {
-     * if (isLeapYear(this.year))
-     * this.day_of_month = 29;
-     * else
-     * this.day_of_month = 28;
-     * }
-     * else
-     * this.day_of_month = this.days_month[month];
-     * }
-     * }
-     * }
-     * else // add +
-     * {
-     * this.hour_of_day += hours;
-     * if (this.hour_of_day> 23)
-     * {
-     * int change = this.hour_of_day - 23;
-     * this.hour_of_day = change;
-     * this.day_of_month++;
-     * if (this.month==2)
-     * {
-     * if (isLeapYear(year))
-     * {
-     * if (this.day_of_month>29)
-     * {
-     * }
-     * }
-     * }
-     * else
-     * {
-     * }
-     * if (this.days_month[this.month] < this.da)
-     * {
-     * }
-     * }
-     * }
-     */
-    // }
-
-    /*
-     * public String getDateTimeString(int date, int time)
-     * {
-     * return getDateString(date)+" " + getTimeString(time);
-     * }
-     */
-
     /**
      * Gets the leading zero.
      *
@@ -1246,16 +1255,7 @@ public class ATechDate
      */
     public String getLeadingZero(int number, int places)
     {
-
-        String nn = "" + number;
-
-        while (nn.length() < places)
-        {
-            nn = "0" + nn;
-        }
-
-        return nn;
-
+        return ATDataAccess.getLeadingZero(number, places);
     }
 
 
@@ -1460,49 +1460,6 @@ public class ATechDate
     public ATechDateType getAtechDatetimeTypeObject()
     {
         return atechDatetimeTypeObject;
-    }
-
-    public enum ATechDateType
-    {
-        DateOnly(1, ""), //
-        TimeOnlyMin(2, ""), //
-        TimeOnlySec(3, ""), //
-        TimeOnlyMSec(4, ""), //
-        DateAndTimeMin(5, ""), //
-        DateAndTimeSec(6, ""), //
-        DateAndTimeMsec(7, "") //
-        ;
-
-        int code;
-
-        private static Map<Integer, ATechDateType> mapByCode = new HashMap<Integer, ATechDateType>();
-
-        static
-        {
-            for (ATechDateType adt : values())
-            {
-                mapByCode.put(adt.code, adt);
-            }
-        }
-
-
-        ATechDateType(int code, String desc)
-        {
-            this.code = code;
-        }
-
-
-        public int getCode()
-        {
-            return code;
-        }
-
-
-        public static ATechDateType getByType(int code)
-        {
-            return mapByCode.get(code);
-        }
-
     }
 
 }

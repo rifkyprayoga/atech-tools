@@ -109,6 +109,7 @@ public abstract class LanguageInfo
 
     private Hashtable<String, LanguageInstance> available_languages;
 
+
     /**
      * Instantiates a new language info.
      * 
@@ -118,6 +119,7 @@ public abstract class LanguageInfo
     {
         this.m_i18n = ic;
     }
+
 
     /**
      * Load data.
@@ -218,6 +220,7 @@ public abstract class LanguageInfo
 
     }
 
+
     /**
      * Find language in locale list.
      * 
@@ -241,6 +244,7 @@ public abstract class LanguageInfo
         return 0;
     }
 
+
     /**
      * Get help path for naguage.
      * 
@@ -260,6 +264,7 @@ public abstract class LanguageInfo
         return getHelpPathForLanguageJar(lang);
     }
 
+
     @SuppressWarnings("unused")
     private String getHelpPathForLanguageEclipse(String lang)
     {
@@ -278,6 +283,7 @@ public abstract class LanguageInfo
         // this.defaultHelp + "/PIS.hs";
     }
 
+
     private String getHelpPathForLanguageJar(String lang)
     {
         if (this.langs_ht.containsKey(lang))
@@ -293,12 +299,14 @@ public abstract class LanguageInfo
             return "jar:file:" + getLanguageJarName() + "!/help/" + this.default_help + "/" + getHelpSetName();
     }
 
+
     // jar:file:pis_lang-0.1.jar!/help/PIS.hs
 
     private String getLanguageJarName()
     {
         return getJarBaseName() + "-" + this.lp_version + ".jar";
     }
+
 
     /**
      * Gets the jar base name.
@@ -307,6 +315,7 @@ public abstract class LanguageInfo
      */
     public abstract String getJarBaseName();
 
+
     /**
      * Gets the help set name.
      * 
@@ -314,12 +323,14 @@ public abstract class LanguageInfo
      */
     public abstract String getHelpSetName();
 
+
     /**
      * Gets the langauge config file.
      * 
      * @return the langauge config file
      */
     public abstract String getLangaugeConfigFile();
+
 
     /**
      * Gets the selected language.
@@ -331,6 +342,7 @@ public abstract class LanguageInfo
         return this.selected_language;
     }
 
+
     /**
      * Sets the selected language.
      * 
@@ -340,6 +352,7 @@ public abstract class LanguageInfo
     {
         this.selected_language = lang;
     }
+
 
     // public
 
@@ -353,6 +366,7 @@ public abstract class LanguageInfo
         return this.available_languages.get(this.selected_language).locale;
     }
 
+
     /**
      * Gets the language root.
      * 
@@ -363,4 +377,35 @@ public abstract class LanguageInfo
         return this.lang_root;
     }
 
+
+    public int getSelectedIndex()
+    {
+        for (int i = 0; i < this.availableLang.length; i++)
+        {
+            if (this.availableLang[i].equals(this.selected_language))
+            {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+
+    public void setSelectedIndex(int index)
+    {
+        // FIXME
+        // this.selected_language = this.availableLang[index];
+        //
+        //
+        // for (int i = 0; i < this.availableLang.length; i++)
+        // {
+        // if (this.availableLang[i].equals(this.selected_language))
+        // {
+        // return i;
+        // }
+        // }
+        //
+        // return 0;
+    }
 }

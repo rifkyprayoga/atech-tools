@@ -1,9 +1,6 @@
 package com.atech.app;
 
-import java.awt.Dimension;
-import java.awt.Event;
-import java.awt.Font;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,11 +8,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
 
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 
 import com.atech.db.cfg.DbConfig;
 import com.atech.db.hibernate.HibernateDb;
@@ -39,6 +32,7 @@ import com.atech.utils.file.ClassFinder;
 
 public abstract class AbstractApplicationContext implements ActionListener
 {
+
     public Dimension app_size = null;
     public Dimension app_min_size = new Dimension(800, 600);
     public Point app_location = null;
@@ -79,9 +73,10 @@ public abstract class AbstractApplicationContext implements ActionListener
     public Hashtable<Integer, Integer> splash_progress = new Hashtable<Integer, Integer>();
 
     /**
-     * The backup_restore_collection.
+     * The backupRestoreCollection.
      */
     protected BackupRestoreCollection backup_restore_collection = null;
+
 
     /**
      * Constructor
@@ -98,6 +93,7 @@ public abstract class AbstractApplicationContext implements ActionListener
 
     }
 
+
     /**
      * Constructor
      * 
@@ -112,6 +108,7 @@ public abstract class AbstractApplicationContext implements ActionListener
         initContext();
     }
 
+
     private void initSplashContext()
     {
         this.splash_progress.put(1, 5);
@@ -124,6 +121,7 @@ public abstract class AbstractApplicationContext implements ActionListener
         this.splash_progress.put(8, 90);
         this.splash_progress.put(9, 95);
     }
+
 
     /**
      * Set Frame
@@ -145,6 +143,7 @@ public abstract class AbstractApplicationContext implements ActionListener
 
     }
 
+
     /**
      * Get Frame
      * 
@@ -155,10 +154,12 @@ public abstract class AbstractApplicationContext implements ActionListener
         return this.frame;
     }
 
+
     /**
      * Init Context
      */
     public abstract void initContext();
+
 
     public void discoverPlugins()
     {
@@ -179,17 +180,21 @@ public abstract class AbstractApplicationContext implements ActionListener
 
     }
 
+
     public void setDemoMode(boolean demo)
     {
         this.is_demo = demo;
     }
 
+
     public abstract void initMenus();
+
 
     public void actionPerformed(ActionEvent ae)
     {
         actionRunner(ae);
     }
+
 
     public DbToolApplicationAbstract getDbToolApplication()
     {
@@ -201,7 +206,9 @@ public abstract class AbstractApplicationContext implements ActionListener
         return this.dbtool_app;
     }
 
+
     public abstract void loadDbToolApplication();
+
 
     /**
      * Has Splash Screen
@@ -210,15 +217,18 @@ public abstract class AbstractApplicationContext implements ActionListener
      */
     public abstract boolean hasSplashScreen();
 
+
     /**
      * Init Splash Screen
      */
     public abstract void initSplashScreen();
 
+
     /**
      * Dispose Splash Screen
      */
     public abstract void disposeSplashScreen();
+
 
     public void setSplashProgress(boolean custom, int param_id, String description)
     {
@@ -239,9 +249,12 @@ public abstract class AbstractApplicationContext implements ActionListener
         }
     }
 
+
     public abstract void setInternalSplashProgress(int progress, String description);
 
+
     public abstract SplashAbstract getSplashAbstractObject();
+
 
     public void initDataAccess()
     {
@@ -255,20 +268,27 @@ public abstract class AbstractApplicationContext implements ActionListener
         this.menus = new Hashtable<String, JMenu>();
     }
 
+
     public ATDataAccessLMAbstract getDataAccess()
     {
         return this.data_access;
     }
 
+
     public abstract void initAppSpecific();
+
 
     public abstract void initAppGUI();
 
+
     public abstract void createMenus();
+
 
     public abstract void createToolBar();
 
+
     public abstract String getTitle();
+
 
     public void setLoadingStatus(int status)
     {
@@ -276,13 +296,17 @@ public abstract class AbstractApplicationContext implements ActionListener
         this.setToolbarByDbLoad(status);
     }
 
+
     public void specialRestoreInit()
     {
     }
 
+
     public abstract BackupRestoreRunner getBackupRestoreRunner(int action);
 
+
     public abstract void loadBackupCollection();
+
 
     public BackupRestoreCollection getBackupRestoreCollection()
     {
@@ -294,6 +318,7 @@ public abstract class AbstractApplicationContext implements ActionListener
         return this.backup_restore_collection;
     }
 
+
     // public abstract String getSpecialRestoreParameter();
 
     /**
@@ -303,12 +328,14 @@ public abstract class AbstractApplicationContext implements ActionListener
      */
     public abstract void setMenusByDbLoad(int status);
 
+
     /**
      * Set Toolbar by Db Load
      * 
      * @param status
      */
     public abstract void setToolbarByDbLoad(int status);
+
 
     public I18nControlAbstract getI18nControl()
     {
@@ -320,21 +347,27 @@ public abstract class AbstractApplicationContext implements ActionListener
         return this.data_access.getI18nControlInstance();
     }
 
+
     public abstract void initDb();
 
+
     public abstract HibernateDb getDb();
+
 
     public Dimension getInitialSize()
     {
         return this.app_size;
     }
 
+
     // public ATDataAccessLMAbstract(LanguageManager lm, I18nControlRunner icr)
     public abstract LanguageManager getLanguageManager();
+
 
     public abstract I18nControlRunner getI18nControlRunner();
 
     public static Font menu_font = null;
+
 
     protected JMenu createMenu(String name, String tool_tip)
     {
@@ -360,6 +393,7 @@ public abstract class AbstractApplicationContext implements ActionListener
         return item;
     }
 
+
     protected JMenu createMenu(JMenu parent, String name, String tool_tip)
     {
         JMenu item = new JMenu(m_ic.getMessageWithoutMnemonic(name));
@@ -382,6 +416,7 @@ public abstract class AbstractApplicationContext implements ActionListener
         return item;
     }
 
+
     protected JMenuItem createMenuItem(JMenu menu_parent, DynMenuItem dmi)
     {
         // JMenu menu, String name, String tip, String action_command, String
@@ -393,11 +428,13 @@ public abstract class AbstractApplicationContext implements ActionListener
             dmi.getKeyword(), dmi.getMinLevel(), dmi.getProcess(), dmi.getActionListener());
     }
 
+
     protected JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, String icon_small,
             String keyword, int min_level, boolean process)
     {
         return createMenuItem(menu, name, tip, action_command, icon_small, keyword, min_level, process, this);
     }
+
 
     protected JMenuItem createMenuItem(JMenu menu, String name, String tip, String action_command, String icon_small,
             String keyword, int min_level, boolean process, ActionListener al)
@@ -450,12 +487,15 @@ public abstract class AbstractApplicationContext implements ActionListener
 
     }
 
+
     public boolean isHelpEnabled()
     {
         return help_enabled;
     }
 
+
     public abstract void actionRunner(ActionEvent ae);
+
 
     public JPanel getMainPanel()
     {
@@ -465,12 +505,15 @@ public abstract class AbstractApplicationContext implements ActionListener
             return this.createMainPanel();
     }
 
+
     public abstract JPanel createMainPanel();
+
 
     public CustomDataAccess getCustomDataAccess()
     {
         return this.custom_da;
     }
+
 
     /**
      * Get Users
@@ -482,9 +525,12 @@ public abstract class AbstractApplicationContext implements ActionListener
         return new ArrayList<User>();
     }
 
+
     public abstract void quitApplication();
 
+
     public abstract void loadHelpKeywords();
+
 
     public String getHelpKeyword(String key, String not_found_default)
     {
@@ -493,6 +539,7 @@ public abstract class AbstractApplicationContext implements ActionListener
         else
             return not_found_default;
     }
+
 
     public abstract void loadPlugIns();
 

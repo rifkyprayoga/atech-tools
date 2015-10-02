@@ -2,13 +2,13 @@ package com.atech.graphics.components;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 
-import javax.swing.JFormattedTextField;
+import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
-
-import com.atech.utils.ATDataAccessAbstract;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -46,6 +46,9 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
 
     private static final long serialVersionUID = -742112156331004021L;
 
+    public static String decimalSeparator;
+
+
     /**
      * Instantiates a new j decimal text field.
      * 
@@ -66,6 +69,8 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
         editFormat.setMinimumFractionDigits(0);
         editFormat.setMaximumFractionDigits(decimal_places);
 
+        createDecimalSeparatorInstance();
+
         // new JFormatedTextField()
 
         // JFormattedTextField ftf = new JFormattedTextField(
@@ -77,6 +82,18 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
         this.addKeyListener(this);
 
     }
+
+
+    private void createDecimalSeparatorInstance()
+    {
+        if (decimalSeparator == null)
+        {
+            DecimalFormatSymbols dfs = new DecimalFormat().getDecimalFormatSymbols();
+            char real_decimal = dfs.getDecimalSeparator();
+            decimalSeparator = (new Character(real_decimal)).toString();
+        }
+    }
+
 
     /**
      * Gets the current value.
@@ -95,6 +112,7 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
         return this.getValue();
     }
 
+
     /** 
      * setBounds
      */
@@ -104,12 +122,14 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
         super.setBounds(x, y, width, height);
     }
 
+
     /** 
      * keyPressed
      */
     public void keyPressed(KeyEvent arg0)
     {
     }
+
 
     /** 
      * keyReleased
@@ -120,10 +140,11 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
                 || ke.getKeyCode() == KeyEvent.VK_COMMA)
         {
             String s = this.getText();
-            s = s.replace(ATDataAccessAbstract.false_decimal, ATDataAccessAbstract.real_decimal);
+            s = s.replace(".", decimalSeparator);
             this.setText(s);
         }
     }
+
 
     /** 
      * keyTyped

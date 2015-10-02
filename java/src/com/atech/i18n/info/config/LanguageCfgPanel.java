@@ -319,7 +319,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
 
         cb_DBs = new JComboBox(langInfo.availableLang);
         cb_DBs.setBounds(40, 280, 300, 25);
-        cb_DBs.setSelectedIndex(m_da.getSelectedLangIndex() - 1);
+        cb_DBs.setSelectedIndex(langInfo.getSelectedIndex() - 1);
         cb_DBs.setFont(font_normal);
         cb_DBs.addItemListener(this);
         cb_DBs.setActionCommand("select_lang");
@@ -375,10 +375,23 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
             // int num = Integer.parseInt(item.substring(0,1));
             num++;
 
-            if (m_da.getSelectedLangIndex() != num)
+            // // FIXME might not work
+            // if
+            // (!m_da.getLanguageInfo().getSelectedLanguage().equals(cb.getSelectedItem()))
+            // {
+            // m_da.getLanguageInfo().setSelectedLanguage((String)
+            // cb.getSelectedItem());
+            // }
+
+            if (this.langInfo.getSelectedIndex() != num)
             {
-                m_da.setSelectedLangIndex(num);
+                this.langInfo.setSelectedIndex(num);
             }
+
+            // if (m_da.getSelectedLangIndex() != num)
+            // {
+            // m_da.setSelectedLangIndex(num);
+            // }
         }
 
         // select_lang

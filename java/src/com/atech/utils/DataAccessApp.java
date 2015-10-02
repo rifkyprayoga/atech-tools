@@ -2,7 +2,9 @@ package com.atech.utils;
 
 import java.awt.*;
 import java.io.FileInputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Properties;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -207,7 +209,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         this.hib_db = aac.getDb();
 
         // aac.loadBackupCollection();
-        // this.backup_restore_collection = aac.getBackupRestoreCollection();
+        // this.backupRestoreCollection = aac.getBackupRestoreCollection();
 
         // this.m_app_context = aac;
 
@@ -832,98 +834,6 @@ public class DataAccessApp extends ATDataAccessLMAbstract
      */
     public static final int DATE_TIME_ATECH_TIME = 3;
 
-
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getATDateTimeFromGC(java.util.
-     * GregorianCalendar, int)
-     */
-    @Override
-    public long getATDateTimeFromGC(GregorianCalendar gc, int type)
-    {
-        long dt = 0L;
-
-        if (type == DATE_TIME_ATECH_DATETIME)
-        {
-            dt += gc.get(Calendar.YEAR) * 100000000L;
-            dt += (gc.get(Calendar.MONTH) + 1) * 1000000L;
-            dt += gc.get(Calendar.DAY_OF_MONTH) * 10000L;
-            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(Calendar.MINUTE);
-        }
-        else if (type == DATE_TIME_ATECH_DATE)
-        {
-            dt += gc.get(Calendar.YEAR) * 10000L;
-            dt += (gc.get(Calendar.MONTH) + 1) * 100L;
-            dt += gc.get(Calendar.DAY_OF_MONTH);
-        }
-        else if (type == DATE_TIME_ATECH_TIME)
-        {
-            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(Calendar.MINUTE);
-        }
-
-        return dt;
-    }
-
-
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getATDateTimeFromParts(int,
-     * int, int, int, int, int)
-     */
-    @Override
-    public long getATDateTimeFromParts(int day, int month, int year, int hour, int minute, int type)
-    {
-        long dt = 0L;
-
-        if (type == DATE_TIME_ATECH_DATETIME)
-        {
-            dt += year * 100000000L;
-            dt += month * 1000000L;
-            dt += day * 10000L;
-            dt += hour * 100L;
-            dt += minute;
-        }
-        else if (type == DATE_TIME_ATECH_DATE)
-        {
-            dt += year * 10000L;
-            dt += month * 100L;
-            dt += day;
-        }
-        else if (type == DATE_TIME_ATECH_TIME)
-        {
-            dt += hour * 100L;
-            dt += minute;
-        }
-
-        return dt;
-    }
-
-
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getDateFromATDate(long)
-     */
-    @Override
-    public long getDateFromATDate(long data)
-    {
-        // 200701011222
-        int d2 = (int) (data / 10000);
-
-        // long dd = data%10000;
-        // data -= dd;
-
-        // System.out.println("D2: " +d2);
-
-        // System.out.println(data);
-        return d2;
-    }
-
-    // ret_type = 1 (Date and time)
-    // ret_type = 2 (Date)
-    // ret_type = 3 (Time)
-
     /**
      * The Constant DT_DATETIME.
      */
@@ -940,51 +850,6 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     public final static int DT_TIME = 3;
 
 
-    /**
-     * Gets the gC object from date time long.
-     * 
-     * @param dt the dt
-     * 
-     * @return the gC object from date time long
-     */
-    public String getGCObjectFromDateTimeLong(long dt)
-    {
-
-        int y = (int) (dt / 100000000L);
-        dt -= y * 100000000L;
-
-        int m = (int) (dt / 1000000L);
-        dt -= m * 1000000L;
-
-        int d = (int) (dt / 10000L);
-        dt -= d * 10000L;
-
-        int h = (int) (dt / 100L);
-        dt -= h * 100L;
-
-        // int min = (int)dt;
-
-        // GregorianCalendar gc1 = new GregorianCalendar();
-        // gc1.set(GregorianCalendar.
-
-        return null;
-
-    }
-
-
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getDateTimeString(int, int)
-     */
-    @Override
-    public String getDateTimeString(int date, int time)
-    {
-
-        return getDateString(date) + " " + getTimeString(time);
-
-    }
-
-
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#getStartYear()
@@ -997,31 +862,6 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     }
 
     /**
-     * The Constant USER_NORMAL.
-     */
-    public static final int USER_GUEST = 1;
-
-    /**
-     * The Constant USER_NORMAL.
-     */
-    public static final int USER_NORMAL = 2;
-
-    /**
-     * The Constant USER_WORKER.
-     */
-    public static final int USER_WORKER = 3;
-
-    /**
-     * The Constant USER_ADMINISTRATOR.
-     */
-    public static final int USER_ADMINISTRATOR = 4;
-
-    /**
-     * The Constant USER_SUPERADMINISTRATOR.
-     */
-    public static final int USER_SUPERADMINISTRATOR = 5;
-
-    /**
      * The user_type.
      */
     public int user_type = 3;
@@ -1031,16 +871,6 @@ public class DataAccessApp extends ATDataAccessLMAbstract
      */
     public String[] userTypes = null;
 
-
-    /*
-     * {
-     * m_i18n.getMessage("SELECT"),
-     * m_i18n.getMessage("USER_NORMAL"),
-     * m_i18n.getMessage("USER_WORKER"),
-     * m_i18n.getMessage("USER_ADMINISTRATOR"),
-     * m_i18n.getMessage("USER_SUPERADMIN"),
-     * };
-     */
 
     /*
      * public int authorizeUser(String username, String password)
@@ -1173,51 +1003,21 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     }
 
 
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#loadBackupRestoreCollection()
-     */
     @Override
     public void loadBackupRestoreCollection()
     {
-        // TODO Auto-generated method stub
-
     }
 
 
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#loadGraphConfigProperties()
-     */
     @Override
     public void loadGraphConfigProperties()
     {
-        // TODO Auto-generated method stub
-
     }
 
 
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#loadSpecialParameters()
-     */
     @Override
     public void loadSpecialParameters()
     {
-        // TODO Auto-generated method stub
-
-    }
-
-
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#setSelectedLangIndex(int)
-     */
-    @Override
-    public void setSelectedLangIndex(int index)
-    {
-        // TODO Auto-generated method stub
-
     }
 
 
@@ -1242,18 +1042,6 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     public int getMaxDecimalsUsedByDecimalHandler()
     {
         return 2;
-    }
-
-
-    /*
-     * (non-Javadoc)
-     * @see com.atech.utils.ATDataAccessAbstract#getSelectedLangIndex()
-     */
-    @Override
-    public int getSelectedLangIndex()
-    {
-        // TODO Auto-generated method stub
-        return 0;
     }
 
 

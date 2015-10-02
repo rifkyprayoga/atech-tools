@@ -90,6 +90,7 @@ public class DataAccessTT extends ATDataAccessAbstract
 
     public UnicodeUtils unicode_utils = new UnicodeUtils();
 
+
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
@@ -110,13 +111,13 @@ public class DataAccessTT extends ATDataAccessAbstract
         // m_db = db;
         // loadConfig();
 
-
         // m_dataDefs = new DatabaseDefinitions();
         // m_databases_treeroot = new DbToolTreeRoot(this);
 
         // loadApplicationData();
 
     }
+
 
     // Method: getInstance
     // Author: Andy
@@ -139,6 +140,7 @@ public class DataAccessTT extends ATDataAccessAbstract
         return s_da;
     }
 
+
     /**
      * Creates the instance.
      * 
@@ -157,6 +159,7 @@ public class DataAccessTT extends ATDataAccessAbstract
         return s_da;
     }
 
+
     // Method: deleteInstance
     /**
      * This method sets handle to DataAccess to null and deletes the instance.
@@ -169,11 +172,10 @@ public class DataAccessTT extends ATDataAccessAbstract
         DataAccessTT.s_da = null;
     }
 
+
     // ********************************************************
     // ****** Fonts *****
     // ********************************************************
-
-
 
     // ********************************************************
     // ****** Parent handling (for UIs) *****
@@ -188,6 +190,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
         m_main = main;
     }
+
 
     /*
      * public Component getParent()
@@ -228,8 +231,6 @@ public class DataAccessTT extends ATDataAccessAbstract
     // ****** Languages *****
     // ********************************************************
 
-
-
     /**
      * Not implemented.
      * 
@@ -239,6 +240,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
         System.out.println("Not Implemented: " + source);
     }
+
 
     // ---
     // --- Array Utils
@@ -263,6 +265,7 @@ public class DataAccessTT extends ATDataAccessAbstract
         return al;
     }
 
+
     /** 
      * checkPrerequisites
      */
@@ -272,6 +275,7 @@ public class DataAccessTT extends ATDataAccessAbstract
         // TODO Auto-generated method stub
 
     }
+
 
     /** 
      * getApplicationName
@@ -283,6 +287,7 @@ public class DataAccessTT extends ATDataAccessAbstract
         return null;
     }
 
+
     /** 
      * getHibernateDb
      */
@@ -291,6 +296,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
         return null;
     }
+
 
     /** 
      * getImagesRoot
@@ -301,6 +307,7 @@ public class DataAccessTT extends ATDataAccessAbstract
         return "/icons/simple_translation_tool/";
     }
 
+
     /** 
      * initSpecial
      */
@@ -308,6 +315,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     public void initSpecial()
     {
     }
+
 
     /** 
      * loadBackupRestoreCollection
@@ -317,6 +325,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
     }
 
+
     /** 
      * loadGraphConfigProperties
      */
@@ -324,6 +333,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     public void loadGraphConfigProperties()
     {
     }
+
 
     /**
      * Load Special Parameters
@@ -335,6 +345,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
     }
 
+
     /**
      * This method is intended to load additional Language info. Either special langauge configuration
      * or special data required for real Locale handling.
@@ -344,24 +355,6 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
     }
 
-    /** 
-     * getSelectedLangIndex
-     */
-    @Override
-    public int getSelectedLangIndex()
-    {
-        return 0;
-    }
-
-    /** 
-     * setSelectedLangIndex
-     */
-    @Override
-    public void setSelectedLangIndex(int index)
-    {
-        // TODO Auto-generated method stub
-
-    }
 
     /** 
      * loadPlugIns
@@ -371,12 +364,14 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
     }
 
+
     /**
     * Start db.
     */
     public void startDb()
     {
     }
+
 
     /**
      * Gets the translation data.
@@ -387,6 +382,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
         return translation_data;
     }
+
 
     /**
      * Gets the translation configuration.
@@ -400,6 +396,7 @@ public class DataAccessTT extends ATDataAccessAbstract
 
     private boolean is_master_file_master_file;
 
+
     /**
      * Is Master File really master file
      * 
@@ -410,6 +407,7 @@ public class DataAccessTT extends ATDataAccessAbstract
         return this.is_master_file_master_file;
     }
 
+
     /**
      * Set is Master File really master file
      * 
@@ -419,6 +417,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     {
         this.is_master_file_master_file = val;
     }
+
 
     /**
      * Get Max Decimals that will be used by DecimalHandler

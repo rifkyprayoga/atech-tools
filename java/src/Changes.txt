@@ -10,6 +10,8 @@ See Authors for more description on developers
    - working on SelectableInterface (+V2), Selector dialog
    - ZeroLayout2 added (started working on it)
    - added methods for string/stringbuilder concatenation
+   - changes after ATDataAccess refactoring
+   - changes to ATechDate object (added enum and some refactoring)
 
 
 0.7.12 - Andy [for GGC 0.6]

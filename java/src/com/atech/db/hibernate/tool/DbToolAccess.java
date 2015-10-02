@@ -805,28 +805,6 @@ public class DbToolAccess extends ATDataAccessAbstract
 
 
     /** 
-     * getSelectedLangIndex
-     */
-    @Override
-    public int getSelectedLangIndex()
-    {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-
-    /** 
-     * setSelectedLangIndex
-     */
-    @Override
-    public void setSelectedLangIndex(int index)
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-
-    /** 
      * loadPlugIns
      */
     @Override

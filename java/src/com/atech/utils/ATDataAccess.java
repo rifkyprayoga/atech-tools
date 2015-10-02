@@ -1,8 +1,6 @@
 package com.atech.utils;
 
 import java.awt.*;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Hashtable;
 
 import javax.swing.*;
@@ -45,11 +43,6 @@ import com.atech.db.hibernate.HibernateDb;
 public class ATDataAccess extends ATDataAccessAbstract
 {
 
-    // LF
-    // Hashtable<String,String> availableLF_full = null;
-    // Object[] availableLF = null;
-    // Object[] availableLang = null;
-
     /*
      * checkPrerequisites
      */
@@ -63,6 +56,7 @@ public class ATDataAccess extends ATDataAccessAbstract
 
     }
 
+
     /** 
      * getApplicationName
      */
@@ -72,6 +66,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         return "Atech-Tools";
     }
 
+
     /** 
      * getImagesRoot
      */
@@ -80,6 +75,7 @@ public class ATDataAccess extends ATDataAccessAbstract
     {
         return "/icons/";
     }
+
 
     /** 
      * loadBackupRestoreCollection
@@ -239,6 +235,7 @@ public class ATDataAccess extends ATDataAccessAbstract
     // m_i18n.getMessage("WEB_CONFIG")
     };
 
+
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
@@ -256,6 +253,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         super(ATI18nControl.getInstance());
     }
 
+
     /** 
      * initSpecial
      */
@@ -264,6 +262,7 @@ public class ATDataAccess extends ATDataAccessAbstract
     {
         loadColors();
     }
+
 
     // Method: getInstance
     // Author: Andy
@@ -284,6 +283,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         return m_da;
     }
 
+
     /** 
      * getHibernateDb
      */
@@ -292,6 +292,7 @@ public class ATDataAccess extends ATDataAccessAbstract
     {
         return null;
     }
+
 
     // Method: deleteInstance
     /**
@@ -303,6 +304,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         m_i18n = null;
 
     }
+
 
     // ********************************************************
     // ****** Database Loading Status *****
@@ -317,6 +319,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         this.db_loading_status = status;
     }
 
+
     /** 
      * getDbLoadingStatus
      */
@@ -325,6 +328,7 @@ public class ATDataAccess extends ATDataAccessAbstract
     {
         return this.db_loading_status;
     }
+
 
     /** 
      * isDbLoadedForStatus
@@ -337,6 +341,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         else
             return false;
     }
+
 
     // ********************************************************
     // ****** Demo stuff *****
@@ -353,6 +358,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         return this.m_dialog;
     }
 
+
     /** 
      * setOpenedDialog
      */
@@ -362,6 +368,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         this.m_dialog = dialog;
     }
 
+
     // ********************************************************
     // ****** Help stuff *****
     // ********************************************************
@@ -370,34 +377,9 @@ public class ATDataAccess extends ATDataAccessAbstract
     // ****** Fonts *****
     // ********************************************************
 
-
-
     // ********************************************************
     // ****** Parent handling (for UIs) *****
     // ********************************************************
-
-    /*
-     * private void loadIcons()
-     * {
-     * config_icons = new ImageIcon[7];
-     * config_icons[0] = new ImageIcon(getImage("/images/cfg_db.gif", m_main));
-     * config_icons[1] = new ImageIcon(getImage("/images/cfg_look.gif",
-     * m_main));
-     * config_icons[2] = new ImageIcon(getImage("/images/cfg_myparish.gif",
-     * m_main));
-     * config_icons[3] = new ImageIcon(getImage("/images/cfg_masses.gif",
-     * m_main));
-     * config_icons[4] = new ImageIcon(getImage("/images/cfg_users.gif",
-     * m_main));
-     * config_icons[5] = new ImageIcon(getImage("/images/cfg_lang.gif",
-     * m_main));
-     * config_icons[6] = null;
-     * }
-     */
-
-    // public ImageIcon getImageIcon(String image)
-
-
 
     /** 
      * setParent
@@ -408,6 +390,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         this.parent = component;
     }
 
+
     /** 
      * getParent
      */
@@ -417,6 +400,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         return this.parent;
     }
 
+
     // ********************************************************
     // ****** Sorting algorithms *****
     // ********************************************************
@@ -425,87 +409,9 @@ public class ATDataAccess extends ATDataAccessAbstract
     // ****** GUI *****
     // ********************************************************
 
-    /*
-     * public void centerJDialog(JDialog dialog, Container parent)
-     * {
-     * if (parent instanceof JDialog)
-     * {
-     * centerJDialog(dialog, parent);
-     * }
-     * else
-     * System.out.println("CenterJDialog failed");
-     * }
-     * public void centerJDialog(JDialog dialog, JComponent parent)
-     * {
-     * //System.out.println("centerJDialog: " );
-     * Rectangle rec = parent.getBounds();
-     * int x = rec.width/2;
-     * x += (rec.x);
-     * int y = rec.height/2;
-     * y += rec.y;
-     * x -= (dialog.getBounds().width/2);
-     * y -= (dialog.getBounds().height/2);
-     * dialog.getBounds().x = x;
-     * dialog.getBounds().y = y;
-     * dialog.setBounds(x, y, dialog.getBounds().width,
-     * dialog.getBounds().height);
-     * }
-     */
-
     // ********************************************************
     // ****** Look and Feel *****
     // ********************************************************
-
-    /*
-     * public void loadAvailableLFs()
-     * {
-     * availableLF_full = new Hashtable<String,String>();
-     * UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
-     * availableLF = new Object[info.length+1];
-     * //ring selectedLF = null;
-     * //String subSelectedLF = null;
-     * int i;
-     * for (i=0; i<info.length; i++)
-     * {
-     * String name = info[i].getName();
-     * String className = info[i].getClassName();
-     * availableLF_full.put(name, className);
-     * availableLF[i] = name;
-     * //System.out.println(humanReadableName);
-     * }
-     * availableLF_full.put("SkinLF",
-     * "com.l2fprod.gui.plaf.skin.SkinLookAndFeel");
-     * availableLF[i] = "SkinLF";
-     * }
-     */
-
-    /*
-     * public Object[] getAvailableLFs()
-     * {
-     * return this.m_config_file.getAvailableLFs();
-     * //return availableLF;
-     * }
-     * public static String[] getLFData()
-     * {
-     * String out[] = new String[2];
-     * try
-     * {
-     * Properties props = new Properties();
-     * FileInputStream in = new
-     * FileInputStream("../data/PIS_Config.properties");
-     * props.load(in);
-     * out[0] = (String)props.get("LF_CLASS");
-     * out[1] = (String)props.get("SKINLF_SELECTED");
-     * return out;
-     * }
-     * catch(Exception ex)
-     * {
-     * System.out.println("DataAccess::getLFData::Exception> " + ex);
-     * ex.printStackTrace();
-     * return null;
-     * }
-     * }
-     */
 
     // ********************************************************
     // ****** Colors *****
@@ -525,6 +431,7 @@ public class ATDataAccess extends ATDataAccessAbstract
 
         this.border_line = new LineBorder(this.color_foreground);
     }
+
 
     // ********************************************************
     // ****** Languages *****
@@ -598,8 +505,6 @@ public class ATDataAccess extends ATDataAccessAbstract
      * return 0;
      */
     // }
-
-
 
     /*
      * public void loadComboOptions()
@@ -691,86 +596,6 @@ public class ATDataAccess extends ATDataAccessAbstract
      * }
      */
 
-    /** 
-     * getATDateTimeFromGC
-     */
-    @Override
-    public long getATDateTimeFromGC(GregorianCalendar gc, int type)
-    {
-        long dt = 0L;
-
-        if (type == DATE_TIME_ATECH_DATETIME)
-        {
-            dt += gc.get(Calendar.YEAR) * 100000000L;
-            dt += (gc.get(Calendar.MONTH) + 1) * 1000000L;
-            dt += gc.get(Calendar.DAY_OF_MONTH) * 10000L;
-            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(Calendar.MINUTE);
-        }
-        else if (type == DATE_TIME_ATECH_DATE)
-        {
-            dt += gc.get(Calendar.YEAR) * 10000L;
-            dt += (gc.get(Calendar.MONTH) + 1) * 100L;
-            dt += gc.get(Calendar.DAY_OF_MONTH);
-        }
-        else if (type == DATE_TIME_ATECH_TIME)
-        {
-            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(Calendar.MINUTE);
-        }
-
-        return dt;
-    }
-
-    /** 
-     * getATDateTimeFromParts
-     */
-    @Override
-    public long getATDateTimeFromParts(int day, int month, int year, int hour, int minute, int type)
-    {
-        long dt = 0L;
-
-        if (type == DATE_TIME_ATECH_DATETIME)
-        {
-            dt += year * 100000000L;
-            dt += month * 1000000L;
-            dt += day * 10000L;
-            dt += hour * 100L;
-            dt += minute;
-        }
-        else if (type == DATE_TIME_ATECH_DATE)
-        {
-            dt += year * 10000L;
-            dt += month * 100L;
-            dt += day;
-        }
-        else if (type == DATE_TIME_ATECH_TIME)
-        {
-            dt += hour * 100L;
-            dt += minute;
-        }
-
-        return dt;
-    }
-
-    /** 
-     * getDateFromATDate
-     */
-    @Override
-    public long getDateFromATDate(long data)
-    {
-        // 200701011222
-        int d2 = (int) (data / 10000);
-
-        // long dd = data%10000;
-        // data -= dd;
-
-        // System.out.println("D2: " +d2);
-
-        // System.out.println(data);
-        return d2;
-    }
-
     /*
      * public String getGCObjectFromDateTimeLong(long dt)
      * {
@@ -790,17 +615,6 @@ public class ATDataAccess extends ATDataAccessAbstract
      */
 
     /** 
-    * getDateTimeString
-    */
-    @Override
-    public String getDateTimeString(int date, int time)
-    {
-
-        return getDateString(date) + " " + getTimeString(time);
-
-    }
-
-    /** 
      * getStartYear
      */
     @Override
@@ -809,6 +623,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         // FIX set in Db
         return 1800;
     }
+
 
     /**
      * Gets the gender combo.
@@ -835,6 +650,7 @@ public class ATDataAccess extends ATDataAccessAbstract
     public String[] userTypes = { m_i18n.getMessage("SELECT"), m_i18n.getMessage("USER_NORMAL"),
                                  m_i18n.getMessage("USER_WORKER"), m_i18n.getMessage("USER_ADMINISTRATOR"),
                                  m_i18n.getMessage("USER_SUPERADMIN"), };
+
 
     /*
      * public int authorizeUser(String username, String password)
@@ -864,6 +680,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         // source);
     }
 
+
     /**
      * Not implemented.
      * 
@@ -875,6 +692,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         System.out.println("Not Implemented: " + source);
         JOptionPane.showMessageDialog(parent, "Not Implemented: \n" + source);
     }
+
 
     /**
      * Checks if is found.
@@ -892,6 +710,7 @@ public class ATDataAccess extends ATDataAccessAbstract
 
         return text.trim().indexOf(search_str.trim()) != -1;
     }
+
 
     /*
      * public static void main(String args[])
@@ -913,6 +732,7 @@ public class ATDataAccess extends ATDataAccessAbstract
 
     }
 
+
     /** 
      * loadSpecialParameters
      */
@@ -922,6 +742,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         // TODO Auto-generated method stub
 
     }
+
 
     /**
      * This method is intended to load additional Language info. Either special langauge configuration
@@ -933,25 +754,6 @@ public class ATDataAccess extends ATDataAccessAbstract
         // TODO Auto-generated method stub
     }
 
-    /** 
-     * getSelectedLangIndex
-     */
-    @Override
-    public int getSelectedLangIndex()
-    {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    /** 
-     * setSelectedLangIndex
-     */
-    @Override
-    public void setSelectedLangIndex(int index)
-    {
-        // TODO Auto-generated method stub
-
-    }
 
     /** 
      * loadPlugIns
@@ -962,6 +764,7 @@ public class ATDataAccess extends ATDataAccessAbstract
         // TODO Auto-generated method stub
 
     }
+
 
     /**
      * Get Max Decimals that will be used by DecimalHandler
