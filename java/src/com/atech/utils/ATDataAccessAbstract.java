@@ -4,7 +4,9 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.text.*;
+import java.text.Collator;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
@@ -14,6 +16,8 @@ import javax.swing.plaf.ColorUIResource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 import com.atech.db.ext.ExtendedHandler;
 import com.atech.db.hibernate.HibernateDb;
@@ -34,12 +38,12 @@ import com.atech.update.config.UpdateConfiguration;
 import com.atech.utils.data.CodeEnumWithTranslation;
 import com.atech.utils.data.ExceptionHandling;
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  ATDataAccessAbstract - This is main class for most of data handling, with lot of
+ *      util methods
+ *  Copyright (C) 2007-2015  Andy (Aleksander) Rozman (Atech-Software)
  *
  *
  *  This library is free software; you can redistribute it and/or
@@ -68,56 +72,13 @@ import com.atech.utils.data.ExceptionHandling;
 public abstract class ATDataAccessAbstract
 {
 
-    /**
-     * The Constant DATE_TIME_ATECH_DATETIME.
-     */
-    public static final int DATE_TIME_ATECH_DATETIME = 1;
-    /**
-     * The Constant DATE_TIME_ATECH_DATE.
-     */
-    public static final int DATE_TIME_ATECH_DATE = 2;
-    /**
-     * The Constant DATE_TIME_ATECH_TIME.
-     */
-    public static final int DATE_TIME_ATECH_TIME = 3;
-    /**
-     * The Constant DT_DATETIME.
-     */
-    public final static int DT_DATETIME = 1;
-    /**
-     * The Constant DT_DATE.
-     */
-    public final static int DT_DATE = 2;
-    /**
-     * The Constant DT_TIME.
-     */
-    public final static int DT_TIME = 3;
-    /**
-     * The Constant GC_COMPARE_DAY.
-     */
+    private static Log log = LogFactory.getLog(ATDataAccessAbstract.class);
+
+    // GC compare
     public static final int GC_COMPARE_DAY = 1;
-    /**
-     * The Constant GC_COMPARE_HOUR.
-     */
     public static final int GC_COMPARE_HOUR = 2;
-    /**
-     * The Constant GC_COMPARE_MINUTE.
-     */
     public static final int GC_COMPARE_MINUTE = 3;
-    /**
-     *
-     */
     public static final int GC_COMPARE_SECOND = 4;
-
-    /**
-     * The selected lf.
-     */
-    // String selectedLF = null;
-
-    /**
-     * The sub selected lf.
-     */
-    // String subSelectedLF = null;
 
     // config file
     public static final int DIALOG_INFO = 1;
@@ -125,294 +86,87 @@ public abstract class ATDataAccessAbstract
     public static final int DIALOG_ERROR = 3;
     public static final int LIST_HT_KEY = 1;
     public static final int LIST_HT_VALUE = 2;
-    /**
-     * The path prefix.
-     */
+
+    // The path prefix.
     public static String pathPrefix = ".";
-    /**
-     * The real_decimal.
-     */
-    public static char real_decimal;
-    /**
-     * The false_decimal.
-     */
-    public static char false_decimal;
-    /**
-     * Contact types
-     */
+
+    // contacts
     public static String contact_types[] = null;
-    /**
-     * Contact Icons
-     */
     public static ImageIcon contact_icons[] = null;
-    // x public Hashtable typesHT = new Hashtable();
-    /**
-     * The days.
-     */
+
+    // days, months
     public static String days[] = new String[7];
-    /**
-     * The days for Gregorian Calendar
-     */
     public static String gcDays[] = new String[7];
     public static String months[] = new String[12];
-    private static Log log = LogFactory.getLog(ATDataAccessAbstract.class);
+    public static String[] options_yes_no = null;
+    // public Object[] typesAll = null;
+    public LineBorder border_line;
 
-    // Configuration icons
-    private static boolean decimals_set;
-    /**
-     * Configuration Context
-     */
+    // Configuration Contexts for Application and other application wide
+    // settings
     public AbstractConfigurationContext configuration_context = null;
     public DbToolApplicationAbstract db_tool_app = null;
+    public Hashtable<String, PlugInClient> plugins;
+    private UpdateConfiguration update_configuration = null;
+    private ExceptionHandling numberParsingExceptionHandling = ExceptionHandling.CATCH_EXCEPTION_WITH_STACK_TRACE;
+    protected LanguageInfo m_lang_info;
+    protected I18nControlAbstract m_i18n = null; // ATI18nControl.getInstance();
+    protected Collator m_collator = null;
+    protected HibernateDb hib_db = null;
+    protected DecimalHandler decimal_handler = null;
+    protected Hashtable<String, ExtendedHandler> extended_handlers = null;
+    protected Hashtable<String, ATechConverter> converters = new Hashtable<String, ATechConverter>();
+    protected Hashtable<String, String> sorters = new Hashtable<String, String>();
+    protected BackupRestoreCollection backupRestoreCollection = null;
+
+    // Application settings
+    public boolean config_loaded = false;
+    protected boolean help_enabled = false;
+    protected int current_db_version = 0;
+    protected boolean developer_mode = false;
+    protected Hashtable<String, String> special_parameters = null;
+    private int db_loading_status = 0;
+
+    // user management
     public String[] user_types = null;
     public long current_user_id;
     public boolean demo_version = false;
-    /**
-     * The m_settings_ht.
-     */
-    public Hashtable<String, String> m_settings_ht = null;
-    /**
-     * The color_background.
-     */
-    public Color color_background;
-    /**
-     * The color_foreground.
-     */
-    public Color color_foreground;
-    /**
-     * The options_yes_no.
-     */
-    public String[] options_yes_no = null;
-    /**
-     * The types all.
-     */
-    public Object[] typesAll = null;
-    // private static HibernateDb m_db_hib;
-    /**
-     * The border_line.
-     */
-    public LineBorder border_line;
-    /**
-     * The plugins.
-     */
-    public Hashtable<String, PlugInClient> plugins;
-    /**
-     * The fonts.
-     */
-    public Font fonts[] = null;
-
-    // public String contact_types[] = null;
-    /**
-     * The main_parent_type.
-     */
-    public int main_parent_type = 1;
-    /**
-     * The config_loaded.
-     */
-    public boolean config_loaded = false;
     protected User logged_user = null;
     protected ArrayList<User> all_users = null;
 
-    // ********************************************************
-    // ****** Constructors and Access methods *****
-    // ********************************************************
+    // misc settings
+    public Hashtable<String, String> m_settings_ht = null;
+    public Color color_background;
+    public Color color_foreground;
 
-    // Constructor: DataAccess
-    protected boolean help_enabled = false;
-    protected int current_db_version = 0;
-    /**
-     * The config_db_values.
-     */
-    protected Hashtable<String, String> config_db_values = null;
-    /**
-     * The m_lang_info.
-     */
-    protected LanguageInfo m_lang_info;
-
-    // Method: getInstance
-    // Author: Andy
-    /**
-     *
-     * This method returns reference to OmniI18nControl object created, or if no
-     * object was created yet, it creates one.<br>
-     * <br>
-     *
-     * @return Reference to OmniI18nControl object
-     *
-     */
-    /*
-     * static public ATDataAccessAbstract getInstance() { if (dataAccess ==
-     * null) dataAccess
-     * = new ATDataAccessAbstract(); return dataAccess; }
-     */
-
-    // Method: deleteInstance
-    /**
-     * This is flag if software is running in developer mode. In this mode there will be for
-     * example visible some menus that regular users don't see (or some other stuff).
-     */
-    protected boolean developer_mode = false;
-    /**
-     * The m_i18n.
-     */
-    protected I18nControlAbstract m_i18n = null; // ATI18nControl.getInstance();
-    /**
-     * The m_collator.
-     */
-    protected Collator m_collator = null;
-
-    // ********************************************************************
-    // ****** Compoment managing *****
-    // ****** (needed to have current window for displaying dialog) *****
-    // ********************************************************************
-    /**
-     * The parent.
-     */
+    // parent and component handling
+    JDialog m_dialog = null;
+    JFrame main_parent = null;
+    private long component_id_last = 0L;
+    protected ArrayList<Component> components = new ArrayList<Component>();
     protected Container parent = null;
-    protected DecimalHandler decimal_handler = null;
-    protected Hashtable<String, ExtendedHandler> extended_handlers = null; // new
-                                                                           // Hashtable<String,
-                                                                           // ExtendedHandler>();
-    protected Hashtable<String, ATechConverter> converters = new Hashtable<String, ATechConverter>();
-    protected Hashtable<String, String> sorters = new Hashtable<String, String>();
+    public int main_parent_type = 1;
+
     /**
-     * The graph_config.
+     * The graph_config. (?)
      */
     protected GraphConfigProperties graph_config = null;
 
-    // ********************************************************
-    // ****** Error handling *****
-    // ********************************************************
     /**
-     * The special_parameters.
+     * Update System v2 (?)
      */
-    protected Hashtable<String, String> special_parameters = null;
-    protected HibernateDb hib_db = null;
-    /**
-     * The components.
-     */
-    protected ArrayList<Component> components = new ArrayList<Component>();
-
-    // ********************************************************
-    // ****** Parent Deep Handling *****
-    // ********************************************************
-    /*
-     * // TODO: Move
-     * public static final int PARENT_FRAME = 1;
-     * public static final int PARENT_DIALOG = 2;
-     * public ArrayList<Container> cnt_list = new ArrayList<Container>();
-     * public void addContainer(Container cont)
-     * {
-     * System.out.println("!!!! addContainer: " + this.cnt_list +
-     * "\nDataAccess: " + this);
-     * this.cnt_list.add(cont);
-     * System.out.println("!!!! addContainer: " + this.cnt_list +
-     * "\nDataAccess: " + this);
-     * }
-     * public void removeContainer(Container cont)
-     * {+
-     * System.out.println("!!!! removeContainer: " + this.cnt_list+
-     * "\nDataAccess: " + this);
-     * this.cnt_list.remove(cont);
-     * System.out.println("!!!! removeContainer: " + this.cnt_list+
-     * "\nDataAccess: " + this);
-     * }
-     * public int getLastContainerType()
-     * {
-     * if ((cnt_list.get(cnt_list.size() - 1)) instanceof JFrame)
-     * {
-     * return ATDataAccessAbstract.PARENT_FRAME;
-     * }
-     * else
-     * return ATDataAccessAbstract.PARENT_DIALOG;
-     * }
-     * public int getLastParentType()
-     * {
-     * if (this.cnt_list.size() < 2)
-     * {
-     * return ATDataAccessAbstract.PARENT_FRAME;
-     * }
-     * else
-     * {
-     * if ((cnt_list.get(cnt_list.size() - 2)) instanceof JFrame)
-     * {
-     * return ATDataAccessAbstract.PARENT_FRAME;
-     * }
-     * else
-     * return ATDataAccessAbstract.PARENT_DIALOG;
-     * }
-     * }
-     * public Container getLastParent()
-     * {
-     * System.out.println("Conatiners: " + this.cnt_list);
-     * if (this.cnt_list.size() == 1)
-     * {
-     * return cnt_list.get(0);
-     * }
-     * if (this.cnt_list.size() < 2)
-     * {
-     * return this.getMainParent();
-     * }
-     * else
-     * {
-     * return (cnt_list.get(cnt_list.size() - 2));
-     * }
-     * }
-     * public JFrame getLastParentFrame()
-     * {
-     * return (JFrame) this.getLastParent();
-     * }
-     * public JDialog getLastParentDialog()
-     * {
-     * return (JDialog) this.getLastParent();
-     * }
-     */
-    // ********************************************************
-    // ****** Application Handling *****
-    // ********************************************************
-    /**
-     * The backup_restore_collection.
-     */
-    protected BackupRestoreCollection backup_restore_collection = null;
-    /**
-     * Update System v2
-     */
-
     protected String app_name = null;
     protected int app_version = 0;
     protected int app_db_version = 0;
-    /**
-     * The main_parent.
-     */
-    JFrame main_parent = null;
-    /**
-     * The help_context.
-     */
+
     HelpContext help_context = null;
-    /**
-     * The m_dialog.
-     */
-    JDialog m_dialog = null;
 
-    // ********************************************************
-    // ****** Help *****
-    // ********************************************************
-    private int db_loading_status = 0;
-    private UpdateConfiguration update_configuration = null;
-    private ExceptionHandling numberParsingExceptionHandling = ExceptionHandling.CATCH_EXCEPTION_WITH_STACK_TRACE;
-    private long component_id_last = 0L;
-
-
-    // ********************************************************
-    // ****** I18n *****
-    // ********************************************************
 
     /**
-     *
      * This is DataAccess constructor; Since classes use Singleton Pattern,
      * constructor is protected and can be accessed only with getInstance()
-     * method.<br>
-     * <br>
+     * method.
+     * 
      * @param ic
      *
      */
@@ -437,80 +191,7 @@ public abstract class ATDataAccessAbstract
 
         this.decimal_handler = new DecimalHandler(this.getMaxDecimalsUsedByDecimalHandler());
 
-        if (!ATDataAccessAbstract.decimals_set)
-        {
-            initDecimals();
-        }
-
         // initSpecial();
-    }
-
-
-    /*
-     * public void setI18nControlInstance(I18nControlAbstract i18n) { this.i18n
-     * = i18n; }
-     */
-
-    // ********************************************************
-    // ****** Plug-ins *****
-    // ********************************************************
-
-    /**
-     * Gets the date string.
-     *
-     * @param date the date
-     *
-     * @return the date string
-     */
-    public static String getDateString(int date)
-    {
-
-        // 20051012
-
-        int year = date / 10000;
-        int month = date - year * 10000;
-
-        month = month / 100;
-
-        int day = date - year * 10000 - month * 100;
-
-        if (year == 0)
-            return getLeadingZero(day, 2) + "/" + getLeadingZero(month, 2);
-        else
-            return getLeadingZero(day, 2) + "/" + getLeadingZero(month, 2) + "/" + year;
-
-    }
-
-
-    /**
-     * Gets the time string.
-     *
-     * @param time the time
-     *
-     * @return the time string
-     */
-    public static String getTimeString(int time)
-    {
-
-        int hours = time / 100;
-
-        int min = time - hours * 100;
-
-        return getLeadingZero(hours, 2) + ":" + getLeadingZero(min, 2);
-
-    }
-
-
-    /**
-     * Gets the date time string.
-     *
-     * @param date the date
-     *
-     * @return the date time string
-     */
-    public static String getDateTimeString(long date)
-    {
-        return getDateTimeString(date, 1);
     }
 
 
@@ -522,78 +203,6 @@ public abstract class ATDataAccessAbstract
     // ********************************************************
 
     /**
-     * Gets the date time as date string.
-     *
-     * @param date the date
-     *
-     * @return the date time as date string
-     */
-    public static String getDateTimeAsDateString(long date)
-    {
-        return getDateTimeString(date, 2);
-    }
-
-
-    /**
-     * Gets the date time as time string.
-     *
-     * @param date the date
-     *
-     * @return the date time as time string
-     */
-    public static String getDateTimeAsTimeString(long date)
-    {
-        return getDateTimeString(date, 3);
-    }
-
-
-    /**
-     * Gets the date time string.
-     *
-     * @param dt the dt
-     * @param ret_type the ret_type
-     *
-     * @return the date time string
-     */
-    public static String getDateTimeString(long dt, int ret_type)
-    {
-
-        // System.out.println("DT process: " + dt);
-        /*
-         * int y = (int)(dt/10000000L); dt -= y10000000L;
-         * int m = (int)(dt/1000000L); dt -= m1000000L;
-         * int d = (int)(dt/10000L); dt -= d10000L;
-         * int h = (int)(dt/100L); dt -= h100L;
-         * int min = (int)dt;
-         */
-
-        // 200612051850
-        int y = (int) (dt / 100000000L);
-        dt -= y * 100000000L;
-
-        int m = (int) (dt / 1000000L);
-        dt -= m * 1000000L;
-
-        int d = (int) (dt / 10000L);
-        dt -= d * 10000L;
-
-        int h = (int) (dt / 100L);
-        dt -= h * 100L;
-
-        int min = (int) dt;
-
-        if (ret_type == DT_DATETIME)
-            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y + "  " + getLeadingZero(h, 2) + ":"
-                    + getLeadingZero(min, 2);
-        else if (ret_type == DT_DATE)
-            return getLeadingZero(d, 2) + "/" + getLeadingZero(m, 2) + "/" + y;
-        else
-            return getLeadingZero(h, 2) + ":" + getLeadingZero(min, 2);
-
-    }
-
-
-    /**
      * Not implemented.
      *
      * @param source the source
@@ -601,8 +210,6 @@ public abstract class ATDataAccessAbstract
     public static void notImplemented(String source)
     {
         System.out.println("Not Implemented: " + source);
-        // JOptionPane.showMessageDialog(parent, "Not Implemented: \n" +
-        // source);
     }
 
 
@@ -838,53 +445,6 @@ public abstract class ATDataAccessAbstract
     public abstract void initSpecial();
 
 
-    /*
-     * public void centerJDialog(JDialog dialog, JComponent parent) {
-     * //System.out.println("centerJDialog: " );
-     * Rectangle rec = parent.getBounds();
-     * int x = rec.width/2; x += (rec.x);
-     * int y = rec.height/2; y += rec.y;
-     * x -= (dialog.getBounds().width/2); y -= (dialog.getBounds().height/2);
-     * //dialog.getBounds().x = x; //dialog.getBounds().y = y;
-     * dialog.setBounds(x, y, dialog.getBounds().width,
-     * dialog.getBounds().height);
-     * }
-     */
-
-    // ********************************************************
-    // ****** Look and Feel *****
-    // ********************************************************
-    /*
-     * public void loadAvailableLFs() {
-     * availableLF_full = new Hashtable<String,String>();
-     * UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
-     * availableLF = new Object[info.length+1];
-     * //ring selectedLF = null; //String subSelectedLF = null;
-     * int i; for (i=0; i<info.length; i++) { String name = info[i].getName();
-     * String className = info[i].getClassName();
-     * availableLF_full.put(name, className); availableLF[i] = name;
-     * //System.out.println(humanReadableName); }
-     * availableLF_full.put("SkinLF",
-     * "com.l2fprod.gui.plaf.skin.SkinLookAndFeel"); availableLF[i] = "SkinLF";
-     * }
-     */
-
-    /*
-     * public Object[] getAvailableLFs() { return
-     * this.m_config_file.getAvailableLFs(); //return availableLF; }
-     * public static String[] getLFData() {
-     * String out[] = new String[2];
-     * try { Properties props = new Properties();
-     * FileInputStream in = new
-     * FileInputStream("../data/PIS_Config.properties"); props.load(in);
-     * out[0] = (String)props.get("LF_CLASS"); out[1] =
-     * (String)props.get("SKINLF_SELECTED");
-     * return out;
-     * } catch(Exception ex) {
-     * System.out.println("DataAccess::getLFData::Exception> " + ex);
-     * ex.printStackTrace(); return null; } }
-     */
-
     // ********************************************************
     // ****** Colors *****
     // ********************************************************
@@ -897,61 +457,11 @@ public abstract class ATDataAccessAbstract
     public abstract HibernateDb getHibernateDb();
 
 
-    // ********************************************************
-    // ****** Languages *****
-    // ********************************************************
-
     /**
      * Load plug ins.
      */
     public abstract void loadPlugIns();
 
-
-    /*
-     * public Object[] getAvailableLanguages() { return new Object[] = { "en"
-     * };; }
-     * public int getSelectedLangIndex() { return 1; //return
-     * m_lang_info.findInLocale(this.m_config_file.selected_lang); }
-     * public static String getSelectedLocale() { String locale = "en";
-     * try { Properties props = new Properties();
-     * FileInputStream in = new FileInputStream(pathPrefix +
-     * "../data/PIS_Config.properties"); props.load(in);
-     * int sel_lang = 1;
-     * if (props.containsKey("SELECTED_LANG")) { sel_lang =
-     * Integer.parseInt((String)props.get("SELECTED_LANG"));
-     * System.out.println("Sel lang: " + sel_lang); }
-     * //props = new Properties(); props.clear();
-     * in = null; in = new FileInputStream(pathPrefix +
-     * "/data/lang/PIS_Languages.properties"); props.load(in);
-     * if (props.containsKey("LANG_" + sel_lang + "_LOCALE")) { locale =
-     * (String)props.get("LANG_" + sel_lang + "_LOCALE"); }
-     * // System.out.println("Locale: " + locale);
-     * } catch(Exception ex) {
-     * System.out.println("DataAccess::getSelectedLocale::Exception> " + ex); }
-     * return locale;
-     * }
-     */
-
-    /*
-     * public String[] getAvailableDbs() { //this.m_config_file. //return
-     * allDbs; return this.m_config_file.getAllDatabasesNamesAsArray(); }
-     * public int getSelectedDbIndex() {
-     * return this.m_config_file.getSelectedDatabaseIndex(); / for (int i=0;
-     * i<allDbs.length; i++) { if (allDbs[i].startsWith(this.selected_db +
-     * " - ")) return i; } return 0;
-     */
-    // }
-
-    /**
-     * This method sets handle to DataAccess to null and deletes the instance. <br>
-     * <br>
-     */
-    /*
-     * public void deleteInstance()
-     * {
-     * //m_i18n = null;
-     * }
-     */
 
     // INIT
 
@@ -960,57 +470,6 @@ public abstract class ATDataAccessAbstract
         loadArraysTranslation(m_i18n);
     }
 
-
-    /*
-     * public void loadComboOptions() {
-     * yes_no_combo = new Object[2];
-     * yes_no_combo[0] = m_i18n.getMessage("OPTION_YES"); yes_no_combo[1] =
-     * m_i18n.getMessage("OPTION_NO");
-     * Hashtable ht = m_db.getProductType(-1);
-     * typesAll = new Object[ht.size()];
-     * int i = 0;
-     * for(Enumeration en=ht.keys(); en.hasMoreElements(); ) {
-     * String key = (String)en.nextElement();
-     * String key2 = "";
-     * if (key.length()==1) { key2 = "0"+key; } else key2 = key;
-     * typesAll[i] = key2 + " - " +
-     * ((ProductType)ht.get(key)).path.substring(1); i++;
-     * }
-     * Arrays.sort(typesAll);
-     * }
-     */
-
-    /*
-     * public void makeNewConfig() {
-     * configStatic.config = new dataConfig();
-     * configStatic.config.mainDir=""; configStatic.config.shellSelected=1;
-     * configStatic.config.shellCommand="cmd /c";
-     * configStatic.config.browserEnabled=true;
-     * configStatic.config.browserExternal=false;
-     * configStatic.config.mailEnabled=false;
-     * configStatic.config.ftpEnabled=false;
-     * configStatic.config.ftpInternalEnabled=false; saveConfig();
-     * }
-     * public void loadConfig() {
-     * try { ObjectInputStream in = new ObjectInputStream( new
-     * FileInputStream("../data/config.dat"));
-     * configStatic.config=(dataConfig)in.readObject(); in.close(); } catch
-     * (IOException ex) { makeNewConfig(); } catch (ClassNotFoundException ex) {
-     * } }
-     * public void saveConfig() {
-     * try { ObjectOutputStream out = new ObjectOutputStream( new
-     * FileOutputStream("../data/config.dat"));
-     * out.writeObject(configStatic.config); out.close(); } catch (IOException
-     * ex) { System.out.println("Error saving configuration."); }
-     * }
-     * / public String getShell() { //return configStatic.browserCommand; return
-     * ""; }
-     * public String getBrowserCmd() { // return
-     * configStatic.browserPath[configStatic.useBrowserNr]; return "";
-     * }
-     * public String getMailerCmd() { // return configStatic.browserPath[1];
-     * return ""; }
-     */
 
     public void loadArraysTranslation(I18nControlAbstract ic)
     {
@@ -1052,25 +511,6 @@ public abstract class ATDataAccessAbstract
             gcDays[6] = ic.getMessage("SATURDAY");
         }
 
-    }
-
-
-    private void initDecimals()
-    {
-        DecimalFormatSymbols dfs = new DecimalFormat().getDecimalFormatSymbols();
-
-        ATDataAccessAbstract.real_decimal = dfs.getDecimalSeparator();
-
-        if (dfs.getDecimalSeparator() == '.')
-        {
-            ATDataAccessAbstract.false_decimal = ',';
-        }
-        else
-        {
-            ATDataAccessAbstract.false_decimal = '.';
-        }
-
-        ATDataAccessAbstract.decimals_set = true;
     }
 
 
@@ -1127,24 +567,17 @@ public abstract class ATDataAccessAbstract
      */
     public void removeComponent(Component cmp)
     {
-        // int curr = 0;
-        ArrayList<Component> cmps_new = new ArrayList<Component>();
+        ArrayList<Component> newComponents = new ArrayList<Component>();
 
-        for (int i = 0; i < this.components.size(); i++)
+        for (Component c : this.components)
         {
-            if (this.components.get(i).equals(cmp))
+            if (!c.equals(cmp))
             {
-                break;
+                newComponents.add(c);
             }
-            else
-            {
-                cmps_new.add(this.components.get(i));
-            }
-
         }
 
-        this.components = cmps_new;
-        // System.out.println("Remove: " + this.components);
+        this.components = newComponents;
     }
 
 
@@ -1213,14 +646,10 @@ public abstract class ATDataAccessAbstract
     public abstract String getApplicationName();
 
 
-    // ret_type = 1 (Date and time)
-    // ret_type = 2 (Date)
-    // ret_type = 3 (Time)
-
     /**
      * Get Images Root (Must have ending back-slash)
      *
-     * @return
+     * @return images root path
      */
     public abstract String getImagesRoot();
 
@@ -1245,7 +674,6 @@ public abstract class ATDataAccessAbstract
     {
         this.main_parent = frame;
         this.addComponent(this.main_parent);
-        // this.addContainer((Container)this.main_parent);
     }
 
 
@@ -1254,24 +682,6 @@ public abstract class ATDataAccessAbstract
      */
     public abstract void checkPrerequisites();
 
-
-    /*
-     * public String getGCObjectFromDateTimeLong(long dt)
-     * {
-     * int y = (int) (dt / 100000000L);
-     * dt -= y * 100000000L;
-     * int m = (int) (dt / 1000000L);
-     * dt -= m * 1000000L;
-     * int d = (int) (dt / 10000L);
-     * dt -= d * 10000L;
-     * int h = (int) (dt / 100L);
-     * dt -= h * 100L;
-     * int min = (int) dt;
-     * GregorianCalendar gc1 = new GregorianCalendar();
-     * // gc1.set(GregorianCalendar.
-     * return null;
-     * }
-     */
 
     /**
      * Gets the help context.
@@ -1384,13 +794,7 @@ public abstract class ATDataAccessAbstract
      */
     public boolean isPluginAvailable(String key)
     {
-        if (this.plugins == null)
-            return false;
-
-        if (!this.plugins.containsKey(key))
-            return false;
-
-        return this.plugins.get(key).isPlugInInstalled();
+        return (this.plugins != null && this.plugins.containsKey(key) && this.plugins.get(key).isPlugInInstalled());
     }
 
 
@@ -1702,124 +1106,6 @@ public abstract class ATDataAccessAbstract
          * m_i18n.getMessage("DECEMBER");
          * return arr;
          */
-
-    }
-
-
-    // ********************************************************
-    // ****** Get Values From Object *****
-    // ********************************************************
-
-    /**
-     * Gets the aT date time from gc.
-     *
-     * @param gc the gc
-     * @param type the type
-     *
-     * @return the aT date time from gc
-     */
-    public long getATDateTimeFromGC(GregorianCalendar gc, int type)
-    {
-        long dt = 0L;
-
-        if (type == DATE_TIME_ATECH_DATETIME)
-        {
-            dt += gc.get(Calendar.YEAR) * 100000000L;
-            dt += (gc.get(Calendar.MONTH) + 1) * 1000000L;
-            dt += gc.get(Calendar.DAY_OF_MONTH) * 10000L;
-            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(Calendar.MINUTE);
-        }
-        else if (type == DATE_TIME_ATECH_DATE)
-        {
-            dt += gc.get(Calendar.YEAR) * 10000L;
-            dt += (gc.get(Calendar.MONTH) + 1) * 100L;
-            dt += gc.get(Calendar.DAY_OF_MONTH);
-        }
-        else if (type == DATE_TIME_ATECH_TIME)
-        {
-            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(Calendar.MINUTE);
-        }
-
-        return dt;
-    }
-
-
-    /**
-     * Gets the aT date time from parts.
-     *
-     * @param day the day
-     * @param month the month
-     * @param year the year
-     * @param hour the hour
-     * @param minute the minute
-     * @param type the type
-     *
-     * @return the aT date time from parts
-     */
-    public long getATDateTimeFromParts(int day, int month, int year, int hour, int minute, int type)
-    {
-        long dt = 0L;
-
-        if (type == DATE_TIME_ATECH_DATETIME)
-        {
-            dt += year * 100000000L;
-            dt += month * 1000000L;
-            dt += day * 10000L;
-            dt += hour * 100L;
-            dt += minute;
-        }
-        else if (type == DATE_TIME_ATECH_DATE)
-        {
-            dt += year * 10000L;
-            dt += month * 100L;
-            dt += day;
-        }
-        else if (type == DATE_TIME_ATECH_TIME)
-        {
-            dt += hour * 100L;
-            dt += minute;
-        }
-
-        return dt;
-    }
-
-
-    /**
-     * Gets the date from at date.
-     *
-     * @param data the data
-     *
-     * @return the date from at date
-     */
-    public long getDateFromATDate(long data)
-    {
-        // 200701011222
-        int d2 = (int) (data / 10000);
-
-        // long dd = data%10000;
-        // data -= dd;
-
-        // System.out.println("D2: " +d2);
-
-        // System.out.println(data);
-        return d2;
-    }
-
-
-    /**
-     * Gets the date time string.
-     *
-     * @param date the date
-     * @param time the time
-     *
-     * @return the date time string
-     */
-    public String getDateTimeString(int date, int time)
-    {
-
-        return getDateString(date) + " " + getTimeString(time);
 
     }
 
@@ -2565,7 +1851,7 @@ public abstract class ATDataAccessAbstract
      */
     public boolean isBackupRestoreAvailable()
     {
-        return this.backup_restore_collection != null;
+        return this.backupRestoreCollection != null;
     }
 
 
@@ -2577,7 +1863,7 @@ public abstract class ATDataAccessAbstract
     public BackupRestoreCollection getBackupRestoreCollection()
     {
         // TODO: clone
-        return this.backup_restore_collection;
+        return this.backupRestoreCollection;
     }
 
 
@@ -2738,21 +2024,20 @@ public abstract class ATDataAccessAbstract
     // ****** Sorters *****
     // ********************************************************
 
-    /**
-     * Gets the selected lang index.
-     *
-     * @return the selected lang index
-     */
-    public abstract int getSelectedLangIndex();
-
-
-    /**
-     * Sets the selected lang index.
-     *
-     * @param index the new selected lang index
-     */
-    public abstract void setSelectedLangIndex(int index);
-
+    // /**
+    // * Gets the selected lang index.
+    // *
+    // * @return the selected lang index
+    // */
+    // public abstract int getSelectedLangIndex();
+    //
+    //
+    // /**
+    // * Sets the selected lang index.
+    // *
+    // * @param index the new selected lang index
+    // */
+    // public abstract void setSelectedLangIndex(int index);
 
     /**
      * Gets the plugins.
@@ -3004,14 +2289,13 @@ public abstract class ATDataAccessAbstract
 
     public void loadUserTypes()
     {
-        this.user_types = new String[5];
-
-        this.user_types[0] = this.m_i18n.getMessage("SELECT");
-        this.user_types[1] = m_i18n.getMessage("USER_NORMAL");
-        this.user_types[2] = m_i18n.getMessage("USER_WORKER");
-        this.user_types[3] = m_i18n.getMessage("USER_ADMINISTRATOR");
-        this.user_types[4] = m_i18n.getMessage("USER_SUPERADMIN");
-
+        // this.user_types = new String[5];
+        //
+        // this.user_types[0] = this.m_i18n.getMessage("SELECT");
+        // this.user_types[1] = m_i18n.getMessage("USER_NORMAL");
+        // this.user_types[2] = m_i18n.getMessage("USER_WORKER");
+        // this.user_types[3] = m_i18n.getMessage("USER_ADMINISTRATOR");
+        // this.user_types[4] = m_i18n.getMessage("USER_SUPERADMIN");
     }
 
 
@@ -3293,7 +2577,7 @@ public abstract class ATDataAccessAbstract
 
     public String getDayOfWeekFromGC(GregorianCalendar gc)
     {
-        return this.gcDays[gc.get(GregorianCalendar.DAY_OF_WEEK) - 1];
+        return gcDays[gc.get(GregorianCalendar.DAY_OF_WEEK) - 1];
     }
 
 
@@ -3318,6 +2602,67 @@ public abstract class ATDataAccessAbstract
     public ImageIcon getImageIcon(String root, String name)
     {
         return new ImageIcon(ATSwingUtils.getImage(root + name, this.getCurrentComponentParent()));
+    }
+
+
+    /**
+     * Append To String
+     *
+     * @param originalString
+     * @param stringToAdd
+     * @param delimiter
+     * @return
+     */
+    public static String appendToString(String originalString, String stringToAdd, String delimiter)
+    {
+        if (originalString.length() > 0)
+        {
+            originalString += delimiter + stringToAdd;
+        }
+        else
+        {
+            originalString = stringToAdd;
+        }
+
+        return originalString;
+    }
+
+
+    /**
+     * Append To StringBuilder
+     *
+     * @param stringBuilder
+     * @param stringToAdd
+     * @param delimiter
+     * @return
+     */
+    public static void appendToStringBuilder(StringBuilder stringBuilder, String stringToAdd, String delimiter)
+    {
+        if (stringBuilder.length() > 0)
+        {
+            stringBuilder.append(delimiter + stringToAdd);
+        }
+        else
+        {
+            stringBuilder.append(stringToAdd);
+        }
+    }
+
+
+    public int getDateDifferenceInDays(Calendar from, Calendar to)
+    {
+        DateTime fromDate = new DateTime(from.getTimeInMillis());
+        DateTime toDate = new DateTime(to.getTimeInMillis());
+
+        Days d = Days.daysBetween(fromDate, toDate);
+        int days = d.getDays();
+        return days;
+    }
+
+
+    public int getDaysInInterval(Calendar from, Calendar to)
+    {
+        return (getDateDifferenceInDays(from, to) + 1);
     }
 
 }

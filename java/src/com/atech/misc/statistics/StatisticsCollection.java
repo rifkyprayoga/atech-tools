@@ -2,7 +2,6 @@ package com.atech.misc.statistics;
 
 import java.util.ArrayList;
 
-import com.atech.misc.converter.DecimalHandler;
 import com.atech.utils.ATDataAccessAbstract;
 
 // TODO: Auto-generated Javadoc
@@ -62,7 +61,7 @@ public class StatisticsCollection
     /**
      * The decimal_handler.
      */
-    protected DecimalHandler decimal_handler;
+    // protected DecimalHandler decimal_handler;
 
     /**
      * The special_processed.
@@ -81,7 +80,8 @@ public class StatisticsCollection
         stat_objects = new ArrayList<StatisticsObject>();
         this.base_item = base_item_in;
         this.m_da = da;
-        this.decimal_handler = new DecimalHandler(2);
+        // this.decimal_handler = new
+        // DecimalHandler(da.getMaxDecimalsUsedByDecimalHandler());
 
         if (this.base_item.weHaveSpecialActions())
         {
@@ -267,7 +267,7 @@ public class StatisticsCollection
      */
     public String getItemStatisticValueAsStringFloat(int index, int dec_places)
     {
-        return this.decimal_handler.getDecimalAsString(this.getItemStatisticsValue(index), dec_places);
+        return m_da.getDecimalHandler().getDecimalNumberAsString(this.getItemStatisticsValue(index), dec_places);
     }
 
 

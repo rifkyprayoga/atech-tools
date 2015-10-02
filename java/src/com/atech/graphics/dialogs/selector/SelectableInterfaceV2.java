@@ -30,117 +30,8 @@ package com.atech.graphics.dialogs.selector;
  *
 */
 
-public interface SelectableInterface extends Comparable<SelectableInterface>
+public interface SelectableInterfaceV2 extends SelectableInterface
 {
-
-    /**
-     * Get Item Id
-     * 
-     * @return id of item
-     */
-    long getItemId();
-
-
-    /**
-     * Get Short Description of object
-     * 
-     * @return short description
-     */
-    String getShortDescription();
-
-
-    /**
-     * getColumnCount - return number of displayable columns
-     * 
-     * @return number of displayable columns
-     */
-    int getColumnCount();
-
-
-    /**
-     * getColumnName - return name of specified column
-     * 
-     * @param num number of column
-     * @return string displaying name of column (usually this is I18N version of string
-     */
-    String getColumnName(int num);
-
-
-    /**
-     * getColumnValue - return value of specified column
-     * 
-     * @param num number of column
-     * @return string value of column
-     */
-    String getColumnValue(int num);
-
-
-    /**
-     * getColumnValueObject - return value of specified column
-     * 
-     * @param num number of column
-     * @return string value of column
-     */
-    Object getColumnValueObject(int num);
-
-
-    /**
-     * getColumnWidth - return width of specified column
-     * 
-     * @param num number of column
-     * @param width total width of table
-     * @return width in int of column
-     */
-    public int getColumnWidth(int num, int width);
-
-
-    /**
-     * isFound(String) - if this object is filtered or not.
-     * 
-     * @param text String we search for
-     * @return true if object is correct, fakse if not.
-     */
-    public abstract boolean isFound(String text);
-
-
-    /**
-     * isFound(int) - if this object is filtered or not.
-     * 
-     * @param value we searching for
-     * @return true if object is correct, fakse if not.
-     */
-    public abstract boolean isFound(int value);
-
-
-    /**
-     * isFound(int,int,int) - if this object is filtered or not.
-     * 
-     * @param from date received from DateComponent
-     * @param till date received from DateComponent
-     * @param state 0 = none selected, 1=from used, 2=till used, 3=both used
-     * @return true if object is correct, false if not.
-     */
-    public abstract boolean isFound(int from, int till, int state);
-
-
-    /**
-     * setSearchContext - set context for searching
-     */
-    public abstract void setSearchContext();
-
-
-    /**
-     * getColumnDefinitions - returns types of columns in String
-     */
-    // public abstract String[] getColumnDefinitions();
-
-    /**
-     * setColumnSorter - sets class that will help with column sorting
-     * 
-     * @param cs ColumnSorter instance
-     */
-    public abstract void setColumnSorter(ColumnSorter cs);
-
 
     /**
      * Compares this object with the specified object for order.  Returns a
@@ -180,6 +71,15 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      * @throws ClassCastException if the specified object's type prevents it
      *         from being compared to this object.
      */
-    public abstract int compareTo(SelectableInterface o);
+    int compareTo(SelectableInterfaceV2 o);
+
+
+    /**
+     * Get Tooltip for Column (non-zero based)
+     * 
+     * @param column
+     * @return
+     */
+    String getToolTipValue(int column);
 
 }
