@@ -251,6 +251,13 @@ public abstract class ATDataAccessAbstract
     }
 
 
+    public static String getGregorianCalendarAsDateString(GregorianCalendar gc)
+    {
+        return getLeadingZero(gc.get(Calendar.DAY_OF_MONTH), 2) + "." + getLeadingZero((gc.get(Calendar.MONTH) + 1), 2)
+                + "." + gc.get(Calendar.YEAR);
+    }
+
+
     /**
      * For replacing strings.<br>
      *

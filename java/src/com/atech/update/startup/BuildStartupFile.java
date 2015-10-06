@@ -1,7 +1,10 @@
 package com.atech.update.startup;
 
-import java.util.Hashtable;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
+import com.atech.update.config.ComponentEntry;
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.update.startup.os.OSUtil;
 
@@ -113,6 +116,145 @@ public class BuildStartupFile
     }
 
 
+    public BuildStartupFile(String[] parameters)
+    {
+
+        try
+        {
+
+            System.out.println(" VERIFICATION of xxx_Update.properties");
+            System.out.println("========================================\n");
+
+            Hashtable<String, String> cfg = StartupUtil.getConfiguration(OSUtil.getOSSpecificConfigurationFile());
+
+            if (cfg.containsKey("UPDATE_CONFIG"))
+            {
+                this.upd_conf = new UpdateConfiguration(cfg.get("UPDATE_CONFIG"), cfg.get("JAVA_EXE"));
+
+                List<File> allFiles = new ArrayList<File>();
+                boolean fileNotFound = false;
+
+                for (ComponentEntry componentEntry : this.upd_conf.getComponents())
+                {
+                    List<File> files = componentEntry.getFiles("./");
+                    allFiles.addAll(files);
+                    boolean firstFileInRelease = false;
+
+                    if (files.size() == 0)
+                    {
+                        if (componentEntry.enabled)
+                        {
+                            System.out.println("Component: " + componentEntry.name + " has no files defined.");
+                        }
+                    }
+                    else
+                    {
+                        for (File f : files)
+                        {
+                            if (!f.exists())
+                            {
+                                if (!fileNotFound)
+                                {
+                                    System.out.println("  Files missing in next release");
+                                    System.out.println("=================================");
+                                    fileNotFound = true;
+                                }
+
+                                if (!firstFileInRelease)
+                                {
+                                    System.out.println("Component: " + componentEntry.name);
+                                    firstFileInRelease = true;
+                                }
+
+                                System.out.println("    " + f.getCanonicalPath());
+
+                            }
+                        }
+                    }
+
+                }
+
+                List<File> filesOnSys = new ArrayList<File>();
+
+                getAllJarFilesOnSystem(filesOnSys, new File("../lib"));
+
+                // System.out.println("List of files that need to be removed: ");
+                boolean filesToMuch = false;
+                System.out.println("\n");
+
+                Map<String, String> mapFiles = getFilesAsFilenames(allFiles);
+
+                for (File file : filesOnSys)
+                {
+                    if (!mapFiles.containsKey(file.getCanonicalPath()))
+                    {
+                        if (!filesToMuch)
+                        {
+                            System.out.println("  Files that are in this release that shoudn't be");
+                            System.out.println("===================================================");
+                            filesToMuch = true;
+
+                        }
+
+                        System.out.println("" + file.getCanonicalPath());
+                    }
+                }
+
+            }
+            else
+            {
+                System.out.println("Wrong Startup configuration.");
+            }
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Exception of files verfication: " + ex);
+            ex.printStackTrace();
+        }
+
+    }
+
+
+    private Map<String, String> getFilesAsFilenames(List<File> files)
+    {
+        Map<String, String> map = new HashMap<String, String>();
+
+        for (File f : files)
+        {
+            try
+            {
+                map.put(f.getCanonicalPath(), "");
+            }
+            catch (IOException e)
+            {
+                System.out.println("Exception creating map of files: " + e);
+            }
+        }
+
+        return map;
+
+    }
+
+
+    private void getAllJarFilesOnSystem(List<File> filesList, File directory)
+    {
+        File[] files = directory.listFiles();
+
+        for (File file : directory.listFiles())
+        {
+            if ((file.isFile()) && file.getName().endsWith(".jar"))
+            {
+                filesList.add(file);
+            }
+            else if (file.isDirectory())
+            {
+                getAllJarFilesOnSystem(filesList, file);
+            }
+        }
+
+    }
+
+
     private boolean buildStartupFiles()
     {
 
@@ -125,30 +267,6 @@ public class BuildStartupFile
         {
             return false;
         }
-
-        /*
-         * String[] str = this.sfc.getStartupFileBody();
-         * if (str==null)
-         * {
-         * return false;
-         * }
-         * else
-         * {
-         * try
-         * {
-         * BufferedWriter br = new BufferedWriter(new FileWriter(new
-         * File(this.upd_conf.run_filename + "." + str[0])));
-         * br.write(str[1]);
-         * br.flush();
-         * br.close();
-         * }
-         * catch(Exception ex)
-         * {
-         * return false;
-         * }
-         * return true;
-         * }
-         */
 
     }
 
@@ -171,7 +289,14 @@ public class BuildStartupFile
      */
     public static void main(String[] args)
     {
-        new BuildStartupFile();
+        if (args.length == 0)
+        {
+            new BuildStartupFile();
+        }
+        else
+        {
+            new BuildStartupFile(args);
+        }
     }
 
 }

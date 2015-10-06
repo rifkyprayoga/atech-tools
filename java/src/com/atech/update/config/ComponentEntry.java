@@ -1,7 +1,7 @@
 package com.atech.update.config;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.io.File;
+import java.util.*;
 
 import org.dom4j.Node;
 
@@ -437,6 +437,28 @@ public class ComponentEntry implements ComponentInterface
         System.out.println("ExtendedData [update_module_id=" + this.module_version_id + ", archive_file="
                 + this.archive_file + ", archive_size=" + this.archive_size + ", archive_crc=" + this.archive_crc);
 
+    }
+
+
+    public List<File> getFiles(String rootDir)
+    {
+        List<File> files = new ArrayList<File>();
+
+        if (this.enabled)
+        {
+            StringTokenizer stringTokenizer = new StringTokenizer(this.files, ";");
+
+            while (stringTokenizer.hasMoreTokens())
+            {
+                String fileToken = stringTokenizer.nextToken();
+
+                File f = new File(rootDir + ".." + fileToken.replace("%ROOT%", root_dir));
+                files.add(f);
+            }
+
+        }
+
+        return files;
     }
 
 }

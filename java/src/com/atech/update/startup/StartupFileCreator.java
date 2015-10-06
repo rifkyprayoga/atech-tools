@@ -43,6 +43,7 @@ public class StartupFileCreator
     String root = "..";
     String extension = "";
 
+
     /**
      * Constructor
      * 
@@ -52,6 +53,7 @@ public class StartupFileCreator
     {
         this.uc = uc;
     }
+
 
     /**
      * Get Startup File Body
@@ -140,6 +142,7 @@ public class StartupFileCreator
 
     }
 
+
     private void printNotSupported()
     {
         System.out.println("This Operating System (" + os_name + ") is not supported "
@@ -148,6 +151,7 @@ public class StartupFileCreator
         System.out.println("on our email (support@atech-software.com).");
 
     }
+
 
     private String[] createShScript()
     {
@@ -175,6 +179,7 @@ public class StartupFileCreator
          */
     }
 
+
     private String[] createBashScript()
     {
 
@@ -200,6 +205,7 @@ public class StartupFileCreator
          * return getReturnValue("sh", sb.toString());
          */
     }
+
 
     private String[] createShellScript(String shell)
     {
@@ -229,6 +235,7 @@ public class StartupFileCreator
 
     }
 
+
     private String[] createWindowsScript()
     {
         this.separator = ";";
@@ -256,6 +263,7 @@ public class StartupFileCreator
 
     }
 
+
     private String[] getReturnValue(String ext, String body)
     {
         String[] ret_value = new String[2];
@@ -264,15 +272,16 @@ public class StartupFileCreator
         return ret_value;
     }
 
+
     private String getFileList()
     {
         StringBuffer files = new StringBuffer();
 
-        int count = this.uc.Components().size() - 1;
+        int count = this.uc.getComponents().size() - 1;
 
         for (int i = 0; i <= count; i++)
         {
-            ComponentEntry ce = this.uc.Components().get(i);
+            ComponentEntry ce = this.uc.getComponents().get(i);
             String path = root + ce.root_dir;
 
             files.append(parseRoot(path, ce.files));
@@ -286,6 +295,7 @@ public class StartupFileCreator
         return files.toString();
 
     }
+
 
     /**
      * Parse Root

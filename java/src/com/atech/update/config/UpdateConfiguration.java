@@ -536,7 +536,7 @@ public class UpdateConfiguration
      * 
      * @return the array list< component entry>
      */
-    public ArrayList<ComponentEntry> Components()
+    public ArrayList<ComponentEntry> getComponents()
     {
         return this.components;
     }

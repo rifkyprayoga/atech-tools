@@ -90,11 +90,11 @@ public class ApplicationFile extends StartupFileAbstract
     {
         StringBuffer files = new StringBuffer();
 
-        int count = this.upd_conf.Components().size() - 1;
+        int count = this.upd_conf.getComponents().size() - 1;
 
         for (int i = 0; i <= count; i++)
         {
-            ComponentEntry ce = this.upd_conf.Components().get(i);
+            ComponentEntry ce = this.upd_conf.getComponents().get(i);
 
             if (!ce.enabled)
                 continue;
