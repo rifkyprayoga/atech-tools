@@ -3,9 +3,6 @@ package com.atech.utils;
 import java.text.DateFormat;
 import java.util.GregorianCalendar;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.atech.i18n.I18nControlRunner;
 import com.atech.i18n.mgr.LanguageManager;
 
@@ -48,15 +45,15 @@ import com.atech.i18n.mgr.LanguageManager;
 public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
 {
 
-    private static Log log = LogFactory.getLog(ATDataAccessLMAbstract.class);
+    // private static Log log = LogFactory.getLog(ATDataAccessLMAbstract.class);
 
     protected LanguageManager lang_mgr;
     protected I18nControlRunner m_icr = null;
 
-
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
+
 
     // Constructor: DataAccess
     /**
@@ -72,7 +69,7 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
     public ATDataAccessLMAbstract(LanguageManager lm, I18nControlRunner icr)
     {
         super(lm.getI18nControl(icr));
-        log.debug("Loading Language Manager");
+        // log.debug("Loading Language Manager");
         lang_mgr = lm;
         this.m_icr = icr;
     }
@@ -96,8 +93,8 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
     {
         if (years_digits == 2)
         {
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance()
-                    .getSelectedLanguageLocale());
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
+                getI18nControlInstance().getSelectedLanguageLocale());
             return df.format(gc_value.getTime());
         }
         else
@@ -111,7 +108,8 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
             // this.lang_mgr.getSelectedLanguageInstance());
             // System.out.println("i18ControlInstance.selectedLocale:locale: " +
             // this.lang_mgr.getSelectedLanguageInstance().locale);
-            // System.out.println("i18ControlInstance.selectedLocale:real_locale: "
+            // System.out.println("i18ControlInstance.selectedLocale:real_locale:
+            // "
             // + this.lang_mgr.getSelectedLanguageInstance().real_locale);
             // //System.out.println("i18ControlInstance.selectedLocale: " +
             // this.lang_mgr.getSelectedLanguageInstance());

@@ -56,6 +56,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     protected Font textFontItalic = null;
 
     protected ITextDocumentPrintSettings documentSettings;
+    protected PdfWriter pdfWriter;
 
     /**
      * Print root must always contain trailing slash, so ../data/print/ is
@@ -273,10 +274,10 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
             fos = new FileOutputStream(fl.getAbsoluteFile());
 
             // step2 - asign pdf to file
-            PdfWriter writer = PdfWriter.getInstance(document, fos);
+            this.pdfWriter = PdfWriter.getInstance(document, fos);
 
             // step3 - set page event, open document and put on title
-            writer.setPageEvent(this);
+            this.pdfWriter.setPageEvent(this);
 
             document.open();
             document.add(getTitle());
@@ -368,8 +369,8 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
 
             PdfPCell pages = new PdfPCell();
             pages.setBorderColor(BaseColor.WHITE);
-            pages.setPhrase(new Phrase(new Chunk(i18nControl.getMessage("PAGE") + " " + document.getPageNumber(),
-                    textFontItalic)));
+            pages.setPhrase(
+                new Phrase(new Chunk(i18nControl.getMessage("PAGE") + " " + document.getPageNumber(), textFontItalic)));
             pages.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
             foot.addCell(pages);

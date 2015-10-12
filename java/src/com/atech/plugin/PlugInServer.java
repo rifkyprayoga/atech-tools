@@ -3,8 +3,8 @@ package com.atech.plugin;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.*;
 
@@ -387,6 +387,17 @@ public abstract class PlugInServer
 
 
     /**
+     * This flag is set to true when init for server is succesful. If it is false, then there was problem with init.
+     * 
+     * @return
+     */
+    public boolean isPlugInServerStarted()
+    {
+        return this.installed;
+    }
+
+
+    /**
      * This method can be used to transfer data from plugin to other part of application. 
      * Parameters are HashMap<String,Object> and can contain almost anything that is 
      * visible in whole application, but mostly it is intended to be used with JDK java
@@ -396,7 +407,7 @@ public abstract class PlugInServer
      * @param parameters
      * @return
      */
-    public List<Object> getDataFromPlugin(HashMap<String, Object> parameters)
+    public List<Object> getDataFromPlugin(Map<String, Object> parameters)
     {
         return null;
     }

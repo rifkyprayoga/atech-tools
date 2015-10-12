@@ -92,7 +92,7 @@ public class ATechDate
      * The desc.
      */
     public String[] desc = { "", "Date only", "Time only (min)", "Time only (s)", "Time only (ms)",
-                            "Date and Time (minute)", "Date and Time (second)", "Date and Time (mili second)" };
+                             "Date and Time (minute)", "Date and Time (second)", "Date and Time (mili second)" };
 
     /**
      * Day of month.
@@ -792,6 +792,13 @@ public class ATechDate
     }
 
 
+    @Deprecated
+    public static long getATDateTimeFromGC(GregorianCalendar gc, int type)
+    {
+        return getATDateTimeFromGC(gc, getATechDateType(type));
+    }
+
+
     /**
      * Gets the aT date time from gc.
      *
@@ -801,46 +808,66 @@ public class ATechDate
      *            the type
      * @return the aT date time from gc
      */
-    public static long getATDateTimeFromGC(GregorianCalendar gc, int type) // throws
-                                                                           // Exception
+    public static long getATDateTimeFromGC(GregorianCalendar gc, ATechDateType type)
     {
         long dt = 0L;
 
-        if (type == FORMAT_DATE_AND_TIME_S)
+        switch (type)
         {
-            dt += gc.get(Calendar.YEAR) * 10000000000L;
-            dt += (gc.get(Calendar.MONTH) + 1) * 100000000L;
-            dt += gc.get(Calendar.DAY_OF_MONTH) * 1000000L;
-            dt += gc.get(Calendar.HOUR_OF_DAY) * 10000L;
-            dt += gc.get(Calendar.MINUTE) * 100L;
-            dt += gc.get(Calendar.SECOND);
-        }
-        else if (type == FORMAT_DATE_AND_TIME_MIN)
-        {
-            dt += gc.get(Calendar.YEAR) * 100000000L;
-            dt += (gc.get(Calendar.MONTH) + 1) * 1000000L;
-            dt += gc.get(Calendar.DAY_OF_MONTH) * 10000L;
-            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(Calendar.MINUTE);
-        }
-        else if (type == FORMAT_DATE_ONLY)
-        {
-            dt += gc.get(Calendar.YEAR) * 10000L;
-            dt += (gc.get(Calendar.MONTH) + 1) * 100L;
-            dt += gc.get(Calendar.DAY_OF_MONTH);
-        }
-        else if (type == ATechDate.FORMAT_TIME_ONLY_MIN)
-        {
-            dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
-            dt += gc.get(Calendar.MINUTE);
-        }
-        else
-        {
-            System.out.println("getATDateTimeFromGC: Unallowed type");
-            // throw new Exception("getATDateTimeFromGC: Unallowed type");
+            case DateOnly:
+                {
+                    dt += gc.get(Calendar.YEAR) * 10000L;
+                    dt += (gc.get(Calendar.MONTH) + 1) * 100L;
+                    dt += gc.get(Calendar.DAY_OF_MONTH);
+
+                    return dt;
+                }
+
+            case TimeOnlyMin:
+                {
+                    dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
+                    dt += gc.get(Calendar.MINUTE);
+
+                    return dt;
+                }
+
+            case DateAndTimeMin:
+                {
+                    dt += gc.get(Calendar.YEAR) * 100000000L;
+                    dt += (gc.get(Calendar.MONTH) + 1) * 1000000L;
+                    dt += gc.get(Calendar.DAY_OF_MONTH) * 10000L;
+                    dt += gc.get(Calendar.HOUR_OF_DAY) * 100L;
+                    dt += gc.get(Calendar.MINUTE);
+
+                    return dt;
+                }
+
+            case DateAndTimeSec:
+                {
+                    dt += gc.get(Calendar.YEAR) * 10000000000L;
+                    dt += (gc.get(Calendar.MONTH) + 1) * 100000000L;
+                    dt += gc.get(Calendar.DAY_OF_MONTH) * 1000000L;
+                    dt += gc.get(Calendar.HOUR_OF_DAY) * 10000L;
+                    dt += gc.get(Calendar.MINUTE) * 100L;
+                    dt += gc.get(Calendar.SECOND);
+
+                    return dt;
+                }
+
+            case TimeOnlySec:
+            case TimeOnlyMSec:
+            case DateAndTimeMsec:
+            default:
+                {
+                    System.out.println("getATDateTimeFromGC: Unallowed type");
+                    // throw new Exception("getATDateTimeFromGC: Unallowed
+                    // type");
+
+                    throw new RuntimeException("getATDateTimeFromGC: Unallowed type: " + type);
+                }
+
         }
 
-        return dt;
     }
 
 
@@ -1192,9 +1219,9 @@ public class ATechDate
         gc.set(Calendar.SECOND, this.second);
         gc.set(Calendar.MILLISECOND, this.msecond);
 
-        // System.out.println("getGregorianCalendar: parts   " +
+        // System.out.println("getGregorianCalendar: parts " +
         // this.hour_of_day + ":" + this.minute);
-        // System.out.println("getGregorianCalendar: gc      " +
+        // System.out.println("getGregorianCalendar: gc " +
         // gc.get(Calendar.HOUR_OF_DAY) + ":" + gc.get(Calendar.MINUTE));
 
         return gc;

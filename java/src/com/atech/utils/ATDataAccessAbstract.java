@@ -8,7 +8,6 @@ import java.text.Collator;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -194,9 +193,9 @@ public abstract class ATDataAccessAbstract
         // initSpecial();
     }
 
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     // ********************************************************
     // ****** Config Loader *****
@@ -255,6 +254,17 @@ public abstract class ATDataAccessAbstract
     {
         return getLeadingZero(gc.get(Calendar.DAY_OF_MONTH), 2) + "." + getLeadingZero((gc.get(Calendar.MONTH) + 1), 2)
                 + "." + gc.get(Calendar.YEAR);
+    }
+
+
+    public static String getGregorianCalendarAsDateTimeString(GregorianCalendar gc)
+    {
+        return getLeadingZero(gc.get(Calendar.DAY_OF_MONTH), 2) + "." //
+                + getLeadingZero((gc.get(Calendar.MONTH) + 1), 2) + "." //
+                + gc.get(Calendar.YEAR) + " " //
+                + getLeadingZero(gc.get(Calendar.HOUR_OF_DAY), 2) + ":" //
+                + getLeadingZero(gc.get(Calendar.MINUTE), 2) + ":" //
+                + getLeadingZero(gc.get(Calendar.SECOND), 2);
     }
 
 
@@ -362,7 +372,6 @@ public abstract class ATDataAccessAbstract
             return false;
     }
 
-
     // ********************************************************
     // ****** Help stuff *****
     // ********************************************************
@@ -375,6 +384,7 @@ public abstract class ATDataAccessAbstract
      * The Constant FONT_UPDATE_TREE_HEADER.
      */
     // public static final int FONT_UPDATE_TREE_HEADER = 5;
+
 
     /**
      * The Constant FONT_UPDATE_TREE_ITEM.
@@ -393,7 +403,6 @@ public abstract class ATDataAccessAbstract
         return (value & value_we_check_for) == value_we_check_for;
     }
 
-
     // ********************************************************
     // ****** Parent handling (for UIs) *****
     // ********************************************************
@@ -411,6 +420,7 @@ public abstract class ATDataAccessAbstract
      * null;
      * }
      */
+
 
     // public ImageIcon getImageIcon(String image)
 
@@ -622,8 +632,41 @@ public abstract class ATDataAccessAbstract
         }
         else
         {
-            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module,
-                    action, ex, errorMessage, solutionMessage);
+            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module, action,
+                    ex, errorMessage, solutionMessage);
+        }
+    }
+
+
+    public void createErrorDialog(Exception ex, String errorMessage, String solutionMessage)
+    {
+
+        if (this.getCurrentComponentParent() instanceof JFrame)
+        {
+            new ErrorDialog((JFrame) this.getCurrentComponentParent(), this, this.getApplicationName(), null, null, ex,
+                    errorMessage, solutionMessage);
+        }
+        else
+        {
+            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), null, null, ex,
+                    errorMessage, solutionMessage);
+        }
+    }
+
+
+    public void createErrorDialog(Exception ex, String errorMessage, String errorMessageToolTip, String solutionMessage,
+            String solutionMessageToolTip)
+    {
+
+        if (this.getCurrentComponentParent() instanceof JFrame)
+        {
+            new ErrorDialog((JFrame) this.getCurrentComponentParent(), this, this.getApplicationName(), null, null, ex,
+                    errorMessage, errorMessageToolTip, solutionMessage, solutionMessageToolTip);
+        }
+        else
+        {
+            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), null, null, ex,
+                    errorMessage, errorMessageToolTip, solutionMessage, solutionMessageToolTip);
         }
     }
 
@@ -639,8 +682,8 @@ public abstract class ATDataAccessAbstract
         }
         else
         {
-            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module,
-                    action, ex, errorMessage, errorMessageToolTip, solutionMessage, solutionMessageToolTip);
+            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module, action,
+                    ex, errorMessage, errorMessageToolTip, solutionMessage, solutionMessageToolTip);
         }
     }
 
@@ -763,13 +806,13 @@ public abstract class ATDataAccessAbstract
         this.plugins.put(key, plugin);
     }
 
-
     /*
      * public static final int USER_NORMAL = 1; public static final int
      * USER_WORKER = 2; public static final int USER_ADMINISTRATOR = 3; public
      * static final int USER_SUPERADMINISTRATOR = 4;
      * public int user_type = 3;
      */
+
 
     /*
      * public int authorizeUser(String username, String password) {
@@ -1369,8 +1412,8 @@ public abstract class ATDataAccessAbstract
     {
         if (years_digits == 2)
         {
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance()
-                    .getSelectedLanguageLocale());
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
+                getI18nControlInstance().getSelectedLanguageLocale());
             return df.format(gc_value.getTime());
         }
         else
@@ -1380,8 +1423,8 @@ public abstract class ATDataAccessAbstract
             System.out.println("Time: " + gc_value.getTime());
 
             // TODO: fix this
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance()
-                    .getSelectedLanguageLocale());
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
+                getI18nControlInstance().getSelectedLanguageLocale());
             return df.format(gc_value.getTime());
         }
     }
@@ -2026,10 +2069,10 @@ public abstract class ATDataAccessAbstract
         return this.m_lang_info;
     }
 
-
     // ********************************************************
     // ****** Sorters *****
     // ********************************************************
+
 
     // /**
     // * Gets the selected lang index.
@@ -2515,7 +2558,7 @@ public abstract class ATDataAccessAbstract
     }
 
 
-    public String createStringFromList(List<?> list, String delimiter)
+    public String createStringRepresentationOfCollection(Collection<?> list, String delimiter)
     {
         StringBuffer sb = new StringBuffer();
         boolean first = true;

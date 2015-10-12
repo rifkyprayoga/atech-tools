@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.*;
 
@@ -407,7 +407,7 @@ public abstract class PlugInClient implements ActionListener
     /**
      * Feature Not Implemented and will be display message
      * 
-     * @param command_desc
+     * @param commandDesc
      * @param ver
      */
     public void featureNotImplementedInstalled(String commandDesc, String ver)
@@ -594,14 +594,13 @@ public abstract class PlugInClient implements ActionListener
 
     /**
      * Checks if plug-in is active. Plugin is active, when client side is
-     * connected to server side
-     * of it.
-     * 
-     * @return
+     * connected to server side and server side was started.
+     *
+     * @return true if active, false otherwise
      */
     public boolean isActive()
     {
-        return m_server != null;
+        return (m_server != null && m_server.isPlugInServerStarted());
     }
 
 
@@ -653,7 +652,7 @@ public abstract class PlugInClient implements ActionListener
      * @param parameters
      * @return
      */
-    public List<Object> getDataFromPlugin(HashMap<String, Object> parameters)
+    public List<Object> getDataFromPlugin(Map<String, Object> parameters)
     {
         if (m_server == null)
             return null;

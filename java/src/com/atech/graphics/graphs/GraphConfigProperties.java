@@ -39,49 +39,55 @@ public interface GraphConfigProperties // extends GGCPropertiesHelper
      * 
      * @return 
      */
-    public int getAntiAliasing();
+    int getAntiAliasing();
+
 
     /** 
      * Get Color Rendering
      * 
      * @return 
      */
-    public int getColorRendering();
+    int getColorRendering();
+
 
     /** 
      * Get Dithering
      * 
      * @return 
      */
-    public int getDithering();
+    int getDithering();
+
 
     /** 
      * Get Fractional Meetrics
      * 
      * @return 
      */
-    public int getFractionalMetrics();
+    int getFractionalMetrics();
+
 
     /** 
      * Get Interpolation
      * 
      * @return 
      */
-    public int getInterpolation();
+    int getInterpolation();
+
 
     /** 
      * Get Rendering
      * 
      * @return 
      */
-    public int getRendering();
+    int getRendering();
+
 
     /** 
      * Get Text Antialiasing
      * 
      * @return 
      */
-    public int getTextAntiAliasing();
+    int getTextAntiAliasing();
 
     /*
      * public void setAntiAliasing(int value);

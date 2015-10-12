@@ -58,9 +58,9 @@ public abstract class GraphUtil // extends JPanel
      */
     // protected I18nControlAbstract m_ic; // = I18nControl.getInstance();
 
-    private static ATDataAccessAbstract dataAccess;
+    // private static ATDataAccessAbstract dataAccess;
 
-    private static I18nControlAbstract i18nControl;
+    protected I18nControlAbstract i18nControl;
 
     /**
      * The config.
@@ -132,6 +132,7 @@ public abstract class GraphUtil // extends JPanel
     public GraphUtil(ATDataAccessAbstract da)
     {
         this.m_da = da;
+        this.i18nControl = da.getI18nControlInstance();
         this.config = da.getGraphConfigProperties();
 
         // removed for now Andy !!!!
@@ -323,23 +324,33 @@ public abstract class GraphUtil // extends JPanel
     }
 
 
-    public static void setDataAccess(ATDataAccessAbstract dataAccess)
+    // public static void setDataAccess(ATDataAccessAbstract dataAccess)
+    // {
+    // m_da = dataAccess;
+    // i18nControl = dataAccess.getI18nControlInstance();
+    // }
+
+    public DateAxis prepareDateAxis(DateAxis dateAxis, DateAxisSupportInterface dateAxisSupportInterface)
     {
-        dataAccess = dataAccess;
-        i18nControl = dataAccess.getI18nControlInstance();
+        return prepareDateAxis(dateAxis, dateAxisSupportInterface.getFrom(), dateAxisSupportInterface.getTill());
     }
 
 
-    public static DateAxis prepareDateAxis(DateAxis dateAxis, DateAxisSupportInterface dateAxisSupportInterface)
+    public DateAxis prepareDateAxis(DateAxis dateAxis, GregorianCalendar calendarToday)
+    {
+        return prepareDateAxis(dateAxis, prepareFromCalendar(calendarToday), prepareTillCalendar(calendarToday));
+    }
+
+
+    public DateAxis prepareDateAxis(DateAxis dateAxis, GregorianCalendar from, GregorianCalendar till)
     {
         SimpleDateFormat sdf = new SimpleDateFormat(i18nControl.getMessage("FORMAT_DATE_HOURS"));
         sdf.setTimeZone(TimeZoneUtil.getInstance().getEmptyTimeZone());
 
         dateAxis.setDateFormatOverride(sdf);
         dateAxis.setAutoRange(false);
-        dateAxis.setRange(dateAxisSupportInterface.getFrom().getTime(), dateAxisSupportInterface.getTill().getTime());
-        dateAxis.setDefaultAutoRange(new DateRange(dateAxisSupportInterface.getFrom().getTime(),
-                dateAxisSupportInterface.getTill().getTime()));
+        dateAxis.setRange(from.getTime(), till.getTime());
+        dateAxis.setDefaultAutoRange(new DateRange(from.getTime(), till.getTime()));
         dateAxis.setTimeZone(TimeZoneUtil.getInstance().getEmptyTimeZone());
 
         return dateAxis;
