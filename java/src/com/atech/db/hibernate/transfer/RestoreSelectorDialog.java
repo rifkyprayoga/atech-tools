@@ -55,7 +55,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
     private static final long serialVersionUID = 46466618138619321L;
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     protected I18nControlAbstract ic = null;
 

@@ -185,7 +185,8 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          * }
          * else
          * {
-         * label_person.setText(ic.getMessage("NO_INTERNAL_USER_SELECTED"));
+         * label_person.setText(i18nControl.getMessage(
+         * "NO_INTERNAL_USER_SELECTED"));
          * }
          */
 
@@ -222,7 +223,8 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          * if (cb_type_basic.getSelectedIndex()==0)
          * {
          * JOptionPane.showMessageDialog(this,
-         * ic.getMessage("TYPE_MUST_BE_SET"), ic.getMessage("ERROR"),
+         * i18nControl.getMessage("TYPE_MUST_BE_SET"),
+         * i18nControl.getMessage("ERROR"),
          * JOptionPane.ERROR_MESSAGE);
          * m_error = 1;
          * return false;
@@ -239,8 +241,9 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         /*
          * if ((cb_type_basic.getSelectedIndex()==2) && (m_ip==null))
          * {
-         * JOptionPane.showMessageDialog(this, ic.getMessage("IP_MUST_BE_SET"),
-         * ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
+         * JOptionPane.showMessageDialog(this,
+         * i18nControl.getMessage("IP_MUST_BE_SET"),
+         * i18nControl.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
          * m_error = 1;
          * return false;
          * }
@@ -399,7 +402,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
 
         /*
          * // type of user
-         * label = new JLabel(ic.getMessage("USER_TYPE")+":");
+         * label = new JLabel(i18nControl.getMessage("USER_TYPE")+":");
          * label.setBounds(55, 228, 120, 25);
          * label.setFont(font_normal_b);
          * panel.add(label, null);
@@ -420,7 +423,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          * });
          * panel.add(cb_type_basic, null);
          * // internal user
-         * label = new JLabel(ic.getMessage("INTERNAL_USER")+":");
+         * label = new JLabel(i18nControl.getMessage("INTERNAL_USER")+":");
          * label.setBounds(55, 263, 120, 25);
          * label.setFont(font_normal_b);
          * panel.add(label, null);
@@ -430,7 +433,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          * label_person.setFont(font_normal);
          * panel.add(label_person, null);
          * // --- select internal
-         * bt_select = new JButton(ic.getMessage("SELECT"));
+         * bt_select = new JButton(i18nControl.getMessage("SELECT"));
          * bt_select.setBounds(270,263,80,25);
          * bt_select.addActionListener(this);
          * bt_select.setFont(font_normal);

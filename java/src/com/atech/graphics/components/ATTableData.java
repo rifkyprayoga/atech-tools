@@ -39,7 +39,7 @@ public abstract class ATTableData
 {
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     protected I18nControlAbstract ic = null;
 
@@ -55,10 +55,11 @@ public abstract class ATTableData
     protected float[] column_size = null; // = null; //{ /*0.1f,*/ 0.5f, 0.25f,
                                           // 0.25f };
 
+
     /**
      * Instantiates a new aT table data.
      * 
-     * @param ic the ic
+     * @param ic the i18nControl
      */
     public ATTableData(I18nControlAbstract ic)
     {
@@ -66,10 +67,12 @@ public abstract class ATTableData
         init();
     }
 
+
     /**
      * Inits the.
      */
     public abstract void init();
+
 
     /**
      * Inits the.
@@ -87,6 +90,7 @@ public abstract class ATTableData
 
     }
 
+
     /**
      * Gets the column header.
      * 
@@ -98,6 +102,7 @@ public abstract class ATTableData
     {
         return ic.getMessage(columns[column]);
     }
+
 
     /**
      * Gets the column width.
@@ -112,6 +117,7 @@ public abstract class ATTableData
         return (int) (this.column_size[column] * full_size);
     }
 
+
     /**
      * Gets the columns count.
      * 
@@ -122,6 +128,7 @@ public abstract class ATTableData
         // System.out.println(this.columns);
         return this.columns.length;
     }
+
 
     /**
      * Gets the column value.

@@ -57,8 +57,8 @@ import com.atech.utils.ATSwingUtils;
  *
 */
 
-public abstract class SelectorAbstractDialogTest extends JDialog implements ActionListener, DocumentListener,
-        ItemListener, ChangeListener, ResortableColumns
+public abstract class SelectorAbstractDialogTest extends JDialog
+        implements ActionListener, DocumentListener, ItemListener, ChangeListener, ResortableColumns
 {
 
     // CHANGE this marking is set where you need to implement
@@ -66,7 +66,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     private static final long serialVersionUID = 2046828408803313211L;
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     protected I18nControlAbstract ic; // = I18nControl.getInstance();
 
@@ -358,7 +358,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
     * Instantiates a new selector abstract dialog test.
     * 
     * @param parent the parent
-    * @param ic the ic
+    * @param ic the i18nControl
     * @param type the type
     */
     public SelectorAbstractDialogTest(JFrame parent, I18nControlAbstract ic, int type)
@@ -371,7 +371,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * Instantiates a new selector abstract dialog test.
      * 
      * @param parent the parent
-     * @param ic the ic
+     * @param ic the i18nControl
      * @param type the type
      */
     public SelectorAbstractDialogTest(JDialog parent, I18nControlAbstract ic, int type)
@@ -384,7 +384,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * Instantiates a new selector abstract dialog test.
      * 
      * @param parent the parent
-     * @param ic the ic
+     * @param ic the i18nControl
      * @param type the type
      * @param can_be_selected the can_be_selected
      */
@@ -398,7 +398,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * Instantiates a new selector abstract dialog test.
      * 
      * @param parent the parent
-     * @param ic the ic
+     * @param ic the i18nControl
      * @param type the type
      * @param can_be_selected the can_be_selected
      */
@@ -412,7 +412,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * Instantiates a new selector abstract dialog test.
      * 
      * @param parent the parent
-     * @param ic the ic
+     * @param ic the i18nControl
      * @param type the type
      * @param except the except
      */
@@ -426,7 +426,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * Instantiates a new selector abstract dialog test.
      * 
      * @param parent the parent
-     * @param ic the ic
+     * @param ic the i18nControl
      * @param type the type
      * @param except the except
      */
@@ -475,7 +475,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * Instantiates a new selector abstract dialog test.
      * 
      * @param parent the parent
-     * @param ic the ic
+     * @param ic the i18nControl
      * @param type the type
      * @param except the except
      * @param can_be_selected the can_be_selected
@@ -516,130 +516,130 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * if (type==SELECTOR_POST)
          * {
          * select_typeObj = new Post();
-         * name = ic.getMessage("SELECTOR_POST");
+         * name = i18nControl.getMessage("SELECTOR_POST");
          * CSH.setHelpIDString(this, "selector.post");
-         * newString = ic.getMessage("NEW_F");
+         * newString = i18nControl.getMessage("NEW_F");
          * }
          * else if (type==SELECTOR_PERSON)
          * {
          * select_typeObj = new Person();
-         * name = ic.getMessage("SELECTOR_PERSON");
+         * name = i18nControl.getMessage("SELECTOR_PERSON");
          * CSH.setHelpIDString(this, "selector.person");
-         * newString = ic.getMessage("NEW_F");
+         * newString = i18nControl.getMessage("NEW_F");
          * }
          * else if ((type==SELECTOR_EVENT) ||
          * (type==SELECTOR_EVENT_BY_TYPE))
          * {
          * select_typeObj = new Events();
-         * name = ic.getMessage("SELECTOR_EVENT");
+         * name = i18nControl.getMessage("SELECTOR_EVENT");
          * CSH.setHelpIDString(this, "selector.event");
-         * newString = ic.getMessage("NEW__EVENT");
+         * newString = i18nControl.getMessage("NEW__EVENT");
          * }
          * else if (type==SELECTOR_COUNTRY)
          * {
          * select_typeObj = new Country();
-         * name = ic.getMessage("SELECTOR_COUNTRY");
+         * name = i18nControl.getMessage("SELECTOR_COUNTRY");
          * CSH.setHelpIDString(this, "selector.country");
-         * newString = ic.getMessage("NEW__EVENT");
+         * newString = i18nControl.getMessage("NEW__EVENT");
          * }
          * else if (type==SELECTOR_OCCUPATION)
          * {
          * select_typeObj = new Profession();
-         * name = ic.getMessage("SELECTOR_OCCUPATION");
+         * name = i18nControl.getMessage("SELECTOR_OCCUPATION");
          * CSH.setHelpIDString(this, "selector.occupation");
-         * newString = ic.getMessage("NEW_M");
+         * newString = i18nControl.getMessage("NEW_M");
          * }
          * else if (type==SELECTOR_RELIGION)
          * {
          * select_typeObj = new Religion();
-         * name = ic.getMessage("SELECTOR_RELIGION");
+         * name = i18nControl.getMessage("SELECTOR_RELIGION");
          * CSH.setHelpIDString(this, "selector.religion");
-         * newString = ic.getMessage("NEW_M");
+         * newString = i18nControl.getMessage("NEW_M");
          * }
          * else if (type==SELECTOR_STREET)
          * {
          * select_typeObj = new Street();
-         * name = ic.getMessage("SELECTOR_STREET");
+         * name = i18nControl.getMessage("SELECTOR_STREET");
          * CSH.setHelpIDString(this, "selector.street");
-         * newString = ic.getMessage("NEW_F");
+         * newString = i18nControl.getMessage("NEW_F");
          * }
          * else if (type==SELECTOR_PARISH)
          * {
          * select_typeObj = new Parish();
-         * name = ic.getMessage("SELECTOR_PARISH");
+         * name = i18nControl.getMessage("SELECTOR_PARISH");
          * CSH.setHelpIDString(this, "selector.parish");
-         * newString = ic.getMessage("NEW_F");
+         * newString = i18nControl.getMessage("NEW_F");
          * }
          * else if (type==SELECTOR_EVENT_PERFORMER)
          * {
          * select_typeObj = new InternalPerson();
-         * name = ic.getMessage("SELECTOR_EVENT_PERFORMER");
+         * name = i18nControl.getMessage("SELECTOR_EVENT_PERFORMER");
          * CSH.setHelpIDString(this, "selector.pperson");
-         * newString = ic.getMessage("NEW_F");
+         * newString = i18nControl.getMessage("NEW_F");
          * }
          * else if (type==SELECTOR_PERSON_MULTIPLE)
          * {
          * select_typeObj = new Person();
-         * name = ic.getMessage("SELECTOR_PERSON_MULTIPLE");
+         * name = i18nControl.getMessage("SELECTOR_PERSON_MULTIPLE");
          * CSH.setHelpIDString(this, "selector.person_mult");
-         * newString = ic.getMessage("NEW_F");
+         * newString = i18nControl.getMessage("NEW_F");
          * selected_ObjectS = new ArrayList<Selectable>();
          * }
          * else if(type ==SELECTOR_ADDRESS_SPECIAL)
          * {
          * select_typeObj = new PersonAddress(dataAccess);
-         * name = ic.getMessage("SELECTOR_ADDRESS_SPECIAL");
+         * name = i18nControl.getMessage("SELECTOR_ADDRESS_SPECIAL");
          * CSH.setHelpIDString(this, "selector.address");
-         * newString = ic.getMessage("NEW__ADDRESS");
+         * newString = i18nControl.getMessage("NEW__ADDRESS");
          * }
          * else if (type ==SELECTOR_PARISH_PERSON)
          * {
          * select_typeObj = new ParishPerson();
-         * name = ic.getMessage("SELECTOR_PARISH_PERSON");
+         * name = i18nControl.getMessage("SELECTOR_PARISH_PERSON");
          * CSH.setHelpIDString(this, "selector.pperson");
-         * //newString = ic.getMessage("NEW__PPEADDRESS");
+         * //newString = i18nControl.getMessage("NEW__PPEADDRESS");
          * }
          * else if (type ==SELECTOR_INTERNAL_PERSON)
          * {
          * select_typeObj = new InternalPerson();
-         * name = ic.getMessage("SELECTOR_INTERNAL_PERSON");
+         * name = i18nControl.getMessage("SELECTOR_INTERNAL_PERSON");
          * CSH.setHelpIDString(this, "selector.iperson");
-         * //newString = ic.getMessage("NEW__PPEADDRESS");
+         * //newString = i18nControl.getMessage("NEW__PPEADDRESS");
          * }
          * else if (type ==SELECTOR_DIOCESE)
          * {
          * select_typeObj = new Diocese();
-         * name = ic.getMessage("SELECTOR_DIOCESE");
+         * name = i18nControl.getMessage("SELECTOR_DIOCESE");
          * CSH.setHelpIDString(this, "selector.diocese");
-         * //newString = ic.getMessage("NEW__PPEADDRESS");
+         * //newString = i18nControl.getMessage("NEW__PPEADDRESS");
          * }
          * else if (type ==SELECTOR_NEWS)
          * {
          * select_typeObj = new News(1);
-         * name = ic.getMessage("SELECTOR_NEWS");
+         * name = i18nControl.getMessage("SELECTOR_NEWS");
          * CSH.setHelpIDString(this, "selector.news");
-         * newString = ic.getMessage("NEW__NEWS");
+         * newString = i18nControl.getMessage("NEW__NEWS");
          * }
          * else if (type ==SELECTOR_WEEKLY_NEWS)
          * {
          * select_typeObj = new News(2);
-         * name = ic.getMessage("SELECTOR_WEEKLY_NEWS");
+         * name = i18nControl.getMessage("SELECTOR_WEEKLY_NEWS");
          * CSH.setHelpIDString(this, "selector.weekly_news");
-         * newString = ic.getMessage("NEW__WEEKLY_NEWS");
+         * newString = i18nControl.getMessage("NEW__WEEKLY_NEWS");
          * }
          * else if (type ==SELECTOR_GROUP)
          * {
          * select_typeObj = new Group();
-         * name = ic.getMessage("SELECTOR_GROUP");
+         * name = i18nControl.getMessage("SELECTOR_GROUP");
          * CSH.setHelpIDString(this, "selector.group");
-         * newString = ic.getMessage("NEW__GROUP");
+         * newString = i18nControl.getMessage("NEW__GROUP");
          * }
          * else if (type ==SELECTOR_YOUTH_GROUP)
          * {
          * select_typeObj = new YouthGroup();
-         * name = ic.getMessage("SELECTOR_YOUTH_GROUP");
+         * name = i18nControl.getMessage("SELECTOR_YOUTH_GROUP");
          * CSH.setHelpIDString(this, "selector.youth_group");
-         * newString = ic.getMessage("NEW__YOUTH_GROUP");
+         * newString = i18nControl.getMessage("NEW__YOUTH_GROUP");
          * }
          */
 
@@ -1101,56 +1101,56 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * // CHANGE
          * if (this.m_type==SelectorDialog.SELECTOR_POST)
          * {
-         * sm = ic.getMessage("POST_NAME");
+         * sm = i18nControl.getMessage("POST_NAME");
          * }
          * else if (this.m_type==SelectorDialog.SELECTOR_EVENT)
          * {
-         * sm = ic.getMessage("TYPE_OF_EVENT");
+         * sm = i18nControl.getMessage("TYPE_OF_EVENT");
          * }
          * else if ((this.m_type==SelectorDialog.SELECTOR_PERSON) ||
          * (m_type==SELECTOR_PERSON_MULTIPLE))
          * {
-         * sm = ic.getMessage("NAME_LNAME_PERSON");
+         * sm = i18nControl.getMessage("NAME_LNAME_PERSON");
          * }
          * else if (this.m_type==SelectorDialog.SELECTOR_COUNTRY)
          * {
-         * sm = ic.getMessage("COUNTRY_NAME");
+         * sm = i18nControl.getMessage("COUNTRY_NAME");
          * }
          * else if (this.m_type==SelectorDialog.SELECTOR_OCCUPATION)
          * {
-         * sm = ic.getMessage("OCCUPATION_NAME");
+         * sm = i18nControl.getMessage("OCCUPATION_NAME");
          * }
          * else if (this.m_type==SelectorDialog.SELECTOR_RELIGION)
          * {
-         * sm = ic.getMessage("RELIGION_NAME");
+         * sm = i18nControl.getMessage("RELIGION_NAME");
          * }
          * else if (this.m_type==SelectorDialog.SELECTOR_STREET)
          * {
-         * sm = ic.getMessage("STREET_NAME");
+         * sm = i18nControl.getMessage("STREET_NAME");
          * }
          * else if (this.m_type==SelectorDialog.SELECTOR_PARISH)
          * {
-         * sm = ic.getMessage("PARISH_NAME");
+         * sm = i18nControl.getMessage("PARISH_NAME");
          * }
          * else if (this.m_type==SelectorDialog.SELECTOR_EVENT_PERFORMER)
          * {
-         * sm = ic.getMessage("NAME_OF_PERFORMER");
+         * sm = i18nControl.getMessage("NAME_OF_PERFORMER");
          * }
          * else if(m_type == SELECTOR_ADDRESS_SPECIAL)
          * {
-         * sm = ic.getMessage("ADDRESS");
+         * sm = i18nControl.getMessage("ADDRESS");
          * }
          * else if (m_type == SELECTOR_PARISH_PERSON)
-         * sm = ic.getMessage("PARISH_PERSON");
+         * sm = i18nControl.getMessage("PARISH_PERSON");
          * else if (m_type == SELECTOR_INTERNAL_PERSON)
-         * sm = ic.getMessage("INTERNAL_PERSON");
+         * sm = i18nControl.getMessage("INTERNAL_PERSON");
          * else if (this.m_type==SelectorDialog.SELECTOR_DIOCESE)
          * {
-         * sm = ic.getMessage("DIOCESE_NAME");
+         * sm = i18nControl.getMessage("DIOCESE_NAME");
          * }
          * else if (this.m_type==SelectorDialog.SELECTOR_GROUP)
          * {
-         * sm = ic.getMessage("GROUP_NAME");
+         * sm = i18nControl.getMessage("GROUP_NAME");
          * }
          * else
          * sm = "";
@@ -1174,7 +1174,8 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * }
          * else
          * {
-         * System.err.println("Text pane's document isn't an AbstractDocument!");
+         * System.err.println("Text pane's document isn't an AbstractDocument!"
+         * );
          * System.exit(-1);
          * }
          * doc.addDocumentListener(this);
@@ -1211,7 +1212,8 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * }
          * else
          * {
-         * System.err.println("Text pane's document isn't an AbstractDocument!");
+         * System.err.println("Text pane's document isn't an AbstractDocument!"
+         * );
          * System.exit(-1);
          * }
          * doc.addDocumentListener(this);
@@ -1221,12 +1223,12 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * else if ((this.m_type==SelectorDialog.SELECTOR_PARISH) ||
          * (this.m_type==SelectorDialog.SELECTOR_EVENT_PERFORMER))
          * {
-         * label = new JLabel(ic.getMessage("TYPE") + ":");
+         * label = new JLabel(i18nControl.getMessage("TYPE") + ":");
          * label.setFont(this.font_normal);
          * label.setBounds(35,70,100,26);
          * panel.add(label);
-         * Object[] s = { ic.getMessage("ALL__PARISH"),
-         * ic.getMessage("SELECTED__PARISH") };
+         * Object[] s = { i18nControl.getMessage("ALL__PARISH"),
+         * i18nControl.getMessage("SELECTED__PARISH") };
          * comboBox1 = new JComboBox(s);
          * comboBox1.setBounds(130, 70, 210, 26);
          * comboBox1.addItemListener(this);
@@ -1246,7 +1248,8 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * }
          * else
          * {
-         * System.err.println("Text pane's document isn't an AbstractDocument!");
+         * System.err.println("Text pane's document isn't an AbstractDocument!"
+         * );
          * System.exit(-1);
          * }
          * doc.addDocumentListener(this);
@@ -1268,7 +1271,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * //dt_start, dt_end;
          * // FIX
          * this.checkBox1 = new JCheckBox();
-         * this.checkBox1.setText(" " + ic.getMessage("FROM") +":");
+         * this.checkBox1.setText(" " + i18nControl.getMessage("FROM") +":");
          * this.checkBox1.setBounds(25, 60, 80, 26); // 85
          * this.checkBox1.addChangeListener(this);
          * panel.add(this.checkBox1, null);
@@ -1281,7 +1284,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * //comboBox1.addItemListener(this);
          * panel.add(dt_start, null);
          * this.checkBox2 = new JCheckBox();
-         * this.checkBox2.setText(" " + ic.getMessage("TILL") +":");
+         * this.checkBox2.setText(" " + i18nControl.getMessage("TILL") +":");
          * this.checkBox2.setBounds(25, 85, 80, 26); // 85
          * this.checkBox2.setSelected(false);
          * this.checkBox2.addChangeListener(this);
@@ -1294,12 +1297,12 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * dt_end.setNote("end");
          * //comboBox1.addItemListener(this);
          * panel.add(dt_end, null);
-         * label = new JLabel(ic.getMessage("SUBJECT") + ":");
+         * label = new JLabel(i18nControl.getMessage("SUBJECT") + ":");
          * label.setBounds(25, 112, 80, 26);
          * panel.add(label, null);
          * if (this.m_type==SelectorDialog.SELECTOR_WEEKLY_NEWS)
          * {
-         * label.setText(ic.getMessage("SUB_TITLE") + ":");
+         * label.setText(i18nControl.getMessage("SUB_TITLE") + ":");
          * }
          * textField1 = new JTextField();
          * textField1.setBounds(100, 112, 168, 24);
@@ -1311,7 +1314,8 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
          * }
          * else
          * {
-         * System.err.println("Text pane's document isn't an AbstractDocument!");
+         * System.err.println("Text pane's document isn't an AbstractDocument!"
+         * );
          * System.exit(-1);
          * }
          * doc.addDocumentListener(this);
@@ -1580,7 +1584,8 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
 
         /*
          * if (m_type==SELECTOR_PERSON_MULTIPLE)
-         * table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
+         * table.setSelectionMode(ListSelectionModel.
+         * MULTIPLE_INTERVAL_SELECTION)
          * ;
          * else
          * table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1630,7 +1635,6 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
         System.out.println("Action: " + action);
         checkAndExecuteAction(action);
     }
-
 
     /*
      * // CHANGE
@@ -1930,6 +1934,7 @@ public abstract class SelectorAbstractDialogTest extends JDialog implements Acti
      * // YYYY
      * }
      */
+
 
     // Document Event
 

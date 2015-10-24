@@ -13,10 +13,10 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.ColorUIResource;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.db.ext.ExtendedHandler;
 import com.atech.db.hibernate.HibernateDb;
@@ -71,7 +71,7 @@ import com.atech.utils.data.ExceptionHandling;
 public abstract class ATDataAccessAbstract
 {
 
-    private static Log log = LogFactory.getLog(ATDataAccessAbstract.class);
+    private static Logger LOG = LoggerFactory.getLogger(ATDataAccessAbstract.class);
 
     // GC compare
     public static final int GC_COMPARE_DAY = 1;
@@ -120,7 +120,7 @@ public abstract class ATDataAccessAbstract
 
     // Application settings
     public boolean config_loaded = false;
-    protected boolean help_enabled = false;
+    protected boolean helpEnabled = false;
     protected int current_db_version = 0;
     protected boolean developer_mode = false;
     protected Hashtable<String, String> special_parameters = null;
@@ -762,13 +762,13 @@ public abstract class ATDataAccessAbstract
      */
     public void enableHelp(HelpCapable hc)
     {
-        if (hc != null && this.help_enabled)
+        if (hc != null && this.helpEnabled)
         {
             try
             {
                 if (help_context == null || this.help_context.getMainHelpBroker() == null)
                 {
-                    log.warn("Help Context not available. Help not enabled.");
+                    LOG.warn("Help Context not available. Help not enabled.");
                 }
                 else
                 {
@@ -778,7 +778,7 @@ public abstract class ATDataAccessAbstract
             }
             catch (Exception ex)
             {
-                log.error("Error enabling help. Ex.: " + ex, ex);
+                LOG.error("Error enabling help. Ex.: " + ex, ex);
             }
         }
     }
@@ -1096,7 +1096,7 @@ public abstract class ATDataAccessAbstract
         if (m_collator == null)
         {
             this.m_collator = this.getI18nControlInstance().getCollationDefintion();
-            log.debug("Created collator again [da=" + this + ", colator=" + m_collator + "]");
+            LOG.debug("Created collator again [da=" + this + ", colator=" + m_collator + "]");
         }
 
         /*
@@ -1519,7 +1519,7 @@ public abstract class ATDataAccessAbstract
                 }
                 catch (Exception ex)
                 {
-                    log.error("parse Float Exception [" + s + ": " + ex);
+                    LOG.error("parse Float Exception [" + s + ": " + ex);
                 }
             }
         }
@@ -1756,11 +1756,11 @@ public abstract class ATDataAccessAbstract
         }
         else if (numberParsingExceptionHandling == ExceptionHandling.CATCH_EXCEPTION_WITH_STACK_TRACE)
         {
-            log.error(errorString + ex, ex);
+            LOG.error(errorString + ex, ex);
         }
         else
         {
-            log.error(errorString + ex);
+            LOG.error(errorString + ex);
         }
 
     }
@@ -2603,6 +2603,47 @@ public abstract class ATDataAccessAbstract
         sb.substring(0, sb.length() - (delimiter.length() + (readable ? 1 : 0)));
 
         return sb.toString();
+    }
+
+
+    public Map<String, String> createMapFromKeyValueString(String mapped, String equalsSign, String delimiter)
+    {
+        Map<String, String> outMap = new HashMap<String, String>();
+
+        try
+        {
+            String[] keyValuePairs = mapped.split(delimiter);
+
+            for (String keyValuePair : keyValuePairs)
+            {
+                try
+                {
+                    String[] keyValues = keyValuePair.split(equalsSign);
+
+                    if (keyValues.length != 2)
+                    {
+                        LOG.warn("Problem with keyValues (not enough parts): original={}, equalsSign={}, parts={}",
+                            keyValuePair, equalsSign, keyValues);
+                        continue;
+                    }
+
+                    outMap.put(keyValues[0].trim(), keyValues[1].trim());
+                }
+                catch (Exception ex)
+                {
+                    LOG.warn("Problem with keyValues, exception: {} [original={}, equalsSign={}]", ex.getMessage(),
+                        keyValuePair, equalsSign, ex);
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            LOG.error("Problem spliting expression: expression={}, delimiter={}, equalsSign={}", mapped, delimiter,
+                equalsSign);
+        }
+
+        return outMap;
     }
 
 

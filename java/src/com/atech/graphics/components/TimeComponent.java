@@ -1,14 +1,11 @@
 package com.atech.graphics.components;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -52,7 +49,7 @@ public class TimeComponent extends JPanel implements ChangeListener
     private String action_command = null;
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     I18nControlAbstract ic = null;
 
@@ -77,6 +74,7 @@ public class TimeComponent extends JPanel implements ChangeListener
     JSpinner hour, minute;
 
     ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
+
 
     /**
      * Constructor
@@ -110,6 +108,7 @@ public class TimeComponent extends JPanel implements ChangeListener
         this.add(minute, null);
     }
 
+
     /**
      * Set Action Command
      * 
@@ -120,6 +119,7 @@ public class TimeComponent extends JPanel implements ChangeListener
         this.action_command = act_command;
     }
 
+
     /**
      * Get Action Command
      * 
@@ -129,6 +129,7 @@ public class TimeComponent extends JPanel implements ChangeListener
     {
         return this.action_command;
     }
+
 
     /**
      * Set the time 
@@ -147,6 +148,7 @@ public class TimeComponent extends JPanel implements ChangeListener
 
     }
 
+
     /**
      * Gets the time.
      * 
@@ -161,6 +163,7 @@ public class TimeComponent extends JPanel implements ChangeListener
         return h * 100 + m;
 
     }
+
 
     /**
      * Gets the time string.
@@ -193,6 +196,7 @@ public class TimeComponent extends JPanel implements ChangeListener
 
     }
 
+
     /** 
      * setBackground
      */
@@ -201,6 +205,7 @@ public class TimeComponent extends JPanel implements ChangeListener
     {
         super.setBackground(bg);
     }
+
 
     /** 
      * setEnabled
@@ -212,6 +217,7 @@ public class TimeComponent extends JPanel implements ChangeListener
         minute.setEnabled(isEnabled);
     }
 
+
     /** 
      * setBounds
      */
@@ -220,6 +226,7 @@ public class TimeComponent extends JPanel implements ChangeListener
     {
         super.setBounds(x, y, component_width, component_height);
     }
+
 
     /**
      * Add Action Listener
@@ -231,6 +238,7 @@ public class TimeComponent extends JPanel implements ChangeListener
         this.listeners.add(al);
     }
 
+
     /**
      * Remove Action Listener
      * 
@@ -241,12 +249,14 @@ public class TimeComponent extends JPanel implements ChangeListener
         this.listeners.remove(al);
     }
 
+
     public void stateChanged(ChangeEvent e)
     {
         ActionEvent ae = new ActionEvent(e.getSource(), (int) serialVersionUID, this.action_command);
         ae.setSource(e.getSource());
         notifyListeners(ae);
     }
+
 
     /**
      * Notify Listeners

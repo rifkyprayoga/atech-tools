@@ -91,7 +91,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
         /*
          * super();
          * dataAccess = da;
-         * this.ic = da.getI18nControlInstance();
+         * this.i18nControl = da.getI18nControlInstance();
          * //initMonths();
          * initComponent(1800, 5);
          */
@@ -108,8 +108,8 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
      * @param label_gap_ 
      * @param component_gap_ 
      */
-    public DateFromToComponent(ATDataAccessAbstract da, int orientation_, boolean prefefined_same_line_,
-            int label_gap_, int component_gap_)
+    public DateFromToComponent(ATDataAccessAbstract da, int orientation_, boolean prefefined_same_line_, int label_gap_,
+            int component_gap_)
     {
         this(1970, 2, da, orientation_, prefefined_same_line_, label_gap_, component_gap_);
 
@@ -252,18 +252,18 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
     private String[] getPredefinedFilterValues()
     {
         String[] cmb_data = { ic.getMessage("DTCMP_FILTER_TODAY"), ic.getMessage("DTCMP_FILTER_YESTERDAY"),
-                             ic.getMessage("DTCMP_FILTER_THIS_WEEK"), ic.getMessage("DTCMP_FILTER_LAST_WEEK"),
-                             ic.getMessage("DTCMP_FILTER_PREVIOUS_WEEK"), ic.getMessage("DTCMP_FILTER_LAST_2_WEEKS"),
-                             ic.getMessage("DTCMP_FILTER_THIS_MONTH"), ic.getMessage("DTCMP_FILTER_LAST_MONTH"),
-                             ic.getMessage("DTCMP_FILTER_PREVIOUS_MONTH"), ic.getMessage("DTCMP_FILTER_TWO_MONTHS"),
-                             ic.getMessage("DTCMP_FILTER_LAST_TWO_MONTHS"),
-                             ic.getMessage("DTCMP_FILTER_LAST_HALF_YEAR"), ic.getMessage("DTCMP_FILTER_THIS_YEAR"),
-                             ic.getMessage("DTCMP_FILTER_LAST_YEAR"), ic.getMessage("DTCMP_FILTER_PREVIOUS_YEAR"),
-                             ic.getMessage("JANUARY"), ic.getMessage("FEBRUARY"), ic.getMessage("MARCH"),
-                             ic.getMessage("APRIL"), ic.getMessage("MAY"), ic.getMessage("JUNE"),
-                             ic.getMessage("JULY"), ic.getMessage("AUGUST"), ic.getMessage("SEPTEMBER"),
-                             ic.getMessage("OCTOBER"), ic.getMessage("NOVEMBER"), ic.getMessage("DECEMBER"),
-                             ic.getMessage("DTCMP_FILTER_CUSTOM") };
+                              ic.getMessage("DTCMP_FILTER_THIS_WEEK"), ic.getMessage("DTCMP_FILTER_LAST_WEEK"),
+                              ic.getMessage("DTCMP_FILTER_PREVIOUS_WEEK"), ic.getMessage("DTCMP_FILTER_LAST_2_WEEKS"),
+                              ic.getMessage("DTCMP_FILTER_THIS_MONTH"), ic.getMessage("DTCMP_FILTER_LAST_MONTH"),
+                              ic.getMessage("DTCMP_FILTER_PREVIOUS_MONTH"), ic.getMessage("DTCMP_FILTER_TWO_MONTHS"),
+                              ic.getMessage("DTCMP_FILTER_LAST_TWO_MONTHS"),
+                              ic.getMessage("DTCMP_FILTER_LAST_HALF_YEAR"), ic.getMessage("DTCMP_FILTER_THIS_YEAR"),
+                              ic.getMessage("DTCMP_FILTER_LAST_YEAR"), ic.getMessage("DTCMP_FILTER_PREVIOUS_YEAR"),
+                              ic.getMessage("JANUARY"), ic.getMessage("FEBRUARY"), ic.getMessage("MARCH"),
+                              ic.getMessage("APRIL"), ic.getMessage("MAY"), ic.getMessage("JUNE"),
+                              ic.getMessage("JULY"), ic.getMessage("AUGUST"), ic.getMessage("SEPTEMBER"),
+                              ic.getMessage("OCTOBER"), ic.getMessage("NOVEMBER"), ic.getMessage("DECEMBER"),
+                              ic.getMessage("DTCMP_FILTER_CUSTOM") };
         return cmb_data;
     }
 
@@ -334,8 +334,8 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
         {
             // System.out.println("This Month");
             from = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), 1);
-            to = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), this.getDaysInMonth(
-                now.get(Calendar.MONTH), now.get(Calendar.YEAR)));
+            to = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH),
+                    this.getDaysInMonth(now.get(Calendar.MONTH), now.get(Calendar.YEAR)));
         }
         else if (pred_item.equals(ic.getMessage("DTCMP_FILTER_LAST_MONTH")))
         {
@@ -563,7 +563,6 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
      */
     public static final int DATE_FULL = 0;
 
-
     /**
      * Init Months
      */
@@ -572,17 +571,20 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
      * {
      * if (months == null)
      * {
-     * String m[] = { ic.getMessage("JANUARY"), ic.getMessage("FEBRUARY"),
-     * ic.getMessage("MARCH"),
-     * ic.getMessage("APRIL"), ic.getMessage("MAY"), ic.getMessage("JUNE"),
-     * ic.getMessage("JULY"),
-     * ic.getMessage("AUGUST"), ic.getMessage("SEPTEMBER"),
-     * ic.getMessage("OCTOBER"),
-     * ic.getMessage("NOVEMBER"), ic.getMessage("DECEMBER") };
+     * String m[] = { i18nControl.getMessage("JANUARY"),
+     * i18nControl.getMessage("FEBRUARY"),
+     * i18nControl.getMessage("MARCH"),
+     * i18nControl.getMessage("APRIL"), i18nControl.getMessage("MAY"),
+     * i18nControl.getMessage("JUNE"),
+     * i18nControl.getMessage("JULY"),
+     * i18nControl.getMessage("AUGUST"), i18nControl.getMessage("SEPTEMBER"),
+     * i18nControl.getMessage("OCTOBER"),
+     * i18nControl.getMessage("NOVEMBER"), i18nControl.getMessage("DECEMBER") };
      * months = m;
      * }
      * }
      */
+
 
     /**
      * Add Action Listener
@@ -724,8 +726,8 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
 
         String dt = "20051012";
 
-        System.out.println("Day: " + dt.substring(6, 8) + " Month: " + dt.substring(4, 6) + " Year: "
-                + dt.substring(0, 4));
+        System.out.println(
+            "Day: " + dt.substring(6, 8) + " Month: " + dt.substring(4, 6) + " Year: " + dt.substring(0, 4));
 
         JFrame dialog = new JFrame();
 
@@ -797,7 +799,6 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
         this.listeners.remove(al);
     }
 
-
     /**
      * Invoked when the target of the listener has changed its state.
      * 
@@ -840,6 +841,7 @@ public class DateFromToComponent extends JPanel implements /* ChangeListener, */
      * return false;
      * }
      */
+
 
     /*
      * public void stateChanged(ChangeEvent e)

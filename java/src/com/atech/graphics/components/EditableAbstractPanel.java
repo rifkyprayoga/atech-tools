@@ -1,7 +1,6 @@
 package com.atech.graphics.components;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.atech.i18n.I18nControlAbstract;
 
@@ -57,7 +56,7 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
     public boolean is_editable_panel = true;
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     protected I18nControlAbstract ic;
 
@@ -66,11 +65,12 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      */
     public static String[] options = null;
 
+
     /**
      * Instantiates a new editable abstract panel.
      * 
      * @param is_editable the is_editable
-     * @param ic the ic
+     * @param ic the i18nControl
      */
     public EditableAbstractPanel(boolean is_editable, I18nControlAbstract ic)
     {
@@ -91,12 +91,14 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      */
     protected int action_type = ACTION_EDIT;
 
+
     /**
      * This method is used when we plan to do add action (in tree) to root element.
      * 
      * @param object input object parameter (from tree)
      */
     public abstract void setParentRoot(Object object);
+
 
     /**
      * This method is used when we plan to do add action (in tree), by supplying
@@ -106,12 +108,14 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      */
     public abstract void setParent(Object object);
 
+
     /**
      * This is planned for edit action (in tree), by supplying data entry itself
      * 
      * @param object input object parameter (from tree)
      */
     public abstract void setData(Object object);
+
 
     /**
      * Get Warning string. This method returns warning string for either add or edit.
@@ -121,6 +125,7 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
      * @return String value as warning string
      */
     public abstract String getWarningString(int action_type_);
+
 
     /**
      * Is Panel Editable. Not all panels need to be editable. If this is set to false
@@ -132,12 +137,14 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
         return this.is_editable_panel;
     }
 
+
     /**
      * Was data in this panel changed.
      * 
      * @return true if data changed, false otherwise
      */
     public abstract boolean hasDataChanged();
+
 
     /**
      * Type of action (this is either add or edit)
@@ -149,6 +156,7 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
         return this.action_type;
     }
 
+
     /** 
      * setTypeOfAction
      */
@@ -156,6 +164,7 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
     {
         this.action_type = action_type;
     }
+
 
     /**
      * Returns true if action is add action
@@ -166,6 +175,7 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
     {
         return this.action_type == EditableAbstractPanel.ACTION_ADD;
     }
+
 
     /**
      * Execute correct warning and action (saveData). This is main method, which calls
@@ -201,6 +211,7 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
 
     }
 
+
     /**
      * Warning if action type is add (this can be empty, depending on what we want user 
      * to see.
@@ -212,6 +223,7 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
         return getActionWarningStatus(EditableAbstractPanel.ACTION_ADD);
     }
 
+
     /**
      * Warning if action type is edit (this can be empty, depending on what we want user 
      * to see.
@@ -222,6 +234,7 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
     {
         return getActionWarningStatus(EditableAbstractPanel.ACTION_EDIT);
     }
+
 
     private boolean getActionWarningStatus(int type)
     {
@@ -241,6 +254,7 @@ public abstract class EditableAbstractPanel extends JPanel implements EditablePa
             return true;
 
     }
+
 
     /**
      * Save data in panel

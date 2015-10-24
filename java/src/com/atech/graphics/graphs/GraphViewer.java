@@ -57,6 +57,7 @@ public class GraphViewer extends JDialog implements ComponentListener
     // boolean was_inited = false;
     private boolean in_resize = true;
     String help_id = null;
+    boolean debug = false;
 
 
     /**
@@ -125,7 +126,7 @@ public class GraphViewer extends JDialog implements ComponentListener
         initGraph();
 
         init_bounds = this.gvi.getViewerDialogBounds();
-        System.out.println("init bounds: " + init_bounds);
+        debugMsg("init bounds: " + init_bounds);
 
         JPanel panel = new JPanel();
         // s panel.setLayout(new BorderLayout());
@@ -142,9 +143,8 @@ public class GraphViewer extends JDialog implements ComponentListener
 
         if (gvi instanceof AbstractGraphViewControler)
         {
-            System.out.println("Fix N/A:: AbstractGraphViewControler ");
-            // System.out.println("GraphViewer: AbstractGraphViewControler. " +
-            // gvi);
+            debugMsg("GraphViewer: AbstractGraphViewControler. " + gvi);
+
             AbstractGraphViewControler gvcont = (AbstractGraphViewControler) this.gvi;
 
             if (gvcont != null)
@@ -167,9 +167,7 @@ public class GraphViewer extends JDialog implements ComponentListener
         }
         else if (gvi instanceof AbstractGraphViewAndProcessor)
         {
-            System.out.println("Fix N/A:: AbstractGraphViewAndProcessor ");
-            // System.out.println("GraphViewer: AbstractGraphViewAndProcessor. "
-            // + gvi);
+            debugMsg("GraphViewer: AbstractGraphViewAndProcessor. " + gvi);
             AbstractGraphViewAndProcessor gvcont = (AbstractGraphViewAndProcessor) this.gvi;
 
             controler_instance = gvcont.getControler();
@@ -197,7 +195,7 @@ public class GraphViewer extends JDialog implements ComponentListener
 
             if (controler_panel == null)
             {
-                System.out.println("Controler panel NULL");
+                debugMsg("Controler panel NULL");
                 chart_panel = gvcont.getChartPanel();
                 chart_panel.setBounds(0, 0, init_bounds.width, init_bounds.height);
 
@@ -207,7 +205,7 @@ public class GraphViewer extends JDialog implements ComponentListener
             }
             else
             {
-                System.out.println("Controler panel != NULL");
+                debugMsg("Controler panel != NULL");
                 chart_panel = gvcont.getChartPanel();
                 chart_panel.setBounds(0, 0, init_bounds.width,
                     init_bounds.height - controler_instance.getControlerBounds().height);
@@ -227,7 +225,8 @@ public class GraphViewer extends JDialog implements ComponentListener
              * }
              */
             // else
-            // System.out.println("GraphViewer: AbstractGraphViewAndProcessor not found");
+            // System.out.println("GraphViewer: AbstractGraphViewAndProcessor
+            // not found");
 
         }
         else
@@ -244,7 +243,8 @@ public class GraphViewer extends JDialog implements ComponentListener
          * dataAccess.enableHelp(gvcont);
          * }
          * else
-         * System.out.println("GraphViewer: AbstractGraohViewControler not found"
+         * System.out.println(
+         * "GraphViewer: AbstractGraohViewControler not found"
          * );
          */
 
@@ -262,6 +262,13 @@ public class GraphViewer extends JDialog implements ComponentListener
         in_resize = false;
         this.setVisible(true);
 
+    }
+
+
+    private void debugMsg(String msg)
+    {
+        if (debug)
+            System.out.println(msg);
     }
 
 
@@ -355,7 +362,7 @@ public class GraphViewer extends JDialog implements ComponentListener
             this.controler_instance.resizeController(cur.width - 8);
         }
 
-        System.out.println("Component size: " + this.getBounds());
+        debugMsg("Component size: " + this.getBounds());
 
         // System.out.println("Insets: " + this.getInsets()..left);
 

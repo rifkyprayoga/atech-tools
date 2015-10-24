@@ -1,6 +1,7 @@
 package com.atech.gui_fw;
 
 import com.atech.app.AbstractApplicationContext;
+import com.atech.app.gui.about.AboutDialog;
 import com.atech.utils.ATDataAccessAbstract;
 
 /**
@@ -20,11 +21,12 @@ import com.atech.utils.ATDataAccessAbstract;
  *  @version             0.3
  */
 
-public abstract class AboutDialogApp extends com.atech.graphics.components.about.AboutDialog
+public abstract class AboutDialogApp extends AboutDialog
 {
 
     private static final long serialVersionUID = 700501667084363317L;
     ATDataAccessAbstract m_da = null;
+
 
     /**
      * Constructor
@@ -35,6 +37,7 @@ public abstract class AboutDialogApp extends com.atech.graphics.components.about
         super(aac.getFrame(), true, aac.getI18nControl());
         initAbout();
     }
+
 
     public abstract void initAbout();
 

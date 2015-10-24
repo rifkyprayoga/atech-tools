@@ -1,4 +1,4 @@
-package com.atech.graphics.components.about;
+package com.atech.app.data.about;
 
 import java.util.ArrayList;
 
@@ -33,32 +33,35 @@ import java.util.ArrayList;
  *
 */
 
-public class CreditsGroup
+public class FeaturesGroup
 {
 
     private String name;
-    private ArrayList<CreditsEntry> entries;
+    private ArrayList<FeaturesEntry> entries;
+
 
     /**
-     * Instantiates a new credits group.
+     * Instantiates a new features group.
      * 
      * @param name the name
      */
-    public CreditsGroup(String name)
+    public FeaturesGroup(String name)
     {
         this.name = name;
-        this.entries = new ArrayList<CreditsEntry>();
+        this.entries = new ArrayList<FeaturesEntry>();
     }
 
+
     /**
-     * Adds the credits entry.
+     * Adds the features entry.
      * 
      * @param ce the ce
      */
-    public void addCreditsEntry(CreditsEntry ce)
+    public void addFeaturesEntry(FeaturesEntry ce)
     {
         this.entries.add(ce);
     }
+
 
     /**
      * Gets the group start html.
@@ -71,6 +74,7 @@ public class CreditsGroup
                 + this.name + ":</font></td></tr></table>";
     }
 
+
     /**
      * Gets the group end html.
      * 
@@ -81,12 +85,13 @@ public class CreditsGroup
         return "<br>";
     }
 
+
     /**
      * Gets the entries.
      * 
      * @return the entries
      */
-    public ArrayList<CreditsEntry> getEntries()
+    public ArrayList<FeaturesEntry> getEntries()
     {
         return this.entries;
     }

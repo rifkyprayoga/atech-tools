@@ -65,8 +65,8 @@ import com.atech.utils.ATSwingUtils;
 
 // FIXME Date
 
-public abstract class SelectorAbstractDialog extends JDialog implements ActionListener, DocumentListener, ItemListener,
-        ChangeListener, ResortableColumns, HelpCapable
+public abstract class SelectorAbstractDialog extends JDialog
+        implements ActionListener, DocumentListener, ItemListener, ChangeListener, ResortableColumns, HelpCapable
 {
 
     private static final long serialVersionUID = 3826331169088096885L;
@@ -76,7 +76,7 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
     // CHANGE this marking is set where you need to implement
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     protected I18nControlAbstract ic; // = I18nControl.getInstance();
 
@@ -405,35 +405,41 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
 
     /*
-     * public SelectorAbstractDialog(JFrame parent, I18nControlAbstract ic, int
+     * public SelectorAbstractDialog(JFrame parent, I18nControlAbstract
+     * i18nControl, int
      * type)
      * {
-     * this(parent, ic, type, null, true);
+     * this(parent, i18nControl, type, null, true);
      * }
-     * public SelectorAbstractDialog(JDialog parent, I18nControlAbstract ic, int
+     * public SelectorAbstractDialog(JDialog parent, I18nControlAbstract
+     * i18nControl, int
      * type)
      * {
-     * this(parent, ic, type, null, true);
+     * this(parent, i18nControl, type, null, true);
      * }
-     * public SelectorAbstractDialog(JFrame parent, I18nControlAbstract ic, int
+     * public SelectorAbstractDialog(JFrame parent, I18nControlAbstract
+     * i18nControl, int
      * type, boolean with_init)
      * {
-     * this(parent, ic, type, null, with_init);
+     * this(parent, i18nControl, type, null, with_init);
      * }
-     * public SelectorAbstractDialog(JDialog parent, I18nControlAbstract ic, int
+     * public SelectorAbstractDialog(JDialog parent, I18nControlAbstract
+     * i18nControl, int
      * type, boolean with_init)
      * {
-     * this(parent, ic, type, null, with_init);
+     * this(parent, i18nControl, type, null, with_init);
      * }
-     * public SelectorAbstractDialog(JFrame parent, I18nControlAbstract ic, int
+     * public SelectorAbstractDialog(JFrame parent, I18nControlAbstract
+     * i18nControl, int
      * type, String except)
      * {
-     * this(parent, ic, type, except, true);
+     * this(parent, i18nControl, type, except, true);
      * }
-     * public SelectorAbstractDialog(JDialog parent, I18nControlAbstract ic, int
+     * public SelectorAbstractDialog(JDialog parent, I18nControlAbstract
+     * i18nControl, int
      * type, String except)
      * {
-     * this(parent, ic, type, except, true);
+     * this(parent, i18nControl, type, except, true);
      * }
      */
     /**
@@ -487,13 +493,14 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
 
     /*
-     * public SelectorAbstractDialog(JDialog parent, I18nControlAbstract ic, int
+     * public SelectorAbstractDialog(JDialog parent, I18nControlAbstract
+     * i18nControl, int
      * type, String except, boolean with_init)
      * {
      * super(parent, "Selector", true);
      * font_normal = new Font("SansSerif", Font.PLAIN, 12);
      * this.m_except = except;
-     * this.ic = ic;
+     * this.i18nControl = i18nControl;
      * this.selector_type = type;
      * this.parent_dialog = parent;
      * this.parent_type = SelectorAbstractDialog.PARENT_DIALOG;
@@ -537,13 +544,14 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
 
     /*
-     * public SelectorAbstractDialog(JFrame parent, I18nControlAbstract ic, int
+     * public SelectorAbstractDialog(JFrame parent, I18nControlAbstract
+     * i18nControl, int
      * type, String except, boolean with_init)
      * {
      * super(parent, "Selector", true);
      * font_normal = new Font("SansSerif", Font.PLAIN, 12);
      * this.m_except = except;
-     * this.ic = ic;
+     * this.i18nControl = i18nControl;
      * this.selector_type = type;
      * this.parent_frame = parent;
      * this.parent_type = SelectorAbstractDialog.PARENT_DIALOG;
@@ -1237,8 +1245,8 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
         for (int i = 0; i < selector_type_object.getColumnCount(); i++)
         {
-            // System.out.println("i = " + i + "  " +
-            // ic.getMessage(selector_type_object.getColumnName(i+1)));
+            // System.out.println("i = " + i + " " +
+            // i18nControl.getMessage(selector_type_object.getColumnName(i+1)));
             cm.getColumn(i).setHeaderValue(ic.getMessage(selector_type_object.getColumnName(i + 1)));
 
             cwidth = selector_type_object.getColumnWidth(i + 1, twidth);
@@ -1253,7 +1261,8 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
 
         /*
          * if (m_type==SELECTOR_PERSON_MULTIPLE)
-         * table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
+         * table.setSelectionMode(ListSelectionModel.
+         * MULTIPLE_INTERVAL_SELECTION)
          * ;
          * else
          * table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1649,8 +1658,8 @@ public abstract class SelectorAbstractDialog extends JDialog implements ActionLi
         {
             if (this.table.getSelectedRowCount() == 0)
             {
-                JOptionPane.showConfirmDialog(this, m_da.getI18nControlInstance().getMessage("SELECT_ROW_FIRST"), m_da
-                        .getI18nControlInstance().getMessage("ERROR"), JOptionPane.CLOSED_OPTION);
+                JOptionPane.showConfirmDialog(this, m_da.getI18nControlInstance().getMessage("SELECT_ROW_FIRST"),
+                    m_da.getI18nControlInstance().getMessage("ERROR"), JOptionPane.CLOSED_OPTION);
                 return;
             }
             else

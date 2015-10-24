@@ -1,6 +1,6 @@
-package com.atech.graphics.components.about;
+package com.atech.app.gui.about;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.atech.i18n.I18nControlAbstract;
 
@@ -41,7 +41,7 @@ public class AboutCustomPanel extends JPanel
     private static final long serialVersionUID = 6489212022366149587L;
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     I18nControlAbstract ic;
 
@@ -50,16 +50,18 @@ public class AboutCustomPanel extends JPanel
      */
     String tab_name = "";
 
+
     /**
      * Instantiates a new about custom panel.
      * 
-     * @param ic the ic
+     * @param ic the i18nControl
      */
     public AboutCustomPanel(I18nControlAbstract ic)
     {
         this.ic = ic;
         this.tab_name = ic.getMessage("CUSTOM_TAB");
     }
+
 
     /**
      * Gets the tab panel.
@@ -71,6 +73,7 @@ public class AboutCustomPanel extends JPanel
         return this;
     }
 
+
     /**
      * Gets the tab name.
      * 
@@ -80,6 +83,7 @@ public class AboutCustomPanel extends JPanel
     {
         return tab_name;
     }
+
 
     /**
      * Sets the tab name.

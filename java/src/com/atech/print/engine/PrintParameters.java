@@ -18,12 +18,24 @@ public class PrintParameters extends HashMap<String, Object>
     }
 
 
+    public void setRangeFrom(GregorianCalendar gc)
+    {
+        this.put("RANGE_FROM", gc);
+    }
+
+
     public GregorianCalendar getRangeTo()
     {
         if (this.containsKey("RANGE_TO"))
             return (GregorianCalendar) this.get("RANGE_TO");
         else
             return null;
+    }
+
+
+    public void setRangeTo(GregorianCalendar gc)
+    {
+        this.put("RANGE_TO", gc);
     }
 
 }

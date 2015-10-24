@@ -1,13 +1,12 @@
-package com.atech.graphics.components.about;
+package com.atech.app.data.about;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-import javax.swing.JEditorPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
+import com.atech.app.gui.about.AboutPanel;
 import com.atech.i18n.I18nControlAbstract;
 
 // TODO: Auto-generated Javadoc
@@ -91,10 +90,11 @@ public class LicenceInfo extends AboutPanel
      */
     public String[] files = { "", "lgpl-v3.html", "lgpl-v2.1.html", "gpl-v3.html", "gpl-v2.0.html" };
 
+
     /**
      * Instantiates a new licence info.
      * 
-     * @param ic the ic
+     * @param ic the i18nControl
      * @param licence the licence
      */
     public LicenceInfo(I18nControlAbstract ic, int licence)
@@ -108,10 +108,11 @@ public class LicenceInfo extends AboutPanel
         // loadLicenceText();
     }
 
+
     /**
      * Instantiates a new licence info.
      * 
-     * @param ic the ic
+     * @param ic the i18nControl
      * @param licence_txt the licence_txt
      * @param is_html the is_html
      */
@@ -122,6 +123,7 @@ public class LicenceInfo extends AboutPanel
         this.licence_text = licence_txt;
         init();
     }
+
 
     /**
      * Inits the.
@@ -144,6 +146,7 @@ public class LicenceInfo extends AboutPanel
         jEditorPane1.select(0, 0);
 
     }
+
 
     /**
      * Load licence text.
@@ -187,14 +190,16 @@ public class LicenceInfo extends AboutPanel
 
     }
 
+
     /** 
      * getTabName
      */
     @Override
     public String getTabName()
     {
-        return this.ic.getMessage("LICENCE");
+        return this.i18nControl.getMessage("LICENCE");
     }
+
 
     /** 
      * getTabPanel

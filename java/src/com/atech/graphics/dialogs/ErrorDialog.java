@@ -66,7 +66,7 @@ public class ErrorDialog extends JDialog implements ActionListener
     public int lastAction = 0;
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     protected I18nControlAbstract ic; // = I18nControl.getInstance();
 

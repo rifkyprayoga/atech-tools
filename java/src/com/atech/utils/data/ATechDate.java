@@ -7,6 +7,9 @@ import java.util.GregorianCalendar;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Minutes;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccess;
@@ -1487,6 +1490,39 @@ public class ATechDate
     public ATechDateType getAtechDatetimeTypeObject()
     {
         return atechDatetimeTypeObject;
+    }
+
+
+    /**
+     * Get Difference between two ATechDate instances
+     *
+     * Supported: Calendar.DAY_OF_YEAR, Calendar.MINUTE
+     *
+     * @param date
+     * @param type
+     * @return
+     */
+    public long getDifference(ATechDate date, int type)
+    {
+        DateTime fromDate = new DateTime(this.getGregorianCalendar().getTimeInMillis());
+        DateTime toDate = new DateTime(date.getGregorianCalendar().getTimeInMillis());
+
+        if (type == Calendar.DAY_OF_YEAR)
+        {
+            Days d = Days.daysBetween(fromDate, toDate);
+            return d.getDays();
+        }
+        else if (type == Calendar.MINUTE)
+        {
+            Minutes d = Minutes.minutesBetween(fromDate, toDate);
+            return d.getMinutes();
+        }
+        else
+        {
+            System.out.println("getDifference not supported for type: " + type);
+        }
+
+        return -1;
     }
 
 }

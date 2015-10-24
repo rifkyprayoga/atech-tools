@@ -1,11 +1,6 @@
 package com.atech.web.db;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import com.atech.web.db.objects.User;
 import com.atech.web.jsp.AppContextAbstract;
@@ -78,7 +73,7 @@ public abstract class AppDbWebAbstract
     protected ArrayList<User> users = null;
 
     // private String pis_web_version = "v0.5.3";
-    /** The ic. */
+    /** The i18nControl. */
     I18nWebControl ic = null;
 
     // WEB
@@ -98,6 +93,7 @@ public abstract class AppDbWebAbstract
     // elements)
 
     // 0.5 - Phase 3 (add/delete/edit data)
+
 
     // 0.6 - Phase 4 (finish)
 
@@ -128,15 +124,18 @@ public abstract class AppDbWebAbstract
         // System.out.println("PIS_Web Loaded: " + pis_web_version);
     }
 
+
     /**
      * Initialize db.
      */
     public abstract void initializeDb();
 
+
     /**
      * Destroy db.
      */
     public abstract void destroyDb();
+
 
     /**
      * Sets the i18n web control.
@@ -152,12 +151,14 @@ public abstract class AppDbWebAbstract
         initMonths();
     }
 
+
     /**
      * Close db.
      */
     public void closeDb()
     {
     }
+
 
     /**
      * Display error.
@@ -180,6 +181,7 @@ public abstract class AppDbWebAbstract
 
     }
 
+
     // /
     // / WEB METHODS
     // /
@@ -188,6 +190,7 @@ public abstract class AppDbWebAbstract
      * Load settings.
      */
     public abstract void loadSettings();
+
 
     /*
      * {
@@ -208,6 +211,7 @@ public abstract class AppDbWebAbstract
     * Load users.
     */
     public abstract void loadUsers();
+
 
     /*
      * {
@@ -237,6 +241,7 @@ public abstract class AppDbWebAbstract
         return key;
     }
 
+
     /**
      * Gets the web language.
      * 
@@ -250,6 +255,7 @@ public abstract class AppDbWebAbstract
             return "SI";
     }
 
+
     /**
      * Gets the web name.
      * 
@@ -262,6 +268,7 @@ public abstract class AppDbWebAbstract
         else
             return "Unknown";
     }
+
 
     // 0 = OK
     // -1 = username not found
@@ -295,6 +302,7 @@ public abstract class AppDbWebAbstract
 
     }
 
+
     // 0 = OK
     // -1 = username not found
     // -2 = password wrong
@@ -311,6 +319,7 @@ public abstract class AppDbWebAbstract
     {
         return doLogin(user, pass);
     }
+
 
     /**
      * Gets the user.
@@ -334,6 +343,7 @@ public abstract class AppDbWebAbstract
         return null;
     }
 
+
     //
     // BASIC METHODS
     //
@@ -347,6 +357,7 @@ public abstract class AppDbWebAbstract
      */
     public abstract boolean add(Object obj);
 
+
     /**
      * Edits the.
      * 
@@ -355,6 +366,7 @@ public abstract class AppDbWebAbstract
      * @return true, if successful
      */
     public abstract boolean edit(Object obj);
+
 
     /**
      * Gets the.
@@ -365,6 +377,7 @@ public abstract class AppDbWebAbstract
      */
     public abstract boolean get(Object obj);
 
+
     /**
      * Delete.
      * 
@@ -373,6 +386,7 @@ public abstract class AppDbWebAbstract
      * @return true, if successful
      */
     public abstract boolean delete(Object obj);
+
 
     /**
      * Adds the get id.
@@ -384,6 +398,7 @@ public abstract class AppDbWebAbstract
         return this.m_addId;
     }
 
+
     /**
      * Gets the error code.
      * 
@@ -394,6 +409,7 @@ public abstract class AppDbWebAbstract
         return this.m_errorCode;
     }
 
+
     /**
      * Gets the error description.
      * 
@@ -403,6 +419,7 @@ public abstract class AppDbWebAbstract
     {
         return this.m_errorDesc;
     }
+
 
     /**
      * Sets the error.
@@ -419,6 +436,7 @@ public abstract class AppDbWebAbstract
         this.m_errorCode = code;
         this.m_errorDesc = source + " : " + desc;
     }
+
 
     // *************************************************************
     // **** DAY AND MONTH HANDLING ****
@@ -438,6 +456,7 @@ public abstract class AppDbWebAbstract
 
         return this.week_days;
     }
+
 
     /**
      * Inits the week days.
@@ -461,6 +480,7 @@ public abstract class AppDbWebAbstract
         this.week_days = sb_wd.toString();
     }
 
+
     /**
      * Gets the months.
      * 
@@ -476,6 +496,7 @@ public abstract class AppDbWebAbstract
         return this.months;
     }
 
+
     /**
      * Inits the months.
      */
@@ -484,7 +505,7 @@ public abstract class AppDbWebAbstract
         StringBuffer sb_mon = new StringBuffer();
 
         String mon[] = { "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER",
-                        "OCTOBER", "NOVEMBER", "DECEMBER" };
+                         "OCTOBER", "NOVEMBER", "DECEMBER" };
 
         for (int i = 0; i < 12; i++)
         {
@@ -500,6 +521,7 @@ public abstract class AppDbWebAbstract
 
     }
 
+
     /**
      * Gets the empty string not null.
      * 
@@ -514,6 +536,7 @@ public abstract class AppDbWebAbstract
         else
             return value;
     }
+
 
     /**
      * Gets the date time string.
@@ -575,6 +598,7 @@ public abstract class AppDbWebAbstract
 
     /** The types_key. */
     private String[] types_key = { "", "MY_PIS", "NEWS", "WEEKLY_NEWS" };
+
 
     /**
      * Inits the combo system.
@@ -658,6 +682,7 @@ public abstract class AppDbWebAbstract
         // Hashtable<String,ArrayList<String>> sort_by_cb
     }
 
+
     /**
      * Gets the sort way combo.
      * 
@@ -694,6 +719,7 @@ public abstract class AppDbWebAbstract
         return out;
 
     }
+
 
     /**
      * Gets the sort combo.
@@ -735,6 +761,7 @@ public abstract class AppDbWebAbstract
 
     }
 
+
     /**
      * Gets the filter combo.
      * 
@@ -770,6 +797,7 @@ public abstract class AppDbWebAbstract
 
         return out;
     }
+
 
     /**
      * Gets the owner combo.
@@ -847,6 +875,7 @@ public abstract class AppDbWebAbstract
 
     /** The Constant TIME_INTERVAL_THIS_YEAR. */
     public static final int TIME_INTERVAL_THIS_YEAR = 12;
+
 
     /**
      * Gets the time interval.
@@ -1048,6 +1077,7 @@ public abstract class AppDbWebAbstract
 
     }
 
+
     /**
      * Gets the first day in week and set.
      * 
@@ -1076,8 +1106,9 @@ public abstract class AppDbWebAbstract
 
     /** The days. */
     public static int[] days = { GregorianCalendar.MONDAY, GregorianCalendar.TUESDAY, GregorianCalendar.WEDNESDAY,
-                                GregorianCalendar.THURSDAY, GregorianCalendar.FRIDAY, GregorianCalendar.SATURDAY,
-                                GregorianCalendar.SUNDAY };
+                                 GregorianCalendar.THURSDAY, GregorianCalendar.FRIDAY, GregorianCalendar.SATURDAY,
+                                 GregorianCalendar.SUNDAY };
+
 
     /**
      * Gets the day of week.
@@ -1097,6 +1128,7 @@ public abstract class AppDbWebAbstract
         return -1;
     }
 
+
     /**
      * Gets the gC from.
      * 
@@ -1115,6 +1147,7 @@ public abstract class AppDbWebAbstract
     // *************************************************************
     // **** U S E R ****
     // *************************************************************
+
 
     // *************************************************************
     // **** U T I L S ****
@@ -1145,6 +1178,7 @@ public abstract class AppDbWebAbstract
         return id;
     }
 
+
     /**
      * Gets the int from string.
      * 
@@ -1169,6 +1203,7 @@ public abstract class AppDbWebAbstract
 
         return id;
     }
+
 
     /**
      * Gets the date picker date.
@@ -1198,6 +1233,7 @@ public abstract class AppDbWebAbstract
                 + ":00";
 
     }
+
 
     /**
      * Gets the date time from date picker.
@@ -1236,6 +1272,7 @@ public abstract class AppDbWebAbstract
 
     }
 
+
     /**
      * Change case.
      * 
@@ -1270,6 +1307,7 @@ public abstract class AppDbWebAbstract
 
     }
 
+
     /**
      * Change case word.
      * 
@@ -1289,6 +1327,7 @@ public abstract class AppDbWebAbstract
 
     }
 
+
     /**
      * Show byte.
      * 
@@ -1304,6 +1343,7 @@ public abstract class AppDbWebAbstract
         }
 
     }
+
 
     /**
      * Debug out.

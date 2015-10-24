@@ -1,4 +1,4 @@
-package com.atech.graphics.components.about;
+package com.atech.app.data.about;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -69,6 +69,7 @@ public class LibraryInfoEntry
      */
     public String copyright2 = null;
 
+
     /**
      * Instantiates a new library info entry.
      * 
@@ -82,6 +83,7 @@ public class LibraryInfoEntry
     {
         this(name, ver_used, link, licence_type, desc, null);
     }
+
 
     /**
      * Instantiates a new library info entry.
@@ -104,6 +106,7 @@ public class LibraryInfoEntry
         this.copyright = copyright;
     }
 
+
     /**
      * Sets the copy right notice2.
      * 
@@ -113,6 +116,7 @@ public class LibraryInfoEntry
     {
         this.copyright2 = notice;
     }
+
 
     /**
      * Process link.
@@ -133,6 +137,7 @@ public class LibraryInfoEntry
 
     }
 
+
     /**
      * Gets the hTML code.
      * 
@@ -148,8 +153,9 @@ public class LibraryInfoEntry
                 + this.version_used + " (" + this.licence_type + ")</font></td></tr></table>");
         sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#000099\">"
                 + this.description + "</font></td></tr></table>");
-        sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#990000\"><a href=\""
-                + this.link_to + "\">" + this.link_to + "</a></font></td></tr></table>");
+        sb.append(
+            "<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#990000\"><a href=\""
+                    + this.link_to + "\">" + this.link_to + "</a></font></td></tr></table>");
 
         if (this.copyright != null)
         {

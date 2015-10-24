@@ -101,7 +101,7 @@ public class PanelDbAction extends JPanel implements ActionListener
         this.setBorder(new TitledBorder("Database Tools"));
 
         /*
-         * button = new JButton(ic.getMessage("ADD_"));
+         * button = new JButton(i18nControl.getMessage("ADD_"));
          * button.setBounds(110, 190, 170, 25);
          * button.setFont(font_normal);
          * button.addActionListener(this);
@@ -119,19 +119,19 @@ public class PanelDbAction extends JPanel implements ActionListener
             "init_db", this, m_da);
 
         /*
-         * button = new JButton(ic.getMessage("TEST_CONNECTION"));
+         * button = new JButton(i18nControl.getMessage("TEST_CONNECTION"));
          * button.setBounds(0, 10, 120, 25);
          * button.setFont(font_normal);
          * button.setActionCommand("test_connection");
          * button.addActionListener(this);
          * this.add(button);
-         * button = new JButton(ic.getMessage("STATUS"));
+         * button = new JButton(i18nControl.getMessage("STATUS"));
          * button.setBounds(140, 10, 120, 25);
          * button.setFont(font_normal);
          * button.setActionCommand("add_p");
          * button.addActionListener(this);
          * this.add(button);
-         * button = new JButton(ic.getMessage("INIT_DB"));
+         * button = new JButton(i18nControl.getMessage("INIT_DB"));
          * button.setBounds(280, 10, 120, 25);
          * button.setFont(font_normal);
          * button.setActionCommand("add_p");

@@ -1,6 +1,6 @@
-package com.atech.graphics.components.about;
+package com.atech.app.gui.about;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.atech.i18n.I18nControlAbstract;
 
@@ -37,25 +37,28 @@ import com.atech.i18n.I18nControlAbstract;
 
 public abstract class AboutPanel extends JPanel
 {
+
     /**
      * 
      */
     private static final long serialVersionUID = -5811159426365329265L;
 
     /**
-     * The ic.
+     * The i18nControl.
      */
-    I18nControlAbstract ic;
+    protected I18nControlAbstract i18nControl;
+
 
     /**
      * Instantiates a new about panel.
      * 
-     * @param ic the ic
+     * @param i18nControl the i18nControl
      */
-    public AboutPanel(I18nControlAbstract ic)
+    public AboutPanel(I18nControlAbstract i18nControl)
     {
-        this.ic = ic;
+        this.i18nControl = i18nControl;
     }
+
 
     /**
      * Gets the tab panel.
@@ -63,6 +66,7 @@ public abstract class AboutPanel extends JPanel
      * @return the tab panel
      */
     public abstract JPanel getTabPanel();
+
 
     /**
      * Gets the tab name.

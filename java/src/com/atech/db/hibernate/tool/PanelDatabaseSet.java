@@ -176,7 +176,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
 
         // TODO : remove this
         /*
-         * label = new JLabel(ic.getMessage("USERNAME") + ":");
+         * label = new JLabel(i18nControl.getMessage("USERNAME") + ":");
          * label.setBounds(40, 290, 200, 25);
          * label.setFont(font_normal);
          * this.add(label, null);
@@ -187,7 +187,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
          * tf_username.addActionListener(this);
          * this.add(tf_username, null);
          * this.parameters_textfield.put("<username>", tf_username);
-         * label = new JLabel(ic.getMessage("PASSWORD") + ":");
+         * label = new JLabel(i18nControl.getMessage("PASSWORD") + ":");
          * label.setBounds(40, 320, 200, 25);
          * label.setFont(font_normal);
          * this.add(label, null);
@@ -201,7 +201,7 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
          */
 
         /*
-         * button = new JButton(ic.getMessage("ADD_"));
+         * button = new JButton(i18nControl.getMessage("ADD_"));
          * button.setBounds(110, 190, 170, 25);
          * button.setFont(font_normal);
          * button.addActionListener(this);
@@ -209,17 +209,17 @@ public class PanelDatabaseSet extends JPanel implements ActionListener, /*
          * this.add(button);
          */
         /*
-         * button = new JButton(ic.getMessage("ADD_"));
+         * button = new JButton(i18nControl.getMessage("ADD_"));
          * button.setBounds(110, 220, 170, 25);
          * button.setFont(font_normal);
          * button.setActionCommand("add_p");
          * button.addActionListener(this);
          * //this.add(button);
-         * label = new JLabel(ic.getMessage("EDIT_VIEW"));
+         * label = new JLabel(i18nControl.getMessage("EDIT_VIEW"));
          * label.setBounds(40, 280, 300, 30);
          * label.setFont(fnt_18);
          * //this.add(label, null);
-         * label = new JLabel(ic.getMessage("EDIT_VIEW_DESC"));
+         * label = new JLabel(i18nControl.getMessage("EDIT_VIEW_DESC"));
          * label.setBounds(40, 310, 300, 60);
          * label.setFont(font_normal);
          * //this.add(label, null);

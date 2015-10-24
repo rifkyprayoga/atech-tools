@@ -1,4 +1,6 @@
-package com.atech.graphics.components.about;
+package com.atech.app.data.about;
+
+import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -31,30 +33,67 @@ package com.atech.graphics.components.about;
  *
 */
 
-public class FeaturesEntry
+public class CreditsGroup
 {
-    private String content;
+
+    private String name;
+    private ArrayList<CreditsEntry> entries;
+
 
     /**
-     * Instantiates a new features entry.
+     * Instantiates a new credits group.
      * 
-     * @param content the content
+     * @param name the name
      */
-    public FeaturesEntry(String content)
+    public CreditsGroup(String name)
     {
-        this.content = content;
+        this.name = name;
+        this.entries = new ArrayList<CreditsEntry>();
     }
 
+
     /**
-     * Gets the hTML code.
+     * Adds the credits entry.
      * 
-     * @return the hTML code
+     * @param ce the ce
      */
-    public String getHTMLCode()
+    public void addCreditsEntry(CreditsEntry ce)
     {
-        return "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#990033\">"
-                + this.content + "</font></td></tr></table>"; // +
-        // "<br>";
+        this.entries.add(ce);
+    }
+
+
+    /**
+     * Gets the group start html.
+     * 
+     * @return the group start html
+     */
+    public String getGroupStartHTML()
+    {
+        return "<table width=\"100%\" border=\"0\"><tr><td width=\"5%\">&nbsp;</td><td><font color=\"#0099FF\">"
+                + this.name + ":</font></td></tr></table>";
+    }
+
+
+    /**
+     * Gets the group end html.
+     * 
+     * @return the group end html
+     */
+    public String getGroupEndHTML()
+    {
+        return "<br>";
+    }
+
+
+    /**
+     * Gets the entries.
+     * 
+     * @return the entries
+     */
+    public ArrayList<CreditsEntry> getEntries()
+    {
+        return this.entries;
     }
 
 }

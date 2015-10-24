@@ -1,16 +1,11 @@
 package com.atech.db.hibernate.tool;
 
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
-import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
 
 /**
@@ -56,6 +51,7 @@ public class PanelRoot extends JPanel implements ActionListener
     JLabel label;
     JButton button;
 
+
     // NutritionTreeDialog m_dialog = null;
 
     /**
@@ -80,6 +76,7 @@ public class PanelRoot extends JPanel implements ActionListener
 
     }
 
+
     private void createPanel()
     {
 
@@ -96,7 +93,7 @@ public class PanelRoot extends JPanel implements ActionListener
 
         // ` DB_TOOL
 
-        // label = new JLabel(ic.getMessage("CONFIGURATION"));
+        // label = new JLabel(i18nControl.getMessage("CONFIGURATION"));
         label.setBounds(0, 35, 420, 40);
         label.setFont(font_big);
         label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -118,7 +115,7 @@ public class PanelRoot extends JPanel implements ActionListener
         this.add(cb, null);
 
         /*
-         * button = new JButton(ic.getMessage("ADD_"));
+         * button = new JButton(i18nControl.getMessage("ADD_"));
          * button.setBounds(110, 190, 170, 25);
          * button.setFont(font_normal);
          * button.addActionListener(this);
@@ -146,6 +143,7 @@ public class PanelRoot extends JPanel implements ActionListener
 
         return;
     }
+
 
     /**
      *  Action Listener

@@ -132,6 +132,47 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     }
 
 
+    protected PdfPCell createCell(Phrase phrase)
+    {
+        return createCell(phrase, null, null, null);
+    }
+
+
+    protected PdfPCell createCell(Phrase phrase, Integer horizontalAlignment)
+    {
+        return createCell(phrase, null, null, horizontalAlignment);
+    }
+
+
+    protected PdfPCell createCell(Phrase phrase, BaseColor backgroundColor, Integer horizontalAlignment)
+    {
+        return createCell(phrase, backgroundColor, null, horizontalAlignment);
+    }
+
+
+    protected PdfPCell createCellWithCenterAlignment(Phrase phrase, BaseColor backgroundColor)
+    {
+        return createCell(phrase, backgroundColor, Element.ALIGN_BASELINE, Element.ALIGN_CENTER);
+    }
+
+
+    protected PdfPCell createCell(Phrase phrase, BaseColor backgroundColor, Integer verticalAlignment,
+            Integer horizontalAlignment)
+    {
+        PdfPCell cell = new PdfPCell(phrase);
+        if (backgroundColor != null)
+            cell.setBackgroundColor(backgroundColor);
+
+        if (verticalAlignment != null)
+            cell.setVerticalAlignment(verticalAlignment);
+
+        if (horizontalAlignment != null)
+            cell.setHorizontalAlignment(horizontalAlignment);
+
+        return cell;
+    }
+
+
     protected Phrase createNormalTextPhrase(String text)
     {
         return new Phrase(this.i18nControl.getMessage(text), this.textFontNormal);

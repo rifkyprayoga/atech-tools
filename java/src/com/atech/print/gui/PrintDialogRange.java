@@ -61,7 +61,9 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
 
     protected Font fontNormal, fontNormalBold;
     protected boolean enableHelp = true;
-    PrintDialogType type;
+    // PrintDialogType type;
+
+    int type;
 
 
     /**
@@ -78,6 +80,13 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
     }
 
 
+    public PrintDialogRange(JFrame frame, int type, ATDataAccessAbstract dataAccess, I18nControlAbstract i18nControl,
+            boolean _enable_help)
+    {
+        this(frame, type, dataAccess, i18nControl, _enable_help, true);
+    }
+
+
     /**
      * Constructor
      *
@@ -88,14 +97,26 @@ public abstract class PrintDialogRange extends ActionExceptionCatchDialog implem
      * @param _enable_help
      */
     public PrintDialogRange(JFrame frame, int type, ATDataAccessAbstract dataAccess, I18nControlAbstract i18nControl,
-            boolean _enable_help)
+            boolean _enable_help, boolean init)
     {
         super(frame, type, dataAccess, "printing_dialog");
 
         this.enableHelp = _enable_help;
         preInitGUI(dataAccess, i18nControl);
+        this.type = type;
+
+        if (init)
+        {
+            initDialog();
+        }
+    }
+
+
+    public void initDialog()
+    {
         initRange();
         this.cbTemplate.setSelectedIndex(type - 1);
+
         this.setVisible(true);
     }
 

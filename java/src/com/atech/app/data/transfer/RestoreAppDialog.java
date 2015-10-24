@@ -84,7 +84,8 @@ public class RestoreAppDialog extends RestoreDialog
         m_aac.specialRestoreInit();
 
         /*
-         * this.cb_daily = new JCheckBox(ic.getMessage("DAILY_VALUES_APPEND"));
+         * this.cb_daily = new
+         * JCheckBox(i18nControl.getMessage("DAILY_VALUES_APPEND"));
          * this.cb_daily.setBounds(25, 390, 380, 70);
          * this.cb_daily.setVerticalTextPosition(SwingConstants.TOP);
          * this.cb_daily.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL));

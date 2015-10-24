@@ -130,24 +130,23 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     /**
      * The contact_icons.
      */
-    public ImageIcon contact_icons[] = { null,
-                                        new ImageIcon("images/c_phone.gif"), // m_i18n.getMessage("PHONE"),
-                                        new ImageIcon("images/c_GSM.gif"), // m_i18n.getMessage("GSM"),
-                                        new ImageIcon("images/c_fax.gif"), // m_i18n.getMessage("FAX"),
-                                        new ImageIcon("images/c_email.gif"), // m_i18n.getMessage("EMAIL"),
-                                        new ImageIcon("images/c_hp.gif"), // m_i18n.getMessage("WEB_PAGE"),
-                                        new ImageIcon("images/c_icq.gif"), // m_i18n.getMessage("ICQ_MSNG"),
-                                        new ImageIcon("images/c_yahoo.gif"), // m_i18n.getMessage("YAHOO_MSNG"),
-                                        new ImageIcon("images/c_aim.gif"), // m_i18n.getMessage("MSN_MSNG")
-                                        new ImageIcon("images/c_jabber.gif"), new ImageIcon("images/c_msn.gif"), null,
-                                        null };
+    public ImageIcon contact_icons[] = { null, new ImageIcon("images/c_phone.gif"), // m_i18n.getMessage("PHONE"),
+                                         new ImageIcon("images/c_GSM.gif"), // m_i18n.getMessage("GSM"),
+                                         new ImageIcon("images/c_fax.gif"), // m_i18n.getMessage("FAX"),
+                                         new ImageIcon("images/c_email.gif"), // m_i18n.getMessage("EMAIL"),
+                                         new ImageIcon("images/c_hp.gif"), // m_i18n.getMessage("WEB_PAGE"),
+                                         new ImageIcon("images/c_icq.gif"), // m_i18n.getMessage("ICQ_MSNG"),
+                                         new ImageIcon("images/c_yahoo.gif"), // m_i18n.getMessage("YAHOO_MSNG"),
+                                         new ImageIcon("images/c_aim.gif"), // m_i18n.getMessage("MSN_MSNG")
+                                         new ImageIcon("images/c_jabber.gif"), new ImageIcon("images/c_msn.gif"), null,
+                                         null };
 
     /**
      * The mass_status.
      */
     public ImageIcon mass_status[] = { new ImageIcon("images/dot_green.gif"), new ImageIcon("images/dot_orange.gif"), // m_i18n.getMessage("PHONE"),
-                                      new ImageIcon("images/dot_blue.gif"), // m_i18n.getMessage("PHONE"),
-                                      new ImageIcon("images/dot_red.gif"), // m_i18n.getMessage("PHONE"),
+                                       new ImageIcon("images/dot_blue.gif"), // m_i18n.getMessage("PHONE"),
+                                       new ImageIcon("images/dot_red.gif"), // m_i18n.getMessage("PHONE"),
     };
 
     /**
@@ -189,10 +188,10 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     public long selected_customer_id = 0L;
 
-
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
+
 
     // Constructor: DataAccess
     /**
@@ -272,7 +271,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
             // dataAccess.setParent(main);
             // dataAccess.setMainParent(main);
 
-            m_da.help_enabled = s_app_context.isHelpEnabled();
+            m_da.helpEnabled = s_app_context.isHelpEnabled();
 
         }
 
@@ -306,7 +305,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
             m_da.setParent(main);
             m_da.setMainParent(main);
 
-            m_da.help_enabled = s_app_context.isHelpEnabled();
+            m_da.helpEnabled = s_app_context.isHelpEnabled();
 
         }
         else
@@ -352,7 +351,6 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         return s_app_context.getDb();
     }
 
-
     /*
      * public void loadDioceseRoot()
      * {
@@ -363,6 +361,7 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     // ********************************************************
     // ****** Database Loading Status *****
     // ********************************************************
+
 
     /*
      * (non-Javadoc)
@@ -399,10 +398,10 @@ public class DataAccessApp extends ATDataAccessLMAbstract
             return false;
     }
 
-
     // ********************************************************
     // ****** Fonts *****
     // ********************************************************
+
 
     // ********************************************************
     // ****** Parent handling (for UIs) *****
@@ -481,10 +480,10 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         this.border_line = new LineBorder(this.color_foreground);
     }
 
-
     // ********************************************************
     // ****** Languages *****
     // ********************************************************
+
 
     /*
      * (non-Javadoc)
@@ -543,9 +542,10 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
             // this.
 
-            FileInputStream in = new FileInputStream(s_app_context.getDbToolApplication()
-                    .getApplicationDatabaseConfig()); // pathPrefix +
-                                                      // "/data/MSP_Config.properties");
+            FileInputStream in = new FileInputStream(
+                    s_app_context.getDbToolApplication().getApplicationDatabaseConfig()); // pathPrefix
+                                                                                          // +
+                                                                                          // "/data/MSP_Config.properties");
             props.load(in);
 
             // int sel_lang = 1;
@@ -641,10 +641,10 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         }
     }
 
-
     // ********************************************************
     // ****** Config File Handling *****
     // ********************************************************
+
 
     // -----------------------
 

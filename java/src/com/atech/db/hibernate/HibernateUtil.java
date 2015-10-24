@@ -41,7 +41,7 @@ import org.hibernate.Transaction;
 public class HibernateUtil
 {
 
-    // I18nControlAbstract ic = null;
+    // I18nControlAbstract i18nControl = null;
     private Session m_session = null;
 
     /**
@@ -56,15 +56,18 @@ public class HibernateUtil
     @SuppressWarnings("unused")
     private String m_addId = "";
 
+
     /**
      * Instantiates a new hibernate util.
      * 
      * @param hconfig the hconfig
      * @param type the type
      */
-    public HibernateUtil(HibernateConfiguration hconfig, int type)  {
+    public HibernateUtil(HibernateConfiguration hconfig, int type)
+    {
         this(hconfig, type, true);
     }
+
 
     /**
      * Instantiates a new hibernate util.
@@ -82,6 +85,7 @@ public class HibernateUtil
             this.hconfig.reInitConfiguration(type);
         }
     }
+
 
     /*
      * public HibernateUtil(Configuration cfg)
@@ -104,9 +108,11 @@ public class HibernateUtil
     /**
      * Sets the session.
      */
-    public void setSession()  {
+    public void setSession()
+    {
         setSession(1);
     }
+
 
     /**
      * Sets the session.
@@ -118,6 +124,7 @@ public class HibernateUtil
         this.m_session = this.hconfig.getSession(session_nr);
     }
 
+
     /**
      * Gets the session.
      * 
@@ -127,6 +134,7 @@ public class HibernateUtil
     {
         return this.m_session;
     }
+
 
     /**
      * Adds the.
@@ -180,6 +188,7 @@ public class HibernateUtil
 
     }
 
+
     // this method is used for direct use with hibernate objects (unlike use
     // with our
     // datalayer classes)
@@ -212,6 +221,7 @@ public class HibernateUtil
         }
 
     }
+
 
     /**
      * Edits the.
@@ -262,6 +272,7 @@ public class HibernateUtil
 
     }
 
+
     // this method is used for direct use with hibernate objects (unlike use
     // with our
     // datalayer classes)
@@ -296,6 +307,7 @@ public class HibernateUtil
         }
 
     }
+
 
     /**
      * Delete.
@@ -356,6 +368,7 @@ public class HibernateUtil
 
     }
 
+
     /**
      * Delete hibernate.
      * 
@@ -387,6 +400,7 @@ public class HibernateUtil
         }
 
     }
+
 
     /**
      * Sets the error.

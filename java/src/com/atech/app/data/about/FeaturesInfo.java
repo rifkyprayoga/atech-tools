@@ -1,12 +1,10 @@
-package com.atech.graphics.components.about;
+package com.atech.app.data.about;
 
-import java.awt.BorderLayout;
-import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.JEditorPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
+import com.atech.app.gui.about.AboutPanel;
 import com.atech.i18n.I18nControlAbstract;
 
 // TODO: Auto-generated Javadoc
@@ -40,35 +38,37 @@ import com.atech.i18n.I18nControlAbstract;
  *
 */
 
-public class LibraryInfo extends AboutPanel
+public class FeaturesInfo extends AboutPanel
 {
 
-    private static final long serialVersionUID = -3384856095101992059L;
+    private static final long serialVersionUID = 7569658856214864210L;
 
     /**
-     * The libraries.
+     * The features.
      */
-    ArrayList<LibraryInfoEntry> libraries;
+    List<FeaturesGroup> features;
+
 
     /**
-     * Instantiates a new library info.
+     * Instantiates a new features info.
      * 
-     * @param ic the ic
+     * @param ic the i18nControl
      * @param lst the lst
      */
-    public LibraryInfo(I18nControlAbstract ic, ArrayList<LibraryInfoEntry> lst)
+    public FeaturesInfo(I18nControlAbstract ic, List<FeaturesGroup> lst)
     {
         super(ic);
-        this.libraries = lst;
+        this.features = lst;
         init();
     }
+
 
     /**
      * Inits the.
      */
     public void init()
     {
-        this.setLayout(new BorderLayout());
+        this.setLayout(new java.awt.BorderLayout());
 
         JEditorPane jEditorPane1 = new JEditorPane();
 
@@ -83,8 +83,8 @@ public class LibraryInfo extends AboutPanel
         this.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jEditorPane1.select(0, 0);
-
     }
+
 
     /**
      * Generate page.
@@ -97,9 +97,16 @@ public class LibraryInfo extends AboutPanel
 
         sb.append("<html><body>");
 
-        for (int i = 0; i < this.libraries.size(); i++)
+        for (int i = 0; i < this.features.size(); i++)
         {
-            sb.append(this.libraries.get(i).getHTMLCode());
+            sb.append(this.features.get(i).getGroupStartHTML());
+
+            for (int j = 0; j < this.features.get(i).getEntries().size(); j++)
+            {
+                sb.append(this.features.get(i).getEntries().get(j).getHTMLCode());
+            }
+
+            sb.append(this.features.get(i).getGroupEndHTML());
         }
 
         sb.append("</body></html>");
@@ -107,14 +114,16 @@ public class LibraryInfo extends AboutPanel
         return sb.toString();
     }
 
+
     /** 
      * getTabName
      */
     @Override
     public String getTabName()
     {
-        return this.ic.getMessage("LIBRARIES");
+        return this.i18nControl.getMessage("FEATURES");
     }
+
 
     /** 
      * getTabPanel

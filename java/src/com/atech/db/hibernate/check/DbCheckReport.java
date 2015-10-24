@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.StringTokenizer;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -60,16 +60,17 @@ public class DbCheckReport
     private boolean file_exists = false;
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     I18nControlAbstract ic;
     private boolean can_be_started = false;
+
 
     /**
      * Instantiates a new db check report.
      * 
      * @param filename the filename
-     * @param ic the ic
+     * @param ic the i18nControl
      */
     public DbCheckReport(String filename, I18nControlAbstract ic)
     {
@@ -78,6 +79,7 @@ public class DbCheckReport
         readFileInfo();
         evaluateInfo();
     }
+
 
     /**
      * Read file info.
@@ -130,6 +132,7 @@ public class DbCheckReport
 
     }
 
+
     /**
      * Evaluate info.
      */
@@ -166,6 +169,7 @@ public class DbCheckReport
         }
     }
 
+
     /**
      * Can application start.
      * 
@@ -175,6 +179,7 @@ public class DbCheckReport
     {
         return this.can_be_started;
     }
+
 
     /**
      * Show error.

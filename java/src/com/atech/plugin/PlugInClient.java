@@ -376,7 +376,8 @@ public abstract class PlugInClient implements ActionListener
         text += "!\n\n";
 
         // JOptionPane.showMessageDialog(this.parent, text,
-        // ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+        // i18nControl.getMessage("INFORMATION"),
+        // JOptionPane.INFORMATION_MESSAGE);
         LOG.debug("Feature not implemented: " + commandDesc);
 
         showMessage(text);
@@ -398,7 +399,8 @@ public abstract class PlugInClient implements ActionListener
 
         LOG.debug("Feature not implemented or Installed: " + commandDesc);
         // JOptionPane.showMessageDialog(this.parent, text,
-        // ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+        // i18nControl.getMessage("INFORMATION"),
+        // JOptionPane.INFORMATION_MESSAGE);
 
         showMessage(text);
     }
@@ -412,7 +414,7 @@ public abstract class PlugInClient implements ActionListener
      */
     public void featureNotImplementedInstalled(String commandDesc, String ver)
     {
-        String text = "\n"; // String.format(ic.getMessage("PLUGIN_NOT_INSTALLED_OR_AVAILABLE"),
+        String text = "\n"; // String.format(i18nControl.getMessage("PLUGIN_NOT_INSTALLED_OR_AVAILABLE"),
                             // this.getName());
 
         text += "'" + ic.getMessage(commandDesc) + "' ";
@@ -420,7 +422,8 @@ public abstract class PlugInClient implements ActionListener
         text += "!\n\n";
 
         // JOptionPane.showMessageDialog(this.parent, text,
-        // ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+        // i18nControl.getMessage("INFORMATION"),
+        // JOptionPane.INFORMATION_MESSAGE);
 
         LOG.debug("Feature not implemented or Installed: " + commandDesc);
 

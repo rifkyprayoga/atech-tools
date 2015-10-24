@@ -122,7 +122,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
             ATSwingUtils.FONT_BIG_BOLD);
 
         /*
-         * JLabel label = new JLabel(ic.getMessage("LANGUAGE"));
+         * JLabel label = new JLabel(i18nControl.getMessage("LANGUAGE"));
          * label.setFont(font_big);
          * label.setBounds(0, 05, 420, 36);
          * label.setHorizontalAlignment(JLabel.CENTER);
@@ -134,7 +134,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
 
         /*
          * XA
-         * label = new JLabel(ic.getMessage("LANGPACK_VERSION") + ":");
+         * label = new JLabel(i18nControl.getMessage("LANGPACK_VERSION") + ":");
          * label.setFont(font_normal_b);
          * label.setBounds(40, 50, 360, 25);
          * panel.add(label);
@@ -151,7 +151,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
             ATSwingUtils.FONT_NORMAL_BOLD);
 
         /*
-         * label = new JLabel(ic.getMessage("LANG_WITH_HELP") + ":");
+         * label = new JLabel(i18nControl.getMessage("LANG_WITH_HELP") + ":");
          * label.setFont(font_normal_b);
          * label.setBounds(60, 70, 360, 25);
          * panel.add(label);
@@ -167,7 +167,8 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
             ATSwingUtils.FONT_NORMAL_BOLD);
 
         /*
-         * label = new JLabel(ic.getMessage("LANG_WITHOUT_HELP") + ":");
+         * label = new JLabel(i18nControl.getMessage("LANG_WITHOUT_HELP") +
+         * ":");
          * label.setFont(font_normal_b);
          * label.setBounds(60, 90, 360, 25);
          * panel.add(label);
@@ -268,7 +269,8 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
          * ATSwingUtils.getLabel(m_ic.getMessage("NOTE_RESTART"),
          * 40, 280, 360, 50,
          * panel, ATSwingUtils.FONT_NORMAL);
-         * ATSwingUtils.getLabel(m_ic.getMessage("NOTE_LANG_FEATURE_NOT_WORKING")
+         * ATSwingUtils.getLabel(m_ic.getMessage(
+         * "NOTE_LANG_FEATURE_NOT_WORKING")
          * ,
          * 40, 325, 430, 70,
          * panel, ATSwingUtils.FONT_NORMAL_BOLD);
@@ -296,7 +298,8 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
         /*
          * settings.setUserName(fieldUserName.getText());
          * settings.setLanguage(langBox.getSelectedItem().toString());
-         * this.m_dbc.setSelectedDatabaseIndex(this.cb_database.getSelectedIndex(
+         * this.m_dbc.setSelectedDatabaseIndex(this.cb_database.
+         * getSelectedIndex(
          * ));
          * this.m_dbc.setSelectedLF(this.cb_lf_type.getSelectedIndex(),
          * this.tf_lf.getText());

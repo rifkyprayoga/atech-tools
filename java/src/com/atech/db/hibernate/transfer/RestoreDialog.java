@@ -52,14 +52,14 @@ import com.atech.utils.file.UnPackFiles;
  *
 */
 
-public abstract class RestoreDialog extends JDialog implements ActionListener, BackupRestoreWorkGiver, HelpCapable,
-        ComponentHelpCapable
+public abstract class RestoreDialog extends JDialog
+        implements ActionListener, BackupRestoreWorkGiver, HelpCapable, ComponentHelpCapable
 {
 
     private static final long serialVersionUID = -9166774725245737896L;
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     protected I18nControlAbstract ic = null;
 
@@ -179,7 +179,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         // System.out.println("Br Coll: " + br_coll);
 
         this.filename = filename;
-        // System.out.println("BRD ic: " + this.ic);
+        // System.out.println("BRD i18nControl: " + this.i18nControl);
 
         init();
     }
@@ -404,9 +404,9 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         button_help.setFont(font_normal);
         panel.add(button_help);
 
-        label_current_progress = new JLabel(); // ic.getMessage("CURRENT_TASK")
-                                               // + ":    " +
-                                               // ic.getMessage("NO_TASK_STARTED"));
+        label_current_progress = new JLabel(); // i18nControl.getMessage("CURRENT_TASK")
+                                               // + ": " +
+                                               // i18nControl.getMessage("NO_TASK_STARTED"));
         label_current_progress.setBounds(25, 265, 300, 25);
         label_current_progress.setFont(this.font_normal);
         panel.add(label_current_progress);
@@ -417,11 +417,11 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         panel.add(this.progress_current);
 
         label_total_progress = new JLabel(); // "<html><b>" +
-                                             // ic.getMessage("TOTAL_PROGRESS")
+                                             // i18nControl.getMessage("TOTAL_PROGRESS")
                                              // +
-                                             // ":</b>&nbsp;&nbsp;&nbsp;&nbsp;    "
+                                             // ":</b>&nbsp;&nbsp;&nbsp;&nbsp; "
                                              // +
-                                             // ic.getMessage("BACKUP_NOT_STARTED_YET")
+                                             // i18nControl.getMessage("BACKUP_NOT_STARTED_YET")
                                              // + "</html>");
         label_total_progress.setBounds(25, 330, 300, 25);
         label_total_progress.setFont(this.font_normal);
@@ -456,10 +456,10 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
     {
         if (task == null)
         {
-            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS")
-                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("RESTORE_NOT_STARTED_YET") + "</html>");
-            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK")
-                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("NO_TASK_STARTED") + "</html>");
+            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
+                    + ic.getMessage("RESTORE_NOT_STARTED_YET") + "</html>");
+            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
+                    + ic.getMessage("NO_TASK_STARTED") + "</html>");
         }
         else
         {
@@ -469,11 +469,10 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
             tsk++;
 
             // System.out.println("Task: " + tsk);
-            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS")
-                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("TASK") + " (" + tsk + "/"
-                    + this.count_of_backup_elements + ")</html>");
-            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK")
-                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + task + "</html>");
+            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
+                    + ic.getMessage("TASK") + " (" + tsk + "/" + this.count_of_backup_elements + ")</html>");
+            label_current_progress.setText(
+                "<html><b>" + ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + task + "</html>");
         }
     }
 
@@ -629,7 +628,6 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
         this.count_of_backup_elements = elements_count;
     }
 
-
     /*
      * a2
      * public boolean isBackupRestoreObjectSelected(String key)
@@ -640,6 +638,7 @@ public abstract class RestoreDialog extends JDialog implements ActionListener, B
      * return false;
      * }
      */
+
 
     // private void preprocessData(CheckNode node, )
     /**

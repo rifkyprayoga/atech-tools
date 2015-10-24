@@ -113,7 +113,7 @@ public abstract class LanguageInfo
     /**
      * Instantiates a new language info.
      * 
-     * @param ic the ic
+     * @param ic the i18nControl
      */
     public LanguageInfo(I18nControlAbstract ic)
     {

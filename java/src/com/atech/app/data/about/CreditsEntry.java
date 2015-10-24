@@ -1,4 +1,4 @@
-package com.atech.graphics.components.about;
+package com.atech.app.data.about;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -33,9 +33,11 @@ package com.atech.graphics.components.about;
 
 public class CreditsEntry
 {
+
     private String name;
     private String email;
     private String what_does;
+
 
     /**
      * Instantiates a new credits entry.
@@ -51,6 +53,7 @@ public class CreditsEntry
         this.what_does = what_does;
     }
 
+
     /**
      * Gets the hTML code.
      * 
@@ -60,17 +63,14 @@ public class CreditsEntry
     {
         if (this.email == null || this.email.trim().length() == 0)
             return "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#006600\">"
-                    + this.name
-                    + "</font></td></tr></table>"
+                    + this.name + "</font></td></tr></table>"
                     + "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#990000\">"
                     + this.what_does + "</font></td></tr></table><br>";
         else
             return "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#006600\">"
-                    + this.name
-                    + "</font></td></tr></table>"
+                    + this.name + "</font></td></tr></table>"
                     + "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#000099\">"
-                    + this.email
-                    + "</font></td></tr></table>"
+                    + this.email + "</font></td></tr></table>"
                     + "<table width=\"100%\" border=\"0\"><tr><td width=\"20%\">&nbsp;</td><td><font color=\"#990000\">"
                     + this.what_does + "</font></td></tr></table><br>";
     }

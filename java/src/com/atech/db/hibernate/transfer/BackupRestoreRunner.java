@@ -43,7 +43,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
 {
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     protected I18nControlAbstract ic = null;
 

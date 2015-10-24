@@ -11,13 +11,13 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.ConfigurationWithSessionFactory;
+import org.hibernate.cfg.SettingsFactoryWithException;
 
 import com.atech.db.hibernate.check.DbCheckAbstract;
 import com.atech.graphics.SplashAbstract;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
-import org.hibernate.cfg.ConfigurationWithSessionFactory;
-import org.hibernate.cfg.SettingsFactoryWithException;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -54,7 +54,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
 {
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     I18nControlAbstract ic = null;
     private Log log = LogFactory.getLog(HibernateConfiguration.class);
@@ -184,7 +184,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     /**
      * Instantiates a new hibernate configuration.
      * 
-     * @param ic the ic
+     * @param ic the i18nControl
      */
     public HibernateConfiguration(I18nControlAbstract ic)
     {
@@ -195,7 +195,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     /**
      * Instantiates a new hibernate configuration.
      * 
-     * @param ic the ic
+     * @param ic the i18nControl
      * @param da the da
      */
     public HibernateConfiguration(I18nControlAbstract ic, ATDataAccessAbstract da)
@@ -239,7 +239,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     /**
      * Instantiates a new hibernate configuration.
      * 
-     * @param ic the ic
+     * @param ic the i18nControl
      * @param sel_db the sel_db
      * @param da the da
      */
@@ -425,7 +425,8 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
 
     protected Configuration getCustomConfiguration(String[] res_files)
     {
-        Configuration cfg = new ConfigurationWithSessionFactory(new SettingsFactoryWithException()).setProperty("hibernate.dialect", db_hib_dialect)
+        Configuration cfg = new ConfigurationWithSessionFactory(new SettingsFactoryWithException())
+                .setProperty("hibernate.dialect", db_hib_dialect)
                 .setProperty("hibernate.connection.driver_class", db_driver_class)
                 .setProperty("hibernate.connection.url", db_conn_url)
                 .setProperty("hibernate.connection.username", db_conn_username)
@@ -551,16 +552,19 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     /**
      * Creates the session factory.
      */
-    public void createSessionFactory()  {
-        try {
+    public void createSessionFactory()
+    {
+        try
+        {
             this.session_factory = m_cfg.buildSessionFactory();
             this.sessions = new Hashtable<String, Session>();
 
-            for (int i = 1; i <= this.getNumberOfSessions(); i++) {
+            for (int i = 1; i <= this.getNumberOfSessions(); i++)
+            {
                 this.sessions.put("" + i, this.session_factory.openSession());
             }
         }
-        catch(HibernateException ex)
+        catch (HibernateException ex)
         {
             throw ex;
         }
@@ -586,7 +590,8 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
      * 
      * @return the session
      */
-    public Session getSession(int num)  {
+    public Session getSession(int num)
+    {
         return getSession(num, false);
     }
 
@@ -599,7 +604,8 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
      * 
      * @return the session
      */
-    public Session getSession(int num, boolean dont_clear)  {
+    public Session getSession(int num, boolean dont_clear)
+    {
         if (this.session_factory == null)
         {
             createSessionFactory();

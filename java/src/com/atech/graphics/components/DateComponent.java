@@ -64,7 +64,7 @@ public class DateComponent extends JPanel implements ChangeListener
     String m_note = "";
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     I18nControlAbstract ic = null; // I18nControl.getInstance();
 
@@ -245,7 +245,6 @@ public class DateComponent extends JPanel implements ChangeListener
      */
     public static final int DATE_FULL = 0;
 
-
     /**
      * Init Months
      */
@@ -254,17 +253,20 @@ public class DateComponent extends JPanel implements ChangeListener
      * {
      * if (months == null)
      * {
-     * String m[] = { ic.getMessage("JANUARY"), ic.getMessage("FEBRUARY"),
-     * ic.getMessage("MARCH"),
-     * ic.getMessage("APRIL"), ic.getMessage("MAY"), ic.getMessage("JUNE"),
-     * ic.getMessage("JULY"),
-     * ic.getMessage("AUGUST"), ic.getMessage("SEPTEMBER"),
-     * ic.getMessage("OCTOBER"),
-     * ic.getMessage("NOVEMBER"), ic.getMessage("DECEMBER") };
+     * String m[] = { i18nControl.getMessage("JANUARY"),
+     * i18nControl.getMessage("FEBRUARY"),
+     * i18nControl.getMessage("MARCH"),
+     * i18nControl.getMessage("APRIL"), i18nControl.getMessage("MAY"),
+     * i18nControl.getMessage("JUNE"),
+     * i18nControl.getMessage("JULY"),
+     * i18nControl.getMessage("AUGUST"), i18nControl.getMessage("SEPTEMBER"),
+     * i18nControl.getMessage("OCTOBER"),
+     * i18nControl.getMessage("NOVEMBER"), i18nControl.getMessage("DECEMBER") };
      * months = m;
      * }
      * }
      */
+
 
     /**
      * Add Action Listener
@@ -644,8 +646,8 @@ public class DateComponent extends JPanel implements ChangeListener
 
         String dt = "20051012";
 
-        System.out.println("Day: " + dt.substring(6, 8) + " Month: " + dt.substring(4, 6) + " Year: "
-                + dt.substring(0, 4));
+        System.out.println(
+            "Day: " + dt.substring(6, 8) + " Month: " + dt.substring(4, 6) + " Year: " + dt.substring(0, 4));
 
         // year.setValue(dt.substring(0,4);
         // day.setValue(dt.substring(6,8));

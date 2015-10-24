@@ -52,11 +52,12 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
     @SuppressWarnings("unused")
     private I18nControlAbstract ic;
 
+
     /**
      * Instantiates a new backup restore collection.
      * 
      * @param name the name
-     * @param ic the ic
+     * @param ic the i18nControl
      */
     public BackupRestoreCollection(String name, I18nControlAbstract ic)
     {
@@ -65,6 +66,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
         this.children = new ArrayList<BackupRestoreBase>();
         this.children_tree = new ArrayList<CheckBoxTreeNodeInterface>();
     }
+
 
     /**
      * Adds the node child.
@@ -86,6 +88,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
         }
     }
 
+
     /** 
      * getNodeChildren
      */
@@ -93,6 +96,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
     {
         return this.children_tree;
     }
+
 
     /**
      * Gets the node child.
@@ -106,6 +110,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
         return this.children.get(index);
     }
 
+
     /**
      * Removes the node child.
      * 
@@ -117,6 +122,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
         this.children.remove(index);
     }
 
+
     /**
      * Node child count.
      * 
@@ -126,6 +132,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
     {
         return this.children_tree.size();
     }
+
 
     /**
      * Gets the total procents.
@@ -137,6 +144,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
         return this.total_children * 100;
     }
 
+
     /** 
      * getTargetName
      */
@@ -144,6 +152,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
     {
         return this.name;
     }
+
 
     // public
 
@@ -154,6 +163,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
     {
         return "";
     }
+
 
     /*
      * getName
@@ -168,6 +178,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
         return this.getTargetName();
     }
 
+
     /** 
      * isSelected
      */
@@ -175,6 +186,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
     {
         return this.selected;
     }
+
 
     /** 
      * hasNodeChildren
@@ -185,6 +197,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
 
     }
 
+
     /** 
      * toString
      */
@@ -194,6 +207,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
         return this.getTargetName();
     }
 
+
     /** 
      * Is Collection
      */
@@ -201,6 +215,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
     {
         return true;
     }
+
 
     /** 
      * Set Selected

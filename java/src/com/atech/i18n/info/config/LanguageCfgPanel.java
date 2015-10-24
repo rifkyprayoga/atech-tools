@@ -108,7 +108,6 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
 
     }
 
-
     /**
      * Creates Db Panel (for selecting database)
      */
@@ -118,20 +117,20 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      * JPanel panel = new JPanel();
      * panel.setBounds(140, 30, 420, 330);
      * panel.setLayout(null);
-     * JLabel label = new JLabel(ic.getMessage("DB_SETTINGS"));
+     * JLabel label = new JLabel(i18nControl.getMessage("DB_SETTINGS"));
      * label.setFont(font_big);
      * label.setBounds(0, 05, 420, 36);
      * label.setHorizontalAlignment(JLabel.CENTER);
      * panel.add(label);
-     * label = new JLabel(ic.getMessage("DB_DESC"));
+     * label = new JLabel(i18nControl.getMessage("DB_DESC"));
      * label.setFont(font_normal);
      * label.setBounds(40, 45, 360, 100);
      * panel.add(label);
-     * label = new JLabel(ic.getMessage("NOTE_RESTART"));
+     * label = new JLabel(i18nControl.getMessage("NOTE_RESTART"));
      * label.setFont(font_normal);
      * label.setBounds(40, 140, 360, 50);
      * panel.add(label);
-     * label = new JLabel(ic.getMessage("SELECT_DATABASE"));
+     * label = new JLabel(i18nControl.getMessage("SELECT_DATABASE"));
      * label.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL_BOLD));
      * label.setBounds(40, 230, 340, 25);
      * panel.add(label);
@@ -165,20 +164,20 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      * JPanel panel = new JPanel();
      * panel.setBounds(140, 30, 420, 330);
      * panel.setLayout(null);
-     * JLabel label = new JLabel(ic.getMessage("LOOK"));
+     * JLabel label = new JLabel(i18nControl.getMessage("LOOK"));
      * label.setFont(font_big);
      * label.setBounds(0, 05, 420, 36);
      * label.setHorizontalAlignment(JLabel.CENTER);
      * panel.add(label);
-     * label = new JLabel(ic.getMessage("LOOK_DESC"));
+     * label = new JLabel(i18nControl.getMessage("LOOK_DESC"));
      * label.setFont(font_normal);
      * label.setBounds(40, 45, 360, 100);
      * panel.add(label);
-     * label = new JLabel(ic.getMessage("NOTE_RESTART"));
+     * label = new JLabel(i18nControl.getMessage("NOTE_RESTART"));
      * label.setFont(font_normal);
      * label.setBounds(40, 140, 360, 50);
      * panel.add(label);
-     * label = new JLabel(ic.getMessage("SELECT_LOOK"));
+     * label = new JLabel(i18nControl.getMessage("SELECT_LOOK"));
      * label.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL_BOLD));
      * label.setBounds(40, 190, 340, 25);
      * panel.add(label);
@@ -189,7 +188,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      * cb_LFs.addItemListener(this);
      * cb_LFs.setActionCommand("select_lf");
      * panel.add(cb_LFs);
-     * label = new JLabel(ic.getMessage("SELECT_SKINLF_LOOK"));
+     * label = new JLabel(i18nControl.getMessage("SELECT_SKINLF_LOOK"));
      * label.setFont(dataAccess.getFont(DataAccess.FONT_NORMAL_BOLD));
      * label.setBounds(40, 250, 340, 25);
      * panel.add(label);
@@ -199,7 +198,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      * tf_selLF.setEnabled(false);
      * tf_selLF.setFont(font_normal);
      * panel.add(tf_selLF);
-     * bt_browse = new JButton(ic.getMessage("BROWSE") + "...");
+     * bt_browse = new JButton(i18nControl.getMessage("BROWSE") + "...");
      * bt_browse.setBounds(300, 272, 120, 30);
      * bt_browse.setActionCommand("lf_browse");
      * bt_browse.addActionListener(this);
@@ -214,6 +213,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      * }
      */
 
+
     /**
      * Creates Users Panel (for adding Users)
      */
@@ -223,7 +223,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      * JPanel panel = new JPanel();
      * panel.setBounds(140, 30, 420, 330);
      * panel.setLayout(null);
-     * JLabel label = new JLabel(ic.getMessage("USERS"));
+     * JLabel label = new JLabel(i18nControl.getMessage("USERS"));
      * label.setFont(font_big);
      * label.setBounds(0, 15, 420, 36);
      * label.setHorizontalAlignment(JLabel.CENTER);
@@ -233,19 +233,19 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      * JScrollPane pane = new JScrollPane(list_users);
      * pane.setBounds(40, 80, 340, 180);
      * panel.add(pane);
-     * JButton button = new JButton(ic.getMessage("ADD"));
+     * JButton button = new JButton(i18nControl.getMessage("ADD"));
      * button.setBounds(60, 270, 100, 35);
      * button.setActionCommand("users_add");
      * button.setFont(font_normal);
      * button.addActionListener(this);
      * panel.add(button);
-     * button = new JButton(ic.getMessage("EDIT"));
+     * button = new JButton(i18nControl.getMessage("EDIT"));
      * button.setBounds(160, 270, 100, 35);
      * button.setActionCommand("users_edit");
      * button.setFont(font_normal);
      * button.addActionListener(this);
      * panel.add(button);
-     * button = new JButton(ic.getMessage("REMOVE"));
+     * button = new JButton(i18nControl.getMessage("REMOVE"));
      * button.setBounds(260, 270, 100, 35);
      * button.setActionCommand("users_remove");
      * button.setFont(font_normal);

@@ -4,9 +4,9 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import com.atech.graphics.components.about.AboutCustomPanel;
-import com.atech.graphics.components.about.AboutDialog;
-import com.atech.graphics.components.about.LicenceInfo;
+import com.atech.app.data.about.LicenceInfo;
+import com.atech.app.gui.about.AboutCustomPanel;
+import com.atech.app.gui.about.AboutDialog;
 import com.atech.i18n.tool.simple.TranslationTool;
 import com.atech.utils.ATSwingUtils;
 
@@ -127,12 +127,12 @@ public class TTAboutDialog extends AboutDialog
         jEditorPaneAbout.setPreferredSize(new java.awt.Dimension(104, 90));
 
         jEditorPaneAbout.setContentType("text/html");
-        jEditorPaneAbout.setText("<HTML><body><font face=\"SansSerif\" size=\"3\"><center><b>"
-                + "Simple Translation Tool v" + TranslationTool.m_version
-                + "</b><br>&nbsp;&nbsp;(c) Copyright 2009 by<br>"
-                + "Andy (Aleksander) Rozman (andy@atech-software.com)<br>"
-                + "<br><A HREF=\"http://atech-tools.sourceforge.net/\">http://atech-tools.sourceforge.net/</A><br>"
-                + m_ic.getMessage("LICENCE") + " GPL v2.0<br></font></body></html>");
+        jEditorPaneAbout
+                .setText("<HTML><body><font face=\"SansSerif\" size=\"3\"><center><b>" + "Simple Translation Tool v"
+                        + TranslationTool.m_version + "</b><br>&nbsp;&nbsp;(c) Copyright 2009 by<br>"
+                        + "Andy (Aleksander) Rozman (andy@atech-software.com)<br>"
+                        + "<br><A HREF=\"http://atech-tools.sourceforge.net/\">http://atech-tools.sourceforge.net/</A><br>"
+                        + m_ic.getMessage("LICENCE") + " GPL v2.0<br></font></body></html>");
 
         acp.add(jEditorPaneAbout); // , BoxLayout.PAGE_AXIS);
 

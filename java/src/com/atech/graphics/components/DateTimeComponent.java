@@ -47,7 +47,7 @@ public class DateTimeComponent extends JPanel
     private static final long serialVersionUID = -7550569466676531315L;
 
     /**
-     * The ic.
+     * The i18nControl.
      */
     I18nControlAbstract ic = null;
 
@@ -334,18 +334,18 @@ public class DateTimeComponent extends JPanel
      * if (months==null)
      * {
      * String m[] = {
-     * ic.getMessage("JANUARY"),
-     * ic.getMessage("FEBRUARY"),
-     * ic.getMessage("MARCH"),
-     * ic.getMessage("APRIL"),
-     * ic.getMessage("MAY"),
-     * ic.getMessage("JUNE"),
-     * ic.getMessage("JULY"),
-     * ic.getMessage("AUGUST"),
-     * ic.getMessage("SEPTEMBER"),
-     * ic.getMessage("OCTOBER"),
-     * ic.getMessage("NOVEMBER"),
-     * ic.getMessage("DECEMBER")
+     * i18nControl.getMessage("JANUARY"),
+     * i18nControl.getMessage("FEBRUARY"),
+     * i18nControl.getMessage("MARCH"),
+     * i18nControl.getMessage("APRIL"),
+     * i18nControl.getMessage("MAY"),
+     * i18nControl.getMessage("JUNE"),
+     * i18nControl.getMessage("JULY"),
+     * i18nControl.getMessage("AUGUST"),
+     * i18nControl.getMessage("SEPTEMBER"),
+     * i18nControl.getMessage("OCTOBER"),
+     * i18nControl.getMessage("NOVEMBER"),
+     * i18nControl.getMessage("DECEMBER")
      * };
      * months = m;
      * }
@@ -561,7 +561,7 @@ public class DateTimeComponent extends JPanel
         }
 
         // System.out.println(dt + " year: "+ y + " month: "+ m + " day: " + d+
-        // "  hour: " + h + " min: " + min);
+        // " hour: " + h + " min: " + min);
 
     }
 
