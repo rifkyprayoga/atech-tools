@@ -13,12 +13,12 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import com.atech.i18n.I18nControlAbstract;
-import com.atech.update.client.UpdateDialog;
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.update.config.UpdateConfigurationXml;
-import com.atech.update.v3.defs.UpdateAction;
-import com.atech.update.v3.dto.UpdateNotesDTO;
-import com.atech.update.v3.xml.UpdateServerResponse;
+import com.atech.upgrade.client.gui.UpgradeDialog;
+import com.atech.upgrade.server.defs.UpdateAction;
+import com.atech.upgrade.server.dto.UpdateNotesDTO;
+import com.atech.upgrade.server.xml.UpdateServerResponse;
 import com.atech.utils.ATDataAccessAbstract;
 
 /**
@@ -30,7 +30,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
     private static final Log log = LogFactory.getLog(UpgradeHandlerV3.class);
 
     ATDataAccessAbstract dataAccess;
-    UpdateDialog updateDialog;
+    UpgradeDialog upgradeDialog;
     I18nControlAbstract i18nControl;
     UpdateConfiguration updateConfiguration;
     String serverName;
@@ -38,7 +38,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
     private static UpgradeHandlerV3 staticHandler;
 
 
-    public static UpgradeHandlerV3 createInstance(UpdateDialog updDialog, UpdateConfiguration updateConfiguration,
+    public static UpgradeHandlerV3 createInstance(UpgradeDialog updDialog, UpdateConfiguration updateConfiguration,
             ATDataAccessAbstract dataAccess)
     {
         if (staticHandler == null)
@@ -61,12 +61,12 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
     }
 
 
-    private UpgradeHandlerV3(UpdateDialog updDialog, UpdateConfiguration updateConfiguration,
+    private UpgradeHandlerV3(UpgradeDialog updDialog, UpdateConfiguration updateConfiguration,
             ATDataAccessAbstract dataAccess)
     {
         this.dataAccess = dataAccess;
         this.i18nControl = dataAccess.getI18nControlInstance();
-        this.updateDialog = updDialog;
+        this.upgradeDialog = updDialog;
         this.updateConfiguration = updateConfiguration;
 
         // Server Name
@@ -78,7 +78,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
     {
         if (!dataAccess.getDeveloperMode())
         {
-            JOptionPane.showMessageDialog(this.updateDialog, i18nControl.getMessage("UPDATE_SERVER_NA"),
+            JOptionPane.showMessageDialog(this.upgradeDialog, i18nControl.getMessage("UPDATE_SERVER_NA"),
                 i18nControl.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
             return;
         }
@@ -86,7 +86,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
         try
         {
 
-            String server_name = this.updateDialog.getUpdateSettings().update_server;
+            String server_name = this.upgradeDialog.getUpdateSettings().update_server;
 
             // this is testing only
             long current_version = 4;
@@ -105,7 +105,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
             {
                 if (updateServerResponse.errorResponse != null)
                 {
-                    this.updateDialog.setStatusText(i18nControl
+                    this.upgradeDialog.setStatusText(i18nControl
                             .getMessage(updateServerResponse.errorResponse.errorDescriptionKey));
                 }
                 else
@@ -114,33 +114,33 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
                     {
                         if (updateServerResponse.notesCount > 0)
                         {
-                            this.updateDialog
+                            this.upgradeDialog
                                     .setStatusText(String.format(
                                         i18nControl.getMessage("ATUS_FOUND_NEW_VERSION_NOTES"),
                                         updateServerResponse.notesCount));
-                            this.updateDialog.getBtnNotes().setEnabled(true);
+                            this.upgradeDialog.getBtnNotes().setEnabled(true);
                         }
                         else
                         {
-                            this.updateDialog.setStatusText(i18nControl.getMessage("ATUS_FOUND_NEW_VERSION"));
+                            this.upgradeDialog.setStatusText(i18nControl.getMessage("ATUS_FOUND_NEW_VERSION"));
                         }
 
                         UpdateConfigurationXml uconfXml = getUpdateXml(serverName, updateServerResponse);
 
-                        this.updateDialog.getModel().updateModel(uconfXml.getUpdateConfiguration());
-                        this.updateDialog.getModel().fireTableDataChanged();
+                        this.upgradeDialog.getModel().updateModel(uconfXml.getUpdateConfiguration());
+                        this.upgradeDialog.getModel().fireTableDataChanged();
                     }
                     else
                     {
                         if (updateServerResponse.notesCount > 0)
                         {
-                            this.updateDialog.setStatusText(String.format(
+                            this.upgradeDialog.setStatusText(String.format(
                                 i18nControl.getMessage("ATUS_NO_NEW_VERSION_NOTES"), updateServerResponse.notesCount));
-                            this.updateDialog.getBtnNotes().setEnabled(true);
+                            this.upgradeDialog.getBtnNotes().setEnabled(true);
                         }
                         else
                         {
-                            this.updateDialog.setStatusText(i18nControl.getMessage("ATUS_NO_NEW_VERSION"));
+                            this.upgradeDialog.setStatusText(i18nControl.getMessage("ATUS_NO_NEW_VERSION"));
                         }
                     }
                 }
@@ -149,8 +149,8 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
         }
         catch (Exception ex)
         {
-            this.updateDialog.setStatusText(i18nControl.getMessage("UPD_ERROR_CONTACTING_SERVER"));
-            this.updateDialog.setStatusTooltip(ex.getLocalizedMessage());
+            this.upgradeDialog.setStatusText(i18nControl.getMessage("UPD_ERROR_CONTACTING_SERVER"));
+            this.upgradeDialog.setStatusTooltip(ex.getLocalizedMessage());
         }
 
     }
@@ -177,7 +177,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
         }
         else
         {
-            this.updateDialog.setStatusText(i18nControl.getMessage("INTERNAL_PROBLEM"));
+            this.upgradeDialog.setStatusText(i18nControl.getMessage("INTERNAL_PROBLEM"));
             // internal error
             return null;
         }
@@ -234,7 +234,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
         }
         catch (Exception ex)
         {
-            this.updateDialog.setStatusText(i18nControl.getMessage("ATUS_ERROR_DECODING_DATA"));
+            this.upgradeDialog.setStatusText(i18nControl.getMessage("ATUS_ERROR_DECODING_DATA"));
 
             log.error("Error making response" + ex, ex);
             // error decoding
@@ -258,7 +258,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
         }
         catch (Exception ex)
         {
-            this.updateDialog.setStatusText(i18nControl.getMessage("ATUS_ERROR_DECODING_DATA"));
+            this.upgradeDialog.setStatusText(i18nControl.getMessage("ATUS_ERROR_DECODING_DATA"));
 
             log.error("Error making response" + ex, ex);
             // error decoding
@@ -296,7 +296,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
 
                 if (serverResponse != null)
                 {
-                    this.updateDialog.setStatusText(i18nControl
+                    this.upgradeDialog.setStatusText(i18nControl
                             .getMessage(updateServerResponse.errorResponse.errorDescriptionKey));
                 }
 
@@ -310,7 +310,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
             }
             else
             {
-                this.updateDialog.setStatusText(i18nControl.getMessage("INTERNAL_PROBLEM"));
+                this.upgradeDialog.setStatusText(i18nControl.getMessage("INTERNAL_PROBLEM"));
                 return null;
             }
         }
@@ -356,7 +356,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
             log.error("Servlet::URL (" + full_url + ")");
             log.error("Error contacting servlet: " + ex, ex);
             // ex.printStackTrace();
-            this.updateDialog.setStatusText(i18nControl.getMessage("UPD_ERROR_CONTACTING_SERVER"));
+            this.upgradeDialog.setStatusText(i18nControl.getMessage("UPD_ERROR_CONTACTING_SERVER"));
             // dataAccess.showDialog(this.updateDialog,
             // ATDataAccessAbstract.DIALOG_ERROR,
             // s i18nControl.getMessage("UPD_ERROR_CONTACTING_SERVER"));
@@ -379,7 +379,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
     {
         try
         {
-            String server_name = this.updateDialog.getUpdateSettings().update_server;
+            String server_name = this.upgradeDialog.getUpdateSettings().update_server;
             long current_version = 4;
             // long current_db = 7;
 
@@ -401,7 +401,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
                 iLine2.indexOf("RETURN_DATA_START__") + "RETURN_DATA_START__<br>".length(),
                 iLine2.indexOf("<br>__RETURN_DATA_END"));
 
-            this.updateDialog.processDetailsData(ret_msg);
+            this.upgradeDialog.processDetailsData(ret_msg);
 
         }
         catch (Exception ex)

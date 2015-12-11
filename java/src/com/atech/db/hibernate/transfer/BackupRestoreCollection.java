@@ -44,10 +44,10 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
     private String name = null;
     private ArrayList<BackupRestoreBase> children;
     // x private int count_children_collection;
-    private int total_children;
+    private int childrenCount;
     private boolean selected = false;
 
-    private ArrayList<CheckBoxTreeNodeInterface> children_tree;
+    private ArrayList<CheckBoxTreeNodeInterface> childrenTree;
 
     @SuppressWarnings("unused")
     private I18nControlAbstract ic;
@@ -64,7 +64,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
         this.ic = ic;
         this.name = ic.getMessage(name);
         this.children = new ArrayList<BackupRestoreBase>();
-        this.children_tree = new ArrayList<CheckBoxTreeNodeInterface>();
+        this.childrenTree = new ArrayList<CheckBoxTreeNodeInterface>();
     }
 
 
@@ -76,15 +76,15 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
     public void addNodeChild(BackupRestoreBase base)
     {
         this.children.add(base);
-        this.children_tree.add(base);
+        this.childrenTree.add(base);
 
         if (base instanceof BackupRestoreCollection)
         {
-            this.total_children += ((BackupRestoreCollection) base).getTotalProcents();
+            this.childrenCount += ((BackupRestoreCollection) base).getTotalProcents();
         }
         else
         {
-            this.total_children++;
+            this.childrenCount++;
         }
     }
 
@@ -94,7 +94,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
      */
     public ArrayList<CheckBoxTreeNodeInterface> getNodeChildren()
     {
-        return this.children_tree;
+        return this.childrenTree;
     }
 
 
@@ -118,7 +118,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
      */
     public void removeNodeChild(int index)
     {
-        this.children_tree.remove(index);
+        this.childrenTree.remove(index);
         this.children.remove(index);
     }
 
@@ -130,7 +130,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
      */
     public int nodeChildCount()
     {
-        return this.children_tree.size();
+        return this.childrenTree.size();
     }
 
 
@@ -141,7 +141,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
      */
     public int getTotalProcents()
     {
-        return this.total_children * 100;
+        return this.childrenCount * 100;
     }
 
 

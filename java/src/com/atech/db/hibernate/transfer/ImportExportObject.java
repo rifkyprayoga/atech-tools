@@ -4,8 +4,8 @@ package com.atech.db.hibernate.transfer;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  ImportExportObject - Import Export Object
+ *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -41,27 +41,30 @@ public interface ImportExportObject
      * 
      * @return the object name
      */
-    public String getObjectName();
+    String getObjectName();
+
 
     /**
      * Gets the object class name.
      * 
      * @return the object class name
      */
-    public String getObjectClassName();
+    String getObjectClassName();
+
 
     /**
      * Gets the object header.
      * 
      * @return the object header
      */
-    public String getObjectHeader();
+    String getObjectHeader();
+
 
     /**
      * Gets the object values.
      * 
      * @return the object values
      */
-    public String getObjectValues();
+    String getObjectValues();
 
 }

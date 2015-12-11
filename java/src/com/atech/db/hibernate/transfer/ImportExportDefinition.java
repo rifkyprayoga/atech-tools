@@ -2,12 +2,11 @@ package com.atech.db.hibernate.transfer;
 
 import java.util.Hashtable;
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  ImportExportDefinition - Import Export Definition
+ *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -75,6 +74,7 @@ public abstract class ImportExportDefinition
      */
     public static final int CP_IMPORT_UPDATE = 16;
 
+
     /**
      * Type of class: 
      *   1=SIMPLE = class contains data that is not linked to anyother
@@ -114,10 +114,12 @@ public abstract class ImportExportDefinition
      */
     public Hashtable<String, String> class_import_type = null;
 
+
     /**
      * Inits the definitions.
      */
     public abstract void initDefinitions();
+
 
     /*
      * public void initDefinitions()
@@ -139,6 +141,7 @@ public abstract class ImportExportDefinition
     {
         return this.class_defs.containsKey(cl_name);
     }
+
 
     /**
      * Checks if is unallowed class.

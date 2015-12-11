@@ -1,12 +1,6 @@
 package com.atech.db.hibernate.transfer;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -18,12 +12,11 @@ import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.utils.ATDataAccess;
 import com.atech.utils.ATDataAccessAbstract;
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  ImportExportAbstract - Import Export Abstract (used for Export and Import classes
+ *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -52,25 +45,16 @@ import com.atech.utils.ATDataAccessAbstract;
 public abstract class ImportExportAbstract
 {
 
-    /**
-     * The m_cfg.
-     */
     Configuration m_cfg = null;
-
-    /**
-     * The m_session.
-     */
     Session m_session = null;
-
-    /**
-     * The status_type.
-     */
     protected int status_type = 0;
-
-    /**
-     * The status_max_entry.
-     */
     protected int status_max_entry;
+    protected String path_root = null;
+    protected String file_2nd_part = null;
+    BackupRestoreWorkGiver work_giver = null;
+    HibernateConfiguration hibernate_conf = null;
+    protected BufferedWriter bw_file = null;
+    protected BufferedReader br_file = null;
 
     /**
      * The STATU s_ none.
@@ -92,35 +76,6 @@ public abstract class ImportExportAbstract
      */
     public static int STATUS_SPECIAL = 3;
 
-    /**
-     * The path_root.
-     */
-    protected String path_root = null;
-
-    /**
-     * The file_2nd_part.
-     */
-    protected String file_2nd_part = null;
-
-    /**
-     * The work_giver.
-     */
-    BackupRestoreWorkGiver work_giver = null;
-
-    /**
-     * The hibernate_conf.
-     */
-    HibernateConfiguration hibernate_conf = null;
-
-    /**
-     * The bw_file.
-     */
-    protected BufferedWriter bw_file = null;
-
-    /**
-     * The br_file.
-     */
-    protected BufferedReader br_file = null;
 
     /**
      * Instantiates a new import export abstract.
@@ -138,6 +93,7 @@ public abstract class ImportExportAbstract
         // processConfiguration();
     }
 
+
     /**
      * Instantiates a new import export abstract.
      * 
@@ -149,12 +105,14 @@ public abstract class ImportExportAbstract
         this.m_session = this.hibernate_conf.getSession(2);
     }
 
+
     /**
      * Instantiates a new import export abstract.
      */
     public ImportExportAbstract()
     {
     }
+
 
     /**
      * Gets the session.
@@ -167,6 +125,7 @@ public abstract class ImportExportAbstract
         return m_session;
     }
 
+
     /**
      * Sets the root path.
      * 
@@ -176,6 +135,7 @@ public abstract class ImportExportAbstract
     {
         this.path_root = path;
     }
+
 
     /**
      * Gets the root path.
@@ -187,6 +147,7 @@ public abstract class ImportExportAbstract
         return this.path_root;
     }
 
+
     /**
      * Gets the file last part.
      * 
@@ -196,6 +157,7 @@ public abstract class ImportExportAbstract
     {
         return this.file_2nd_part;
     }
+
 
     /**
      * Sets the file last part.
@@ -207,6 +169,7 @@ public abstract class ImportExportAbstract
         this.file_2nd_part = last_part;
     }
 
+
     /**
      * Sets the hibernate configuration.
      * 
@@ -217,12 +180,14 @@ public abstract class ImportExportAbstract
         this.hibernate_conf = hconf;
     }
 
+
     /**
      * Gets the active session.
      * 
      * @return the active session
      */
     public abstract int getActiveSession();
+
 
     /**
      * Println.
@@ -233,6 +198,7 @@ public abstract class ImportExportAbstract
     {
         System.out.println(txt);
     }
+
 
     /**
      * Open file.
@@ -254,6 +220,7 @@ public abstract class ImportExportAbstract
 
     }
 
+
     /**
      * Open file for reading.
      * 
@@ -273,6 +240,7 @@ public abstract class ImportExportAbstract
 
     }
 
+
     /**
      * Sets the type of status.
      * 
@@ -282,6 +250,7 @@ public abstract class ImportExportAbstract
     {
         this.status_type = type;
     }
+
 
     /**
      * Sets the status receiver.
@@ -293,6 +262,7 @@ public abstract class ImportExportAbstract
         this.work_giver = giver;
     }
 
+
     /**
      * Status set max entry.
      * 
@@ -303,6 +273,7 @@ public abstract class ImportExportAbstract
         // System.out.println("max entries: " + max_entry);
         this.status_max_entry = max_entry;
     }
+
 
     /**
      * Write status.
@@ -328,6 +299,7 @@ public abstract class ImportExportAbstract
         }
     }
 
+
     /**
      * Write status dots.
      * 
@@ -341,6 +313,7 @@ public abstract class ImportExportAbstract
             System.out.println(".");
         }
     }
+
 
     /**
      * Write status procent.
@@ -369,6 +342,7 @@ public abstract class ImportExportAbstract
             }
         }
     }
+
 
     /**
      * Write status special.
@@ -401,6 +375,7 @@ public abstract class ImportExportAbstract
 
     }
 
+
     /**
      * Write to file.
      * 
@@ -418,6 +393,7 @@ public abstract class ImportExportAbstract
             println("Exception on writeToFile: " + ex);
         }
     }
+
 
     /**
      * Write to file.
@@ -437,6 +413,7 @@ public abstract class ImportExportAbstract
         }
 
     }
+
 
     /**
      * Close file.
@@ -462,6 +439,7 @@ public abstract class ImportExportAbstract
 
     }
 
+
     /**
      * Gets the current date.
      * 
@@ -475,6 +453,7 @@ public abstract class ImportExportAbstract
         return gc.get(Calendar.DAY_OF_MONTH) + "/" + (gc.get(Calendar.MONTH) + 1) + "/" + gc.get(Calendar.YEAR) + "  "
                 + gc.get(Calendar.HOUR_OF_DAY) + ":" + gc.get(Calendar.MINUTE) + ":" + gc.get(Calendar.SECOND);
     }
+
 
     /**
      * Gets the current date for file.
@@ -490,6 +469,7 @@ public abstract class ImportExportAbstract
                 + getLeadingZero(gc.get(Calendar.DAY_OF_MONTH), 2);
 
     }
+
 
     /**
      * Gets the leading zero.

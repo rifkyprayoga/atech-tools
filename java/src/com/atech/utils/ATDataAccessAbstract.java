@@ -2756,4 +2756,15 @@ public abstract class ATDataAccessAbstract
         return (getDateDifferenceInDays(from, to) + 1);
     }
 
+
+    public String getGregorianCalendarAsString(GregorianCalendar gregorianCalendar)
+    {
+        return getLeadingZero(gregorianCalendar.get(Calendar.DAY_OF_MONTH), 2) + "." //
+                + getLeadingZero((gregorianCalendar.get(Calendar.MONTH) + 1), 2) + "." //
+                + gregorianCalendar.get(Calendar.YEAR) + " " //
+                + getLeadingZero(gregorianCalendar.get(Calendar.HOUR_OF_DAY), 2) + ":" //
+                + getLeadingZero(gregorianCalendar.get(Calendar.MINUTE), 2) + ":"
+                + getLeadingZero(gregorianCalendar.get(Calendar.SECOND), 2) + ":";
+
+    }
 }

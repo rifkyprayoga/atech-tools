@@ -58,7 +58,6 @@ public class BitUtils extends CRCUtils
      */
     protected int byte_order = BIT_ORDER_BIG_ENDIAN;
 
-
     /**
      * The byte_arr.
      */
@@ -74,6 +73,7 @@ public class BitUtils extends CRCUtils
     // {
     // this.byte_arr = array;
     // }
+
 
     /**
      * Gets the byte from array.
@@ -451,7 +451,15 @@ public class BitUtils extends CRCUtils
         int j = 0;
 
         // for(int i=start; i<(arr.length-end); i++)
-        for (int i = start; i < start + length; i++)
+        // added -1
+
+        int end = start + length;
+        // if (end != 1)
+        // {
+        // end--;
+        // }
+
+        for (int i = start; i < end; i++)
         {
             arr_out[j] = arr[i];
             j++;
@@ -605,6 +613,23 @@ public class BitUtils extends CRCUtils
         StringBuffer sb = new StringBuffer();
 
         for (int element : arr)
+        {
+            sb.append(element + " ");
+        }
+
+        // System.out.print("\n");
+
+        return sb.toString();
+
+    }
+
+
+    public String getByteArrayShow(byte[] arr)
+    {
+        // System.out.print("Int array: ");
+        StringBuffer sb = new StringBuffer();
+
+        for (byte element : arr)
         {
             sb.append(element + " ");
         }
@@ -1005,6 +1030,29 @@ public class BitUtils extends CRCUtils
         else
             return null;
 
+    }
+
+
+    public int[] convertByteArrayToUnsignedIntArray(byte[] arrayInput)
+    {
+        if (arrayInput != null)
+        {
+            int arrayOutput[] = new int[arrayInput.length];
+
+            for (int i = 0; i < arrayInput.length; i++)
+            {
+                int b = arrayInput[i];
+
+                if (b < 0)
+                    b += 256;
+
+                arrayOutput[i] = b;
+            }
+
+            return arrayOutput;
+        }
+        else
+            return null;
     }
 
 
@@ -1436,15 +1484,39 @@ public class BitUtils extends CRCUtils
     }
 
 
-    public String makeString(int ai[], int i, int j)
+    public String makeString(int array[], int start, int end)
     {
-        if (ai != null)
+        if (array != null)
         {
             StringBuffer stringbuffer = new StringBuffer();
-            for (int k = i; k < i + j; k++)
-                if (ai[k] != 0)
+            for (int k = start; k < start + end; k++)
+                if (array[k] != 0)
                 {
-                    stringbuffer.append((char) ai[k]);
+                    stringbuffer.append((char) array[k]);
+                }
+
+            return new String(stringbuffer);
+        }
+        else
+            return null;
+    }
+
+
+    public String makeString(byte ai[])
+    {
+        return makeString(ai, 0, ai.length);
+    }
+
+
+    public String makeString(byte array[], int start, int end)
+    {
+        if (array != null)
+        {
+            StringBuffer stringbuffer = new StringBuffer();
+            for (int k = start; k < start + end; k++)
+                if (array[k] != 0)
+                {
+                    stringbuffer.append((char) array[k]);
                 }
 
             return new String(stringbuffer);
@@ -1575,6 +1647,18 @@ public class BitUtils extends CRCUtils
         // }
         //
         // return outArray;
+    }
+
+
+    public int getHighByte(int i)
+    {
+        return i >>> 8 & 0xff;
+    }
+
+
+    public int getLowByte(int i)
+    {
+        return i & 0xff;
     }
 
 }

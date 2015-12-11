@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 
@@ -50,8 +50,8 @@ import com.atech.utils.ATSwingUtils;
  *
  */
 
-public abstract class BackupRestoreDialog extends JDialog
-        implements ActionListener, BackupRestoreWorkGiver, HelpCapable, ComponentHelpCapable
+public abstract class BackupRestoreDialog extends JDialog implements ActionListener, BackupRestoreWorkGiver,
+        HelpCapable, ComponentHelpCapable
 {
 
     private static final long serialVersionUID = 4209248421335758364L;
@@ -67,9 +67,7 @@ public abstract class BackupRestoreDialog extends JDialog
     JButton button, button_backup, button_help;
     Font font_big, font_normal, font_normal_b;
 
-    JLabel label_date;
-
-    JProgressBar progress_full, progress_current;
+    JProgressBar progressFull, progressCurrent;
 
     CheckNodeTree tree;
 
@@ -81,8 +79,8 @@ public abstract class BackupRestoreDialog extends JDialog
 
     JLabel label_total_progress, label_current_progress;
 
-    protected BackupRestoreCollection backuprestore_root;
-    protected Hashtable<String, BackupRestoreObject> ht_backup_objects;
+    protected BackupRestoreCollection backupRestoreRoot;
+    protected Map<String, BackupRestoreObject> backupObjects;
 
     Container my_parent = null;
 
@@ -102,7 +100,7 @@ public abstract class BackupRestoreDialog extends JDialog
         m_da = da;
         this.ic = m_da.getI18nControlInstance();
 
-        backuprestore_root = br_coll;
+        backupRestoreRoot = br_coll;
 
         init();
     }
@@ -122,7 +120,7 @@ public abstract class BackupRestoreDialog extends JDialog
         m_da = da;
         this.ic = m_da.getI18nControlInstance();
 
-        backuprestore_root = br_coll;
+        backupRestoreRoot = br_coll;
 
         init();
     }
@@ -134,7 +132,7 @@ public abstract class BackupRestoreDialog extends JDialog
 
         this.setBounds(130, 50, 450, 440); // 360
 
-        ht_backup_objects = new Hashtable<String, BackupRestoreObject>();
+        backupObjects = new HashMap<String, BackupRestoreObject>();
 
         font_big = ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD);
         font_normal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
@@ -205,7 +203,7 @@ public abstract class BackupRestoreDialog extends JDialog
         label.setFont(this.font_normal_b);
         panel.add(label);
 
-        tree = new CheckNodeTree(this.backuprestore_root, CheckNode.DIG_IN_SELECTION, new BackupRestoreTreeRenderer());
+        tree = new CheckNodeTree(this.backupRestoreRoot, CheckNode.DIG_IN_SELECTION, new BackupRestoreTreeRenderer());
         /*
          * tree.setCellRenderer(new TreeCellRenderer() {
          * public Component getTreeCellRendererComponent(JTree arg0, Object
@@ -266,11 +264,11 @@ public abstract class BackupRestoreDialog extends JDialog
         label_total_progress.setFont(this.font_normal);
         panel.add(label_total_progress);
 
-        this.progress_full = new JProgressBar(0, 100);
-        this.progress_full.setBounds(25, 350, 380, 20);
-        this.progress_full.setStringPainted(true);
-        // this.progress_full.setIndeterminate(true);
-        panel.add(this.progress_full);
+        this.progressFull = new JProgressBar(0, 100);
+        this.progressFull.setBounds(25, 350, 380, 20);
+        this.progressFull.setStringPainted(true);
+        // this.progressFull.setIndeterminate(true);
+        panel.add(this.progressFull);
 
         label_current_progress = new JLabel(); // i18nControl.getMessage("CURRENT_TASK")
                                                // + ": " +
@@ -281,14 +279,14 @@ public abstract class BackupRestoreDialog extends JDialog
 
         // this.label_current_progress.
 
-        this.progress_current = new JProgressBar(0, 100);
-        this.progress_current.setBounds(25, 290, 380, 20); // 290
-        this.progress_current.setStringPainted(true);
-        // this.progress_current.setString(null);
-        // this.progress_current.setIndeterminate(true);
-        panel.add(this.progress_current);
+        this.progressCurrent = new JProgressBar(0, 100);
+        this.progressCurrent.setBounds(25, 290, 380, 20); // 290
+        this.progressCurrent.setStringPainted(true);
+        // this.progressCurrent.setString(null);
+        // this.progressCurrent.setIndeterminate(true);
+        panel.add(this.progressCurrent);
 
-        // this.progress_current.setValue(n)
+        // this.progressCurrent.setValue(n)
         setTask(null);
 
     }
@@ -303,10 +301,10 @@ public abstract class BackupRestoreDialog extends JDialog
     {
         if (task == null)
         {
-            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
-                    + ic.getMessage("BACKUP_NOT_STARTED_YET") + "</html>");
-            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
-                    + ic.getMessage("NO_TASK_STARTED") + "</html>");
+            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS")
+                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("BACKUP_NOT_STARTED_YET") + "</html>");
+            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK")
+                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("NO_TASK_STARTED") + "</html>");
         }
         else
         {
@@ -316,10 +314,11 @@ public abstract class BackupRestoreDialog extends JDialog
             tsk++;
 
             // System.out.println("Task: " + tsk);
-            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
-                    + ic.getMessage("TASK") + " (" + tsk + "/" + this.count_of_backup_elements + ")</html>");
-            label_current_progress.setText(
-                "<html><b>" + ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + task + "</html>");
+            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS")
+                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("TASK") + " (" + tsk + "/"
+                    + this.count_of_backup_elements + ")</html>");
+            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK")
+                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + task + "</html>");
         }
     }
 
@@ -337,12 +336,12 @@ public abstract class BackupRestoreDialog extends JDialog
         cnt /= this.count_of_backup_elements;
         // System.out.println("cnt:" + procent);
 
-        this.progress_full.setValue(cnt);
+        this.progressFull.setValue(cnt);
 
-        // this.progress_full.setString("" + cnt + " %");
+        // this.progressFull.setString("" + cnt + " %");
 
-        this.progress_current.setValue(procent);
-        // this.progress_current.setString("" + procent + " %");
+        this.progressCurrent.setValue(procent);
+        // this.progressCurrent.setString("" + procent + " %");
 
     }
 
@@ -424,14 +423,12 @@ public abstract class BackupRestoreDialog extends JDialog
 
     private void preprocesData()
     {
-        traverseTree(this.backuprestore_root);
+        traverseTree(this.backupRestoreRoot);
 
         int elements_count = 0;
 
-        for (Enumeration<String> en = this.ht_backup_objects.keys(); en.hasMoreElements();)
+        for (BackupRestoreObject bro : this.backupObjects.values())
         {
-            BackupRestoreObject bro = this.ht_backup_objects.get(en.nextElement());
-
             if (bro.isSelected())
             {
                 elements_count++;
@@ -450,8 +447,8 @@ public abstract class BackupRestoreDialog extends JDialog
      */
     public boolean isBackupRestoreObjectSelected(String key)
     {
-        if (this.ht_backup_objects.containsKey(key))
-            return this.ht_backup_objects.get(key).isSelected();
+        if (this.backupObjects.containsKey(key))
+            return this.backupObjects.get(key).isSelected();
         else
             return false;
     }
@@ -472,7 +469,7 @@ public abstract class BackupRestoreDialog extends JDialog
 
             if (!cb.isCollection())
             {
-                ht_backup_objects.put(cb.getTargetName(), (BackupRestoreObject) cb);
+                backupObjects.put(cb.getTargetName(), (BackupRestoreObject) cb);
             }
 
         }

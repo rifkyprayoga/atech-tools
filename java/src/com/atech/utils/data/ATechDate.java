@@ -235,6 +235,7 @@ public class ATechDate
      * @param type
      *            the type
      */
+    @Deprecated
     public ATechDate(int _day, int _month, int _year, int _hour, int _minute, int type)
     {
         this.dayOfMonth = _day;

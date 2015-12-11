@@ -9,19 +9,17 @@ import java.util.Hashtable;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 
-import com.atech.graphics.components.tree.CheckNodeTree;
 import com.atech.help.ComponentHelpCapable;
 import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  RestoreSelectorDialog - Restore Selector Dialog (abstract)
+ *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -47,104 +45,21 @@ import com.atech.utils.ATSwingUtils;
  *
 */
 
-public abstract class RestoreSelectorDialog extends JDialog implements ActionListener, // ,
-                                                                                       // BackupRestoreWorkGiver,
-        HelpCapable, ComponentHelpCapable
+public abstract class RestoreSelectorDialog extends JDialog implements ActionListener, HelpCapable,
+        ComponentHelpCapable
 {
 
     private static final long serialVersionUID = 46466618138619321L;
 
-    /**
-     * The i18nControl.
-     */
     protected I18nControlAbstract ic = null;
-
-    /**
-     * The dataAccess.
-     */
     protected ATDataAccessAbstract m_da = null;
 
-    /*
-     * Globaly used variables
-     */
-    /**
-     * The panel.
-     */
     JPanel panel;
-
-    /**
-     * The label_title.
-     */
     JLabel label, label_title;
-
-    /**
-     * The button_help.
-     */
     JButton button, button_next, button_help;
-
-    /**
-     * The font_normal_b.
-     */
     Font font_big, font_normal, font_normal_b;
-
-    /**
-     * The label_date.
-     */
-    JLabel label_date;
-
-    /**
-     * The progress_current.
-     */
-    JProgressBar progress_full, progress_current;
-
-    /**
-     * The tree.
-     */
-    CheckNodeTree tree;
-
-    /**
-     * The m_error.
-     */
-    int m_error = 0;
-
-    /**
-     * The last action.
-     */
-    int lastAction = 0; // no event
-
-    /**
-     * The count_of_backup_elements.
-     */
-    protected int count_of_backup_elements = 0;
-
-    /**
-     * The done_backup_elements.
-     */
-    protected int done_backup_elements = -1;
-
-    /**
-     * The label_current_progress.
-     */
-    JLabel label_total_progress, label_current_progress;
-
-    /**
-     * The tf_file.
-     */
     protected JTextField tf_file;
-
-    /**
-     * The backuprestore_root.
-     */
-    protected BackupRestoreCollection backuprestore_root;
-
-    /**
-     * The ht_backup_objects.
-     */
     protected Hashtable<String, BackupRestoreObject> ht_backup_objects;
-
-    /**
-     * The my_parent.
-     */
     protected Container my_parent = null;
 
 

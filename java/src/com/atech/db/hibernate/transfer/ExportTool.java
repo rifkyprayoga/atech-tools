@@ -23,8 +23,8 @@ import com.atech.db.hibernate.HibernateConfiguration;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  ExportTool - Export Tool
+ *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -64,6 +64,7 @@ public abstract class ExportTool extends ImportExportAbstract
         super(cfg, some);
     }
 
+
     /**
      * Instantiates a new export tool.
      * 
@@ -73,6 +74,7 @@ public abstract class ExportTool extends ImportExportAbstract
     {
         super(hib_conf);
     }
+
 
     /**
      * Process configuration.
@@ -100,6 +102,7 @@ public abstract class ExportTool extends ImportExportAbstract
 
     }
 
+
     /**
      * Gets the root class.
      * 
@@ -123,6 +126,7 @@ public abstract class ExportTool extends ImportExportAbstract
 
     }
 
+
     /**
      * Explore root class.
      * 
@@ -133,6 +137,7 @@ public abstract class ExportTool extends ImportExportAbstract
         System.out.println("Class Name: " + rc.getClassName());
         exploreTable(rc.getTable());
     }
+
 
     private void exploreTable(Table tbl)
     {
@@ -149,6 +154,7 @@ public abstract class ExportTool extends ImportExportAbstract
         }
 
     }
+
 
     /**
      * Explore column.
@@ -184,17 +190,6 @@ public abstract class ExportTool extends ImportExportAbstract
 
     }
 
-    /*
-     * <class name="ggc.core.db.hibernate.DayValueH" table="ggc_main_dayvalues"
-     * > <id name="id" type="long" unsaved-value="0"> <generator
-     * class="org.hibernate.id.AssignedIncrementGenerator"/> </id> <property
-     * name="dt_info" type="long" not-null="true"/> <property name="bg"
-     * type="float" /> <property name="ins1" type="float" /> <property
-     * name="ins2" type="float" /> <property name="ch" type="float" /> <property
-     * name="meals_ids" type="string" length="1000" /> <property name="act"
-     * type="int" /> <property name="comment" type="string" length="2000" />
-     * </class>
-     */
 
     /**
      * Export.
@@ -203,6 +198,7 @@ public abstract class ExportTool extends ImportExportAbstract
     {
         exportClass("ggc.core.db.hibernate.DayValueH");
     }
+
 
     /**
      * Export class.
@@ -281,6 +277,7 @@ public abstract class ExportTool extends ImportExportAbstract
 
     }
 
+
     /**
      * Write header.
      * 
@@ -313,6 +310,7 @@ public abstract class ExportTool extends ImportExportAbstract
         }
 
     }
+
 
     /**
      * Write header.
@@ -350,6 +348,7 @@ public abstract class ExportTool extends ImportExportAbstract
         }
 
     }
+
 
     /**
      * Gets the data from column for object.
@@ -402,6 +401,7 @@ public abstract class ExportTool extends ImportExportAbstract
 
     }
 
+
     /*
      * public static String append(String firstWord, String secondWord) { String
      * result = null; Class c = String.class; Class[] parameterTypes = new
@@ -439,6 +439,7 @@ public abstract class ExportTool extends ImportExportAbstract
         return clms;
 
     }
+
 
     /**
      * Gets the data.

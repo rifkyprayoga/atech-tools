@@ -21,12 +21,11 @@ import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
 import com.atech.utils.file.UnPackFiles;
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  RestoreDialog - Restore Dialog (abstarct)
+ *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -52,108 +51,32 @@ import com.atech.utils.file.UnPackFiles;
  *
 */
 
-public abstract class RestoreDialog extends JDialog
-        implements ActionListener, BackupRestoreWorkGiver, HelpCapable, ComponentHelpCapable
+public abstract class RestoreDialog extends JDialog implements ActionListener, BackupRestoreWorkGiver, HelpCapable,
+        ComponentHelpCapable
 {
 
     private static final long serialVersionUID = -9166774725245737896L;
 
-    /**
-     * The i18nControl.
-     */
     protected I18nControlAbstract ic = null;
-
-    /**
-     * The dataAccess.
-     */
     protected ATDataAccessAbstract m_da = null;
 
-    /*
-     * Globaly used variables
-     */
-    /**
-     * The panel.
-     */
     protected JPanel panel;
-
-    /**
-     * The label_title.
-     */
     JLabel label, label_title;
-
-    /**
-     * The button_help.
-     */
     JButton button, button_backup, button_help;
-
-    /**
-     * The font_normal_b.
-     */
     Font font_big, font_normal, font_normal_b;
-
-    /**
-     * The label_date.
-     */
     JLabel label_date;
-
-    /**
-     * The progress_current.
-     */
     JProgressBar progress_full, progress_current;
-
-    /**
-     * The tree.
-     */
     CheckNodeTree tree;
-
-    /**
-     * The m_error.
-     */
-    int m_error = 0;
-
-    /**
-     * The last action.
-     */
     int lastAction = 0; // no event
-
-    /**
-     * The count_of_backup_elements.
-     */
     protected int count_of_backup_elements = 0;
-
-    /**
-     * The done_backup_elements.
-     */
     protected int done_backup_elements = -1;
-
-    /**
-     * The label_current_progress.
-     */
     JLabel label_total_progress, label_current_progress;
-
-    /**
-     * The backuprestore_root.
-     */
     protected BackupRestoreCollection backuprestore_root;
 
-    /**
-     * The ht_restore_objects.
-     */
     protected Hashtable<String, BackupRestoreObject> ht_restore_objects = new Hashtable<String, BackupRestoreObject>();
-
-    /**
-     * The restore_files.
-     */
     protected Hashtable<String, RestoreFileInfo> restore_files = new Hashtable<String, RestoreFileInfo>();
 
-    /**
-     * The my_parent.
-     */
     Container my_parent = null;
-
-    /**
-     * The filename.
-     */
     String filename;
 
 
@@ -204,7 +127,7 @@ public abstract class RestoreDialog extends JDialog
         this.backuprestore_root = br_coll;
         this.filename = filename;
 
-        // backuprestore_root = br_coll;
+        // backupRestoreRoot = br_coll;
 
         init();
     }
@@ -225,7 +148,7 @@ public abstract class RestoreDialog extends JDialog
 
         this.setBounds(130, 50, 450, 450); // 360
 
-        // ht_backup_objects = new Hashtable<String,BackupRestoreObject>();
+        // backupObjects = new Hashtable<String,BackupRestoreObject>();
 
         font_big = ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD);
         font_normal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
@@ -430,7 +353,7 @@ public abstract class RestoreDialog extends JDialog
         this.progress_full = new JProgressBar(0, 100);
         this.progress_full.setBounds(25, 355, 380, 20);
         this.progress_full.setStringPainted(true);
-        // this.progress_full.setIndeterminate(true);
+        // this.progressFull.setIndeterminate(true);
         panel.add(this.progress_full);
 
         setTask(null);
@@ -456,10 +379,10 @@ public abstract class RestoreDialog extends JDialog
     {
         if (task == null)
         {
-            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
-                    + ic.getMessage("RESTORE_NOT_STARTED_YET") + "</html>");
-            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
-                    + ic.getMessage("NO_TASK_STARTED") + "</html>");
+            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS")
+                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("RESTORE_NOT_STARTED_YET") + "</html>");
+            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK")
+                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("NO_TASK_STARTED") + "</html>");
         }
         else
         {
@@ -469,10 +392,11 @@ public abstract class RestoreDialog extends JDialog
             tsk++;
 
             // System.out.println("Task: " + tsk);
-            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
-                    + ic.getMessage("TASK") + " (" + tsk + "/" + this.count_of_backup_elements + ")</html>");
-            label_current_progress.setText(
-                "<html><b>" + ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + task + "</html>");
+            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS")
+                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("TASK") + " (" + tsk + "/"
+                    + this.count_of_backup_elements + ")</html>");
+            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK")
+                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + task + "</html>");
         }
     }
 
@@ -564,10 +488,10 @@ public abstract class RestoreDialog extends JDialog
 
         this.progress_full.setValue(cnt);
 
-        // this.progress_full.setString("" + cnt + " %");
+        // this.progressFull.setString("" + cnt + " %");
 
         this.progress_current.setValue(procent);
-        // this.progress_current.setString("" + procent + " %");
+        // this.progressCurrent.setString("" + procent + " %");
 
     }
 
@@ -628,17 +552,17 @@ public abstract class RestoreDialog extends JDialog
         this.count_of_backup_elements = elements_count;
     }
 
+
     /*
      * a2
      * public boolean isBackupRestoreObjectSelected(String key)
      * {
-     * if (this.ht_backup_objects.containsKey(key))
-     * return this.ht_backup_objects.get(key).isSelected();
+     * if (this.backupObjects.containsKey(key))
+     * return this.backupObjects.get(key).isSelected();
      * else
      * return false;
      * }
      */
-
 
     // private void preprocessData(CheckNode node, )
     /**

@@ -4,12 +4,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  RestoreFileInfo - Restore File Info (information file about file we are restoring)
+ *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -68,6 +67,7 @@ public class RestoreFileInfo
      */
     public boolean selected = false;
 
+
     /**
      * Instantiates a new restore file info.
      * 
@@ -78,6 +78,7 @@ public class RestoreFileInfo
         this.file = file;
         processFile();
     }
+
 
     /**
      * Process file.
@@ -115,6 +116,7 @@ public class RestoreFileInfo
 
     }
 
+
     private void processStatusLine(String line)
     {
         if (line.contains("Class:"))
@@ -129,11 +131,13 @@ public class RestoreFileInfo
 
     }
 
+
     private String getSearchedValue(String keyword, String data)
     {
         int ind = data.indexOf(keyword) + keyword.length() + 1;
         return data.substring(ind);
     }
+
 
     /** 
      * toString

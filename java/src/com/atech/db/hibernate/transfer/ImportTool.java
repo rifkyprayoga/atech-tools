@@ -5,11 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import org.hibernate.Query;
 import org.hibernate.mapping.Column;
@@ -20,12 +16,11 @@ import org.hibernate.mapping.Value;
 import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.db.hibernate.HibernateUtil;
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  ImportTool - Import Tool
+ *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -77,6 +72,7 @@ public abstract class ImportTool extends ImportExportAbstract
      */
     protected HibernateUtil hibernate_util = null;
 
+
     /*
      * public ImportTool(Configuration cfg, int i)
      * {
@@ -95,6 +91,7 @@ public abstract class ImportTool extends ImportExportAbstract
         createHibernateUtil();
     }
 
+
     /**
      * Instantiates a new import tool.
      * 
@@ -109,6 +106,7 @@ public abstract class ImportTool extends ImportExportAbstract
         setRestoreFileInfo(res);
     }
 
+
     /**
      * Sets the restore file info.
      * 
@@ -120,6 +118,7 @@ public abstract class ImportTool extends ImportExportAbstract
         this.restore_file = res.file;
     }
 
+
     /**
      * Instantiates a new import tool.
      */
@@ -127,6 +126,7 @@ public abstract class ImportTool extends ImportExportAbstract
     {
         super();
     }
+
 
     /**
      * Creates the hibernate util.
@@ -137,23 +137,17 @@ public abstract class ImportTool extends ImportExportAbstract
         this.hibernate_util.setSession(this.getActiveSession());
     }
 
+
     /**
      * Process configuration.
      */
     public void processConfiguration()
     {
-        // System.out.println("Debug Configuration:");
-
-        // this.m_cfg.g
-        // this.m_cfg.
-
         Iterator<?> it = this.m_cfg.getClassMappings();
 
         while (it.hasNext())
         {
             org.hibernate.mapping.RootClass rc = (org.hibernate.mapping.RootClass) it.next();
-
-            // System.out.println(it.next());
 
             if (rc.getClassName().equals("ggc.core.db.hibernate.DayValueH"))
             {
@@ -162,6 +156,7 @@ public abstract class ImportTool extends ImportExportAbstract
         }
 
     }
+
 
     /**
      * Gets the root class.
@@ -186,6 +181,7 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
+
     /**
      * Explore root class.
      * 
@@ -194,10 +190,9 @@ public abstract class ImportTool extends ImportExportAbstract
     public void exploreRootClass(RootClass rc)
     {
         System.out.println("Class Name: " + rc.getClassName());
-        // rc.
         exploreTable(rc.getTable());
-
     }
+
 
     private void exploreTable(Table tbl)
     {
@@ -210,10 +205,9 @@ public abstract class ImportTool extends ImportExportAbstract
             Column cl = (Column) it.next();
 
             exploreColumn(cl);
-
         }
-
     }
+
 
     /**
      * Explore column.
@@ -222,7 +216,6 @@ public abstract class ImportTool extends ImportExportAbstract
      */
     public void exploreColumn(Column cl)
     {
-
         println(cl.getQuotedName() + " (" + cl.getName() + "), "); // length=" +
 
         // println("Name: " + cl.getName());
@@ -246,20 +239,8 @@ public abstract class ImportTool extends ImportExportAbstract
         // println("Scale: " + cl.getScale());
         // println("Precision: " + cl.getPrecision());
         // println("Value: " + cl.getValue());
-
     }
 
-    /*
-     * <class name="ggc.core.db.hibernate.DayValueH" table="ggc_main_dayvalues"
-     * > <id name="id" type="long" unsaved-value="0"> <generator
-     * class="org.hibernate.id.AssignedIncrementGenerator"/> </id> <property
-     * name="dt_info" type="long" not-null="true"/> <property name="bg"
-     * type="float" /> <property name="ins1" type="float" /> <property
-     * name="ins2" type="float" /> <property name="ch" type="float" /> <property
-     * name="meals_ids" type="string" length="1000" /> <property name="act"
-     * type="int" /> <property name="comment" type="string" length="2000" />
-     * </class>
-     */
 
     /**
      * Export class.
@@ -268,8 +249,6 @@ public abstract class ImportTool extends ImportExportAbstract
      */
     public void exportClass(String cls_name)
     {
-        // String cls = "ggc.core.db.hibernate.DayValueH";
-
         ArrayList<String> clms = getColumnsNames(cls_name);
 
         Random rd = new Random();
@@ -328,8 +307,8 @@ public abstract class ImportTool extends ImportExportAbstract
         {
             println("Exception on writing: " + ex);
         }
-
     }
+
 
     /**
      * Gets the data from column for object.
@@ -347,13 +326,11 @@ public abstract class ImportTool extends ImportExportAbstract
         // String result = null;
         Object res2 = null;
         Class<?> c = obj.getClass();
-        // Class[] parameterTypes = new Class[] {String.class};
         Method method;
-        // Object[] arguments = new Object[] {secondWord};
+
         try
         {
             method = c.getMethod(method_name);
-            // c.getMethod(
             res2 = method.invoke(obj);
 
             if (res2 == null)
@@ -382,16 +359,6 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
-    /*
-     * public static String append(String firstWord, String secondWord) { String
-     * result = null; Class c = String.class; Class[] parameterTypes = new
-     * Class[] {String.class}; Method concatMethod; Object[] arguments = new
-     * Object[] {secondWord}; try { concatMethod = c.getMethod("concat",
-     * parameterTypes); result = (String) concatMethod.invoke(firstWord,
-     * arguments); } catch (NoSuchMethodException e) { System.out.println(e); }
-     * catch (IllegalAccessException e) { System.out.println(e); } catch
-     * (InvocationTargetException e) { System.out.println(e); } return result; }
-     */
 
     /**
      * Gets the columns names.
@@ -420,6 +387,7 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
+
     /**
      * Gets the data.
      * 
@@ -434,6 +402,7 @@ public abstract class ImportTool extends ImportExportAbstract
 
         // return null;
     }
+
 
     /**
      * Gets the int.
@@ -457,6 +426,7 @@ public abstract class ImportTool extends ImportExportAbstract
 
     }
 
+
     /**
      * Gets the short.
      * 
@@ -466,7 +436,6 @@ public abstract class ImportTool extends ImportExportAbstract
      */
     public short getShort(String input)
     {
-
         if (input.startsWith("~"))
         {
             input = input.substring(1, input.length() - 1);
@@ -476,8 +445,8 @@ public abstract class ImportTool extends ImportExportAbstract
             return 0;
         else
             return Short.parseShort(input);
-
     }
+
 
     /**
      * Gets the long.
@@ -488,7 +457,6 @@ public abstract class ImportTool extends ImportExportAbstract
      */
     public long getLong(String input)
     {
-
         if (input.startsWith("~"))
         {
             input = input.substring(1, input.length() - 1);
@@ -498,8 +466,8 @@ public abstract class ImportTool extends ImportExportAbstract
             return 0;
         else
             return Long.parseLong(input);
-
     }
+
 
     /**
      * Gets the float.
@@ -510,7 +478,6 @@ public abstract class ImportTool extends ImportExportAbstract
      */
     public float getFloat(String input)
     {
-
         if (input.startsWith("~"))
         {
             input = input.substring(1, input.length() - 1);
@@ -520,10 +487,8 @@ public abstract class ImportTool extends ImportExportAbstract
             return 0;
         else
             return (float) Double.parseDouble(input.replace(',', '.'));
-
-        // return Float.parseFloat(input);
-
     }
+
 
     /**
      * Gets the string.
@@ -534,7 +499,6 @@ public abstract class ImportTool extends ImportExportAbstract
      */
     public String getString(String input)
     {
-
         if (input.startsWith("~"))
         {
             input = input.substring(1, input.length() - 1);
@@ -547,8 +511,8 @@ public abstract class ImportTool extends ImportExportAbstract
             return null;
 
         return input;
-
     }
+
 
     /**
      * Clear existing data.

@@ -32,16 +32,7 @@ package com.atech.db.hibernate.transfer;
 
 // this one should be extended, we have several variables that need to be filled
 
-public interface BackupRestoreWorker // extends BackupRestoreBase
+public interface BackupRestoreWorker
 {
-
-    // public String getTargetName();
-
-    // old
-    // public String getObjectClassName();
-
-    // public String getObjectHeader();
-
-    // public String getObjectValues();
 
 }

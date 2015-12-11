@@ -5,8 +5,8 @@ import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  BackupRestoreBase - interface for BackupRestoreBase (parent of all backup/restore objects)
+ *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -42,34 +42,38 @@ public interface BackupRestoreBase extends CheckBoxTreeNodeInterface
      * 
      * @return target name as string
      */
-    public String getTargetName();
+    String getTargetName();
+
 
     /**
      * Is Object Collection
      * 
      * @return true if it has children
      */
-    public boolean isCollection();
+    boolean isCollection();
+
 
     /**
      * Set Selected
      * 
      * @param selected true if selected
      */
-    public void setSelected(boolean selected);
+    void setSelected(boolean selected);
+
 
     /**
      * Is Selected
      * 
      * @return true if selected
      */
-    public boolean isSelected();
+    boolean isSelected();
+
 
     /**
      * Get Class Name
      * 
      * @return name of class
      */
-    public String getClassName();
+    String getClassName();
 
 }

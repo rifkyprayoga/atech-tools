@@ -1,6 +1,6 @@
 package com.atech.db.hibernate.transfer;
 
-import java.util.Hashtable;
+import java.util.Map;
 
 import javax.swing.*;
 
@@ -62,7 +62,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     JLabel label_date;
 
     /**
-     * The progress_current.
+     * The progressCurrent.
      */
     JProgressBar progress_full, progress_current;
 
@@ -97,32 +97,32 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     boolean is_backup = false;
 
     /**
-     * The ht_backup_objects.
+     * The backupObjects.
      */
-    protected Hashtable<String, BackupRestoreObject> ht_backup_objects;
+    protected Map<String, BackupRestoreObject> backupObjects;
 
     /**
-     * The ht_restore_objects.
+     * The restoreObjects.
      */
-    Hashtable<String, RestoreFileInfo> ht_restore_objects;
+    Map<String, RestoreFileInfo> restoreObjects;
 
     /**
-     * The work_giver.
+     * The workGiver.
      */
-    protected BackupRestoreWorkGiver work_giver;
+    protected BackupRestoreWorkGiver workGiver;
 
 
     /**
      * Instantiates a new backup restore runner.
      * 
      * @param objects the objects
-     * @param work_giver the work_giver
+     * @param workGiver the workGiver
      */
-    public BackupRestoreRunner(Hashtable<String, BackupRestoreObject> objects, BackupRestoreWorkGiver work_giver)
+    public BackupRestoreRunner(Map<String, BackupRestoreObject> objects, BackupRestoreWorkGiver workGiver)
     {
         super();
-        this.ht_backup_objects = objects;
-        this.work_giver = work_giver;
+        this.backupObjects = objects;
+        this.workGiver = workGiver;
         is_backup = true;
     }
 
@@ -131,16 +131,15 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      * Instantiates a new backup restore runner.
      * 
      * @param objects the objects
-     * @param work_giver the work_giver
+     * @param workGiver the workGiver
      * @param special the special
      */
-    public BackupRestoreRunner(Hashtable<String, RestoreFileInfo> objects, BackupRestoreWorkGiver work_giver,
-            String special)
+    public BackupRestoreRunner(Map<String, RestoreFileInfo> objects, BackupRestoreWorkGiver workGiver, String special)
     {
         super();
-        // this.ht_backup_objects = objects;
-        this.ht_restore_objects = objects;
-        this.work_giver = work_giver;
+        // this.backupObjects = objects;
+        this.restoreObjects = objects;
+        this.workGiver = workGiver;
         is_backup = false;
     }
 
@@ -150,7 +149,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      */
     public void setTask(String task)
     {
-        this.work_giver.setTask(task);
+        this.workGiver.setTask(task);
     }
 
 
@@ -159,7 +158,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      */
     public void setStatus(int status)
     {
-        this.work_giver.setStatus(status);
+        this.workGiver.setStatus(status);
     }
 
 
@@ -172,11 +171,11 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      */
     public boolean isBackupObjectSelected(String key)
     {
-        if (this.ht_backup_objects == null)
+        if (this.backupObjects == null)
             return false;
 
-        if (this.ht_backup_objects.containsKey(key))
-            return this.ht_backup_objects.get(key).isSelected();
+        if (this.backupObjects.containsKey(key))
+            return this.backupObjects.get(key).isSelected();
         else
             return false;
     }
@@ -191,11 +190,11 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      */
     public boolean isRestoreObjectSelected(String key)
     {
-        if (this.ht_restore_objects == null)
+        if (this.restoreObjects == null)
             return false;
 
-        if (this.ht_restore_objects.containsKey(key))
-            return this.ht_restore_objects.get(key).selected;
+        if (this.restoreObjects.containsKey(key))
+            return this.restoreObjects.get(key).selected;
         else
             return false;
     }
@@ -210,11 +209,11 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      */
     public RestoreFileInfo getRestoreObject(String key)
     {
-        if (this.ht_restore_objects == null)
+        if (this.restoreObjects == null)
             return null;
 
-        if (this.ht_restore_objects.containsKey(key))
-            return this.ht_restore_objects.get(key);
+        if (this.restoreObjects.containsKey(key))
+            return this.restoreObjects.get(key);
         else
             return null;
     }
@@ -247,5 +246,11 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      * Execute restore.
      */
     public abstract void executeRestore();
+
+
+    /**
+     * Get Last Backup File
+     */
+    public abstract String getLastBackupFile();
 
 }
