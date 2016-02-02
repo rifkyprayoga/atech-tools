@@ -1,32 +1,25 @@
 package com.atech.graphics.calendar;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.atech.graphics.layout.TableLayoutUtil;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
+import info.clearthought.layout.TableLayout;
 
 /**
  *  This file is part of ATech Tools library.
  *  
  *  DateRangeSelectionPanel - Panel with some options to select Date Range
- *  Copyright (C) 2002  Dieter Schultschik
+ *  Copyright (C) 2016  Andy Rozman
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -48,20 +41,12 @@ import com.atech.utils.ATDataAccessAbstract;
  *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
  *  andyrozman@users.sourceforge.net or andy@atech-software.com
  *  
- *  Author:   schultd (taken from ggc project)
  *  Author:   Andy (minor changes)
  */
 
 public class DateRangeSelectionPanel extends JPanel implements ChangeListener
 {
-    // private JTextField fieldStartDate;
-    // private JTextField fieldEndDate;
-    // private Date endDate;
-    // private Date startDate;
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 8709379438186554030L;
 
     private I18nControlAbstract m_ic; // = I18nControl.getInstance();
@@ -78,6 +63,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
 
     private int iRadioGroupState = 0;
 
+
     // private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
     /**
@@ -90,6 +76,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         this(da, new GregorianCalendar());
     }
 
+
     /**
      * Constructor
      * 
@@ -100,6 +87,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
     {
         this(da, new GregorianCalendar(), flag);
     }
+
 
     /**
      * Constructor
@@ -112,6 +100,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         this(da, endDate, null, DateRangeData.RANGE_ONE_MONTH);
     }
 
+
     /**
      * Constructor
      * 
@@ -123,6 +112,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
     {
         this(da, endDate, null, flag);
     }
+
 
     /*
      * public DateRangeSelectionPanel(Date endDate, Date startDate) {
@@ -141,6 +131,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
     {
         this(da, endDate, startDate, DateRangeData.RANGE_CUSTOM);
     }
+
 
     private DateRangeSelectionPanel(ATDataAccessAbstract da, GregorianCalendar endDate, GregorianCalendar startDate,
             int flag)
@@ -175,21 +166,117 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         iRadioGroupState = flag;
         init();
         calcStartDate();
+        this.repaint();
     }
 
+
     private void init()
+    {
+        // JPanel mainPanel = new JPanel();
+        // mainPanel.setLayout(new GridLayout(0, 1));
+        setLayout(TableLayoutUtil.createHorizontalLayout(8, 0.5, 12, TableLayout.FILL));
+
+        // Box a = Box.createVerticalBox();
+
+        JPanel datePanel = new JPanel();
+        datePanel.setLayout(TableLayoutUtil.createVerticalLayout(0.25, 0.25, 0.25, 0.25, 10));
+
+        datePanel.add(new JLabel(m_ic.getMessage("STARTING_DATE") + ":"), "0, 0");
+        datePanel.add(spinnerStart = new JSpinner(startSpinnerDateModel), "0, 1");
+        ((JSpinner.DateEditor) spinnerStart.getEditor()).getFormat().applyPattern("dd.MM.yyyy");
+
+        datePanel.add(new JLabel(m_ic.getMessage("ENDING_DATE") + ":"), "0, 2");
+        datePanel.add(spinnerEnd = new JSpinner(endSpinnerDateModel), "0, 3");
+        ((JSpinner.DateEditor) spinnerEnd.getEditor()).getFormat().applyPattern("dd.MM.yyyy");
+
+        spinnerEnd.addChangeListener(this);
+        spinnerStart.addChangeListener(this);
+
+        add(datePanel, "1, 0");
+
+        /*
+         * Box a = Box.createVerticalBox(); a.add(new
+         * JLabel(m_ic.getMessage("ENDING_DATE")+":")); a.add(spinnerEnd = new
+         * JSpinner(endSpinnerDateModel));
+         * ((JSpinner.DateEditor)spinnerEnd.getEditor
+         * ()).getFormat().applyPattern("dd.MM.yyyy");
+         * a.add(new JLabel(m_ic.getMessage("STARTING_DATE")+":"));
+         * a.add(spinnerStart = new JSpinner(startSpinnerDateModel));
+         * ((JSpinner.
+         * DateEditor)spinnerStart.getEditor()).getFormat().applyPattern
+         * ("dd.MM.yyyy");
+         * spinnerEnd.addChangeListener(this);
+         * spinnerStart.addChangeListener(this);
+         */
+
+        /*
+         * new ChangeListener() { public void stateChanged(ChangeEvent e) {
+         * calcDateAndUpdateFields(); } });
+         */
+
+        /*
+         * new ChangeListener() { public void stateChanged(ChangeEvent e) {
+         * calcDateAndUpdateFields(); } });
+         */
+
+        JRadioButton rbOneWeek = new JRadioButton("  " + m_ic.getMessage("1_WEEK"),
+                iRadioGroupState == DateRangeData.RANGE_ONE_WEEK);
+        rbOneWeek.setIconTextGap(8);
+        // rbOneWeek.se
+
+        JRadioButton rbOneMonth = new JRadioButton("  " + m_ic.getMessage("1_MONTH"),
+                iRadioGroupState == DateRangeData.RANGE_ONE_MONTH);
+        JRadioButton rbThreeMonths = new JRadioButton("  " + m_ic.getMessage("3_MONTHS"),
+                iRadioGroupState == DateRangeData.RANGE_THREE_MONTHS);
+        JRadioButton rbCustom = new JRadioButton("  " + m_ic.getMessage("CUSTOM"),
+                iRadioGroupState == DateRangeData.RANGE_CUSTOM);
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(rbOneWeek);
+        group.add(rbOneMonth);
+        group.add(rbThreeMonths);
+        group.add(rbCustom);
+
+        rbOneWeek.addActionListener(new RadioListener(DateRangeData.RANGE_ONE_WEEK));
+        rbOneMonth.addActionListener(new RadioListener(DateRangeData.RANGE_ONE_MONTH));
+        rbThreeMonths.addActionListener(new RadioListener(DateRangeData.RANGE_THREE_MONTHS));
+        rbCustom.addActionListener(new RadioListener(DateRangeData.RANGE_CUSTOM));
+
+        JPanel panelRadioChoices = new JPanel();
+        panelRadioChoices.setLayout(TableLayoutUtil.createVerticalLayout(0.25, 0.25, 0.25, 0.25));
+
+        // Box b = Box.createVerticalBox();
+        panelRadioChoices.add(rbOneWeek, "0, 0");
+        panelRadioChoices.add(rbOneMonth, "0, 1");
+        panelRadioChoices.add(rbThreeMonths, "0, 2");
+        panelRadioChoices.add(rbCustom, "0, 3");
+
+        add(panelRadioChoices, "3, 0");
+
+        // setLayout(new BorderLayout());
+        setBorder(BorderFactory.createTitledBorder(m_ic.getMessage("DATE_RANGE_SELECTOR")));
+
+        if (iRadioGroupState != DateRangeData.RANGE_CUSTOM)
+        {
+            spinnerStart.setEnabled(false);
+        }
+    }
+
+
+    private void init_old()
     {
         JPanel a = new JPanel();
         a.setLayout(new GridLayout(0, 1));
 
         // Box a = Box.createVerticalBox();
-        a.add(new JLabel(m_ic.getMessage("ENDING_DATE") + ":"));
-        a.add(spinnerEnd = new JSpinner(endSpinnerDateModel));
-        ((JSpinner.DateEditor) spinnerEnd.getEditor()).getFormat().applyPattern("dd.MM.yyyy");
 
         a.add(new JLabel(m_ic.getMessage("STARTING_DATE") + ":"));
         a.add(spinnerStart = new JSpinner(startSpinnerDateModel));
         ((JSpinner.DateEditor) spinnerStart.getEditor()).getFormat().applyPattern("dd.MM.yyyy");
+
+        a.add(new JLabel(m_ic.getMessage("ENDING_DATE") + ":"));
+        a.add(spinnerEnd = new JSpinner(endSpinnerDateModel));
+        ((JSpinner.DateEditor) spinnerEnd.getEditor()).getFormat().applyPattern("dd.MM.yyyy");
 
         spinnerEnd.addChangeListener(this);
         spinnerStart.addChangeListener(this);
@@ -265,11 +352,16 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         }
     }
 
+
     private void calcDateAndUpdateFields()
     {
         gc_end = this.getEndCalendar();
+
+        System.out.println("DateRangeSelectorPanel: " + m_da.getGregorianCalendarDateAsString(gc_end));
+
         calcStartDate();
     }
+
 
     private void calcStartDate()
     {
@@ -285,7 +377,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         switch (iRadioGroupState)
         {
             case DateRangeData.RANGE_ONE_WEEK:
-                gc_start.add(Calendar.WEEK_OF_YEAR, -1);
+                gc_start.add(Calendar.DAY_OF_YEAR, -6);
                 break;
             case DateRangeData.RANGE_THREE_MONTHS:
                 gc_start.add(Calendar.MONTH, -3);
@@ -315,6 +407,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         startSpinnerDateModel.setValue(gc_start.getTime());
     }
 
+
     /**
      * Get Date Range Data
      * 
@@ -331,16 +424,16 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
 
     private class RadioListener extends AbstractAction
     {
-        /**
-         * 
-         */
+
         private static final long serialVersionUID = -2806660966659688717L;
         private int stat = 1;
+
 
         public RadioListener(int flag)
         {
             this.stat = flag;
         }
+
 
         public void actionPerformed(ActionEvent e)
         {
@@ -359,6 +452,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         }
     }
 
+
     /**
      * Get End Date
      * 
@@ -368,6 +462,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
     {
         return endSpinnerDateModel.getDate();
     }
+
 
     /**
      * Get Start Date
@@ -379,6 +474,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         return startSpinnerDateModel.getDate();
     }
 
+
     /**
      * Get End Calendar
      * 
@@ -389,6 +485,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
         return m_da.getGregorianCalendar(endSpinnerDateModel.getDate());
     }
 
+
     /**
      * Get Start Calendar
      * 
@@ -398,6 +495,7 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
     {
         return m_da.getGregorianCalendar(startSpinnerDateModel.getDate());
     }
+
 
     /**
      * State Changed

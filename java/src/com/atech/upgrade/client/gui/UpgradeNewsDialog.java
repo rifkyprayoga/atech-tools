@@ -85,7 +85,7 @@ public class UpgradeNewsDialog extends JDialog implements ActionListener
 
         this.helpButton = ATSwingUtils.createHelpButtonByBounds(485, 475, 120, 25, this, ATSwingUtils.FONT_NORMAL,
             dataAccess);
-        // this.help_button.setFont(font_normal);
+        // this.helpButton.setFont(font_normal);
         panel.add(helpButton);
 
         this.loadData();
@@ -107,8 +107,8 @@ public class UpgradeNewsDialog extends JDialog implements ActionListener
             StringBuilder htmlContent = new StringBuilder();
             htmlContent.append("<html><body>");
 
-            htmlContent
-                    .append("<h2>There was an Exception while contacting Update Server and/or processing response</h2><br><br>\n");
+            htmlContent.append(
+                "<h2>There was an Exception while contacting Update Server and/or processing response</h2><br><br>\n");
             htmlContent.append("<b>Exception Message:<b>&nbsp;&nbsp;" + e.getLocalizedMessage());
 
             htmlContent.append("</body></html>");
@@ -217,11 +217,11 @@ public class UpgradeNewsDialog extends JDialog implements ActionListener
         {
             ATechDate atdate = new ATechDate(ATechDate.FORMAT_DATE_ONLY, note.dtInfo);
 
-            htmlContent
-                    .append("<table cellpadding=\"3\" cellspacing=\"0\" align=\"center\" width=\"100%\" class=\"container\">");
+            htmlContent.append(
+                "<table cellpadding=\"3\" cellspacing=\"0\" align=\"center\" width=\"100%\" class=\"container\">");
             htmlContent.append("<tr class=\"newsheader\">");
-            htmlContent.append("<td width=\"20%\">" + this.sdf.format(atdate.getGregorianCalendar().getTime())
-                    + "</td>");
+            htmlContent
+                    .append("<td width=\"20%\">" + this.sdf.format(atdate.getGregorianCalendar().getTime()) + "</td>");
             htmlContent.append("<td><b>" + note.subject + "</b></td>");
             htmlContent.append("</tr>");
             htmlContent.append("<tr>");

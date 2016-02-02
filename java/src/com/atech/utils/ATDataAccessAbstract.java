@@ -8,11 +8,13 @@ import java.text.Collator;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.ColorUIResource;
 
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.slf4j.Logger;
@@ -25,6 +27,7 @@ import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.graphics.dialogs.ErrorDialog;
 import com.atech.graphics.graphs.GraphConfigProperties;
+import com.atech.graphics.graphs.v2.data.GraphDbDataRetriever;
 import com.atech.gui_fw.config.AbstractConfigurationContext;
 import com.atech.help.HelpCapable;
 import com.atech.help.HelpContext;
@@ -34,6 +37,8 @@ import com.atech.misc.converter.ATechConverter;
 import com.atech.misc.converter.DecimalHandler;
 import com.atech.plugin.PlugInClient;
 import com.atech.update.config.UpdateConfiguration;
+import com.atech.utils.data.ATechDate;
+import com.atech.utils.data.ATechDateType;
 import com.atech.utils.data.CodeEnumWithTranslation;
 import com.atech.utils.data.ExceptionHandling;
 
@@ -150,6 +155,11 @@ public abstract class ATDataAccessAbstract
      * The graph_config. (?)
      */
     protected GraphConfigProperties graph_config = null;
+
+    /**
+     * Graph V2
+     */
+    protected GraphDbDataRetriever graphDbDataRetriever;
 
     /**
      * Update System v2 (?)
@@ -1816,6 +1826,12 @@ public abstract class ATDataAccessAbstract
 
         try
         {
+            if (StringUtils.isBlank(aValue))
+                return def_value;
+
+            // parse float, doesn't look in locale for decimal sign
+            aValue = aValue.replace(",", ".");
+
             out = Integer.parseInt(aValue);
         }
         catch (Exception ex)
@@ -2764,7 +2780,82 @@ public abstract class ATDataAccessAbstract
                 + gregorianCalendar.get(Calendar.YEAR) + " " //
                 + getLeadingZero(gregorianCalendar.get(Calendar.HOUR_OF_DAY), 2) + ":" //
                 + getLeadingZero(gregorianCalendar.get(Calendar.MINUTE), 2) + ":"
-                + getLeadingZero(gregorianCalendar.get(Calendar.SECOND), 2) + ":";
+                + getLeadingZero(gregorianCalendar.get(Calendar.SECOND), 2);
 
     }
+
+
+    public String getGregorianCalendarDateAsString(GregorianCalendar gregorianCalendar)
+    {
+        return getLeadingZero(gregorianCalendar.get(Calendar.DAY_OF_MONTH), 2) + "." //
+                + getLeadingZero((gregorianCalendar.get(Calendar.MONTH) + 1), 2) + "." //
+                + gregorianCalendar.get(Calendar.YEAR);
+
+    }
+
+
+    public List<ATechDate> getDatesList(GregorianCalendar gcFrom, GregorianCalendar gcTill, boolean onlyFirstAndLast)
+    {
+        List<ATechDate> datesList = new ArrayList<ATechDate>();
+
+        GregorianCalendar gcFromC = (GregorianCalendar) gcFrom.clone();
+        setTime(gcFromC, true);
+
+        datesList.add(new ATechDate(ATechDateType.DateOnly, gcFromC));
+
+        GregorianCalendar gcTillC = (GregorianCalendar) gcTill.clone();
+        setTime(gcTillC, false);
+
+        if (!onlyFirstAndLast)
+        {
+
+            boolean timeLess = true;
+
+            do
+            {
+                gcFromC.add(Calendar.DAY_OF_YEAR, 1);
+
+                if (gcFromC.before(gcTillC))
+                {
+                    datesList.add(new ATechDate(ATechDateType.DateOnly, gcFromC));
+                }
+                else
+                    timeLess = false;
+
+            } while (timeLess);
+        }
+        else
+        {
+            datesList.add(new ATechDate(ATechDateType.DateOnly, gcTill));
+        }
+
+        return datesList;
+    }
+
+
+    public void setTime(GregorianCalendar gc, boolean zeroTime)
+    {
+        if (zeroTime)
+        {
+            gc.set(Calendar.HOUR, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+
+        }
+        else
+        {
+            gc.set(Calendar.HOUR, 23);
+            gc.set(Calendar.MINUTE, 59);
+            gc.set(Calendar.SECOND, 59);
+            gc.set(Calendar.MILLISECOND, 999);
+        }
+    }
+
+
+    public GraphDbDataRetriever getGraphDbDataRetriever()
+    {
+        return this.graphDbDataRetriever;
+    }
+
 }

@@ -71,7 +71,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
     protected GraphViewInterface graph_view;
     protected ATDataAccessAbstract m_da = null;
     protected JPanel control_panel = null;
-    protected JButton help_button = null;
+    protected JButton helpButton = null;
     protected Object parameters;
     protected I18nControlAbstract m_ic = null;
 
@@ -96,14 +96,14 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
      * 
      * @param da
      * @param _graph_view
-     * @param paramters
+     * @param parameters
      */
-    public AbstractGraphViewControler(ATDataAccessAbstract da, GraphViewInterface _graph_view, Object paramters)
+    public AbstractGraphViewControler(ATDataAccessAbstract da, GraphViewInterface _graph_view, Object parameters)
     {
         this.graph_view = _graph_view;
         this.m_da = da;
         this.m_ic = da.getI18nControlInstance();
-        this.parameters = paramters;
+        this.parameters = parameters;
         init();
     }
 
@@ -126,8 +126,8 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
      * | DataPlotSelectorPanel.INS_TOTAL_MASK);
      * //cGV.setData(selectionPanel.getPlotData());
      * JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-     * help_button = dataAccess.createHelpButtonBySize(120, 25, cPanel);
-     * buttonPanel.add(help_button);
+     * helpButton = dataAccess.createHelpButtonBySize(120, 25, cPanel);
+     * buttonPanel.add(helpButton);
      * // Dimension dim = new Dimension(80, 20);
      * Dimension dim = new Dimension(120, 25);
      * JButton drawButton = new JButton("    " + m_ic.getMessage("DRAW"));
@@ -197,7 +197,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
      */
     public JButton getHelpButton()
     {
-        return this.help_button;
+        return this.helpButton;
     }
 
 
@@ -235,7 +235,7 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
 
     /**
      * Get Controler Panel
-
+    
      */
     public JPanel getControlerPanel()
     {

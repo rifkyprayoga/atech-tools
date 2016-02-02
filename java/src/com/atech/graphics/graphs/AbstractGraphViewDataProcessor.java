@@ -3,9 +3,7 @@ package com.atech.graphics.graphs;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  GraphViewDataProcessorInterface - This class must be implemented for use with GraphViewer 
- *       or GraphViewerPanel. It contains all data processing, data retrieval and date
- *       prepare for graph.
+ *  AbstractGraphViewDataProcessor - Abstract GraphViewData Processor
  *  
  *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
@@ -29,14 +27,12 @@ package com.atech.graphics.graphs;
  *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
  *  andyrozman@users.sourceforge.net or andy@atech-software.com
  *  
- *  @author Andy
+ *  @author Andy {andy@atech-software.com}
  *
 */
-
-// WORK IN PROGRESS - DO NOT EDIT - Andy
-
 public abstract class AbstractGraphViewDataProcessor implements GraphViewDataProcessorInterface
 {
+
     /**
      * Reload Data - This is method which should be called after setControllerData is set
      *     with new data. This method should call loadData() and preprocessData(). 

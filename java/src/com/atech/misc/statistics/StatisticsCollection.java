@@ -1,6 +1,7 @@
 package com.atech.misc.statistics;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.atech.utils.ATDataAccessAbstract;
 
@@ -116,7 +117,7 @@ public class StatisticsCollection
      * 
      * @param list the list
      */
-    public void processFullCollection(ArrayList<? extends StatisticsItem> list)
+    public void processFullCollection(List<? extends StatisticsItem> list)
     {
         this.cleanStatisticsObjects();
 

@@ -1,8 +1,8 @@
 package com.atech.graphics.graphs;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -41,20 +41,21 @@ public class GraphViewerPanel extends JPanel
 
     private static final long serialVersionUID = 6768148904791944688L;
 
+
     /**
      * Constructor
      * 
      * @param gvi
      */
     /*
-     * public GraphViewerPanel(GraphViewInterface gvi) //,
+     * public GraphViewerPanel(GraphViewInterface graphViewInterface) //,
      * GraphViewDataProcessorInterface gvdp)
      * {
      * super();
-     * gvi.getProcessor().loadData();
-     * gvi.getProcessor().preprocessData();
+     * graphViewInterface.getProcessor().loadData();
+     * graphViewInterface.getProcessor().preprocessData();
      * setLayout(new BorderLayout());
-     * add(gvi.getChartPanel(), BorderLayout.CENTER);
+     * add(graphViewInterface.getChartPanel(), BorderLayout.CENTER);
      * }
      */
 
@@ -73,10 +74,11 @@ public class GraphViewerPanel extends JPanel
         add(gvi.getChartPanel(), BorderLayout.CENTER);
     }
 
+
     /**
      * Instantiates a new graph viewer panel.
      * 
-     * @param gvi the gvi
+     * @param gvi the graphViewInterface
      */
     public GraphViewerPanel(AbstractGraphViewAndProcessor gvi) // ,
                                                                // GraphViewDataProcessorInterface

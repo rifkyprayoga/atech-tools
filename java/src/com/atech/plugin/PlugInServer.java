@@ -340,7 +340,17 @@ public abstract class PlugInServer
      *  
      * @return
      */
-    public abstract JMenu[] getPlugInPrintMenus();
+    public abstract JMenu[] getPlugInReportMenus();
+
+
+    /**
+     * Get PlugIn Graph Menus
+     *
+     * Since Graphs are also PlugIn specific we need to add Graph jobs to application.
+     *
+     * @return
+     */
+    public abstract JMenu[] getPlugInGraphMenus();
 
 
     /**

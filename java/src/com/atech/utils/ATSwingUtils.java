@@ -642,6 +642,52 @@ public class ATSwingUtils
     }
 
 
+    public static JLabel getLabel(String text, Container cont, Font font)
+    {
+        JLabel label_1 = new JLabel();
+
+        if (text != null)
+        {
+            label_1.setText(text);
+        }
+
+        if (font != null)
+        {
+            label_1.setFont(font);
+        }
+
+        cont.add(label_1);
+
+        return label_1;
+    }
+
+
+    public static JLabel getLabel(String text, Container cont, String layoutConstraints, int fontId)
+    {
+        return getLabel(text, cont, layoutConstraints, getFont(fontId));
+    }
+
+
+    public static JLabel getLabel(String text, Container cont, String layoutConstraints, Font font)
+    {
+        JLabel label_1 = new JLabel();
+
+        if (text != null)
+        {
+            label_1.setText(text);
+        }
+
+        if (font != null)
+        {
+            label_1.setFont(font);
+        }
+
+        cont.add(label_1, layoutConstraints);
+
+        return label_1;
+    }
+
+
     /**
      * Gets the title label.
      * 
@@ -798,6 +844,15 @@ public class ATSwingUtils
     }
 
 
+    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, int font_id,
+            String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da,
+            Container containerForImage)
+    {
+        return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da,
+            containerForImage);
+    }
+
+
     /**
      * Gets the button.
      * 
@@ -818,7 +873,32 @@ public class ATSwingUtils
     public static JButton getButton(String text, int x, int y, int width, int height, Container cont, Font font,
             String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da)
     {
-        return ATSwingUtils.getButton(text, x, y, width, height, cont, font, icon_name, action_cmd, al, da, null);
+        return ATSwingUtils.getButton(text, x, y, width, height, cont, font, icon_name, action_cmd, al, da, null, cont);
+    }
+
+
+    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, Font font,
+            String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da,
+            Container containerForImage)
+    {
+        return ATSwingUtils.getButton(text, x, y, width, height, cont, font, icon_name, action_cmd, al, da, null,
+            containerForImage);
+    }
+
+
+    public static JButton getButton(String text, Font font, String icon_name, String action_cmd, ActionListener al,
+            ATDataAccessAbstract da)
+    {
+        return ATSwingUtils.getButton(text, null, null, null, null, null, font, icon_name, action_cmd, al, da, null,
+            null);
+    }
+
+
+    public static JButton getButton(String text, int font_id, String icon_name, String action_cmd, ActionListener al,
+            ATDataAccessAbstract da)
+    {
+        return ATSwingUtils.getButton(text, null, null, null, null, null, getFont(font_id), icon_name, action_cmd, al,
+            da, null, null);
     }
 
 
@@ -856,7 +936,7 @@ public class ATSwingUtils
             String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size)
     {
         return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da,
-            icon_size);
+            icon_size, cont);
     }
 
 
@@ -878,8 +958,9 @@ public class ATSwingUtils
      * 
      * @return the button
      */
-    public static JButton getButton(String text, int x, int y, int width, int height, Container cont, Font font,
-            String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size)
+    public static JButton getButton(String text, Integer x, Integer y, Integer width, Integer height, Container cont,
+            Font font, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size,
+            Container containerForImage)
     {
         JButton button = null;
 
@@ -896,18 +977,27 @@ public class ATSwingUtils
         {
             if (icon_size == null)
             {
-                button.setIcon(getImageIcon_22x22(icon_name, cont, da));
+                button.setIcon(getImageIcon_22x22(icon_name, containerForImage, da));
             }
             else
             {
-                button.setIcon(getImageIcon(icon_name, icon_size[0], icon_size[1], cont, da));
+                button.setIcon(getImageIcon(icon_name, icon_size[0], icon_size[1], containerForImage, da));
             }
         }
         button.setActionCommand(action_cmd);
         button.setFont(font);
-        button.setBounds(x, y, width, height);
+
+        if (x != null)
+        {
+            button.setBounds(x, y, width, height);
+        }
+
         button.addActionListener(al);
-        cont.add(button);
+
+        if (cont != null)
+        {
+            cont.add(button);
+        }
 
         return button;
     }
@@ -1768,6 +1858,13 @@ public class ATSwingUtils
     }
 
 
+    public static JButton createHelpButton(Container comp, ATDataAccessAbstract dataAccess)
+    {
+        return createHelpButtonBySize(null, null, comp, dataAccess.getImagesRoot(),
+            dataAccess.getI18nControlInstance());
+    }
+
+
     /**
      * Creates the help button by size.
      *
@@ -1777,14 +1874,17 @@ public class ATSwingUtils
      *
      * @return the j button
      */
-    public static JButton createHelpButtonBySize(int width, int height, Container comp, String imagesRoot,
+    public static JButton createHelpButtonBySize(Integer width, Integer height, Container comp, String imagesRoot,
             I18nControlAbstract ic)
     {
         JButton help_button = new JButton(" " + ic.getMessage("HELP"));
-        help_button.setPreferredSize(new Dimension(width, height));
-        help_button.setIcon(getImageIcon_22x22(imagesRoot, "help.png", comp));
 
-        // help_button.setIconTextGap(12);
+        if (width != null)
+        {
+            help_button.setPreferredSize(new Dimension(width, height));
+        }
+
+        help_button.setIcon(getImageIcon_22x22(imagesRoot, "help.png", comp));
 
         return help_button;
     }

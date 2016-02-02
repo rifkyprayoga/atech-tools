@@ -9,6 +9,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.DefaultDrawingSupplier;
+import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.time.DateRange;
 
@@ -27,6 +28,8 @@ public abstract class GraphUtil // extends JPanel
 {
 
     private static final long serialVersionUID = -1579716091265096686L;
+
+    private static RenderingHints renderingHintsDefault;
 
     /**
      * The background color.
@@ -196,23 +199,61 @@ public abstract class GraphUtil // extends JPanel
 
 
     /**
+     * Gets the rendering hints.
+     *
+     * @return the rendering hints
+     */
+    public static RenderingHints getRenderingHintsDefault()
+    {
+        if (renderingHintsDefault == null)
+            createDefaultRenderingHints();
+
+        return renderingHintsDefault;
+    }
+
+
+    /**
      * Set Shape And Color
      * 
      * @param shape
      * @param color
      * @param renderer
      */
-    @SuppressWarnings("deprecation")
     public void setShapeAndColor(int shape, Color color, XYLineAndShapeRenderer renderer)
     {
-        renderer.setShape(GraphUtil.shapes[shape]);
-        renderer.setFillPaint(color);
+        renderer.setBaseShape(GraphUtil.shapes[shape]);
+        renderer.setBaseFillPaint(color);
     }
 
 
-    public Shape getShape(int shapeIndex)
+    /**
+     * Set Shape And Color
+     *
+     * @param shape
+     * @param color
+     * @param renderer
+     */
+    public void setShapeAndColor(int shape, Color color, XYBarRenderer renderer)
     {
+        renderer.setBaseShape(GraphUtil.shapes[shape]);
+        renderer.setBaseFillPaint(color);
+    }
+
+
+    public static Shape getShape(int shapeIndex)
+    {
+        createShapesIfRequired();
+
         return shapes[shapeIndex];
+    }
+
+
+    public static void createShapesIfRequired()
+    {
+        if (shapes == null)
+        {
+            shapes = DefaultDrawingSupplier.createStandardSeriesShapes();
+        }
     }
 
 
@@ -311,6 +352,24 @@ public abstract class GraphUtil // extends JPanel
     }
 
 
+    public static void createDefaultRenderingHints()
+    {
+        HashMap<Key, Object> hintsMap = new HashMap<Key, Object>();
+
+        hintsMap.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_DEFAULT);
+        hintsMap.put(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_DEFAULT);
+
+        hintsMap.put(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DEFAULT);
+        hintsMap.put(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_DEFAULT);
+
+        hintsMap.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+        hintsMap.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_DEFAULT);
+        hintsMap.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
+
+        renderingHintsDefault = new RenderingHints(hintsMap);
+    }
+
+
     /**
      * Gets the color.
      * 
@@ -326,7 +385,7 @@ public abstract class GraphUtil // extends JPanel
 
     // public static void setDataAccess(ATDataAccessAbstract dataAccess)
     // {
-    // m_da = dataAccess;
+    // dataAccess = dataAccess;
     // i18nControl = dataAccess.getI18nControlInstance();
     // }
 
@@ -342,6 +401,22 @@ public abstract class GraphUtil // extends JPanel
     }
 
 
+    public static DateAxis prepareDateAxis(DateAxis dateAxis, GregorianCalendar calendarToday,
+            I18nControlAbstract i18nControl)
+    {
+        return prepareDateAxis(dateAxis, prepareFromCalendar(calendarToday), prepareTillCalendar(calendarToday),
+            i18nControl, null);
+    }
+
+
+    public static DateAxis prepareDateAxis(DateAxis dateAxis, GregorianCalendar calendarToday,
+            I18nControlAbstract i18nControl, String axisLabel)
+    {
+        return prepareDateAxis(dateAxis, prepareFromCalendar(calendarToday), prepareTillCalendar(calendarToday),
+            i18nControl, axisLabel);
+    }
+
+
     public DateAxis prepareDateAxis(DateAxis dateAxis, GregorianCalendar from, GregorianCalendar till)
     {
         SimpleDateFormat sdf = new SimpleDateFormat(i18nControl.getMessage("FORMAT_DATE_HOURS"));
@@ -352,6 +427,30 @@ public abstract class GraphUtil // extends JPanel
         dateAxis.setRange(from.getTime(), till.getTime());
         dateAxis.setDefaultAutoRange(new DateRange(from.getTime(), till.getTime()));
         dateAxis.setTimeZone(TimeZoneUtil.getInstance().getEmptyTimeZone());
+
+        return dateAxis;
+    }
+
+
+    public static DateAxis prepareDateAxis(DateAxis dateAxis, GregorianCalendar from, GregorianCalendar till,
+            I18nControlAbstract i18nControl, String axisLabel)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat(i18nControl.getMessage("FORMAT_DATE_HOURS"));
+        sdf.setTimeZone(TimeZoneUtil.getInstance().getEmptyTimeZone());
+
+        dateAxis.setDateFormatOverride(sdf);
+        dateAxis.setAutoRange(false);
+        dateAxis.setRange(from.getTime(), till.getTime());
+        dateAxis.setDefaultAutoRange(new DateRange(from.getTime(), till.getTime()));
+        dateAxis.setTimeZone(TimeZoneUtil.getInstance().getEmptyTimeZone());
+
+        if (axisLabel != null)
+        {
+            dateAxis.setLabel(i18nControl.getMessage("AXIS_TIME_LABEL"));
+            dateAxis.setLabelFont(dateAxis.getLabelFont().deriveFont(Font.BOLD));
+        }
+
+        // dateAxis.se
 
         return dateAxis;
     }

@@ -58,6 +58,7 @@ public class BitUtils extends CRCUtils
      */
     protected int byte_order = BIT_ORDER_BIG_ENDIAN;
 
+
     /**
      * The byte_arr.
      */
@@ -73,7 +74,6 @@ public class BitUtils extends CRCUtils
     // {
     // this.byte_arr = array;
     // }
-
 
     /**
      * Gets the byte from array.
@@ -1368,68 +1368,6 @@ public class BitUtils extends CRCUtils
     }
 
 
-    public int makeInt(int i, int j)
-    {
-        int k = (i & 0xff) << 8 | j & 0xff;
-        return k;
-    }
-
-
-    public int makeInt(int i, int j, int k)
-    {
-        int l = (i & 0xff) << 16 | (j & 0xff) << 8 | k & 0xff;
-        return l;
-    }
-
-
-    public int makeInt(int b1, int b2, int b3, int b4)
-    {
-        return makeInt(b1, b2, b3, b4, BitConversion.BIG_ENDIAN);
-    }
-
-
-    public int makeInt(int b1, int b2, BitConversion flag)
-    {
-        switch (flag)
-        {
-            case LITTLE_ENDIAN:
-                return (b2 & 0xff) << 8 | b1 & 0xff;
-
-            default:
-            case BIG_ENDIAN:
-                return (b1 & 0xff) << 8 | b2 & 0xff;
-        }
-    }
-
-
-    public int makeInt(int b1, int b2, int b3, BitConversion flag)
-    {
-        switch (flag)
-        {
-            case LITTLE_ENDIAN:
-                return (b3 & 0xff) << 16 | (b2 & 0xff) << 8 | b1 & 0xff;
-
-            default:
-            case BIG_ENDIAN:
-                return (b1 & 0xff) << 16 | (b2 & 0xff) << 8 | b3 & 0xff;
-        }
-    }
-
-
-    public int makeInt(int b1, int b2, int b3, int b4, BitConversion flag)
-    {
-        switch (flag)
-        {
-            case LITTLE_ENDIAN:
-                return (b4 & 0xff) << 24 | (b3 & 0xff) << 16 | (b2 & 0xff) << 8 | b1 & 0xff;
-
-            default:
-            case BIG_ENDIAN:
-                return (b1 & 0xff) << 24 | (b2 & 0xff) << 16 | (b3 & 0xff) << 8 | b4 & 0xff;
-        }
-    }
-
-
     public byte[] convertIntsToBytes(int ai[])
     {
         byte abyte0[] = new byte[ai.length];
@@ -1659,6 +1597,436 @@ public class BitUtils extends CRCUtils
     public int getLowByte(int i)
     {
         return i & 0xff;
+    }
+
+
+    /**
+     * Converts array of 4 bytes into int.
+     *
+     * @param b array containing 4 byte values
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return int value
+     */
+    public int toInt(byte[] b, BitConversion flag)
+    {
+        return toInt(b[0], b[1], b[2], b[3], flag);
+    }
+
+
+    /**
+     * Converts array of 4 short into int.
+     *
+     * @param b array containing 4 short values
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return int value
+     */
+    public int toInt(short[] b, BitConversion flag)
+    {
+        return toInt(b[0], b[1], b[2], b[3], flag);
+    }
+
+
+    /**
+     * Converts 4 shorts into int. (Shorts are objects, so you can send null if you have less parameters)
+     *
+     * @param b1 short 1
+     * @param b2 short 2
+     * @param b3 short 3
+     * @param b4 short 4
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return int value
+     */
+    public int toInt(Byte b1, Byte b2, Byte b3, Byte b4, BitConversion flag)
+    {
+        switch (flag)
+        {
+            case LITTLE_ENDIAN:
+                {
+                    if (b4 != null)
+                    {
+                        return (b4 & 0xff) << 24 | (b3 & 0xff) << 16 | (b2 & 0xff) << 8 | b1 & 0xff;
+                    }
+                    else if (b3 != null)
+                    {
+                        return (b3 & 0xff) << 16 | (b2 & 0xff) << 8 | b1 & 0xff;
+                    }
+                    else if (b2 != null)
+                    {
+                        return (b2 & 0xff) << 8 | b1 & 0xff;
+                    }
+                    else
+                    {
+                        return b1 & 0xff;
+                    }
+                }
+
+            default:
+            case BIG_ENDIAN:
+                {
+                    if (b4 != null)
+                    {
+                        return (b1 & 0xff) << 24 | (b2 & 0xff) << 16 | (b3 & 0xff) << 8 | b4 & 0xff;
+                    }
+                    else if (b3 != null)
+                    {
+                        return (b1 & 0xff) << 16 | (b2 & 0xff) << 8 | b3 & 0xff;
+                    }
+                    else if (b2 != null)
+                    {
+                        return (b1 & 0xff) << 8 | b2 & 0xff;
+                    }
+                    else
+                    {
+                        return b1 & 0xff;
+                    }
+                }
+        }
+    }
+
+
+    /**
+     * Converts 4 (or less) shorts into int. (Shorts are objects, so you can send null if you have less parameters)
+     *
+     * @param b1 short 1
+     * @param b2 short 2
+     * @param b3 short 3
+     * @param b4 short 4
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return int value
+     */
+    public int toInt(Short b1, Short b2, Short b3, Short b4, BitConversion flag)
+    {
+        switch (flag)
+        {
+            case LITTLE_ENDIAN:
+                {
+                    if (b4 != null)
+                    {
+                        return (b4 & 0xff) << 24 | (b3 & 0xff) << 16 | (b2 & 0xff) << 8 | b1 & 0xff;
+                    }
+                    else if (b3 != null)
+                    {
+                        return (b3 & 0xff) << 16 | (b2 & 0xff) << 8 | b1 & 0xff;
+                    }
+                    else if (b2 != null)
+                    {
+                        return (b2 & 0xff) << 8 | b1 & 0xff;
+                    }
+                    else
+                    {
+                        return b1 & 0xff;
+                    }
+                }
+
+            default:
+            case BIG_ENDIAN:
+                {
+                    if (b4 != null)
+                    {
+                        return (b1 & 0xff) << 24 | (b2 & 0xff) << 16 | (b3 & 0xff) << 8 | b4 & 0xff;
+                    }
+                    else if (b3 != null)
+                    {
+                        return (b1 & 0xff) << 16 | (b2 & 0xff) << 8 | b3 & 0xff;
+                    }
+                    else if (b2 != null)
+                    {
+                        return (b1 & 0xff) << 8 | b2 & 0xff;
+                    }
+                    else
+                    {
+                        return b1 & 0xff;
+                    }
+                }
+        }
+    }
+
+
+    /**
+     * Converts 4 (or less) ints into int. (Shorts are objects, so you can send null if you have less parameters)
+     *
+     * @param b1 short 1
+     * @param b2 short 2
+     * @param b3 short 3
+     * @param b4 short 4
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return int value
+     */
+    public int toInt(Integer b1, Integer b2, Integer b3, Integer b4, BitConversion flag)
+    {
+        switch (flag)
+        {
+            case LITTLE_ENDIAN:
+                {
+                    if (b4 != null)
+                    {
+                        return (b4 & 0xff) << 24 | (b3 & 0xff) << 16 | (b2 & 0xff) << 8 | b1 & 0xff;
+                    }
+                    else if (b3 != null)
+                    {
+                        return (b3 & 0xff) << 16 | (b2 & 0xff) << 8 | b1 & 0xff;
+                    }
+                    else if (b2 != null)
+                    {
+                        return (b2 & 0xff) << 8 | b1 & 0xff;
+                    }
+                    else
+                    {
+                        return b1 & 0xff;
+                    }
+                }
+
+            default:
+            case BIG_ENDIAN:
+                {
+                    if (b4 != null)
+                    {
+                        return (b1 & 0xff) << 24 | (b2 & 0xff) << 16 | (b3 & 0xff) << 8 | b4 & 0xff;
+                    }
+                    else if (b3 != null)
+                    {
+                        return (b1 & 0xff) << 16 | (b2 & 0xff) << 8 | b3 & 0xff;
+                    }
+                    else if (b2 != null)
+                    {
+                        return (b1 & 0xff) << 8 | b2 & 0xff;
+                    }
+                    else
+                    {
+                        return b1 & 0xff;
+                    }
+                }
+        }
+    }
+
+
+    public int toInt(int b1, int b2)
+    {
+        return toInt(b1, b2, null, null, BitConversion.BIG_ENDIAN);
+    }
+
+
+    public int toInt(int b1, int b2, BitConversion flag)
+    {
+        return toInt(b1, b2, null, null, flag);
+    }
+
+
+    /**
+     * Converts 2 shorts into int
+     *
+     * @param b1 byte 1
+     * @param b2 byte 2
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return int value
+     */
+    public int toInt(short b1, short b2, BitConversion flag)
+    {
+        return toInt(b1, b2, null, null, flag);
+    }
+
+
+    /**
+     * Converts 2 byte into int
+     *
+     * @param b1 byte 1
+     * @param b2 byte 2
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return int value
+     */
+    public int toInt(byte b1, byte b2, BitConversion flag)
+    {
+        return toInt(b1, b2, null, null, flag);
+    }
+
+
+    public int toInt(int b1, int b2, int b3)
+    {
+        return toInt(b1, b2, b3, null, BitConversion.BIG_ENDIAN);
+    }
+
+
+    public int toInt(int b1, int b2, int b3, BitConversion flag)
+    {
+        return toInt(b1, b2, b3, null, flag);
+    }
+
+
+    public int toInt(int b1, int b2, int b3, int b4)
+    {
+        return toInt(b1, b2, b3, b4, BitConversion.BIG_ENDIAN);
+    }
+
+
+    /**
+     * Converts 2 (or less) Bytes into short. (Byte's are objects, so you can send null if you have less parameters)
+     *
+     * @param b1 Byte 1
+     * @param b2 Byte 2
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return short value
+     */
+    public short toShort(Byte b1, Byte b2, BitConversion flag)
+    {
+        switch (flag)
+        {
+            case LITTLE_ENDIAN:
+                {
+                    if (b2 != null)
+                    {
+                        return (short) ((b2 & 0xff) << 8 | b1 & 0xff);
+                    }
+                    else
+                    {
+                        return (short) (b1 & 0xff);
+                    }
+                }
+
+            default:
+            case BIG_ENDIAN:
+                {
+                    if (b2 != null)
+                    {
+                        return (short) ((b1 & 0xff) << 8 | b2 & 0xff);
+                    }
+                    else
+                    {
+                        return (short) (b1 & 0xff);
+                    }
+                }
+        }
+    }
+
+
+    /**
+     * Converts 2 (or less) shorts into short. (Short's are objects, so you can send null if you have less parameters)
+     *
+     * @param b1 short 1
+     * @param b2 short 2
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return short value
+     */
+    public short toShort(Short b1, Short b2, BitConversion flag)
+    {
+        switch (flag)
+        {
+            case LITTLE_ENDIAN:
+                {
+                    if (b2 != null)
+                    {
+                        return (short) ((b2 & 0xff) << 8 | b1 & 0xff);
+                    }
+                    else
+                    {
+                        return (short) (b1 & 0xff);
+                    }
+                }
+
+            default:
+            case BIG_ENDIAN:
+                {
+                    if (b2 != null)
+                    {
+                        return (short) ((b1 & 0xff) << 8 | b2 & 0xff);
+                    }
+                    else
+                    {
+                        return (short) (b1 & 0xff);
+                    }
+                }
+        }
+    }
+
+
+    /**
+     * Converts 2 (or less) ints into short. (Integer's are objects, so you can send null if you have less parameters)
+     *
+     * @param b1 Integer 1
+     * @param b2 Integer 2
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return short value
+     */
+    public short toShort(Integer b1, Integer b2, BitConversion flag)
+    {
+        switch (flag)
+        {
+            case LITTLE_ENDIAN:
+                {
+                    if (b2 != null)
+                    {
+                        return (short) ((b2 & 0xff) << 8 | b1 & 0xff);
+                    }
+                    else
+                    {
+                        return (short) (b1 & 0xff);
+                    }
+                }
+
+            default:
+            case BIG_ENDIAN:
+                {
+                    if (b2 != null)
+                    {
+                        return (short) ((b1 & 0xff) << 8 | b2 & 0xff);
+                    }
+                    else
+                    {
+                        return (short) (b1 & 0xff);
+                    }
+                }
+        }
+    }
+
+
+    /**
+     * Converts array of 2 byte into short.
+     *
+     * @param b array containing 2 byte values
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return short value
+     */
+    public short toShort(byte[] b, BitConversion flag)
+    {
+        return toShort(b[0], b[1], flag);
+    }
+
+
+    /**
+     * Converts array of 2 short into short.
+     *
+     * @param b array containing 2 short values
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return short value
+     */
+    public short toShort(short[] b, BitConversion flag)
+    {
+        return toShort(b[0], b[1], flag);
+    }
+
+
+    /**
+     * Converts array of 2 short into int. (uses toInt(short,short,flag)
+     *
+     * @param b array containing 2 short values
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return int value
+     */
+    public int toIntShort(short[] b, BitConversion flag)
+    {
+        return toInt(b[0], b[1], null, null, flag);
+    }
+
+
+    /**
+     * Converts array of 2 byte into int. (uses toInt(byte,byte,flag)
+     *
+     * @param b array containing 2 byte values
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return int value
+     */
+    public int toIntShort(byte[] b, BitConversion flag)
+    {
+        return toInt(b[0], b[1], null, null, flag);
     }
 
 }

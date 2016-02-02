@@ -276,10 +276,23 @@
         </dependency>
 
 
+        <!-- Table Layout for Desktop -->
+        <!-- <dependency>
+            <groupId>info.clearthought</groupId>
+            <artifactId>tablelayout-j15</artifactId>
+            <version>${tablelayout-j15.version}</version>
+        </dependency> -->
+
+        <dependency>
+            <groupId>info.clearthought</groupId>
+            <artifactId>table-layout</artifactId>
+            <version>${table-layout.version}</version>
+        </dependency>
+
     </dependencies>
 
     <properties>
-        <atech-tools.version>0.7.16-SNAPSHOT</atech-tools.version>
+        <atech-tools.version>0.8.1-SNAPSHOT</atech-tools.version>
 
         <skinlf.version>6.7</skinlf.version>
         <log4j.version>1.2.16</log4j.version>
@@ -304,6 +317,8 @@
         <commons-collections.version>3.2.1</commons-collections.version>
         <zip4j.version>1.3.2</zip4j.version>
         <commons-io.version>2.2</commons-io.version>
+        <!-- <tablelayout-j15.version>4.2.1</tablelayout-j15.version> -->
+        <table-layout.version>4.3.0</table-layout.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

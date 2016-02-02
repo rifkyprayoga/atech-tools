@@ -901,16 +901,35 @@ public class ATechDate
      *
      * @param dt
      *            the dt
-     * @param input_format
+     * @param inputFormat
      *            the input_format
-     * @param output_format
+     * @param outputFormat
      *            the output_format
      * @return the long
      */
-    public static long convertATDate(long dt, int input_format, int output_format)
+    @Deprecated
+    public static long convertATDate(long dt, int inputFormat, int outputFormat)
     {
-        ATechDate atd = new ATechDate(input_format, dt);
-        return atd.getATDateTimeAsLong(output_format);
+        ATechDate atd = new ATechDate(inputFormat, dt);
+        return atd.getATDateTimeAsLong(outputFormat);
+    }
+
+
+    /**
+     * Convert at date.
+     *
+     * @param dt
+     *            the dt
+     * @param inputFormat
+     *            the input_format
+     * @param outputFormat
+     *            the output_format
+     * @return the long
+     */
+    public static long convertATDate(long dt, ATechDateType inputFormat, ATechDateType outputFormat)
+    {
+        ATechDate atd = new ATechDate(inputFormat, dt);
+        return atd.getATDateTimeAsLong(outputFormat);
     }
 
 
@@ -993,6 +1012,7 @@ public class ATechDate
      *            the output_format
      * @return the aT date time as long
      */
+    @Deprecated
     public long getATDateTimeAsLong(int output_format) // throws Exception
     {
         long dt = 0L;
@@ -1028,6 +1048,48 @@ public class ATechDate
         else
         {
             System.out.println("ERROR: getATDateTimeAsLong: Unsupported type [" + output_format + "]");
+        }
+
+        return dt;
+
+    }
+
+
+    public long getATDateTimeAsLong(ATechDateType outputFormat)
+    {
+        long dt = 0L;
+
+        if (outputFormat == ATechDateType.DateAndTimeMin)
+        {
+            dt += year * 100000000L;
+            dt += month * 1000000L;
+            dt += this.dayOfMonth * 10000L;
+            dt += this.hourOfDay * 100L;
+            dt += minute;
+        }
+        else if (outputFormat == ATechDateType.DateAndTimeSec)
+        {
+            dt += year * 10000000000L;
+            dt += month * 100000000L;
+            dt += this.dayOfMonth * 1000000L;
+            dt += this.hourOfDay * 10000L;
+            dt += minute * 100L;
+            dt += this.second;
+        }
+        else if (outputFormat == ATechDateType.DateOnly)
+        {
+            dt += year * 10000L;
+            dt += month * 100L;
+            dt += this.dayOfMonth;
+        }
+        else if (outputFormat == ATechDateType.TimeOnlyMin)
+        {
+            dt += this.hourOfDay * 100L;
+            dt += minute;
+        }
+        else
+        {
+            System.out.println("ERROR: getATDateTimeAsLong: Unsupported type [" + outputFormat.name() + "]");
         }
 
         return dt;

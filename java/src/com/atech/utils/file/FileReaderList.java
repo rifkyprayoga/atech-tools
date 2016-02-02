@@ -44,8 +44,10 @@ public abstract class FileReaderList<E> extends ArrayList<E>
      * The filename.
      */
     public String filename;
-    private boolean file_exists = false;
-    private boolean file_read = false;
+    protected boolean fileExists = false;
+    protected boolean fileRead = false;
+    protected long currentLine = 0;
+
 
     /**
      * Instantiates a new file reader list.
@@ -54,15 +56,33 @@ public abstract class FileReaderList<E> extends ArrayList<E>
      */
     public FileReaderList(String _filename)
     {
+        this(_filename, true);
+    }
+
+
+    public FileReaderList(String _filename, boolean withInit)
+    {
         this.filename = _filename;
+
+        if (withInit)
+        {
+            process();
+        }
+    }
+
+
+    public void process()
+    {
         specialInit();
         readFile();
     }
+
 
     /**
      * Special init.
      */
     public abstract void specialInit();
+
 
     /**
      * Does file exists.
@@ -71,9 +91,10 @@ public abstract class FileReaderList<E> extends ArrayList<E>
      */
     public boolean doesFileExists()
     {
-        // this.file_exists = (new File(this.filename)).exists();
-        return this.file_exists;
+        // this.fileExists = (new File(this.filename)).exists();
+        return this.fileExists;
     }
+
 
     /**
      * Was file read.
@@ -82,9 +103,10 @@ public abstract class FileReaderList<E> extends ArrayList<E>
      */
     public boolean wasFileRead()
     {
-        // this.file_exists = (new File(this.filename)).exists();
-        return this.file_read;
+        // this.fileExists = (new File(this.filename)).exists();
+        return this.fileRead;
     }
+
 
     /**
      * Read file.
@@ -96,15 +118,16 @@ public abstract class FileReaderList<E> extends ArrayList<E>
             if (!new File(this.filename).exists())
                 return;
 
-            this.file_exists = true;
+            this.fileExists = true;
 
             BufferedReader br = new BufferedReader(new FileReader(this.filename));
             String line = null;
 
-            file_read = true;
+            fileRead = true;
 
             while ((line = br.readLine()) != null)
             {
+                currentLine++;
                 processFileEntry(line);
             }
 
@@ -116,6 +139,7 @@ public abstract class FileReaderList<E> extends ArrayList<E>
             ex.printStackTrace();
         }
     }
+
 
     /**
      * Process file entry.

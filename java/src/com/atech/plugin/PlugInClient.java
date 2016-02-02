@@ -544,12 +544,28 @@ public abstract class PlugInClient implements ActionListener
      * 
      * @return
      */
-    public JMenu[] getPlugInPrintMenus()
+    public JMenu[] getPlugInReportMenus()
     {
         if (m_server == null)
             return null;
         else
-            return m_server.getPlugInPrintMenus();
+            return m_server.getPlugInReportMenus();
+    }
+
+
+    /**
+     * Get PlugIn Print Menu
+     * Since printing is also PlugIn specific we need to add Printing jobs to
+     * application.
+     *
+     * @return
+     */
+    public JMenu[] getPlugInGraphMenus()
+    {
+        if (m_server == null)
+            return null;
+        else
+            return m_server.getPlugInGraphMenus();
     }
 
 

@@ -8,5 +8,10 @@ public enum DataRangeMainType
     Fixed, //
     StartChangable, //
     EndChangable, //
-    BothChangable, ;
+    BothChangable, //
+    RangeSelectable, // we have for example week, we can switch
+                     // between weeks (just next and previous
+                     // options)
+
+    ;
 }

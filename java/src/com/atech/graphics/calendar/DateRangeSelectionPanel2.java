@@ -7,9 +7,7 @@ import java.awt.event.ItemListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.atech.graphics.components.DateComponent;
 import com.atech.i18n.I18nControlAbstract;
@@ -84,10 +82,11 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
                                    // "3_MONTHS", "CUSTOM" };
 
     private int[] range_map = { DateRangeData.RANGE_ONE_WEEK, DateRangeData.RANGE_TWO_WEEKS,
-                               DateRangeData.RANGE_ONE_MONTH, DateRangeData.RANGE_THREE_MONTHS,
-                               DateRangeData.RANGE_CUSTOM };
+                                DateRangeData.RANGE_ONE_MONTH, DateRangeData.RANGE_THREE_MONTHS,
+                                DateRangeData.RANGE_CUSTOM };
 
     int current_range = 0;
+
 
     // private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -103,6 +102,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
 
     }
 
+
     /**
      * Constructor
      * 
@@ -114,6 +114,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
         this(da, new GregorianCalendar(), selected_range);
     }
 
+
     /**
      * Constructor
      * 
@@ -124,6 +125,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
     {
         this(da, endDate, null, DateRangeData.RANGE_ONE_MONTH);
     }
+
 
     /**
      * Constructor
@@ -137,6 +139,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
         this(da, endDate, null, selected_range);
     }
 
+
     /**
      * Constructor
      * 
@@ -148,6 +151,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
     {
         this(da, endDate, startDate, DateRangeData.RANGE_CUSTOM);
     }
+
 
     private DateRangeSelectionPanel2(ATDataAccessAbstract da, GregorianCalendar endDate, GregorianCalendar startDate,
             int range)
@@ -190,6 +194,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
         // calcStartDate();
         // this.setSize(800, 200);
     }
+
 
     private void init()
     {
@@ -315,6 +320,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
          */
     }
 
+
     public void setRange(int range)
     {
         current_range = range;
@@ -327,6 +333,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
 
     private static final int DATE_CMP_FROM = 1;
     private static final int DATE_CMP_TILL = 2;
+
 
     private void calcDateAndUpdateFields(int source)
     {
@@ -343,6 +350,8 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
         {
             System.out.println("NA");
         }
+
+        System.out.println("DateRangeSelectorPanel2: " + m_da.getGregorianCalendarDateAsString(gc_end));
 
         // gc_end = this.getEndCalendar();
 
@@ -414,6 +423,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
      * calcStartDate();
      * }
      */
+
 
     /*
      * private void calcStartDate()
@@ -500,6 +510,8 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
      * 
      * @return
      */
+
+
     /*
      * public Date getStartDate()
      * {
@@ -516,6 +528,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
         return ATechDate.getGregorianCalendar(ATechDate.FORMAT_DATE_ONLY, this.dt_till.getDate());
     }
 
+
     /**
      * Get Start Calendar
      * 
@@ -525,6 +538,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
     {
         return ATechDate.getGregorianCalendar(ATechDate.FORMAT_DATE_ONLY, this.dt_from.getDate());
     }
+
 
     /**
      * State Changed
@@ -561,6 +575,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
 
     }
 
+
     private synchronized void setChanged(int range)
     {
         /*
@@ -575,6 +590,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
          * }
          */
     }
+
 
     public void actionPerformed(ActionEvent ae)
     {

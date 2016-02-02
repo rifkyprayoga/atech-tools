@@ -100,6 +100,8 @@ public class DateComponent extends JPanel implements ChangeListener
     ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
     boolean debug = false;
 
+    public static int LEFT_MARGIN = 0;
+
 
     /**
      * Constructor
@@ -190,7 +192,7 @@ public class DateComponent extends JPanel implements ChangeListener
     {
         Font font_normal = new Font("SansSerif", Font.PLAIN, 12);
 
-        this.setSize(component_width, component_height);
+        this.setSize(component_width + LEFT_MARGIN, component_height);
         this.setLayout(null);
 
         SpinnerNumberModel listDaysModel = new SpinnerNumberModel(1, 1, 31, 1);
@@ -217,9 +219,9 @@ public class DateComponent extends JPanel implements ChangeListener
         year.setFont(font_normal);
         year.addChangeListener(this);
 
-        day.setBounds(0, 0, 45, 25);
-        month.setBounds(50, 0, 90, 25);
-        year.setBounds(145, 0, 60, 25);
+        day.setBounds(LEFT_MARGIN + 0, 0, 45, 25);
+        month.setBounds(LEFT_MARGIN + 50, 0, 90, 25);
+        year.setBounds(LEFT_MARGIN + 145, 0, 60, 25);
 
         /*
          * day.setBounds(0, 0, 40, 25); // 40
@@ -245,6 +247,7 @@ public class DateComponent extends JPanel implements ChangeListener
      */
     public static final int DATE_FULL = 0;
 
+
     /**
      * Init Months
      */
@@ -266,7 +269,6 @@ public class DateComponent extends JPanel implements ChangeListener
      * }
      * }
      */
-
 
     /**
      * Add Action Listener
@@ -632,7 +634,7 @@ public class DateComponent extends JPanel implements ChangeListener
     @Override
     public void setBounds(int x, int y, int width, int height)
     {
-        super.setBounds(x, y, component_width, component_height);
+        super.setBounds(x, y, component_width + LEFT_MARGIN, component_height);
     }
 
 
@@ -646,8 +648,8 @@ public class DateComponent extends JPanel implements ChangeListener
 
         String dt = "20051012";
 
-        System.out.println(
-            "Day: " + dt.substring(6, 8) + " Month: " + dt.substring(4, 6) + " Year: " + dt.substring(0, 4));
+        System.out.println("Day: " + dt.substring(6, 8) + " Month: " + dt.substring(4, 6) + " Year: "
+                + dt.substring(0, 4));
 
         // year.setValue(dt.substring(0,4);
         // day.setValue(dt.substring(6,8));
