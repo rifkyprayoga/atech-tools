@@ -10,6 +10,7 @@ See Authors for more description on developers
 - added: ColorUtils
 - upgrade implementation
 - fixing float parsing (trial for Ascensia Meter)
+- startup changes
 
 
 0.7.16 - Andy [11.12.2015]

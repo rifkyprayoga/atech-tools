@@ -4,11 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
-import java.util.Calendar;
-import java.util.Enumeration;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
-import java.util.Properties;
+import java.util.*;
 
 /**
  *  This file is part of ATech Tools library.
@@ -46,7 +42,8 @@ public class StartupUtil
     /**
      * Startup status file
      */
-    public static String startup_status = "../data/StartupStatus.txt";
+    public static String startup_status = "../../data/StartupStatus.txt";
+
 
     /**
      * Get Configuration - reads properties file and read all entries
@@ -86,6 +83,7 @@ public class StartupUtil
 
     }
 
+
     /**
      * Should Startup Files Be Created
      * 
@@ -121,6 +119,7 @@ public class StartupUtil
         return false;
     }
 
+
     /**
      * Should Db Check Done
      * 
@@ -144,6 +143,7 @@ public class StartupUtil
 
     }
 
+
     /**
      * Write Startup
      * 
@@ -156,6 +156,7 @@ public class StartupUtil
             db_check, rebuild);
 
     }
+
 
     /**
      * Write Startup With Old Copy 
@@ -182,6 +183,7 @@ public class StartupUtil
         }
 
     }
+
 
     /**
      * @param type
@@ -222,6 +224,7 @@ public class StartupUtil
         }
 
     }
+
 
     /**
      * Write Startup
@@ -268,6 +271,7 @@ public class StartupUtil
 
     }
 
+
     /**
      * Is Option Enabled
      * 
@@ -287,6 +291,7 @@ public class StartupUtil
         else
             return false;
     }
+
 
     /**
      * For replacing strings.<br>
@@ -335,6 +340,7 @@ public class StartupUtil
         return input;
 
     }
+
 
     /**
      * Get Current DateTime String
