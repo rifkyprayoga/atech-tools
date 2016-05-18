@@ -1,15 +1,13 @@
 package com.atech.graphics.graphs;
 
-import java.awt.Component;
-import java.awt.Rectangle;
+import java.awt.*;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
@@ -56,7 +54,8 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
     protected JFreeChart chart;
     protected ChartPanel chart_panel;
     protected Component parent;
-    private static Log log = LogFactory.getLog(AbstractGraphView.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractGraphView.class);
+
 
     /**
      * Constructor
@@ -69,6 +68,7 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
         this.m_ic = da.getI18nControlInstance();
     }
 
+
     /**
      * Is Help Enabled
      * 
@@ -78,6 +78,7 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
     {
         return getHelpId() != null;
     }
+
 
     /**
      * Get Chart
@@ -95,12 +96,13 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
             }
             else
             {
-                log.error("Processor is not set");
+                LOG.error("Processor is not set");
             }
         }
 
         return chart;
     }
+
 
     /**
      * Get Chart Panel
@@ -117,15 +119,18 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
         return this.chart_panel;
     }
 
+
     /**
      * Create Chart
      */
     public abstract void createChart();
 
+
     /**
      * Create Chart Panel
      */
     public abstract void createChartPanel();
+
 
     /**
      * Get Processor
@@ -151,6 +156,7 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
         this.chart_panel.repaint();
     }
 
+
     /**
      * Set Controler Data - used by controler to change set of data
      * 
@@ -164,6 +170,7 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
         }
     }
 
+
     /**
      * Get Controler Interface instance
      * 
@@ -173,6 +180,7 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
     {
         return null;
     }
+
 
     /**
      * Get Title (used by GraphViewer)
@@ -184,6 +192,7 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
         return null;
     }
 
+
     /**
      * Get Viewer Dialog Bounds (used by GraphViewer)
      * 
@@ -194,6 +203,7 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
         return null; // new Rectangle(100,100,500,400);
     }
 
+
     /**
      * Set Parent
      */
@@ -202,6 +212,7 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
         this.parent = cmp;
     }
 
+
     /**
      * Get Parent
      */
@@ -209,6 +220,7 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
     {
         return this.parent;
     }
+
 
     /**
      * Close
@@ -233,8 +245,8 @@ public abstract class AbstractGraphView implements GraphViewInterface // ,
         }
         else
         {
-            System.out
-                    .println("ERROR: Parent is of wrong type. Close command not initiated. Parent must be either JDialog or JFrame.");
+            System.out.println(
+                "ERROR: Parent is of wrong type. Close command not initiated. Parent must be either JDialog or JFrame.");
         }
 
     }

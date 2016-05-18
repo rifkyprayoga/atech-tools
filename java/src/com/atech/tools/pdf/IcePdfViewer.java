@@ -6,23 +6,21 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.icepdf.core.util.Defs;
 import org.icepdf.ri.common.ViewModel;
 import org.icepdf.ri.util.FontPropertiesManager;
 import org.icepdf.ri.util.PropertiesManager;
 import org.icepdf.ri.util.URLAccess;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class IcePdfViewer
+{
 
-
-public class IcePdfViewer {
-
-    private static final Log logger = LogFactory.getLog(IcePdfViewer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(IcePdfViewer.class);
 
     private WindowManagerIcePdfViewer windowManager;
     private PropertiesManager propertiesManager;
@@ -32,35 +30,42 @@ public class IcePdfViewer {
     private Properties additionalSettings = null;
 
 
-    public IcePdfViewer() {
+    public IcePdfViewer()
+    {
         this(null, false);
     }
 
 
-    public IcePdfViewer(Locale locale) {
+    public IcePdfViewer(Locale locale)
+    {
         this(locale, false);
     }
 
 
-    public IcePdfViewer(boolean useLAF) {
+    public IcePdfViewer(boolean useLAF)
+    {
         this(null, useLAF);
     }
 
 
-    public IcePdfViewer(Locale locale, boolean useLAF) {
+    public IcePdfViewer(Locale locale, boolean useLAF)
+    {
         setResourceBundle(locale);
         this.useLookAndFeel = useLAF;
     }
 
 
-    private void setResourceBundle(Locale locale) {
+    private void setResourceBundle(Locale locale)
+    {
         ResourceBundle messageBundle = null;
 
-        if (locale != null) {
+        if (locale != null)
+        {
             messageBundle = ResourceBundle.getBundle("org.icepdf.ri.resources.MessageBundle", locale);
         }
 
-        if (messageBundle == null) {
+        if (messageBundle == null)
+        {
             messageBundle = ResourceBundle.getBundle("org.icepdf.ri.resources.MessageBundle");
         }
 
@@ -68,23 +73,28 @@ public class IcePdfViewer {
     }
 
 
-    public void openWithFilename(String contentFilename) {
+    public void openWithFilename(String contentFilename)
+    {
         open(contentFilename, null, customPropertiesFilename, additionalSettings);
     }
 
 
-    public void openWithURL(String contentURL) {
+    public void openWithURL(String contentURL)
+    {
         open(null, contentURL, customPropertiesFilename, additionalSettings);
     }
 
 
-    public void open(String contentFile, String contentURL, String contentProperties, Properties properties) {
+    public void open(String contentFile, String contentURL, String contentProperties, Properties properties)
+    {
 
         Properties sysProps = System.getProperties();
         propertiesManager = new PropertiesManager(sysProps, contentProperties, activeLanguageBundle);
 
-        if (properties != null) {
-            for (Entry<Object, Object> prop : properties.entrySet()) {
+        if (properties != null)
+        {
+            for (Entry<Object, Object> prop : properties.entrySet())
+            {
                 propertiesManager.set(prop.getKey().toString(), prop.getValue().toString());
             }
         }
@@ -95,25 +105,26 @@ public class IcePdfViewer {
 
         System.setProperties(sysProps);
 
-        if (this.useLookAndFeel) {
+        if (this.useLookAndFeel)
+        {
             setupLookAndFeel(activeLanguageBundle);
         }
 
-/**
-     // build a component controller
+        /**
+             // build a component controller
         SwingController controller = new SwingController();
         controller.setIsEmbeddedComponent(true);
-
-
-//        PropertiesManager properties = new PropertiesManager(
-//                System.getProperties(),
-//                ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
-//
-//        properties.set(PropertiesManager.PROPERTY_DEFAULT_ZOOM_LEVEL, "1.75");
-
-
+        
+        
+        //        PropertiesManager properties = new PropertiesManager(
+        //                System.getProperties(),
+        //                ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
+        //
+        //        properties.set(PropertiesManager.PROPERTY_DEFAULT_ZOOM_LEVEL, "1.75");
+        
+        
         SwingViewBuilder factory = new SwingViewBuilder(controller, propertiesManager);
-
+        
         // add interactive mouse link annotation support via callback
         controller.getDocumentViewController().setAnnotationCallback(
                 new org.icepdf.ri.common.MyAnnotationCallback(controller.getDocumentViewController()));
@@ -126,54 +137,58 @@ public class IcePdfViewer {
         // show the component
         applicationFrame.pack();
         applicationFrame.setVisible(true);
-
-*/
-
-
+        
+        */
 
         // first try at running icepdf, it seems that it was wrong way
 
         ViewModel.setDefaultFilePath(propertiesManager.getDefaultFilePath());
         ViewModel.setDefaultURL(propertiesManager.getDefaultURL());
 
-
         windowManager = new WindowManagerIcePdfViewer(propertiesManager, activeLanguageBundle);
 
-
-
-
-        if (StringUtils.isNotBlank(contentFile)) {
+        if (StringUtils.isNotBlank(contentFile))
+        {
             windowManager.newWindow(contentFile);
             ViewModel.setDefaultFilePath(contentFile);
-        } else if (StringUtils.isNotBlank(contentURL)) {
+        }
+        else if (StringUtils.isNotBlank(contentURL))
+        {
             URLAccess urlAccess = URLAccess.doURLAccess(contentURL);
             urlAccess.closeConnection();
 
-            if (urlAccess.errorMessage != null) {
+            if (urlAccess.errorMessage != null)
+            {
 
                 Object[] messageArguments = { urlAccess.errorMessage, urlAccess.urlLocation };
 
                 MessageFormat formatter = new MessageFormat(
-                    activeLanguageBundle.getString("viewer.launcher.URLError.dialog.message"));
+                        activeLanguageBundle.getString("viewer.launcher.URLError.dialog.message"));
 
                 JOptionPane.showMessageDialog(null, formatter.format(messageArguments),
                     activeLanguageBundle.getString("viewer.launcher.URLError.dialog.title"), 1);
 
-            } else {
+            }
+            else
+            {
 
                 windowManager.newWindow(urlAccess.url);
             }
             ViewModel.setDefaultURL(urlAccess.urlLocation);
             urlAccess.dispose();
-        } else {
+        }
+        else
+        {
             windowManager.newWindow("");
         }
 
     }
 
 
-    private void setupLookAndFeel(ResourceBundle messageBundle) {
-        if (Defs.sysProperty("mrj.version") != null) {
+    private void setupLookAndFeel(ResourceBundle messageBundle)
+    {
+        if (Defs.sysProperty("mrj.version") != null)
+        {
 
             Defs.setSystemProperty("apple.laf.useScreenMenuBar", "true");
 
@@ -183,56 +198,69 @@ public class IcePdfViewer {
 
         String className = propertiesManager.getLookAndFeel("application.lookandfeel", null);
 
-        if (className != null) {
-            try {
+        if (className != null)
+        {
+            try
+            {
                 UIManager.setLookAndFeel(className);
                 return;
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Object[] messageArguments = { propertiesManager.getString("application.lookandfeel") };
 
                 MessageFormat formatter = new MessageFormat(
-                    messageBundle.getString("viewer.launcher.URLError.dialog.message"));
+                        messageBundle.getString("viewer.launcher.URLError.dialog.message"));
 
                 JOptionPane.showMessageDialog(null, formatter.format(messageArguments),
                     messageBundle.getString("viewer.launcher.lookAndFeel.error.message"), 0);
             }
         }
 
-        try {
+        try
+        {
             String defaultLF = UIManager.getSystemLookAndFeelClassName();
             UIManager.setLookAndFeel(defaultLF);
-        } catch (Exception e) {
-            logger.error("Error setting Swing Look and Feel.", e);
+        }
+        catch (Exception e)
+        {
+            LOG.error("Error setting Swing Look and Feel.", e);
         }
     }
 
 
-    public boolean isUseLookAndFeel() {
+    public boolean isUseLookAndFeel()
+    {
         return useLookAndFeel;
     }
 
 
-    public void setUseLookAndFeel(boolean useLookAndFeel) {
+    public void setUseLookAndFeel(boolean useLookAndFeel)
+    {
         this.useLookAndFeel = useLookAndFeel;
     }
 
 
-    public String getCustomPropertiesFilename() {
+    public String getCustomPropertiesFilename()
+    {
         return customPropertiesFilename;
     }
 
 
-    public void setCustomPropertiesFilename(String customPropertiesFilename) {
+    public void setCustomPropertiesFilename(String customPropertiesFilename)
+    {
         this.customPropertiesFilename = customPropertiesFilename;
     }
 
 
-    public Properties getAdditionalSettings() {
+    public Properties getAdditionalSettings()
+    {
         return additionalSettings;
     }
 
 
-    public void setAdditionalSettings(Properties additionalSettings) {
+    public void setAdditionalSettings(Properties additionalSettings)
+    {
         this.additionalSettings = additionalSettings;
     }
 

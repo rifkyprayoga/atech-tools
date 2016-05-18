@@ -1,7 +1,7 @@
 package com.atech.i18n.tool.simple.data;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.tool.simple.util.DataAccessTT;
 import com.atech.utils.file.FileReaderList;
@@ -44,7 +44,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
 
     private boolean is_master_file_xa = false;
     private TranslationConfiguration m_config = null;
-    private static Log log = LogFactory.getLog(MasterFileReader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MasterFileReader.class);
 
     /**
      * The dataAccess.
@@ -60,7 +60,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
     public MasterFileReader(String filename)
     {
         super(filename);
-        log.debug("MasterFileReader: " + this + ", filename=" + filename);
+        LOG.debug("MasterFileReader: " + this + ", filename=" + filename);
     }
 
 
@@ -115,7 +115,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
                     }
                     catch (Exception ex)
                     {
-                        log.error("Exception on reading prioroty from master file. Ex: " + ex, ex);
+                        LOG.error("Exception on reading prioroty from master file. Ex: " + ex, ex);
                     }
 
                 }

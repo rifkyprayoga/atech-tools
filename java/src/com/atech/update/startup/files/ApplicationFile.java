@@ -114,14 +114,12 @@ public class ApplicationFile extends StartupFileAbstract
 
 
     /**
-     * Get File Name for batch file
-     * 
-     * @return filename for batch file
+     * {@inheritDoc}
      */
     @Override
-    public String getFileName()
+    public String getNameOfFile()
     {
-        return this.custom_app.filename + "." + this.os_abstract.getBatchFileExtension();
+        return this.custom_app.filename;
     }
 
 

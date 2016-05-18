@@ -4,6 +4,18 @@ Changes file for atech-tools
 See Authors for more description on developers
 --------------------------------------------------
 
+0.8.2 - Andy [18.5.2016]
+- docs moved arround
+- refactorings
+- replace Log to Logger
+- extending Hibernate classes
+- added datalayer2, to use with extended DataLayer instances, with DbAwareObjects
+- added DbDriverType
+- added JTable Util, JListController
+- extending Upgrade classes
+- extending startup classes (1.3)
+
+
 0.8.1 - Andy [2.2.2016]
 - graph v2 (preversion)
 - refacoring some classes (graphs, guis) for TableLayout

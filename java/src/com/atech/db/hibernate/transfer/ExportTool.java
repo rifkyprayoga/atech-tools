@@ -19,7 +19,6 @@ import org.hibernate.mapping.Value;
 
 import com.atech.db.hibernate.HibernateConfiguration;
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -287,9 +286,6 @@ public abstract class ExportTool extends ImportExportAbstract
      */
     public void writeHeader(String class_name, String columns, String db_version)
     {
-
-        // System.out.println("Exporting " + class_name);
-
         try
         {
             bw_file.write(";\n");
@@ -308,7 +304,6 @@ public abstract class ExportTool extends ImportExportAbstract
         {
             println("Exception on writeToFile: " + ex);
         }
-
     }
 
 
@@ -320,9 +315,6 @@ public abstract class ExportTool extends ImportExportAbstract
      */
     public void writeHeader(BackupRestoreObject bro, String db_version)
     {
-
-        // System.out.println("Exporting " + class_name);
-
         try
         {
 
@@ -330,23 +322,20 @@ public abstract class ExportTool extends ImportExportAbstract
             bw_file.write("; Class: " + bro.getBackupClassName() + "\n");
             bw_file.write("; Date of export: " + getCurrentDate() + "\n");
             bw_file.write(";\n");
-            bw_file.write("; Exported by ATechTools - Hibernate Exporter 0.3\n");
+            bw_file.write("; Exported by ATechTools - Hibernate Exporter 0.4\n");
             bw_file.write(";\n");
             // bw_file.write("; Columns: " + bro.dbExportHeader() + "\n");
             bw_file.write("; Database version: " + db_version + "\n");
+            bw_file.write("; Delimiter: " + (bro.isNewImport() ? "$#|#$" : "|") + "\n");
             bw_file.write(bro.dbExportHeader());
             bw_file.write(";\n");
-            // bw_file.write("; Database version: " + db_version + "\n");
-            // bw_file.write("; Table version: " + bro.getTableVersion() +
-            // "\n");
-            // bw_file.write(";\n");
+
             bw_file.flush();
         }
         catch (Exception ex)
         {
             println("Exception on writeToFile: " + ex);
         }
-
     }
 
 

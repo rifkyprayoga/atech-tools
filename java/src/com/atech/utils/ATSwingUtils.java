@@ -303,6 +303,9 @@ public class ATSwingUtils
     {
         Image img;
 
+        // System.out.println("Component: " + cmp);
+        // System.out.println("Filename: " + filename);
+
         InputStream is = cmp.getClass().getResourceAsStream(filename);
 
         if (is == null)
@@ -620,7 +623,8 @@ public class ATSwingUtils
      * 
      * @return the label
      */
-    public static JLabel getLabel(String text, int x, int y, int width, int height, Container cont, Font font)
+    public static JLabel getLabel(String text, Integer x, Integer y, Integer width, Integer height, Container cont,
+            Font font)
     {
         JLabel label_1 = new JLabel();
 
@@ -629,14 +633,16 @@ public class ATSwingUtils
             label_1.setText(text);
         }
 
-        label_1.setBounds(x, y, width, height);
+        if (x != null)
+            label_1.setBounds(x, y, width, height);
 
         if (font != null)
         {
             label_1.setFont(font);
         }
 
-        cont.add(label_1);
+        if (cont != null)
+            cont.add(label_1);
 
         return label_1;
     }
@@ -724,6 +730,24 @@ public class ATSwingUtils
     {
         JLabel label_1 = getLabel(text, x, y, width, height, cont, font);
         label_1.setHorizontalAlignment(SwingConstants.CENTER);
+        return label_1;
+    }
+
+
+    public static JLabel getTitleLabel(String text, int fontId)
+    {
+        JLabel label_1 = getLabel(text, null, null, null, null, null, getFont(fontId));
+        label_1.setHorizontalAlignment(SwingConstants.CENTER);
+        label_1.setVerticalAlignment(SwingConstants.CENTER);
+        return label_1;
+    }
+
+
+    public static JLabel getTitleLabel(String text, Font font)
+    {
+        JLabel label_1 = getLabel(text, null, null, null, null, null, font);
+        label_1.setHorizontalAlignment(SwingConstants.CENTER);
+        label_1.setVerticalAlignment(SwingConstants.CENTER);
         return label_1;
     }
 
@@ -873,7 +897,8 @@ public class ATSwingUtils
     public static JButton getButton(String text, int x, int y, int width, int height, Container cont, Font font,
             String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da)
     {
-        return ATSwingUtils.getButton(text, x, y, width, height, cont, font, icon_name, action_cmd, al, da, null, cont);
+        return ATSwingUtils.getButton(text, x, y, width, height, cont, null, font, icon_name, action_cmd, al, da, null,
+            cont);
     }
 
 
@@ -881,7 +906,7 @@ public class ATSwingUtils
             String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da,
             Container containerForImage)
     {
-        return ATSwingUtils.getButton(text, x, y, width, height, cont, font, icon_name, action_cmd, al, da, null,
+        return ATSwingUtils.getButton(text, x, y, width, height, cont, null, font, icon_name, action_cmd, al, da, null,
             containerForImage);
     }
 
@@ -889,29 +914,40 @@ public class ATSwingUtils
     public static JButton getButton(String text, Font font, String icon_name, String action_cmd, ActionListener al,
             ATDataAccessAbstract da)
     {
-        return ATSwingUtils.getButton(text, null, null, null, null, null, font, icon_name, action_cmd, al, da, null,
-            null);
+        return ATSwingUtils.getButton(text, null, null, null, null, null, null, font, icon_name, action_cmd, al, da,
+            null, null);
     }
 
 
     public static JButton getButton(String text, int font_id, String icon_name, String action_cmd, ActionListener al,
             ATDataAccessAbstract da)
     {
-        return ATSwingUtils.getButton(text, null, null, null, null, null, getFont(font_id), icon_name, action_cmd, al,
-            da, null, null);
+        return ATSwingUtils.getButton(text, null, null, null, null, null, null, getFont(font_id), icon_name, action_cmd,
+            al, da, null, null);
+    }
+
+
+    public static JButton getButton(String text, Container container, Object layoutConstraints, int font_id,
+            String icon_name, ATDataAccessAbstract da)
+    {
+        return ATSwingUtils.getButton(text, null, null, null, null, container, layoutConstraints, getFont(font_id),
+            icon_name, null, null, da, null, container);
     }
 
 
     public static JButton getIconButton(int x, int y, int width, int height, String tooltip, String icon_name,
-            int icon_width, int icon_height, String action_cmd, ActionListener al, Container cont,
+            int icon_width, int icon_height, String action_cmd, ActionListener al, Container container,
             ATDataAccessAbstract da)
     {
-        JButton button = new JButton(getImageIcon(da.getImagesRoot(), icon_name, icon_width, icon_height, cont));
+        JButton button = new JButton(getImageIcon(da.getImagesRoot(), icon_name, icon_width, icon_height, container));
         button.addActionListener(al);
         button.setActionCommand(action_cmd);
         button.setToolTipText(tooltip);
         button.setBounds(x, y, width, height);
-        cont.add(button, null);
+
+        addToContainer(button, container, null);
+
+        container.add(button, null);
 
         return button;
     }
@@ -935,8 +971,8 @@ public class ATSwingUtils
     public static JButton getButton(String text, int x, int y, int width, int height, Container cont, int font_id,
             String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size)
     {
-        return ATSwingUtils.getButton(text, x, y, width, height, cont, getFont(font_id), icon_name, action_cmd, al, da,
-            icon_size, cont);
+        return ATSwingUtils.getButton(text, x, y, width, height, cont, null, getFont(font_id), icon_name, action_cmd,
+            al, da, icon_size, cont);
     }
 
 
@@ -948,7 +984,7 @@ public class ATSwingUtils
      * @param y the y
      * @param width the width
      * @param height the height
-     * @param cont the cont
+     * @param container the cont
      * @param font the font
      * @param icon_name the icon_name
      * @param action_cmd the action_cmd
@@ -958,9 +994,9 @@ public class ATSwingUtils
      * 
      * @return the button
      */
-    public static JButton getButton(String text, Integer x, Integer y, Integer width, Integer height, Container cont,
-            Font font, String icon_name, String action_cmd, ActionListener al, ATDataAccessAbstract da, int[] icon_size,
-            Container containerForImage)
+    public static JButton getButton(String text, Integer x, Integer y, Integer width, Integer height,
+            Container container, Object layoutConstraints, Font font, String icon_name, String action_cmd,
+            ActionListener al, ATDataAccessAbstract da, int[] icon_size, Container containerForImage)
     {
         JButton button = null;
 
@@ -994,10 +1030,7 @@ public class ATSwingUtils
 
         button.addActionListener(al);
 
-        if (cont != null)
-        {
-            cont.add(button);
-        }
+        addToContainer(button, container, layoutConstraints);
 
         return button;
     }
@@ -1122,7 +1155,19 @@ public class ATSwingUtils
      */
     public static JTextField getTextField(String text, int x, int y, int width, int height, Container cont, int font_id)
     {
-        return getTextField(text, x, y, width, height, cont, getFont(font_id));
+        return getTextField(text, x, y, width, height, cont, null, getFont(font_id));
+    }
+
+
+    public static JTextField getTextField(String text, int fontId)
+    {
+        return getTextField(text, null, null, null, null, null, null, getFont(fontId));
+    }
+
+
+    public static JTextField getTextField(String text, Container container, Object layoutConstraints, int fontId)
+    {
+        return getTextField(text, null, null, null, null, container, layoutConstraints, getFont(fontId));
     }
 
 
@@ -1134,12 +1179,13 @@ public class ATSwingUtils
      * @param y the y
      * @param width the width
      * @param height the height
-     * @param cont the cont
+     * @param container the cont
      * @param font font instance
      * 
      * @return the text field
      */
-    public static JTextField getTextField(String text, int x, int y, int width, int height, Container cont, Font font)
+    public static JTextField getTextField(String text, Integer x, Integer y, Integer width, Integer height,
+            Container container, Object layoutConstraints, Font font)
     {
         JTextField text_1 = new JTextField();
 
@@ -1148,16 +1194,29 @@ public class ATSwingUtils
             text_1.setText(text);
         }
 
-        text_1.setBounds(x, y, width, height);
+        if (x != null)
+            text_1.setBounds(x, y, width, height);
 
         if (font != null)
         {
             text_1.setFont(font);
         }
 
-        cont.add(text_1);
+        addToContainer(text_1, container, layoutConstraints);
 
         return text_1;
+    }
+
+
+    private static void addToContainer(Component component, Container container, Object layoutConstraints)
+    {
+        if (container != null)
+        {
+            if (layoutConstraints == null)
+                container.add(component);
+            else
+                container.add(component, layoutConstraints);
+        }
     }
 
 
@@ -1401,6 +1460,49 @@ public class ATSwingUtils
      */
     public static JTextArea getTextArea(String text, int x, int y, int width, int height, Container cont)
     {
+        return getTextArea(text, x, y, width, height, cont, null, null);
+    }
+
+
+    public static JTextArea getTextArea(String text, Container cont, Object layoutConstraints, int fontId)
+    {
+        return getTextArea(text, null, null, null, null, cont, layoutConstraints, getFont(fontId));
+    }
+
+
+    /**
+     * Gets the text area (is JScrollPane)
+     *
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     *
+     * @return the text field
+     */
+    public static JTextArea getTextArea(String text, int x, int y, int width, int height, Container cont, int fontId)
+    {
+        return getTextArea(text, x, y, width, height, cont, null, getFont(fontId));
+    }
+
+
+    /**
+     * Gets the text area (is JScrollPane)
+     *
+     * @param text the text
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param cont the cont
+     *
+     * @return the text field
+     */
+    public static JTextArea getTextArea(String text, Integer x, Integer y, Integer width, Integer height,
+            Container cont, Object layoutConstraints, Font font)
+    {
         JTextArea jta = new JTextArea();
 
         if (text != null)
@@ -1409,9 +1511,16 @@ public class ATSwingUtils
         }
 
         JScrollPane scp = new JScrollPane(jta);
-        scp.setBounds(x, y, width, height);
 
-        cont.add(scp);
+        if (x != null)
+            scp.setBounds(x, y, width, height);
+
+        if (font != null)
+        {
+            jta.setFont(font);
+        }
+
+        addToContainer(scp, cont, layoutConstraints);
 
         return jta;
     }
@@ -2122,6 +2231,10 @@ public class ATSwingUtils
     }
 
 
+    /**
+     * @Deprecated Use showMessageDialog instead of this one.
+     */
+    @Deprecated
     public static void showDialog(Container cont, int type, String message, I18nControlAbstract ic)
     {
         if (type == DIALOG_INFO)
@@ -2132,10 +2245,25 @@ public class ATSwingUtils
         {
             JOptionPane.showMessageDialog(cont, message, ic.getMessage("WARNING"), JOptionPane.WARNING_MESSAGE);
         }
-        else if (type == DIALOG_ERROR)
+        else // if (type == DIALOG_ERROR)
         {
             JOptionPane.showMessageDialog(cont, message, ic.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+
+    public static void showMessageDialog(Container cont, DialogType dialogType, String message, I18nControlAbstract ic)
+    {
+        JOptionPane.showMessageDialog(cont, message, ic.getMessage(dialogType.i18nKey), dialogType.paneType);
+    }
+
+
+    public static int showConfirmDialog(Container parent, DialogType dialogType, String message,
+            ConfirmDialogType confirmDialogType, I18nControlAbstract i18nControl)
+    {
+        return JOptionPane.showConfirmDialog(parent, i18nControl.getMessage(message),
+            i18nControl.getMessage(dialogType.i18nKey), confirmDialogType.paneType);
+
     }
 
 
@@ -2504,4 +2632,44 @@ public class ATSwingUtils
         return mi;
 
     }
+
+    public enum DialogType
+    {
+        Info("INFO", JOptionPane.INFORMATION_MESSAGE), //
+        Warning("WARNING", JOptionPane.WARNING_MESSAGE), //
+        Error("ERROR", JOptionPane.ERROR_MESSAGE), //
+
+        ; //
+
+        String i18nKey;
+        int paneType;
+
+
+        DialogType(String i18nKey, int paneType)
+        {
+            this.i18nKey = i18nKey;
+            this.paneType = paneType;
+        }
+
+    }
+
+    public enum ConfirmDialogType
+    {
+        ClosedOption(JOptionPane.CLOSED_OPTION), //
+        DefaultOption(JOptionPane.DEFAULT_OPTION), //
+        YesNoOption(JOptionPane.YES_NO_OPTION), //
+        YesNoCancelOption(JOptionPane.YES_NO_CANCEL_OPTION), //
+        OkCancelOption(JOptionPane.OK_CANCEL_OPTION), //
+
+        ; //
+
+        int paneType;
+
+
+        ConfirmDialogType(int paneType)
+        {
+            this.paneType = paneType;
+        }
+    }
+
 }

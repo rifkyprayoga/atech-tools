@@ -43,6 +43,7 @@ public class OSUtil
 
     }
 
+
     /**
      * Get Short OS Name
      * @return
@@ -74,6 +75,7 @@ public class OSUtil
         return short_name;
     }
 
+
     /**
      * Get OS Specific Configuration File
      * 
@@ -81,17 +83,17 @@ public class OSUtil
      */
     public static String getOSSpecificConfigurationFile()
     {
-        String def_filename = "StartupConfig.properties";
+        String defaultConfigFilename = "StartupConfig.properties";
 
         String os_name = OSUtil.getShortOSName();
-        String full_os_name = "StartupConfig_" + os_name + ".properties";
+        String osConfigFilename = "StartupConfig_" + os_name + ".properties";
 
-        File f = new File(full_os_name);
+        File f = new File(osConfigFilename);
 
         if (f.exists())
-            return full_os_name;
+            return osConfigFilename;
         else
-            return def_filename;
+            return defaultConfigFilename;
 
     }
 

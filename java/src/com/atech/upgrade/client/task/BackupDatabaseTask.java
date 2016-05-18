@@ -1,7 +1,7 @@
 package com.atech.upgrade.client.task;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -75,7 +75,7 @@ public class BackupDatabaseTask extends UpgradeTaskAbstract implements BackupRes
         else
         {
             // children
-            ArrayList<CheckBoxTreeNodeInterface> lst = cb.getNodeChildren();
+            List<CheckBoxTreeNodeInterface> lst = cb.getNodeChildren();
 
             for (int i = 0; i < lst.size(); i++)
             {

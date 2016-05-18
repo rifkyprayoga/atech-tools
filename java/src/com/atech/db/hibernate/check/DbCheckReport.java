@@ -7,8 +7,8 @@ import java.util.StringTokenizer;
 
 import javax.swing.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.I18nControlAbstract;
 
@@ -46,7 +46,7 @@ import com.atech.i18n.I18nControlAbstract;
 public class DbCheckReport
 {
 
-    private Log log = LogFactory.getLog(DbCheckReport.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DbCheckReport.class);
 
     private String version_db = "0";
     private int db_version = 0;
@@ -127,7 +127,7 @@ public class DbCheckReport
         }
         catch (Exception ex)
         {
-            log.error("Error reading report: " + ex, ex);
+            LOG.error("Error reading report: " + ex, ex);
         }
 
     }
@@ -145,7 +145,7 @@ public class DbCheckReport
 
             if (!this.file_exists)
             {
-                log.warn("Db Report file not found !");
+                LOG.warn("Db Report file not found !");
                 this.can_be_started = true;
             }
             else
@@ -164,7 +164,7 @@ public class DbCheckReport
         }
         catch (Exception ex)
         {
-            log.error("Evaluate info exception: " + ex, ex);
+            LOG.error("Evaluate info exception: " + ex, ex);
             ex.printStackTrace();
         }
     }

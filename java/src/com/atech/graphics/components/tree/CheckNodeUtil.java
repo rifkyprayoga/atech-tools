@@ -50,6 +50,7 @@ public class CheckNodeUtil
         return CheckNodeUtil.traverseTree(cb, check_type);
     }
 
+
     /**
      * Traverse tree.
      * 
@@ -60,6 +61,11 @@ public class CheckNodeUtil
      */
     public static CheckNode traverseTree(CheckBoxTreeNodeInterface cb, int check_type)
     {
+        System.out.println("Traverse Tree: " + cb);
+
+        if (cb == null)
+            return null;
+
         CheckNode node = new CheckNode(cb, cb.getTargetName(), cb.hasNodeChildren(), check_type);
 
         if (cb.hasNodeChildren())

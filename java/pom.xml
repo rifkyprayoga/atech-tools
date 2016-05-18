@@ -289,17 +289,22 @@
             <version>${table-layout.version}</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${xstream.version}</version>
+        </dependency>
     </dependencies>
 
     <properties>
-        <atech-tools.version>0.8.1-SNAPSHOT</atech-tools.version>
+        <atech-tools.version>0.8.2-SNAPSHOT</atech-tools.version>
 
         <skinlf.version>6.7</skinlf.version>
         <log4j.version>1.2.16</log4j.version>
         <jasperreports.version>3.7.1</jasperreports.version>
         <jfreechart.version>1.0.13</jfreechart.version>
         <hibernate.version>3.1.3</hibernate.version>
-        <!-- 3.1 -->
         <pygmy-core.version>0.2</pygmy-core.version>
         <pygmy-handlers.version>0.2</pygmy-handlers.version>
         <junit.version>4.10</junit.version>
@@ -311,16 +316,46 @@
         <icepdf-viewer.version>5.0.7</icepdf-viewer.version>
         <commons-lang.version>2.6</commons-lang.version>
         <jta.version>1.0.1B</jta.version>
+
+        <!-- 0.8.xx (GGC 0.7) -->
         <joda-time.version>2.8.2</joda-time.version>
         <slf4j.version>1.7.12</slf4j.version>
         <simpleframework.version>2.7.1</simpleframework.version>
         <commons-collections.version>3.2.1</commons-collections.version>
         <zip4j.version>1.3.2</zip4j.version>
         <commons-io.version>2.2</commons-io.version>
-        <!-- <tablelayout-j15.version>4.2.1</tablelayout-j15.version> -->
         <table-layout.version>4.3.0</table-layout.version>
+        <xstream.version>1.4.4</xstream.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 </project>
+
+
+        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.pom-->
+        <!--Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.pom-->
+        <!--Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.pom (0 B at 0.0 KB/sec)-->
+        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.pom-->
+        <!--Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.pom-->
+        <!--Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.pom (0 B at 0.0 KB/sec)-->
+        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/apache/maven/surefire/surefire-booter/2.12.4/surefire-booter-2.12.4.jar-->
+        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.jar-->
+        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.jar-->
+        <!--Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-booter/2.12.4/surefire-booter-2.12.4.jar-->
+        <!--Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.jar-->
+        <!--Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.jar-->
+        <!--Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-booter/2.12.4/surefire-booter-2.12.4.jar (0 B at 0.0 KB/sec)-->
+        <!--Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.jar (0 B at 0.0 KB/sec)-->
+        <!--Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.jar (0 B at 0.0 KB/sec)-->
+        <!--[INFO] No tests to run.-->
+        <!--[INFO]-->
+        <!--[INFO] -&#45;&#45; maven-jar-plugin:2.4:jar (default-jar) @ atech-tools -&#45;&#45;-->
+        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/codehaus/plexus/plexus-archiver/2.1/plexus-archiver-2.1.jar-->
+        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/codehaus/plexus/plexus-io/2.0.2/plexus-io-2.0.2.jar-->
+        <!--Downloading: http://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.1/plexus-archiver-2.1.jar-->
+        <!--Downloading: http://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.2/plexus-io-2.0.2.jar-->
+        <!--Downloaded: http://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.1/plexus-archiver-2.1.jar (0 B at 0.0 KB/sec)-->
+        <!--Downloaded: http://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.2/plexus-io-2.0.2.jar (0 B at 0.0 KB/sec)-->
+
+

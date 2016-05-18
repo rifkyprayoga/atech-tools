@@ -1,7 +1,7 @@
 package com.atech.i18n;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.mgr.LanguageManager;
 
@@ -48,7 +48,7 @@ import com.atech.i18n.mgr.LanguageManager;
 public class I18nControlLangMgrDual extends I18nControlLangMgr
 {
 
-    private static Log log = LogFactory.getLog(I18nControlLangMgrDual.class);
+    private static final Logger LOG = LoggerFactory.getLogger(I18nControlLangMgrDual.class);
     /*
      * private Collator langaugeCollator = null;
      * protected LanguageManager language_manager = null;
@@ -57,6 +57,7 @@ public class I18nControlLangMgrDual extends I18nControlLangMgr
 
     private I18nControlLangMgr primaryLang = null;
     private boolean debug_language = false;
+
 
     // protected abstract String getLanguageConfigFile();
 
@@ -81,6 +82,7 @@ public class I18nControlLangMgrDual extends I18nControlLangMgr
         return this;
     }
 
+
     public I18nControlLangMgr getDefaultLanguageInstance()
     {
         return this.primaryLang;
@@ -95,37 +97,41 @@ public class I18nControlLangMgrDual extends I18nControlLangMgr
         {
             if (debug_language)
             {
-                log.debug("Default language for " + this.i18ncontrol_runner.getLanguageFileRoot() + " was loaded !");
+                LOG.debug("Default language for " + this.i18ncontrol_runner.getLanguageFileRoot() + " was loaded !");
             }
         }
         else
         {
-            log.warn("Default language for " + this.i18ncontrol_runner.getLanguageFileRoot() + " COULD NOT BE loaded !");
+            LOG.warn(
+                "Default language for " + this.i18ncontrol_runner.getLanguageFileRoot() + " COULD NOT BE loaded !");
         }
     }
+
 
     public String getMessageFromCatalogSelectedLanaguge(String msg)
     {
         String retString = super.getMessageFromCatalog(msg); // super.getMessageFromCatalog(msg);
         if (debug_language)
         {
-            log.debug("getMessageFromCatalogSelLang: [root=" + this.i18ncontrol_runner.getLanguageFileRoot()
-                    + ", lang=" + this.getSelectedLanguage() + ", msg=" + msg + ", translation=" + retString);
+            LOG.debug("getMessageFromCatalogSelLang: [root=" + this.i18ncontrol_runner.getLanguageFileRoot() + ", lang="
+                    + this.getSelectedLanguage() + ", msg=" + msg + ", translation=" + retString);
         }
         return retString;
     }
+
 
     public String getMessageFromCatalogDefaultLangauge(String msg)
     {
         String retString = this.primaryLang.getMessageFromCatalog(msg);
         if (debug_language)
         {
-            log.debug("getMessageFromCatalogDefLang: [root="
+            LOG.debug("getMessageFromCatalogDefLang: [root="
                     + this.primaryLang.getI18nControlRunner().getLanguageFileRoot() + ", lang="
                     + this.primaryLang.getSelectedLanguage() + ", msg=" + msg + ", translation=" + retString);
         }
         return retString;
     }
+
 
     /**
      *  Looks into bundle and returns correct message. This method is syncronized, so only one
@@ -142,7 +148,7 @@ public class I18nControlLangMgrDual extends I18nControlLangMgr
 
         String retString = getMessageFromCatalogSelectedLanaguge(msg);
 
-        // log.debug("getMessageFromCatalog: [msg=" + msg + ",trasnlation=" +
+        // LOG.debug("getMessageFromCatalog: [msg=" + msg + ",trasnlation=" +
         // retString);
 
         if (retString.equals(msg))
@@ -152,7 +158,7 @@ public class I18nControlLangMgrDual extends I18nControlLangMgr
 
             retString = this.getMessageFromCatalogDefaultLangauge(msg);
 
-            // log.debug("getMessageFromCatalog: [msg=" + msg +
+            // LOG.debug("getMessageFromCatalog: [msg=" + msg +
             // ",trasnlation_def=" + retString);
 
             return retString;
@@ -160,6 +166,7 @@ public class I18nControlLangMgrDual extends I18nControlLangMgr
         else
             return retString;
     }
+
 
     /**
      * Init Aditional

@@ -4,19 +4,20 @@ import java.io.File;
 import java.io.StringReader;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlUtil
 {
 
     protected Document document;
-    private static Log log = LogFactory.getLog(XmlUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XmlUtil.class);
+
 
     public XmlUtil(String xml)
     {
@@ -26,10 +27,11 @@ public class XmlUtil
         }
         catch (Exception ex)
         {
-            log.error("Error opening Xml file. Ex.: " + ex, ex);
+            LOG.error("Error opening Xml file. Ex.: " + ex, ex);
         }
 
     }
+
 
     /**
      * Open Xml File
@@ -45,6 +47,7 @@ public class XmlUtil
         document = reader.read(file);
         return document;
     }
+
 
     /**
      * Open Xml Data
@@ -62,6 +65,7 @@ public class XmlUtil
         return document;
     }
 
+
     /**
      * Open Xml File
      * @param xml_text 
@@ -78,6 +82,7 @@ public class XmlUtil
         return document;
     }
 
+
     /**
      * Get Node
      * 
@@ -89,6 +94,7 @@ public class XmlUtil
         return document.selectSingleNode(tag_path);
     }
 
+
     /**
      * Get Element
      * 
@@ -99,6 +105,7 @@ public class XmlUtil
     {
         return (Element) getNode(tag_path);
     }
+
 
     /**
      * Return List of nodes from path
@@ -113,10 +120,12 @@ public class XmlUtil
         return nodes;
     }
 
+
     public static String getNodeValueString(Node parent, String node_name)
     {
         return getNodeValueString(parent, node_name, "");
     }
+
 
     public static String getNodeValueString(Node parent_node, String node_name, String default_value)
     {
@@ -128,10 +137,12 @@ public class XmlUtil
             return nd.getText();
     }
 
+
     public static long getNodeValueLong(Node parent, String node_name)
     {
         return getNodeValueLong(parent, node_name, 0L);
     }
+
 
     public static long getNodeValueLong(Node parent_node, String node_name, long default_value)
     {

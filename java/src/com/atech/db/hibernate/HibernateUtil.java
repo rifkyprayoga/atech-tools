@@ -2,10 +2,10 @@ package com.atech.db.hibernate;
 
 import java.sql.SQLException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -48,7 +48,7 @@ public class HibernateUtil
      * The hconfig.
      */
     HibernateConfiguration hconfig;
-    private static Log log = LogFactory.getLog(HibernateUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
     @SuppressWarnings("unused")
     private int m_errorCode = 0;
     @SuppressWarnings("unused")
@@ -150,7 +150,7 @@ public class HibernateUtil
         {
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
 
-            log.info(doh.getObjectName() + "::DbAdd");
+            LOG.info(doh.getObjectName() + "::DbAdd");
 
             try
             {
@@ -161,19 +161,19 @@ public class HibernateUtil
             catch (SQLException ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("SQLException on add: " + ex, ex);
+                LOG.error("SQLException on add: " + ex, ex);
                 Exception eee = ex.getNextException();
 
                 if (eee != null)
                 {
-                    log.error("Nested Exception on add: " + eee.getMessage(), eee);
+                    LOG.error("Nested Exception on add: " + eee.getMessage(), eee);
                 }
                 return false;
             }
             catch (Exception ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("Exception on add: " + ex, ex);
+                LOG.error("Exception on add: " + ex, ex);
                 return false;
             }
 
@@ -182,7 +182,7 @@ public class HibernateUtil
         {
             setError(-2, "Object is not DatabaseObjectHibernate instance", "GGCDb");
 
-            log.error("Internal error on add: " + obj);
+            LOG.error("Internal error on add: " + obj);
             return false;
         }
 
@@ -202,7 +202,7 @@ public class HibernateUtil
     public long addHibernate(Object obj)
     {
 
-        log.info("addHibernate::" + obj.toString());
+        LOG.info("addHibernate::" + obj.toString());
 
         try
         {
@@ -216,7 +216,7 @@ public class HibernateUtil
         }
         catch (Exception ex)
         {
-            log.error("Exception on addHibernate: " + ex, ex);
+            LOG.error("Exception on addHibernate: " + ex, ex);
             return -1;
         }
 
@@ -237,7 +237,7 @@ public class HibernateUtil
         {
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
 
-            log.info(doh.getObjectName() + "::DbEdit");
+            LOG.info(doh.getObjectName() + "::DbEdit");
 
             try
             {
@@ -247,26 +247,26 @@ public class HibernateUtil
             catch (SQLException ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("SQLException on edit: " + ex, ex);
+                LOG.error("SQLException on edit: " + ex, ex);
                 Exception eee = ex.getNextException();
 
                 if (eee != null)
                 {
-                    log.error("Nested Exception on edit: " + eee.getMessage(), eee);
+                    LOG.error("Nested Exception on edit: " + eee.getMessage(), eee);
                 }
                 return false;
             }
             catch (Exception ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("Exception on edit: " + ex, ex);
+                LOG.error("Exception on edit: " + ex, ex);
                 return false;
             }
         }
         else
         {
             setError(-2, "Object is not DatabaseObjectHibernate instance", "GGCDb");
-            log.error("Internal error on edit: " + obj);
+            LOG.error("Internal error on edit: " + obj);
             return false;
         }
 
@@ -286,7 +286,7 @@ public class HibernateUtil
     public boolean editHibernate(Object obj)
     {
 
-        log.info("editHibernate::" + obj.toString());
+        LOG.info("editHibernate::" + obj.toString());
 
         try
         {
@@ -301,7 +301,7 @@ public class HibernateUtil
         }
         catch (Exception ex)
         {
-            log.error("Exception on editHibernate: " + ex, ex);
+            LOG.error("Exception on editHibernate: " + ex, ex);
             // ex.printStackTrace();
             return false;
         }
@@ -323,7 +323,7 @@ public class HibernateUtil
         {
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
 
-            log.info(doh.getObjectName() + "::DbDelete");
+            LOG.info(doh.getObjectName() + "::DbDelete");
 
             try
             {
@@ -331,7 +331,7 @@ public class HibernateUtil
                 if (doh.DbHasChildren(getSession()))
                 {
                     setError(-3, "Object has children object", doh.getObjectName());
-                    log.error(doh.getObjectName() + " had Children objects");
+                    LOG.error(doh.getObjectName() + " had Children objects");
                     return false;
                 }
 
@@ -342,19 +342,19 @@ public class HibernateUtil
             catch (SQLException ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("SQLException on delete: " + ex, ex);
+                LOG.error("SQLException on delete: " + ex, ex);
                 Exception eee = ex.getNextException();
 
                 if (eee != null)
                 {
-                    log.error("Nested Exception on delete: " + eee.getMessage(), eee);
+                    LOG.error("Nested Exception on delete: " + eee.getMessage(), eee);
                 }
                 return false;
             }
             catch (Exception ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("Exception on delete: " + ex, ex);
+                LOG.error("Exception on delete: " + ex, ex);
                 return false;
             }
 
@@ -362,7 +362,7 @@ public class HibernateUtil
         else
         {
             setError(-2, "Object is not DatabaseObjectHibernate instance", "GGCDb");
-            log.error("Internal error on delete: " + obj);
+            LOG.error("Internal error on delete: " + obj);
             return false;
         }
 
@@ -379,7 +379,7 @@ public class HibernateUtil
     public boolean deleteHibernate(Object obj)
     {
 
-        log.info("deleteHibernate::" + obj.toString());
+        LOG.info("deleteHibernate::" + obj.toString());
 
         try
         {
@@ -394,7 +394,7 @@ public class HibernateUtil
         }
         catch (Exception ex)
         {
-            log.error("Exception on deleteHibernate: " + ex, ex);
+            LOG.error("Exception on deleteHibernate: " + ex, ex);
             // ex.printStackTrace();
             return false;
         }

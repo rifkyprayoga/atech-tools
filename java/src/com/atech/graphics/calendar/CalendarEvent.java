@@ -35,6 +35,7 @@ import java.util.GregorianCalendar;
 
 public class CalendarEvent
 {
+
     /**
      * Calendar Event: Day
      */
@@ -55,8 +56,11 @@ public class CalendarEvent
      */
     public static final int DATE_CHANGED = 105;
 
+    public static final int ATECH_TIME_CHANGED = 106;
+
     GregorianCalendar date;
     private int event = 0;
+
 
     /**
      * Constructor
@@ -70,6 +74,7 @@ public class CalendarEvent
         this.event = event;
     }
 
+
     /**
      * Get New Month
      * 
@@ -79,6 +84,7 @@ public class CalendarEvent
     {
         return date.get(Calendar.MONTH);
     }
+
 
     /**
      * Get New Year
@@ -90,6 +96,7 @@ public class CalendarEvent
         return date.get(Calendar.YEAR);
     }
 
+
     /**
      * Get New Day
      * 
@@ -99,6 +106,7 @@ public class CalendarEvent
     {
         return date.get(Calendar.DAY_OF_MONTH);
     }
+
 
     /**
      * Get New Date
@@ -110,6 +118,7 @@ public class CalendarEvent
         return date.getTime().getTime();
     }
 
+
     /**
      * Get New Calendar
      * 
@@ -119,6 +128,7 @@ public class CalendarEvent
     {
         return date;
     }
+
 
     /**
      * Get Event

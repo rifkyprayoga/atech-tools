@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLWarning;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.web.jsp.AppContextAbstract;
 import com.atech.web.util.DataAccessWeb;
@@ -47,7 +47,8 @@ public abstract class AppDbWeb extends AppDbWebAbstract
     Connection m_connection;
     // Statement stmt;
 
-    private static Log log = LogFactory.getLog(AppDbWeb.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AppDbWeb.class);
+
 
     /**
      * Constructor
@@ -71,11 +72,13 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         // System.out.println("PIS_Web Loaded: " + pis_web_version);
     }
 
+
     @Override
     public void initializeDb()
     {
         createConnection();
     }
+
 
     @Override
     public void destroyDb()
@@ -87,9 +90,10 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         }
         catch (Exception ex)
         {
-            log.warn("Error destroying db connection. Ex: " + ex);
+            LOG.warn("Error destroying db connection. Ex: " + ex);
         }
     }
+
 
     @Override
     public void setI18nWebControl(I18nWebControl ic)
@@ -99,6 +103,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         initWeekDays();
         initMonths();
     }
+
 
     @Override
     public void closeDb()
@@ -112,9 +117,10 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         }
         catch (Exception ex)
         {
-            log.warn("Error closing database. Ex: " + ex);
+            LOG.warn("Error closing database. Ex: " + ex);
         }
     }
+
 
     /**
      * Get Connection
@@ -138,11 +144,12 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         return this.m_connection;
     }
 
+
     protected void createConnection()
     {
         try
         {
-            log.debug("Creating Connection for Context !");
+            LOG.debug("Creating Connection for Context !");
 
             // Load the database driver
             Class.forName(getSetting("JDBC_DRIVER"));
@@ -179,13 +186,14 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         }
         catch (Exception ex)
         {
-            log.error("Error on createConnection. Ex: " + ex, ex);
+            LOG.error("Error on createConnection. Ex: " + ex, ex);
             System.out.println("Error on createConnection. Ex: " + ex);
             ex.printStackTrace();
 
         }
 
     }
+
 
     private String getSetting(String key)
     {
@@ -206,6 +214,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         return ret;
     }
 
+
     @Override
     public void displayError(String source, Exception ex)
     {
@@ -220,6 +229,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
 
     }
 
+
     // /
     // / WEB METHODS
     // /
@@ -230,6 +240,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         return key;
     }
 
+
     @Override
     public String getWebLanguage()
     {
@@ -239,6 +250,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
             return "SI";
     }
 
+
     @Override
     public String getWebName()
     {
@@ -247,6 +259,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         else
             return "Unknown";
     }
+
 
     //
     // BASIC METHODS
@@ -311,6 +324,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
          */
     }
 
+
     @Override
     public boolean edit(Object obj)
     {
@@ -351,6 +365,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
          */
     }
 
+
     @Override
     public boolean get(Object obj)
     {
@@ -390,6 +405,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
          */
     }
 
+
     @Override
     public boolean delete(Object obj)
     {
@@ -426,6 +442,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
          */
     }
 
+
     // *************************************************************
     // **** DAY AND MONTH HANDLING ****
     // *************************************************************
@@ -440,6 +457,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
 
         return this.week_days;
     }
+
 
     @Override
     public void initWeekDays()
@@ -461,6 +479,7 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         this.week_days = sb_wd.toString();
     }
 
+
     @Override
     public String getMonths()
     {
@@ -472,13 +491,14 @@ public abstract class AppDbWeb extends AppDbWebAbstract
         return this.months;
     }
 
+
     @Override
     public void initMonths()
     {
         StringBuffer sb_mon = new StringBuffer();
 
         String mon[] = { "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER",
-                        "OCTOBER", "NOVEMBER", "DECEMBER" };
+                         "OCTOBER", "NOVEMBER", "DECEMBER" };
 
         for (int i = 0; i < 12; i++)
         {

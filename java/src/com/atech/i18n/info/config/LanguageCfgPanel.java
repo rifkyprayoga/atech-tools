@@ -377,9 +377,9 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
 
             // // FIXME might not work
             // if
-            // (!m_da.getLanguageInfo().getSelectedLanguage().equals(cb.getSelectedItem()))
+            // (!dataAccess.getLanguageInfo().getSelectedLanguage().equals(cb.getSelectedItem()))
             // {
-            // m_da.getLanguageInfo().setSelectedLanguage((String)
+            // dataAccess.getLanguageInfo().setSelectedLanguage((String)
             // cb.getSelectedItem());
             // }
 
@@ -388,9 +388,9 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
                 this.langInfo.setSelectedIndex(num);
             }
 
-            // if (m_da.getSelectedLangIndex() != num)
+            // if (dataAccess.getSelectedLangIndex() != num)
             // {
-            // m_da.setSelectedLangIndex(num);
+            // dataAccess.setSelectedLangIndex(num);
             // }
         }
 

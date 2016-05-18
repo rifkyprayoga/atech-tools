@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.db.datalayer.DataLayerJDBCAbstract;
 import com.atech.upgrade.server.dto.ApplicationNoteDTO;
@@ -45,7 +45,7 @@ import com.atech.upgrade.server.dto.ApplicationUpdateDTO;
 public class DataLayerUpdateServletV3 extends DataLayerJDBCAbstract
 {
 
-    private static Log LOG = LogFactory.getLog(DataLayerUpdateServletV3.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataLayerUpdateServletV3.class);
 
     /**
      * The s_dl.
@@ -84,8 +84,8 @@ public class DataLayerUpdateServletV3 extends DataLayerJDBCAbstract
     private DataLayerUpdateServletV3()
     {
         this.setJDBCConnection("org.postgresql.Driver",
-            "jdbc:postgresql://localhost:5432/update_server_v3?user=upd_server&password=upd_server123456",
-            "upd_server", "upd_server123456");
+            "jdbc:postgresql://localhost:5432/update_server_v3?user=upd_server&password=upd_server123456", "upd_server",
+            "upd_server123456");
         init();
     }
 
@@ -97,7 +97,6 @@ public class DataLayerUpdateServletV3 extends DataLayerJDBCAbstract
     {
 
     }
-
 
     // /**
     // * Get Next Version Info
@@ -219,6 +218,7 @@ public class DataLayerUpdateServletV3 extends DataLayerJDBCAbstract
     //
     // }
 
+
     /**
      * Get Product Update List
      * 
@@ -236,45 +236,54 @@ public class DataLayerUpdateServletV3 extends DataLayerJDBCAbstract
     // try
     // {
     // String sql =
-    // " SELECT upd_mod_version.id as id, upd_mod_version.module_id as module_id, upd_mod_version.version_num as version_num, upd_mod_version.archive_name as archive_name, upd_mod_version.archive_crc as archive_crc, upd_mod_version.archive_length as archive_length, upd_module.module_name as module_name "
+    // " SELECT upd_mod_version.id as id, upd_mod_version.module_id as
+    // module_id, upd_mod_version.version_num as version_num,
+    // upd_mod_version.archive_name as archive_name, upd_mod_version.archive_crc
+    // as archive_crc, upd_mod_version.archive_length as archive_length,
+    // upd_module.module_name as module_name "
     // + " FROM upd_mod_version "
     // +
-    // " INNER JOIN upd_app_ver_modules on upd_app_ver_modules.module_id=upd_mod_version.module_id "
+    // " INNER JOIN upd_app_ver_modules on
+    // upd_app_ver_modules.module_id=upd_mod_version.module_id "
     // +
-    // "    AND upd_app_ver_modules.module_version=upd_mod_version.version_num "
+    // " AND upd_app_ver_modules.module_version=upd_mod_version.version_num "
     // +
-    // " INNER JOIN upd_module on upd_module.module_id = upd_mod_version.module_id "
+    // " INNER JOIN upd_module on upd_module.module_id =
+    // upd_mod_version.module_id "
     // + " AND upd_app_ver_modules.id IN "
-    // + "    ( "
-    // + "        SELECT upd_app_ver_modules.id "
-    // + "        FROM upd_app_ver_modules "
-    // + "        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num="
+    // + " ( "
+    // + " SELECT upd_app_ver_modules.id "
+    // + " FROM upd_app_ver_modules "
+    // + " LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num="
     // + current_version
     // +
-    // " and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id = upd_app_ver_modules.module_id "
-    // + "        WHERE upd_app_ver_modules.product_id = '"
+    // " and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id
+    // = upd_app_ver_modules.module_id "
+    // + " WHERE upd_app_ver_modules.product_id = '"
     // + product_id
     // + "' AND upd_app_ver_modules.version_num = "
     // + next_version
     // + " AND mod2.module_version < upd_app_ver_modules.module_version "
-    // + "        UNION "
-    // + "        SELECT upd_app_ver_modules.id "
-    // + "        FROM upd_app_ver_modules "
-    // + "        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num="
+    // + " UNION "
+    // + " SELECT upd_app_ver_modules.id "
+    // + " FROM upd_app_ver_modules "
+    // + " LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num="
     // + current_version
     // +
-    // " and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id = upd_app_ver_modules.module_id "
-    // + "        WHERE upd_app_ver_modules.product_id = '"
+    // " and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id
+    // = upd_app_ver_modules.module_id "
+    // + " WHERE upd_app_ver_modules.product_id = '"
     // + product_id
     // + "' AND upd_app_ver_modules.version_num = " + next_version +
-    // " AND mod2 is null " + "     ) ";
+    // " AND mod2 is null " + " ) ";
     //
     // ResultSet rs = this.executeQuery(sql);
     //
     // System.out.println("sql: " + sql);
     //
     // StringBuilder sb = new StringBuilder();
-    // sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+    // sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"
+    // standalone=\"no\"?>");
     // sb.append("<update_detailed_file>\n");
     // sb.append("\t<components>\n");
     //

@@ -7,10 +7,10 @@ import java.net.URL;
 
 import javax.swing.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.update.config.UpdateConfiguration;
@@ -27,7 +27,7 @@ import com.atech.utils.ATDataAccessAbstract;
 public class UpgradeHandlerV3 implements UpgradeHandlerInterface
 {
 
-    private static final Log log = LogFactory.getLog(UpgradeHandlerV3.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UpgradeHandlerV3.class);
 
     ATDataAccessAbstract dataAccess;
     UpgradeDialog upgradeDialog;
@@ -105,8 +105,8 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
             {
                 if (updateServerResponse.errorResponse != null)
                 {
-                    this.upgradeDialog.setStatusText(i18nControl
-                            .getMessage(updateServerResponse.errorResponse.errorDescriptionKey));
+                    this.upgradeDialog.setStatusText(
+                        i18nControl.getMessage(updateServerResponse.errorResponse.errorDescriptionKey));
                 }
                 else
                 {
@@ -115,8 +115,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
                         if (updateServerResponse.notesCount > 0)
                         {
                             this.upgradeDialog
-                                    .setStatusText(String.format(
-                                        i18nControl.getMessage("ATUS_FOUND_NEW_VERSION_NOTES"),
+                                    .setStatusText(String.format(i18nControl.getMessage("ATUS_FOUND_NEW_VERSION_NOTES"),
                                         updateServerResponse.notesCount));
                             this.upgradeDialog.getBtnNotes().setEnabled(true);
                         }
@@ -236,7 +235,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
         {
             this.upgradeDialog.setStatusText(i18nControl.getMessage("ATUS_ERROR_DECODING_DATA"));
 
-            log.error("Error making response" + ex, ex);
+            LOG.error("Error making response" + ex, ex);
             // error decoding
             return null;
         }
@@ -260,7 +259,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
         {
             this.upgradeDialog.setStatusText(i18nControl.getMessage("ATUS_ERROR_DECODING_DATA"));
 
-            log.error("Error making response" + ex, ex);
+            LOG.error("Error making response" + ex, ex);
             // error decoding
             return null;
         }
@@ -296,8 +295,8 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
 
                 if (serverResponse != null)
                 {
-                    this.upgradeDialog.setStatusText(i18nControl
-                            .getMessage(updateServerResponse.errorResponse.errorDescriptionKey));
+                    this.upgradeDialog.setStatusText(
+                        i18nControl.getMessage(updateServerResponse.errorResponse.errorDescriptionKey));
                 }
 
                 return null;
@@ -329,7 +328,7 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
         {
             URL url = new URL(full_url);
 
-            log.debug("Servlet::URL (" + full_url + ")");
+            LOG.debug("Servlet::URL (" + full_url + ")");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 
@@ -353,8 +352,8 @@ public class UpgradeHandlerV3 implements UpgradeHandlerInterface
         }
         catch (Exception ex)
         {
-            log.error("Servlet::URL (" + full_url + ")");
-            log.error("Error contacting servlet: " + ex, ex);
+            LOG.error("Servlet::URL (" + full_url + ")");
+            LOG.error("Error contacting servlet: " + ex, ex);
             // ex.printStackTrace();
             this.upgradeDialog.setStatusText(i18nControl.getMessage("UPD_ERROR_CONTACTING_SERVER"));
             // dataAccess.showDialog(this.updateDialog,

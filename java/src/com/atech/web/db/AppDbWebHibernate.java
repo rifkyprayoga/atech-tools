@@ -2,10 +2,10 @@ package com.atech.web.db;
 
 import java.sql.SQLException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.db.hibernate.DatabaseObjectHibernate;
 import com.atech.web.jsp.AppContextAbstract;
@@ -46,11 +46,12 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
 {
 
     @SuppressWarnings("unused")
-    private static Log log = LogFactory.getLog(AppDbWebHibernate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AppDbWebHibernate.class);
 
     private Session m_session = null;
 
     SessionFactory m_session_factory = null;
+
 
     /**
      * Constructor
@@ -73,6 +74,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         // System.out.println("PIS_Web Loaded: " + pis_web_version);
     }
 
+
     @Override
     public void setI18nWebControl(I18nWebControl ic)
     {
@@ -82,10 +84,12 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         initMonths();
     }
 
+
     @Override
     public void closeDb()
     {
     }
+
 
     @Override
     public void displayError(String source, Exception ex)
@@ -100,6 +104,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         }
 
     }
+
 
     /**
      * Get Session
@@ -126,6 +131,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
      * this.config.put(st.getProperty(), st.getValue()); } }
      */
 
+
     /*
      * public void loadUsers() { this.users = new ArrayList<UserH>();
      * System.out.println("Load Users");
@@ -143,6 +149,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         return key;
     }
 
+
     @Override
     public String getWebLanguage()
     {
@@ -152,6 +159,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
             return "SI";
     }
 
+
     @Override
     public String getWebName()
     {
@@ -160,6 +168,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         else
             return "Unknown";
     }
+
 
     //
     // BASIC METHODS
@@ -235,6 +244,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
 
     }
 
+
     @Override
     public boolean edit(Object obj)
     {
@@ -278,6 +288,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
 
     }
 
+
     @Override
     public boolean get(Object obj)
     {
@@ -319,6 +330,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         }
 
     }
+
 
     @Override
     public boolean delete(Object obj)
@@ -362,11 +374,13 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
 
     }
 
+
     @Override
     public String addGetId()
     {
         return this.m_addId;
     }
+
 
     @Override
     public int getErrorCode()
@@ -374,11 +388,13 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         return this.m_errorCode;
     }
 
+
     @Override
     public String getErrorDescription()
     {
         return this.m_errorDesc;
     }
+
 
     @Override
     public void setError(int code, String desc, String source)
@@ -386,6 +402,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         this.m_errorCode = code;
         this.m_errorDesc = source + " : " + desc;
     }
+
 
     // *************************************************************
     // **** DAY AND MONTH HANDLING ****
@@ -401,6 +418,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
 
         return this.week_days;
     }
+
 
     @Override
     public void initWeekDays()
@@ -422,6 +440,7 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         this.week_days = sb_wd.toString();
     }
 
+
     @Override
     public String getMonths()
     {
@@ -433,13 +452,14 @@ public abstract class AppDbWebHibernate extends AppDbWebAbstract
         return this.months;
     }
 
+
     @Override
     public void initMonths()
     {
         StringBuffer sb_mon = new StringBuffer();
 
         String mon[] = { "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER",
-                        "OCTOBER", "NOVEMBER", "DECEMBER" };
+                         "OCTOBER", "NOVEMBER", "DECEMBER" };
 
         for (int i = 0; i < 12; i++)
         {

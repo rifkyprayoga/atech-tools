@@ -2,8 +2,8 @@ package com.atech.update.web.db;
 
 import java.sql.ResultSet;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.db.datalayer.DataLayerJDBCAbstract;
 
@@ -40,12 +40,13 @@ import com.atech.db.datalayer.DataLayerJDBCAbstract;
 public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
 {
 
-    private static Log log = LogFactory.getLog(DataLayerUpdateServlet_v2.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataLayerUpdateServlet_v2.class);
 
     /**
      * The s_dl.
      */
     public static DataLayerUpdateServlet_v2 s_dl;
+
 
     // public static final String DB_CLASS_MS_ACCESS_MDB_TOOLS =
     // "mdbtools.jdbc.Driver";
@@ -71,6 +72,7 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
         return DataLayerUpdateServlet_v2.s_dl;
     }
 
+
     /**
      * Constructor
      */
@@ -81,6 +83,7 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
         init();
     }
 
+
     /**
      * Init
      */
@@ -88,6 +91,7 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
     {
 
     }
+
 
     /**
      * Get Next Version Info
@@ -172,6 +176,7 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
 
     }
 
+
     /**
      * Get Product Xml
      * 
@@ -195,11 +200,12 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
         }
         catch (Exception ex)
         {
-            log.debug("getProductXml. Ex.: " + ex, ex);
+            LOG.debug("getProductXml. Ex.: " + ex, ex);
             return null;
         }
 
     }
+
 
     /**
      * Get Product Update List
@@ -221,26 +227,17 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
                     + " INNER JOIN upd_app_ver_modules on upd_app_ver_modules.module_id=upd_mod_version.module_id "
                     + "    AND upd_app_ver_modules.module_version=upd_mod_version.version_num "
                     + " INNER JOIN upd_module on upd_module.module_id = upd_mod_version.module_id "
-                    + " AND upd_app_ver_modules.id IN "
-                    + "    ( "
-                    + "        SELECT upd_app_ver_modules.id "
+                    + " AND upd_app_ver_modules.id IN " + "    ( " + "        SELECT upd_app_ver_modules.id "
                     + "        FROM upd_app_ver_modules "
-                    + "        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num="
-                    + current_version
+                    + "        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num=" + current_version
                     + " and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id = upd_app_ver_modules.module_id "
-                    + "        WHERE upd_app_ver_modules.product_id = '"
-                    + product_id
-                    + "' AND upd_app_ver_modules.version_num = "
-                    + next_version
-                    + " AND mod2.module_version < upd_app_ver_modules.module_version "
-                    + "        UNION "
-                    + "        SELECT upd_app_ver_modules.id "
-                    + "        FROM upd_app_ver_modules "
-                    + "        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num="
-                    + current_version
+                    + "        WHERE upd_app_ver_modules.product_id = '" + product_id
+                    + "' AND upd_app_ver_modules.version_num = " + next_version
+                    + " AND mod2.module_version < upd_app_ver_modules.module_version " + "        UNION "
+                    + "        SELECT upd_app_ver_modules.id " + "        FROM upd_app_ver_modules "
+                    + "        LEFT OUTER JOIN upd_app_ver_modules mod2 on mod2.version_num=" + current_version
                     + " and mod2.product_id = upd_app_ver_modules.product_id AND mod2.module_id = upd_app_ver_modules.module_id "
-                    + "        WHERE upd_app_ver_modules.product_id = '"
-                    + product_id
+                    + "        WHERE upd_app_ver_modules.product_id = '" + product_id
                     + "' AND upd_app_ver_modules.version_num = " + next_version + " AND mod2 is null " + "     ) ";
 
             ResultSet rs = this.executeQuery(sql);
@@ -308,11 +305,12 @@ public class DataLayerUpdateServlet_v2 extends DataLayerJDBCAbstract
         }
         catch (Exception ex)
         {
-            log.error("getProductUpdateList. Ex.: " + ex, ex);
+            LOG.error("getProductUpdateList. Ex.: " + ex, ex);
             return null;
         }
 
     }
+
 
     /**
      * @param args

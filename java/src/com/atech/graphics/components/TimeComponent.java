@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -73,7 +74,9 @@ public class TimeComponent extends JPanel implements ChangeListener
      */
     JSpinner hour, minute;
 
-    ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
+    List<ActionListener> listeners = new ArrayList<ActionListener>();
+
+    // List<CalendarListener> listeners = new ArrayList<CalendarListener>();
 
 
     /**

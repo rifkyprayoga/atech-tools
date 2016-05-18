@@ -18,8 +18,8 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.Document;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.graphics.components.DateComponent;
 import com.atech.graphics.layout.ZeroLayout;
@@ -71,7 +71,7 @@ public abstract class SelectorAbstractDialogExtended extends JDialog
 
     private static final long serialVersionUID = 3826331169088096885L;
 
-    private Log log = LogFactory.getLog(SelectorAbstractDialogExtended.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SelectorAbstractDialogExtended.class);
 
     // CHANGE this marking is set where you need to implement
 
@@ -552,7 +552,7 @@ public abstract class SelectorAbstractDialogExtended extends JDialog
         this.setTitle(name);
         this.setResizable(false);
 
-        log.debug("SelectorAbstract 0.2");
+        LOG.debug("SelectorAbstract 0.2");
 
         getInitialValues();
         cmdSelector();
@@ -992,16 +992,16 @@ public abstract class SelectorAbstractDialogExtended extends JDialog
         }
         else if (this.getFilterType() == SelectorAbstractDialogExtended.SELECTOR_FILTER_DATE_BOTH_TEXT)
         {
-            log.warn("initByFilterType(): Date Both and Text Not Implemented FULLY !!!");
+            LOG.warn("initByFilterType(): Date Both and Text Not Implemented FULLY !!!");
             initFilterType_DateBoth_Text();
         }
         else if (this.getFilterType() == SelectorAbstractDialogExtended.SELECTOR_FILTER_DATE_FROM)
         {
-            log.warn("initByFilterType(): Date From Not Implemented !!!");
+            LOG.warn("initByFilterType(): Date From Not Implemented !!!");
         }
         else if (this.getFilterType() == SelectorAbstractDialogExtended.SELECTOR_FILTER_DATE_BOTH)
         {
-            // log.warn("initByFilterType(): Date_Both Not Implemented !!!" );
+            // LOG.warn("initByFilterType(): Date_Both Not Implemented !!!" );
             initFilterType_DateBoth();
         }
 

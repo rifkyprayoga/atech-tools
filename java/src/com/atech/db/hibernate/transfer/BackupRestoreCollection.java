@@ -1,6 +1,7 @@
 package com.atech.db.hibernate.transfer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
 import com.atech.i18n.I18nControlAbstract;
@@ -38,16 +39,16 @@ import com.atech.i18n.I18nControlAbstract;
 
 // this one should be extended, we have several variables that need to be filled
 
-public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeNodeInterface
+public class BackupRestoreCollection implements BackupRestoreBase
 {
 
     private String name = null;
-    private ArrayList<BackupRestoreBase> children;
+    private List<BackupRestoreBase> children;
     // x private int count_children_collection;
     private int childrenCount;
     private boolean selected = false;
 
-    private ArrayList<CheckBoxTreeNodeInterface> childrenTree;
+    private List<CheckBoxTreeNodeInterface> childrenTree;
 
     @SuppressWarnings("unused")
     private I18nControlAbstract ic;
@@ -65,6 +66,12 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
         this.name = ic.getMessage(name);
         this.children = new ArrayList<BackupRestoreBase>();
         this.childrenTree = new ArrayList<CheckBoxTreeNodeInterface>();
+    }
+
+
+    public List<BackupRestoreBase> getChildren()
+    {
+        return this.children;
     }
 
 
@@ -92,7 +99,7 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
     /** 
      * getNodeChildren
      */
-    public ArrayList<CheckBoxTreeNodeInterface> getNodeChildren()
+    public List<CheckBoxTreeNodeInterface> getNodeChildren()
     {
         return this.childrenTree;
     }
@@ -204,7 +211,53 @@ public class BackupRestoreCollection implements BackupRestoreBase, CheckBoxTreeN
     @Override
     public String toString()
     {
-        return this.getTargetName();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.getTargetName());
+
+        processChildren(stringBuilder, 4, this.children);
+
+        return stringBuilder.toString();
+    }
+
+
+    public void processChildren(StringBuilder stringBuilder, int width, List<BackupRestoreBase> list)
+    {
+        String spaces = "";
+
+        for (int i = 0; i < width; i++)
+        {
+            spaces += " ";
+        }
+
+        if (children != null)
+        {
+            System.out.println(
+                "Process Children of " + this.getTargetName() + " count: " + children.size() + " array: " + children);
+            // for (BackupRestoreBase brb : children)
+            // {
+            //
+            // // System.out.println("BRB-1: " + brb);
+            //
+            // if (brb instanceof BackupRestoreCollection)
+            // {
+            // BackupRestoreCollection brc = (BackupRestoreCollection) brb;
+            //
+            // // stringBuilder.append(spaces + this.getTargetName());
+            // //
+            // // processChildren(stringBuilder, width + 2,
+            // // brc.getChildren());
+            //
+            // stringBuilder.append(spaces + brb.getTargetName() + " C\n");
+            //
+            // }
+            // else
+            // {
+            //
+            // // System.out.println("BRB: " + brb);
+            // stringBuilder.append(spaces + brb.getTargetName() + "\n");
+            // }
+            // }
+        }
     }
 
 

@@ -4,23 +4,26 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by andy on 09.03.15.
  */
 public class FileDebugging
 {
-    Log LOG = LogFactory.getLog(FileDebugging.class);
+
+    private static final Logger LOG = LoggerFactory.getLogger(FileDebugging.class);
     BufferedWriter bw;
     String filename;
 
     static FileDebugging staticInstance;
 
+
     private FileDebugging()
     {
     }
+
 
     public static FileDebugging getInstance()
     {
@@ -31,6 +34,7 @@ public class FileDebugging
 
         return staticInstance;
     }
+
 
     public void startFileDebugging(String file)
     {
@@ -45,6 +49,7 @@ public class FileDebugging
             LOG.debug("Error openning file: " + ex);
         }
     }
+
 
     public void endFileDebugging()
     {
@@ -61,6 +66,7 @@ public class FileDebugging
             LOG.debug("Error closing file: " + ex);
         }
     }
+
 
     public void writeToFile(String stringToWrite)
     {

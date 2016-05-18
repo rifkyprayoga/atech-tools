@@ -18,8 +18,9 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.Document;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.graphics.components.DateComponent;
 import com.atech.graphics.components.jtable.JTableWithToolTip;
@@ -71,14 +72,14 @@ public abstract class SelectorAbstractDialog extends JDialog
 
     private static final long serialVersionUID = 3826331169088096885L;
 
-    private Log log = LogFactory.getLog(SelectorAbstractDialog.class);
+    private Logger log = LoggerFactory.getLogger(SelectorAbstractDialog.class);
 
     // CHANGE this marking is set where you need to implement
 
     /**
      * The i18nControl.
      */
-    protected I18nControlAbstract ic; // = I18nControl.getInstance();
+    protected I18nControlAbstract i18nControl; // = I18nControl.getInstance();
 
     // ATDataAccess dataAccess = null;
     // PISDb m_db = null;
@@ -97,7 +98,7 @@ public abstract class SelectorAbstractDialog extends JDialog
     /**
      * The dataAccess.
      */
-    protected ATDataAccessAbstract m_da = null;
+    protected ATDataAccessAbstract dataAccess = null;
 
     /**
      * The par_selected.
@@ -107,7 +108,7 @@ public abstract class SelectorAbstractDialog extends JDialog
     /**
      * The old_value.
      */
-    public boolean old_value = false;
+    // public boolean old_value = false;
 
     /**
      * The sort column.
@@ -462,8 +463,8 @@ public abstract class SelectorAbstractDialog extends JDialog
         font_normal = new Font("SansSerif", Font.PLAIN, 12);
         this.m_except = except;
 
-        this.m_da = da;
-        this.ic = da.getI18nControlInstance();
+        this.dataAccess = da;
+        this.i18nControl = da.getI18nControlInstance();
 
         this.selector_type = type;
 
@@ -482,7 +483,7 @@ public abstract class SelectorAbstractDialog extends JDialog
          * }
          */
 
-        m_da.addComponent(this);
+        dataAccess.addComponent(this);
 
         if (with_init)
         {
@@ -527,14 +528,14 @@ public abstract class SelectorAbstractDialog extends JDialog
         font_normal = new Font("SansSerif", Font.PLAIN, 12);
         this.m_except = except;
 
-        this.m_da = da;
-        this.ic = da.getI18nControlInstance();
+        this.dataAccess = da;
+        this.i18nControl = da.getI18nControlInstance();
 
         this.selector_type = type;
 
         this.parent_frame = parent;
         this.parent_type = SelectorAbstractDialog.PARENT_FRAME;
-        m_da.addComponent(this);
+        dataAccess.addComponent(this);
 
         if (with_init)
         {
@@ -569,9 +570,9 @@ public abstract class SelectorAbstractDialog extends JDialog
 
         this.columnSorter = new ColumnSorter();
 
-        if (this.ic.getCollationDefintion() != null)
+        if (this.i18nControl.getCollationDefintion() != null)
         {
-            this.columnSorter.setCollatorDefinition(ic);
+            this.columnSorter.setCollatorDefinition(i18nControl);
         }
 
         initSelectorValuesForType();
@@ -676,7 +677,7 @@ public abstract class SelectorAbstractDialog extends JDialog
 
         if (enabled)
         {
-            m_da.enableHelp(this);
+            dataAccess.enableHelp(this);
         }
     }
 
@@ -942,7 +943,7 @@ public abstract class SelectorAbstractDialog extends JDialog
 
         if (this.isActionAllowed(SelectorAbstractDialog.SELECTOR_ACTION_SELECT))
         {
-            button1 = new JButton(ic.getMessage("SELECT"));
+            button1 = new JButton(i18nControl.getMessage("SELECT"));
             button1.setBounds(480, 60, 95, 25);
             button1.setActionCommand("select");
             button1.addActionListener(this);
@@ -952,7 +953,7 @@ public abstract class SelectorAbstractDialog extends JDialog
 
         if (this.isActionAllowed(SelectorAbstractDialog.SELECTOR_ACTION_CANCEL))
         {
-            button4 = new JButton(ic.getMessage("CANCEL"));
+            button4 = new JButton(i18nControl.getMessage("CANCEL"));
             button4.setBounds(480, 90, 95, 25);
             button4.setActionCommand("cancel");
             button4.addActionListener(this);
@@ -962,7 +963,8 @@ public abstract class SelectorAbstractDialog extends JDialog
 
         if (this.isActionAllowed(SelectorAbstractDialog.SELECTOR_ACTION_NEW))
         {
-            button2 = new JButton(this.new_item_string);
+            button2 = new JButton(i18nControl
+                    .getMessage(StringUtils.isNotBlank(this.new_item_string) ? this.new_item_string : "NEW"));
             button2.setBounds(380, 60, 95, 25);
             // button2.setBounds(panel.getWidth()-30, 95, 70, 25);
             button2.setActionCommand("new");
@@ -973,7 +975,7 @@ public abstract class SelectorAbstractDialog extends JDialog
 
         if (this.isActionAllowed(SelectorAbstractDialog.SELECTOR_ACTION_EDIT))
         {
-            button3 = new JButton(ic.getMessage("EDIT"));
+            button3 = new JButton(i18nControl.getMessage("EDIT"));
             button3.setBounds(380, 90, 95, 25);
             button3.setActionCommand("edit");
             button3.addActionListener(this);
@@ -984,7 +986,7 @@ public abstract class SelectorAbstractDialog extends JDialog
         // ---
         // --- Help command
         // ---
-        this.help_button.setText(ic.getMessage("HELP"));
+        this.help_button.setText(i18nControl.getMessage("HELP"));
         this.help_button.setBounds(495, 122, 80, 23);
         this.help_button.setFont(font_normal);
         // button.addActionListener(this);
@@ -1119,14 +1121,14 @@ public abstract class SelectorAbstractDialog extends JDialog
     public void initFilterType_DateBoth()
     {
         this.checkBox1 = new JCheckBox();
-        this.checkBox1.setText(" " + ic.getMessage("FROM") + ":");
+        this.checkBox1.setText(" " + i18nControl.getMessage("FROM") + ":");
         this.checkBox1.setBounds(25, 60, 80, 26); // 85
         this.checkBox1.addChangeListener(this);
         this.checkBox1.setName("from");
         panel.add(this.checkBox1, null);
 
         // FIXME
-        dt_start = new DateComponent(m_da);
+        dt_start = new DateComponent(dataAccess);
         dt_start.setBounds(90, 60, 210, 26);
         dt_start.setEnabled(false);
         dt_start.addActionListener(this);
@@ -1137,7 +1139,7 @@ public abstract class SelectorAbstractDialog extends JDialog
         panel.add(dt_start, null);
 
         this.checkBox2 = new JCheckBox();
-        this.checkBox2.setText(" " + ic.getMessage("TILL") + ":");
+        this.checkBox2.setText(" " + i18nControl.getMessage("TILL") + ":");
         this.checkBox2.setBounds(25, 85, 80, 26); // 85
         this.checkBox2.setSelected(false);
         this.checkBox2.addChangeListener(this);
@@ -1145,7 +1147,7 @@ public abstract class SelectorAbstractDialog extends JDialog
         panel.add(this.checkBox2, null);
 
         // FIXME
-        dt_end = new DateComponent(m_da);
+        dt_end = new DateComponent(dataAccess);
         dt_end.addActionListener(this);
         dt_end.setBounds(90, 85, 210, 26);
         dt_end.setEnabled(false);
@@ -1184,12 +1186,9 @@ public abstract class SelectorAbstractDialog extends JDialog
 
         table = new JTableWithToolTip(new SelectorTableModel(selector_type_object, list));
 
-        table.addMouseListener(new MouseListener()
+        table.addMouseListener(new MouseAdapter()
         {
 
-            /*
-             * mouseClicked
-             */
             public void mouseClicked(MouseEvent me)
             {
                 if (me.getClickCount() == 2)
@@ -1197,27 +1196,6 @@ public abstract class SelectorAbstractDialog extends JDialog
                     checkAndExecuteActionSelect();
                 }
             }
-
-
-            public void mouseEntered(MouseEvent me)
-            {
-            }
-
-
-            public void mouseExited(MouseEvent me)
-            {
-            }
-
-
-            public void mousePressed(MouseEvent me)
-            {
-            }
-
-
-            public void mouseReleased(MouseEvent me)
-            {
-            }
-
         });
 
         // table.addMouseMotionListener(new MouseMotionAdapter()
@@ -1245,9 +1223,7 @@ public abstract class SelectorAbstractDialog extends JDialog
 
         for (int i = 0; i < selector_type_object.getColumnCount(); i++)
         {
-            // System.out.println("i = " + i + " " +
-            // i18nControl.getMessage(selector_type_object.getColumnName(i+1)));
-            cm.getColumn(i).setHeaderValue(ic.getMessage(selector_type_object.getColumnName(i + 1)));
+            cm.getColumn(i).setHeaderValue(i18nControl.getMessage(selector_type_object.getColumnName(i + 1)));
 
             cwidth = selector_type_object.getColumnWidth(i + 1, twidth);
 
@@ -1258,15 +1234,6 @@ public abstract class SelectorAbstractDialog extends JDialog
         }
 
         table.setRowSelectionAllowed(true);
-
-        /*
-         * if (m_type==SELECTOR_PERSON_MULTIPLE)
-         * table.setSelectionMode(ListSelectionModel.
-         * MULTIPLE_INTERVAL_SELECTION)
-         * ;
-         * else
-         * table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-         */
 
         if (this.isMultipleSelectionEnabled())
         {
@@ -1319,7 +1286,7 @@ public abstract class SelectorAbstractDialog extends JDialog
      */
     public void closeDialog()
     {
-        this.m_da.removeComponent(this);
+        this.dataAccess.removeComponent(this);
         this.dispose();
     }
 
@@ -1558,8 +1525,8 @@ public abstract class SelectorAbstractDialog extends JDialog
 
         if (i == -1)
         {
-            JOptionPane.showMessageDialog(this, ic.getMessage("SELECT_ROW_FIRST"), ic.getMessage("ERROR"),
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, i18nControl.getMessage("SELECT_ROW_FIRST"),
+                i18nControl.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
             return -1;
         }
 
@@ -1656,18 +1623,13 @@ public abstract class SelectorAbstractDialog extends JDialog
         }
         else if (action.equals("edit"))
         {
-            if (this.table.getSelectedRowCount() == 0)
+            SelectableInterface si = getSelectedItem();
+
+            if (si != null)
             {
-                JOptionPane.showConfirmDialog(this, m_da.getI18nControlInstance().getMessage("SELECT_ROW_FIRST"),
-                    m_da.getI18nControlInstance().getMessage("ERROR"), JOptionPane.CLOSED_OPTION);
-                return;
-            }
-            else
-            {
-                int index = this.table.getSelectedRow();
-                SelectableInterface si = this.list.get(index);
                 checkAndExecuteActionEdit(si);
             }
+
         }
         else if (action.equals("select"))
         {
@@ -1675,8 +1637,9 @@ public abstract class SelectorAbstractDialog extends JDialog
             {
                 if (this.table.getSelectedRowCount() == 0)
                 {
-                    JOptionPane.showConfirmDialog(this, m_da.getI18nControlInstance().getMessage("SELECT_ROW_FIRST"),
-                        m_da.getI18nControlInstance().getMessage("ERROR"), JOptionPane.CLOSED_OPTION);
+                    JOptionPane.showConfirmDialog(this,
+                        dataAccess.getI18nControlInstance().getMessage("SELECT_ROW_FIRST"),
+                        dataAccess.getI18nControlInstance().getMessage("ERROR"), JOptionPane.CLOSED_OPTION);
                     return;
                 }
                 else
@@ -1706,6 +1669,23 @@ public abstract class SelectorAbstractDialog extends JDialog
             checkAndExecuteActionCancel();
         }
 
+    }
+
+
+    public SelectableInterface getSelectedItem()
+    {
+        if (this.table.getSelectedRowCount() == 0)
+        {
+            JOptionPane.showConfirmDialog(this, dataAccess.getI18nControlInstance().getMessage("SELECT_ROW_FIRST"),
+                dataAccess.getI18nControlInstance().getMessage("ERROR"), JOptionPane.CLOSED_OPTION);
+            return null;
+        }
+        else
+        {
+            int index = this.table.getSelectedRow();
+            SelectableInterface si = this.list.get(index);
+            return si;
+        }
     }
 
 

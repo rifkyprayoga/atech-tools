@@ -149,7 +149,7 @@ public abstract class ATechConverter
         debug("input_v: " + input_v);
 
         float val = value * factor_to_target;
-        float val_source = Float.parseFloat(input_v);
+        float val_source = Float.parseFloat(input_v.replace(",", "."));
 
         if (target_type == BASETYPE_INT)
         {

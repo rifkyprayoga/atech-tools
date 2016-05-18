@@ -1,20 +1,19 @@
 package com.atech.graphics.dialogs;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.*;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.atech.graphics.components.JDecimalTextField;
 import com.atech.help.HelpCapable;
 import com.atech.i18n.I18nControlAbstract;
-import com.atech.print.engine.PrintProcessor;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
-import org.apache.commons.lang.StringUtils;
-
-import javax.swing.*;
-import java.awt.*;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.*;
-import java.util.List;
 
 /**
  * Created by andy on 28.02.15.
@@ -22,27 +21,32 @@ import java.util.List;
 public abstract class StandardDialogForObject extends JDialog implements HelpCapable, ActionListener
 {
 
+    private static final long serialVersionUID = -2770020069853438147L;
+
     protected I18nControlAbstract i18nControl = null;
     protected ATDataAccessAbstract dataAccess = null;
     protected boolean wasSuccessful = false;
     protected JDialog parent;
+    protected int positionXForEntryLabel = 40;
+    protected JPanel mainPanel;
+    protected JButton btnHelp;
+    protected boolean editValue;
 
 
-    public StandardDialogForObject(JDialog dialog)
-    {
-        this(dialog, true);
-    }
-
-    public StandardDialogForObject(JDialog dialog, boolean init)
+    public StandardDialogForObject(JFrame dialog, ATDataAccessAbstract dataAccess, boolean init)
     {
         super(dialog, "", true);
-        parent = dialog;
+        // parent = dialog;
+        this.dataAccess = dataAccess;
+        this.i18nControl = dataAccess.getI18nControlInstance();
+        dataAccess.addComponent(this);
 
         if (init)
         {
             init();
         }
     }
+
 
     public StandardDialogForObject(JDialog dialog, ATDataAccessAbstract dataAccess)
     {
@@ -56,12 +60,14 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
         parent = dialog;
         this.dataAccess = dataAccess;
         this.i18nControl = dataAccess.getI18nControlInstance();
+        dataAccess.addComponent(this);
 
         if (init)
         {
             init();
         }
     }
+
 
     public StandardDialogForObject(JDialog dialog, Object dataObject)
     {
@@ -73,6 +79,7 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
     {
         super(dialog, "", true);
         parent = dialog;
+        dataAccess.addComponent(this);
 
         if (init)
         {
@@ -80,10 +87,12 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
         }
     }
 
+
     public StandardDialogForObject(JDialog dialog, ATDataAccessAbstract dataAccess, Object dataObject)
     {
         this(dialog, dataAccess, dataObject, true);
     }
+
 
     public StandardDialogForObject(JDialog dialog, ATDataAccessAbstract dataAccess, Object dataObject, boolean init)
     {
@@ -91,6 +100,7 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
         parent = dialog;
         this.dataAccess = dataAccess;
         this.i18nControl = dataAccess.getI18nControlInstance();
+        dataAccess.addComponent(this);
 
         if (init)
         {
@@ -102,15 +112,27 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
     protected void init()
     {
         initGUI();
+        if (StringUtils.isNotBlank(this.getHelpId()))
+        {
+            dataAccess.enableHelp(this);
+        }
         this.setVisible(true);
     }
+
 
     protected void init(Object dataObject)
     {
         initGUI();
         loadData(dataObject);
+
+        if (StringUtils.isNotBlank(this.getHelpId()))
+        {
+            dataAccess.enableHelp(this);
+        }
+
         this.setVisible(true);
     }
+
 
     public abstract void loadData(Object dataObject);
 
@@ -136,13 +158,14 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
     public void actionPerformed(ActionEvent ae)
     {
         String actionCommand = ae.getActionCommand();
+
         if (actionCommand.equals("ok"))
         {
             if (actionSuccessful())
             {
                 System.out.println("was success");
                 this.wasSuccessful = true;
-                this.dispose();
+                closeDialog();
             }
             else
             {
@@ -151,7 +174,7 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
         }
         else if (actionCommand.equals("cancel"))
         {
-            this.dispose();
+            closeDialog();
         }
         else
         {
@@ -160,10 +183,17 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
     }
 
 
+    private void closeDialog()
+    {
+        dataAccess.removeComponent(this);
+        this.dispose();
+    }
+
+
     public void customActionPerformed(String actionCommand)
     {
-        System.out.println("Action (" + actionCommand + ") is not supported by " + this.getClass().getSimpleName() +
-                ". If you wish to change this you need to override customActionPerformed method.");
+        System.out.println("Action (" + actionCommand + ") is not supported by " + this.getClass().getSimpleName()
+                + ". If you wish to change this you need to override customActionPerformed method.");
     }
 
 
@@ -181,11 +211,12 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
     }
 
 
-    public boolean checkIfJDecimalTextFieldIsGreaterThanZero(JDecimalTextField decimalTextField, String fieldName, List<String> listFailed)
+    public boolean checkIfJDecimalTextFieldIsGreaterThanZero(JDecimalTextField decimalTextField, String fieldName,
+            List<String> listFailed)
     {
         int tempInt = ATSwingUtils.getJDecimalTextValueInt(decimalTextField);
 
-        if (tempInt<=0)
+        if (tempInt <= 0)
         {
             listFailed.add(fieldName);
             return false;
@@ -203,7 +234,7 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
 
         boolean first = true;
 
-        for(String failed : listFailed)
+        for (String failed : listFailed)
         {
             if (first)
             {
@@ -218,24 +249,60 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
 
         }
 
-        String s = sb.toString(); //.substring(0, sb.length()-2);
+        String s = sb.toString(); // .substring(0, sb.length()-2);
 
         ATSwingUtils.showErrorDialog(this,
-                String.format(i18nControl.getMessage("ERROR_WHEN_SAVING_OBJECT"), "Stock Sub Type", s), i18nControl
-        );
+            String.format(i18nControl.getMessage("ERROR_WHEN_SAVING_OBJECT"), "Stock Sub Type", s), i18nControl);
 
-//        System.out.println("List Failed: " + listFailed.size() + ", " + s);
+        // System.out.println("List Failed: " + listFailed.size() + ", " + s);
 
     }
 
 
+    protected void createEntryLabel(String message, int positionY)
+    {
+        ATSwingUtils.getLabel(i18nControl.getMessage(message) + ":", positionXForEntryLabel, positionY, 120, 25,
+            mainPanel, ATSwingUtils.FONT_NORMAL_BOLD);
+    }
+
+
+    protected String getText(JTextField tf)
+    {
+        if (tf.getText().length() == 0)
+            return null;
+        else
+            return tf.getText();
+    }
+
+
+    protected String getText(JTextArea tf)
+    {
+        if (tf.getText().length() == 0)
+            return null;
+        else
+            return tf.getText();
+    }
+
+
+    protected void setText(JTextField tf, String text)
+    {
+        if (StringUtils.isNotBlank(text))
+        {
+            tf.setText(text);
+        }
+    }
+
+
+    protected void setText(JTextArea tf, String text)
+    {
+        if (StringUtils.isNotBlank(text))
+        {
+            tf.setText(text);
+        }
+    }
+
+
     public abstract String getHelpId();
-
-
-    public abstract JButton getHelpButton();
-
-
-    public abstract Component getComponent();
 
 
     public boolean wasOperationSuccessful()
@@ -243,5 +310,16 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
         return this.wasSuccessful;
     }
 
-}
 
+    public JButton getHelpButton()
+    {
+        return this.btnHelp;
+    }
+
+
+    public Component getComponent()
+    {
+        return this;
+    }
+
+}

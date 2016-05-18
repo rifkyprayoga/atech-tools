@@ -25,6 +25,7 @@ import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.hdb_object.User;
 import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
+import com.atech.graphics.components.jtable.JTableUtil;
 import com.atech.graphics.dialogs.ErrorDialog;
 import com.atech.graphics.graphs.GraphConfigProperties;
 import com.atech.graphics.graphs.v2.data.GraphDbDataRetriever;
@@ -112,7 +113,7 @@ public abstract class ATDataAccessAbstract
     public DbToolApplicationAbstract db_tool_app = null;
     public Hashtable<String, PlugInClient> plugins;
     private UpdateConfiguration update_configuration = null;
-    private ExceptionHandling numberParsingExceptionHandling = ExceptionHandling.CATCH_EXCEPTION_WITH_STACK_TRACE;
+    private static ExceptionHandling numberParsingExceptionHandling = ExceptionHandling.CATCH_EXCEPTION_WITH_STACK_TRACE;
     protected LanguageInfo m_lang_info;
     protected I18nControlAbstract m_i18n = null; // ATI18nControl.getInstance();
     protected Collator m_collator = null;
@@ -1366,7 +1367,7 @@ public abstract class ATDataAccessAbstract
      *
      * @return the string[]
      */
-    public String[] splitString(String input, String delimiter)
+    public static String[] splitString(String input, String delimiter)
     {
         String res[] = null;
 
@@ -1529,7 +1530,7 @@ public abstract class ATDataAccessAbstract
                 }
                 catch (Exception ex)
                 {
-                    LOG.error("parse Float Exception [" + s + ": " + ex);
+                    LOG.error("Parse Float Exception [" + s + "]: " + ex);
                 }
             }
         }
@@ -1758,13 +1759,23 @@ public abstract class ATDataAccessAbstract
 
     // public abstract String getUpdateConfigurationFile();
 
-    private void processException(Exception ex, String errorString) throws Exception
+    public static void processException(Exception ex, String errorString) throws Exception
     {
-        if (numberParsingExceptionHandling == ExceptionHandling.THROW_EXCEPTION)
+        processException(ex, errorString, null);
+    }
+
+
+    public static void processException(Exception ex, String errorString, ExceptionHandling overrideExceptionHandling)
+            throws Exception
+    {
+        ExceptionHandling exceptionHandling = overrideExceptionHandling == null ? numberParsingExceptionHandling
+                : overrideExceptionHandling;
+
+        if (exceptionHandling == ExceptionHandling.THROW_EXCEPTION)
         {
             throw ex;
         }
-        else if (numberParsingExceptionHandling == ExceptionHandling.CATCH_EXCEPTION_WITH_STACK_TRACE)
+        else if (exceptionHandling == ExceptionHandling.CATCH_EXCEPTION_WITH_STACK_TRACE)
         {
             LOG.error(errorString + ex, ex);
         }
@@ -1783,9 +1794,22 @@ public abstract class ATDataAccessAbstract
      *
      * @return the int value from string
      */
-    public int getIntValueFromString(String aValue)
+    public static int getIntValueFromString(String aValue)
     {
-        return this.getIntValueFromString(aValue, 0);
+        return getIntValueFromString(aValue, 0, null);
+    }
+
+
+    /**
+     * Gets the int value from string.
+     *
+     * @param aValue the a value
+     *
+     * @return the int value from string
+     */
+    public static int getIntValueFromStringWithoutException(String aValue, int defaultValue)
+    {
+        return getIntValueFromString(aValue, defaultValue, ExceptionHandling.CATCH_EXCEPTION);
     }
 
 
@@ -1799,11 +1823,12 @@ public abstract class ATDataAccessAbstract
      *
      * @return the int value from string
      */
-    public int getIntValueFromString(String aValue, int def_value)
+    public static int getIntValueFromString(String aValue, int defaultValue,
+            ExceptionHandling overridenExceptionHandling)
     {
         try
         {
-            return getIntValueFromStringWithException(aValue, def_value);
+            return getIntValueFromStringWithException(aValue, defaultValue, overridenExceptionHandling);
         }
         catch (Exception ex)
         {
@@ -1820,7 +1845,8 @@ public abstract class ATDataAccessAbstract
      *
      * @return the int value from string
      */
-    public int getIntValueFromStringWithException(String aValue, int def_value) throws Exception
+    public static int getIntValueFromStringWithException(String aValue, int def_value,
+            ExceptionHandling overridenExceptionHandling) throws Exception
     {
         int out = def_value;
 
@@ -2484,9 +2510,36 @@ public abstract class ATDataAccessAbstract
     }
 
 
+    /**
+     * @Deprecated Use showMessageDialog instead of showDialog
+     */
+    @Deprecated
     public void showDialog(Container cont, int type, String message)
     {
         ATSwingUtils.showDialog(cont, type, message, this.getI18nControlInstance());
+    }
+
+
+    /**
+     * @Deprecated Use showMessageDialog instead of showDialog
+     */
+    @Deprecated
+    public void showDialog(Container cont, ATSwingUtils.DialogType type, String message)
+    {
+        ATSwingUtils.showMessageDialog(cont, type, message, this.getI18nControlInstance());
+    }
+
+
+    public void showMessageDialog(Container cont, ATSwingUtils.DialogType type, String message)
+    {
+        ATSwingUtils.showMessageDialog(cont, type, message, this.getI18nControlInstance());
+    }
+
+
+    public int showConfirmDialog(Container cont, ATSwingUtils.DialogType type, String message,
+            ATSwingUtils.ConfirmDialogType confirmDialogType)
+    {
+        return ATSwingUtils.showConfirmDialog(cont, type, message, confirmDialogType, this.getI18nControlInstance());
     }
 
 
@@ -2576,6 +2629,8 @@ public abstract class ATDataAccessAbstract
 
     public String createStringRepresentationOfCollection(Collection<?> list, String delimiter)
     {
+        System.out.println("List: " + list);
+
         StringBuffer sb = new StringBuffer();
         boolean first = true;
 
@@ -2856,6 +2911,35 @@ public abstract class ATDataAccessAbstract
     public GraphDbDataRetriever getGraphDbDataRetriever()
     {
         return this.graphDbDataRetriever;
+    }
+
+    // -------------------------------------------------------
+    // --- Look and Feel Override
+    // -------------------------------------------------------
+
+    private static Map<String, Object> staticSkinLfOverrides;
+
+
+    public static Map<String, Object> getSkinLfOverrides()
+    {
+        return staticSkinLfOverrides;
+    }
+
+
+    public static void setSkinLfOverrides(Map<String, Object> skinLfOverrides)
+    {
+        staticSkinLfOverrides = skinLfOverrides;
+    }
+
+
+    public static void reSkinifyComponent(JTable table)
+    {
+        if (staticSkinLfOverrides.containsKey("JTableHeader.backgroundColor"))
+        {
+            JTableUtil.reconfigureTableHeader(table, (Color) staticSkinLfOverrides.get("JTableHeader.backgroundColor"),
+                (Color) staticSkinLfOverrides.get("JTableHeader.foregroundColor"),
+                (Color) staticSkinLfOverrides.get("JTableHeader.borderColor"));
+        }
     }
 
 }

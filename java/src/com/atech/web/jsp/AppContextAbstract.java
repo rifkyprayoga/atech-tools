@@ -4,10 +4,11 @@ package com.atech.web.jsp;
 //import org.apache.commons.logging.LogFactory; 
 //import org.hibernate.Query;
 //import org.hibernate.Session;
+
 import java.util.Hashtable;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.web.db.AppDbWebAbstract;
 import com.atech.web.util.DataAccessWeb;
@@ -61,7 +62,7 @@ public abstract class AppContextAbstract implements AppContextInterface
      */
     public static final int APP_CONTEXT_DB_HIBERNATE = 2;
 
-    private static Log log = LogFactory.getLog(AppContextAbstract.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AppContextAbstract.class);
 
     protected AppDbWebAbstract dbWeb;
     protected Hashtable<String, I18nWebControl> possible_i18n;
@@ -80,6 +81,7 @@ public abstract class AppContextAbstract implements AppContextInterface
      * }
      */
 
+
     /*
      * public void initContext()
      * {
@@ -96,7 +98,7 @@ public abstract class AppContextAbstract implements AppContextInterface
      * }
      * catch (Throwable ex)
      * {
-     * // Make sure you log the exception, as it might be swallowed
+     * // Make sure you LOG the exception, as it might be swallowed
      * System.err.println("Initial SessionFactory creation failed." + ex);
      * throw new ExceptionInInitializerError(ex);
      * }
@@ -108,12 +110,14 @@ public abstract class AppContextAbstract implements AppContextInterface
         return this.type;
     }
 
+
     // public void initContext();
 
     public AppDbWebAbstract getDb()
     {
         return this.dbWeb;
     }
+
 
     public I18nWebControl getI18n(String lang)
     {
@@ -123,10 +127,12 @@ public abstract class AppContextAbstract implements AppContextInterface
             return this.possible_i18n.get(this.default_lang);
     }
 
+
     public I18nWebControl getI18n()
     {
         return this.possible_i18n.get(this.default_lang);
     }
+
 
     public DataAccessWeb getDataAccessWeb()
     {
@@ -138,10 +144,12 @@ public abstract class AppContextAbstract implements AppContextInterface
         return daw;
     }
 
+
     public boolean hasMultipleLanguageChanger()
     {
         return this.multiple_langauges;
     }
+
 
     protected void initLanguage()
     {
@@ -154,7 +162,7 @@ public abstract class AppContextAbstract implements AppContextInterface
         }
         else
         {
-            log.error("Context: Default language parameter not found. Possible problem in configuration !");
+            LOG.error("Context: Default language parameter not found. Possible problem in configuration !");
         }
 
         if (this.params.containsKey("BASE_LANG"))
@@ -163,10 +171,11 @@ public abstract class AppContextAbstract implements AppContextInterface
         }
         else
         {
-            log.error("Context: Base Lang parameter not found. Possible problem in configuration !");
+            LOG.error("Context: Base Lang parameter not found. Possible problem in configuration !");
         }
 
     }
+
 
     public void disposeContext()
     {

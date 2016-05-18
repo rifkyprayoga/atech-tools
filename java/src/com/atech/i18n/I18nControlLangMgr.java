@@ -9,8 +9,8 @@ import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.mgr.LanguageInstance;
 import com.atech.i18n.mgr.LanguageManager;
@@ -58,11 +58,13 @@ import com.atech.i18n.mgr.LanguageManager;
 public class I18nControlLangMgr extends I18nControlAbstract
 {
 
-    private static Log log = LogFactory.getLog(I18nControlLangMgr.class);
+    private static final Logger LOG = LoggerFactory.getLogger(I18nControlLangMgr.class);
+
     protected Collator langaugeCollator = null;
     protected LanguageManager language_manager = null;
     protected I18nControlRunner i18ncontrol_runner;
     protected boolean load_default_language = false;
+
 
     // protected abstract String getLanguageConfigFile();
 
@@ -77,6 +79,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         this(lm, icr, false);
     }
 
+
     public I18nControlLangMgr(LanguageManager lm, I18nControlRunner icr, boolean load_default_lang)
     {
         this.i18ncontrol_runner = icr;
@@ -85,10 +88,12 @@ public class I18nControlLangMgr extends I18nControlAbstract
         this.initLibrary();
     }
 
+
     protected I18nControlRunner getI18nControlRunner()
     {
         return this.i18ncontrol_runner;
     }
+
 
     // Method: setLanguage (String language)
     /**
@@ -108,6 +113,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         createCollationDefintion();
     }
 
+
     /**
      * Init - This method is used to set default language and language root file
      */
@@ -117,6 +123,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         this.lang_file_root = this.i18ncontrol_runner.getLanguageFileRoot();
         this.def_language = this.language_manager.getDefaultLanguage();
     }
+
 
     @Override
     public String getSelectedLanguage()
@@ -138,6 +145,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
      * return this.selected_language;
      * }
      */
+
 
     // Method: setLanguage (String language, String country)
     /**
@@ -191,14 +199,16 @@ public class I18nControlLangMgr extends I18nControlAbstract
      * }
      * catch(MissingResourceException ex)
      * {
-     * System.out.println("Exception on reading resource file. Exiting application."
+     * System.out.println(
+     * "Exception on reading resource file. Exiting application."
      * );
      * //System.exit(2);
      * }
      * }
      * catch (Exception mre)
      * {
-     * System.out.println("Exception on reading resource file. Exiting application."
+     * System.out.println(
+     * "Exception on reading resource file. Exiting application."
      * );
      * System.out.println("Exception: " + mre);
      * mre.printStackTrace();
@@ -207,6 +217,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
      * this.selected_language_locale = lcl;
      * }
      */
+
 
     /**
      * Set Language
@@ -314,36 +325,36 @@ public class I18nControlLangMgr extends I18nControlAbstract
 
             // System.out.println("Couldn't find resource file(1): " +
             // lang_file_root + "_" + li.name + ".properties");
-            log.error("Couldn't find resource file(1): " + lang_file_root + "_" + li.name + ".properties");
+            LOG.error("Couldn't find resource file(1): " + lang_file_root + "_" + li.name + ".properties");
             try
             {
                 res = ResourceBundle.getBundle(lang_file_root, new Locale(this.def_language));
             }
             catch (MissingResourceException ex)
             {
-                log.error("Exception on reading resource file. Exiting application.");
+                LOG.error("Exception on reading resource file. Exiting application.");
                 // System.exit(2);
             }
         }
         catch (FileNotFoundException ex)
         {
             // System.out.println("FileNotFoundException. Ex: " + ex);
-            log.error("Couldn't find translation tool file(1): " + file_path);
+            LOG.error("Couldn't find translation tool file(1): " + file_path);
             try
             {
                 res = ResourceBundle.getBundle(lang_file_root, new Locale(this.def_language));
             }
             catch (MissingResourceException ex2)
             {
-                log.error("Exception on reading resource file. Exiting application.", ex2);
+                LOG.error("Exception on reading resource file. Exiting application.", ex2);
                 // System.exit(2);
             }
         }
         catch (Exception ex)
         {
             // System.out.println("Exception. Ex: " + ex);
-            log.error("Exception on reading resource file. Exiting application.");
-            log.error("Exception: " + ex, ex);
+            LOG.error("Exception on reading resource file. Exiting application.");
+            LOG.error("Exception: " + ex, ex);
             // mre.printStackTrace();
             System.exit(2);
         }
@@ -355,6 +366,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         this.setLanguage(this.selected_language_locale);
     }
 
+
     @Override
     public void initLibrary()
     {
@@ -363,6 +375,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         // getSelectedLanguage();
         setLanguage();
     }
+
 
     /**
      * Gets the selected language locale.
@@ -374,6 +387,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
     {
         return this.selected_language_locale;
     }
+
 
     /**
      * This method sets the language according to the preferences.<br>
@@ -394,6 +408,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
          * setLanguage(def_language);
          */
     }
+
 
     // Method: getMessageFromCatalog
     /**
@@ -418,7 +433,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
 
             if (ret == null)
             {
-                log.warn("I18nControl(" + this.selected_language + "): Couldn't find message: " + msg);
+                LOG.warn("I18nControl(" + this.selected_language + "): Couldn't find message: " + msg);
                 return returnSameValue(msg);
             }
             else
@@ -431,6 +446,7 @@ public class I18nControlLangMgr extends I18nControlAbstract
         }
 
     }
+
 
     // Method: getMessage (String)
     /**
@@ -446,12 +462,14 @@ public class I18nControlLangMgr extends I18nControlAbstract
         return getMessageFromCatalog(msg);
     }
 
+
     @Override
     protected String getLanguageConfigFile()
     {
         // TODO Auto-generated method stub
         return null;
     }
+
 
     /**
      * Init Aditional

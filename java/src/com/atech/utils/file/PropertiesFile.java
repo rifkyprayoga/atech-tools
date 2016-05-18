@@ -7,8 +7,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -46,7 +46,8 @@ public class PropertiesFile extends FileReaderHashtable<String, String>
     private static final long serialVersionUID = 4486922769091769152L;
     private boolean in_jar = false;
 
-    private static Log log = LogFactory.getLog(PropertiesFile.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PropertiesFile.class);
+
 
     /**
      * Instantiates a new properties file.
@@ -58,10 +59,12 @@ public class PropertiesFile extends FileReaderHashtable<String, String>
         super(filename);
     }
 
+
     public PropertiesFile(String filename, boolean required)
     {
         super(filename, required);
     }
+
 
     /**
      * Instantiates a new properties file.
@@ -74,6 +77,7 @@ public class PropertiesFile extends FileReaderHashtable<String, String>
         super();
         this.putAll(data);
     }
+
 
     /** 
      * readFile
@@ -88,7 +92,7 @@ public class PropertiesFile extends FileReaderHashtable<String, String>
             {
                 if (!new File(this.filename).exists())
                 {
-                    log.warn("File " + filename + " not found.");
+                    LOG.warn("File " + filename + " not found.");
                     return;
                 }
             }
@@ -129,11 +133,12 @@ public class PropertiesFile extends FileReaderHashtable<String, String>
         }
         catch (Exception ex)
         {
-            log.error("PropertiesFile: Error reading file: " + this.filename);
+            LOG.error("PropertiesFile: Error reading file: " + this.filename);
             // ex.printStackTrace();
             file_read = false;
         }
     }
+
 
     /** 
      * processFileEntry

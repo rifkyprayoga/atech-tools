@@ -8,8 +8,8 @@ import java.util.StringTokenizer;
 
 import javax.swing.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.update.config.UpdateConfiguration;
@@ -23,7 +23,7 @@ import com.atech.utils.ATDataAccessAbstract;
 public class UpgradeHandlerV2 implements UpgradeHandlerInterface
 {
 
-    private static final Log LOG = LogFactory.getLog(UpgradeHandlerV2.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UpgradeHandlerV2.class);
 
     ATDataAccessAbstract dataAccess;
     UpgradeDialog upgradeDialog;

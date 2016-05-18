@@ -4,8 +4,8 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.info.LanguageInfo;
 
@@ -49,7 +49,7 @@ public class I18nControlLI extends I18nControlAbstract
 {
 
     @SuppressWarnings("unused")
-    private static Log s_logger = LogFactory.getLog(I18nControlLI.class);
+    private static final Logger LOG = LoggerFactory.getLogger(I18nControlLI.class);
     // private Collator langaugeCollator = null;
 
     /**
@@ -77,6 +77,7 @@ public class I18nControlLI extends I18nControlAbstract
      * setLanguage("EN");
      * }
      */
+
 
     // Method: getInstance
     // Author: Andy
@@ -111,6 +112,7 @@ public class I18nControlLI extends I18nControlAbstract
      * }
      */
 
+
     // Method: setLanguage (String language)
     /**
      *
@@ -129,6 +131,7 @@ public class I18nControlLI extends I18nControlAbstract
         createCollationDefintion();
     }
 
+
     /**
      * Gets the selected langauge.
      * 
@@ -138,6 +141,7 @@ public class I18nControlLI extends I18nControlAbstract
     {
         return this.m_lang_info.getSelectedLanguage();
     }
+
 
     // Method: setLanguage (String language, String country)
     /**
@@ -157,6 +161,7 @@ public class I18nControlLI extends I18nControlAbstract
         selected_language = language;
         setLanguage(l);
     }
+
 
     // Method: setLanguage (Locale)
     /**
@@ -185,8 +190,8 @@ public class I18nControlLI extends I18nControlAbstract
         }
         catch (MissingResourceException mre)
         {
-            System.out.println("Couldn't find resource file(1): " + lang_file_root + "." + selected_language
-                    + ".properties");
+            System.out.println(
+                "Couldn't find resource file(1): " + lang_file_root + "." + selected_language + ".properties");
             try
             {
                 res = ResourceBundle.getBundle(lang_file_root, new Locale(this.def_language));
@@ -209,6 +214,7 @@ public class I18nControlLI extends I18nControlAbstract
 
     }
 
+
     /**
      * Gets the selected language locale.
      * 
@@ -220,12 +226,14 @@ public class I18nControlLI extends I18nControlAbstract
         return this.selected_language_locale;
     }
 
+
     @Override
     protected String getLanguageConfigFile()
     {
         // TODO Auto-generated method stub
         return null;
     }
+
 
     @Override
     public void init()

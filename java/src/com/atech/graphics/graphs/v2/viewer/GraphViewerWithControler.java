@@ -31,6 +31,8 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.data.NotImplementedException;
 import com.atech.graphics.components.DateComponent;
@@ -70,6 +72,7 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
 {
 
     private static final long serialVersionUID = -5774789654269000419L;
+    private static final Logger LOGGER = LoggerFactory.getLogger(GraphViewerWithControler.class);
 
     protected GraphDefinitionDto graphDefintionDto;
     protected I18nControlAbstract i18nControlAbstract;
@@ -115,7 +118,7 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
         });
 
         // FIXME remove
-        lastDate.add(Calendar.MONTH, -3);
+        // lastDate.add(Calendar.MONTH, -3);
 
         if (initFinished)
             finishInit();
@@ -130,7 +133,7 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
 
         if (newSize != null)
         {
-            System.out.println("New size: " + newSize);
+            // System.out.println("New size: " + newSize);
             this.setSize(newSize);
             this.dataAccess.centerJDialog(this);
         }
@@ -141,20 +144,19 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
 
     protected void readData()
     {
-        System.out
-                .println("read Data [from=" + dataAccess.getGregorianCalendarAsString(dateComponentFrom.getDateObject())
-                        + ", till=" + dataAccess.getGregorianCalendarAsString(dateComponentTill.getDateObject()) + "]");
+        LOGGER.debug("read Data [from=" + dataAccess.getGregorianCalendarAsString(dateComponentFrom.getDateObject())
+                + ", till=" + dataAccess.getGregorianCalendarAsString(dateComponentTill.getDateObject()) + "]");
 
         this.dataCollection = dataAccess.getGraphDbDataRetriever().getGraphTimeData(dateComponentFrom.getDateObject(),
             dateComponentTill.getDateObject(), this.graphDefintionDto);
 
-        System.out.println("Data collection: " + this.dataCollection);
+        LOGGER.debug("Data collection: " + this.dataCollection);
     }
 
 
     protected void redrawGraph()
     {
-        System.out.println("redraw Graph");
+        // System.out.println("redraw Graph");
 
         if (chartPanel != null)
         {
@@ -237,8 +239,13 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
         JPanel p2 = new JPanel();
         p2.setLayout(TableLayoutUtil.createHorizontalLayout(0.07d, 0.33d, TableLayout.FILL, 0.33d, 0.07d));
 
-        p2.add(createButton("<", "previous_time", null), "1, 0");
-        p2.add(createButton(">", "next_time", null), "3, 0");
+        createButton(null, "previous_time", "arrow_left_blue.png", p2, "1, 0");
+        createButton(null, "next_time", "arrow_right_blue.png", p2, "3, 0");
+
+        // 'arrow_left_blue.png''arrow_left_blue.png'
+
+        // p2.add(b, "1, 0");
+        // p2.add(createButton(">", "next_time", null), "3, 0");
 
         controlerSwitchPanel.add(p2, "0, 1");
 
@@ -248,9 +255,16 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
     }
 
 
-    private JButton createButton(String text, String actionCommand, String image)
+    private JButton createButton(String text, String actionCommand, String image, JPanel panel,
+            String layoutConstraints)
     {
-        return ATSwingUtils.getButton(text, ATSwingUtils.FONT_NORMAL_BOLD_P2, image, actionCommand, this, dataAccess);
+        // return ATSwingUtils.getButton(text, ATSwingUtils.FONT_NORMAL_BOLD_P2,
+        // image, actionCommand, this, dataAccess);
+
+        return ATSwingUtils.getButton(text, null, null, null, null, panel, layoutConstraints,
+            ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD_P2), image, actionCommand, this, dataAccess,
+            new int[] { 20, 20 }, panel);
+
     }
 
 
@@ -267,13 +281,16 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
         button.setText("Help");
 
         buttonPanel.add(helpButton = ATSwingUtils.createHelpButton(this, dataAccess), "1, 0");
-        buttonPanel.add(createButton("Close", "close", null), "3, 0");
+        helpButton.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD_P2));
+        // buttonPanel.add(createButton(i18nControlAbstract.getMessage("GRAPH_CLOSE"),
+        // "close", null), "3, 0");
+        createButton(i18nControlAbstract.getMessage("GRAPH_CLOSE"), "close", null, buttonPanel, "3, 0");
 
         controlerOtherPanel.add(buttonPanel, "0, 1");
 
         if (this.graphDefintionDto.getHelpId() != null)
         {
-
+            this.helpButton.setEnabled(true);
         }
         else
         {
@@ -372,7 +389,7 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
 
     private void changeTime(int i)
     {
-        System.out.println("Change time: " + i);
+        // System.out.println("Change time: " + i);
 
         GregorianCalendar newLastDate = (GregorianCalendar) lastDate.clone();
 

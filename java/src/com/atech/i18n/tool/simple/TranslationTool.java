@@ -6,8 +6,8 @@ import java.util.Hashtable;
 
 import javax.swing.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.tool.simple.data.DataEntry;
@@ -129,7 +129,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         }
     }
 
-    private static Log log = LogFactory.getLog(TranslationTool.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TranslationTool.class);
     private static final long serialVersionUID = 8072388083288536444L;
     Hashtable<String, JMenu> menus = null;
     DataAccessTT m_da = DataAccessTT.getInstance();
@@ -315,7 +315,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
     private void checkPaths()
     {
         String[] paths = { "../files/", "../files/master_files/", "../files/translation/",
-                          "../files/translation/backup/" };
+                           "../files/translation/backup/" };
 
         for (String path : paths)
         {
@@ -617,11 +617,11 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
     {
         // Custom button text
         Object[] options = { "Save and Quit", "Just Quit", };
-        int n = JOptionPane.showOptionDialog(this, "Would you like to save all translations that were\n"
-                + "changed in this session?", "Exiting", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-            options, options[0]);
+        int n = JOptionPane.showOptionDialog(this,
+            "Would you like to save all translations that were\n" + "changed in this session?", "Exiting",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
-        log.debug("Exit: code=" + n);
+        LOG.debug("Exit: code=" + n);
 
         if (n == 0)
         {

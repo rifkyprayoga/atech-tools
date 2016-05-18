@@ -47,6 +47,7 @@ public class DbCheck extends DbApplicationAbstract
         super(uc, osa);
     }
 
+
     /**
      * Get Class Name
      * 
@@ -57,6 +58,7 @@ public class DbCheck extends DbApplicationAbstract
     {
         return "com.atech.db.hibernate.check.DbCheck";
     }
+
 
     /**
      * Has Application Parameters (something %1 %2)
@@ -69,6 +71,7 @@ public class DbCheck extends DbApplicationAbstract
         return true;
     }
 
+
     /**
      * Get Application Parameters
      * 
@@ -80,15 +83,14 @@ public class DbCheck extends DbApplicationAbstract
         return this.upd_conf.db_version_required + " " + this.upd_conf.db_config_class;
     }
 
+
     /**
-     * Get File Name for batch file
-     * 
-     * @return filename for batch file
+     * {@inheritDoc}
      */
     @Override
-    public String getFileName()
+    public String getNameOfFile()
     {
-        return "db_check." + this.os_abstract.getBatchFileExtension();
+        return "db_check";
     }
 
 }

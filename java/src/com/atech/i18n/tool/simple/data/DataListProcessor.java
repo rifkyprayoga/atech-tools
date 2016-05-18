@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.tool.simple.util.DataAccessTT;
 import com.atech.utils.data.Rounding;
@@ -47,7 +47,7 @@ public class DataListProcessor
 
     DataAccessTT m_da = DataAccessTT.getInstance();
     TranslationData tra_data;
-    private static Log log = LogFactory.getLog(DataListProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataListProcessor.class);
 
     protected String master_file_name = "GGC_en";
     protected String module_id = "";
@@ -65,6 +65,7 @@ public class DataListProcessor
     private PropertiesFile user_config = null;
     // private PropertiesFile master_config = null;
     private int backup_time = 5;
+
 
     /**
      * Constructor 
@@ -88,6 +89,7 @@ public class DataListProcessor
         readTranslationTargetConfig();
     }
 
+
     /**
      * Constructor
      * 
@@ -108,6 +110,7 @@ public class DataListProcessor
         readTranslationTargetConfig();
     }
 
+
     private void readDeveloperConfiguration(Hashtable<String, String> settings)
     {
         /*
@@ -121,6 +124,7 @@ public class DataListProcessor
 
     }
 
+
     /**
      * Was Master File Read 
      * 
@@ -131,6 +135,7 @@ public class DataListProcessor
         return this.master_file_read;
     }
 
+
     /**
      * Read Configuration
      * 
@@ -138,7 +143,7 @@ public class DataListProcessor
      */
     public void readConfiguration(String main_config)
     {
-        log.debug("Reading application configuration !");
+        LOG.debug("Reading application configuration !");
 
         PropertiesFile pp = new PropertiesFile(main_config);
 
@@ -150,9 +155,10 @@ public class DataListProcessor
 
         if (!this.main_configuration_read)
         {
-            log.error("Problem reading main configuration (file=" + main_config + ")");
+            LOG.error("Problem reading main configuration (file=" + main_config + ")");
         }
     }
+
 
     /**
      * Was Configuration Read
@@ -164,22 +170,23 @@ public class DataListProcessor
         return this.main_configuration_read;
     }
 
+
     /**
      * Read User Configuration
      */
     public void readUserConfiguration()
     {
-        log.debug("Reading user configuration !");
+        LOG.debug("Reading user configuration !");
         String name = null;
 
         name = "../config/TranslatorSettings.config";
         if (new File(name).exists())
         {
-            log.debug("Found TranslatorSettings.config !");
+            LOG.debug("Found TranslatorSettings.config !");
         }
         else
         {
-            log.debug("Not found TranslatorSettings.config, reading default instead !");
+            LOG.debug("Not found TranslatorSettings.config, reading default instead !");
             name = "../config/TranslatorSettings.config_default";
         }
 
@@ -198,7 +205,7 @@ public class DataListProcessor
             {}
         }
 
-        log.debug("   File was read: " + this.user_configuration_read);
+        LOG.debug("   File was read: " + this.user_configuration_read);
 
         /*
          * #
@@ -221,6 +228,7 @@ public class DataListProcessor
 
     }
 
+
     /**
      * Was user config read
      * 
@@ -230,6 +238,7 @@ public class DataListProcessor
     {
         return this.user_configuration_read;
     }
+
 
     /**
      * Read Master File
@@ -241,6 +250,7 @@ public class DataListProcessor
         master_file_read = mfr.wasFileRead();
     }
 
+
     /**
      * Read Master File
      * 
@@ -249,16 +259,17 @@ public class DataListProcessor
      */
     public MasterFileReader readMasterFile(String master_file_name)
     {
-        log.debug("Reading master file: " + master_file_name + " !");
+        LOG.debug("Reading master file: " + master_file_name + " !");
         mfr = new MasterFileReader("../files/master_files/" + master_file_name + ".properties");
         // master_file_read = mfr.wasFileRead();
 
-        log.debug("   Is Master file: " + mfr.isMasterFile());
-        log.debug("   Was file read: " + mfr.wasFileRead());
+        LOG.debug("   Is Master file: " + mfr.isMasterFile());
+        LOG.debug("   Was file read: " + mfr.wasFileRead());
 
         return mfr;
         // System.out.println("Master File: " + mfr.isMasterFile());
     }
+
 
     /**
      * Is file treated as Master file, really master file
@@ -270,13 +281,15 @@ public class DataListProcessor
         return this.mfr.isMasterFile();
     }
 
+
     /**
      * Read Master File Config
      */
     public void readMasterFileConfig()
     {
-        // System.out.println("DataListProcessor.readMasterFileConfig() NOT implemented !");
-        log.debug("Read master file config ");
+        // System.out.println("DataListProcessor.readMasterFileConfig() NOT
+        // implemented !");
+        LOG.debug("Read master file config ");
 
         PropertiesFile pp = null; // new PropertiesFile("../files/master_files/"
                                   // + master_file_name + ".config");
@@ -291,7 +304,7 @@ public class DataListProcessor
             return;
         }
 
-        log.debug("   Was file read: " + pp.wasFileRead());
+        LOG.debug("   Was file read: " + pp.wasFileRead());
 
         // this.translation_file_read = pp.file_read;
         int idx = -1;
@@ -319,22 +332,23 @@ public class DataListProcessor
             }
             else
             {
-                log.warn("This key type is unknown !!!");
+                LOG.warn("This key type is unknown !!!");
             }
 
         }
 
     }
 
+
     private void readTranslationTarget()
     {
-        log.debug("Read Translation Target");
+        LOG.debug("Read Translation Target");
 
         PropertiesFile pp = new PropertiesFile("../files/translation/" + getTargetFileRoot() + ".properties");
 
         // x this.translation_file_read = pp.wasFileRead();
 
-        log.debug("   Was file read: " + pp.wasFileRead());
+        LOG.debug("   Was file read: " + pp.wasFileRead());
 
         for (Enumeration<String> en = pp.keys(); en.hasMoreElements();)
         {
@@ -352,6 +366,7 @@ public class DataListProcessor
 
     }
 
+
     /**
      * Get Full Header
      * 
@@ -368,6 +383,7 @@ public class DataListProcessor
         return sb.toString();
     }
 
+
     private String getHeader()
     {
         StringBuffer sb = new StringBuffer();
@@ -375,12 +391,13 @@ public class DataListProcessor
         sb.append("#\n");
         sb.append("#  ######################################################################\n");
         sb.append("#  ###" + getTextLineCenter("GNU Glucose Control", 64) + "###\n");
-        // "                      GNU Glucose Control                       ###\n");
+        // " GNU Glucose Control ###\n");
         sb.append("#  ######################################################################\n");
         sb.append("#  ###    Language: " + getTextLine(this.user_config.get("TRANSLATION_LANGUAGE"), 50) + "###\n");
         sb.append("#  ###    Created by: "
-                + getTextLine(this.user_config.get("TRANSLATOR_NAME") + " (" + this.user_config.get("TRANSLATOR_EMAIL")
-                        + ")", 48) + "###\n");
+                + getTextLine(
+                    this.user_config.get("TRANSLATOR_NAME") + " (" + this.user_config.get("TRANSLATOR_EMAIL") + ")", 48)
+                + "###\n");
         sb.append("#  ###    Version: " + getTextLine(m_da.getTranslationConfig().get("MODULE_VERSION"), 51) + "###\n");
         sb.append("#  ###    Last change: " + getTextLine(m_da.getCurrentDateTimeString(), 47) + "###\n");
         sb.append("#  ######################################################################\n");
@@ -388,6 +405,7 @@ public class DataListProcessor
 
         return sb.toString();
     }
+
 
     private String getStatus()
     {
@@ -407,6 +425,7 @@ public class DataListProcessor
 
     }
 
+
     private String getCollationRules()
     {
 
@@ -423,6 +442,7 @@ public class DataListProcessor
 
     }
 
+
     /**
      * Get Translation Encoded
      * 
@@ -434,6 +454,7 @@ public class DataListProcessor
         return m_da.unicode_utils.getASCIIFromUnicodeFull(str);
     }
 
+
     private String getPercents(int number, int max)
     {
         float f = number * 1.0f / (max * 1.0f);
@@ -441,6 +462,7 @@ public class DataListProcessor
 
         return Rounding.specialRoundingString(f, "1");
     }
+
 
     /**
      * Get Sub Header Full
@@ -467,6 +489,7 @@ public class DataListProcessor
 
         return sb.toString();
     }
+
 
     private String getSubHeader(String part)
     {
@@ -495,6 +518,7 @@ public class DataListProcessor
 
     }
 
+
     private String getTextLineCenter(String text, int length)
     {
         int start = text.length() / 2;
@@ -509,6 +533,7 @@ public class DataListProcessor
         return sb.toString();
     }
 
+
     private String getTextLine(String text, int length)
     {
         StringBuffer sb = new StringBuffer();
@@ -521,6 +546,7 @@ public class DataListProcessor
         return text + sb.toString();
     }
 
+
     /**
      * Get Target File Root
      * 
@@ -531,17 +557,18 @@ public class DataListProcessor
         return this.master_file_root + "_" + this.user_config.get("TRANSLATION_LANGUAGE_SHORT");
     }
 
+
     // this.master_file_root + "_" +
     // this.user_config.get("TRANSLATION_LANGUAGE_SHORT")
 
     private void readTranslationTargetConfig()
     {
-        log.debug("Read Translation Target Config");
+        LOG.debug("Read Translation Target Config");
 
         PropertiesFile pp = new PropertiesFile("../files/translation/" + getTargetFileRoot() + ".config");
 
         // this.translation_file_read = pp.wasFileRead();
-        log.debug("   Was file read: " + pp.wasFileRead());
+        LOG.debug("   Was file read: " + pp.wasFileRead());
 
         if (!pp.wasFileRead())
         {
@@ -591,11 +618,12 @@ public class DataListProcessor
             }
             else
             {
-                log.warn("This key type is unknown !!!");
+                LOG.warn("This key type is unknown !!!");
             }
         }
 
     }
+
 
     private void processTranslationData(boolean check_status)
     {
@@ -620,6 +648,7 @@ public class DataListProcessor
 
     }
 
+
     /**
      * Reset Status
      */
@@ -627,6 +656,7 @@ public class DataListProcessor
     {
         this.tra_data.resetStatus();
     }
+
 
     /**
      * Get Statuses
@@ -637,6 +667,7 @@ public class DataListProcessor
     {
         return this.tra_data.getStatuses();
     }
+
 
     /**
      * Get Current Entry
@@ -651,6 +682,7 @@ public class DataListProcessor
             return this.tra_data.get(this.current_index);
     }
 
+
     /**
      * Move First
      * 
@@ -661,6 +693,7 @@ public class DataListProcessor
         current_index = 0;
         return !this.tra_data.isEmpty();
     }
+
 
     /**
      * Move Next
@@ -684,6 +717,7 @@ public class DataListProcessor
         }
 
     }
+
 
     /**
      * Move to Next Untranslated
@@ -713,6 +747,7 @@ public class DataListProcessor
         return found;
     }
 
+
     /**
      * Move Previous
      * 
@@ -735,6 +770,7 @@ public class DataListProcessor
         }
     }
 
+
     /**
      * Get Current Index
      * 
@@ -744,6 +780,7 @@ public class DataListProcessor
     {
         return this.current_index;
     }
+
 
     /**
      * Move to Previous Untranslated
@@ -773,6 +810,7 @@ public class DataListProcessor
         return found;
     }
 
+
     /**
      * Save Translation
      */
@@ -781,6 +819,7 @@ public class DataListProcessor
         this.tra_data.save(this);
     }
 
+
     /**
      * Save Translation
      */
@@ -788,6 +827,7 @@ public class DataListProcessor
     {
         this.tra_data.saveBackup(this);
     }
+
 
     /**
      * Returns backup time

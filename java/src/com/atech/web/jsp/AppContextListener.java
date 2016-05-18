@@ -8,8 +8,8 @@ import java.util.Hashtable;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.utils.file.PropertiesFile;
 
@@ -47,20 +47,22 @@ public class AppContextListener implements ServletContextListener
 {
 
     Hashtable<String, AppContextAbstract> contexts = null;
-    private static Log log = LogFactory.getLog(AppContextListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AppContextListener.class);
 
     private String[] available_parameters = { "NAME", "TITLE", "MULTILANGUAGE", "BASE_LANG", "LANGUAGE",
-                                             "AVAILABLE_LANGUAGES", "DB_TYPE", "MAIN_CLASS", "JDBC_DRIVER", "JDBC_URL",
-                                             "JDBC_USERNAME", "JDBC_PASSWORD" };
+                                              "AVAILABLE_LANGUAGES", "DB_TYPE", "MAIN_CLASS", "JDBC_DRIVER", "JDBC_URL",
+                                              "JDBC_USERNAME", "JDBC_PASSWORD" };
+
 
     public void contextInitialized(ServletContextEvent event)
     {
         initalizeContexts();
     }
 
+
     public void contextDestroyed(ServletContextEvent event)
     {
-        log.debug("contextDestroyed");
+        LOG.debug("contextDestroyed");
 
         if (contexts != null)
         {
@@ -71,25 +73,26 @@ public class AppContextListener implements ServletContextListener
         }
     }
 
+
     /**
      * Initalize Contexts
      */
     public void initalizeContexts()
     {
-        log.debug("initalizeContexts()");
+        LOG.debug("initalizeContexts()");
 
         File f = new File("../conf/ATechFramework.config");
 
         if (f.exists())
         {
-            log.info("Configuration file found.");
+            LOG.info("Configuration file found.");
             PropertiesFile pf = new PropertiesFile("../conf/ATechFramework.config");
             pf.readFile();
 
             if (pf.containsKey("CONTEXTS_COUNT"))
             {
                 int cntx_cnt = Integer.parseInt(pf.get("CONTEXTS_COUNT"));
-                log.debug("Found " + cntx_cnt + " contexts !");
+                LOG.debug("Found " + cntx_cnt + " contexts !");
                 Hashtable<String, Hashtable<String, String>> parameters = loadParameters(cntx_cnt, pf);
 
                 this.createContexts(parameters);
@@ -97,15 +100,16 @@ public class AppContextListener implements ServletContextListener
             }
             else
             {
-                log.error("Invalid config file !");
+                LOG.error("Invalid config file !");
             }
 
         }
         else
         {
-            log.warn("No configuration file found. No contexts loaded !");
+            LOG.warn("No configuration file found. No contexts loaded !");
         }
     }
+
 
     private Hashtable<String, Hashtable<String, String>> loadParameters(int count, PropertiesFile pf)
     {
@@ -128,13 +132,14 @@ public class AppContextListener implements ServletContextListener
 
             }
 
-            log.debug("Found " + pf.size() + " parameters for context " + i + " [" + ht.get("NAME") + "]");
+            LOG.debug("Found " + pf.size() + " parameters for context " + i + " [" + ht.get("NAME") + "]");
             params.put("" + i, ht);
         }
 
         return params;
 
     }
+
 
     private void createContexts(Hashtable<String, Hashtable<String, String>> params)
     {
@@ -164,7 +169,7 @@ public class AppContextListener implements ServletContextListener
 
                 if (method == null)
                 {
-                    log.error("Main context class [" + p1.get("MAIN_CLASS")
+                    LOG.error("Main context class [" + p1.get("MAIN_CLASS")
                             + "] doesn't contain required static method createInstance() !!!");
                     continue;
                 }
@@ -180,7 +185,7 @@ public class AppContextListener implements ServletContextListener
             }
             catch (Exception ex)
             {
-                log.error("Problem with init... Ex.: " + ex, ex);
+                LOG.error("Problem with init... Ex.: " + ex, ex);
             }
         }
     }

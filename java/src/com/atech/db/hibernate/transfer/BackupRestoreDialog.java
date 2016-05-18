@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
@@ -50,8 +50,8 @@ import com.atech.utils.ATSwingUtils;
  *
  */
 
-public abstract class BackupRestoreDialog extends JDialog implements ActionListener, BackupRestoreWorkGiver,
-        HelpCapable, ComponentHelpCapable
+public abstract class BackupRestoreDialog extends JDialog
+        implements ActionListener, BackupRestoreWorkGiver, HelpCapable, ComponentHelpCapable
 {
 
     private static final long serialVersionUID = 4209248421335758364L;
@@ -102,6 +102,8 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
 
         backupRestoreRoot = br_coll;
 
+        System.out.println("BRC: " + da.getBackupRestoreCollection());
+
         init();
     }
 
@@ -121,6 +123,8 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         this.ic = m_da.getI18nControlInstance();
 
         backupRestoreRoot = br_coll;
+
+        System.out.println("BRC: " + da.getBackupRestoreCollection());
 
         init();
     }
@@ -301,10 +305,10 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
     {
         if (task == null)
         {
-            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS")
-                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("BACKUP_NOT_STARTED_YET") + "</html>");
-            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK")
-                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("NO_TASK_STARTED") + "</html>");
+            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
+                    + ic.getMessage("BACKUP_NOT_STARTED_YET") + "</html>");
+            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
+                    + ic.getMessage("NO_TASK_STARTED") + "</html>");
         }
         else
         {
@@ -314,11 +318,10 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
             tsk++;
 
             // System.out.println("Task: " + tsk);
-            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS")
-                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + ic.getMessage("TASK") + " (" + tsk + "/"
-                    + this.count_of_backup_elements + ")</html>");
-            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK")
-                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + task + "</html>");
+            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
+                    + ic.getMessage("TASK") + " (" + tsk + "/" + this.count_of_backup_elements + ")</html>");
+            label_current_progress.setText(
+                "<html><b>" + ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + task + "</html>");
         }
     }
 
@@ -476,7 +479,7 @@ public abstract class BackupRestoreDialog extends JDialog implements ActionListe
         else
         {
             // children
-            ArrayList<CheckBoxTreeNodeInterface> lst = cb.getNodeChildren();
+            List<CheckBoxTreeNodeInterface> lst = cb.getNodeChildren();
 
             for (int i = 0; i < lst.size(); i++)
             {

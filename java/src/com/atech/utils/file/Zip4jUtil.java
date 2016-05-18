@@ -1,9 +1,11 @@
 package com.atech.utils.file;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.model.ZipParameters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,16 @@ public class Zip4jUtil
 {
 
     private static final Logger LOG = LoggerFactory.getLogger(Zip4jUtil.class);
+
+
+    public static void zipFile(File targetFile, ArrayList<File> filesToZip) throws ZipException
+    {
+        ZipFile zipFile = new ZipFile(targetFile);
+        zipFile.addFiles(filesToZip, new ZipParameters());
+
+        // ZipParameters parameters = new ZipParameters();
+
+    }
 
 
     public static void unzipFile(File sourceFile, File destination) throws ZipException

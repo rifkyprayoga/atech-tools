@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.help.HelpCapable;
 import com.atech.utils.ATDataAccessAbstract;
@@ -43,7 +43,7 @@ import com.atech.utils.ATDataAccessAbstract;
  * In case that action is not handled, we need to set base error message (with
  * something like 'Unknown exception occured...'. We have base message already
  * set but this is in english.
- * Set static instance of log in each Dialog that extends this one... Use log
+ * Set static instance of LOG in each Dialog that extends this one... Use LOG
  * messages frequently, especially in situations where exception can fall.
  *
  * @author andy
@@ -53,10 +53,10 @@ public abstract class ActionExceptionCatchDialog extends JDialog implements Acti
 {
 
     private static final long serialVersionUID = -5125099590281275283L;
-    // private static Log log =
+    // private static Log LOG =
     // LogFactory.getLog(ActionExceptionCatchDialog.class);
     @SuppressWarnings("unused")
-    private static Log log = LogFactory.getLog(ActionExceptionCatchDialog.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ActionExceptionCatchDialog.class);
     /**
      * The dataAccess.
      */

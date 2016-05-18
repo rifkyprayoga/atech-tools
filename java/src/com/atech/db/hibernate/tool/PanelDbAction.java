@@ -8,8 +8,8 @@ import java.sql.DriverManager;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.utils.ATSwingUtils;
 
@@ -52,7 +52,7 @@ public class PanelDbAction extends JPanel implements ActionListener
     private static final long serialVersionUID = -7332134335611323091L;
     I18nControlDbT ic = I18nControlDbT.getInstance();
     DbToolAccess m_da = null;
-    private static Log log = LogFactory.getLog(PanelDbAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PanelDbAction.class);
 
     DbToolApplicationInterface m_application = null;
 
@@ -202,7 +202,7 @@ public class PanelDbAction extends JPanel implements ActionListener
             JOptionPane.showMessageDialog(m_dialog, ic.getMessage("CONNECTION_PROBLEM"), ic.getMessage("ERROR"),
                 JOptionPane.ERROR_MESSAGE, null);
             System.out.println("Exception: " + ex);
-            log.error("Exception: " + ex, ex);
+            LOG.error("Exception: " + ex, ex);
         }
     }
 

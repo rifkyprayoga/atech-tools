@@ -1,8 +1,8 @@
 package com.atech.db.hibernate.tool;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.db.hibernate.HibernateConfiguration;
 
@@ -40,7 +40,7 @@ import com.atech.db.hibernate.HibernateConfiguration;
 public abstract class DbToolInitDb
 {
 
-    private static Log log = LogFactory.getLog(DbToolInitDb.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DbToolInitDb.class);
 
     /**
      * The Constant INIT_TYPE_NONE.
@@ -82,6 +82,7 @@ public abstract class DbToolInitDb
      */
     Exception error_exception;
 
+
     /**
      * Instantiates a new db tool init db.
      * 
@@ -94,6 +95,7 @@ public abstract class DbToolInitDb
         this.init_type = init_type_;
     }
 
+
     /**
      * Checks if is inits the possible.
      * 
@@ -103,6 +105,7 @@ public abstract class DbToolInitDb
     {
         return init_type > 0;
     }
+
 
     /**
      * Db init.
@@ -129,6 +132,7 @@ public abstract class DbToolInitDb
             return false;
     }
 
+
     /**
      * Gets the error code.
      * 
@@ -140,6 +144,7 @@ public abstract class DbToolInitDb
 
     }
 
+
     /**
      * Gets the error description.
      * 
@@ -150,6 +155,7 @@ public abstract class DbToolInitDb
         return this.error_desc;
     }
 
+
     /**
      * Gets the error exception.
      * 
@@ -159,6 +165,7 @@ public abstract class DbToolInitDb
     {
         return this.error_exception;
     }
+
 
     /**
      * Creates the tables.
@@ -173,12 +180,13 @@ public abstract class DbToolInitDb
         }
         catch (Exception ex)
         {
-            log.error("createTables exception: " + ex, ex);
+            LOG.error("createTables exception: " + ex, ex);
             return false;
         }
 
         return true;
     }
+
 
     /**
      * Drop Tables
@@ -198,6 +206,7 @@ public abstract class DbToolInitDb
 
         return true;
     }
+
 
     /**
      * Fill data.

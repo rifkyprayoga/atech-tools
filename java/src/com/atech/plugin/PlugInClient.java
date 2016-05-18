@@ -9,8 +9,8 @@ import java.util.Map;
 
 import javax.swing.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
@@ -68,7 +68,7 @@ public abstract class PlugInClient implements ActionListener
     protected ArrayList<TransferDialog> transfer_objects = null;
 
     protected ATDataAccessLMAbstract da_parent = null;
-    private static final Log LOG = LogFactory.getLog(PlugInClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PlugInClient.class);
 
 
     /**

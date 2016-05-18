@@ -5,11 +5,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Minutes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccess;
@@ -40,7 +40,7 @@ import com.atech.utils.ATDataAccess;
 public class ATechDate
 {
 
-    private static Log log = LogFactory.getLog(ATechDate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ATechDate.class);
 
     /**
      * The i18n_control.
@@ -247,6 +247,21 @@ public class ATechDate
         this.msecond = 0;
 
         atechDatetimeType = type;
+        atechDatetimeTypeObject = ATechDateType.getByType(this.atechDatetimeType);
+    }
+
+
+    public ATechDate(int _day, int _month, int _year, int _hour, int _minute, ATechDateType type)
+    {
+        this.dayOfMonth = _day;
+        this.month = _month;
+        this.year = _year;
+        this.hourOfDay = _hour;
+        this.minute = _minute;
+        this.second = 0;
+        this.msecond = 0;
+
+        atechDatetimeType = type.getCode();
         atechDatetimeTypeObject = ATechDateType.getByType(this.atechDatetimeType);
     }
 
@@ -1433,7 +1448,7 @@ public class ATechDate
                     }
 
                 default:
-                    log.error("Equals for this type is not implemented !");
+                    LOG.error("Equals for this type is not implemented !");
                     return false;
             }
 

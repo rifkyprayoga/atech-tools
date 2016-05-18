@@ -1,6 +1,7 @@
 package com.atech.db.hibernate.hdb_object;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -51,12 +52,14 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     private I18nControlAbstract ic;
     private boolean backup_object = false;
 
+
     /**
      * Constructor
      */
     public Settings()
     {
     }
+
 
     /**
      * Constructor
@@ -68,6 +71,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         this.ic = ic;
         this.backup_object = true;
     }
+
 
     /**
      * Constructor
@@ -83,6 +87,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         this.setDescription(ch.getDescription());
     }
 
+
     /**
      * Get Short Description
      * 
@@ -93,10 +98,9 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return "Settings [Key=" + this.getKey() + ";Value=" + this.getValue() + "]";
     }
 
+
     /**
      * To String
-     * 
-     * @see ggc.core.db.hibernate.SettingsH#toString()
      */
     @Override
     public String toString()
@@ -107,6 +111,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
             return this.getShortDescription();
     }
 
+
     /**
      * Set Element Edited
      */
@@ -115,6 +120,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         this.edited = true;
     }
 
+
     /**
      * Set Element Added
      */
@@ -122,6 +128,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         this.added = true;
     }
+
 
     /**
      * Is Element Edited
@@ -132,6 +139,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return this.edited;
     }
 
+
     /**
      * Is Element Added
      * 
@@ -141,6 +149,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return this.added;
     }
+
 
     // ---
     // --- DatabaseObjectHibernate
@@ -175,6 +184,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
 
     }
 
+
     /**
      * DbEdit - Edit this object in database
      * 
@@ -204,6 +214,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
 
     }
 
+
     /**
      * DbDelete - Delete this object in database
      * 
@@ -227,6 +238,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
 
     }
 
+
     /**
      * DbHasChildren - Shows if this entry has any children object, this is
      * needed for delete
@@ -242,6 +254,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return false;
     }
+
 
     /**
      * DbGet - Loads this object. Id must be set.
@@ -267,6 +280,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return true;
     }
 
+
     /**
      * getObjectName - returns name of DatabaseObject
      * 
@@ -277,6 +291,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return "Settings";
     }
 
+
     /**
      * isDebugMode - returns debug mode of object
      * 
@@ -286,6 +301,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return debug;
     }
+
 
     /**
      * getAction - returns action that should be done on object 0 = no action 1
@@ -306,6 +322,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
 
     private boolean selected = false;
 
+
     /**
      * getTargetName
      */
@@ -313,6 +330,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return ic.getMessage("SETTINGS");
     }
+
 
     /**
      * Get Class Name
@@ -324,6 +342,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return "ggc.core.db.hibernate.SettingsH";
     }
 
+
     /**
      * Get Name
      * 
@@ -333,6 +352,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return this.getTargetName();
     }
+
 
     // ---
     // --- BackupRestoreObject
@@ -348,6 +368,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return null;
     }
 
+
     /**
      * Is Selected
      */
@@ -356,6 +377,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return selected;
     }
 
+
     /**
      * Set Selected
      */
@@ -363,6 +385,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         this.selected = newValue;
     }
+
 
     /**
      * Is Collection
@@ -374,6 +397,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return false;
     }
 
+
     /**
      * Has Children
      * 
@@ -383,6 +407,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return false;
     }
+
 
     /**
      * getObjectUniqueId - get id of object
@@ -399,6 +424,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
      */
     public int TABLE_VERSION = 1;
 
+
     /**
      * getTableVersion - returns version of table
      * 
@@ -408,6 +434,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return this.TABLE_VERSION;
     }
+
 
     /**
      * dbExport - returns export String, for current version 
@@ -421,6 +448,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return null;
     }
 
+
     /**
      * dbExport - returns export String, for current version 
      *
@@ -431,6 +459,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return dbExport(this.TABLE_VERSION);
     }
+
 
     /**
      * dbExportHeader - header for export file
@@ -444,6 +473,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return null;
     }
 
+
     /**
      * dbExportHeader - header for export file
      * 
@@ -454,6 +484,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return this.dbExportHeader(this.TABLE_VERSION);
     }
 
+
     /**
      * dbImport - processes input entry to right fields
      * 
@@ -463,8 +494,9 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
      */
     public void dbImport(int table_version, String value_entry) throws Exception
     {
-        dbImport(table_version, value_entry, null);
+        dbImport(table_version, value_entry, (Object[]) null);
     }
+
 
     /**
      * dbImport - processes input entry to right fields
@@ -479,6 +511,22 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         // TODO
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public void dbImport(int tableVersion, String valueEntry, Map<String, String> headers) throws Exception
+    {
+
+    }
+
+
+    public boolean isNewImport()
+    {
+        return false;
+    }
+
+
     /**
      * getBackupFile - name of backup file (base part)
      * 
@@ -488,6 +536,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return "SettingsH";
     }
+
 
     /**
      * getBackupClassName - name of class which will be updated/restored
@@ -499,6 +548,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return "ggc.core.db.hibernate.SettingsH";
     }
 
+
     /**
      * Has To Be Clean - if table needs to be cleaned before import
      * 
@@ -509,6 +559,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
         return true;
     }
 
+
     /** 
      * Get Node Children
      */
@@ -516,6 +567,7 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
     {
         return null;
     }
+
 
     /** 
      * Has Node Children

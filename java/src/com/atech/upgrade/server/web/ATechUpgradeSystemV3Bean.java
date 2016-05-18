@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.upgrade.server.db.DataLayerUpdateServletV3;
 import com.atech.upgrade.server.defs.ErrorResponseDef;
@@ -32,7 +32,8 @@ public class ATechUpgradeSystemV3Bean extends HttpServlet
 {
 
     private static final long serialVersionUID = 1517318150512783211L;
-    private static final Log LOG = LogFactory.getLog(ATechUpgradeSystemV3Bean.class);
+
+    private static final Logger LOG = LoggerFactory.getLogger(ATechUpgradeSystemV3Bean.class);
 
 
     /**
@@ -51,8 +52,7 @@ public class ATechUpgradeSystemV3Bean extends HttpServlet
         String action = getParameter(request, "action");
 
         if ((!checkIfParameterPresent(applicationName, ErrorResponseDef.ApplicationNotSet, response,
-            updateServerResponse))
-                || //
+            updateServerResponse)) || //
                 (!checkIfParameterPresent(versionStr, ErrorResponseDef.VersionNotSet, response, updateServerResponse))
                 || //
                 (!checkIfParameterPresent(action, ErrorResponseDef.ActionNotSet, response, updateServerResponse)))
@@ -136,8 +136,8 @@ public class ATechUpgradeSystemV3Bean extends HttpServlet
     {
         DataLayerUpdateServletV3 dl = DataLayerUpdateServletV3.getInstance();
 
-        List<ApplicationNoteDTO> notes = dl
-                .getNotes(updateServerResponse.applicationName, updateServerResponse.version);
+        List<ApplicationNoteDTO> notes = dl.getNotes(updateServerResponse.applicationName,
+            updateServerResponse.version);
 
         UpdateNotesDTO dto = new UpdateNotesDTO();
         dto.notes = notes;
@@ -449,29 +449,29 @@ public class ATechUpgradeSystemV3Bean extends HttpServlet
         // out.println("<!--\n\n");
         // out.println("=== APPLICATION REPORT ===\n");
         // out.println("<server_report>");
-        // out.println("  <error_nr>" + this.error_id + "</error_nr>");
-        // out.println("  <error_code>" + this.error_code + "</error_code>");
+        // out.println(" <error_nr>" + this.error_id + "</error_nr>");
+        // out.println(" <error_code>" + this.error_code + "</error_code>");
         //
         // if (this.error_id == 0)
         // {
-        // out.println("  <versions>");
-        // out.println("    <latest_version>" + latest_ver +
+        // out.println(" <versions>");
+        // out.println(" <latest_version>" + latest_ver +
         // "</latest_version>\n");
         //
         // if (!latest_ver)
         // {
         //
-        // out.println("  <newer_version_our_db>" + (never_ver != -1) +
+        // out.println(" <newer_version_our_db>" + (never_ver != -1) +
         // "</newer_version_our_db>");
-        // out.println("  <newer_version_our_db_number>" + never_ver +
+        // out.println(" <newer_version_our_db_number>" + never_ver +
         // "</newer_version_our_db_number>");
-        // out.println("  <newer_version_higher_db>" + new_for_new_db +
+        // out.println(" <newer_version_higher_db>" + new_for_new_db +
         // "</newer_version_higher_db>");
-        // out.println("  <newer_version_higher_db_number>" +
+        // out.println(" <newer_version_higher_db_number>" +
         // this.getLatestVersion(app).version_num
         // + "</newer_version_higher_db_number>\n");
         // }
-        // out.println("  </versions>");
+        // out.println(" </versions>");
         //
         // }
         // out.println("</server_report>");

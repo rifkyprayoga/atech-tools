@@ -3,7 +3,8 @@ package com.atech.update.startup.os;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  Linux - File for creating batch files in Linux
+ *  Windows - File for creating batch files in Windows
+ *  
  *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
@@ -30,7 +31,7 @@ package com.atech.update.startup.os;
  *
 */
 
-public class Linux extends StartupOSAbstract
+public class WindowsStartupOS extends StartupOSAbstract
 {
 
     /**
@@ -41,8 +42,9 @@ public class Linux extends StartupOSAbstract
     @Override
     public String getHeader()
     {
-        return "#!/bin/sh\n\n" + "#  Run Application\n";
+        return "@echo off\n\n" + "rem   Run Application\n";
     }
+
 
     /**
      * Get Separator - this is path separator 
@@ -52,8 +54,9 @@ public class Linux extends StartupOSAbstract
     @Override
     public String getSeparator()
     {
-        return ":";
+        return ";";
     }
+
 
     /**
      * Get Batch File Extension
@@ -63,8 +66,9 @@ public class Linux extends StartupOSAbstract
     @Override
     public String getBatchFileExtension()
     {
-        return "sh";
+        return "bat";
     }
+
 
     /**
      * Get Short OS Name (this is not official name, but name we use)
@@ -74,8 +78,9 @@ public class Linux extends StartupOSAbstract
     @Override
     public String getShortOSName()
     {
-        return "linux";
+        return "win";
     }
+
 
     /**
      * Get How Parameter is constructed (%1 in windows, $1 in unix)
@@ -85,7 +90,7 @@ public class Linux extends StartupOSAbstract
     @Override
     public String getCustomParameter()
     {
-        return "$";
+        return "%";
     }
 
 }

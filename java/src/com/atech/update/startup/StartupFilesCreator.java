@@ -6,18 +6,8 @@ import java.io.FileWriter;
 
 import com.atech.update.config.ComponentCustomApp;
 import com.atech.update.config.UpdateConfiguration;
-import com.atech.update.startup.files.ApplicationFile;
-import com.atech.update.startup.files.DbApplication;
-import com.atech.update.startup.files.DbCheck;
-import com.atech.update.startup.files.DbImport;
-import com.atech.update.startup.files.DbInit;
-import com.atech.update.startup.files.DbTool;
-import com.atech.update.startup.files.StartupFileAbstract;
-import com.atech.update.startup.os.FreeBSD;
-import com.atech.update.startup.os.Linux;
-import com.atech.update.startup.os.Mac;
-import com.atech.update.startup.os.StartupOSAbstract;
-import com.atech.update.startup.os.Windows;
+import com.atech.update.startup.files.*;
+import com.atech.update.startup.os.*;
 
 /**
  *  This file is part of ATech Tools library.
@@ -59,18 +49,22 @@ public class StartupFilesCreator
     String root = "..";
     String extension = "";
 
-    StartupOSAbstract os_abstract = null;
+    StartupOSAbstract startupOS = null;
+    int startupType = 1;
+
 
     /**
      * Constructor
      * 
      * @param uc
      */
-    public StartupFilesCreator(UpdateConfiguration uc)
+    public StartupFilesCreator(UpdateConfiguration uc, int startupType)
     {
         this.uc = uc;
+        this.startupType = startupType;
         init();
     }
+
 
     protected void init()
     {
@@ -80,19 +74,19 @@ public class StartupFilesCreator
 
         if (os_name.contains("Linux"))
         {
-            this.os_abstract = new Linux();
+            this.startupOS = new LinuxStartupOS();
         }
         else if (os_name.contains("FreeBSD"))
         {
-            this.os_abstract = new FreeBSD();
+            this.startupOS = new FreeBSDStartupOS();
         }
         else if (os_name.contains("Win"))
         {
-            this.os_abstract = new Windows();
+            this.startupOS = new WindowsStartupOS();
         }
         else if (os_name.contains("Mac"))
         {
-            this.os_abstract = new Mac();
+            this.startupOS = new MacStartupOS();
         }
         else
         {
@@ -100,6 +94,9 @@ public class StartupFilesCreator
 
             // return null;
         }
+
+        if (this.startupOS != null)
+            this.startupOS.setStartupType(this.startupType);
 
         /*
          * os.name os.version os.arch Comments
@@ -180,14 +177,16 @@ public class StartupFilesCreator
 
     }
 
+
     /**
      * Get OS Abstract class instance
      * @return
      */
     public StartupOSAbstract getOSAbstract()
     {
-        return this.os_abstract;
+        return this.startupOS;
     }
+
 
     /**
      * Create Files
@@ -200,35 +199,35 @@ public class StartupFilesCreator
 
         if (this.uc.db_apps.get("db_tool").enabled)
         {
-            createFile(new DbTool(this.uc, this.os_abstract));
+            createFile(new DbTool(this.uc, this.startupOS));
         }
 
         // System.out.println("Create Files Ch: ");
 
         if (this.uc.db_apps.get("db_check").enabled)
         {
-            createFile(new DbCheck(this.uc, this.os_abstract));
+            createFile(new DbCheck(this.uc, this.startupOS));
         }
 
         // System.out.println("Create Files App: ");
 
         if (this.uc.db_apps.get("db_application").enabled)
         {
-            createFile(new DbApplication(this.uc, this.os_abstract));
+            createFile(new DbApplication(this.uc, this.startupOS));
         }
 
         // System.out.println("Create Files Db Init: ");
 
         if (this.uc.db_apps.get("db_init").enabled)
         {
-            createFile(new DbInit(this.uc, this.os_abstract));
+            createFile(new DbInit(this.uc, this.startupOS));
         }
 
         // System.out.println("Create Files Dm Impo: ");
 
         if (this.uc.db_apps.get("db_import").enabled)
         {
-            createFile(new DbImport(this.uc, this.os_abstract));
+            createFile(new DbImport(this.uc, this.startupOS));
         }
 
         // System.out.println("Create Files Bef Custom: ");
@@ -238,6 +237,7 @@ public class StartupFilesCreator
             createCustomFiles();
         }
     }
+
 
     /**
      * Create Custom Files
@@ -249,10 +249,10 @@ public class StartupFilesCreator
         for (int i = 1; i <= this.uc.custom_apps.size(); i++)
         {
             ComponentCustomApp cca = this.uc.custom_apps.get("" + i);
-            createFile(new ApplicationFile(this.uc, this.os_abstract, cca));
+            createFile(new ApplicationFile(this.uc, this.startupOS, cca));
         }
-
     }
+
 
     /**
      * Create File 
@@ -267,7 +267,7 @@ public class StartupFilesCreator
 
         try
         {
-            BufferedWriter br = new BufferedWriter(new FileWriter(new File(file_ab.getFileName())));
+            BufferedWriter br = new BufferedWriter(new FileWriter(new File(file_ab.getFullFilename())));
             br.write(file_ab.getFileContent());
             br.flush();
             br.close();
@@ -279,13 +279,13 @@ public class StartupFilesCreator
 
             throw ex;
         }
-
     }
+
 
     private void printNotSupported()
     {
-        System.out.println("This Operating System (" + os_name + ") is not supported "
-                + "\nby ATech's Startup/Update Manager.");
+        System.out.println(
+            "This Operating System (" + os_name + ") is not supported " + "\nby ATech's Startup/Update Manager.");
         System.out.println("If you wish to help us with support for your OS please contact us");
         System.out.println("on our email (support@atech-software.com).");
 

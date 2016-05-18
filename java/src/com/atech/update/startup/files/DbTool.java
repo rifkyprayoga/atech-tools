@@ -47,6 +47,7 @@ public class DbTool extends DbApplication
         super(uc, osa);
     }
 
+
     /**
      * Get Class Name
      * 
@@ -58,15 +59,14 @@ public class DbTool extends DbApplication
         return "com.atech.db.hibernate.tool.DbTool";
     }
 
+
     /**
-     * Get File Name for batch file
-     * 
-     * @return filename for batch file
+     * {@inheritDoc}
      */
     @Override
-    public String getFileName()
+    public String getNameOfFile()
     {
-        return "db_tool." + this.os_abstract.getBatchFileExtension();
+        return "db_tool";
     }
 
 }

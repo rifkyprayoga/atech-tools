@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
 import org.hibernate.dialect.Dialect;
@@ -16,6 +14,8 @@ import org.hibernate.exception.JDBCExceptionHelper;
 import org.hibernate.mapping.Table;
 import org.hibernate.type.Type;
 import org.hibernate.util.StringHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *  This file is part of ATech Tools library.
@@ -68,7 +68,8 @@ public class AssignedIncrementGenerator implements IdentifierGenerator, Configur
     private long next;
     private String sql;
     private Class<?> returnClass;
-    private static final Log log = LogFactory.getLog(AssignedIncrementGenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssignedIncrementGenerator.class);
+
 
     /**
      * Constructor
@@ -76,6 +77,7 @@ public class AssignedIncrementGenerator implements IdentifierGenerator, Configur
     public AssignedIncrementGenerator()
     {
     }
+
 
     /**
      * generate - method which needs to be implemented for Id generator to work
@@ -106,7 +108,7 @@ public class AssignedIncrementGenerator implements IdentifierGenerator, Configur
 
         if (ids == null || ids.equals("-1") || ids.equals("0"))
         {
-            log.debug("ID was not found. Creating new ID");
+            LOG.debug("ID was not found. Creating new ID");
             // System.out.println("ID was not found. Creating new ID");
 
             if (sql != null)
@@ -115,19 +117,21 @@ public class AssignedIncrementGenerator implements IdentifierGenerator, Configur
             }
             else
             {
-                log.error("SQL Variable was not set. Failed increment.");
-                // System.out.println("SQL Variable was not set. Failed increment.");
+                LOG.error("SQL Variable was not set. Failed increment.");
+                // System.out.println("SQL Variable was not set. Failed
+                // increment.");
             }
 
             return IdentifierGeneratorFactory.createNumber(next++, returnClass);
         }
         else
         {
-            log.debug("ID was already assigned: " + id);
+            LOG.debug("ID was already assigned: " + id);
             // System.out.println("ID was already assigned: " + id);
             return id;
         }
     }
+
 
     /**
      * configure - method which needs to be implemented for Id generator to work
@@ -135,7 +139,7 @@ public class AssignedIncrementGenerator implements IdentifierGenerator, Configur
     public void configure(Type type, Properties params, Dialect dialect) throws MappingException
     {
 
-        log.debug("configure");
+        LOG.debug("configure");
 
         // for assignment
         entityName = params.getProperty(ENTITY_NAME);
@@ -191,11 +195,12 @@ public class AssignedIncrementGenerator implements IdentifierGenerator, Configur
         sql = "select max(" + column + ") from " + buf.toString();
     }
 
+
     // From IncrementGenerator
     private void getNext(SessionImplementor session)
     {
 
-        log.debug("fetching initial value: " + sql);
+        LOG.debug("fetching initial value: " + sql);
 
         try
         {
@@ -218,7 +223,7 @@ public class AssignedIncrementGenerator implements IdentifierGenerator, Configur
                         next = 1;
                     }
                     // sql=null;
-                    log.debug("first free id: " + next);
+                    LOG.debug("first free id: " + next);
                 }
                 finally
                 {

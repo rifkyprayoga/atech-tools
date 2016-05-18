@@ -7,6 +7,7 @@ import java.util.*;
 import com.atech.update.config.ComponentEntry;
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.update.startup.os.OSUtil;
+import com.atech.utils.ATDataAccessAbstract;
 
 /**
  *  This file is part of ATech Tools library.
@@ -43,6 +44,7 @@ public class BuildStartupFile
 
     UpdateConfiguration upd_conf;
     StartupFilesCreator sfc; // = new StartupFileCreator(UpdateConfiguration uc)
+    int startupType = 1; // 1 = Default, old one, 2 = New (files in bin/ext)
 
 
     // StartupUtil dataAccess;
@@ -65,12 +67,20 @@ public class BuildStartupFile
             return;
         }
 
-        Hashtable<String, String> cfg = StartupUtil.getConfiguration(OSUtil.getOSSpecificConfigurationFile());
+        Hashtable<String, String> startupConfiguration = StartupUtil
+                .getConfiguration(OSUtil.getOSSpecificConfigurationFile());
 
-        if (cfg.containsKey("UPDATE_CONFIG"))
+        if (startupConfiguration.containsKey("STARTUP_TYPE"))
         {
-            this.upd_conf = new UpdateConfiguration(cfg.get("UPDATE_CONFIG"), cfg.get("JAVA_EXE"));
-            this.sfc = new StartupFilesCreator(this.upd_conf);
+            this.startupType = ATDataAccessAbstract.getIntValueFromString(startupConfiguration.get("STARTUP_TYPE"), 1,
+                null);
+        }
+
+        if (startupConfiguration.containsKey("UPDATE_CONFIG"))
+        {
+            this.upd_conf = new UpdateConfiguration(startupConfiguration.get("UPDATE_CONFIG"),
+                    startupConfiguration.get("JAVA_EXE"));
+            this.sfc = new StartupFilesCreator(this.upd_conf, this.startupType);
 
             if (this.sfc.getOSAbstract() == null)
             {
@@ -178,7 +188,8 @@ public class BuildStartupFile
 
                 getAllJarFilesOnSystem(filesOnSys, new File("../lib"));
 
-                // System.out.println("List of files that need to be removed: ");
+                // System.out.println("List of files that need to be removed:
+                // ");
                 boolean filesToMuch = false;
                 System.out.println("\n");
 

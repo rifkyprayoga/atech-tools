@@ -3,8 +3,8 @@ package com.atech.utils.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This file is part of ATech Tools library.
@@ -41,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
 public class BitUtils extends CRCUtils
 {
 
-    private static Log log = LogFactory.getLog(ByteUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ByteUtils.class);
 
     /**
      * The Constant BIT_ORDER_BIG_ENDIAN.
@@ -58,7 +58,6 @@ public class BitUtils extends CRCUtils
      */
     protected int byte_order = BIT_ORDER_BIG_ENDIAN;
 
-
     /**
      * The byte_arr.
      */
@@ -74,6 +73,7 @@ public class BitUtils extends CRCUtils
     // {
     // this.byte_arr = array;
     // }
+
 
     /**
      * Gets the byte from array.
@@ -494,7 +494,7 @@ public class BitUtils extends CRCUtils
         }
         catch (Exception ex)
         {
-            log.error("getIntSubArray(). Ex.: " + ex, ex);
+            LOG.error("getIntSubArray(). Ex.: " + ex, ex);
             return null;
         }
 
@@ -994,9 +994,9 @@ public class BitUtils extends CRCUtils
         System.arraycopy(arr_in1, 0, arr_out, 0, arr_in1.length);
         System.arraycopy(arr_in2, 0, arr_out, arr_in1.length, arr_in2.length);
 
-        // log.debug("Input 1: " + this.getIntArrayHex(arr_in1));
-        // log.debug("Input 2: " + this.getIntArrayHex(arr_in2));
-        // log.debug("Input Skupaj: " + this.getIntArrayHex(arr_out));
+        // LOG.debug("Input 1: " + this.getIntArrayHex(arr_in1));
+        // LOG.debug("Input 2: " + this.getIntArrayHex(arr_in2));
+        // LOG.debug("Input Skupaj: " + this.getIntArrayHex(arr_out));
 
         return arr_out;
     }
@@ -1490,7 +1490,7 @@ public class BitUtils extends CRCUtils
         }
         catch (Exception ex)
         {
-            // log.error("getIntSubArray(). Ex.: " + ex, ex);
+            // LOG.error("getIntSubArray(). Ex.: " + ex, ex);
             return null;
         }
 
@@ -1512,7 +1512,7 @@ public class BitUtils extends CRCUtils
         }
         catch (Exception ex)
         {
-            // log.error("getIntSubArray(). Ex.: " + ex, ex);
+            // LOG.error("getIntSubArray(). Ex.: " + ex, ex);
             return null;
         }
 

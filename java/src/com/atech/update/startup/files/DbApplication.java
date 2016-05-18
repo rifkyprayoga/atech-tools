@@ -47,6 +47,7 @@ public class DbApplication extends DbApplicationAbstract
         super(uc, osa);
     }
 
+
     /**
      * Has Application Parameters (something %1 %2)
      * 
@@ -57,6 +58,7 @@ public class DbApplication extends DbApplicationAbstract
     {
         return true;
     }
+
 
     /**
      * Get Application Parameters
@@ -69,6 +71,7 @@ public class DbApplication extends DbApplicationAbstract
         return this.getApplicationParameters(5);
     }
 
+
     /**
      * Get Class Name
      * 
@@ -80,15 +83,14 @@ public class DbApplication extends DbApplicationAbstract
         return this.upd_conf.db_apps.get("db_application").app_class;
     }
 
+
     /**
-     * Get File Name for batch file
-     * 
-     * @return filename for batch file
+     * {@inheritDoc}
      */
     @Override
-    public String getFileName()
+    public String getNameOfFile()
     {
-        return "db." + this.os_abstract.getBatchFileExtension();
+        return "db";
     }
 
 }

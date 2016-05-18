@@ -3,8 +3,8 @@ package com.atech.print.engine;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
@@ -43,7 +43,7 @@ import com.itextpdf.text.pdf.*;
 public abstract class PrintAbstractIText extends PdfPageEventHelper
 {
 
-    private static final Log LOG = LogFactory.getLog(PrintAbstractIText.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PrintAbstractIText.class);
 
     protected ATDataAccessAbstract dataAccess = null;
     protected I18nControlAbstract i18nControl = null;

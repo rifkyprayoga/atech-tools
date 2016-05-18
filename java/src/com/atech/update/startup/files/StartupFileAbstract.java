@@ -83,14 +83,6 @@ public abstract class StartupFileAbstract
 
 
     /**
-     * Get File Name for batch file
-     * 
-     * @return filename for batch file
-     */
-    public abstract String getFileName();
-
-
-    /**
      * Get File Content
      * @return
      */
@@ -245,5 +237,31 @@ public abstract class StartupFileAbstract
     {
         return "";
     }
+
+
+    /**
+     * Get Full Filename (with prefix if required)
+     *
+     * @return
+     */
+    public String getFullFilename()
+    {
+        String prefix = "";
+
+        if (this.os_abstract.getStartupType() == 2)
+        {
+            prefix = "./ext/";
+        }
+
+        return prefix + getNameOfFile() + "." + this.os_abstract.getBatchFileExtension();
+    }
+
+
+    /**
+     * Name of file
+     *
+     * @return
+     */
+    public abstract String getNameOfFile();
 
 }

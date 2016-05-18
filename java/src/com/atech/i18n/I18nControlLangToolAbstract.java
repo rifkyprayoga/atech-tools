@@ -3,14 +3,10 @@ package com.atech.i18n;
 import java.io.FileInputStream;
 import java.text.Collator;
 import java.text.RuleBasedCollator;
-import java.util.Hashtable;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *  This file is part of ATech Tools library.
@@ -54,7 +50,7 @@ import org.apache.commons.logging.LogFactory;
 public abstract class I18nControlLangToolAbstract
 {
 
-    private static Log s_logger = LogFactory.getLog(I18nControlLangToolAbstract.class);
+    private static final Logger LOG = LoggerFactory.getLogger(I18nControlLangToolAbstract.class);
     private Collator langaugeCollator = null;
 
     /**
@@ -160,6 +156,7 @@ public abstract class I18nControlLangToolAbstract
      * }
      */
 
+
     // Method: deleteInstance
     /**
      *
@@ -174,6 +171,7 @@ public abstract class I18nControlLangToolAbstract
      */
 
     protected abstract String getLanguageConfigFile();
+
 
     // Method: setLanguage (String language)
     /**
@@ -192,10 +190,12 @@ public abstract class I18nControlLangToolAbstract
         createCollationDefintion();
     }
 
+
     /**
      * Init - This method is used to set default language and language root file
      */
     public abstract void init();
+
 
     /**
      * Gets the selected langauge.
@@ -229,11 +229,12 @@ public abstract class I18nControlLangToolAbstract
         catch (Exception ex)
         {
             System.out.println("I18nControl: Configuration file not found. Using default langauge ('en')");
-            s_logger.warn("Configuration file not found. Using default langauge ('en')");
+            LOG.warn("Configuration file not found. Using default langauge ('en')");
             return null;
         }
 
     }
+
 
     /**
      * Gets the selected langauge.
@@ -244,6 +245,7 @@ public abstract class I18nControlLangToolAbstract
     {
         return this.selected_language;
     }
+
 
     // Method: setLanguage (String language, String country)
     /**
@@ -262,6 +264,7 @@ public abstract class I18nControlLangToolAbstract
         selected_language = language;
         setLanguage(l);
     }
+
 
     // Method: setLanguage (Locale)
     /**
@@ -287,8 +290,8 @@ public abstract class I18nControlLangToolAbstract
         }
         catch (MissingResourceException mre)
         {
-            System.out.println("Couldn't find resource file(1): " + lang_file_root + "." + selected_language
-                    + ".properties");
+            System.out.println(
+                "Couldn't find resource file(1): " + lang_file_root + "." + selected_language + ".properties");
             try
             {
                 res = ResourceBundle.getBundle(lang_file_root, new Locale(this.def_language));
@@ -311,6 +314,7 @@ public abstract class I18nControlLangToolAbstract
 
     }
 
+
     /**
      * Init Library
      */
@@ -321,6 +325,7 @@ public abstract class I18nControlLangToolAbstract
         setLanguage();
     }
 
+
     /**
      * Gets the selected language locale.
      * 
@@ -330,6 +335,7 @@ public abstract class I18nControlLangToolAbstract
     {
         return this.selected_language_locale;
     }
+
 
     /**
      * This method sets the language according to the preferences.<br>
@@ -345,6 +351,7 @@ public abstract class I18nControlLangToolAbstract
             setLanguage(def_language);
         }
     }
+
 
     // Method: hmmlize
     /**
@@ -372,6 +379,7 @@ public abstract class I18nControlLangToolAbstract
 
     }
 
+
     // Method: getMessageHTML(String)
     /**
      * 
@@ -390,6 +398,7 @@ public abstract class I18nControlLangToolAbstract
 
     }
 
+
     // Method: getString
     /**
      * 
@@ -404,6 +413,7 @@ public abstract class I18nControlLangToolAbstract
     {
         return this.getMessage(msg);
     }
+
 
     // Method: returnSameValue (String)
     /**
@@ -438,6 +448,7 @@ public abstract class I18nControlLangToolAbstract
         return out.toString();
 
     }
+
 
     // Method: resolveMnemonic(String)
     /**
@@ -547,6 +558,7 @@ public abstract class I18nControlLangToolAbstract
 
     }
 
+
     // temporary only - this is not core
     /**
      * Checks for mnemonic.
@@ -570,6 +582,7 @@ public abstract class I18nControlLangToolAbstract
 
         return false;
     }
+
 
     // Method: getMnemonic
     /**
@@ -596,6 +609,7 @@ public abstract class I18nControlLangToolAbstract
         }
 
     }
+
 
     /**
      *  Get Message Without Mnemonic
@@ -626,6 +640,7 @@ public abstract class I18nControlLangToolAbstract
         }
     }
 
+
     // Method: getMessageFromCatalog
     /**
      *  Looks into bundle and returns correct message. This method is syncronized, so only one
@@ -647,7 +662,7 @@ public abstract class I18nControlLangToolAbstract
 
             if (ret == null)
             {
-                s_logger.warn("I18nControl(" + this.selected_language + "): Couldn't find message: " + msg);
+                LOG.warn("I18nControl(" + this.selected_language + "): Couldn't find message: " + msg);
                 return returnSameValue(msg);
             }
             else
@@ -661,6 +676,7 @@ public abstract class I18nControlLangToolAbstract
 
     }
 
+
     // Method: getMessage (String)
     /**
      * 
@@ -673,6 +689,7 @@ public abstract class I18nControlLangToolAbstract
     {
         return getMessageFromCatalog(msg);
     }
+
 
     // this.m_collator = this.m_i18n.getCollationDefintion();
 
@@ -699,7 +716,7 @@ public abstract class I18nControlLangToolAbstract
             catch (Exception ex)
             {
                 // System.out.println("Exception creating collator: " + ex);
-                s_logger.error("Exception creating collator: " + ex, ex);
+                LOG.error("Exception creating collator: " + ex, ex);
                 // log.error("Exception creating collator: " + ex, ex);
                 this.langaugeCollator = Collator.getInstance(Locale.ENGLISH);
             }
@@ -708,6 +725,7 @@ public abstract class I18nControlLangToolAbstract
         // testCollation();
 
     }
+
 
     /**
      * Gets the collation defintion.

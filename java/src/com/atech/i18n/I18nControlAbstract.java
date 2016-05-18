@@ -5,8 +5,8 @@ import java.text.Collator;
 import java.text.RuleBasedCollator;
 import java.util.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *  This file is part of ATech Tools library.
@@ -46,7 +46,7 @@ import org.apache.commons.logging.LogFactory;
 public abstract class I18nControlAbstract
 {
 
-    private static Log s_logger = LogFactory.getLog(I18nControlAbstract.class);
+    private static final Logger LOG = LoggerFactory.getLogger(I18nControlAbstract.class);
     private Collator langaugeCollator = null;
 
     /**
@@ -113,7 +113,6 @@ public abstract class I18nControlAbstract
 
     protected Locale lcls_real[] = null;
 
-
     // static private I18nControl m_i18n = null; // This is handle to unique
     // singelton instance
 
@@ -152,6 +151,7 @@ public abstract class I18nControlAbstract
      * return m_i18n;
      * }
      */
+
 
     // Method: deleteInstance
     /**
@@ -226,13 +226,12 @@ public abstract class I18nControlAbstract
         catch (Exception ex)
         {
             System.out.println("I18nControl: Configuration file not found. Using default langauge ('en')");
-            s_logger.warn("Configuration file not found. Using default langauge ('en')");
+            LOG.warn("Configuration file not found. Using default langauge ('en')");
             ex.printStackTrace();
             return null;
         }
 
     }
-
 
     /**
      * Gets the selected langauge.
@@ -245,6 +244,7 @@ public abstract class I18nControlAbstract
      * return this.selected_language;
      * }
      */
+
 
     // Method: setLanguage (String language, String country)
     /**
@@ -289,8 +289,8 @@ public abstract class I18nControlAbstract
         }
         catch (MissingResourceException mre)
         {
-            System.out.println("Couldn't find resource file(1): " + lang_file_root + "." + selected_language
-                    + ".properties");
+            System.out.println(
+                "Couldn't find resource file(1): " + lang_file_root + "." + selected_language + ".properties");
             try
             {
                 res = ResourceBundle.getBundle(lang_file_root, new Locale(this.def_language));
@@ -672,7 +672,7 @@ public abstract class I18nControlAbstract
 
             if (ret == null)
             {
-                s_logger.warn("I18nControl(" + this.selected_language + "): Couldn't find message: " + msg);
+                LOG.warn("I18nControl(" + this.selected_language + "): Couldn't find message: " + msg);
                 return returnSameValue(msg);
             }
             else
@@ -793,7 +793,7 @@ public abstract class I18nControlAbstract
             catch (Exception ex)
             {
                 // System.out.println("Exception creating collator: " + ex);
-                s_logger.error("Exception creating collator: " + ex, ex);
+                LOG.error("Exception creating collator: " + ex, ex);
                 // log.error("Exception creating collator: " + ex, ex);
                 this.langaugeCollator = Collator.getInstance(Locale.ENGLISH);
             }

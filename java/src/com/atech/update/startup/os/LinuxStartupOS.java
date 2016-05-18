@@ -3,7 +3,7 @@ package com.atech.update.startup.os;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  FreeBSD - File for creating batch files in FreeBSD (sh)
+ *  Linux - File for creating batch files in Linux
  *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
@@ -30,8 +30,44 @@ package com.atech.update.startup.os;
  *
 */
 
-public class FreeBSD extends Linux
+public class LinuxStartupOS extends StartupOSAbstract
 {
+
+    /**
+     * Get Header for batch file
+     * 
+     * @return header as string
+     */
+    @Override
+    public String getHeader()
+    {
+        return "#!/bin/sh\n\n" + "#  Run Application\n";
+    }
+
+
+    /**
+     * Get Separator - this is path separator 
+     * 
+     * @return separator as string
+     */
+    @Override
+    public String getSeparator()
+    {
+        return ":";
+    }
+
+
+    /**
+     * Get Batch File Extension
+     * 
+     * @return extension of batch file in this OS
+     */
+    @Override
+    public String getBatchFileExtension()
+    {
+        return "sh";
+    }
+
 
     /**
      * Get Short OS Name (this is not official name, but name we use)
@@ -41,7 +77,19 @@ public class FreeBSD extends Linux
     @Override
     public String getShortOSName()
     {
-        return "freebsd";
+        return "linux";
+    }
+
+
+    /**
+     * Get How Parameter is constructed (%1 in windows, $1 in unix)
+     * 
+     * @return custom parameter 
+     */
+    @Override
+    public String getCustomParameter()
+    {
+        return "$";
     }
 
 }

@@ -105,8 +105,8 @@ public abstract class GUIListDefAbstract
     /** The parent_dialog. */
     public GUIListDialog parentDialog;
 
-    /** The def_parameters. */
-    protected String[] def_parameters;
+    /** The defaultParameters. */
+    protected String[] defaultParameters;
 
     private boolean customDisplayHeader = false;
 
@@ -322,7 +322,7 @@ public abstract class GUIListDefAbstract
      */
     public String[] getDefaultParameters()
     {
-        return def_parameters;
+        return defaultParameters;
     }
 
 
@@ -345,5 +345,8 @@ public abstract class GUIListDefAbstract
 
 
     public abstract void editTableRow();
+
+
+    public abstract String getHelpId();
 
 }

@@ -1,12 +1,7 @@
 package com.atech.i18n.tool;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import com.atech.utils.ATDataAccess;
 
@@ -66,6 +61,7 @@ public class I18nTranslationCheck
     private String check_lang = null;
     private int keyword_count_full = 0;
 
+
     /**
      * 
      * I18nTranslationCheck constructor; Since classes use Singleton Pattern,
@@ -101,6 +97,7 @@ public class I18nTranslationCheck
 
     }
 
+
     /**
      * Gets the available files.
      */
@@ -125,6 +122,7 @@ public class I18nTranslationCheck
         }
 
     }
+
 
     /**
      * Load languages.
@@ -173,6 +171,7 @@ public class I18nTranslationCheck
 
     }
 
+
     private int countKeys(ResourceBundle rb)
     {
         int count = 0;
@@ -191,6 +190,7 @@ public class I18nTranslationCheck
         return count;
 
     }
+
 
     /**
      * Gets the resource bundle.
@@ -215,6 +215,7 @@ public class I18nTranslationCheck
         return rb;
 
     }
+
 
     /**
      * Gets the resource bundle.
@@ -242,6 +243,7 @@ public class I18nTranslationCheck
 
     }
 
+
     /**
      * Check translation.
      */
@@ -265,7 +267,7 @@ public class I18nTranslationCheck
 
             if (key.equals("TRANSLATION_CHECK_SAME_WORDS"))
             {
-                same = ATDataAccess.getInstance().getIntValueFromString(def, 0);
+                same = ATDataAccess.getIntValueFromString(def, 0, null);
             }
             else
             {
@@ -291,6 +293,7 @@ public class I18nTranslationCheck
         System.out.println("===   UnTranslated: " + i);
 
     }
+
 
     /**
      * Check languages.
@@ -322,6 +325,7 @@ public class I18nTranslationCheck
 
     }
 
+
     /**
      * Check if lang file has all keywords.
      * 
@@ -332,6 +336,7 @@ public class I18nTranslationCheck
         ResourceBundle rb = resourceBundles.get(short_lang);
         checkIfLangFileHasAllKeywords(rb);
     }
+
 
     /**
      * Check if lang file has all keywords.
@@ -378,6 +383,7 @@ public class I18nTranslationCheck
 
     }
 
+
     /**
      * Check if lang has no longer used keywords.
      * 
@@ -420,6 +426,7 @@ public class I18nTranslationCheck
 
     }
 
+
     /**
      * The main method.
      * 
@@ -429,8 +436,8 @@ public class I18nTranslationCheck
     {
         if (args.length != 3)
         {
-            System.out
-                    .println(" Usage:  java I18nTranslationCheck <lang_file_prefix> <default_language_short> <language_we_translate>");
+            System.out.println(
+                " Usage:  java I18nTranslationCheck <lang_file_prefix> <default_language_short> <language_we_translate>");
             System.exit(1);
         }
 

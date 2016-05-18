@@ -1,0 +1,9 @@
+
+ATECH-TOOLS-STARTUP
+===================
+
+1.3
+   - created own pom file (pom-startup.xml)
+   - startup files are created in bin\ext, instead of bin. Intended to remove clutering
+     of files in bin directory (for GGC 0.7)
+

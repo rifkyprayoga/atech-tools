@@ -3,23 +3,26 @@ package com.atech.print.engine;
 import java.io.File;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.tools.pdf.IcePdfViewer;
 
 public class PrintProcessor
 {
+
     private I18nControlAbstract i18nControl = null;
     private PrintRequester printRequester = null;
-    private static final Log LOG = LogFactory.getLog(PrintProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PrintProcessor.class);
+
 
     public PrintProcessor(I18nControlAbstract i18nControl, PrintRequester printRequester)
     {
         this.i18nControl = i18nControl;
         this.printRequester = printRequester;
     }
+
 
     public void displayPDF(String fileName) throws Exception
     {
@@ -33,6 +36,7 @@ public class PrintProcessor
             this.displayPDFInternal(fileName);
         }
     }
+
 
     public void displayPDFInternal(String fileName) throws Exception
     {
@@ -62,6 +66,7 @@ public class PrintProcessor
             pdfViewerRunError(ex, null);
         }
     }
+
 
     /**
      * Display PDF
@@ -120,6 +125,7 @@ public class PrintProcessor
         }
     }
 
+
     private void pdfViewerRunError(Exception ex, String execPath) throws Exception
     {
         this.printRequester.setErrorMessages(this.i18nControl.getMessage("PDF_VIEVER_RUN_ERROR"), null);
@@ -128,10 +134,11 @@ public class PrintProcessor
         {
             LOG.debug("Exec path for PdfViewer: " + execPath);
         }
-        LOG.error(String.format("%s running AcrobatReader: %s", ex instanceof RuntimeException ? "RuntimeException"
-                : "Error", ex), ex);
+        LOG.error(String.format("%s running AcrobatReader: %s",
+            ex instanceof RuntimeException ? "RuntimeException" : "Error", ex), ex);
         throw ex;
     }
+
 
     private void printerSettingsNotSetError() throws Exception
     {

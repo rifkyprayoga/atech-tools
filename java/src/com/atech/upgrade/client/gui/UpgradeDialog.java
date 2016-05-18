@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.help.ComponentHelpCapable;
 import com.atech.help.HelpCapable;
@@ -68,7 +68,7 @@ public class UpgradeDialog extends JDialog implements ActionListener, HelpCapabl
 
     private static final long serialVersionUID = -8822530996424234341L;
 
-    private static Log log = LogFactory.getLog(UpgradeDialog.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UpgradeDialog.class);
     UpgradeSystemModel model = null;
 
     ATDataAccessAbstract dataAccess = null;
@@ -533,7 +533,7 @@ public class UpgradeDialog extends JDialog implements ActionListener, HelpCapabl
         }
         catch (Exception ex)
         {
-            log.error("processDetailsData(). Ex.: " + ex, ex);
+            LOG.error("processDetailsData(). Ex.: " + ex, ex);
         }
 
         // System.out.println("Return data: \n" + xml + "\n");

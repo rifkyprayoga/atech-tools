@@ -13,8 +13,8 @@ import javax.help.HelpSet;
 import javax.help.HelpSetException;
 import javax.swing.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.app.AbstractApplicationContext;
 import com.atech.graphics.SplashAbstract;
@@ -27,7 +27,7 @@ import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 public class MainAppFrame extends JFrame // implements ActionListener
 {
 
-    private static Log log = LogFactory.getLog(MainAppFrame.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MainAppFrame.class);
     AbstractApplicationContext app_context;
     SplashAbstract splash;
 
@@ -73,6 +73,7 @@ public class MainAppFrame extends JFrame // implements ActionListener
      * Status panels
      */
     // public StatusBar statusPanel;
+
 
     /**
      * Information panels
@@ -164,7 +165,8 @@ public class MainAppFrame extends JFrame // implements ActionListener
         // System.out.println("MainFrame before creation");
         // dataAccess = DataAccess.createInstance(this);
 
-        // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  dataAccess: "
+        // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // dataAccess: "
         // + dataAccess);
         /*
          * m_ic = dataAccess.getI18nControlInstance();
@@ -388,7 +390,7 @@ public class MainAppFrame extends JFrame // implements ActionListener
 
             if (main_help_set != null)
             {
-                log.debug("Help: Main Help Set present, creating broker");
+                LOG.debug("Help: Main Help Set present, creating broker");
                 main_help_broker = main_help_set.createHelpBroker();
             }
 

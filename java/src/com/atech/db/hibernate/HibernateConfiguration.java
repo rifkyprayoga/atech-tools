@@ -5,14 +5,14 @@ import java.io.FileInputStream;
 import java.util.Hashtable;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.ConfigurationWithSessionFactory;
 import org.hibernate.cfg.SettingsFactoryWithException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.db.hibernate.check.DbCheckAbstract;
 import com.atech.graphics.SplashAbstract;
@@ -57,7 +57,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
      * The i18nControl.
      */
     I18nControlAbstract ic = null;
-    private Log log = LogFactory.getLog(HibernateConfiguration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HibernateConfiguration.class);
 
     /**
      * The dataAccess.
@@ -318,7 +318,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
 
             if (!doesConfigurationExist())
             {
-                log.error(this.cfg_file_missing_str + "(" + this.getConfigurationFile() + ").");
+                LOG.error(this.cfg_file_missing_str + "(" + this.getConfigurationFile() + ").");
                 config_found = false;
                 loadDefaultDatabase(config_found);
                 return;
@@ -338,7 +338,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
             }
 
             // System.out.println("Loading Db #" + db_num);
-            log.info(loading_db_str + db_num);
+            LOG.info(loading_db_str + db_num);
 
             if (db_num == 0)
             {

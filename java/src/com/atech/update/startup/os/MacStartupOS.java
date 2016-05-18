@@ -3,8 +3,7 @@ package com.atech.update.startup.os;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  Windows - File for creating batch files in Windows
- *  
+ *  Mac - File for creating batch files in Mac
  *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
@@ -31,7 +30,7 @@ package com.atech.update.startup.os;
  *
 */
 
-public class Windows extends StartupOSAbstract
+public class MacStartupOS extends StartupOSAbstract
 {
 
     /**
@@ -42,8 +41,9 @@ public class Windows extends StartupOSAbstract
     @Override
     public String getHeader()
     {
-        return "@echo off\n\n" + "rem   Run Application\n";
+        return "#!/bin/bash\n\n" + "#  Run Application\n";
     }
+
 
     /**
      * Get Separator - this is path separator 
@@ -53,8 +53,9 @@ public class Windows extends StartupOSAbstract
     @Override
     public String getSeparator()
     {
-        return ";";
+        return ":";
     }
+
 
     /**
      * Get Batch File Extension
@@ -64,8 +65,9 @@ public class Windows extends StartupOSAbstract
     @Override
     public String getBatchFileExtension()
     {
-        return "bat";
+        return "bash";
     }
+
 
     /**
      * Get Short OS Name (this is not official name, but name we use)
@@ -75,8 +77,9 @@ public class Windows extends StartupOSAbstract
     @Override
     public String getShortOSName()
     {
-        return "win";
+        return "mac";
     }
+
 
     /**
      * Get How Parameter is constructed (%1 in windows, $1 in unix)
@@ -86,7 +89,7 @@ public class Windows extends StartupOSAbstract
     @Override
     public String getCustomParameter()
     {
-        return "%";
+        return "$";
     }
 
 }

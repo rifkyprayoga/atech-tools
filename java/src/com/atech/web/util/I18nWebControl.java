@@ -4,8 +4,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *  This file is part of ATech Tools library.
@@ -46,7 +46,8 @@ public class I18nWebControl
      * Resource bundle identificator
      */
     ResourceBundle res;
-    private static Log log = LogFactory.getLog(I18nWebControl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(I18nWebControl.class);
+
 
     /**
      * 
@@ -64,6 +65,7 @@ public class I18nWebControl
         // DataAccess.getInstance().setI18n(this);
     }
 
+
     // Method: setLanguage (String language, String country)
     /**
      * 
@@ -77,10 +79,11 @@ public class I18nWebControl
      */
     public void setLanguage(String language, String country)
     {
-        log.warn("setLanguage(String language, String country) not implemented.");
+        LOG.warn("setLanguage(String language, String country) not implemented.");
         // Locale l = new Locale(language, country);
         // setLanguage(l);
     }
+
 
     // Method: setLanguage (Locale)
     /**
@@ -101,7 +104,7 @@ public class I18nWebControl
             // ResourceBundle.
             res = ResourceBundle.getBundle(this.base_lang_file, new Locale(lang));
 
-            log.debug(this.base_lang_file + " Language " + lang + " loaded.");
+            LOG.debug(this.base_lang_file + " Language " + lang + " loaded.");
         }
         catch (Exception ex) // MissingResourceException mre)
         {
@@ -109,24 +112,26 @@ public class I18nWebControl
             // System.out.println("Exception load1: " + ex.getMessage() + "\n" +
             // ex.getStackTrace());
 
-            log.debug(this.base_lang_file + " Language " + lang + " could NOT be loaded. Trying default (SI).");
+            LOG.debug(this.base_lang_file + " Language " + lang + " could NOT be loaded. Trying default (SI).");
             // System.out.println("Couldn't find resource file(1): " +
             // this.base_lang_file + "_xx.properties (for Locale " + lang +
             // ")");
             try
             {
                 res = ResourceBundle.getBundle(this.base_lang_file, new Locale("SI"));
-                log.debug("PIS Language SI loaded.");
+                LOG.debug("PIS Language SI loaded.");
             }
             catch (Exception ex2)
             {
-                log.debug("Default " + this.base_lang_file + " Language (SI)" + lang + " could NOT be loaded.");
-                // System.out.println("Exception on reading default resource file (ZIS_SI.properties). Exiting application.");
+                LOG.debug("Default " + this.base_lang_file + " Language (SI)" + lang + " could NOT be loaded.");
+                // System.out.println("Exception on reading default resource
+                // file (ZIS_SI.properties). Exiting application.");
                 System.exit(2);
             }
         }
 
     }
+
 
     // Method: hmmlize
     /**
@@ -155,6 +160,7 @@ public class I18nWebControl
 
     }
 
+
     // Method: getMessageHTML(String)
     /**
      * 
@@ -174,6 +180,7 @@ public class I18nWebControl
 
     }
 
+
     // Method: getString
     /**
      * 
@@ -189,6 +196,7 @@ public class I18nWebControl
     {
         return this.getMessage(msg);
     }
+
 
     // Method: returnSameValue (String)
     /**
@@ -225,6 +233,7 @@ public class I18nWebControl
         return out.toString();
 
     }
+
 
     // Method: resolveMnemonic(String)
     /**
@@ -336,6 +345,7 @@ public class I18nWebControl
 
     }
 
+
     // Method: getMnemonic
     /**
      * Returns mnemonic of String that is stored in bundle as msg_id. If
@@ -364,6 +374,7 @@ public class I18nWebControl
         }
 
     }
+
 
     // Method: getMessageWithoutMnemonic
     /**
@@ -395,6 +406,7 @@ public class I18nWebControl
             return returnSameValue(msg_id);
         }
     }
+
 
     // Method: getMessageFromCatalog
     /**
@@ -432,6 +444,7 @@ public class I18nWebControl
 
     }
 
+
     // Method: getMessage (String)
     /**
      * 
@@ -447,6 +460,7 @@ public class I18nWebControl
         return getMessageFromCatalog(msg);
 
     }
+
 
     // Method: getName (String)
     /**
@@ -477,6 +491,7 @@ public class I18nWebControl
 
     }
 
+
     public String changeCase(String in)
     {
 
@@ -503,6 +518,7 @@ public class I18nWebControl
         return out;
 
     }
+
 
     public String changeCaseWord(String in)
     {

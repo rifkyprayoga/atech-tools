@@ -2,8 +2,8 @@ package com.atech.utils.data;
 
 import java.util.ArrayList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -38,7 +38,8 @@ import org.apache.commons.logging.LogFactory;
 
 public class ByteUtils
 {
-    private static Log log = LogFactory.getLog(ByteUtils.class);
+
+    private static final Logger LOG = LoggerFactory.getLogger(ByteUtils.class);
 
     /**
      * The Constant BIT_ORDER_BIG_ENDIAN.
@@ -60,6 +61,7 @@ public class ByteUtils
      */
     protected byte[] byte_arr = null;
 
+
     /**
      * Read byte array.
      * 
@@ -70,6 +72,7 @@ public class ByteUtils
     {
         this.byte_arr = array;
     }
+
 
     /**
      * Gets the byte from array.
@@ -83,6 +86,7 @@ public class ByteUtils
     {
         return getByte(this.byte_arr, offset);
     }
+
 
     /**
      * Gets the byte.
@@ -99,6 +103,7 @@ public class ByteUtils
         return arr[offset];
     }
 
+
     /**
      * Gets the int from array.
      * 
@@ -111,6 +116,7 @@ public class ByteUtils
     {
         return getInt(this.byte_arr, offset);
     }
+
 
     /**
      * Gets the int.
@@ -141,12 +147,14 @@ public class ByteUtils
 
     }
 
+
     // endian is here not supported
     public int getByteFromIntsAsInt(int num1, int num2)
     {
         int k = num1 << 4 | num2 & 0xf;
         return k;
     }
+
 
     /**
      * Gets the string from array.
@@ -162,6 +170,7 @@ public class ByteUtils
     {
         return getString(this.byte_arr, offset, size);
     }
+
 
     /**
      * Gets the string.
@@ -197,6 +206,7 @@ public class ByteUtils
         }
     }
 
+
     /**
      * Gets the string.
      * 
@@ -231,6 +241,7 @@ public class ByteUtils
         }
     }
 
+
     /**
      * Gets the ascii from array.
      * 
@@ -245,6 +256,7 @@ public class ByteUtils
     {
         return getAscii(this.byte_arr, offset, size);
     }
+
 
     /**
      * Gets the ascii.
@@ -281,6 +293,7 @@ public class ByteUtils
         }
     }
 
+
     /**
      * Gets the byte sub array.
      * 
@@ -310,6 +323,7 @@ public class ByteUtils
         return arr_out;
     }
 
+
     public byte[] getByteSubArray(byte[] arr, int start, int length)
     {
         byte[] arr_out = new byte[length];
@@ -327,10 +341,12 @@ public class ByteUtils
 
     protected boolean short_hex_used = false;
 
+
     public void setUseShortHex(boolean short_true)
     {
         this.short_hex_used = short_true;
     }
+
 
     public int[] getIntSubArray(int[] arr, int start, int end, int length)
     {
@@ -349,7 +365,7 @@ public class ByteUtils
         }
         catch (Exception ex)
         {
-            log.error("getIntSubArray(). Ex.: " + ex, ex);
+            LOG.error("getIntSubArray(). Ex.: " + ex, ex);
             return null;
         }
 
@@ -360,6 +376,7 @@ public class ByteUtils
          * return arr_out;
          */
     }
+
 
     /**
      * Gets the correct hex value.
@@ -391,6 +408,7 @@ public class ByteUtils
         return null;
     }
 
+
     /**
      * Gets the correct hex value.
      * 
@@ -421,6 +439,7 @@ public class ByteUtils
         return null;
     }
 
+
     /**
      * Show byte array hex.
      * 
@@ -442,6 +461,7 @@ public class ByteUtils
 
     }
 
+
     public void showIntArrayHex(int[] arr)
     {
         System.out.print("Int array: ");
@@ -456,6 +476,7 @@ public class ByteUtils
         System.out.print("\n");
 
     }
+
 
     public String getIntArrayShow(int[] arr)
     {
@@ -472,6 +493,7 @@ public class ByteUtils
         return sb.toString();
 
     }
+
 
     /**
      * Show byte array hex.
@@ -498,6 +520,7 @@ public class ByteUtils
         return sb.toString();
     }
 
+
     /**
      * Show byte array hex.
      * 
@@ -523,6 +546,7 @@ public class ByteUtils
         return sb.toString();
     }
 
+
     /**
      * Show byte array.
      * 
@@ -540,6 +564,7 @@ public class ByteUtils
 
     }
 
+
     public void showByteArrayAsString(byte[] arr)
     {
         System.out.println("Byte array as String: ");
@@ -554,6 +579,7 @@ public class ByteUtils
 
         System.out.println(sb.toString());
     }
+
 
     public String getDebugByteArrayHex(byte[] arr)
     {
@@ -575,6 +601,7 @@ public class ByteUtils
         return sb.toString();
 
     }
+
 
     /**
      * Show byte array.
@@ -598,6 +625,7 @@ public class ByteUtils
         return sb.toString();
     }
 
+
     public String getDebugByteArrayAsString(byte[] arr)
     {
         StringBuilder sb = new StringBuilder();
@@ -613,6 +641,7 @@ public class ByteUtils
 
         return sb.toString();
     }
+
 
     /**
      * Reconvert.
@@ -677,6 +706,7 @@ public class ByteUtils
 
     }
 
+
     public static byte[] cloneByteArray(byte[] ba)
     {
         byte[] b = new byte[ba.length];
@@ -689,6 +719,7 @@ public class ByteUtils
         return b;
     }
 
+
     public static int[] cloneIntArray(int[] ba)
     {
         int[] b = new int[ba.length];
@@ -700,6 +731,7 @@ public class ByteUtils
 
         return b;
     }
+
 
     public int[] makePackedBCD(String s)
     {
@@ -728,6 +760,7 @@ public class ByteUtils
         return ai1;
     }
 
+
     public int[] makeIntArray(String s)
     {
         if (s != null)
@@ -744,18 +777,20 @@ public class ByteUtils
             return null;
     }
 
+
     public int[] concatIntArrays(int arr_in1[], int arr_in2[])
     {
         int arr_out[] = new int[arr_in1.length + arr_in2.length];
         System.arraycopy(arr_in1, 0, arr_out, 0, arr_in1.length);
         System.arraycopy(arr_in2, 0, arr_out, arr_in1.length, arr_in2.length);
 
-        // log.debug("Input 1: " + this.getIntArrayHex(arr_in1));
-        // log.debug("Input 2: " + this.getIntArrayHex(arr_in2));
-        // log.debug("Input Skupaj: " + this.getIntArrayHex(arr_out));
+        // LOG.debug("Input 1: " + this.getIntArrayHex(arr_in1));
+        // LOG.debug("Input 2: " + this.getIntArrayHex(arr_in2));
+        // LOG.debug("Input Skupaj: " + this.getIntArrayHex(arr_out));
 
         return arr_out;
     }
+
 
     public int getByteAsInt(int i, int j)
     {
@@ -767,6 +802,7 @@ public class ByteUtils
         // Contract.post(k >= 0 && k <= 255, "value of " + k +
         // " is out of expected range 0.." + 255);
     }
+
 
     public byte[] convertIntArrayToByteArray(int[] arr_in)
     {
@@ -786,11 +822,13 @@ public class ByteUtils
 
     }
 
+
     public int convertIntsToUnsignedShort(int i, int j)
     {
         // int k = (i & 0xff) << 8 | j & 0xff;
         return (i & 0xff) << 8 | j & 0xff;
     }
+
 
     public int[] getIntArrayFromAL(ArrayList<Integer> list)
     {
@@ -803,6 +841,7 @@ public class ByteUtils
 
         return out;
     }
+
 
     public void addIntArrayToAL(ArrayList<Integer> list, int[] array)
     {

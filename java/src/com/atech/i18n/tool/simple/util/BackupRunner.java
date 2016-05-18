@@ -3,8 +3,8 @@ package com.atech.i18n.tool.simple.util;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.tool.simple.data.DataListProcessor;
 
@@ -44,13 +44,14 @@ public class BackupRunner extends Thread
 
     private boolean running = true;
     private boolean started = true;
-    private static Log log = LogFactory.getLog(BackupRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BackupRunner.class);
 
     long next_time = 0L;
     int backup_time = 0;
 
     DataListProcessor dlp;
     DataAccessTT m_da = DataAccessTT.getInstance();
+
 
     /**
      * Instantiates a new timer thread.
@@ -61,7 +62,7 @@ public class BackupRunner extends Thread
         this.setNextTime();
         this.dlp = _dlp;
 
-        log.debug("Backup Job started");
+        LOG.debug("Backup Job started");
 
         /*
          * if (debug)
@@ -73,6 +74,7 @@ public class BackupRunner extends Thread
          */
     }
 
+
     private void setNextTime()
     {
         GregorianCalendar gc = new GregorianCalendar();
@@ -81,10 +83,12 @@ public class BackupRunner extends Thread
         this.next_time = gc.getTimeInMillis();
     }
 
+
     private boolean isBackupTimeReached()
     {
         return System.currentTimeMillis() > this.next_time;
     }
+
 
     /**
      * Stop timer thread.
@@ -93,6 +97,7 @@ public class BackupRunner extends Thread
     {
         this.running = false;
     }
+
 
     /**
      * Checks for started.
@@ -104,6 +109,7 @@ public class BackupRunner extends Thread
         return this.started;
     }
 
+
     /**
      * Sets the started.
      * 
@@ -113,6 +119,7 @@ public class BackupRunner extends Thread
     {
         this.started = started;
     }
+
 
     /** 
      * run
@@ -125,7 +132,7 @@ public class BackupRunner extends Thread
 
             if (this.isBackupTimeReached())
             {
-                log.debug("Backup Started");
+                LOG.debug("Backup Started");
                 this.dlp.saveTranslationBackup();
                 this.setNextTime();
             }

@@ -1,5 +1,7 @@
 package com.atech.db.hibernate.transfer;
 
+import java.util.Map;
+
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -90,22 +92,47 @@ public interface BackupRestoreObject extends BackupRestoreBase
     /**
      * dbImport - processes input entry to right fields
      * 
-     * @param table_version version of table
-     * @param value_entry whole import line
+     * @param tableVersion version of table
+     * @param valueEntry whole import line
      * @throws Exception if import for selected table version is not supported or it fails
+     * @deprecated should use dbImport(int tableVersion, String valueEntry, Map<String, String> headers) instead
+     *    (if implemented). When implemented IsNewImport returns true
      */
-    void dbImport(int table_version, String value_entry) throws Exception;
+    @Deprecated
+    void dbImport(int tableVersion, String valueEntry) throws Exception;
 
 
     /**
      * dbImport - processes input entry to right fields
      * 
-     * @param table_version version of table
-     * @param value_entry whole import line
+     * @param tableVersion version of table
+     * @param valueEntry whole import line
      * @param parameters parameters
      * @throws Exception if import for selected table version is not supported or it fails
+     * @deprecated should use dbImport(int tableVersion, String valueEntry, Map<String, String> headers) instead
+     *    (if implemented). When implemented IsNewImport returns true
      */
-    void dbImport(int table_version, String value_entry, Object[] parameters) throws Exception;
+    @Deprecated
+    void dbImport(int tableVersion, String valueEntry, Object[] parameters) throws Exception;
+
+
+    /**
+     * dbImport - processes input entry to right fields
+     *
+     * @param tableVersion version of table
+     * @param valueEntry whole import line
+     * @param headers headers map
+     * @throws Exception if import for selected table version is not supported or it fails
+     */
+    void dbImport(int tableVersion, String valueEntry, Map<String, String> headers) throws Exception;
+
+
+    /**
+     * Is New Import (with headers handling)
+     * 
+     * @return
+     */
+    boolean isNewImport();
 
 
     /**

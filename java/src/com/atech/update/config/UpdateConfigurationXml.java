@@ -15,13 +15,13 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMImplementation;
 
 import com.atech.utils.ATDataAccess;
@@ -58,10 +58,12 @@ import com.atech.utils.ATDataAccess;
 
 public class UpdateConfigurationXml
 {
-    private static Log log = LogFactory.getLog(UpdateConfigurationXml.class);
+
+    private static final Logger LOG = LoggerFactory.getLogger(UpdateConfigurationXml.class);
     UpdateConfiguration config = null;
     ATDataAccess m_da = ATDataAccess.getInstance();
     protected Document document;
+
 
     /**
      * Constructor
@@ -69,6 +71,7 @@ public class UpdateConfigurationXml
     public UpdateConfigurationXml()
     {
     }
+
 
     /**
      * Constructor
@@ -87,6 +90,7 @@ public class UpdateConfigurationXml
         }
     }
 
+
     /**
      * Get Update Configuration (when called with constructor for xml_data)
      * 
@@ -98,6 +102,7 @@ public class UpdateConfigurationXml
         this.actualReadingOfXml(uc);
         return uc;
     }
+
 
     /**
      * Open Xml File
@@ -113,6 +118,7 @@ public class UpdateConfigurationXml
         document = reader.read(file);
         return document;
     }
+
 
     /**
      * Open Xml Data
@@ -130,6 +136,7 @@ public class UpdateConfigurationXml
         return document;
     }
 
+
     /**
      * Open Xml File
      * @param xml_text 
@@ -146,6 +153,7 @@ public class UpdateConfigurationXml
         return document;
     }
 
+
     /**
      * Get Node
      * 
@@ -157,6 +165,7 @@ public class UpdateConfigurationXml
         return document.selectSingleNode(tag_path);
     }
 
+
     /**
      * Get Element
      * 
@@ -167,6 +176,7 @@ public class UpdateConfigurationXml
     {
         return (Element) getNode(tag_path);
     }
+
 
     /**
      * Return List of nodes from path
@@ -180,6 +190,7 @@ public class UpdateConfigurationXml
         List<Node> nodes = document.selectNodes(tag_path);
         return nodes;
     }
+
 
     /**
      * Read Xml File
@@ -196,9 +207,10 @@ public class UpdateConfigurationXml
         }
         catch (Exception ex)
         {
-            log.error("Error reading Xml file. Ex: " + ex, ex);
+            LOG.error("Error reading Xml file. Ex: " + ex, ex);
         }
     }
+
 
     /**
      * Actual Reading Of Xml
@@ -335,6 +347,7 @@ public class UpdateConfigurationXml
         }
     }
 
+
     /**
      * Write Xml
      * 
@@ -344,6 +357,7 @@ public class UpdateConfigurationXml
     {
         writeXml(uconfig, null);
     }
+
 
     /**
      * Write Xml
@@ -519,6 +533,7 @@ public class UpdateConfigurationXml
         }
 
     }
+
 
     private org.w3c.dom.Element getElementWithValue(org.w3c.dom.Document doc, org.w3c.dom.Element parent, String name,
             String value)

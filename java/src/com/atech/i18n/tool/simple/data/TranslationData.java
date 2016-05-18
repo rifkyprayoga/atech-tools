@@ -4,14 +4,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Enumeration;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
+import java.util.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.i18n.tool.simple.util.DataAccessTT;
 import com.atech.utils.ATDataAccessAbstract;
@@ -50,7 +46,7 @@ import com.atech.utils.ATDataAccessAbstract;
 public class TranslationData
 {
 
-    private static Log log = LogFactory.getLog(TranslationData.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TranslationData.class);
 
     /**
      * The list_tra.
@@ -235,7 +231,7 @@ public class TranslationData
         }
         catch (Exception ex)
         {
-            log.error("TranslationData.saveTranslation(). Exception: " + ex, ex);
+            LOG.error("TranslationData.saveTranslation(). Exception: " + ex, ex);
         }
     }
 
@@ -258,11 +254,11 @@ public class TranslationData
         {
             add_path = "backup/";
             filename += "_" + getDateTimeFilename(gc);
-            log.debug("Save Translation (backup: " + m_da.getCurrentDateTimeString() + ")");
+            LOG.debug("Save Translation (backup: " + m_da.getCurrentDateTimeString() + ")");
         }
         else
         {
-            log.debug("Save Translation");
+            LOG.debug("Save Translation");
         }
 
         try
@@ -345,7 +341,7 @@ public class TranslationData
         }
         catch (Exception ex)
         {
-            log.error("TranslationData.saveTranslation(). Exception: " + ex, ex);
+            LOG.error("TranslationData.saveTranslation(). Exception: " + ex, ex);
         }
     }
 
@@ -375,11 +371,11 @@ public class TranslationData
         {
             add_path = "backup/";
             filename += "_" + getDateTimeFilename(gc);
-            log.debug("Save Settings (backup: " + m_da.getCurrentDateTimeString() + ")");
+            LOG.debug("Save Settings (backup: " + m_da.getCurrentDateTimeString() + ")");
         }
         else
         {
-            log.debug("Save Settings");
+            LOG.debug("Save Settings");
         }
 
         try
@@ -406,7 +402,7 @@ public class TranslationData
         }
         catch (Exception ex)
         {
-            log.error("TranslationData.saveTranslation(). Exception: " + ex, ex);
+            LOG.error("TranslationData.saveTranslation(). Exception: " + ex, ex);
         }
     }
 

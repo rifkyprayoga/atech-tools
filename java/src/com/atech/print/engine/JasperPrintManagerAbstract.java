@@ -12,8 +12,8 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *  This file is part of ATech Tools library.
@@ -48,17 +48,21 @@ import org.apache.commons.logging.LogFactory;
 public abstract class JasperPrintManagerAbstract
 {
 
-    private static final Log LOG = LogFactory.getLog(JasperPrintManagerAbstract.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JasperPrintManagerAbstract.class);
+
 
     public abstract String getBaseDir();
 
+
     public abstract String getSubReportDir();
+
 
     public void startJasperPrint(String report_name, HashMap<String, String> parameters,
             JRBeanCollectionDataSource collection)
     {
         startJasperPrint(report_name, null, parameters, collection);
     }
+
 
     public void startJasperPrint(String reportName, String subReports, HashMap<String, String> parameters,
             JRBeanCollectionDataSource collection)
@@ -90,6 +94,7 @@ public abstract class JasperPrintManagerAbstract
 
     }
 
+
     public void checkIfSubreportsCompiled(String subReportsDirectory, String subReports)
     {
         if (StringUtils.isBlank(subReports))
@@ -102,6 +107,7 @@ public abstract class JasperPrintManagerAbstract
             checkIfReportCompiled(subReportsDirectory, strtok.nextToken().trim());
         }
     }
+
 
     public void checkIfReportCompiled(String base_dir, String report_name)
     {
@@ -126,8 +132,8 @@ public abstract class JasperPrintManagerAbstract
         {
             try
             {
-                JasperCompileManager.compileReportToFile(base_dir + report_name + ".jrxml", base_dir + report_name
-                        + ".jasper");
+                JasperCompileManager.compileReportToFile(base_dir + report_name + ".jrxml",
+                    base_dir + report_name + ".jasper");
             }
             catch (Exception ex)
             {

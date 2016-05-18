@@ -3,7 +3,7 @@ package com.atech.update.startup.os;
 /**
  *  This file is part of ATech Tools library.
  *  
- *  Mac - File for creating batch files in Mac
+ *  FreeBSD - File for creating batch files in FreeBSD (sh)
  *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
@@ -30,41 +30,8 @@ package com.atech.update.startup.os;
  *
 */
 
-public class Mac extends StartupOSAbstract
+public class FreeBSDStartupOS extends LinuxStartupOS
 {
-
-    /**
-     * Get Header for batch file
-     * 
-     * @return header as string
-     */
-    @Override
-    public String getHeader()
-    {
-        return "#!/bin/bash\n\n" + "#  Run Application\n";
-    }
-
-    /**
-     * Get Separator - this is path separator 
-     * 
-     * @return separator as string
-     */
-    @Override
-    public String getSeparator()
-    {
-        return ":";
-    }
-
-    /**
-     * Get Batch File Extension
-     * 
-     * @return extension of batch file in this OS
-     */
-    @Override
-    public String getBatchFileExtension()
-    {
-        return "bash";
-    }
 
     /**
      * Get Short OS Name (this is not official name, but name we use)
@@ -74,18 +41,7 @@ public class Mac extends StartupOSAbstract
     @Override
     public String getShortOSName()
     {
-        return "mac";
-    }
-
-    /**
-     * Get How Parameter is constructed (%1 in windows, $1 in unix)
-     * 
-     * @return custom parameter 
-     */
-    @Override
-    public String getCustomParameter()
-    {
-        return "$";
+        return "freebsd";
     }
 
 }

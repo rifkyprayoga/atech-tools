@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.app.AbstractApplicationContext;
 import com.atech.graphics.SplashAbstract;
@@ -69,7 +69,7 @@ public abstract class HibernateDb
     private boolean debug = true;
     // x private boolean db_debug = false;
 
-    private static Log log = LogFactory.getLog(HibernateDb.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HibernateDb.class);
 
     /**
      * The m_session.
@@ -108,6 +108,7 @@ public abstract class HibernateDb
 
     protected I18nControlAbstract m_ic = null;
 
+
     /**
      * Instantiates a new hibernate db.
      * 
@@ -120,6 +121,7 @@ public abstract class HibernateDb
         m_loadStatus = DB_CONFIG_LOADED;
     }
 
+
     /**
      * Instantiates a new hibernate db.
      */
@@ -129,6 +131,7 @@ public abstract class HibernateDb
         m_loadStatus = DB_CONFIG_LOADED;
         // debugConfig();
     }
+
 
     public HibernateDb(AbstractApplicationContext ctx)
     {
@@ -143,6 +146,7 @@ public abstract class HibernateDb
 
         config = createConfiguration();
     }
+
 
     /**
      * Instantiates a new hibernate db.
@@ -160,6 +164,7 @@ public abstract class HibernateDb
         m_loadStatus = DB_CONFIG_LOADED;
     }
 
+
     /**
      * Gets the configuration.
      * 
@@ -170,6 +175,7 @@ public abstract class HibernateDb
         return this.config.getConfiguration();
     }
 
+
     /**
      * Gets the hibernate configuration.
      * 
@@ -179,6 +185,7 @@ public abstract class HibernateDb
     {
         return this.config;
     }
+
 
     /*
      * private void debugConfig()
@@ -207,6 +214,7 @@ public abstract class HibernateDb
         openHibernateSimple();
     }
 
+
     /**
      * Checks if is db started.
      * 
@@ -216,6 +224,7 @@ public abstract class HibernateDb
     {
         return this.m_loadStatus == DB_STARTED;
     }
+
 
     /**
      * Close db.
@@ -238,6 +247,7 @@ public abstract class HibernateDb
         m_loadStatus = DB_CONFIG_LOADED;
     }
 
+
     /**
      * Open hibernate simple
      */
@@ -253,6 +263,7 @@ public abstract class HibernateDb
         m_session = sessions.openSession();
         m_loadStatus = DB_INITIALIZED;
     }
+
 
     /**
      * Open Hibernate without creating new SessionFactory
@@ -272,6 +283,7 @@ public abstract class HibernateDb
         m_loadStatus = DB_INITIALIZED;
     }
 
+
     /**
      * Get Session Factory
      * 
@@ -281,6 +293,7 @@ public abstract class HibernateDb
     {
         return this.sessions;
     }
+
 
     /**
      * Gets the load status.
@@ -292,6 +305,7 @@ public abstract class HibernateDb
         return m_loadStatus;
     }
 
+
     /**
      * Display error.
      * 
@@ -302,7 +316,7 @@ public abstract class HibernateDb
     {
 
         System.out.println("Exception [" + source + "]: " + ex);
-        log.error("Exception [" + source + "]: " + ex, ex);
+        LOG.error("Exception [" + source + "]: " + ex, ex);
 
         if (debug)
         {
@@ -311,6 +325,7 @@ public abstract class HibernateDb
         }
 
     }
+
 
     /**
      * Gets the session.
@@ -324,6 +339,7 @@ public abstract class HibernateDb
         // return m_session;
     }
 
+
     /**
      * Creates the database.
      */
@@ -331,6 +347,7 @@ public abstract class HibernateDb
     {
         new SchemaExport(this.getConfiguration()).create(true, true);
     }
+
 
     /**
      * Gets the application db name.
@@ -342,6 +359,7 @@ public abstract class HibernateDb
     // *************************************************************
     // **** DB HANDLING METHODS ****
     // *************************************************************
+
 
     // ---
     // --- BASIC METHODS (Hibernate and DataLayer processing)
@@ -361,7 +379,7 @@ public abstract class HibernateDb
         {
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
 
-            log.trace(doh.getObjectName() + "::DbAdd");
+            LOG.trace(doh.getObjectName() + "::DbAdd");
 
             try
             {
@@ -372,19 +390,19 @@ public abstract class HibernateDb
             catch (SQLException ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("SQLException on add: " + ex, ex);
+                LOG.error("SQLException on add: " + ex, ex);
                 Exception eee = ex.getNextException();
 
                 if (eee != null)
                 {
-                    log.error("Nested Exception on add: " + eee.getMessage(), eee);
+                    LOG.error("Nested Exception on add: " + eee.getMessage(), eee);
                 }
                 return false;
             }
             catch (Exception ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("Exception on add: " + ex, ex);
+                LOG.error("Exception on add: " + ex, ex);
                 return false;
             }
 
@@ -393,11 +411,12 @@ public abstract class HibernateDb
         {
             setError(-2, "Object is not DatabaseObjectHibernate instance", getApplicationDbName());
 
-            log.error("Internal error on add: " + obj);
+            LOG.error("Internal error on add: " + obj);
             return false;
         }
 
     }
+
 
     // this method is used for direct use with hibernate objects (unlike use
     // with our
@@ -412,7 +431,7 @@ public abstract class HibernateDb
     public long addHibernate(Object obj)
     {
 
-        log.trace("addHibernate::" + obj.toString());
+        LOG.trace("addHibernate::" + obj.toString());
 
         try
         {
@@ -426,11 +445,12 @@ public abstract class HibernateDb
         }
         catch (Exception ex)
         {
-            log.error("Exception on addHibernate: " + ex, ex);
+            LOG.error("Exception on addHibernate: " + ex, ex);
             return -1;
         }
 
     }
+
 
     /**
      * Edits the.
@@ -446,7 +466,7 @@ public abstract class HibernateDb
         {
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
 
-            log.debug(doh.getObjectName() + "::DbEdit");
+            LOG.debug(doh.getObjectName() + "::DbEdit");
 
             try
             {
@@ -456,30 +476,31 @@ public abstract class HibernateDb
             catch (SQLException ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("SQLException on edit: " + ex, ex);
+                LOG.error("SQLException on edit: " + ex, ex);
                 Exception eee = ex.getNextException();
 
                 if (eee != null)
                 {
-                    log.error("Nested Exception on edit: " + eee.getMessage(), eee);
+                    LOG.error("Nested Exception on edit: " + eee.getMessage(), eee);
                 }
                 return false;
             }
             catch (Exception ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("Exception on edit: " + ex, ex);
+                LOG.error("Exception on edit: " + ex, ex);
                 return false;
             }
         }
         else
         {
             setError(-2, "Object is not DatabaseObjectHibernate instance", getApplicationDbName());
-            log.error("Internal error on edit: " + obj);
+            LOG.error("Internal error on edit: " + obj);
             return false;
         }
 
     }
+
 
     // this method is used for direct use with hibernate objects (unlike use
     // with our
@@ -494,7 +515,7 @@ public abstract class HibernateDb
     public boolean editHibernate(Object obj)
     {
 
-        log.debug("editHibernate::" + obj.toString());
+        LOG.debug("editHibernate::" + obj.toString());
 
         try
         {
@@ -509,12 +530,13 @@ public abstract class HibernateDb
         }
         catch (Exception ex)
         {
-            log.error("Exception on editHibernate: " + ex, ex);
+            LOG.error("Exception on editHibernate: " + ex, ex);
             // ex.printStackTrace();
             return false;
         }
 
     }
+
 
     /**
      * Edits the hibernate.
@@ -526,7 +548,7 @@ public abstract class HibernateDb
     public Object getHibernate(Object object, Object id)
     {
 
-        log.debug("getHibernate::" + object.toString());
+        LOG.debug("getHibernate::" + object.toString());
 
         try
         {
@@ -537,12 +559,13 @@ public abstract class HibernateDb
         }
         catch (Exception ex)
         {
-            log.error("Exception on getHibernate: " + ex, ex);
+            LOG.error("Exception on getHibernate: " + ex, ex);
             // ex.printStackTrace();
             return null;
         }
 
     }
+
 
     /**
      * Delete hibernate.
@@ -554,7 +577,7 @@ public abstract class HibernateDb
     public boolean deleteHibernate(Object obj)
     {
 
-        log.debug("deleteHibernate::" + obj.toString());
+        LOG.debug("deleteHibernate::" + obj.toString());
 
         try
         {
@@ -569,12 +592,13 @@ public abstract class HibernateDb
         }
         catch (Exception ex)
         {
-            log.error("Exception on deleteHibernate: " + ex, ex);
+            LOG.error("Exception on deleteHibernate: " + ex, ex);
             // ex.printStackTrace();
             return false;
         }
 
     }
+
 
     /**
      * Gets the.
@@ -590,7 +614,7 @@ public abstract class HibernateDb
         {
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
 
-            log.debug(doh.getObjectName() + "::DbGet");
+            LOG.debug(doh.getObjectName() + "::DbGet");
 
             try
             {
@@ -600,19 +624,19 @@ public abstract class HibernateDb
             catch (SQLException ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("SQLException on get: " + ex, ex);
+                LOG.error("SQLException on get: " + ex, ex);
                 Exception eee = ex.getNextException();
 
                 if (eee != null)
                 {
-                    log.error("Nested Exception on get: " + eee.getMessage(), eee);
+                    LOG.error("Nested Exception on get: " + eee.getMessage(), eee);
                 }
                 return false;
             }
             catch (Exception ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("Exception on get: " + ex, ex);
+                LOG.error("Exception on get: " + ex, ex);
                 return false;
             }
 
@@ -620,11 +644,12 @@ public abstract class HibernateDb
         else
         {
             setError(-2, "Object is not DatabaseObjectHibernate instance", getApplicationDbName());
-            log.error("Internal error on get: " + obj);
+            LOG.error("Internal error on get: " + obj);
             return false;
         }
 
     }
+
 
     /**
      * Delete.
@@ -640,7 +665,7 @@ public abstract class HibernateDb
         {
             DatabaseObjectHibernate doh = (DatabaseObjectHibernate) obj;
 
-            log.debug(doh.getObjectName() + "::DbDelete");
+            LOG.debug(doh.getObjectName() + "::DbDelete");
 
             try
             {
@@ -648,7 +673,7 @@ public abstract class HibernateDb
                 if (doh.DbHasChildren(getSession()))
                 {
                     setError(-3, "Object has children object", doh.getObjectName());
-                    log.error(doh.getObjectName() + " had Children objects");
+                    LOG.error(doh.getObjectName() + " had Children objects");
                     return false;
                 }
 
@@ -659,19 +684,19 @@ public abstract class HibernateDb
             catch (SQLException ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("SQLException on delete: " + ex, ex);
+                LOG.error("SQLException on delete: " + ex, ex);
                 Exception eee = ex.getNextException();
 
                 if (eee != null)
                 {
-                    log.error("Nested Exception on delete: " + eee.getMessage(), eee);
+                    LOG.error("Nested Exception on delete: " + eee.getMessage(), eee);
                 }
                 return false;
             }
             catch (Exception ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
-                log.error("Exception on delete: " + ex, ex);
+                LOG.error("Exception on delete: " + ex, ex);
                 return false;
             }
 
@@ -679,11 +704,12 @@ public abstract class HibernateDb
         else
         {
             setError(-2, "Object is not DatabaseObjectHibernate instance", getApplicationDbName());
-            log.error("Internal error on delete: " + obj);
+            LOG.error("Internal error on delete: " + obj);
             return false;
         }
 
     }
+
 
     /**
      * Adds the get id.
@@ -695,6 +721,7 @@ public abstract class HibernateDb
         return this.m_addId;
     }
 
+
     /**
      * Gets the error code.
      * 
@@ -705,6 +732,7 @@ public abstract class HibernateDb
         return this.m_errorCode;
     }
 
+
     /**
      * Gets the error description.
      * 
@@ -714,6 +742,7 @@ public abstract class HibernateDb
     {
         return this.m_errorDesc;
     }
+
 
     /**
      * Sets the error.
@@ -727,6 +756,7 @@ public abstract class HibernateDb
         this.m_errorCode = code;
         this.m_errorDesc = source + " : " + desc;
     }
+
 
     // *************************************************************
     // **** SETTINGS ****
@@ -760,7 +790,7 @@ public abstract class HibernateDb
      * }
      * if (config_read)
      * {
-     * log.info("GGCDb: Loading Db Configuration #"+ db_num + ": " +
+     * LOG.info("GGCDb: Loading Db Configuration #"+ db_num + ": " +
      * db_conn_name);
      * db_hib_dialect = props.getProperty("DB"+db_num+"_HIBERNATE_DIALECT");
      * db_driver_class = props.getProperty("DB"+db_num+"_CONN_DRIVER_CLASS");
@@ -773,9 +803,10 @@ public abstract class HibernateDb
      * // we had trouble reading config so we use default database
      * db_num = 0;
      * db_conn_name = "Internal Database";
-     * log.info("GGCDb: Database configuration not found. Using default database."
+     * LOG.info(
+     * "GGCDb: Database configuration not found. Using default database."
      * );
-     * log.info("GGCDb: Loading Db Configuration #"+ db_num + ": " +
+     * LOG.info("GGCDb: Loading Db Configuration #"+ db_num + ": " +
      * db_conn_name);
      * db_hib_dialect = "org.hibernate.dialect.HSQLDialect";
      * db_driver_class = "org.hsqldb.jdbcDriver";
@@ -807,12 +838,13 @@ public abstract class HibernateDb
      * }
      * catch (Exception ex)
      * {
-     * log.error("Loading GGCConfiguration Exception: " + ex.getMessage(), ex);
+     * LOG.error("Loading GGCConfiguration Exception: " + ex.getMessage(), ex);
      * //ex.printStackTrace();
      * }
      * return null;
      * }
      */
+
 
     // *************************************************************
     // **** DATABASE INIT METHODS ****
@@ -825,6 +857,7 @@ public abstract class HibernateDb
     {
         m_loadStatus = DB_STARTED;
     }
+
 
     // *************************************************************
     // **** U T I L S ****
@@ -860,6 +893,7 @@ public abstract class HibernateDb
 
     }
 
+
     /**
      * Change case word.
      * 
@@ -879,6 +913,7 @@ public abstract class HibernateDb
 
     }
 
+
     /**
      * Show byte.
      * 
@@ -893,6 +928,7 @@ public abstract class HibernateDb
         }
 
     }
+
 
     /**
      * Debug out.
