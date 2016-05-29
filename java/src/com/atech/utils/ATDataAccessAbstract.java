@@ -1823,6 +1823,26 @@ public abstract class ATDataAccessAbstract
      *
      * @return the int value from string
      */
+    public static int getIntValueFromString(String aValue, int defaultValue)
+    {
+        try
+        {
+            return getIntValueFromStringWithException(aValue, defaultValue, null);
+        }
+        catch (Exception ex)
+        {
+            return 0;
+        }
+    }
+
+
+    /**
+     * Gets the int value from string.
+     *
+     * @param aValue the a value
+     *
+     * @return the int value from string
+     */
     public static int getIntValueFromString(String aValue, int defaultValue,
             ExceptionHandling overridenExceptionHandling)
     {
