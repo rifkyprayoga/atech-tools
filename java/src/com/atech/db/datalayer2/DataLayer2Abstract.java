@@ -138,7 +138,7 @@ public abstract class DataLayer2Abstract
 
     // helper methods
 
-    private void addEditObject(DbAwareObject object)
+    public void addEditObject(DbAwareObjectInterface object)
     {
         PreparedStatement ps = null;
 
@@ -171,7 +171,7 @@ public abstract class DataLayer2Abstract
     }
 
 
-    private void logError(DbAwareObject object, PreparedStatement ps, Exception ex, String operation)
+    private void logError(DbAwareObjectInterface object, PreparedStatement ps, Exception ex, String operation)
     {
         String className = object.getClass().getSimpleName();
         if (operation.equals("add/edit"))

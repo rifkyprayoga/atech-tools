@@ -7,7 +7,6 @@ import java.util.*;
 import com.atech.update.config.ComponentEntry;
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.update.startup.os.OSUtil;
-import com.atech.utils.ATDataAccessAbstract;
 
 /**
  *  This file is part of ATech Tools library.
@@ -54,6 +53,14 @@ public class BuildStartupFile
      */
     public BuildStartupFile()
     {
+        Hashtable<String, String> startupConfiguration = StartupUtil
+                .getConfiguration(OSUtil.getOSSpecificConfigurationFile());
+
+        if (startupConfiguration.containsKey("STARTUP_TYPE"))
+        {
+            this.startupType = getIntValueFromString(startupConfiguration.get("STARTUP_TYPE"), 1);
+            StartupUtil.setStartupType(this.startupType);
+        }
 
         if (!StartupUtil.shouldStartupFilesBeCreated())
         {
@@ -65,15 +72,6 @@ public class BuildStartupFile
             StartupUtil.writeStartupWithOldCopy(2);
 
             return;
-        }
-
-        Hashtable<String, String> startupConfiguration = StartupUtil
-                .getConfiguration(OSUtil.getOSSpecificConfigurationFile());
-
-        if (startupConfiguration.containsKey("STARTUP_TYPE"))
-        {
-            this.startupType = ATDataAccessAbstract.getIntValueFromString(startupConfiguration.get("STARTUP_TYPE"), 1,
-                null);
         }
 
         if (startupConfiguration.containsKey("UPDATE_CONFIG"))
@@ -279,6 +277,26 @@ public class BuildStartupFile
             return false;
         }
 
+    }
+
+
+    private int getIntValueFromString(String valueString, int defaultValue)
+    {
+        int returnValue = defaultValue;
+
+        if (valueString != null && valueString.trim().length() != 0)
+        {
+            try
+            {
+                returnValue = Integer.parseInt(valueString);
+            }
+            catch (Exception ex)
+            {
+                System.out.println("Error parsing Statup Type: " + valueString + ", Exception: " + ex.getMessage());
+            }
+        }
+
+        return returnValue;
     }
 
 

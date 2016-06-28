@@ -12,6 +12,9 @@ import java.util.Map;
 public interface DbAwareObjectInterface
 {
 
+    Long getId();
+
+
     boolean isInsert();
 
 

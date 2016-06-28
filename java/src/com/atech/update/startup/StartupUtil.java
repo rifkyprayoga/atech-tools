@@ -42,7 +42,18 @@ public class StartupUtil
     /**
      * Startup status file
      */
-    public static String startup_status = "../../data/StartupStatus.txt";
+    public static String startup_status = "../data/StartupStatus.txt";
+    public static int startupType = 1;
+
+
+    public static void setStartupType(int startupType_)
+    {
+        if (startupType_ != 1)
+        {
+            startupType = startupType_;
+            startup_status = "../../data/StartupStatus.txt";
+        }
+    }
 
 
     /**
@@ -167,8 +178,8 @@ public class StartupUtil
 
         if (!f.exists())
         {
-            writeStartup(System.getProperty("os.name"), System.getProperty("os.arch"),
-                System.getProperty("os.version"), false, true);
+            writeStartup(System.getProperty("os.name"), System.getProperty("os.arch"), System.getProperty("os.version"),
+                false, true);
         }
         else
         {
@@ -194,8 +205,8 @@ public class StartupUtil
 
         if (!f.exists())
         {
-            writeStartup(System.getProperty("os.name"), System.getProperty("os.arch"),
-                System.getProperty("os.version"), false, false);
+            writeStartup(System.getProperty("os.name"), System.getProperty("os.arch"), System.getProperty("os.version"),
+                false, false);
         }
         else
         {
@@ -235,7 +246,8 @@ public class StartupUtil
      * @param db_check
      * @param rebuild
      */
-    public static void writeStartup(String os_name, String os_arch, String os_version, boolean db_check, boolean rebuild)
+    public static void writeStartup(String os_name, String os_arch, String os_version, boolean db_check,
+            boolean rebuild)
     {
 
         try

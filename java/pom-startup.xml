@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <name>Atech-Tools Project</name>
+    <name>Atech-Tools Startup Project</name>
 
     <groupId>com.atech-software</groupId>
     <artifactId>atech-tools-startup</artifactId>
@@ -42,11 +42,6 @@
         </repository>
 
 
-        <repository>
-            <id>ice-maven-release</id>
-            <name>Ice Maven Release Repository</name>
-            <url>http://anonsvn.icesoft.org/repo/maven2/releases</url>
-        </repository>
     </repositories>
 
     <!--
@@ -387,40 +382,6 @@
         </dependency>
 
 
-        <!-- Upgrade dependencies -->
-        <dependency>
-            <groupId>net.lingala.zip4j</groupId>
-            <artifactId>zip4j</artifactId>
-            <version>${zip4j.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.simpleframework</groupId>
-            <artifactId>simple-xml</artifactId>
-            <version>${simpleframework.version}</version>
-        </dependency>
-
-
-        <!-- Table Layout for Desktop -->
-        <!-- <dependency>
-            <groupId>info.clearthought</groupId>
-            <artifactId>tablelayout-j15</artifactId>
-            <version>${tablelayout-j15.version}</version>
-        </dependency> -->
-
-        <dependency>
-            <groupId>info.clearthought</groupId>
-            <artifactId>table-layout</artifactId>
-            <version>${table-layout.version}</version>
-        </dependency>
-
-
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
@@ -430,7 +391,7 @@
 
 
     <properties>
-        <atech-tools-startup.version>1.3</atech-tools-startup.version>
+        <atech-tools-startup.version>1.4</atech-tools-startup.version>
 
         <skinlf.version>6.7</skinlf.version>
         <log4j.version>1.2.16</log4j.version>

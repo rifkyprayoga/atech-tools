@@ -3,7 +3,7 @@ package com.atech.utils;
 public class ATechToolsVersion
 {
 
-    public static final String version_displayable = "0.7.14";
+    public static final String version_displayable = "0.8.2";
 
     public static final int version_numeric = 7;
 
