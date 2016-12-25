@@ -1,5 +1,7 @@
 package com.atech.graphics.graphs;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -211,6 +213,55 @@ public class GraphViewer extends JDialog
         {
             close();
         }
+    }
+
+    private class ComponentEventHandler extends ComponentAdapter
+    {
+
+        public void componentResized(ComponentEvent ce)
+        {
+            /*
+             * ?? if (in_resize)
+             * return;
+             * in_resize = true;
+             * Rectangle cur = this.getBounds();
+             * if (init_bounds.width > this.getBounds().width ||
+             * init_bounds.height > this.getBounds().height)
+             * {
+             * Rectangle r = this.getBounds();
+             * // r.x = cur.x;
+             * // r.y = cur.y;
+             * if (init_bounds.width > cur.width)
+             * {
+             * r.width = init_bounds.width;
+             * }
+             * if (init_bounds.height > cur.height)
+             * {
+             * r.height = init_bounds.height;
+             * }
+             * this.setBounds(r);
+             * cur = r;
+             * }
+             * if (this.controler_panel == null)
+             * {
+             * chart_panel.setBounds(0, 0, cur.width - 8, cur.height - 28);
+             * }
+             * else
+             * {
+             * chart_panel.setBounds(0, 0, cur.width - 8, cur.height -
+             * controler_instance.getControlerBounds().height);
+             * controler_panel.setBounds(0, cur.height -
+             * controler_instance.getControlerBounds().height,
+             * controler_instance.getControlerBounds().width - 8,
+             * controler_instance.getControlerBounds().height);
+             * this.controler_instance.resizeController(cur.width - 8);
+             * }
+             * System.out.println("Component size: " + this.getBounds());
+             * // System.out.println("Insets: " + this.getInsets()..left);
+             * in_resize = false;
+             */
+        }
+
     }
 
 }

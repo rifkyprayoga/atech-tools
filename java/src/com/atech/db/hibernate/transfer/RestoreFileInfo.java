@@ -60,7 +60,7 @@ public class RestoreFileInfo
     /**
      * The file.
      */
-    File file;
+    public File file;
 
     /**
      * The selected.

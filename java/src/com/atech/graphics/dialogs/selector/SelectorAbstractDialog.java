@@ -93,7 +93,7 @@ public abstract class SelectorAbstractDialog extends JDialog
     /**
      * The list.
      */
-    protected ArrayList<SelectableInterface> list;
+    protected java.util.List<SelectableInterface> list;
 
     /**
      * The dataAccess.
@@ -146,7 +146,7 @@ public abstract class SelectorAbstractDialog extends JDialog
     /**
      * Full List (unfiltered)
      */
-    public ArrayList<SelectableInterface> full;
+    public java.util.List<SelectableInterface> full;
 
     /**
      * The Constant SELECTOR_ACTION_SELECT.

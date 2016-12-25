@@ -56,16 +56,16 @@ public abstract class BackupRestoreDialog extends JDialog
 
     private static final long serialVersionUID = 4209248421335758364L;
 
-    protected I18nControlAbstract ic = null;
-    protected ATDataAccessAbstract m_da = null;
+    protected I18nControlAbstract i18nControl = null;
+    protected ATDataAccessAbstract dataAccess = null;
 
     /*
      * Globaly used variables
      */
     JPanel panel;
-    JLabel label_title;
-    JButton button, button_backup, button_help;
-    Font font_big, font_normal, font_normal_b;
+    JLabel labelTitle;
+    JButton button, buttonBackup, buttonHelp;
+    Font fontBig, fontNormal, fontNormalBold;
 
     JProgressBar progressFull, progressCurrent;
 
@@ -74,15 +74,15 @@ public abstract class BackupRestoreDialog extends JDialog
     int m_error = 0;
     int lastAction = 0; // no event
 
-    protected int count_of_backup_elements = 0;
-    protected int done_backup_elements = -1;
+    protected int countOfBackupElements = 0;
+    protected int doneBackupElements = -1;
 
-    JLabel label_total_progress, label_current_progress;
+    JLabel labelTotalProgress, labelCurrentProgress;
 
     protected BackupRestoreCollection backupRestoreRoot;
     protected Map<String, BackupRestoreObject> backupObjects;
 
-    Container my_parent = null;
+    Container myParent = null;
 
 
     /**
@@ -96,9 +96,9 @@ public abstract class BackupRestoreDialog extends JDialog
     {
         super(parent, "", true);
 
-        my_parent = parent;
-        m_da = da;
-        this.ic = m_da.getI18nControlInstance();
+        myParent = parent;
+        dataAccess = da;
+        this.i18nControl = dataAccess.getI18nControlInstance();
 
         backupRestoreRoot = br_coll;
 
@@ -118,9 +118,9 @@ public abstract class BackupRestoreDialog extends JDialog
     public BackupRestoreDialog(JFrame parent, ATDataAccessAbstract da, BackupRestoreCollection br_coll)
     {
         super(parent, "", true);
-        my_parent = parent;
-        m_da = da;
-        this.ic = m_da.getI18nControlInstance();
+        myParent = parent;
+        dataAccess = da;
+        this.i18nControl = dataAccess.getI18nControlInstance();
 
         backupRestoreRoot = br_coll;
 
@@ -138,16 +138,16 @@ public abstract class BackupRestoreDialog extends JDialog
 
         backupObjects = new HashMap<String, BackupRestoreObject>();
 
-        font_big = ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD);
-        font_normal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
-        font_normal_b = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
+        fontBig = ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD);
+        fontNormal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
+        fontNormalBold = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
 
         this.cmdUpdate();
 
         this.setResizable(false);
-        ATSwingUtils.centerJDialog(this, this.my_parent); // dataAccess.getParent());
+        ATSwingUtils.centerJDialog(this, this.myParent); // dataAccess.getParent());
 
-        this.m_da.addComponent(this);
+        this.dataAccess.addComponent(this);
 
     }
 
@@ -170,13 +170,13 @@ public abstract class BackupRestoreDialog extends JDialog
     {
         if (backup)
         {
-            this.setTitle(ic.getMessage("BACKUP_DB_TITLE"));
-            label_title.setText(ic.getMessage("BACKUP_DB_TITLE_SHORT"));
+            this.setTitle(i18nControl.getMessage("BACKUP_DB_TITLE"));
+            labelTitle.setText(i18nControl.getMessage("BACKUP_DB_TITLE_SHORT"));
         }
         else
         {
-            this.setTitle(ic.getMessage("RESTORE_DB_TITLE"));
-            label_title.setText(ic.getMessage("RESTORE_DB_TITLE_SHORT"));
+            this.setTitle(i18nControl.getMessage("RESTORE_DB_TITLE"));
+            labelTitle.setText(i18nControl.getMessage("RESTORE_DB_TITLE_SHORT"));
         }
     }
 
@@ -194,17 +194,17 @@ public abstract class BackupRestoreDialog extends JDialog
         panel.setLayout(null); // 600 450
         dgPane.add(panel);
 
-        label_title = new JLabel();
-        label_title.setBounds(0, 15, 450, 40);
-        label_title.setFont(font_big);
-        label_title.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(label_title, null);
+        labelTitle = new JLabel();
+        labelTitle.setBounds(0, 15, 450, 40);
+        labelTitle.setFont(fontBig);
+        labelTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(labelTitle, null);
 
         showTitle(true);
 
-        JLabel label = new JLabel(ic.getMessage("SELECT_ELEMENTS_TO_BACKUP"));
+        JLabel label = new JLabel(i18nControl.getMessage("SELECT_ELEMENTS_TO_BACKUP"));
         label.setBounds(25, 70, 500, 25);
-        label.setFont(this.font_normal_b);
+        label.setFont(this.fontNormalBold);
         panel.add(label);
 
         tree = new CheckNodeTree(this.backupRestoreRoot, CheckNode.DIG_IN_SELECTION, new BackupRestoreTreeRenderer());
@@ -230,43 +230,44 @@ public abstract class BackupRestoreDialog extends JDialog
         // ---
         // --- Backup Command
         // ---
-        button_backup = new JButton("  " + ic.getMessage("BACKUP"));
-        button_backup.setToolTipText(ic.getMessage("BACKUP"));
-        button_backup.setBounds(290, 100, 130, 30);
-        button_backup.setIcon(ATSwingUtils.getImageIcon_22x22("export1.png", this, m_da));
-        button_backup.addActionListener(this);
-        button_backup.setFont(font_normal);
-        button_backup.setActionCommand("backup");
-        panel.add(button_backup);
+        buttonBackup = new JButton("  " + i18nControl.getMessage("BACKUP"));
+        buttonBackup.setToolTipText(i18nControl.getMessage("BACKUP"));
+        buttonBackup.setBounds(290, 100, 130, 30);
+        buttonBackup.setIcon(ATSwingUtils.getImageIcon_22x22("export1.png", this, dataAccess));
+        buttonBackup.addActionListener(this);
+        buttonBackup.setFont(fontNormal);
+        buttonBackup.setActionCommand("backup");
+        panel.add(buttonBackup);
 
         // ---
         // --- Close Command
         // ---
-        button = new JButton("  " + ic.getMessage("CLOSE"));
+        button = new JButton("  " + i18nControl.getMessage("CLOSE"));
         button.setBounds(290, 140, 130, 30);
-        button.setIcon(ATSwingUtils.getImageIcon_22x22("cancel.png", this, m_da));
+        button.setIcon(ATSwingUtils.getImageIcon_22x22("cancel.png", this, dataAccess));
         button.addActionListener(this);
-        button.setFont(font_normal);
+        button.setFont(fontNormal);
         button.setActionCommand("close");
         panel.add(button);
 
         // ---
         // --- Help command
         // ---
-        button_help = ATSwingUtils.createHelpButtonByBounds(290, 180, 130, 30, this, ATSwingUtils.FONT_NORMAL, m_da);
-        button_help.setFont(font_normal);
-        panel.add(button_help);
+        buttonHelp = ATSwingUtils.createHelpButtonByBounds(290, 180, 130, 30, this, ATSwingUtils.FONT_NORMAL,
+            dataAccess);
+        buttonHelp.setFont(fontNormal);
+        panel.add(buttonHelp);
 
-        label_total_progress = new JLabel(); // "<html><b>" +
-                                             // i18nControl.getMessage("TOTAL_PROGRESS")
-                                             // +
-                                             // ":</b>&nbsp;&nbsp;&nbsp;&nbsp; "
-                                             // +
-                                             // i18nControl.getMessage("BACKUP_NOT_STARTED_YET")
-                                             // + "</html>");
-        label_total_progress.setBounds(25, 325, 380, 25);
-        label_total_progress.setFont(this.font_normal);
-        panel.add(label_total_progress);
+        labelTotalProgress = new JLabel(); // "<html><b>" +
+                                           // i18nControl.getMessage("TOTAL_PROGRESS")
+                                           // +
+                                           // ":</b>&nbsp;&nbsp;&nbsp;&nbsp; "
+                                           // +
+                                           // i18nControl.getMessage("BACKUP_NOT_STARTED_YET")
+                                           // + "</html>");
+        labelTotalProgress.setBounds(25, 325, 380, 25);
+        labelTotalProgress.setFont(this.fontNormal);
+        panel.add(labelTotalProgress);
 
         this.progressFull = new JProgressBar(0, 100);
         this.progressFull.setBounds(25, 350, 380, 20);
@@ -274,14 +275,14 @@ public abstract class BackupRestoreDialog extends JDialog
         // this.progressFull.setIndeterminate(true);
         panel.add(this.progressFull);
 
-        label_current_progress = new JLabel(); // i18nControl.getMessage("CURRENT_TASK")
-                                               // + ": " +
-                                               // i18nControl.getMessage("NO_TASK_STARTED"));
-        label_current_progress.setBounds(25, 265, 380, 25); // 265
-        label_current_progress.setFont(this.font_normal);
-        panel.add(label_current_progress);
+        labelCurrentProgress = new JLabel(); // i18nControl.getMessage("CURRENT_TASK")
+                                             // + ": " +
+                                             // i18nControl.getMessage("NO_TASK_STARTED"));
+        labelCurrentProgress.setBounds(25, 265, 380, 25); // 265
+        labelCurrentProgress.setFont(this.fontNormal);
+        panel.add(labelCurrentProgress);
 
-        // this.label_current_progress.
+        // this.labelCurrentProgress.
 
         this.progressCurrent = new JProgressBar(0, 100);
         this.progressCurrent.setBounds(25, 290, 380, 20); // 290
@@ -305,23 +306,24 @@ public abstract class BackupRestoreDialog extends JDialog
     {
         if (task == null)
         {
-            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
-                    + ic.getMessage("BACKUP_NOT_STARTED_YET") + "</html>");
-            label_current_progress.setText("<html><b>" + ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
-                    + ic.getMessage("NO_TASK_STARTED") + "</html>");
+            labelTotalProgress.setText("<html><b>" + i18nControl.getMessage("TOTAL_PROGRESS")
+                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + i18nControl.getMessage("BACKUP_NOT_STARTED_YET") + "</html>");
+            labelCurrentProgress.setText("<html><b>" + i18nControl.getMessage("CURRENT_TASK")
+                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + i18nControl.getMessage("NO_TASK_STARTED") + "</html>");
         }
         else
         {
-            this.done_backup_elements++;
+            this.doneBackupElements++;
 
-            int tsk = this.done_backup_elements;
+            int tsk = this.doneBackupElements;
             tsk++;
 
             // System.out.println("Task: " + tsk);
-            label_total_progress.setText("<html><b>" + ic.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
-                    + ic.getMessage("TASK") + " (" + tsk + "/" + this.count_of_backup_elements + ")</html>");
-            label_current_progress.setText(
-                "<html><b>" + ic.getMessage("CURRENT_TASK") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + task + "</html>");
+            labelTotalProgress.setText(
+                "<html><b>" + i18nControl.getMessage("TOTAL_PROGRESS") + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;"
+                        + i18nControl.getMessage("TASK") + " (" + tsk + "/" + this.countOfBackupElements + ")</html>");
+            labelCurrentProgress.setText("<html><b>" + i18nControl.getMessage("CURRENT_TASK")
+                    + ":</b>&nbsp;&nbsp;&nbsp;&nbsp;" + task + "</html>");
         }
     }
 
@@ -334,9 +336,9 @@ public abstract class BackupRestoreDialog extends JDialog
     public void setStatus(int procent)
     {
         // System.out.println("setStatus BRD:" + procent);
-        int cnt = this.done_backup_elements * 100 + procent;
+        int cnt = this.doneBackupElements * 100 + procent;
 
-        cnt /= this.count_of_backup_elements;
+        cnt /= this.countOfBackupElements;
         // System.out.println("cnt:" + procent);
 
         this.progressFull.setValue(cnt);
@@ -363,15 +365,15 @@ public abstract class BackupRestoreDialog extends JDialog
             cleanBackupDirectory();
             preprocesData();
 
-            if (this.count_of_backup_elements == 0)
+            if (this.countOfBackupElements == 0)
                 return;
 
             performBackup();
-            button_backup.setEnabled(false);
+            buttonBackup.setEnabled(false);
         }
         else if (cmd.equals("close"))
         {
-            this.m_da.removeComponent(this);
+            this.dataAccess.removeComponent(this);
             this.dispose();
         }
 
@@ -439,7 +441,7 @@ public abstract class BackupRestoreDialog extends JDialog
         }
 
         // System.out.println("Elements counts: " + elements_count);
-        this.count_of_backup_elements = elements_count;
+        this.countOfBackupElements = elements_count;
     }
 
 
@@ -528,7 +530,7 @@ public abstract class BackupRestoreDialog extends JDialog
     public void enableHelp(String help_id_p)
     {
         this.help_id = help_id_p;
-        m_da.enableHelp(this);
+        dataAccess.enableHelp(this);
     }
 
 
@@ -546,7 +548,7 @@ public abstract class BackupRestoreDialog extends JDialog
      */
     public JButton getHelpButton()
     {
-        return button_help;
+        return buttonHelp;
     }
 
 

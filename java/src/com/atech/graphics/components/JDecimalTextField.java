@@ -141,6 +141,7 @@ public class JDecimalTextField extends JFormattedTextField implements KeyListene
         {
             String s = this.getText();
             s = s.replace(".", decimalSeparator);
+// ??            s = s.replace(ATDataAccessAbstract.false_decimal, ATDataAccessAbstract.real_decimal);
             this.setText(s);
         }
     }

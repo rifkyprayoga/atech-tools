@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.atech.db.hibernate.check.DbCheckAbstract;
+import com.atech.db.hibernate.tool.data.DatabaseConfiguration;
 import com.atech.graphics.SplashAbstract;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
@@ -253,6 +254,17 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
 
 
     /**
+     * This constructor is intended only for InitDb, which means that it does nothing. Real call is made when
+     * you call getConfiguration
+     * @param coldStart
+     */
+    public HibernateConfiguration(String coldStart)
+    {
+
+    }
+
+
+    /**
      * Inits the i18n.
      */
     public void initI18n()
@@ -411,6 +423,16 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     }
 
 
+    /**
+     * This method is used only for DbInit process of DbTool
+     */
+    public Configuration getConfiguration(DatabaseConfiguration databaseConfiguration)
+    {
+        Configuration cfg = this.getCustomConfiguration(databaseConfiguration, this.getResourceFiles());
+        return cfg;
+    }
+
+
     /** 
      * getDbInfoConfiguration
      */
@@ -419,6 +441,55 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     {
         Configuration cfg = this.getCustomConfiguration(this.getDbInfoResource());
         this.db_context_selected = HibernateConfiguration.DB_CONTEXT_DBINFO;
+        return cfg;
+    }
+
+
+    /**
+     * This method is used only for DbInit process of DbTool
+     */
+    public Configuration getDbInfoConfiguration(DatabaseConfiguration databaseConfiguration)
+    {
+        Configuration cfg = this.getCustomConfiguration(databaseConfiguration, this.getDbInfoResource());
+        return cfg;
+    }
+
+
+    protected Configuration getCustomConfiguration(DatabaseConfiguration databaseConfiguration, String[] res_files)
+    {
+        Configuration cfg = new ConfigurationWithSessionFactory(new SettingsFactoryWithException())
+                .setProperty("hibernate.dialect", databaseConfiguration.dialect)
+                .setProperty("hibernate.connection.driver_class", databaseConfiguration.driver_class)
+                .setProperty("hibernate.connection.url", databaseConfiguration.url)
+                .setProperty("hibernate.connection.username", databaseConfiguration.username)
+                .setProperty("hibernate.connection.password", databaseConfiguration.password)
+                .setProperty("hibernate.connection.charSet", "utf-8").setProperty("hibernate.use_outer_join", "true");
+
+        if (this.canShemaBeAutomaticallyChanged())
+        {
+            cfg.setProperty("hibernate.hbm2ddl.auto", this.getShemaChangeType());
+        }
+
+        if (this.getMappingLocation() != null)
+        {
+            cfg.setProperty("mappingLocations", this.getMappingLocation());
+        }
+
+        for (int i = 0; i < res_files.length; i++)
+        {
+            cfg.addResource(res_files[i]);
+        }
+
+        // .setProperty("hibernate.show_sql", "true")
+        // .setProperty("hibernate.c3p0.min_size", "5")
+        // .setProperty("hibernate.c3p0.max_size", "20")
+        // .setProperty("hibernate.c3p0.timeout", "1800")
+        // .setProperty("hibernate.c3p0.max_statements", "50"); */
+
+        // cfg.setProperty("hibernate.cglib.use_reflection_optimizer", "false");
+
+        // this.m_cfg = cfg;
+
         return cfg;
     }
 

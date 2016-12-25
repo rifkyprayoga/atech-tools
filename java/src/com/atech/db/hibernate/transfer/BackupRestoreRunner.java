@@ -82,12 +82,12 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     int lastAction = 0; // no event
 
     /**
-     * The count_of_backup_elements.
+     * The countOfBackupElements.
      */
     protected int count_of_backup_elements = 0;
 
     /**
-     * The done_backup_elements.
+     * The doneBackupElements.
      */
     protected int done_backup_elements = 0;
 

@@ -5,7 +5,7 @@ import java.awt.event.ItemEvent;
 
 import javax.swing.*;
 
-import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
+import com.atech.db.hibernate.tool.app.DbToolApplicationAbstract;
 import com.atech.help.HelpCapable;
 import com.atech.utils.ATSwingUtils;
 

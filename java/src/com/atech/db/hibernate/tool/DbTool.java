@@ -10,6 +10,18 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.atech.db.hibernate.tool.app.DbToolApplicationInterface;
+import com.atech.db.hibernate.tool.data.DatabaseConfiguration;
+import com.atech.db.hibernate.tool.data.DatabaseDefObject;
+import com.atech.db.hibernate.tool.data.DatabaseDefinitions;
+import com.atech.db.hibernate.tool.gui.PanelDatabaseRoot;
+import com.atech.db.hibernate.tool.gui.PanelDatabaseSet;
+import com.atech.db.hibernate.tool.gui.PanelRoot;
+import com.atech.db.hibernate.tool.gui.tree.DbToolTreeCellRenderer;
+import com.atech.db.hibernate.tool.gui.tree.DbToolTreeModel;
+import com.atech.db.hibernate.tool.gui.tree.DbToolTreeRoot;
+import com.atech.db.hibernate.tool.util.DbToolAccess;
+import com.atech.db.hibernate.tool.util.I18nControlDbT;
 import com.atech.utils.ATSwingUtils;
 
 // TODO: Auto-generated Javadoc
@@ -66,6 +78,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
     private Hashtable<String, JMenuItem> menu_items;
     private JMenuBar menu_bar;
 
+
     static
     {
         try
@@ -91,6 +104,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
         m_da.loadApplicationData();
         preInit();
         m_da.m_databases_treeroot.loadData();
+        setTitleLocal(null);
         postInit();
 
     }
@@ -110,8 +124,8 @@ public class DbTool extends JFrame implements TreeSelectionListener
         // dataAccess.loadApplicationData();
         preInit();
         m_da.m_databases_treeroot.loadData(intr);
+        setTitleLocal(intr.getApplicationName());
         postInit();
-
     }
 
 
@@ -122,6 +136,18 @@ public class DbTool extends JFrame implements TreeSelectionListener
         ATSwingUtils.initLibrary();
 
         menu_items = new Hashtable<String, JMenuItem>();
+
+        System.out.println("Test: " + m_da.getI18nControlInstance().getMessage("DB_FFFFF"));
+
+    }
+
+
+    private void setTitleLocal(String titlex)
+    {
+        if (titlex != null)
+            this.setTitle(ic.getMessage("DB_TOOL") + " - " + titlex);
+        else
+            this.setTitle(ic.getMessage("DB_TOOL") + " - Multi Db Mode");
     }
 
 
@@ -168,7 +194,7 @@ public class DbTool extends JFrame implements TreeSelectionListener
         y = wndSize.height / 2 - 300;
 
         this.setBounds(x, y, 800, 600);
-        this.setTitle(ic.getMessage("DB_TOOL"));
+        // this.setTitle(i18nControl.getMessage("DB_TOOL"));
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 0));
@@ -213,7 +239,8 @@ public class DbTool extends JFrame implements TreeSelectionListener
          * else
          * {
          * label = new JLabel(ds.toString());
-         * label.setFont(DataAccess.getInstance().getFont(DbToolAccess.FONT_NORMAL
+         * label.setFont(DataAccess.getInstance().getFont(DbToolAccess.
+         * FONT_NORMAL
          * ));
          * }
          * return label;
@@ -221,7 +248,8 @@ public class DbTool extends JFrame implements TreeSelectionListener
          * else
          * {
          * label = new JLabel(value.toString());
-         * label.setFont(DataAccess.getInstance().getFont(DbToolAccess.FONT_NORMAL
+         * label.setFont(DataAccess.getInstance().getFont(DbToolAccess.
+         * FONT_NORMAL
          * ));
          * return label;
          * }
@@ -513,10 +541,10 @@ public class DbTool extends JFrame implements TreeSelectionListener
             pdr.setData((DbToolApplicationInterface) tree.getLastSelectedPathComponent());
             makePanelVisible(DbTool.PANEL_DATABASE_ROOT);
         }
-        else if (tree.getLastSelectedPathComponent() instanceof DatabaseSettings)
+        else if (tree.getLastSelectedPathComponent() instanceof DatabaseConfiguration)
         {
             PanelDatabaseSet pd = (PanelDatabaseSet) panels[2];
-            pd.setData((DatabaseSettings) tree.getLastSelectedPathComponent());
+            pd.setData((DatabaseConfiguration) tree.getLastSelectedPathComponent());
             makePanelVisible(DbTool.PANEL_DATABASE);
         }
 

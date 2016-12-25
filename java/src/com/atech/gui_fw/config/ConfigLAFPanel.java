@@ -8,7 +8,7 @@ import java.io.File;
 
 import javax.swing.*;
 
-import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
+import com.atech.db.hibernate.tool.app.DbToolApplicationAbstract;
 import com.atech.help.HelpCapable;
 import com.atech.utils.ATSwingUtils;
 
@@ -103,11 +103,11 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
         /*
          * JPanel p3 = new JPanel(/* new GridLayout(2, 1)
          *//*
-            * );
-            * p3.setBorder(new TitledBorder(m_ic.getMessage("LAF_SETTINGS")));
-            * p3.setBounds(10, 280, 490, 135);
-            * p3.setLayout(null);
-            */
+           * );
+           * p3.setBorder(new TitledBorder(m_ic.getMessage("LAF_SETTINGS")));
+           * p3.setBounds(10, 280, 490, 135);
+           * p3.setLayout(null);
+           */
 
         ATSwingUtils.getLabel(m_ic.getMessage("LAF_SETTINGS_DESC"), 50, 90, 400, 30, this, ATSwingUtils.FONT_NORMAL);
 
@@ -240,7 +240,8 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
         /*
          * settings.setUserName(fieldUserName.getText());
          * settings.setLanguage(langBox.getSelectedItem().toString());
-         * this.m_dbc.setSelectedDatabaseIndex(this.cb_database.getSelectedIndex(
+         * this.m_dbc.setSelectedDatabaseIndex(this.cb_database.
+         * getSelectedIndex(
          * ));
          * this.m_dbc.setSelectedLF(this.cb_lf_type.getSelectedIndex(),
          * this.tf_lf.getText());
@@ -268,9 +269,8 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
                 String ttText = b.getToolTipText();
                 // x String buttonText = b.getText();
 
-                if (ttText != null
-                        && (ttText.equals("Create New Folder") || ttText.equals("Desktop") || ttText
-                                .equals("Up One Level")))
+                if (ttText != null && (ttText.equals("Create New Folder") || ttText.equals("Desktop")
+                        || ttText.equals("Up One Level")))
                 {
                     b.setEnabled(false);
                 }

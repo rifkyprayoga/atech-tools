@@ -43,7 +43,7 @@ CONTEXT_1_MAIN_CLASS=
 
 #
 #  JDBC Driver 
-#  See: com.atech.db.hibernate.tool.DatabaseDefinitions class for more info
+#  See: com.atech.db.hibernate.tool.data.DatabaseDefinitions class for more info
 #
 CONTEXT_1_JDBC_DRIVER=
 

@@ -1,15 +1,14 @@
 package com.atech.print.engine;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 /**
  * This file is part of ATech Tools library.
@@ -40,8 +39,7 @@ import com.itextpdf.text.pdf.*;
  * Author: andyrozman {andy@atech-software.com}
  */
 
-public abstract class PrintAbstractIText extends PdfPageEventHelper
-{
+public abstract class PrintAbstractIText extends PdfPageEventHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(PrintAbstractIText.class);
 
@@ -75,50 +73,41 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      * @param dataAccess
      * @param doInit
      */
-    public PrintAbstractIText(ATDataAccessAbstract dataAccess, boolean doInit)
-    {
+    public PrintAbstractIText(ATDataAccessAbstract dataAccess, boolean doInit) {
         this.dataAccess = dataAccess;
         this.i18nControl = dataAccess.getI18nControlInstance();
 
-        if (doInit)
-        {
+        if (doInit) {
             init();
         }
     }
 
 
-    public PrintAbstractIText(ATDataAccessAbstract dataAccess, boolean doInit, PrintParameters parameters)
-    {
+    public PrintAbstractIText(ATDataAccessAbstract dataAccess, boolean doInit, PrintParameters parameters) {
         this.dataAccess = dataAccess;
         this.i18nControl = dataAccess.getI18nControlInstance();
 
-        if (doInit)
-        {
+        if (doInit) {
             initData();
             init();
         }
     }
 
 
-    public void initData()
-    {
+    public void initData() {
     }
 
 
-    protected void init()
-    {
+    protected void init() {
         createName();
 
-        try
-        {
+        try {
             baseFontHelvetica = BaseFont.createFont("Helvetica", BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
             baseFontTimes = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
             textFontNormal = new Font(this.baseFontHelvetica, getTextSize(), Font.NORMAL);
             textFontBold = new Font(this.baseFontHelvetica, getTextSize(), Font.BOLD);
             textFontItalic = new Font(this.baseFontHelvetica, getTextSize(), Font.ITALIC);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println("Exception on font create: " + ex);
         }
 
@@ -126,39 +115,41 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     }
 
 
-    protected Phrase createBoldTextPhrase(String text)
-    {
+    protected Phrase createBoldTextPhrase(String text) {
         return new Phrase(this.i18nControl.getMessage(text), this.textFontBold);
     }
 
+    protected Phrase createBoldTextPhrase(String text, Font font) {
+        return new Phrase(this.i18nControl.getMessage(text), this.textFontBold);
+    }
 
-    protected PdfPCell createCell(Phrase phrase)
-    {
+    protected Phrase createTextPhrase(String text, Font font) {
+        return new Phrase(this.i18nControl.getMessage(text), font);
+    }
+
+
+    protected PdfPCell createCell(Phrase phrase) {
         return createCell(phrase, null, null, null);
     }
 
 
-    protected PdfPCell createCell(Phrase phrase, Integer horizontalAlignment)
-    {
+    protected PdfPCell createCell(Phrase phrase, Integer horizontalAlignment) {
         return createCell(phrase, null, null, horizontalAlignment);
     }
 
 
-    protected PdfPCell createCell(Phrase phrase, BaseColor backgroundColor, Integer horizontalAlignment)
-    {
+    protected PdfPCell createCell(Phrase phrase, BaseColor backgroundColor, Integer horizontalAlignment) {
         return createCell(phrase, backgroundColor, null, horizontalAlignment);
     }
 
 
-    protected PdfPCell createCellWithCenterAlignment(Phrase phrase, BaseColor backgroundColor)
-    {
+    protected PdfPCell createCellWithCenterAlignment(Phrase phrase, BaseColor backgroundColor) {
         return createCell(phrase, backgroundColor, Element.ALIGN_BASELINE, Element.ALIGN_CENTER);
     }
 
 
     protected PdfPCell createCell(Phrase phrase, BaseColor backgroundColor, Integer verticalAlignment,
-            Integer horizontalAlignment)
-    {
+                                  Integer horizontalAlignment) {
         PdfPCell cell = new PdfPCell(phrase);
         if (backgroundColor != null)
             cell.setBackgroundColor(backgroundColor);
@@ -173,20 +164,17 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     }
 
 
-    protected Phrase createNormalTextPhrase(String text)
-    {
+    protected Phrase createNormalTextPhrase(String text) {
         return new Phrase(this.i18nControl.getMessage(text), this.textFontNormal);
     }
 
 
-    protected Phrase createEmptyTextPhrase()
-    {
+    protected Phrase createEmptyTextPhrase() {
         return new Phrase("", this.textFontNormal);
     }
 
 
-    protected Phrase createItalicTextPhrase(String text)
-    {
+    protected Phrase createItalicTextPhrase(String text) {
         return new Phrase(this.i18nControl.getMessage(text), this.textFontItalic);
     }
 
@@ -204,8 +192,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      *
      * @return
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -215,8 +202,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      *
      * @return
      */
-    public String getNameWithPath()
-    {
+    public String getNameWithPath() {
         File f = new File(printRoot + getName());
         return f.getAbsolutePath();
     }
@@ -227,8 +213,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      *
      * @return
      */
-    public String getRelativeNameWithPath()
-    {
+    public String getRelativeNameWithPath() {
         return printRoot + getName();
     }
 
@@ -238,8 +223,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      *
      * @return
      */
-    public File getNameFile()
-    {
+    public File getNameFile() {
         File f = new File(printRoot + getName());
         return f;
     }
@@ -248,18 +232,15 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     /**
      * Create Name
      */
-    public void createName()
-    {
+    public void createName() {
         checkIfRootExists();
 
         this.name = this.getFileNameBase() + "_" + this.getFileNameRange() + "_";
 
-        for (int i = 1; i < Integer.MAX_VALUE; i++)
-        {
+        for (int i = 1; i < Integer.MAX_VALUE; i++) {
             File f = new File(PrintAbstractIText.printRoot + this.name + i + ".pdf");
 
-            if (!f.exists())
-            {
+            if (!f.exists()) {
                 name += i + ".pdf";
                 break;
             }
@@ -276,16 +257,12 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     public abstract Paragraph getTitle();
 
 
-    public void discoverDocumentSettings()
-    {
+    public void discoverDocumentSettings() {
         ITextDocumentPrintSettings ds = getCustomDocumentSettings();
 
-        if (ds == null)
-        {
+        if (ds == null) {
             this.documentSettings = new ITextDocumentPrintSettings();
-        }
-        else
-        {
+        } else {
             this.documentSettings = ds;
         }
     }
@@ -297,8 +274,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
     /**
      * Create Document
      */
-    public void createDocument()
-    {
+    public void createDocument() {
         this.discoverDocumentSettings();
 
         // step1
@@ -310,8 +286,7 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
                 documentSettings.getBottomMargin()); // size and margins L R T B
 
         FileOutputStream fos = null;
-        try
-        {
+        try {
             fos = new FileOutputStream(fl.getAbsoluteFile());
 
             // step2 - asign pdf to file
@@ -321,7 +296,12 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
             this.pdfWriter.setPageEvent(this);
 
             document.open();
-            document.add(getTitle());
+
+            Paragraph title = getTitle();
+
+            if (title != null) {
+                document.add(getTitle());
+            }
 
             // step4 - fill body of document
             fillDocumentBody(document);
@@ -329,56 +309,40 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
             // step5
             document.close();
 
-        }
-        catch (Exception de)
-        {
+        } catch (Exception de) {
             LOG.error("Error on document creation [" + de.getMessage() + "]: " + de, de);
             de.printStackTrace();
-        }
-        finally
-        {
-            if (fos != null)
-            {
-                try
-                {
+        } finally {
+            if (fos != null) {
+                try {
                     fos.close();
+                } catch (Exception ex) {
                 }
-                catch (Exception ex)
-                {}
             }
         }
 
     }
 
 
-    protected void setBackground(int element_cnt, PdfPTable table)
-    {
+    protected void setBackground(int element_cnt, PdfPTable table) {
         table.getDefaultCell().setVerticalAlignment(Element.ALIGN_BASELINE);
 
-        if (element_cnt % 2 == 1)
-        {
+        if (element_cnt % 2 == 1) {
             table.getDefaultCell().setGrayFill(0.9f);
-        }
-        else
-        {
+        } else {
             table.getDefaultCell().setBackgroundColor(BaseColor.WHITE);
         }
 
     }
 
 
-    private void checkIfRootExists()
-    {
+    private void checkIfRootExists() {
         File f = new File(printRoot);
 
-        if (!f.exists())
-        {
-            try
-            {
+        if (!f.exists()) {
+            try {
                 f.mkdir();
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 LOG.error("Error creating new print directory ! [" + PrintAbstractIText.printRoot + "]. Ex: " + ex, ex);
             }
         }
@@ -389,15 +353,13 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
      * On End Page
      *
      * @see com.lowagie.text.pdf.PdfPageEventHelper#onEndPage(com.lowagie.text.pdf.PdfWriter,
-     *      com.lowagie.text.Document)
+     * com.lowagie.text.Document)
      */
     @Override
-    public void onEndPage(PdfWriter writer, Document document)
-    {
-        try
-        {
+    public void onEndPage(PdfWriter writer, Document document) {
+        try {
             Rectangle page = document.getPageSize();
-            PdfPTable foot = new PdfPTable(new float[] { 90.0f, 10.0f });
+            PdfPTable foot = new PdfPTable(new float[]{90.0f, 10.0f});
 
             PdfPCell pc = new PdfPCell();
             pc.setBorderColor(BaseColor.WHITE);
@@ -411,16 +373,14 @@ public abstract class PrintAbstractIText extends PdfPageEventHelper
             PdfPCell pages = new PdfPCell();
             pages.setBorderColor(BaseColor.WHITE);
             pages.setPhrase(
-                new Phrase(new Chunk(i18nControl.getMessage("PAGE") + " " + document.getPageNumber(), textFontItalic)));
+                    new Phrase(new Chunk(i18nControl.getMessage("PAGE") + " " + document.getPageNumber(), textFontItalic)));
             pages.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
             foot.addCell(pages);
 
             foot.setTotalWidth(page.getWidth() - document.leftMargin() - document.rightMargin());
             foot.writeSelectedRows(0, -1, document.leftMargin(), document.bottomMargin(), writer.getDirectContent());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new ExceptionConverter(e);
         }
     }

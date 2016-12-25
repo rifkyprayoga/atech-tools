@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import org.hibernate.Query;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.mapping.Column;
 import org.hibernate.mapping.RootClass;
 import org.hibernate.mapping.Table;
@@ -15,6 +16,7 @@ import org.hibernate.mapping.Value;
 
 import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.db.hibernate.HibernateUtil;
+import com.atech.db.hibernate.tool.data.management.common.ImportExportAbstract;
 
 /**
  *  This file is part of ATech Tools library.
@@ -56,11 +58,11 @@ public abstract class ImportTool extends ImportExportAbstract
      */
     public Hashtable<String, String> classDef = null;
 
-    // Configuration m_cfg = null;
+    // Configuration configuration = null;
     /**
-     * The m_session.
+     * The session.
      */
-    // Session m_session = null;
+    // Session session = null;
 
     /**
      * The restore_file.
@@ -68,7 +70,7 @@ public abstract class ImportTool extends ImportExportAbstract
     protected File restore_file = null;
     // protected BufferedReader file_reader;
     /**
-     * The hibernate_util.
+     * The hibernateUtil.
      */
     protected HibernateUtil hibernate_util = null;
 
@@ -88,7 +90,18 @@ public abstract class ImportTool extends ImportExportAbstract
     public ImportTool(HibernateConfiguration hib_conf)
     {
         super(hib_conf);
-        createHibernateUtil();
+        // createHibernateUtil();
+    }
+
+
+    /**
+     * Instantiates a new import tool.
+     *
+     * @param hib_conf the hib_conf
+     */
+    public ImportTool()
+    {
+        super();
     }
 
 
@@ -101,7 +114,7 @@ public abstract class ImportTool extends ImportExportAbstract
     public ImportTool(HibernateConfiguration hib_conf, RestoreFileInfo res)
     {
         super(hib_conf);
-        createHibernateUtil();
+        // createHibernateUtil();
 
         setRestoreFileInfo(res);
     }
@@ -118,32 +131,32 @@ public abstract class ImportTool extends ImportExportAbstract
         this.restore_file = res.file;
     }
 
+    // /**
+    // * Instantiates a new import tool.
+    // */
+    // public ImportTool()
+    // {
+    // super();
+    // }
 
-    /**
-     * Instantiates a new import tool.
-     */
-    public ImportTool()
-    {
-        super();
-    }
 
-
-    /**
-     * Creates the hibernate util.
-     */
-    public void createHibernateUtil()
-    {
-        this.hibernate_util = new HibernateUtil(this.hibernate_conf, HibernateConfiguration.DB_CONTEXT_FULL, false);
-        this.hibernate_util.setSession(this.getActiveSession());
-    }
-
+    // /**
+    // * Creates the hibernate util.
+    // */
+    // public void createHibernateUtil()
+    // {
+    // this.hibernate_util = new HibernateUtil(this.hibernateConfiguration,
+    // HibernateConfiguration.DB_CONTEXT_FULL,
+    // false);
+    // this.hibernate_util.setSession(this.getActiveSession());
+    // }
 
     /**
      * Process configuration.
      */
     public void processConfiguration()
     {
-        Iterator<?> it = this.m_cfg.getClassMappings();
+        Iterator<?> it = this.getConfiguration().getClassMappings();
 
         while (it.hasNext())
         {
@@ -167,7 +180,7 @@ public abstract class ImportTool extends ImportExportAbstract
      */
     public RootClass getRootClass(String cls_name)
     {
-        Iterator<?> it = this.m_cfg.getClassMappings();
+        Iterator<?> it = this.getConfiguration().getClassMappings();
 
         while (it.hasNext())
         {
@@ -179,6 +192,13 @@ public abstract class ImportTool extends ImportExportAbstract
 
         return null;
 
+    }
+
+
+    public Configuration getConfiguration()
+    {
+        // FIXME
+        return null;
     }
 
 

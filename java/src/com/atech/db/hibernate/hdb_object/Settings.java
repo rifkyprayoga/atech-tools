@@ -101,6 +101,8 @@ public class Settings extends SettingsH implements DatabaseObjectHibernate, Back
 
     /**
      * To String
+     * 
+     * @see ggc.core.db.hibernate.SettingsH#toString()
      */
     @Override
     public String toString()

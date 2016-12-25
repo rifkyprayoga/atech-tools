@@ -3,9 +3,13 @@ package com.atech.db.hibernate;
 import java.sql.SQLException;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.atech.db.hibernate.tool.data.DatabaseConfiguration;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -41,6 +45,11 @@ import org.slf4j.LoggerFactory;
 public class HibernateUtil
 {
 
+    // for InitDb
+    private SessionFactory sessionFactory;
+    private Configuration configuration;
+    private DatabaseConfiguration databaseConfiguration;
+
     // I18nControlAbstract i18nControl = null;
     private Session m_session = null;
 
@@ -55,6 +64,8 @@ public class HibernateUtil
     private String m_errorDesc = "";
     @SuppressWarnings("unused")
     private String m_addId = "";
+
+    private Exception error = null;
 
 
     /**
@@ -87,6 +98,23 @@ public class HibernateUtil
     }
 
 
+    public HibernateUtil(Configuration configuration)
+    {
+        this.configuration = configuration;
+        this.databaseConfiguration = databaseConfiguration;
+        sessionFactory = configuration.buildSessionFactory();
+    }
+
+
+    // for initDb
+    public HibernateUtil(Configuration configuration, DatabaseConfiguration databaseConfiguration)
+    {
+        this.configuration = configuration;
+        this.databaseConfiguration = databaseConfiguration;
+        sessionFactory = configuration.buildSessionFactory();
+    }
+
+
     /*
      * public HibernateUtil(Configuration cfg)
      * {
@@ -114,6 +142,12 @@ public class HibernateUtil
     }
 
 
+    public Configuration getConfiguration()
+    {
+        return this.configuration;
+    }
+
+
     /**
      * Sets the session.
      * 
@@ -121,7 +155,14 @@ public class HibernateUtil
      */
     public void setSession(int session_nr)
     {
-        this.m_session = this.hconfig.getSession(session_nr);
+        if (this.configuration == null)
+        {
+            this.m_session = this.hconfig.getSession(session_nr);
+        }
+        else
+        {
+            this.m_session = sessionFactory.openSession();
+        }
     }
 
 
@@ -132,6 +173,9 @@ public class HibernateUtil
      */
     public Session getSession()
     {
+        if (m_session == null)
+            setSession();
+
         return this.m_session;
     }
 
@@ -163,10 +207,12 @@ public class HibernateUtil
                 setError(1, ex.getMessage(), doh.getObjectName());
                 LOG.error("SQLException on add: " + ex, ex);
                 Exception eee = ex.getNextException();
+                this.error = ex;
 
                 if (eee != null)
                 {
                     LOG.error("Nested Exception on add: " + eee.getMessage(), eee);
+                    this.error = eee;
                 }
                 return false;
             }
@@ -174,6 +220,7 @@ public class HibernateUtil
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
                 LOG.error("Exception on add: " + ex, ex);
+                this.error = ex;
                 return false;
             }
 
@@ -201,7 +248,6 @@ public class HibernateUtil
      */
     public long addHibernate(Object obj)
     {
-
         LOG.info("addHibernate::" + obj.toString());
 
         try
@@ -212,11 +258,12 @@ public class HibernateUtil
             Long val = (Long) sess.save(obj);
             tx.commit();
 
-            return val.longValue();
+            return val;
         }
         catch (Exception ex)
         {
             LOG.error("Exception on addHibernate: " + ex, ex);
+            this.error = ex;
             return -1;
         }
 
@@ -249,16 +296,19 @@ public class HibernateUtil
                 setError(1, ex.getMessage(), doh.getObjectName());
                 LOG.error("SQLException on edit: " + ex, ex);
                 Exception eee = ex.getNextException();
+                this.error = ex;
 
                 if (eee != null)
                 {
                     LOG.error("Nested Exception on edit: " + eee.getMessage(), eee);
+                    this.error = eee;
                 }
                 return false;
             }
             catch (Exception ex)
             {
                 setError(1, ex.getMessage(), doh.getObjectName());
+                this.error = ex;
                 LOG.error("Exception on edit: " + ex, ex);
                 return false;
             }
@@ -303,6 +353,7 @@ public class HibernateUtil
         {
             LOG.error("Exception on editHibernate: " + ex, ex);
             // ex.printStackTrace();
+            this.error = ex;
             return false;
         }
 
@@ -344,10 +395,12 @@ public class HibernateUtil
                 setError(1, ex.getMessage(), doh.getObjectName());
                 LOG.error("SQLException on delete: " + ex, ex);
                 Exception eee = ex.getNextException();
+                this.error = ex;
 
                 if (eee != null)
                 {
                     LOG.error("Nested Exception on delete: " + eee.getMessage(), eee);
+                    this.error = eee;
                 }
                 return false;
             }
@@ -395,6 +448,7 @@ public class HibernateUtil
         catch (Exception ex)
         {
             LOG.error("Exception on deleteHibernate: " + ex, ex);
+            this.error = ex;
             // ex.printStackTrace();
             return false;
         }
@@ -415,4 +469,9 @@ public class HibernateUtil
         this.m_errorDesc = source + " : " + desc;
     }
 
+
+    public Exception getError()
+    {
+        return error;
+    }
 }

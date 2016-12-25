@@ -6,7 +6,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 import com.atech.db.hibernate.HibernateDb;
-import com.atech.db.hibernate.tool.DbToolTreeRoot;
+import com.atech.db.hibernate.tool.gui.tree.DbToolTreeRoot;
 import com.atech.i18n.tool.simple.data.TranslationConfiguration;
 import com.atech.i18n.tool.simple.data.TranslationData;
 import com.atech.utils.ATDataAccessAbstract;
@@ -90,10 +90,10 @@ public class DataAccessTT extends ATDataAccessAbstract
 
     public UnicodeUtils unicode_utils = new UnicodeUtils();
 
-
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
+
 
     // Constructor: DataAccess
     /**
@@ -172,10 +172,10 @@ public class DataAccessTT extends ATDataAccessAbstract
         DataAccessTT.s_da = null;
     }
 
-
     // ********************************************************
     // ****** Fonts *****
     // ********************************************************
+
 
     // ********************************************************
     // ****** Parent handling (for UIs) *****
@@ -191,7 +191,6 @@ public class DataAccessTT extends ATDataAccessAbstract
         m_main = main;
     }
 
-
     /*
      * public Component getParent()
      * {
@@ -201,6 +200,7 @@ public class DataAccessTT extends ATDataAccessAbstract
     // ********************************************************
     // ****** Look and Feel *****
     // ********************************************************
+
 
     /*
      * public void loadAvailableLFs() {

@@ -45,8 +45,7 @@ import com.atech.utils.ATSwingUtils;
  *
 */
 
-public abstract class RestoreSelectorDialog extends JDialog implements ActionListener, HelpCapable,
-        ComponentHelpCapable
+public abstract class RestoreSelectorDialog extends JDialog implements ActionListener, HelpCapable, ComponentHelpCapable
 {
 
     private static final long serialVersionUID = 46466618138619321L;
@@ -190,7 +189,7 @@ public abstract class RestoreSelectorDialog extends JDialog implements ActionLis
         // ---
         button = new JButton(ic.getMessage("BROWSE") + "...");
         button.setBounds(290, 305, 120, 25);
-        // button_backup.setIcon(dataAccess.getImageIcon_22x22("export1.png",
+        // buttonBackup.setIcon(dataAccess.getImageIcon_22x22("export1.png",
         // this));
         button.addActionListener(this);
         button.setFont(font_normal);

@@ -12,6 +12,7 @@ import com.atech.i18n.I18nControlLangMgr;
 import com.atech.i18n.I18nControlLangMgrDual;
 import com.atech.i18n.I18nControlRunner;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.ATechToolsRuntimeException;
 import com.atech.utils.file.PropertiesFile;
 
 /**
@@ -90,8 +91,10 @@ public class LanguageManager
 
         if (!props.wasFileRead())
         {
-            LOG.error("LanguageManager: Configuration file " + this.languageManagerRunner.getLanguageConfigFile()
-                    + " was NOT read !");
+            String errorMsg = "LanguageManager: Configuration file "
+                    + this.languageManagerRunner.getLanguageConfigFile() + " was NOT read !";
+            LOG.error(errorMsg);
+            throw new ATechToolsRuntimeException(errorMsg);
         }
 
         int le = Integer.parseInt(props.get("AVAILABLE_LANGUAGES"));
@@ -179,8 +182,11 @@ public class LanguageManager
 
         if (!props.wasFileRead())
         {
-            System.out.println("LanguageManager: Configuration file for selected language: "
-                    + this.languageManagerRunner.getLanguageSelectionConfigFile() + " was NOT read !");
+            this.selectedLanguage = this.languageManagerRunner.getDefaultLanguage();
+
+            LOG.warn("LanguageManager: Configuration file for selected language: "
+                    + this.languageManagerRunner.getLanguageSelectionConfigFile()
+                    + " was NOT read ! Using default language (" + this.selectedLanguage + ") !");
         }
         else
         {

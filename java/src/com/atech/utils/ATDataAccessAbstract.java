@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import com.atech.db.ext.ExtendedHandler;
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.hdb_object.User;
-import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
+import com.atech.db.hibernate.tool.app.DbToolApplicationAbstract;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.graphics.components.jtable.JTableUtil;
 import com.atech.graphics.dialogs.ErrorDialog;
@@ -1323,7 +1323,7 @@ public abstract class ATDataAccessAbstract
      *
      * @return the string
      */
-    public String parseExpressionFull(String in, String expression, String replace)
+    public static String parseExpressionFull(String in, String expression, String replace)
     {
 
         String buffer;
@@ -1992,7 +1992,7 @@ public abstract class ATDataAccessAbstract
      *
      * @return the string
      */
-    public String makeI18nKeyword(String input)
+    public static String makeI18nKeyword(String input)
     {
         String process = input.replaceAll(" ", "_");
         process = process.toUpperCase();

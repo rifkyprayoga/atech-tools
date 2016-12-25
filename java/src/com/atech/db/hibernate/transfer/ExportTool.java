@@ -18,6 +18,8 @@ import org.hibernate.mapping.Table;
 import org.hibernate.mapping.Value;
 
 import com.atech.db.hibernate.HibernateConfiguration;
+import com.atech.db.hibernate.tool.data.DatabaseTableConfiguration;
+import com.atech.db.hibernate.tool.data.management.common.ImportExportAbstract;
 
 /**
  *  This file is part of ATech Tools library.
@@ -52,17 +54,19 @@ import com.atech.db.hibernate.HibernateConfiguration;
 public abstract class ExportTool extends ImportExportAbstract
 {
 
-    /**
-     * Instantiates a new export tool.
-     * 
-     * @param cfg the cfg
-     * @param some the some
-     */
-    public ExportTool(Configuration cfg, int some)
-    {
-        super(cfg, some);
-    }
+    public static final String DELIMITER = "$#|#$";
 
+
+    // /**
+    // * Instantiates a new export tool.
+    // *
+    // * @param cfg the cfg
+    // * @param some the some
+    // */
+    // public ExportTool(Configuration cfg, int some)
+    // {
+    // super(cfg);
+    // }
 
     /**
      * Instantiates a new export tool.
@@ -82,10 +86,10 @@ public abstract class ExportTool extends ImportExportAbstract
     {
         System.out.println("Debug Configuration:");
 
-        // this.m_cfg.g
-        // this.m_cfg.
+        // this.configuration.g
+        // this.configuration.
 
-        Iterator<?> it = this.m_cfg.getClassMappings();
+        Iterator<?> it = this.getConfiguration().getClassMappings();
 
         while (it.hasNext())
         {
@@ -111,7 +115,7 @@ public abstract class ExportTool extends ImportExportAbstract
      */
     public RootClass getRootClass(String cls_name)
     {
-        Iterator<?> it = this.m_cfg.getClassMappings();
+        Iterator<?> it = this.getConfiguration().getClassMappings();
 
         while (it.hasNext())
         {
@@ -284,21 +288,48 @@ public abstract class ExportTool extends ImportExportAbstract
      * @param columns the columns
      * @param db_version the db_version
      */
+    @Deprecated
     public void writeHeader(String class_name, String columns, String db_version)
     {
         try
         {
-            bw_file.write(";\n");
-            bw_file.write("; Class: " + class_name + "\n");
-            bw_file.write("; Date of export: " + getCurrentDate() + "\n");
-            bw_file.write(";\n");
-            bw_file.write("; Exported by ATechTools - Hibernate Exporter 0.2\n");
-            bw_file.write(";\n");
-            bw_file.write("; Columns: " + columns + "\n");
-            bw_file.write(";\n");
-            bw_file.write("; Database version: " + db_version + "\n");
-            bw_file.write(";\n");
-            bw_file.flush();
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Class: " + class_name + "\n");
+            bufferedWriter.write("; Date of export: " + getCurrentDate() + "\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Exported by ATechTools - Hibernate Exporter 0.2\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Columns: " + columns + "\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Database version: " + db_version + "\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.flush();
+        }
+        catch (Exception ex)
+        {
+            println("Exception on writeToFile: " + ex);
+        }
+    }
+
+
+    public void writeHeader(DatabaseTableConfiguration tableConfiguration, int dbVersion)
+    {
+        try
+        {
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Class: " + tableConfiguration.getObjectFullName() + "\n");
+            bufferedWriter.write("; Date of export: " + getCurrentDate() + "\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Exported by ATechTools - Hibernate Exporter 0.5 (DbTool v1.0)\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Columns: " + tableConfiguration.getColumns() + "\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Database version: " + dbVersion + "\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write(
+                String.format("; DbToolInfo [classShort=%s, databaseVersion=%s, tableVersion=%s, delimiter=%s]",
+                    tableConfiguration.getObjectName(), dbVersion, tableConfiguration.getTableVersion(), "$#|#$"));
+            bufferedWriter.flush();
         }
         catch (Exception ex)
         {
@@ -313,24 +344,26 @@ public abstract class ExportTool extends ImportExportAbstract
      * @param bro the bro
      * @param db_version the db_version
      */
+    @Deprecated
     public void writeHeader(BackupRestoreObject bro, String db_version)
     {
         try
         {
 
-            bw_file.write(";\n");
-            bw_file.write("; Class: " + bro.getBackupClassName() + "\n");
-            bw_file.write("; Date of export: " + getCurrentDate() + "\n");
-            bw_file.write(";\n");
-            bw_file.write("; Exported by ATechTools - Hibernate Exporter 0.4\n");
-            bw_file.write(";\n");
-            // bw_file.write("; Columns: " + bro.dbExportHeader() + "\n");
-            bw_file.write("; Database version: " + db_version + "\n");
-            bw_file.write("; Delimiter: " + (bro.isNewImport() ? "$#|#$" : "|") + "\n");
-            bw_file.write(bro.dbExportHeader());
-            bw_file.write(";\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Class: " + bro.getBackupClassName() + "\n");
+            bufferedWriter.write("; Date of export: " + getCurrentDate() + "\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Exported by ATechTools - Hibernate Exporter 0.4\n");
+            bufferedWriter.write(";\n");
+            // bufferedWriter.write("; Columns: " + bro.dbExportHeader() +
+            // "\n");
+            bufferedWriter.write("; Database version: " + db_version + "\n");
+            bufferedWriter.write("; Delimiter: " + (bro.isNewImport() ? "$#|#$" : "|") + "\n");
+            bufferedWriter.write(bro.dbExportHeader());
+            bufferedWriter.write(";\n");
 
-            bw_file.flush();
+            bufferedWriter.flush();
         }
         catch (Exception ex)
         {
@@ -427,6 +460,13 @@ public abstract class ExportTool extends ImportExportAbstract
 
         return clms;
 
+    }
+
+
+    public Configuration getConfiguration()
+    {
+        // FIXME
+        return null;
     }
 
 

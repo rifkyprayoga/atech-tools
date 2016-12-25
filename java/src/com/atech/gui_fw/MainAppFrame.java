@@ -155,10 +155,13 @@ public class MainAppFrame extends JFrame // implements ActionListener
         // this.app_context.initDataAccess();
         this.app_context.setSplashProgress(false, 5, "SET_LOOK_AND_FEEL");
 
-        setLookAndFeel(this.app_context.getDataAccess().getDbToolAbstract().getLFData());
+        if (this.app_context.hasDbToolApplication())
+        {
+            setLookAndFeel(this.app_context.getDataAccess().getDbToolAbstract().getLFData());
 
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JDialog.setDefaultLookAndFeelDecorated(true);
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            JDialog.setDefaultLookAndFeelDecorated(true);
+        }
 
         // this.setTitle(app_ctx.getTitle());
 

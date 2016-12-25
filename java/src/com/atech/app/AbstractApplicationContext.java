@@ -13,7 +13,7 @@ import javax.swing.*;
 import com.atech.db.cfg.DbConfig;
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.hdb_object.User;
-import com.atech.db.hibernate.tool.DbToolApplicationAbstract;
+import com.atech.db.hibernate.tool.app.DbToolApplicationAbstract;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.db.hibernate.transfer.BackupRestoreRunner;
 import com.atech.graphics.SplashAbstract;
@@ -60,6 +60,7 @@ public abstract class AbstractApplicationContext implements ActionListener
     // ArrayList<String> plugins_db = null;
     protected ArrayList<String> db_files = new ArrayList<String>();
     protected DbConfig jdbc_config = null;
+    protected boolean hasDbToolApplication = true;
 
     protected boolean is_demo = false;
 
@@ -208,6 +209,12 @@ public abstract class AbstractApplicationContext implements ActionListener
 
 
     public abstract void loadDbToolApplication();
+
+
+    public boolean hasDbToolApplication()
+    {
+        return hasDbToolApplication;
+    }
 
 
     /**

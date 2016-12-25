@@ -1,11 +1,5 @@
 package com.atech.db.ext;
 
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.StringTokenizer;
-
-import com.atech.utils.ATDataAccessAbstract;
-
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -36,161 +30,14 @@ import com.atech.utils.ATDataAccessAbstract;
  *
 */
 
-public abstract class ExtendedHandler
+public interface ExtendedHandler
 {
-    ATDataAccessAbstract m_da;
-    String extended_packed;
-    protected Hashtable<Integer, String> ext_mapped_types = null;
-    private String extended_divider = ";##;";
-
-
-    // private int maxParameters = 0;
-
-    /**
-     * Constructor
-     * 
-     * @param da
-     */
-    public ExtendedHandler(ATDataAccessAbstract da)
-    {
-        initExtended();
-    }
-
-    /**
-     * Init Extended Values for type
-     */
-    public abstract void initExtended();
 
     /**
      * Get Extended Object Name
      * 
      * @return
      */
-    public abstract String getExtendedObject();
-
-    /**
-     * Load Extended
-     * 
-     * @param extended
-     * @return
-     */
-    public HashMap<String, String> loadExtended(String extended)
-    {
-        this.extended_packed = extended;
-
-        HashMap<String, String> ht = new HashMap<String, String>();
-
-        if (this.extended_packed != null && this.extended_packed.trim().length() > 0)
-        {
-            StringTokenizer strtok = new StringTokenizer(this.extended_packed, this.extended_divider);
-
-            while (strtok.hasMoreTokens())
-            {
-                String val = strtok.nextToken();
-                int idx = val.indexOf("=");
-                ht.put(val.substring(0, idx), val.substring(idx + 1));
-            }
-
-        }
-
-        return ht;
-
-    }
-
-    public String getExtendedTypeDescription(int type)
-    {
-        if (this.ext_mapped_types.containsKey(type))
-            return this.ext_mapped_types.get(type);
-        else
-            return null;
-    }
-
-
-    /**
-     * Save Extended Entry for database
-     * 
-     * @param hashMap
-     * @return String value containing all set extended
-     */
-    public String saveExtended(HashMap<String, String> hashMap)
-    {
-        StringBuffer sb = new StringBuffer();
-        boolean found = false;
-
-        for (int i = 0; i <= ext_mapped_types.size(); i++)
-        {
-            String key = ext_mapped_types.get(i);
-            if (hashMap.containsKey(key))
-            {
-                sb.append(key + "=" + hashMap.get(key) + extended_divider);
-                found = true;
-            }
-        }
-
-        if (found)
-        {
-            return sb.substring(0, sb.length() - extended_divider.length());
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    /**
-     * Get Extended Value (after resolved)
-     * 
-     * @param type
-     * @param ht 
-     * @return
-     */
-    public String getExtendedValue(int type, HashMap<String, String> ht)
-    {
-        if (ht.containsKey(this.ext_mapped_types.get(type)))
-            return ht.get(this.ext_mapped_types.get(type));
-        else
-            return "";
-    }
-
-    /**
-     * Set Extended Value (after resolved)
-     * 
-     * @param type
-     * @param val 
-     * @param ht 
-     * @return returns true, if value was changed
-     */
-    public boolean setExtendedValue(int type, String val, HashMap<String, String> ht)
-    {
-        if (val == null || val.trim().length() == 0)
-            return false;
-
-        if (ht.containsKey(this.ext_mapped_types.get(type)))
-        {
-            if (ht.get(this.ext_mapped_types.get(type)).equals(val))
-                return false;
-            else
-            {
-                ht.remove(this.ext_mapped_types.get(type));
-            }
-        }
-
-        ht.put(this.ext_mapped_types.get(type), val);
-        return true;
-
-    }
-
-    /**
-     * Is Extended Value Set
-     * 
-     * @param type
-     * @param ht
-     * @return
-     */
-    public boolean isExtendedValueSet(int type, HashMap<String, String> ht)
-    {
-        return ht.containsKey(this.ext_mapped_types.get(type));
-    }
-
+    String getExtendedObject();
 
 }
