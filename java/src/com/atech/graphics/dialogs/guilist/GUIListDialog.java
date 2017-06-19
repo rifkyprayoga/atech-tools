@@ -96,6 +96,8 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
 
         processDefaultParameters();
 
+        this.definition.loadData();
+
         this.setVisible(true);
     }
 
@@ -117,6 +119,8 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         this.definition = def;
         this.definition.setParentDialog(this);
 
+        this.dataAccess.addComponent(this);
+
         this.setSize(this.definition.getWindowSize());
         ATSwingUtils.centerJDialog(this, dialog);
 
@@ -125,6 +129,8 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         init();
 
         processDefaultParameters();
+
+        this.definition.refreshTable();
 
         this.setVisible(true);
     }
@@ -141,10 +147,14 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
 
         this.getContentPane().add(panel);
 
+        boolean noFilter = ((!this.definition.hasFilter()) && (!this.definition.hasCustomDisplayHeader()));
+
+        System.out.println("No filter: " + noFilter);
+
         JLabel label = new JLabel(i18nControl.getMessage(this.definition.getTitle()));
         label.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD));
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setBounds(0, 20, this.getWidth(), 35);
+        label.setBounds(0, noFilter ? 30 : 20, this.getWidth(), 35);
         panel.add(label);
 
         int y = 80;
@@ -154,7 +164,7 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
         if (this.definition.hasFilter())
         {
 
-            ATSwingUtils.getLabel(this.definition.getFilterTexts()[0], 40, y, 150, 25, panel,
+            ATSwingUtils.getLabel(this.definition.getFilterDescriptionTexts()[0], 40, y, 150, 25, panel,
                 ATSwingUtils.FONT_NORMAL_BOLD);
 
             cb_filter1 = ATSwingUtils.getComboBox(this.definition.getFilterOptionsCombo1(), 200, y, 220, 25, panel,
@@ -163,11 +173,11 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
             sel_combo = this.definition.getFilterOptionsCombo1()[0];
             cb_filter1.addItemListener(this);
 
-            if (this.definition.getFilterType() == GUIListDefAbstract.FILTER_COMBO_AND_TEXT)
+            if (this.definition.getFilterType() == GUIListDefAbstract.GuiListFilterType.ComboAndText)
             {
                 y += 30;
 
-                ATSwingUtils.getLabel(this.definition.getFilterTexts()[1], 40, y, 150, 25, panel,
+                ATSwingUtils.getLabel(this.definition.getFilterDescriptionTexts()[1], 40, y, 150, 25, panel,
                     ATSwingUtils.FONT_NORMAL_BOLD);
 
                 tf_filter = ATSwingUtils.getTextField("", 200, y, 220, 25, panel);
@@ -177,12 +187,12 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
                 doc.addDocumentListener(this);
 
             }
-            else if (this.definition.getFilterType() == GUIListDefAbstract.FILTER_COMBO_TWICE)
+            else if (this.definition.getFilterType() == GUIListDefAbstract.GuiListFilterType.ComboTwice)
             {
                 // cb_filter1
                 y += 30;
 
-                ATSwingUtils.getLabel(this.definition.getFilterTexts()[1], 40, y, 150, 25, panel,
+                ATSwingUtils.getLabel(this.definition.getFilterDescriptionTexts()[1], 40, y, 150, 25, panel,
                     ATSwingUtils.FONT_NORMAL_BOLD);
 
                 // tf_filter = ATSwingUtils.getTextField("", 200, y, 220, 25,
@@ -220,8 +230,18 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
 
             spaceBetweenTableAndFilter = 20;
         }
+        else
+        {
+            // No filter
+            System.out.println("GUIListDialog: no filter");
+
+            spaceBetweenTableAndFilter = 20;
+
+        }
 
         this.table = this.definition.getJTable();
+
+        dataAccess.getSkinManager().reSkinifyComponent(this.table);
 
         table.addMouseListener(new MouseAdapter()
         {
@@ -268,6 +288,7 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
             {
                 JButton b = ATSwingUtils.getButton("   " + bd.text, pos_x, pos_y, 120, 30, panel,
                     ATSwingUtils.FONT_NORMAL, bd.icon_name, bd.action, this, dataAccess, pic_size);
+                b.setToolTipText(bd.desc);
                 b.setHorizontalAlignment(SwingConstants.LEFT);
                 pos_y += 35;
             }
@@ -312,66 +333,77 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
     }
 
 
-    /**
-     * Get All Filter Values
-     * 
-     * @return
-     */
-    public String[] getAllFilterValues()
-    {
-        String[] filters = null;
-
-        if (this.definition.hasFilter())
-        {
-
-            if (this.definition.getFilterType() == GUIListDefAbstract.FILTER_COMBO)
-            {
-                filters = new String[1];
-            }
-            else if (this.definition.getFilterType() == GUIListDefAbstract.FILTER_COMBO_AND_TEXT
-                    || this.definition.getFilterType() == GUIListDefAbstract.FILTER_COMBO_TWICE)
-            {
-                filters = new String[2];
-            }
-
-            // fix this if needed
-
-            filters[0] = (String) this.cb_filter1.getSelectedItem();
-
-            if (this.definition.getFilterType() == GUIListDefAbstract.FILTER_COMBO_AND_TEXT)
-            {
-                filters[1] = this.tf_filter.getText();
-            }
-            else if (this.definition.getFilterType() == GUIListDefAbstract.FILTER_COMBO_TWICE)
-            {
-                filters[1] = (String) this.cb_filter2.getSelectedItem();
-            }
-
-        }
-
-        return filters;
-    }
-
+    // /**
+    // * Get All Filter Values
+    // *
+    // * @return
+    // */
+    // public String[] getAllFilterValues()
+    // {
+    // String[] filters = null;
+    //
+    // if (this.definition.hasFilter())
+    // {
+    //
+    // if (this.definition.getFilterType() ==
+    // GUIListDefAbstract.GuiListFilterType.FILTER_COMBO)
+    // {
+    // filters = new String[1];
+    // }
+    // else if (this.definition.getFilterType() ==
+    // GUIListDefAbstract.FILTER_COMBO_AND_TEXT
+    // || this.definition.getFilterType() ==
+    // GUIListDefAbstract.FILTER_COMBO_TWICE)
+    // {
+    // filters = new String[2];
+    // }
+    //
+    // // fix this if needed
+    //
+    // filters[0] = (String) this.cb_filter1.getSelectedItem();
+    //
+    // if (this.definition.getFilterType() ==
+    // GUIListDefAbstract.FILTER_COMBO_AND_TEXT)
+    // {
+    // filters[1] = this.tf_filter.getText();
+    // }
+    // else if (this.definition.getFilterType() ==
+    // GUIListDefAbstract.FILTER_COMBO_TWICE)
+    // {
+    // filters[1] = (String) this.cb_filter2.getSelectedItem();
+    // }
+    //
+    // }
+    //
+    // return filters;
+    // }
 
     private void processDefaultParameters()
     {
 
         if (this.definition.hasFilter())
         {
+            this.definition.disableFilterRun();
 
-            if (this.definition.getFilterType() == GUIListDefAbstract.FILTER_COMBO)
+            if (this.definition.getFilterType() == GUIListDefAbstract.GuiListFilterType.Combo)
             {
                 this.cb_filter1.setSelectedItem(this.definition.defaultParameters[0]);
+                this.definition.setFilterCombo(this.definition.defaultParameters[0]);
             }
-            else if (this.definition.getFilterType() == GUIListDefAbstract.FILTER_COMBO_AND_TEXT)
+            else if (this.definition.getFilterType() == GUIListDefAbstract.GuiListFilterType.ComboAndText)
             {
                 this.cb_filter1.setSelectedItem(this.definition.defaultParameters[0]);
+                this.definition.setFilterCombo(this.definition.defaultParameters[0]);
             }
-            else if (this.definition.getFilterType() == GUIListDefAbstract.FILTER_COMBO_TWICE)
+            else if (this.definition.getFilterType() == GUIListDefAbstract.GuiListFilterType.ComboTwice)
             {
                 this.cb_filter1.setSelectedItem(this.definition.defaultParameters[0]);
+                this.definition.setFilterCombo(this.definition.defaultParameters[0]);
                 this.cb_filter2.setSelectedItem(this.definition.defaultParameters[1]);
+                this.definition.setFilterCombo2(this.definition.defaultParameters[1]);
             }
+
+            this.definition.enableFilterRun();
         }
 
     }
@@ -393,6 +425,14 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
             this.definition.doTableAction(action);
         }
 
+    }
+
+
+    @Override
+    public void dispose()
+    {
+        this.dataAccess.removeComponent(this);
+        super.dispose();
     }
 
 
@@ -433,7 +473,7 @@ public class GUIListDialog extends JDialog implements ActionListener, HelpCapabl
             if (!s.equals(sel_combo2))
             {
                 sel_combo2 = s;
-                this.definition.setFilterCombo_2(s);
+                this.definition.setFilterCombo2(s);
             }
         }
 

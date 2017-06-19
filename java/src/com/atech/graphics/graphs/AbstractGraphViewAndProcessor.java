@@ -65,8 +65,8 @@ public abstract class AbstractGraphViewAndProcessor implements GraphViewInterfac
         this.m_da = da;
         this.m_ic = da.getI18nControlInstance();
 
-        // System.out.println("AbstractGraphViewProcessor: " + da + ",m_ic: " +
-        // this.m_ic);
+        // System.out.println("AbstractGraphViewProcessor: " + da + ",i18nControl: " +
+        // this.i18nControl);
 
     }
 

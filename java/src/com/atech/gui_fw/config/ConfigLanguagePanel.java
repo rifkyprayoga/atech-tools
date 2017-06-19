@@ -115,7 +115,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
 
         // ATSwingUtils
 
-        // ATSwingUtils.getTitleLabel(m_ic.getMessage("LANGUAGE"),
+        // ATSwingUtils.getTitleLabel(i18nControl.getMessage("LANGUAGE"),
         // 0, 0, 500, 36, panel, ATSwingUtils.FONT_BIG_BOLD);
 
         JLabel label = ATSwingUtils.getTitleLabel(m_ic.getMessage("CFG_LANG"), 0, 25, 520, 36, this,
@@ -184,7 +184,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
 
         ATSwingUtils.getLabel(m_ic.getMessage("NOTE_RESTART"), 40, 280, 360, 50, panel, ATSwingUtils.FONT_NORMAL);
         /*
-         * ATSwingUtils.getLabel(m_ic.getMessage("SELECT_LANGUAGE"),
+         * ATSwingUtils.getLabel(i18nControl.getMessage("SELECT_LANGUAGE"),
          * 40, 345, 340, 25,
          * panel, ATSwingUtils.FONT_NORMAL_BOLD);
          */
@@ -219,7 +219,7 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
 
         // ATSwingUtils
 
-        // ATSwingUtils.getTitleLabel(m_ic.getMessage("LANGUAGE"),
+        // ATSwingUtils.getTitleLabel(i18nControl.getMessage("LANGUAGE"),
         // 0, 0, 500, 36, panel, ATSwingUtils.FONT_BIG_BOLD);
 
         ATSwingUtils.getTitleLabel(m_ic.getMessage("LANGUAGE_SETTINGS"), 0, 25, 520, 36, this,
@@ -248,28 +248,28 @@ public class ConfigLanguagePanel extends AbstractConfigPanel implements HelpCapa
         /*
          * label = new JLabel();
          * label.setBounds(20, 50, 100, 25);
-         * label.setText(m_ic.getMessage("YOUR_LANGUAGE") + ":");
+         * label.setText(i18nControl.getMessage("YOUR_LANGUAGE") + ":");
          * this.add(label);
          */
         // a.add(langBox);
 
         /*
-         * ATSwingUtils.getLabel(m_ic.getMessage("LANGPACK_VERSION") + ":",
+         * ATSwingUtils.getLabel(i18nControl.getMessage("LANGPACK_VERSION") + ":",
          * 40, 50, 360, 25,
          * panel, ATSwingUtils.FONT_NORMAL_BOLD);
-         * ATSwingUtils.getLabel(m_ic.getMessage("LANG_WITH_HELP") + ":",
+         * ATSwingUtils.getLabel(i18nControl.getMessage("LANG_WITH_HELP") + ":",
          * 60, 70, 360, 25,
          * panel, ATSwingUtils.FONT_NORMAL_BOLD);
-         * ATSwingUtils.getLabel(m_ic.getMessage("LANG_WITHOUT_HELP") + ":",
+         * ATSwingUtils.getLabel(i18nControl.getMessage("LANG_WITHOUT_HELP") + ":",
          * 60, 90, 360, 25,
          * panel, ATSwingUtils.FONT_NORMAL_BOLD);
-         * ATSwingUtils.getLabel(m_ic.getMessage("LANG_DESC"),
+         * ATSwingUtils.getLabel(i18nControl.getMessage("LANG_DESC"),
          * 40, 100, 430, 200,
          * panel, ATSwingUtils.FONT_NORMAL);
-         * ATSwingUtils.getLabel(m_ic.getMessage("NOTE_RESTART"),
+         * ATSwingUtils.getLabel(i18nControl.getMessage("NOTE_RESTART"),
          * 40, 280, 360, 50,
          * panel, ATSwingUtils.FONT_NORMAL);
-         * ATSwingUtils.getLabel(m_ic.getMessage(
+         * ATSwingUtils.getLabel(i18nControl.getMessage(
          * "NOTE_LANG_FEATURE_NOT_WORKING")
          * ,
          * 40, 325, 430, 70,

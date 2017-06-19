@@ -1,16 +1,15 @@
 package com.atech.gui_fw.config;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import com.atech.data.enums.InternalSetting;
+import com.atech.db.hibernate.HibernateObject;
 import com.atech.db.hibernate.hdb_object.User;
-import com.atech.help.HelpCapable;
-import com.atech.i18n.I18nControlAbstract;
+import com.atech.db.hibernate.hdb_object.UserH;
+import com.atech.graphics.dialogs.StandardDialogForObject;
 import com.atech.utils.ATDataAccessAbstract;
-import com.atech.utils.ATSwingUtils;
 
 /**
  *  This file is part of ATech Tools library.
@@ -49,18 +48,19 @@ import com.atech.utils.ATSwingUtils;
  * This is dialog for add/editing users. It should be used only from within
  * ConfigurationDialog.
  * 
- * This class is part of PIS (Parish Information System) package.
+ *
  * 
  * @author      Andy (Aleksander) Rozman {andy@triera.net}
  * @version     1.0
  */
 
-public class ConfigUserDialog extends JDialog implements ActionListener, HelpCapable
+public class ConfigUserDialog extends StandardDialogForObject
+// JDialog implements ActionListener, HelpCapable
 {
 
     private static final long serialVersionUID = 4132176317440765520L;
-    I18nControlAbstract ic = null; // I18nControl.getInstance();
-    ATDataAccessAbstract m_da = null;
+    // I18nControlAbstract ic = null; // I18nControl.getInstance();
+    // ATDataAccessAbstract m_da = null;
     Font font_big, font_normal, font_normal_b;
     int m_error = 0;
 
@@ -73,11 +73,60 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
     JComboBox cb_type, cb_type_basic;
     JPasswordField pf_pass;
 
-    long data_id = -1;
+    // long data_id = -1;
     int lastAction = 0; // no event
-    User m_user = null;
+    UserH m_user = null;
     // InternalPerson m_ip = null;
     AbstractConfigurationContext m_acc;
+
+
+    /**
+     * Constructor
+     *
+     * @param dialog
+     */
+    public ConfigUserDialog(ATDataAccessAbstract dataAccess, JDialog dialog)
+    {
+        super(dialog, dataAccess);
+    }
+
+
+    public ConfigUserDialog(ATDataAccessAbstract dataAccess, JDialog dialog, HibernateObject userH, boolean editValue)
+    {
+        super(dialog, dataAccess, userH, false);
+
+        this.editValue = editValue;
+
+        init(userH);
+    }
+
+
+    /**
+     * Constructor
+     *
+     * @param dialog
+     */
+    public ConfigUserDialog(ATDataAccessAbstract dataAccess, JDialog dialog, AbstractConfigurationContext acc)
+    {
+        super(dialog, dataAccess, false);
+
+        this.m_acc = acc;
+
+        init();
+    }
+
+
+    public ConfigUserDialog(ATDataAccessAbstract dataAccess, JDialog dialog, HibernateObject userH, boolean editValue,
+            AbstractConfigurationContext acc)
+    {
+        super(dialog, dataAccess, userH, false);
+
+        this.editValue = editValue;
+
+        this.m_acc = acc;
+
+        init(userH);
+    }
 
 
     /**
@@ -87,73 +136,137 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
      * @param usr 
      * @param acc 
      */
-    public ConfigUserDialog(ATDataAccessAbstract da, User usr, AbstractConfigurationContext acc)
+    public void ConfigUserDialogXX(ATDataAccessAbstract da, User usr, AbstractConfigurationContext acc)
     {
-        super(da.getMainParent(), "", true);
+        // super(da.getMainParent(), "", true);
 
-        this.m_acc = acc;
-        this.m_da = da;
-        this.ic = da.getI18nControlInstance();
-        this.m_da.addComponent(this);
+        // this.m_acc = acc;
+        // this.m_da = da;
+        // this.ic = da.getI18nControlInstance();
+        // this.m_da.addComponent(this);
 
         String ev = "";
 
-        if (usr == null)
-        {
-            this.data_id = -1;
-        }
-        else
-        {
-            this.data_id = usr.getId();
-        }
+        // if (usr == null)
+        // {
+        // this.data_id = -1;
+        // }
+        // else
+        // {
+        // this.data_id = usr.getId();
+        // }
 
-        if (this.data_id > 0)
-        {
-            ev = ic.getMessage("USER_EDIT");
-        }
-        else
-        {
-            ev = ic.getMessage("USER_ADD");
-        }
-
-        this.setTitle(ev);
+        // if (this.data_id > 0)
+        // {
+        // ev = i18nControl.getMessage("USER_EDIT");
+        // }
+        // else
+        // {
+        // ev = i18nControl.getMessage("USER_ADD");
+        // }
+        //
+        // this.setTitle(ev);
 
         // System.out.println("CfgUserDialog 0.1 ");
 
-        m_da = da;
-
-        this.setResizable(false);
-        this.setBounds(130, 50, 430, 465);
-
-        ATSwingUtils.initLibrary();
-
-        font_big = ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD);
-        font_normal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
-        font_normal_b = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
-        ;
-
-        this.m_user = usr;
-
-        if (m_user == null)
-        {
-            this.m_user = new User(m_da);
-        }
-
-        this.cmdUser();
-        this.loadUser();
-        this.m_da.centerJDialog(this);
-
-        this.setVisible(true);
+        // m_da = da;
+        //
+        // this.setResizable(false);
+        // this.setBounds(130, 50, 430, 465);
+        //
+        // ATSwingUtils.initLibrary();
+        //
+        // font_big = ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD);
+        // font_normal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
+        // font_normal_b = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
+        // ;
+        //
+        // this.m_user = usr;
+        //
+        // if (m_user == null)
+        // {
+        // this.m_user = new User(m_da);
+        // }
+        //
+        // this.cmdUser();
+        // this.loadUser();
+        // this.m_da.centerJDialog(this);
+        //
+        // this.setVisible(true);
 
     }
 
 
     /**
-     *  Loads user data into GUI
+     * Constructor
+     *
+     * @param dataAccess
+     * @param userH
      */
-    public void loadUser()
+    public void xxxConfigUserDialog(ATDataAccessAbstract dataAccess, UserH userH)
     {
+        // super(dataAccess.getMainParent(), "", true);
 
+        // // this.m_acc = acc;
+        // this.m_da = dataAccess;
+        // this.ic = dataAccess.getI18nControlInstance();
+        // this.m_da.addComponent(this);
+        //
+        // String ev = "";
+        //
+        // if (userH == null)
+        // {
+        // this.data_id = -1;
+        // }
+        // else
+        // {
+        // this.data_id = userH.getId();
+        // }
+        //
+        // if (this.data_id > 0)
+        // {
+        // ev = i18nControl.getMessage("USER_EDIT");
+        // }
+        // else
+        // {
+        // ev = i18nControl.getMessage("USER_ADD");
+        // }
+        //
+        // this.setTitle(ev);
+        //
+        // // System.out.println("CfgUserDialog 0.1 ");
+        //
+        // // m_da = da;
+        //
+        // this.setResizable(false);
+        // this.setBounds(130, 50, 430, 465);
+        //
+        // ATSwingUtils.initLibrary();
+        //
+        // font_big = ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD);
+        // font_normal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
+        // font_normal_b = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL_BOLD);
+        //
+        // this.m_user = userH;
+        //
+        // if (m_user == null)
+        // {
+        // this.m_user = new UserH();
+        // }
+        //
+        // this.cmdUser();
+        // this.loadUser();
+        // this.m_da.centerJDialog(this);
+        //
+        // this.setVisible(true);
+
+    }
+
+
+    @Override
+    public void loadData(Object dataObject)
+    {
+        // FIXME
         tf_username.setText(m_user.getUsername());
         tf_realname.setText(m_user.getReal_name());
         tf_user_desc.setText(m_user.getReal_desc());
@@ -189,38 +302,34 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          * "NO_INTERNAL_USER_SELECTED"));
          * }
          */
-
     }
 
 
-    /**
-     * Save user data, from GUI
-     * 
-     * @return true if save was succesfull. If global variable m_error is 1 then error was produced. If m_error is 0 then User was not saved, because no data has changed.
-     */
-    public boolean saveUser()
+    @Override
+    public boolean saveData()
     {
+        // FIXME
         boolean change = false;
 
         m_error = 0;
 
         if (tf_username.getText().length() == 0)
         {
-            JOptionPane.showMessageDialog(this, ic.getMessage("USERNAME_MUST_BE_ENTERED"), ic.getMessage("ERROR"),
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, i18nControl.getMessage("USERNAME_MUST_BE_ENTERED"),
+                i18nControl.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
             m_error = 1;
             return false;
         }
 
         if (pf_pass.getPassword().length < 7)
         {
-            JOptionPane.showMessageDialog(this, ic.getMessage("PASSWORD_MUST_BE_SET"), ic.getMessage("ERROR"),
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, i18nControl.getMessage("PASSWORD_MUST_BE_SET"),
+                i18nControl.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
             m_error = 1;
             return false;
         }
         /*
-         * if (cb_type_basic.getSelectedIndex()==0)
+         * if (cb_type_basi18nControl.getSelectedIndex()==0)
          * {
          * JOptionPane.showMessageDialog(this,
          * i18nControl.getMessage("TYPE_MUST_BE_SET"),
@@ -232,14 +341,14 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          */
         if (cb_type.getSelectedIndex() == 0)
         {
-            JOptionPane.showMessageDialog(this, ic.getMessage("ACCESS_MUST_BE_SET"), ic.getMessage("ERROR"),
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, i18nControl.getMessage("ACCESS_MUST_BE_SET"),
+                i18nControl.getMessage("ERROR"), JOptionPane.ERROR_MESSAGE);
             m_error = 1;
             return false;
         }
 
         /*
-         * if ((cb_type_basic.getSelectedIndex()==2) && (m_ip==null))
+         * if ((cb_type_basi18nControl.getSelectedIndex()==2) && (m_ip==null))
          * {
          * JOptionPane.showMessageDialog(this,
          * i18nControl.getMessage("IP_MUST_BE_SET"),
@@ -276,11 +385,13 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
 
         /*
          * if
-         * (this.db_user[cb_type_basic.getSelectedIndex()]!=m_user.getUser_type
+         * (this.db_user[cb_type_basi18nControl.getSelectedIndex()]!=m_user.
+         * getUser_type
          * ())
          * {
          * change = true;
-         * m_user.setUser_type(this.db_user[cb_type_basic.getSelectedIndex()]);
+         * m_user.setUser_type(this.db_user[cb_type_basi18nControl.
+         * getSelectedIndex()]);
          * }
          */
 
@@ -291,7 +402,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         }
 
         /*
-         * if (cb_type_basic.getSelectedIndex()==2)
+         * if (cb_type_basi18nControl.getSelectedIndex()==2)
          * {
          * if (m_user.getUser_type_id()!=m_ip.getId())
          * {
@@ -303,13 +414,13 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
 
         if (change)
         {
-            if (data_id <= 0)
+            if (m_user.getId() <= 0)
             {
-                m_da.getHibernateDb().add(m_user);
+                this.dataAccess.getHibernateDb().addHibernate(m_user);
             }
             else
             {
-                m_da.getHibernateDb().edit(m_user);
+                this.dataAccess.getHibernateDb().editHibernate(m_user);
             }
 
             return true;
@@ -320,12 +431,9 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
     }
 
 
-    /**
-     * Create GUI
-     */
-    public void cmdUser()
+    @Override
+    public void initGUI()
     {
-
         Container dgPane = this.getContentPane();
 
         panel = new JPanel();
@@ -333,25 +441,18 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         panel.setLayout(null); // 600 450
         dgPane.add(panel);
 
-        String ev = "";
+        String title = i18nControl.getMessage(this.editValue ? "USER_EDIT" : "USER_ADD");
 
-        if (this.m_user.getId() > 0)
-        {
-            ev = ic.getMessage("USER_EDIT");
-        }
-        else
-        {
-            ev = ic.getMessage("USER_ADD");
-        }
+        this.setTitle(title);
 
-        label = new JLabel(ev);
+        label = new JLabel(title);
         label.setBounds(0, 25, 430, 40);
         label.setFont(font_big);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label, null);
 
         // username
-        label = new JLabel(ic.getMessage("USERNAME") + ":");
+        label = new JLabel(i18nControl.getMessage("USERNAME") + ":");
         label.setBounds(45, 90, 150, 25);
         label.setFont(font_normal_b);
         panel.add(label, null);
@@ -362,7 +463,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         panel.add(tf_username, null);
 
         // password
-        label = new JLabel(ic.getMessage("PASSWORD") + ":");
+        label = new JLabel(i18nControl.getMessage("PASSWORD") + ":");
         label.setBounds(45, 123, 150, 25);
         label.setFont(font_normal_b);
         panel.add(label, null);
@@ -379,7 +480,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         }
 
         // user realname
-        label = new JLabel(ic.getMessage("REAL_NAME") + ":");
+        label = new JLabel(i18nControl.getMessage("REAL_NAME") + ":");
         label.setBounds(45, 158, 150, 25);
         label.setFont(font_normal_b);
         panel.add(label, null);
@@ -390,7 +491,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         panel.add(tf_realname, null);
 
         // user desc
-        label = new JLabel(ic.getMessage("USER_DESC") + ":");
+        label = new JLabel(i18nControl.getMessage("USER_DESC") + ":");
         label.setBounds(45, 193, 150, 25);
         label.setFont(font_normal_b);
         panel.add(label, null);
@@ -407,9 +508,9 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          * label.setFont(font_normal_b);
          * panel.add(label, null);
          * cb_type_basic = new JComboBox(dataAccess.userTypesBasic);
-         * cb_type_basic.setBounds(200, 225, 150, 25);
-         * cb_type_basic.setFont(font_normal);
-         * cb_type_basic.addItemListener(new ItemListener(){
+         * cb_type_basi18nControl.setBounds(200, 225, 150, 25);
+         * cb_type_basi18nControl.setFont(font_normal);
+         * cb_type_basi18nControl.addItemListener(new ItemListener(){
          * /**
          * Invoked when an item has been selected or deselected by the user.
          * The code written for this method performs the operations
@@ -418,7 +519,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         /*
          * public void itemStateChanged(ItemEvent e)
          * {
-         * bt_select.setEnabled(cb_type_basic.getSelectedIndex()==2);
+         * bt_select.setEnabled(cb_type_basi18nControl.getSelectedIndex()==2);
          * }
          * });
          * panel.add(cb_type_basic, null);
@@ -442,12 +543,12 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
          * bt_select.setEnabled(false);
          */
         // access level
-        label = new JLabel(ic.getMessage("ACCESS_LEVEL") + ":");
+        label = new JLabel(i18nControl.getMessage("ACCESS_LEVEL") + ":");
         label.setBounds(45, 228, 120, 25);
         label.setFont(font_normal_b);
         panel.add(label, null);
 
-        cb_type = new JComboBox(m_da.user_types);
+        cb_type = new JComboBox(dataAccess.user_types);
         cb_type.setBounds(210, 225, 160, 25);
         cb_type.setFont(font_normal);
         panel.add(cb_type, null);
@@ -455,7 +556,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         // ---
         // --- OK Command
         // ---
-        button = new JButton(ic.getMessage("OK"));
+        button = new JButton(i18nControl.getMessage("OK"));
         button.setBounds(150, 370, 80, 30);
         button.addActionListener(this);
         button.setFont(font_normal);
@@ -465,7 +566,7 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         // ---
         // --- Cancel Command
         // ---
-        button = new JButton(ic.getMessage("CANCEL"));
+        button = new JButton(i18nControl.getMessage("CANCEL"));
         button.setBounds(225, 370, 80, 30);
         button.addActionListener(this);
         button.setFont(font_normal);
@@ -475,18 +576,24 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         // ---
         // --- Help command
         // ---
-        button = new JButton(ic.getMessage("HELP"));
+        button = new JButton(i18nControl.getMessage("HELP"));
         button.setBounds(300, 370, 80, 30);
         button.setFont(font_normal);
         // button.addActionListener(this);
         // button.setActionCommand("help");
         panel.add(button);
 
-        this.help_button = button;
+        this.btnHelp = button;
 
-        if (this.m_acc.app_ctx.isHelpEnabled())
+        if (this.m_acc != null && this.m_acc.app_ctx != null)
         {
-            this.m_da.enableHelp(this);
+            if (this.m_acc.app_ctx.isHelpEnabled())
+                this.dataAccess.enableHelp(this);
+        }
+        else
+        {
+            if (this.getHelpId() != null)
+                this.dataAccess.enableHelp(this);
         }
 
         // PISMainHelp.mainHelpBroker.enableHelpOnButton(button,
@@ -494,121 +601,98 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
         // PISMainHelp.mainHelpBroker.enableHelpKey(this.getRootPane(),
         // "pages.PISSettingsUserAdd", null);
 
-    }
+        this.setResizable(false);
+        this.setBounds(130, 50, 430, 465);
 
+        this.dataAccess.centerJDialog(this);
+        this.setVisible(true);
+    }
 
     /**
      *  Action Listener
      */
-    public void actionPerformed(ActionEvent e)
-    {
-        String action = e.getActionCommand();
+    // public void actionPerformed(ActionEvent e)
+    // {
+    // String action = e.getActionCommand();
+    //
+    // if (action.equals("ok"))
+    // {
+    //
+    // lastAction = 0;
+    //
+    // if (saveUser())
+    // {
+    // lastAction = 1;
+    // this.dispose();
+    // this.m_da.removeComponent(this);
+    // }
+    // else
+    // {
+    // if (m_error == 0)
+    // {
+    // lastAction = 0;
+    // this.dispose();
+    // this.m_da.removeComponent(this);
+    // }
+    // }
+    //
+    // }
+    // else if (action.equals("cancel"))
+    // {
+    // lastAction = 0;
+    // this.dispose();
+    // this.m_da.removeComponent(this);
+    // }
+    // /*
+    // * else if (action.equals("select_person"))
+    // * {
+    // * SelectorDialog sd;
+    // * if (this.m_ip==null)
+    // * {
+    // * sd = new SelectorDialog(dataAccess,
+    // * SelectorDialog.SELECTOR_INTERNAL_PERSON);
+    // * }
+    // * else
+    // * {
+    // * sd = new SelectorDialog(dataAccess,
+    // * SelectorDialog.SELECTOR_INTERNAL_PERSON, "|"+this.m_ip.getId()+"|");
+    // * }
+    // * if (sd.wasAction())
+    // * {
+    // * this.m_ip = (InternalPerson)sd.getSelectedObject();
+    // * this.label_person.setText(m_ip.getShortDescriptionWithType());
+    // * }
+    // * sd.dispose();
+    // * }
+    // */
+    // else
+    // {
+    // System.out.println("CfgUserDialog:Unknown command: " + action);
+    // }
+    //
+    // }
 
-        if (action.equals("ok"))
-        {
+    // /**
+    // * Determines if there was change of data
+    // * @return
+    // */
+    // public boolean wasAction()
+    // {
+    // if (lastAction == 1)
+    // return true;
+    // else
+    // return false;
+    // }
 
-            lastAction = 0;
-
-            if (saveUser())
-            {
-                lastAction = 1;
-                this.dispose();
-                this.m_da.removeComponent(this);
-            }
-            else
-            {
-                if (m_error == 0)
-                {
-                    lastAction = 0;
-                    this.dispose();
-                    this.m_da.removeComponent(this);
-                }
-            }
-
-        }
-        else if (action.equals("cancel"))
-        {
-            lastAction = 0;
-            this.dispose();
-            this.m_da.removeComponent(this);
-        }
-        /*
-         * else if (action.equals("select_person"))
-         * {
-         * SelectorDialog sd;
-         * if (this.m_ip==null)
-         * {
-         * sd = new SelectorDialog(dataAccess,
-         * SelectorDialog.SELECTOR_INTERNAL_PERSON);
-         * }
-         * else
-         * {
-         * sd = new SelectorDialog(dataAccess,
-         * SelectorDialog.SELECTOR_INTERNAL_PERSON, "|"+this.m_ip.getId()+"|");
-         * }
-         * if (sd.wasAction())
-         * {
-         * this.m_ip = (InternalPerson)sd.getSelectedObject();
-         * this.label_person.setText(m_ip.getShortDescriptionWithType());
-         * }
-         * sd.dispose();
-         * }
-         */
-        else
-        {
-            System.out.println("CfgUserDialog:Unknown command: " + action);
-        }
-
-    }
-
-
-    /**
-     * Determines if there was change of data
-     * @return 
-     */
-    public boolean wasAction()
-    {
-        if (lastAction == 1)
-            return true;
-        else
-            return false;
-    }
-
-
-    /** 
-     * Returns User object
-     * 
-     * @return 
-     */
-    public User getObject()
-    {
-        return m_user;
-    }
-
-    JButton help_button;
-
-
-    /**
-     * getComponent - this method returns instance of this component, for
-     * attaching it to help context.
-     * 
-     * @return instance of this component
-     */
-    public Component getComponent()
-    {
-        return this;
-    }
-
-
-    /**
-     * getHelpButton - returns help button, for attaching to help context
-     * 
-     * @return help button instance
-     */
-    public JButton getHelpButton()
-    {
-        return help_button;
-    }
+    // /**
+    // * Returns User object
+    // *
+    // * @return
+    // */
+    // public UserH getObject()
+    // {
+    // return m_user;
+    // }
 
 
     /**
@@ -618,7 +702,8 @@ public class ConfigUserDialog extends JDialog implements ActionListener, HelpCap
      */
     public String getHelpId()
     {
-        return "pages.PISSettingsUserAdd";
+        return dataAccess.getInternalSetting(InternalSetting.Help_Settings_UserAddEdit);
+        // return "pages.PISSettingsUserAdd";
     }
 
 }

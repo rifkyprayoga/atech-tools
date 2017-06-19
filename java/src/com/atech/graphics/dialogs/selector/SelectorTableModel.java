@@ -2,6 +2,7 @@ package com.atech.graphics.dialogs.selector;
 
 import java.util.List;
 
+import com.atech.db.hibernate.HibernateSelectableObject;
 import com.atech.graphics.components.jtable.TableModelWithToolTip;
 
 /**
@@ -10,26 +11,34 @@ import com.atech.graphics.components.jtable.TableModelWithToolTip;
 public class SelectorTableModel extends TableModelWithToolTip
 {
 
+    private static final long serialVersionUID = -4578214502176113799L;
     SelectableInterface selectorTypeObject;
     List<SelectableInterface> listOfElements;
+    public boolean columnStartsAtZero = false;
 
 
     public SelectorTableModel(SelectableInterface selectorTypeObject, List<SelectableInterface> listOfElements)
     {
         this.selectorTypeObject = selectorTypeObject;
         this.listOfElements = listOfElements;
+
+        if (selectorTypeObject instanceof HibernateSelectableObject)
+        {
+            this.columnStartsAtZero = true;
+        }
+
     }
 
 
-    public String getToolTipValue(int row, int column)
+    public String getToolTipValue(int row, int columnIndex)
     {
         if (selectorTypeObject instanceof SelectableInterfaceV2)
         {
             SelectableInterfaceV2 sel = (SelectableInterfaceV2) listOfElements.get(row);
-            return sel.getToolTipValue(column + 1);
+            return sel.getToolTipValue(this.columnStartsAtZero ? columnIndex : columnIndex + 1);
         }
         else
-            return (String) getValueAt(row, column);
+            return (String) getValueAt(row, columnIndex);
 
     }
 
@@ -52,6 +61,6 @@ public class SelectorTableModel extends TableModelWithToolTip
     public Object getValueAt(int rowIndex, int columnIndex)
     {
         SelectableInterface sel = listOfElements.get(rowIndex);
-        return sel.getColumnValue(columnIndex + 1);
+        return sel.getColumnValue(this.columnStartsAtZero ? columnIndex : columnIndex + 1);
     }
 }

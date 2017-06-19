@@ -6,8 +6,11 @@ import java.util.GregorianCalendar;
 
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.db.hibernate.HibernateConfiguration;
+import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.HibernateUtil;
 import com.atech.db.hibernate.transfer.BackupRestoreObject;
 import com.atech.db.hibernate.transfer.BackupRestoreWorkGiver;
@@ -46,14 +49,15 @@ import com.atech.utils.ATDataAccessAbstract;
 public abstract class ImportExportAbstract
 {
 
-    // protected Configuration configuration = null;
-    // Session session = null;
+    private static final Logger LOG = LoggerFactory.getLogger(ImportExportAbstract.class);
+
+    public static final String DELIMITER = "$#|#$";
+
     protected ImportExportStatusType statusType = ImportExportStatusType.None;
     protected int statusMaxEntry;
     protected String pathRoot = null;
     protected String file2NdPart = null;
-    BackupRestoreWorkGiver workGiver = null;
-    // HibernateConfiguration hibernateConfiguration = null;
+    protected BackupRestoreWorkGiver workGiver = null;
     protected BufferedWriter bufferedWriter = null;
     protected BufferedReader bufferedReader = null;
     protected ImportExportContext importExportContext;
@@ -65,10 +69,23 @@ public abstract class ImportExportAbstract
      *
      * @param hibernateUtil hibernateUtil
      */
-    public ImportExportAbstract(HibernateUtil hibernateUtil)
+    public ImportExportAbstract(HibernateUtil hibernateUtil, ImportExportContext importExportContext)
     {
         this.hibernateUtil = hibernateUtil;
         this.hibernateUtil.setSession(getActiveSession());
+        this.importExportContext = importExportContext;
+    }
+
+
+    /**
+     * Instantiates a new import export abstract.
+     *
+     * @param hibernateDb hibernateDb
+     */
+    public ImportExportAbstract(HibernateDb hibernateDb, ImportExportContext importExportContext)
+    {
+        this.importExportContext = importExportContext;
+        createHibernateUtil(hibernateDb.getHibernateConfiguration());
     }
 
 
@@ -95,36 +112,33 @@ public abstract class ImportExportAbstract
         createHibernateUtil(hibernateConfiguration);
     }
 
-
     /**
      * Instantiates a new import export abstract.
      *
      * @param hibernateConfiguration the hibernateConfiguration
      */
-    public ImportExportAbstract(HibernateConfiguration hibernateConfiguration)
-    {
-        this(hibernateConfiguration, null);
-    }
+    // public ImportExportAbstract(HibernateConfiguration
+    // hibernateConfiguration)
+    // {
+    // this(hibernateConfiguration, null);
+    // }
 
 
     /**
      * Instantiates a new import export abstract.
      *
-     * @param hibernateConfiguration the hibernateConfiguration
      */
-    public ImportExportAbstract()
-    {
-    }
-
+    // public ImportExportAbstract()
+    // {
+    // }
 
     /**
      * Instantiates a new import export abstract.
      */
-    public ImportExportAbstract(ImportExportContext importExportContext)
-    {
-        this.importExportContext = importExportContext;
-    }
-
+    // public ImportExportAbstract(ImportExportContext importExportContext)
+    // {
+    // this.importExportContext = importExportContext;
+    // }
 
     public void createHibernateUtil(HibernateConfiguration hibernateConfiguration)
     {
@@ -252,14 +266,11 @@ public abstract class ImportExportAbstract
     {
         try
         {
-            // bufferedWriter = new BufferedWriter(new FileWriter(new
-            // File(file)));
-
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(file)), "UTF8"));
         }
         catch (Exception ex)
         {
-            println("Exception on openFile: " + ex);
+            LOG.error("Exception on openFile: " + ex);
         }
 
     }
@@ -274,7 +285,6 @@ public abstract class ImportExportAbstract
     {
         try
         {
-            // bufferedReader = new BufferedReader(new FileReader(file));
             bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF8"));
         }
         catch (Exception ex)

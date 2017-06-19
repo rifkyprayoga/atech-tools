@@ -77,7 +77,7 @@ public class ConfigDbPanel extends AbstractConfigPanel implements HelpCapable
         label.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL));
         label.setVerticalAlignment(SwingConstants.TOP);
         this.add(label); // new
-                         // JLabel(m_ic.getMessage("DATABASE_SETTINGS_DESC")));
+                         // JLabel(i18nControl.getMessage("DATABASE_SETTINGS_DESC")));
 
         label = new JLabel(m_ic.getMessage("SELECTED_DATABASE") + ":");
         label.setBounds(50, 240, 180, 25);

@@ -99,7 +99,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
     /**
      * The backupObjects.
      */
-    protected Map<String, BackupRestoreObject> backupObjects;
+    protected Map<String, BackupRestoreBase> backupObjects;
 
     /**
      * The restoreObjects.
@@ -118,7 +118,7 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
      * @param objects the objects
      * @param workGiver the workGiver
      */
-    public BackupRestoreRunner(Map<String, BackupRestoreObject> objects, BackupRestoreWorkGiver workGiver)
+    public BackupRestoreRunner(Map<String, BackupRestoreBase> objects, BackupRestoreWorkGiver workGiver)
     {
         super();
         this.backupObjects = objects;
@@ -216,6 +216,12 @@ public abstract class BackupRestoreRunner extends Thread implements BackupRestor
             return this.restoreObjects.get(key);
         else
             return null;
+    }
+
+
+    public RestoreFileInfo getRestoreObject(Class clazz)
+    {
+        return getRestoreObject(clazz.getName());
     }
 
 

@@ -137,16 +137,17 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
     {
         // this is the first chance to call this method after an instance of
         // GGCProperties has been created
-        // m_ic.setLanguage();
+        // i18nControl.setLanguage();
 
         initDataAccess();
         // System.out.println("MainFrame before creation");
         // dataAccess = DataAccess.createInstance(this);
 
-        // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  dataAccess: "
+        // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // dataAccess: "
         // + dataAccess);
         /*
-         * m_ic = dataAccess.getI18nControlInstance();
+         * i18nControl = dataAccess.getI18nControlInstance();
          * dataAccess.addComponent(this);
          * dataAccess.developer_version = developer_version;
          * statusPanel = new StatusBar(this);
@@ -197,7 +198,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
         // dataAccess.startDb(); //statusPanel);
 
-        // statusPanel.setStatusMessage(m_ic.getMessage("INIT"));
+        // statusPanel.setStatusMessage(i18nControl.getMessage("INIT"));
 
         // Information Portal Setup
         // informationPanel = new InfoPanel();
@@ -228,12 +229,13 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
      * {
      * // TODO: deprecated
      * dataAccess.addPlugIn(DataAccess.PLUGIN_METERS, new MetersPlugIn(this,
-     * m_ic));
+     * i18nControl));
      * // dataAccess.getPlugIn(DataAccess.PLUGIN_METERS).checkIfInstalled();
      * dataAccess.addPlugIn(DataAccess.PLUGIN_PUMPS, new PumpsPlugIn(this,
-     * m_ic));
+     * i18nControl));
      * // dataAccess.getPlugIn(DataAccess.PLUGIN_PUMPS).checkIfInstalled();
-     * dataAccess.addPlugIn(DataAccess.PLUGIN_CGMS, new CGMSPlugIn(this, m_ic));
+     * dataAccess.addPlugIn(DataAccess.PLUGIN_CGMS, new CGMSPlugIn(this,
+     * i18nControl));
      * // dataAccess.getPlugIn(DataAccess.PLUGIN_CGMS).checkIfInstalled();
      * }
      */
@@ -527,7 +529,7 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
 
             putValue(Action.NAME, m_ic.getMessageWithoutMnemonic(name));
 
-            // char ch = m_ic.getMnemonic(name);
+            // char ch = i18nControl.getMnemonic(name);
 
             // System.out.println("Char ch: '" + ch + "'");
 

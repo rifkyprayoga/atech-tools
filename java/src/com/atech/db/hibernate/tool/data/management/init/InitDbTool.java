@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.db.hibernate.HibernateUtil;
 import com.atech.db.hibernate.tool.data.management.common.ImportExportAbstract;
+import com.atech.db.hibernate.tool.data.management.common.ImportExportContext;
 import com.atech.db.hibernate.transfer.RestoreFileInfo;
 
 /**
@@ -61,9 +62,9 @@ public abstract class InitDbTool extends ImportExportAbstract
      * }
      */
 
-    public InitDbTool(HibernateUtil hibernateUtil)
+    public InitDbTool(HibernateUtil hibernateUtil, ImportExportContext importExportContext)
     {
-        super(hibernateUtil);
+        super(hibernateUtil, importExportContext);
         // this.hibernateUtil = hibernateUtil;
     }
 
@@ -73,9 +74,9 @@ public abstract class InitDbTool extends ImportExportAbstract
     *
     * @param hib_conf the hib_conf
     */
-    public InitDbTool(HibernateConfiguration hib_conf)
+    public InitDbTool(HibernateConfiguration hib_conf, ImportExportContext importExportContext)
     {
-        super(hib_conf);
+        super(hib_conf, importExportContext);
         // createHibernateUtil();
     }
 
@@ -86,9 +87,10 @@ public abstract class InitDbTool extends ImportExportAbstract
      * @param hibernateConfiguration the hibernateConfiguration
      * @param res the res
      */
-    public InitDbTool(HibernateConfiguration hibernateConfiguration, RestoreFileInfo res)
+    public InitDbTool(HibernateConfiguration hibernateConfiguration, ImportExportContext importExportContext,
+            RestoreFileInfo res)
     {
-        super(hibernateConfiguration);
+        super(hibernateConfiguration, importExportContext);
         // createHibernateUtil();
 
         setRestoreFileInfo(res);
@@ -111,9 +113,9 @@ public abstract class InitDbTool extends ImportExportAbstract
      * Instantiates a new import tool.
      * @param runner
      */
-    public InitDbTool(DbToolInitDbRunner runner)
+    public InitDbTool(DbToolInitDbRunner runner, ImportExportContext importExportContext)
     {
-        super(runner.getHibernateUtil());
+        super(runner.getHibernateUtil(), importExportContext);
         this.runner = runner;
         // this.hibernateUtil = runner.getHibernateUtil();
         System.out.println("InitDbTool:cnstr() ");

@@ -74,7 +74,7 @@ public class CheckSumUtility
      * Exception{
      * System.out.println("........................XXXXXXXX......................"
      * );
-     * Checksum checksum = new CRC32();
+     * ChecksumUtil checksum = new CRC32();
      * checksum.reset();
      * long concatter = 0l;
      * int i = 0;
@@ -108,7 +108,7 @@ public class CheckSumUtility
      * public LocalFileMasterCheckSum buildLocalSettings(TagReader iReader)
      * throws Exception{
      * LocalFileMasterCheckSum lfmc = new LocalFileMasterCheckSum();
-     * Checksum checksum = new CRC32();
+     * ChecksumUtil checksum = new CRC32();
      * checksum.reset();
      * long concatter = 0l;
      * int i = 0;
@@ -163,7 +163,7 @@ public class CheckSumUtility
      * // public long getChecksumValue(String _root, TagReader iReader) throws
      * Exception{
      * TagReader iReader = csc.getFileSet();
-     * Checksum checksum = new CRC32();
+     * ChecksumUtil checksum = new CRC32();
      * checksum.reset();
      * long concatter = 0l;
      * int i = 0;
@@ -219,7 +219,7 @@ public class CheckSumUtility
     /*
      * public ClientServerContainer getChecksumValueX(ClientServerContainer csc,
      * String rootLoc) throws Exception{
-     * Checksum fileChecksum = new CRC32();
+     * ChecksumUtil fileChecksum = new CRC32();
      * long concatter = 0l;
      * Enumeration fileNames = csc.keys();
      * BufferedInputStream inputStream = null;
@@ -247,7 +247,7 @@ public class CheckSumUtility
      * }
      * public ClientServerContainer getChecksumValue(ClientServerContainer csc)
      * throws Exception{
-     * Checksum fileChecksum = new CRC32();
+     * ChecksumUtil fileChecksum = new CRC32();
      * long concatter = 0l;
      * TagReader tReader = csc.getTReader();
      * String rootLoc = tReader.getTagValue("structure","server");

@@ -148,7 +148,7 @@ public class BinaryDownloadThread extends ActionThread
 
                 if (check != this.upd_entry.estimated_crc)
                 {
-                    this.upd_progress.setStatus("Checksum failed.");
+                    this.upd_progress.setStatus("ChecksumUtil failed.");
                     this.upd_progress.setJobStatus("Failed");
 
                 }
@@ -165,7 +165,7 @@ public class BinaryDownloadThread extends ActionThread
                 is.close();
                 raf.close();
 
-                // System.out.println("Checksum: " +
+                // System.out.println("ChecksumUtil: " +
                 // csu.getChecksumValue(this.upd_settings.output_path +
                 // "tempFile.bin"));
 

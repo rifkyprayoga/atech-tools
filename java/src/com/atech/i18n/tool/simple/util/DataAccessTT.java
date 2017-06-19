@@ -231,6 +231,20 @@ public class DataAccessTT extends ATDataAccessAbstract
     // ****** Languages *****
     // ********************************************************
 
+    @Override
+    protected void initDataDefinitionManager()
+    {
+
+    }
+
+
+    @Override
+    protected void initInternalSettings()
+    {
+
+    }
+
+
     /**
      * Not implemented.
      * 
@@ -353,6 +367,13 @@ public class DataAccessTT extends ATDataAccessAbstract
     @Override
     public void loadLanguageInfo()
     {
+    }
+
+
+    @Override
+    public void initObserverManager()
+    {
+
     }
 
 

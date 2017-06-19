@@ -130,12 +130,12 @@ public abstract class AbstractGraphViewControler implements GraphViewControlerIn
      * buttonPanel.add(helpButton);
      * // Dimension dim = new Dimension(80, 20);
      * Dimension dim = new Dimension(120, 25);
-     * JButton drawButton = new JButton("    " + m_ic.getMessage("DRAW"));
+     * JButton drawButton = new JButton("    " + i18nControl.getMessage("DRAW"));
      * drawButton.setPreferredSize(dim);
      * drawButton.setIcon(dataAccess.getImageIcon_22x22("paint.png", cPanel));
      * drawButton.setActionCommand("draw");
      * drawButton.addActionListener(this);
-     * JButton closeButton = new JButton("    " + m_ic.getMessage("CLOSE"));
+     * JButton closeButton = new JButton("    " + i18nControl.getMessage("CLOSE"));
      * closeButton.setPreferredSize(dim);
      * closeButton.setActionCommand("close");
      * closeButton.setIcon(dataAccess.getImageIcon_22x22("cancel.png", cPanel));

@@ -27,6 +27,8 @@ package com.atech.utils.file;
  ** 
  **/
 
+import com.atech.utils.file.zip.PackFiles;
+
 /**
  * * This file is part of ATech Tools library.
  * 
@@ -58,7 +60,9 @@ package com.atech.utils.file;
 
 public class JarClassLoader extends MultiClassLoader
 {
+
     private JarResources jarResources;
+
 
     /**
      * Instantiates a new jar class loader.
@@ -70,6 +74,7 @@ public class JarClassLoader extends MultiClassLoader
         // Create the JarResource and suck in the .jar file.
         jarResources = new JarResources(jarName);
     }
+
 
     /** 
      * loadClassBytes

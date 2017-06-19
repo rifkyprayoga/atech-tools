@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 public class JTableWithToolTip extends JTable
 {
 
+    private static final long serialVersionUID = -8948764583595226337L;
     protected TableModelWithToolTip model = null;
 
 
@@ -27,7 +28,7 @@ public class JTableWithToolTip extends JTable
 
     /**
      *  Constructor
-
+    
      */
     public JTableWithToolTip(TableModelWithToolTip model)
     {

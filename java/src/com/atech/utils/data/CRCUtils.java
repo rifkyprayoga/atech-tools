@@ -84,6 +84,10 @@ public abstract class CRCUtils // extends BitUtils // was HexUtils
                                                62, 120, 98, 76, 86, 77, 87, 121, 99, 37, 63, 17, 11, 39, 61, 19, 9, 79,
                                                85, 123, 97, 122, 96, 78, 84, 18, 8, 38, 60 };
 
+    private static int CRC8_POLYNOMIAL_LOOKUP_TABLE[] = null;
+    private static int CRC8_POLYNOMIAL_INIT_VALUE = 0;
+    private static Integer CRC8_POLYNOMIAL_XOR_RETURN = null; // xorout
+
 
     public int computeCRC7(int ai[], int i, int j)
     {
@@ -109,6 +113,72 @@ public abstract class CRCUtils // extends BitUtils // was HexUtils
     }
 
 
+    public void computeCRC8WithPolynomialInit(int polynomial, int initValue, Integer xorReturn)
+    {
+        int[] table = new int[256];
+
+        // generate lookup table
+        for (int i = 0; i < 256; ++i)
+        {
+            int curr = i;
+            for (int j = 0; j < 8; ++j)
+            {
+                if ((curr & 0x80) != 0)
+                {
+                    curr = ((curr << 1) ^ polynomial) % 256;
+                }
+                else
+                {
+                    curr = (curr << 1) % 256;
+                }
+            }
+            table[i] = curr;
+        }
+
+        // //this.value = this.init = init;
+        // for (int dividend = 0; dividend < 256; dividend++)
+        // {
+        // int remainder = dividend ;//<< 8;
+        // for (int bit = 0; bit < 8; ++bit)
+        // if ((remainder & 0x01) != 0)
+        // remainder = (remainder >>> 1) ^ polynomial;
+        // else
+        // remainder >>>= 1;
+        // table[dividend] = (short)remainder;
+        // }
+
+        CRC8_POLYNOMIAL_LOOKUP_TABLE = table;
+        CRC8_POLYNOMIAL_INIT_VALUE = initValue;
+        CRC8_POLYNOMIAL_XOR_RETURN = xorReturn;
+
+    }
+
+
+    public int computeCRC8WithPolynomial(byte data[])
+    {
+        return computeCRC8WithPolynomial(data, 0, data.length);
+    }
+
+
+    public int computeCRC8WithPolynomial(byte data[], int start, int length)
+    {
+        // byte[] buffer, int offset, int len
+
+        // int value = 0xff;
+        //
+        // for (int i = 0; i < length; i++)
+        // {
+        // int val = data[start+i] ^ value;
+        // value = (short)(CRC8_POLYNOMIAL_LOOKUP_TABLE[val & 0xff] ^ (value <<
+        // 8));
+        // }
+        //
+        // return value & 0xff;
+
+        return computeCRC8(data, start, length, CRC8CheckType.Polynomial);
+    }
+
+
     public int computeCRC8(byte data[])
     {
         return computeCRC8(data, 0, data.length);
@@ -122,6 +192,65 @@ public abstract class CRCUtils // extends BitUtils // was HexUtils
         for (int l = 0; l < length; l++)
         {
             k = CRC8_LOOKUP_TABLE[(k ^ data[l + start]) & 0xff];
+        }
+
+        return k;
+    }
+
+
+    public int computeCRC8(byte data[], int start, int length, CRC8CheckType checkType)
+    {
+        int[] table = null;
+        int initValue = 0;
+
+        switch (checkType)
+        {
+            case Standard:
+                table = CRC8_LOOKUP_TABLE;
+                break;
+
+            case Special_BD:
+                table = CRC8_LOOKUP_TABLE_BD;
+                break;
+
+            case Polynomial:
+                table = CRC8_POLYNOMIAL_LOOKUP_TABLE;
+                initValue = CRC8_POLYNOMIAL_INIT_VALUE;
+
+                if (table == null)
+                    throw new RuntimeException(
+                            "Initialize lookup table first (call computeCRC8WithPolynomialInit) or use other CRC8 mode");
+                break;
+        }
+
+        int k = initValue;
+        for (int l = 0; l < length; l++)
+        {
+            k = table[(k ^ data[l + start]) & 0xff];
+        }
+
+        if ((checkType != CRC8CheckType.Polynomial) || //
+                (checkType == CRC8CheckType.Polynomial && CRC8_POLYNOMIAL_XOR_RETURN == null))
+        {
+            return k;
+        }
+        else
+        {
+            return (k ^ CRC8_POLYNOMIAL_XOR_RETURN);
+        }
+    }
+
+
+    public int computeCRC8(byte data[], int start, int length, int[] table)
+    {
+        if (table == null)
+            throw new RuntimeException(
+                    "Initialize lookup table first (call computeCRC8WithPolynomialInit) or use other CRC8 mode, or check that your CRC Table is not null.");
+
+        int k = 0;
+        for (int l = 0; l < length; l++)
+        {
+            k = table[(k ^ data[l + start]) & 0xff];
         }
 
         return k;

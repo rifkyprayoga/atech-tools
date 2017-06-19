@@ -2,9 +2,13 @@ package com.atech.db.hibernate;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.IOUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,6 +23,10 @@ import com.atech.db.hibernate.tool.data.DatabaseConfiguration;
 import com.atech.graphics.SplashAbstract;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.data.BitUtils;
+import com.atech.utils.data.CRCUtils;
+import com.atech.utils.encode.ChecksumSHA1;
+import com.atech.utils.encode.ChecksumSettings;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -149,6 +157,75 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
      * The db_context_selected.
      */
     protected int db_context_selected = HibernateConfiguration.DB_CONTEXT_NONE;
+
+    Map<String, Integer> versionToResourceFileMapping = null;
+    protected Integer defaultVersion = null;
+    protected CRCUtils crcUtils = new BitUtils();
+
+    protected Map<String,Integer> versionToResourceMap = new HashMap<String, Integer>();
+
+
+    public abstract void initVersionToResourceFileMapping();
+
+
+    public int getDbVersionByResources()
+    {
+        String currentSHA1 = getResourcesSHA1();
+
+        if (versionToResourceMap.containsKey(currentSHA1))
+        {
+            int dbVersion = versionToResourceMap.get(currentSHA1);
+            LOG.error("Your DB version identified by HBM.xml resource files (sha1={}, db_version={}).", currentSHA1, dbVersion);
+            return dbVersion;
+        }
+        else
+        {
+            LOG.error("You DB version could not be identified (sha1={}). Returning default version - {}.", currentSHA1, defaultVersion);
+            return defaultVersion;
+        }
+    }
+
+
+    public String getResourcesSHA1()
+    {
+        String[] resourceFiles = getResourceFiles();
+
+        String fullContent = "";
+
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        // InputStream resourceAsStream =
+        // classLoader.getResourceAsStream(resourceFiles[0]);
+
+        for (String resourceFile : resourceFiles)
+        {
+            try
+            {
+                fullContent += IOUtils.toString(classLoader.getResourceAsStream(resourceFile));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        ChecksumSHA1 checksumSHA1 = new ChecksumSHA1();
+        String sha1 = null;
+        try
+        {
+            sha1 = checksumSHA1.getChecksum(ChecksumSettings.ChecksumSourceContent, fullContent);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        // int crc = crcUtils.computeCRC16CCITT(fullContent.getBytes(), 0,
+        // fullContent.length());
+
+        //
+        return sha1;
+    }
 
 
     /**
@@ -323,6 +400,15 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
      */
     public void loadConfiguration(int sel_db)
     {
+        initVersionToResourceFileMapping();
+
+        // for testing only
+
+        getDbVersionByResources();
+
+        // for testing only
+
+
         try
         {
             Properties props = new Properties();

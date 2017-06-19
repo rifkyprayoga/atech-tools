@@ -59,4 +59,17 @@ public interface CheckBoxTreeNodeInterface
      */
     boolean hasNodeChildren();
 
+    /**
+     * Get parent
+     *
+     * @return
+     */
+    // CheckBoxTreeNodeInterface getParent();
+
+    /**
+     * Get parent
+     *
+     * @return
+     */
+    // void setParent(CheckBoxTreeNodeInterface parent);
 }

@@ -3,24 +3,21 @@ package com.atech.utils.file;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.lang.reflect.Modifier;
 import java.net.JarURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.TreeMap;
-import java.util.Vector;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /** 
- * I adopted this file, since it's quiote useful. I extended it a little. -- Andy
+ * I adopted this file, since it's quite useful. I extended it a little. -- Andy
+ * - some changes here and there
+ * - added filtering by ClassTypeDefinition
  */
 
 /**
@@ -32,21 +29,28 @@ import java.util.jar.JarFile;
  */
 public class ClassFinder
 {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ClassFinder.class);
+
     private Class<?> searchClass = null;
     private Map<URL, String> classpathLocations = new HashMap<URL, String>();
     private Map<Class<?>, URL> results = new HashMap<Class<?>, URL>();
     private List<Throwable> errors = new ArrayList<Throwable>();
     private boolean working = false;
+    private ClassTypeDefinition classTypeDefinition;
+
 
     public ClassFinder()
     {
         refreshLocations();
     }
 
+
     public ClassFinder(String jar_starts_with)
     {
         refreshLocations();
     }
+
 
     /**
      * Rescan the classpath, cacheing all possible file locations.
@@ -59,6 +63,7 @@ public class ClassFinder
         }
     }
 
+
     public final void refreshLocations(String jar_starts_with)
     {
         synchronized (classpathLocations)
@@ -66,6 +71,15 @@ public class ClassFinder
             classpathLocations = getClasspathLocations(jar_starts_with);
         }
     }
+
+
+    public final Vector<Class<?>> findSubclasses(String fqcn, ClassTypeDefinition classTypeDefinition)
+    {
+        this.classTypeDefinition = classTypeDefinition;
+
+        return findSubclasses(fqcn);
+    }
+
 
     /**
      * @param fqcn Name of superclass/interface on which to search
@@ -95,12 +109,17 @@ public class ClassFinder
                     try
                     {
                         searchClass = Class.forName(fqcn);
+
                     }
                     catch (ClassNotFoundException ex)
                     {
                         // if class not found, let empty vector return...
                         errors.add(ex);
                         return new Vector<Class<?>>();
+                    }
+                    catch (UnsupportedClassVersionError ex)
+                    {
+
                     }
 
                     return findSubclasses(searchClass, classpathLocations);
@@ -113,10 +132,12 @@ public class ClassFinder
         }
     }
 
+
     public final List<Throwable> getErrors()
     {
         return new ArrayList<Throwable>(errors);
     }
+
 
     /**
      * The result of the last search is cached in this object, along
@@ -133,6 +154,7 @@ public class ClassFinder
         else
             return null;
     }
+
 
     /**
      * Determine every URL location defined by the current classpath, and
@@ -164,6 +186,7 @@ public class ClassFinder
 
         return map;
     }
+
 
     public final Map<URL, String> getClasspathLocations(String jar_starts_with)
     {
@@ -198,6 +221,7 @@ public class ClassFinder
 
     private final static FileFilter DIRECTORIES_ONLY = new FileFilter()
     {
+
         public boolean accept(File f)
         {
             if (f.exists() && f.isDirectory())
@@ -209,6 +233,7 @@ public class ClassFinder
 
     private final static Comparator<URL> URL_COMPARATOR = new Comparator<URL>()
     {
+
         public int compare(URL u1, URL u2)
         {
             return String.valueOf(u1).compareTo(String.valueOf(u2));
@@ -217,11 +242,13 @@ public class ClassFinder
 
     private final static Comparator<Class<?>> CLASS_COMPARATOR = new Comparator<Class<?>>()
     {
+
         public int compare(Class<?> c1, Class<?> c2)
         {
             return String.valueOf(c1).compareTo(String.valueOf(c2));
         }
     };
+
 
     private final void include(String name, File file, Map<URL, String> map)
     {
@@ -260,6 +287,7 @@ public class ClassFinder
             include(name + dir.getName(), dir, map);
         }
     }
+
 
     private void includeJar(File file, Map<URL, String> map)
     {
@@ -313,6 +341,7 @@ public class ClassFinder
         }
     }
 
+
     private static String packageNameFor(JarEntry entry)
     {
         if (entry == null)
@@ -333,6 +362,7 @@ public class ClassFinder
         return s.replace('/', '.');
     }
 
+
     private final void includeResourceLocations(String packageName, Map<URL, String> map)
     {
         try
@@ -352,6 +382,7 @@ public class ClassFinder
             return;
         }
     }
+
 
     private final Vector<Class<?>> findSubclasses(Class<?> superClass, Map<URL, String> locations)
     {
@@ -381,10 +412,11 @@ public class ClassFinder
         return v;
     }
 
+
     private final Vector<Class<?>> findSubclasses(URL location, String packageName, Class<?> superClass)
     {
         // System.out.println ("looking in package:" + packageName);
-        // System.out.println ("looking for  class:" + superClass);
+        // System.out.println ("looking for class:" + superClass);
 
         synchronized (results)
         {
@@ -431,8 +463,17 @@ public class ClassFinder
                                 Class<?> c = Class.forName(packageName + "." + classname);
                                 if (superClass.isAssignableFrom(c) && !fqcn.equals(packageName + "." + classname))
                                 {
-                                    thisResult.put(c, url);
+                                    if (filterResult(c))
+                                        thisResult.put(c, url);
                                 }
+                            }
+                            catch (ExceptionInInitializerError ex)
+                            {
+                                LOG.debug("ExceptionInInitializerError: {}", packageName + "." + classname, ex);
+                            }
+                            catch (NoClassDefFoundError ex)
+                            {
+
                             }
                             catch (ClassNotFoundException cnfex)
                             {
@@ -548,6 +589,51 @@ public class ClassFinder
         } // synch results
     }
 
+
+    /**
+     * FilterResult - if true then class should be used, if false it's ignored.
+     *
+     * @param c
+     * @return
+     */
+    private boolean filterResult(Class<?> c)
+    {
+        // LOG.debug("Filter results: Required: {} - Class {}",
+        // classTypeDefinition, c);
+
+        if (classTypeDefinition == null || classTypeDefinition == ClassTypeDefinition.All)
+            return true;
+
+        if (c.isInterface() && ClassTypeDefinition.isEnabled(classTypeDefinition, ClassTypeDefinition.Interface))
+        {
+            // LOG.debug("Filter results - Is Interface");
+            return true;
+        }
+
+        if (Modifier.isAbstract(c.getModifiers())
+                && ClassTypeDefinition.isEnabled(classTypeDefinition, ClassTypeDefinition.Abstract))
+        {
+            // LOG.debug("Filter results - Is Abstract");
+            return true;
+
+        }
+
+        if (!c.isInterface() && //
+                !Modifier.isAbstract(c.getModifiers()) && //
+                Modifier.isPublic(c.getModifiers()) && //
+                ClassTypeDefinition.isEnabled(classTypeDefinition, ClassTypeDefinition.EndClass))
+        {
+
+            // LOG.debug("Modifiers: {}", Modifier.toString(c.getModifiers()));
+
+            // LOG.debug("Filter results - Is End Class");
+            return true;
+        }
+
+        return false;
+    }
+
+
     private final static String getPackagePath(String packageName)
     {
         // Translate the package name into an "absolute" path
@@ -576,6 +662,7 @@ public class ClassFinder
 
         return path;
     }
+
 
     public static void main(String[] args)
     {
@@ -616,5 +703,17 @@ public class ClassFinder
         // System.out.println ("ERRORS:");
         // for (Throwable t : errors) System.out.println (t);
         // }
+    }
+
+
+    public ClassTypeDefinition getClassTypeDefinition()
+    {
+        return classTypeDefinition;
+    }
+
+
+    public void setClassTypeDefinition(ClassTypeDefinition classTypeDefinition)
+    {
+        this.classTypeDefinition = classTypeDefinition;
     }
 }

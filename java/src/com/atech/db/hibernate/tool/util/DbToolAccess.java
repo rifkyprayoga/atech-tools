@@ -843,6 +843,27 @@ public class DbToolAccess extends ATDataAccessAbstract
     }
 
 
+    @Override
+    public void initObserverManager()
+    {
+
+    }
+
+
+    @Override
+    protected void initDataDefinitionManager()
+    {
+
+    }
+
+
+    @Override
+    protected void initInternalSettings()
+    {
+
+    }
+
+
     /**
      * Not implemented.
      * 

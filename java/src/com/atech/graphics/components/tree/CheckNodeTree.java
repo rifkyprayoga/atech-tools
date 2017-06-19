@@ -6,13 +6,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 
-import javax.swing.JTextArea;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeCellRenderer;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
+import javax.swing.*;
+import javax.swing.tree.*;
 
 // TODO: Auto-generated Javadoc
 /*
@@ -54,6 +49,7 @@ public class CheckNodeTree extends JTree
 
     private static final long serialVersionUID = -7832116437447066164L;
 
+
     /**
      * Instantiates a new check node tree.
      * 
@@ -73,6 +69,7 @@ public class CheckNodeTree extends JTree
          */
     }
 
+
     /**
      * Instantiates a new check node tree.
      * 
@@ -90,6 +87,7 @@ public class CheckNodeTree extends JTree
 
     }
 
+
     /**
      * Prints the tree.
      */
@@ -97,6 +95,7 @@ public class CheckNodeTree extends JTree
     {
         printTreeTraverse((CheckNode) this.getModel().getRoot());
     }
+
 
     /**
      * Prints the tree traverse.
@@ -115,6 +114,26 @@ public class CheckNodeTree extends JTree
 
     }
 
+
+    public void printTreeTraverse(CheckNode nd, boolean parentGroupSelect)
+    {
+        // System.out.println("Node [" + nd.toString() + "]: " +
+        // nd.isSelected());
+
+        for (int i = 0; i < nd.getChildCount(); i++)
+        {
+            printTreeTraverse((CheckNode) nd.getChildAt(i));
+        }
+
+    }
+
+
+    public void getParentNode()
+    {
+
+    }
+
+
     /**
      * Gets the root node.
      * 
@@ -129,6 +148,7 @@ public class CheckNodeTree extends JTree
      * The temp_selected.
      */
     boolean temp_selected = false;
+
 
     /**
      * Gets the value for node.
@@ -147,6 +167,7 @@ public class CheckNodeTree extends JTree
             return false;
 
     }
+
 
     /**
      * Traverse nodes.
@@ -193,6 +214,7 @@ public class CheckNodeTree extends JTree
          */
         JTree tree;
 
+
         /**
          * Instantiates a new node selection listener.
          * 
@@ -202,6 +224,7 @@ public class CheckNodeTree extends JTree
         {
             this.tree = tree;
         }
+
 
         /** 
          * mouseClicked
@@ -266,6 +289,7 @@ public class CheckNodeTree extends JTree
          */
         JTextArea textArea;
 
+
         /**
          * Instantiates a new button action listener.
          * 
@@ -277,6 +301,7 @@ public class CheckNodeTree extends JTree
             this.root = root;
             this.textArea = textArea;
         }
+
 
         /** 
          * actionPerformed

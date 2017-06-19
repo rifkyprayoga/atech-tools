@@ -20,16 +20,27 @@ import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.atech.data.enums.InternalSettingInterface;
+import com.atech.data.mng.DataDefinitionEntry;
+import com.atech.data.mng.DataDefinitionManager;
 import com.atech.db.ext.ExtendedHandler;
 import com.atech.db.hibernate.HibernateDb;
-import com.atech.db.hibernate.hdb_object.User;
+import com.atech.db.hibernate.HibernateObject;
+import com.atech.db.hibernate.hdb_object.UserH;
 import com.atech.db.hibernate.tool.app.DbToolApplicationAbstract;
+import com.atech.db.hibernate.tool.data.DatabaseTableConfiguration;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
-import com.atech.graphics.components.jtable.JTableUtil;
+import com.atech.graphics.components.SkinManager;
+import com.atech.graphics.dialogs.DialogCreator;
 import com.atech.graphics.dialogs.ErrorDialog;
+import com.atech.graphics.dialogs.selector.SelectorConfiguration;
 import com.atech.graphics.graphs.GraphConfigProperties;
 import com.atech.graphics.graphs.v2.data.GraphDbDataRetriever;
+import com.atech.graphics.observe.ObserverManager;
 import com.atech.gui_fw.config.AbstractConfigurationContext;
+import com.atech.gui_fw.user.UserManagement;
+import com.atech.gui_fw.user.UserManagementCapableInterface;
+import com.atech.gui_fw.user.UserManagementDataInterface;
 import com.atech.help.HelpCapable;
 import com.atech.help.HelpContext;
 import com.atech.i18n.I18nControlAbstract;
@@ -74,7 +85,7 @@ import com.atech.utils.data.ExceptionHandling;
  *
 */
 
-public abstract class ATDataAccessAbstract
+public abstract class ATDataAccessAbstract implements UserManagementDataInterface
 {
 
     private static Logger LOG = LoggerFactory.getLogger(ATDataAccessAbstract.class);
@@ -123,12 +134,14 @@ public abstract class ATDataAccessAbstract
     protected Hashtable<String, ATechConverter> converters = new Hashtable<String, ATechConverter>();
     protected Hashtable<String, String> sorters = new Hashtable<String, String>();
     protected BackupRestoreCollection backupRestoreCollection = null;
+    protected ObserverManager observerManager;
+    protected Map<InternalSettingInterface, String> internalSetting;
 
     // Application settings
     public boolean config_loaded = false;
     protected boolean helpEnabled = false;
     protected int current_db_version = 0;
-    protected boolean developer_mode = false;
+    public static boolean developerMode = false;
     protected Hashtable<String, String> special_parameters = null;
     private int db_loading_status = 0;
 
@@ -136,8 +149,8 @@ public abstract class ATDataAccessAbstract
     public String[] user_types = null;
     public long current_user_id;
     public boolean demo_version = false;
-    protected User logged_user = null;
-    protected ArrayList<User> all_users = null;
+    protected UserH loggedUser = null;
+    // protected ArrayList<User> all_users = null;
 
     // misc settings
     public Hashtable<String, String> m_settings_ht = null;
@@ -151,6 +164,11 @@ public abstract class ATDataAccessAbstract
     protected ArrayList<Component> components = new ArrayList<Component>();
     protected Container parent = null;
     public int main_parent_type = 1;
+
+    public static SkinManager skinManager = new SkinManager();
+    protected DataDefinitionManager dataDefinitionManager = new DataDefinitionManager();
+    protected static List<DialogCreator> dialogCreators = new ArrayList<DialogCreator>();
+    protected UserManagement userManagement;
 
     /**
      * The graph_config. (?)
@@ -188,16 +206,21 @@ public abstract class ATDataAccessAbstract
 
         m_settings_ht = new Hashtable<String, String>();
         plugins = new Hashtable<String, PlugInClient>();
+        internalSetting = new HashMap<InternalSettingInterface, String>();
 
         // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!! COLATOR " + this);
         m_collator = this.m_i18n.getCollationDefintion();
         loadPlugIns();
         loadBackupRestoreCollection();
         loadExtendedHandlers();
-        loadUserTypes();
 
         this.loadConfigurationContexts();
         this.loadDbApplicationContext();
+
+        this.initObserverManager();
+        this.initDataDefinitionManager();
+        this.initUserManagement();
+        this.initInternalSettings();
 
         this.decimal_handler = new DecimalHandler(this.getMaxDecimalsUsedByDecimalHandler());
 
@@ -1054,7 +1077,7 @@ public abstract class ATDataAccessAbstract
 
 
     // ********************************************************
-    // ****** Date/Time *****
+    // ****** Components *****
     // ********************************************************
 
     /**
@@ -1168,6 +1191,27 @@ public abstract class ATDataAccessAbstract
          * return arr;
          */
 
+    }
+
+
+    // ********************************************************
+    // ****** Observers/Observable *****
+    // ********************************************************
+
+    /**
+     * Init observer manager
+     */
+    public abstract void initObserverManager();
+
+
+    /**
+     * get Observer Manager.
+     * 
+     * @return
+     */
+    public ObserverManager getObserverManager()
+    {
+        return this.observerManager;
     }
 
 
@@ -1794,7 +1838,7 @@ public abstract class ATDataAccessAbstract
      *
      * @return the int value from string
      */
-    public static int getIntValueFromString(String aValue)
+    public int getIntValueFromString(String aValue)
     {
         return getIntValueFromString(aValue, 0, null);
     }
@@ -2211,7 +2255,18 @@ public abstract class ATDataAccessAbstract
      */
     public ExtendedHandler getExtendedHandler(String key)
     {
-        return this.extended_handlers.get(key);
+        if (this.extended_handlers.containsKey(key))
+        {
+            ExtendedHandler extendedHandler = this.extended_handlers.get(key);
+            System.out.println("getExtendedHandler [key=" + key + ", ExtendeedHandler: " + extendedHandler);
+
+            return extendedHandler;
+        }
+        else
+        {
+            LOG.error("Extended handler with key={} not found.", key);
+            return null;
+        }
     }
 
 
@@ -2227,7 +2282,7 @@ public abstract class ATDataAccessAbstract
         {
             this.extended_handlers = new Hashtable<String, ExtendedHandler>();
         }
-        // System.out.println("Key=" + key +", ExtendeedHandler: " + eh);
+        System.out.println("addExtendedHandler [key=" + key + ", ExtendeedHandler: " + eh);
         this.extended_handlers.put(key, eh);
     }
 
@@ -2427,15 +2482,26 @@ public abstract class ATDataAccessAbstract
         return this.demo_version;
     }
 
+    // *****************************
+    // *** User Management
+    // *****************************
+
+
+    protected void initUserManagement()
+    {
+        loadUserTypes();
+        this.userManagement = new UserManagement(this, true);
+    }
+
 
     /**
      * Gets the user.
      *
      * @return the user
      */
-    public User getUser()
+    public UserH getUser()
     {
-        return this.logged_user;
+        return this.loggedUser;
     }
 
 
@@ -2444,35 +2510,22 @@ public abstract class ATDataAccessAbstract
      *
      * @param us the new user
      */
-    public void setUser(User us)
+    public void setUser(UserH us)
     {
-        this.logged_user = us;
+        this.loggedUser = us;
         this.processLogin();
     }
 
 
     /**
-     * Gets the all users.
-     *
-     * @return the all users
-     */
-    public ArrayList<User> getAllUsers()
-    {
-        if (this.all_users == null)
-        {
-            this.all_users = new ArrayList<User>();
-        }
-
-        return this.all_users;
-    }
-
-
-    /**
-     * Process login.
+     * Process login (needs to update GUI according to login data, enable/disable menus, tools)
      */
     public void processLogin()
     {
-        // this.m_main.processLogin();
+        if (main_parent instanceof UserManagementCapableInterface)
+        {
+            ((UserManagementCapableInterface) this.main_parent).processLogin(this.loggedUser);
+        }
     }
 
 
@@ -2571,7 +2624,7 @@ public abstract class ATDataAccessAbstract
      */
     public boolean getDeveloperMode()
     {
-        return this.developer_mode;
+        return this.developerMode;
     }
 
 
@@ -2583,7 +2636,7 @@ public abstract class ATDataAccessAbstract
      */
     public boolean isDeveloperMode()
     {
-        return this.developer_mode;
+        return this.developerMode;
     }
 
 
@@ -2596,7 +2649,7 @@ public abstract class ATDataAccessAbstract
      */
     public void setDeveloperMode(boolean dev_mode)
     {
-        this.developer_mode = dev_mode;
+        this.developerMode = dev_mode;
     }
 
 
@@ -2937,29 +2990,82 @@ public abstract class ATDataAccessAbstract
     // --- Look and Feel Override
     // -------------------------------------------------------
 
-    private static Map<String, Object> staticSkinLfOverrides;
 
-
-    public static Map<String, Object> getSkinLfOverrides()
+    public static SkinManager getSkinManager()
     {
-        return staticSkinLfOverrides;
+        return skinManager;
     }
 
 
-    public static void setSkinLfOverrides(Map<String, Object> skinLfOverrides)
+    // -------------------------------------------------------
+    // --- DisplayManager for Selectors and Tables
+    // -------------------------------------------------------
+
+    protected abstract void initDataDefinitionManager();
+
+
+    public void addDisplayManagerEntry(Class<? extends HibernateObject> clazz,
+            SelectorConfiguration selectorConfiguration, DatabaseTableConfiguration databaseTableConfiguration)
     {
-        staticSkinLfOverrides = skinLfOverrides;
+        this.dataDefinitionManager
+                .addEntry(new DataDefinitionEntry(clazz, selectorConfiguration, databaseTableConfiguration));
     }
 
 
-    public static void reSkinifyComponent(JTable table)
+    public DataDefinitionManager getDataDefinitionManager()
     {
-        if (staticSkinLfOverrides.containsKey("JTableHeader.backgroundColor"))
-        {
-            JTableUtil.reconfigureTableHeader(table, (Color) staticSkinLfOverrides.get("JTableHeader.backgroundColor"),
-                (Color) staticSkinLfOverrides.get("JTableHeader.foregroundColor"),
-                (Color) staticSkinLfOverrides.get("JTableHeader.borderColor"));
-        }
+        return dataDefinitionManager;
     }
+
+
+    public DataDefinitionEntry getDataDefinitionEntry(Class<? extends HibernateObject> clazz)
+    {
+        return dataDefinitionManager.getEntry(clazz);
+    }
+
+
+    public void registerDialogCreator(DialogCreator dialogCreator)
+    {
+        dialogCreators.add(dialogCreator);
+    }
+
+
+    public List<DialogCreator> getDialogCreators()
+    {
+        return dialogCreators;
+    }
+
+
+    public UserManagement getUserManagement()
+    {
+        return this.userManagement;
+    }
+
+
+    public UserManagementCapableInterface getUserManagementCapableInstance()
+    {
+        return null;
+    }
+
+
+    /**
+     * This method returns internal settings (specified by application). For example we use dialog for adding Users,
+     * which is actually implemented in atech-tools library and we have HelpId, which will be different for
+     * each application, so in dialog HelpId is specified as internal setting with key 'Help.Settings.UserAddEdit',
+     * which will then resolve to different value for each application.
+     *
+     * Each possible value, needs to be defined in InternalSetting and initialized by each application (that needs it) in
+     * initInternalSettings method.
+     *
+     * @param internalSettingKey
+     * @return
+     */
+    public String getInternalSetting(InternalSettingInterface internalSettingKey)
+    {
+        return null;
+    }
+
+
+    protected abstract void initInternalSettings();
 
 }

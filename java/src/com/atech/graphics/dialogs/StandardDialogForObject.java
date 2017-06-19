@@ -163,18 +163,18 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
         {
             if (actionSuccessful())
             {
-                System.out.println("was success");
+                // System.out.println("was success");
                 this.wasSuccessful = true;
-                closeDialog();
+                dispose();
             }
             else
             {
-                System.out.println("not successful");
+                // System.out.println("not successful");
             }
         }
         else if (actionCommand.equals("cancel"))
         {
-            closeDialog();
+            dispose();
         }
         else
         {
@@ -183,10 +183,11 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
     }
 
 
-    private void closeDialog()
+    @Override
+    public void dispose()
     {
-        dataAccess.removeComponent(this);
-        this.dispose();
+        this.dataAccess.removeComponent(this);
+        super.dispose();
     }
 
 

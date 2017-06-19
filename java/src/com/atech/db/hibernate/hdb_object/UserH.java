@@ -1,10 +1,10 @@
 package com.atech.db.hibernate.hdb_object;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+
+import com.atech.db.hibernate.HibernateObject;
 
 // TODO: Auto-generated Javadoc
 
@@ -38,12 +38,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
 */
 
-/**
- * The Class UserH.
- * 
- * @author Hibernate CodeGenerator
- */
-public class UserH implements Serializable
+public class UserH extends HibernateObject
 {
 
     /** The Constant serialVersionUID. */
@@ -79,6 +74,7 @@ public class UserH implements Serializable
     /** nullable persistent field. */
     private String comment;
 
+
     /**
      * full constructor.
      * 
@@ -101,8 +97,8 @@ public class UserH implements Serializable
      * @param comment
      *            the comment
      */
-    public UserH(String username, String password, String real_name, String real_desc, int user_type,
-            long user_type_id, int user_access, String extended, String comment)
+    public UserH(String username, String password, String real_name, String real_desc, int user_type, long user_type_id,
+            int user_access, String extended, String comment)
     {
         this.username = username;
         this.password = password;
@@ -115,12 +111,14 @@ public class UserH implements Serializable
         this.comment = comment;
     }
 
+
     /**
      * default constructor.
      */
     public UserH()
     {
     }
+
 
     /**
      * minimal constructor.
@@ -139,6 +137,7 @@ public class UserH implements Serializable
         this.user_type = user_type;
     }
 
+
     /**
      * Gets the id.
      * 
@@ -148,6 +147,7 @@ public class UserH implements Serializable
     {
         return this.id;
     }
+
 
     /**
      * Sets the id.
@@ -160,6 +160,7 @@ public class UserH implements Serializable
         this.id = id;
     }
 
+
     /**
      * Gets the username.
      * 
@@ -169,6 +170,7 @@ public class UserH implements Serializable
     {
         return this.username;
     }
+
 
     /**
      * Sets the username.
@@ -181,6 +183,7 @@ public class UserH implements Serializable
         this.username = username;
     }
 
+
     /**
      * Gets the password.
      * 
@@ -190,6 +193,7 @@ public class UserH implements Serializable
     {
         return this.password;
     }
+
 
     /**
      * Sets the password.
@@ -202,6 +206,7 @@ public class UserH implements Serializable
         this.password = password;
     }
 
+
     /**
      * Gets the real_name.
      * 
@@ -211,6 +216,7 @@ public class UserH implements Serializable
     {
         return this.real_name;
     }
+
 
     /**
      * Sets the real_name.
@@ -223,6 +229,7 @@ public class UserH implements Serializable
         this.real_name = real_name;
     }
 
+
     /**
      * Gets the real_desc.
      * 
@@ -232,6 +239,7 @@ public class UserH implements Serializable
     {
         return this.real_desc;
     }
+
 
     /**
      * Sets the real_desc.
@@ -244,6 +252,7 @@ public class UserH implements Serializable
         this.real_desc = real_desc;
     }
 
+
     /**
      * Gets the user_type.
      * 
@@ -253,6 +262,7 @@ public class UserH implements Serializable
     {
         return this.user_type;
     }
+
 
     /**
      * Sets the user_type.
@@ -265,6 +275,7 @@ public class UserH implements Serializable
         this.user_type = user_type;
     }
 
+
     /**
      * Gets the user_type_id.
      * 
@@ -274,6 +285,7 @@ public class UserH implements Serializable
     {
         return this.user_type_id;
     }
+
 
     /**
      * Sets the user_type_id.
@@ -286,6 +298,7 @@ public class UserH implements Serializable
         this.user_type_id = user_type_id;
     }
 
+
     /**
      * Gets the user_access.
      * 
@@ -295,6 +308,7 @@ public class UserH implements Serializable
     {
         return this.user_access;
     }
+
 
     /**
      * Sets the user_access.
@@ -307,6 +321,7 @@ public class UserH implements Serializable
         this.user_access = user_access;
     }
 
+
     /**
      * Gets the extended.
      * 
@@ -316,6 +331,7 @@ public class UserH implements Serializable
     {
         return this.extended;
     }
+
 
     /**
      * Sets the extended.
@@ -328,6 +344,7 @@ public class UserH implements Serializable
         this.extended = extended;
     }
 
+
     /**
      * Gets the comment.
      * 
@@ -337,6 +354,7 @@ public class UserH implements Serializable
     {
         return this.comment;
     }
+
 
     /**
      * Sets the comment.
@@ -349,6 +367,7 @@ public class UserH implements Serializable
         this.comment = comment;
     }
 
+
     /*
      * (non-Javadoc)
      * @see java.lang.Object#toString()
@@ -358,6 +377,7 @@ public class UserH implements Serializable
     {
         return new ToStringBuilder(this).append("id", getId()).toString();
     }
+
 
     /*
      * (non-Javadoc)
@@ -371,6 +391,7 @@ public class UserH implements Serializable
         UserH castOther = (UserH) other;
         return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
     }
+
 
     /*
      * (non-Javadoc)

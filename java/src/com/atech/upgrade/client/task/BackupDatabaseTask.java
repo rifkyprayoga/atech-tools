@@ -20,7 +20,7 @@ import com.atech.upgrade.client.gui.UpgradeProgressIndicator;
 public class BackupDatabaseTask extends UpgradeTaskAbstract implements BackupRestoreWorkGiver
 {
 
-    protected Map<String, BackupRestoreObject> ht_backup_objects = new HashMap<String, BackupRestoreObject>();
+    protected Map<String, BackupRestoreBase> ht_backup_objects = new HashMap<String, BackupRestoreBase>();
     String taskName;
     float maxPercentCount = 0.0f;
     int currentObject = -1;

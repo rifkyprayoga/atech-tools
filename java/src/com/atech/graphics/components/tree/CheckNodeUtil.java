@@ -37,6 +37,9 @@ package com.atech.graphics.components.tree;
 public class CheckNodeUtil
 {
 
+    public static boolean debugMode = false;
+
+
     /**
      * Builds the tree.
      * 
@@ -61,7 +64,8 @@ public class CheckNodeUtil
      */
     public static CheckNode traverseTree(CheckBoxTreeNodeInterface cb, int check_type)
     {
-        System.out.println("Traverse Tree: " + cb);
+        if (debugMode)
+            System.out.println("Traverse Tree: " + cb);
 
         if (cb == null)
             return null;

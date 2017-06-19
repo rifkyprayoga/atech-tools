@@ -2,7 +2,6 @@ package com.atech.utils;
 
 import java.awt.*;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Properties;
 
@@ -13,7 +12,6 @@ import javax.swing.plaf.ColorUIResource;
 import com.atech.app.AbstractApplicationContext;
 import com.atech.db.cfg.DbConfig;
 import com.atech.db.hibernate.HibernateDb;
-import com.atech.db.hibernate.hdb_object.User;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.gui_fw.MainAppFrame;
 import com.atech.i18n.I18nControlAbstract;
@@ -516,6 +514,13 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     }
 
 
+    @Override
+    public void initObserverManager()
+    {
+
+    }
+
+
     /*
      * (non-Javadoc)
      * @see com.atech.utils.ATDataAccessAbstract#getLanguageInfo()
@@ -603,26 +608,9 @@ public class DataAccessApp extends ATDataAccessLMAbstract
 
     }
 
-
     // ********************************************************
     // ****** Login/Logout *****
     // ********************************************************
-
-    /**
-     * Gets the all users.
-     * 
-     * @return the all users
-     */
-    @Override
-    public ArrayList<User> getAllUsers()
-    {
-        if (this.all_users == null)
-        {
-            this.all_users = s_app_context.getUsers();
-        }
-
-        return this.all_users;
-    }
 
 
     /**
@@ -631,13 +619,13 @@ public class DataAccessApp extends ATDataAccessLMAbstract
     @Override
     public void processLogin()
     {
-        if (this.logged_user == null)
+        if (this.loggedUser == null)
         {
             s_app_context.setLoadingStatus(0);
         }
         else
         {
-            s_app_context.setLoadingStatus(this.logged_user.getUser_access());
+            s_app_context.setLoadingStatus(this.loggedUser.getUser_access());
         }
     }
 
@@ -887,6 +875,20 @@ public class DataAccessApp extends ATDataAccessLMAbstract
      * }
      * }
      */
+
+    @Override
+    protected void initDataDefinitionManager()
+    {
+
+    }
+
+
+    @Override
+    protected void initInternalSettings()
+    {
+
+    }
+
 
     /**
      * Not implemented.

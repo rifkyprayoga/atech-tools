@@ -15,8 +15,8 @@ import org.hibernate.mapping.Table;
 import org.hibernate.mapping.Value;
 
 import com.atech.db.hibernate.HibernateConfiguration;
+import com.atech.db.hibernate.HibernateObject;
 import com.atech.db.hibernate.HibernateUtil;
-import com.atech.db.hibernate.tool.data.management.common.ImportExportAbstract;
 
 /**
  *  This file is part of ATech Tools library.
@@ -50,6 +50,7 @@ import com.atech.db.hibernate.tool.data.management.common.ImportExportAbstract;
 
 // this one should be extended, we have several variables that need to be filled
 
+@Deprecated
 public abstract class ImportTool extends ImportExportAbstract
 {
 
@@ -97,7 +98,6 @@ public abstract class ImportTool extends ImportExportAbstract
     /**
      * Instantiates a new import tool.
      *
-     * @param hib_conf the hib_conf
      */
     public ImportTool()
     {
@@ -543,6 +543,16 @@ public abstract class ImportTool extends ImportExportAbstract
     {
         Query q = getSession().createQuery("delete from " + class_name);
         q.executeUpdate();
+    }
+
+
+    public void clearExistingData(Class<? extends HibernateObject> clazz)
+    {
+        clearExistingData(clazz.getSimpleName());
+        // Criteria criteria = getSession().createCriteria(clazz);
+        //
+        // Query q = getSession().createQuery("delete from " + class_name);
+        // q.executeUpdate();
     }
 
     /*

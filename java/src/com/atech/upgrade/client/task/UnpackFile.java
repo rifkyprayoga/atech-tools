@@ -3,8 +3,6 @@ package com.atech.upgrade.client.task;
 import java.io.File;
 import java.util.GregorianCalendar;
 
-import net.lingala.zip4j.exception.ZipException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +12,7 @@ import com.atech.upgrade.data.UpgradeException;
 import com.atech.upgrade.data.UpgradeStepStatus;
 import com.atech.utils.data.ATechDate;
 import com.atech.utils.data.ATechDateType;
-import com.atech.utils.file.Zip4jUtil;
+import com.atech.utils.file.zip.util.Zip4jUtil;
 
 /**
  * Created by andy on 24.11.15.
@@ -23,6 +21,8 @@ public class UnpackFile extends UpgradeTaskAbstract
 {
 
     private static final Logger LOG = LoggerFactory.getLogger(UnpackFile.class);
+
+    private static Zip4jUtil zip4jUtil = new Zip4jUtil();
 
 
     public UnpackFile(UpgradeApplicationContext applicationUpgradeContext)
@@ -46,9 +46,9 @@ public class UnpackFile extends UpgradeTaskAbstract
             progressIndicator.setProgress(20);
             // System.out.println("Upgrade file found.");
 
-            File applicationUpgradeInstance = new File(root.getAbsolutePath() + "/"
-                    + applicationUpgradeContext.getShortApplicationName() + "_upgrade_"
-                    + applicationUpgradeContext.getUpgradeVersion() + "_" + getDateTimeAsLong());
+            File applicationUpgradeInstance = new File(
+                    root.getAbsolutePath() + "/" + applicationUpgradeContext.getShortApplicationName() + "_upgrade_"
+                            + applicationUpgradeContext.getUpgradeVersion() + "_" + getDateTimeAsLong());
 
             if (!applicationUpgradeInstance.exists())
             {
@@ -62,10 +62,10 @@ public class UnpackFile extends UpgradeTaskAbstract
 
             try
             {
-                Zip4jUtil.unzipFile(upgradeFile, applicationUpgradeInstance);
+                zip4jUtil.unzipFile(upgradeFile, applicationUpgradeInstance);
                 LOG.info("Upgrade file unpacked.");
             }
-            catch (ZipException ex)
+            catch (Exception ex)
             {
                 LOG.error("Error unzipping upgrade file: {}" + ex.getMessage());
                 this.error = new UpgradeException("Error unzipping upgrade file: {}" + ex.getMessage(), ex);

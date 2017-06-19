@@ -14,6 +14,11 @@ public class GsonUtils
     private static Gson gsonInstance = new Gson();
 
 
+    public void test()
+    {
+    }
+
+
     // Type listType = new TypeToken<ArrayList<CallHuntingLineDto>>() {
     //
     // }.getType();

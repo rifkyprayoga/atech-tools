@@ -2,12 +2,17 @@ package com.atech.db.hibernate;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.StringTokenizer;
+import java.util.*;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +56,11 @@ import com.atech.utils.ATDataAccessAbstract;
 public abstract class HibernateDb
 {
 
+    private static final Logger LOG = LoggerFactory.getLogger(HibernateDb.class);
+
+    protected DataTransformer dataTransformer;
+    protected Map<Class, Map<Long, ? extends HibernateObject>> mapOfCachedObjects = new HashMap<Class, Map<Long, ? extends HibernateObject>>();
+
     /**
      * The Constant DB_CONFIG_LOADED.
      */
@@ -69,17 +79,13 @@ public abstract class HibernateDb
     private boolean debug = true;
     // x private boolean db_debug = false;
 
-    private static final Logger LOG = LoggerFactory.getLogger(HibernateDb.class);
-
-    /**
-     * The m_session.
-     */
     protected Session m_session = null;
-
-    /**
-     * The sessions.
-     */
     protected SessionFactory sessions = null;
+    protected ATDataAccessAbstract dataAccess;
+    protected HibernateConfiguration config = null;
+    protected AbstractApplicationContext applicationContext = null;
+    protected SplashAbstract m_splash = null;
+    protected I18nControlAbstract i18nControl = null;
 
     /**
      * The m_error code.
@@ -93,51 +99,45 @@ public abstract class HibernateDb
     private String m_addId = "";
 
     // private Configuration m_cfg = null;
-    protected ATDataAccessAbstract m_da;
 
     protected int m_loadStatus = 0;
+
 
     /**
      * The config.
      */
-    protected HibernateConfiguration config = null;
-
-    protected AbstractApplicationContext app_context = null;
-
-    protected SplashAbstract m_splash = null;
-
-    protected I18nControlAbstract m_ic = null;
-
 
     /**
      * Instantiates a new hibernate db.
      * 
-     * @param da the da
+     * @param dataAccess
      */
-    public HibernateDb(ATDataAccessAbstract da)
+    public HibernateDb(ATDataAccessAbstract dataAccess)
     {
         config = createConfiguration();
-        m_da = da;
+        this.dataAccess = dataAccess;
+        this.i18nControl = dataAccess.getI18nControlInstance();
         m_loadStatus = DB_CONFIG_LOADED;
+        init();
     }
 
 
-    /**
-     * Instantiates a new hibernate db.
-     */
-    public HibernateDb()
-    {
-        config = createConfiguration();
-        m_loadStatus = DB_CONFIG_LOADED;
-        // debugConfig();
-    }
-
+    // /**
+    // * Instantiates a new hibernate db.
+    // */
+    // public HibernateDb()
+    // {
+    // config = createConfiguration();
+    // m_loadStatus = DB_CONFIG_LOADED;
+    // // debugConfig();
+    // init();
+    // }
 
     public HibernateDb(AbstractApplicationContext ctx)
     {
-        this.app_context = ctx;
-        m_da = this.app_context.getDataAccess(); // DataAccessApp.getInstance();
-        m_ic = m_da.getI18nControlInstance();
+        this.applicationContext = ctx;
+        this.dataAccess = this.applicationContext.getDataAccess();
+        this.i18nControl = dataAccess.getI18nControlInstance();
 
         if (ctx.hasSplashScreen())
         {
@@ -145,23 +145,35 @@ public abstract class HibernateDb
         }
 
         config = createConfiguration();
+        init();
     }
 
 
     /**
      * Instantiates a new hibernate db.
      * 
-     * @param da the da
+     * @param dataAccess the da
      * @param hd 
      */
-    public HibernateDb(ATDataAccessAbstract da, HibernateDb hd)
+    public HibernateDb(ATDataAccessAbstract dataAccess, HibernateDb hd)
     {
-        System.out.println("HibernateDb(): " + da + ",hib_db_in=" + hd + ",session_factory=" + this.sessions);
-        this.m_da = da;
+        // System.out.println("HibernateDb(): " + dataAccess + ",hib_db_in=" +
+        // hd + ",session_factory=" + this.sessions);
+        this.dataAccess = dataAccess;
+        this.i18nControl = dataAccess.getI18nControlInstance();
         this.config = hd.getHibernateConfiguration();
         this.sessions = this.config.getSessionFactory();
-        System.out.println("HibernateDb(): " + m_da + ",config=" + this.config + ",session_factory=" + this.sessions);
+        // System.out.println(
+        // "HibernateDb(): " + dataAccess + ",config=" + this.config +
+        // ",session_factory=" + this.sessions);
         m_loadStatus = DB_CONFIG_LOADED;
+        init();
+    }
+
+
+    public void init()
+    {
+        initDataTransformer();
     }
 
 
@@ -334,9 +346,7 @@ public abstract class HibernateDb
      */
     public Session getSession()
     {
-        return this.config.getSession(1);
-        // m_session.clear();
-        // return m_session;
+        return getSession(1);
     }
 
 
@@ -541,7 +551,7 @@ public abstract class HibernateDb
     /**
      * Edits the hibernate.
      * 
-     * @param obj the obj
+     * @param object the object
      * 
      * @return true, if successful
      */
@@ -711,6 +721,31 @@ public abstract class HibernateDb
     }
 
 
+    public boolean isObjectUsed(HibernateSelectableObject object)
+    {
+        Criteria criteria = object.getChildrenCriteria(this.getSession(), object);
+
+        if (criteria == null)
+            return false;
+
+        criteria.setProjection(Projections.rowCount());
+
+        Object o = criteria.uniqueResult();
+
+        if (o != null)
+        {
+            long count = dataAccess.getLongValue(o);
+
+            LOG.debug("{} used {} times.", object.toStringDescriptive(), count);
+
+            return count > 0;
+        }
+
+        return false;
+
+    }
+
+
     /**
      * Adds the get id.
      * 
@@ -755,6 +790,239 @@ public abstract class HibernateDb
     {
         this.m_errorCode = code;
         this.m_errorDesc = source + " : " + desc;
+    }
+
+
+    // *************************************************************
+    // **** CACHED DATA and ALL DATA RETRIEVAL ****
+    // *************************************************************
+
+    /**
+     * Init Data Transformer (each data we retrive can be transformed if we wish it (set Translation or
+     * something else).
+     */
+    protected abstract void initDataTransformer();
+
+
+    /**
+     * Get All Data in Typed List of correct type.
+     *
+     * @param clazz needs to be instance of HibernateBackupSelectableObject, so your Hibernate object
+     *              must implement this.
+     * @param <E> type extends HibernateBackupSelectableObject
+     * @return typed List
+     */
+    public <E extends HibernateObject> List<E> getAllTypedHibernateData(Class<E> clazz)
+    {
+        return getAllTypedHibernateData(clazz, false);
+    }
+
+
+    /**
+     * Get All Data in Typed List of correct type.
+     *
+     * @param clazz needs to be instance of HibernateBackupSelectableObject, so your Hibernate object
+     *              must implement this.
+     * @param rebuildCache if we want to rebuild current cache
+     * @param <E> type extends HibernateBackupSelectableObject
+     *
+     * @return typed List
+     */
+    public <E extends HibernateObject> List<E> getAllTypedHibernateData(Class<E> clazz, boolean rebuildCache)
+    {
+        boolean cachedType = isTypeCached(clazz);
+        boolean transformationNeeded = isTransformationRequired(clazz);
+
+        Map<Long, E> mapOfType = null;
+
+        if (cachedType)
+        {
+            if (!rebuildCache)
+            {
+                if (mapOfCachedObjects.containsKey(clazz))
+                {
+                    return getListFromCache(clazz);
+                }
+            }
+
+            mapOfType = new HashMap<Long, E>();
+            mapOfCachedObjects.put(clazz, mapOfType);
+        }
+
+        Criteria criteria = this.getSession().createCriteria(clazz);
+
+        specialFilteringOfCriteria(clazz, criteria);
+
+        List results = criteria.list();
+
+        LOG.debug("Read {} - {}", clazz.getSimpleName(), results.size());
+
+        List<E> outList = new ArrayList<E>();
+
+        if (cachedType)
+        {
+            for (Object o : results)
+            {
+                E typedObject = (E) o;
+
+                if (transformationNeeded)
+                    dataTransformer.transformData(typedObject, clazz);
+
+                outList.add(typedObject);
+                mapOfType.put(typedObject.getId(), typedObject);
+            }
+        }
+        else
+        {
+            for (Object o : results)
+            {
+                E typedObject = (E) o;
+                if (transformationNeeded)
+                    dataTransformer.transformData(typedObject, clazz);
+                outList.add(typedObject);
+            }
+        }
+
+        return outList;
+    }
+
+
+    public <E extends HibernateObject> List<E> getHibernateData(Class<E> clazz, //
+            List<? extends Criterion> criterionList, //
+            int sessionNumber)
+    {
+        return getHibernateData(clazz, criterionList, null, sessionNumber);
+    }
+
+
+    public <E extends HibernateObject> List<E> getHibernateData(Class<E> clazz, //
+            List<? extends Criterion> criterionList)
+    {
+        return getHibernateData(clazz, criterionList, null, 1);
+        // Criteria criteria = this.getSession().createCriteria(clazz);
+        //
+        // for (Criterion criterion : criterionList)
+        // {
+        // criteria.add(criterion);
+        // }
+        //
+        // List results = criteria.list();
+        //
+        // LOG.debug("Read {} - {}", clazz.getSimpleName(), results.size());
+        //
+        // List<E> outList = new ArrayList<E>();
+        //
+        // for (Object o : results)
+        // {
+        // E typedObject = (E) o;
+        //
+        // outList.add(typedObject);
+        // }
+        //
+        // return outList;
+    }
+
+
+    public <E extends HibernateObject> List<E> getHibernateData(Class<E> clazz, //
+            List<? extends Criterion> criterionList, //
+            List<Order> orderList)
+    {
+        return getHibernateData(clazz, criterionList, orderList, 1);
+    }
+
+
+    public <E extends HibernateObject> List<E> getHibernateData(Class<E> clazz, //
+            List<? extends Criterion> criterionList, //
+            List<Order> orderList, //
+            int sessionNumber)
+    {
+        Criteria criteria = this.getSession(sessionNumber).createCriteria(clazz);
+
+        if (CollectionUtils.isNotEmpty(criterionList))
+        {
+            for (Criterion criterion : criterionList)
+            {
+                criteria.add(criterion);
+            }
+        }
+
+        if (CollectionUtils.isNotEmpty(orderList))
+        {
+            for (Order order : orderList)
+            {
+                criteria.addOrder(order);
+            }
+        }
+
+        List results = criteria.list();
+
+        LOG.debug("Read {} - {}", clazz.getSimpleName(), results.size());
+
+        List<E> outList = new ArrayList<E>();
+
+        for (Object o : results)
+        {
+            E typedObject = (E) o;
+
+            outList.add(typedObject);
+        }
+
+        return outList;
+
+    }
+
+
+    /**
+     * You can do special filtering here depending on the class.
+     *
+     * @param clazz
+     * @param criteria
+     * @param <E>
+     */
+    protected abstract <E extends HibernateObject> void specialFilteringOfCriteria(Class<E> clazz, Criteria criteria);
+
+
+    private <E extends HibernateObject> List<E> getListFromCache(Class<E> clazz)
+    {
+        // create selectable list so that we can order it
+        List<HibernateSelectableObject> list = new ArrayList<HibernateSelectableObject>();
+
+        Collection<?> values = mapOfCachedObjects.get(clazz).values();
+
+        for (Object entry : values)
+        {
+            list.add((HibernateSelectableObject) entry);
+        }
+
+        Collections.sort(list);
+
+        List<E> outList = new ArrayList<E>();
+
+        for (Object entry : list)
+        {
+            outList.add((E) entry);
+        }
+
+        return outList;
+    }
+
+
+    protected abstract <E extends HibernateObject> boolean isTypeCached(Class<E> clazz);
+
+
+    protected <E extends HibernateObject> boolean isTransformationRequired(Class<E> clazz)
+    {
+        return (dataTransformer != null) && (dataTransformer.isTransformationRequired(clazz));
+
+    }
+
+
+    public <E extends HibernateObject> E getCachedObject(Class<E> clazz, long id)
+    {
+        if (!mapOfCachedObjects.containsKey(clazz))
+            getAllTypedHibernateData(clazz);
+
+        return (E) mapOfCachedObjects.get(clazz).get(id);
     }
 
 
@@ -952,6 +1220,18 @@ public abstract class HibernateDb
             ex.printStackTrace();
         }
 
+    }
+
+
+    /**
+     * Get Session
+     *
+     * @param session_nr
+     * @return
+     */
+    public Session getSession(int session_nr)
+    {
+        return this.config.getSession(session_nr);
     }
 
 }

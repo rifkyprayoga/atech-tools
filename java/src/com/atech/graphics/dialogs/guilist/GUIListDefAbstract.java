@@ -5,8 +5,19 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumnModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.atech.db.hibernate.HibernateDb;
+import com.atech.db.hibernate.HibernateSelectableObject;
+import com.atech.graphics.dialogs.DialogCreator;
+import com.atech.graphics.dialogs.StandardDialogForObject;
+import com.atech.graphics.dialogs.selector.SelectableInterface;
 import com.atech.i18n.I18nControlAbstract;
+import com.atech.utils.ATDataAccessAbstract;
+import com.atech.utils.ATSwingUtils;
 
 // TODO: Auto-generated Javadoc
 
@@ -43,72 +54,73 @@ import com.atech.i18n.I18nControlAbstract;
 public abstract class GUIListDefAbstract
 {
 
-    /** The Constant ACTION_ADD. */
-    public static final int ACTION_ADD = 1;
+    private static final Logger LOG = LoggerFactory.getLogger(GUIListDefAbstract.class);
 
-    /** The Constant ACTION_EDIT. */
-    public static final int ACTION_EDIT = 2;
+    // public static final int ACTION_ADD = 1;
+    // public static final int ACTION_EDIT = 2;
+    // public static final int ACTION_DELETE = 3;
 
-    /** The Constant ACTION_DELETE. */
-    public static final int ACTION_DELETE = 3;
+    protected ATDataAccessAbstract dataAccess;
+    protected I18nControlAbstract i18nControl = null;
+    protected HibernateDb database;
 
-    /** The i18nControl. */
-    protected I18nControlAbstract ic = null;
+    protected Class<? extends HibernateSelectableObject> clazz;
+    protected HibernateSelectableObject targetObject;
+    protected String titleI18nKey;
+    protected String listDefinitionName;
+    protected String helpId;
+    protected Rectangle tableBounds;
+    protected Dimension windowDimension;
 
-    /** The translation_root. */
-    protected String translation_root = null;
+    protected String[] filterOptionsCombo1 = null;
+    protected String[] filterOptionsCombo2 = null;
+    protected String[] filterDescriptionTexts = null;
+    protected ArrayList<ButtonDef> buttonDefintions;
 
-    /** The table. */
+    protected GuiListFilterType filterType = GuiListFilterType.None;
+
+    protected String translationRoot = null;
+
     protected JTable table;
-
-    /** The model. */
     protected AbstractTableModel model;
-    // protected ArrayList full_list;
-    // protected ArrayList active_list;
-
-    /** The filter_options_combo1. */
-    protected String[] filter_options_combo1 = null;
-
-    /** The filter_options_combo2. */
-    protected String[] filter_options_combo2 = null;
-
-    // protected boolean filter_enabled = false;
-    /** The filter_texts. */
-    protected String[] filter_texts = null;
-
-    /** The filter_type. */
-    protected int filter_type = FILTER_NONE;
-
-    /** The button_defs. */
-    protected ArrayList<ButtonDef> button_defs;
-
-    /** 
-     * Filter: Filter none
-     */
-    public static final int FILTER_NONE = 0;
-
-    /** 
-     * Filter: Combo
-     */
-    public static final int FILTER_COMBO = 1;
-
-    /** 
-     * Filter: Combo and text
-     */
-    public static final int FILTER_COMBO_AND_TEXT = 2;
-
-    /** 
-     * Filter: Combo twice
-     */
-    public static final int FILTER_COMBO_TWICE = 3;
-
-    /** The parent_dialog. */
     public GUIListDialog parentDialog;
+    protected java.util.List<? extends HibernateSelectableObject> fullList = null;
+    protected java.util.List<? extends HibernateSelectableObject> activeList = null;
 
-    /** The defaultParameters. */
+    // public static final int FILTER_NONE = 0;
+    // public static final int FILTER_COMBO = 1;
+    // public static final int FILTER_COMBO_AND_TEXT = 2;
+    // public static final int FILTER_COMBO_TWICE = 3;
+
     protected String[] defaultParameters;
 
-    private boolean customDisplayHeader = false;
+    private JPanel customDisplayHeader = null;
+
+    protected boolean disableFilterRun = false;
+
+    protected String filterComboText = "";
+    protected String filterCombo2Text = "";
+    protected String filterTextText = "";
+
+
+    public <E extends HibernateSelectableObject> GUIListDefAbstract(ATDataAccessAbstract dataAccess, E targetObject,
+            String titleI18nKey, String listDefinitionName, String helpId, Rectangle tableBounds,
+            Dimension windowDimension)
+    {
+        this.dataAccess = dataAccess;
+        this.i18nControl = dataAccess.getI18nControlInstance();
+        this.clazz = targetObject.getClass();
+        this.targetObject = targetObject;
+        this.titleI18nKey = titleI18nKey;
+        this.listDefinitionName = listDefinitionName;
+        this.helpId = helpId;
+        this.tableBounds = tableBounds;
+        this.windowDimension = windowDimension;
+
+        database = dataAccess.getHibernateDb();
+        init();
+        initCustomDisplayPanel();
+    }
 
 
     // i18nControl, translation root
@@ -116,14 +128,6 @@ public abstract class GUIListDefAbstract
      * Inits the.
      */
     public abstract void init();
-
-
-    /**
-     * Gets the title.
-     * 
-     * @return the title
-     */
-    public abstract String getTitle();
 
 
     /**
@@ -135,7 +139,7 @@ public abstract class GUIListDefAbstract
      */
     public String getMessage(String keyword)
     {
-        return ic.getMessage(this.translation_root + "_" + keyword);
+        return i18nControl.getMessage(this.translationRoot + "_" + keyword);
     }
 
 
@@ -146,51 +150,8 @@ public abstract class GUIListDefAbstract
      */
     public String getTranslationRoot()
     {
-        return this.translation_root;
+        return this.translationRoot;
     }
-
-
-    /**
-     * Gets the table.
-     * 
-     * @return the j table
-     */
-    public abstract JTable getJTable();
-
-
-    /**
-     * Do table action.
-     * 
-     * @param action
-     *            the action
-     */
-    public abstract void doTableAction(String action);
-
-
-    /**
-     * Gets the def name.
-     * 
-     * @return the def name
-     */
-    public abstract String getDefName();
-
-
-    /**
-     * Gets the window size.
-     * 
-     * @return the window size
-     */
-    public abstract Dimension getWindowSize();
-
-
-    /**
-     * Gets the table size.
-     * 
-     * @param pos_y
-     *            the pos_y
-     * @return the table size
-     */
-    public abstract Rectangle getTableSize(int pos_y);
 
 
     /**
@@ -211,7 +172,7 @@ public abstract class GUIListDefAbstract
      */
     public String[] getFilterOptionsCombo1()
     {
-        return this.filter_options_combo1;
+        return this.filterOptionsCombo1;
     }
 
 
@@ -222,7 +183,7 @@ public abstract class GUIListDefAbstract
      */
     public String[] getFilterOptionsCombo2()
     {
-        return this.filter_options_combo2;
+        return this.filterOptionsCombo2;
     }
 
 
@@ -233,7 +194,7 @@ public abstract class GUIListDefAbstract
      */
     public boolean hasFilter()
     {
-        return this.filter_type > FILTER_NONE;
+        return this.filterType != GuiListFilterType.None;
     }
 
 
@@ -242,9 +203,9 @@ public abstract class GUIListDefAbstract
      * 
      * @return the filter type
      */
-    public int getFilterType()
+    public GuiListFilterType getFilterType()
     {
-        return this.filter_type;
+        return this.filterType;
     }
 
 
@@ -271,37 +232,10 @@ public abstract class GUIListDefAbstract
      * 
      * @return the filter texts
      */
-    public String[] getFilterTexts()
+    public String[] getFilterDescriptionTexts()
     {
-        return this.filter_texts;
+        return this.filterDescriptionTexts;
     }
-
-
-    /**
-     * Sets the filter combo.
-     * 
-     * @param val
-     *            the new filter combo
-     */
-    public abstract void setFilterCombo(String val);
-
-
-    /**
-     * Sets the filter combo_2.
-     * 
-     * @param val
-     *            the new filter combo_2
-     */
-    public abstract void setFilterCombo_2(String val);
-
-
-    /**
-     * Sets the filter text.
-     * 
-     * @param val
-     *            the new filter text
-     */
-    public abstract void setFilterText(String val);
 
 
     /**
@@ -311,7 +245,7 @@ public abstract class GUIListDefAbstract
      */
     public ArrayList<ButtonDef> getButtonDefinitions()
     {
-        return button_defs;
+        return buttonDefintions;
     }
 
 
@@ -328,25 +262,426 @@ public abstract class GUIListDefAbstract
 
     public boolean hasCustomDisplayHeader()
     {
-        return customDisplayHeader;
-    }
-
-
-    public void setCustomDisplayHeader(boolean customDisplayHeader)
-    {
-        this.customDisplayHeader = customDisplayHeader;
+        return customDisplayHeader != null;
     }
 
 
     public JPanel getCustomDisplayHeader()
     {
+        return this.customDisplayHeader;
+    }
+
+
+    public void setCustomDisplayHeader(JPanel panel)
+    {
+        this.customDisplayHeader = panel;
+    }
+
+
+    /**
+     * Refresh table
+     */
+    public void refreshTable()
+    {
+        // System.out.println("Table refresh: " + table);
+        // System.out.println("Table refresh: " + table.getModel());
+
+        if ((table != null) && (table.getModel() != null))
+        {
+            ((AbstractTableModel) table.getModel()).fireTableDataChanged();
+            // System.out.println("Table refresh DO");
+        }
+    }
+
+
+    /**
+     * Enable filter run (when setFilterCombo, setFilterCombo2 or setFilterText) is called
+     */
+    protected void enableFilterRun()
+    {
+        disableFilterRun = false;
+    }
+
+
+    /**
+     * Disable filter run (when setFilterCombo, setFilterCombo2 or setFilterText) is called
+     */
+    protected void disableFilterRun()
+    {
+        disableFilterRun = true;
+    }
+
+
+    protected void loadData()
+    {
+        this.fullList = database.getAllTypedHibernateData(clazz);
+        fireFilterData();
+    }
+
+
+    protected void reloadData()
+    {
+        this.fullList = database.getAllTypedHibernateData(clazz, true);
+        fireFilterData();
+    }
+
+
+    protected void fireFilterData()
+    {
+        filterData();
+        LOG.debug("Filtering {}. [full={}, filtered={}]", this.clazz.getSimpleName(), this.fullList.size(),
+            this.activeList.size());
+        refreshTable();
+    }
+
+
+    protected abstract void filterData();
+
+
+    /**
+     * Gets the title.
+     *
+     * @return the title
+     */
+    public String getTitle()
+    {
+        return i18nControl.getMessage(titleI18nKey);
+    }
+
+
+    /**
+     * Gets the table.
+     *
+     * @return the j table
+     */
+    public JTable getJTable()
+    {
+        if (this.table == null)
+        {
+
+            this.table = new JTable(new AbstractTableModel()
+            {
+
+                private static final long serialVersionUID = 4761913214056086567L;
+
+
+                public int getColumnCount()
+                {
+                    // System.out.println("ColumnCount: " +
+                    // targetObject.getColumnCount() + ", object=" +
+                    // targetObject);
+                    return targetObject.getColumnCount();
+                }
+
+
+                public int getRowCount()
+                {
+                    // System.out.println("Row count: " + activeList.size());
+                    return activeList.size();
+                }
+
+
+                public Object getValueAt(int row, int column)
+                {
+                    HibernateSelectableObject dataObject = activeList.get(row);
+                    // System.out.println("C: " +
+                    // dataObject.getColumnValue(column));
+
+                    return dataObject.getColumnValue(column);
+                }
+            });
+
+            int cwidth = 0;
+            int twidth = (int) getTableSize(0).getWidth();
+
+            // System.out.println("Twidth: " + twidth);
+
+            TableColumnModel cm = table.getColumnModel();
+
+            for (int i = 0; i < targetObject.getColumnCount(); i++)
+            {
+                cm.getColumn(i).setHeaderValue(this.i18nControl.getMessage(targetObject.getColumnName(i)));
+
+                // System.out.println("ColumnName: " +
+                // i18nControl.getMessage(targetObject.getColumnName(i)));
+
+                cwidth = targetObject.getColumnWidth(i, twidth);
+
+                // System.out.println("ColumnWidth: " + cwidth);
+
+                if (cwidth > 0)
+                {
+                    cm.getColumn(i).setPreferredWidth(cwidth);
+                }
+            }
+
+        }
+
+        // loadData();
+        // refreshTable();
+
+        return this.table;
+    }
+
+
+    /**
+     * Do table action.
+     *
+     * @param action
+     *            the action
+     */
+    public void doTableAction(String action)
+    {
+        if (action.equals("add_object"))
+        {
+            addTableRow();
+        }
+        else if (action.equals("edit_object"))
+        {
+            editTableRow();
+        }
+        else if (action.equals("delete_object"))
+        {
+            deleteTableRow();
+        }
+        else
+        {
+            if (!doCustomTableAction(action))
+            {
+                LOG.warn("{} - Table action not supported: {}", this.getClass().getSimpleName(), action);
+            }
+        }
+    }
+
+
+    /**
+     * Execute custom table action.
+     *
+     * @param action actionCommand
+     * @return true if actionCommand supported
+     */
+    public abstract boolean doCustomTableAction(String action);
+
+
+    /**
+     * Default Add Data to Table (if you override this make sure you call reloadData if operation was Success)
+     */
+    public void addTableRow()
+    {
+        StandardDialogForObject dialog = createDialog(this.clazz);
+
+        if (dialog.wasOperationSuccessful())
+        {
+            this.reloadData();
+        }
+    }
+
+
+    /**
+     * Default Edit Data from Table (if you override this make sure you call reloadData if operation was Success)
+     */
+    public void editTableRow()
+    {
+        int index = this.getParentDialog().getSelectedObjectIndexFromTable();
+
+        if (index > -1)
+        {
+            HibernateSelectableObject editableObject = this.activeList.get(index);
+
+            StandardDialogForObject dialog = createDialog(this.clazz, editableObject, true);
+
+            if (dialog.wasOperationSuccessful())
+            {
+                reloadData();
+            }
+        }
+    }
+
+
+    /**
+     * Default Delete Data from Table (if you override this make sure you call reloadData if operation was Success)
+     */
+    public void deleteTableRow()
+    {
+        int index = this.getParentDialog().getSelectedObjectIndexFromTable();
+
+        if (index > -1)
+        {
+            HibernateSelectableObject deletableObject = this.activeList.get(index);
+
+            if (database.isObjectUsed(deletableObject))
+            {
+                dataAccess.showMessageDialog(this.getParentDialog(), ATSwingUtils.DialogType.Error, String.format(
+                    i18nControl.getMessage("OBJECT_IN_USE_CANT_DELETE"), deletableObject.toStringDescriptive()));
+            }
+            else
+            {
+                int option_selected = JOptionPane.showOptionDialog(this.getParentDialog(),
+                    String.format(i18nControl.getMessage("ARE_YOU_SURE_DELETE_OBJECT"),
+                        deletableObject.toStringDescriptive()),
+                    i18nControl.getMessage("QUESTION"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                    ATDataAccessAbstract.options_yes_no, JOptionPane.YES_OPTION);
+
+                if (option_selected == JOptionPane.NO_OPTION)
+                    return;
+
+                if (database.deleteHibernate(deletableObject))
+                {
+                    reloadData();
+                }
+                else
+                {
+                    dataAccess.showMessageDialog(this.getParentDialog(), ATSwingUtils.DialogType.Error,
+                        String.format(i18nControl.getMessage("ERROR_DELETING_OBJECT"),
+                            deletableObject.toStringDescriptive(), database.getErrorDescription()));
+                }
+            }
+        }
+    }
+
+
+    public StandardDialogForObject createDialog(Class clazz)
+    {
+
+        DialogCreator dialogCreator = getDialogCreator(clazz);
+
+        if (dialogCreator != null)
+        {
+            return dialogCreator.createDialog(clazz, this.getParentDialog());
+        }
+
         return null;
     }
 
 
-    public abstract void editTableRow();
+    public StandardDialogForObject createDialog(Class clazz, SelectableInterface selectableObject, boolean edit)
+    {
+        DialogCreator dialogCreator = getDialogCreator(clazz);
+
+        if (dialogCreator != null)
+        {
+            return dialogCreator.createDialog(clazz, this.getParentDialog(),
+                (HibernateSelectableObject) selectableObject, edit);
+        }
+
+        return null;
+    }
 
 
-    public abstract String getHelpId();
+    public DialogCreator getDialogCreator(Class clazz)
+    {
+
+        java.util.List<DialogCreator> dialogCreators = dataAccess.getDialogCreators();
+
+        if (dialogCreators != null)
+        {
+            for (DialogCreator creator : dataAccess.getDialogCreators())
+            {
+                if (creator.isApplicable(clazz))
+                    return creator;
+            }
+        }
+
+        LOG.warn("Dialog Creator for {} not implemented.", clazz);
+
+        return null;
+    }
+
+
+    /**
+     * Sets the value of filter for first combo and calls filtering.
+     *
+     * @param value current value of filter (combo1)
+     */
+    public void setFilterCombo(String value)
+    {
+        this.filterComboText = value;
+
+        if (!disableFilterRun)
+            fireFilterData();
+    }
+
+
+    /**
+     * Sets the value of filter for textField and calls filtering.
+     *
+     * @param value current value of filter (textField)
+     */
+    public void setFilterText(String value)
+    {
+        this.filterTextText = value;
+        if (!disableFilterRun)
+            fireFilterData();
+    }
+
+
+    /**
+     * Sets the value of filter for second combo and calls filtering.
+     *
+     * @param value current value of filter (combo2)
+     */
+    public void setFilterCombo2(String value)
+    {
+        this.filterCombo2Text = value;
+        if (!disableFilterRun)
+            fireFilterData();
+    }
+
+
+    /**
+     * Gets the def name.
+     *
+     * @return the def name
+     */
+    public String getDefName()
+    {
+        return listDefinitionName;
+    }
+
+
+    /**
+     * Gets the window size.
+     *
+     * @return the window size
+     */
+    public Dimension getWindowSize()
+    {
+        return this.windowDimension;
+    }
+
+
+    /**
+     * Gets the table size.
+     *
+     * @param pos_y
+     *            the pos_y
+     * @return the table size
+     */
+    public Rectangle getTableSize(int pos_y)
+    {
+        this.tableBounds.setLocation((int) this.tableBounds.getX(), pos_y);
+        return tableBounds;
+    }
+
+
+    /**
+     * Get Help Id for component
+     * @return
+     */
+    public String getHelpId()
+    {
+        return this.helpId;
+    }
+
+
+    protected void initCustomDisplayPanel()
+    {
+        // default is no custom display panel
+    }
+
+    public enum GuiListFilterType
+    {
+        None, Combo, ComboAndText, ComboTwice
+    }
 
 }

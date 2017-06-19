@@ -4,6 +4,7 @@ import java.util.Hashtable;
 
 import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.db.hibernate.tool.data.DatabaseConfiguration;
+import com.atech.db.hibernate.tool.data.management.common.ImportExportContext;
 
 /**
  *  This file is part of ATech Tools library.
@@ -155,5 +156,12 @@ public interface DbToolApplicationInterface
      * @return
      */
     String getCurrentDatabaseVersion();
+
+
+    /**
+     * Get Import/Export Context
+     * @return
+     */
+    ImportExportContext getImportExportContext();
 
 }

@@ -70,6 +70,10 @@ public abstract class PlugInClient implements ActionListener
     protected ATDataAccessLMAbstract da_parent = null;
     private static final Logger LOG = LoggerFactory.getLogger(PlugInClient.class);
 
+    protected String baseName;
+    protected String className;
+    protected String shortName;
+
 
     /**
      * Constructor
@@ -78,11 +82,17 @@ public abstract class PlugInClient implements ActionListener
      * @param ic
      * @param db
      */
-    public PlugInClient(Container parent, I18nControlAbstract ic, HibernateDb db)
+    public PlugInClient(Container parent, I18nControlAbstract ic, HibernateDb db, String baseName, String className,
+            String shortName)
     {
         this.parent = parent;
         this.ic = ic;
         this.db = db;
+
+        this.baseName = baseName;
+        this.className = className;
+        this.shortName = shortName;
+
         checkIfInstalled();
         initPlugin();
     }
@@ -94,10 +104,15 @@ public abstract class PlugInClient implements ActionListener
      * @param parent
      * @param ic
      */
-    public PlugInClient(Container parent, I18nControlAbstract ic)
+    public PlugInClient(Container parent, I18nControlAbstract ic, String baseName, String className, String shortName)
     {
         this.parent = parent;
         this.ic = ic;
+
+        this.baseName = baseName;
+        this.className = className;
+        this.shortName = shortName;
+
         checkIfInstalled();
         initPlugin();
     }
@@ -109,7 +124,8 @@ public abstract class PlugInClient implements ActionListener
      * @param parent
      * @param da
      */
-    public PlugInClient(Container parent, ATDataAccessLMAbstract da)
+    public PlugInClient(Container parent, ATDataAccessLMAbstract da, String baseName, String className,
+            String shortName)
     {
         this.parent = parent;
         this.da_parent = da;
@@ -117,6 +133,10 @@ public abstract class PlugInClient implements ActionListener
         // System.out.println("da_parent: " + this.da_parent);
         // System.out.println("da_parent (LM): " +
         // this.da_parent.getLanguageManager());
+
+        this.baseName = baseName;
+        this.className = className;
+        this.shortName = shortName;
 
         this.ic = da.getI18nControlInstance();
         checkIfInstalled();
@@ -161,7 +181,10 @@ public abstract class PlugInClient implements ActionListener
      * 
      * @return
      */
-    public abstract String getNameBase();
+    public String getNameBase()
+    {
+        return this.baseName;
+    }
 
 
     /**
@@ -655,9 +678,24 @@ public abstract class PlugInClient implements ActionListener
      * it.
      * 
      * @param action_type
+     * @deprecated use executeReturnAction(PluginActionType) instead.
      */
+    @Deprecated
     public void executeReturnAction(int action_type)
     {
+    }
+
+
+    /**
+     * Method can be is used by server side to execute certain actions, for example
+     * refreshes of certain parts of gui or similar. It needs to be implemented by client
+     * side, if you wish to use it.
+     *
+     * @param actionType
+     */
+    public void executeReturnAction(PluginActionType actionType)
+    {
+
     }
 
 
@@ -677,6 +715,18 @@ public abstract class PlugInClient implements ActionListener
             return null;
         else
             return m_server.getDataFromPlugin(parameters);
+    }
+
+
+    public String getServerClassName()
+    {
+        return this.className;
+    }
+
+
+    public String getServerShortName()
+    {
+        return this.shortName;
     }
 
 }

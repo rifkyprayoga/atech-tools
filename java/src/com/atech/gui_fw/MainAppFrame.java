@@ -74,7 +74,6 @@ public class MainAppFrame extends JFrame // implements ActionListener
      */
     // public StatusBar statusPanel;
 
-
     /**
      * Information panels
      */
@@ -139,7 +138,7 @@ public class MainAppFrame extends JFrame // implements ActionListener
     {
         // this is the first chance to call this method after an instance of
         // GGCProperties has been created
-        // m_ic.setLanguage();
+        // i18nControl.setLanguage();
 
         this.m_da = DataAccessApp.createInstanceWOFrame(app_ctx);
 
@@ -152,7 +151,7 @@ public class MainAppFrame extends JFrame // implements ActionListener
         this.app_context = app_ctx;
         this.app_context.setFrame(this);
 
-        // this.app_context.initDataAccess();
+        // this.applicationContext.initDataAccess();
         this.app_context.setSplashProgress(false, 5, "SET_LOOK_AND_FEEL");
 
         if (this.app_context.hasDbToolApplication())
@@ -172,7 +171,7 @@ public class MainAppFrame extends JFrame // implements ActionListener
         // dataAccess: "
         // + dataAccess);
         /*
-         * m_ic = dataAccess.getI18nControlInstance();
+         * i18nControl = dataAccess.getI18nControlInstance();
          * dataAccess.addComponent(this);
          * dataAccess.developer_version = developer_version;
          * statusPanel = new StatusBar(this);
@@ -271,7 +270,7 @@ public class MainAppFrame extends JFrame // implements ActionListener
 
         // dataAccess.startDb(); //statusPanel);
 
-        // statusPanel.setStatusMessage(m_ic.getMessage("INIT"));
+        // statusPanel.setStatusMessage(i18nControl.getMessage("INIT"));
 
         // Information Portal Setup
         // informationPanel = new InfoPanel();
@@ -317,12 +316,13 @@ public class MainAppFrame extends JFrame // implements ActionListener
      * {
      * // TODO: deprecated
      * dataAccess.addPlugIn(DataAccess.PLUGIN_METERS, new MetersPlugIn(this,
-     * m_ic));
+     * i18nControl));
      * // dataAccess.getPlugIn(DataAccess.PLUGIN_METERS).checkIfInstalled();
      * dataAccess.addPlugIn(DataAccess.PLUGIN_PUMPS, new PumpsPlugIn(this,
-     * m_ic));
+     * i18nControl));
      * // dataAccess.getPlugIn(DataAccess.PLUGIN_PUMPS).checkIfInstalled();
-     * dataAccess.addPlugIn(DataAccess.PLUGIN_CGMS, new CGMSPlugIn(this, m_ic));
+     * dataAccess.addPlugIn(DataAccess.PLUGIN_CGMS, new CGMSPlugIn(this,
+     * i18nControl));
      * // dataAccess.getPlugIn(DataAccess.PLUGIN_CGMS).checkIfInstalled();
      * }
      */
@@ -592,7 +592,7 @@ public class MainAppFrame extends JFrame // implements ActionListener
 
             putValue(Action.NAME, m_ic.getMessageWithoutMnemonic(name));
 
-            // char ch = m_ic.getMnemonic(name);
+            // char ch = i18nControl.getMnemonic(name);
 
             // System.out.println("Char ch: '" + ch + "'");
 

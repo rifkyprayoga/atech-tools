@@ -34,6 +34,7 @@ import java.util.Hashtable;
 
 // this one should be extended, we have several variables that need to be filled
 
+@Deprecated
 public abstract class ImportExportDefinition
 {
 

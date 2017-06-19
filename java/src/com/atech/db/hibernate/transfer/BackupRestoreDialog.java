@@ -80,7 +80,7 @@ public abstract class BackupRestoreDialog extends JDialog
     JLabel labelTotalProgress, labelCurrentProgress;
 
     protected BackupRestoreCollection backupRestoreRoot;
-    protected Map<String, BackupRestoreObject> backupObjects;
+    protected Map<String, BackupRestoreBase> backupObjects;
 
     Container myParent = null;
 
@@ -136,7 +136,7 @@ public abstract class BackupRestoreDialog extends JDialog
 
         this.setBounds(130, 50, 450, 440); // 360
 
-        backupObjects = new HashMap<String, BackupRestoreObject>();
+        backupObjects = new HashMap<String, BackupRestoreBase>();
 
         fontBig = ATSwingUtils.getFont(ATSwingUtils.FONT_BIG_BOLD);
         fontNormal = ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL);
@@ -432,7 +432,7 @@ public abstract class BackupRestoreDialog extends JDialog
 
         int elements_count = 0;
 
-        for (BackupRestoreObject bro : this.backupObjects.values())
+        for (BackupRestoreBase bro : this.backupObjects.values())
         {
             if (bro.isSelected())
             {
@@ -474,7 +474,7 @@ public abstract class BackupRestoreDialog extends JDialog
 
             if (!cb.isCollection())
             {
-                backupObjects.put(cb.getTargetName(), (BackupRestoreObject) cb);
+                backupObjects.put(cb.getTargetName(), (BackupRestoreBase) cb);
             }
 
         }

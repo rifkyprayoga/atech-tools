@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-/** 
- * @author Hibernate CodeGenerator 
- */
 public abstract class HibernateObject implements Serializable
 {
 
@@ -14,6 +11,9 @@ public abstract class HibernateObject implements Serializable
 
 
     public abstract long getId();
+
+
+    public abstract void setId(long id);
 
 
     /**

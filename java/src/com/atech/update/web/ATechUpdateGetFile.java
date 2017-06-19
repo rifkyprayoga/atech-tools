@@ -83,7 +83,7 @@ public class ATechUpdateGetFile extends HttpServlet
         try
         {
             CheckSumUtility csu = new CheckSumUtility();
-            System.out.println("Checksum: " + csu.getChecksumValue(filename));
+            System.out.println("ChecksumUtil: " + csu.getChecksumValue(filename));
         }
         catch (Exception ex)
         {

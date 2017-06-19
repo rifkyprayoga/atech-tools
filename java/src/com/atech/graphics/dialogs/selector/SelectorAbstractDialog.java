@@ -1223,9 +1223,9 @@ public abstract class SelectorAbstractDialog extends JDialog
 
         for (int i = 0; i < selector_type_object.getColumnCount(); i++)
         {
-            cm.getColumn(i).setHeaderValue(i18nControl.getMessage(selector_type_object.getColumnName(i + 1)));
+            cm.getColumn(i).setHeaderValue(i18nControl.getMessage(selector_type_object.getColumnName(i)));
 
-            cwidth = selector_type_object.getColumnWidth(i + 1, twidth);
+            cwidth = selector_type_object.getColumnWidth(i, twidth);
 
             if (cwidth > 0)
             {

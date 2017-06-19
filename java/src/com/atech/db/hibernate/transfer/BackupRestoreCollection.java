@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
+import com.atech.graphics.components.tree.CheckNodeUtil;
 import com.atech.i18n.I18nControlAbstract;
 
-// TODO: Auto-generated Javadoc
 /**
  *  This file is part of ATech Tools library.
  *  
- *  <one line to give the library's name and a brief idea of what it does.>
+ *  BackupRestoreCollection - Is collection (parent) of BackupRestoreObjects
  *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
@@ -43,15 +43,11 @@ public class BackupRestoreCollection implements BackupRestoreBase
 {
 
     private String name = null;
-    private List<BackupRestoreBase> children;
-    // x private int count_children_collection;
     private int childrenCount;
     private boolean selected = false;
-
+    private List<BackupRestoreBase> children;
     private List<CheckBoxTreeNodeInterface> childrenTree;
-
-    @SuppressWarnings("unused")
-    private I18nControlAbstract ic;
+    private boolean wholeGroupMustBeSelected = false;
 
 
     /**
@@ -62,10 +58,22 @@ public class BackupRestoreCollection implements BackupRestoreBase
      */
     public BackupRestoreCollection(String name, I18nControlAbstract ic)
     {
-        this.ic = ic;
-        this.name = ic.getMessage(name);
+        this(name, ic, false);
+    }
+
+
+    public BackupRestoreCollection(String name, I18nControlAbstract ic, boolean wholeGroupMustBeSelected)
+    {
+        this(ic.getMessage(name), wholeGroupMustBeSelected);
+    }
+
+
+    public BackupRestoreCollection(String name, boolean wholeGroupMustBeSelected)
+    {
+        this.name = name;
         this.children = new ArrayList<BackupRestoreBase>();
         this.childrenTree = new ArrayList<CheckBoxTreeNodeInterface>();
+        this.wholeGroupMustBeSelected = wholeGroupMustBeSelected;
     }
 
 
@@ -87,7 +95,7 @@ public class BackupRestoreCollection implements BackupRestoreBase
 
         if (base instanceof BackupRestoreCollection)
         {
-            this.childrenCount += ((BackupRestoreCollection) base).getTotalProcents();
+            this.childrenCount += ((BackupRestoreCollection) base).getTotalPercents();
         }
         else
         {
@@ -146,7 +154,7 @@ public class BackupRestoreCollection implements BackupRestoreBase
      * 
      * @return the total procents
      */
-    public int getTotalProcents()
+    public int getTotalPercents()
     {
         return this.childrenCount * 100;
     }
@@ -231,8 +239,11 @@ public class BackupRestoreCollection implements BackupRestoreBase
 
         if (children != null)
         {
-            System.out.println(
-                "Process Children of " + this.getTargetName() + " count: " + children.size() + " array: " + children);
+            if (CheckNodeUtil.debugMode)
+            {
+                System.out.println("Process Children of " + this.getTargetName() + " count: " + children.size()
+                        + " array: " + children);
+            }
             // for (BackupRestoreBase brb : children)
             // {
             //
@@ -275,6 +286,12 @@ public class BackupRestoreCollection implements BackupRestoreBase
      */
     public void setSelected(boolean selected)
     {
+    }
+
+
+    public boolean isWholeGroupMustBeSelected()
+    {
+        return wholeGroupMustBeSelected;
     }
 
     /*

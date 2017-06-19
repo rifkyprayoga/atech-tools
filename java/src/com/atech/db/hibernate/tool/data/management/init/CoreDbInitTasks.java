@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import com.atech.db.hibernate.check.DbInfoH;
 import com.atech.db.hibernate.tool.data.defs.DbInitTaskType;
+import com.atech.db.hibernate.tool.data.management.common.ImportExportContext;
 
 public class CoreDbInitTasks extends InitDbTool implements Runnable
 {
@@ -16,9 +17,9 @@ public class CoreDbInitTasks extends InitDbTool implements Runnable
     private Exception error;
 
 
-    public CoreDbInitTasks(DbInitTaskType taskType, DbToolInitDbRunner runner)
+    public CoreDbInitTasks(DbInitTaskType taskType, DbToolInitDbRunner runner, ImportExportContext importExportContext)
     {
-        super(runner);
+        super(runner, importExportContext);
         this.taskType = taskType;
     }
 

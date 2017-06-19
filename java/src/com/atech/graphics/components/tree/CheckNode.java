@@ -6,6 +6,8 @@ import java.util.Enumeration;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import com.atech.db.hibernate.transfer.BackupRestoreCollection;
+
 // TODO: Auto-generated Javadoc
 /**
  * This class was taken from site http://www.objects.com.au/home/index.html.
@@ -81,6 +83,7 @@ public class CheckNode extends DefaultMutableTreeNode
      */
     protected String name;
 
+
     /**
      * Instantiates a new check node.
      */
@@ -88,6 +91,7 @@ public class CheckNode extends DefaultMutableTreeNode
     {
         this(null, null);
     }
+
 
     /**
      * Instantiates a new check node.
@@ -99,6 +103,7 @@ public class CheckNode extends DefaultMutableTreeNode
     {
         this(userObject, name, true, false);
     }
+
 
     /**
      * Instantiates a new check node.
@@ -116,6 +121,7 @@ public class CheckNode extends DefaultMutableTreeNode
         this.name = name;
     }
 
+
     /**
      * Instantiates a new check node.
      * 
@@ -132,6 +138,7 @@ public class CheckNode extends DefaultMutableTreeNode
         this.name = name;
     }
 
+
     /**
      * Sets the selection mode.
      * 
@@ -141,6 +148,7 @@ public class CheckNode extends DefaultMutableTreeNode
     {
         selectionMode = mode;
     }
+
 
     /**
      * Gets the selection mode.
@@ -152,6 +160,7 @@ public class CheckNode extends DefaultMutableTreeNode
         return selectionMode;
     }
 
+
     /**
      * Sets the selected.
      * 
@@ -159,22 +168,82 @@ public class CheckNode extends DefaultMutableTreeNode
      */
     public void setSelected(boolean isSelected)
     {
+        setSelected(isSelected, true);
+        // System.out.println("Set selected: " + isSelected + "selectionMode: "
+        // + selectionMode);
+        // this.isSelected = isSelected;
+        //
+        // if (selectionMode == DIG_IN_SELECTION)
+        // {
+        // if (children != null)
+        // {
+        // Enumeration<?> en = children.elements();
+        // while (en.hasMoreElements())
+        // {
+        // CheckNode node = (CheckNode) en.nextElement();
+        // node.setSelected(isSelected);
+        // }
+        // }
+        // else
+        // {
+        // checkIfParentRequiresGroupSelect(this.getParent(), isSelected);
+        // }
+        // }
+    }
+
+
+    public void setSelected(boolean isSelected, boolean checkGroupSelect)
+    {
+        System.out.println("Set selected: " + isSelected + "selectionMode: " + selectionMode);
         this.isSelected = isSelected;
 
-        if (selectionMode == DIG_IN_SELECTION && children != null)
+        if (selectionMode == DIG_IN_SELECTION)
         {
-            Enumeration<?> en = children.elements();
-            while (en.hasMoreElements())
+            if (children != null)
             {
-                CheckNode node = (CheckNode) en.nextElement();
-                node.setSelected(isSelected);
+                Enumeration<?> en = children.elements();
+                while (en.hasMoreElements())
+                {
+                    CheckNode node = (CheckNode) en.nextElement();
+                    node.setSelected(isSelected, checkGroupSelect);
+                }
+            }
+            else
+            {
+                if (checkGroupSelect)
+                {
+                    CheckNode parentNode = (CheckNode) this.getParent();
+                    if (checkIfParentRequiresGroupSelect(parentNode))
+                    {
+                        parentNode.setSelected(isSelected, false);
+                    }
+                }
             }
         }
-        else
+    }
+
+
+    private boolean checkIfParentRequiresGroupSelect(CheckNode parent)
+    {
+        System.out.println("checkIfParentRequiresGroupSelect");
+        if (parent.getObject() instanceof BackupRestoreCollection)
         {
+            System.out.println("checkIfParentRequiresGroupSelect: Collection");
+
+            BackupRestoreCollection brc = (BackupRestoreCollection) parent.getObject();
+
+            return (brc.isWholeGroupMustBeSelected());
+            // {
+            // System.out.println("Special actions for whole gropup must be
+            // selected.");
+            // }
 
         }
+
+        return false;
+
     }
+
 
     /**
      * Gets the name.
@@ -186,6 +255,7 @@ public class CheckNode extends DefaultMutableTreeNode
         return this.name;
     }
 
+
     /**
      * Checks if is selected.
      * 
@@ -195,6 +265,7 @@ public class CheckNode extends DefaultMutableTreeNode
     {
         return isSelected;
     }
+
 
     // If you want to change "isSelected" by CellEditor,
     /*

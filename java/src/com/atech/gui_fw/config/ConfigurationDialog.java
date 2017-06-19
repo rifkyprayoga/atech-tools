@@ -94,12 +94,12 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
      * Config types
      */
     /*
-     * public String config_types[] = { m_ic.getMessage("MODE"),
-     * m_ic.getMessage("GENERAL"), m_ic.getMessage("MEDICAL_DATA"),
-     * m_ic.getMessage("COLORS_AND_FONTS"),
-     * m_ic.getMessage("RENDERING_QUALITY"), //
-     * m_ic.getMessage("METER_CONFIGURATION"), m_ic.getMessage("PRINTING"),
-     * m_ic.getMessage("LANGUAGE") };
+     * public String config_types[] = { i18nControl.getMessage("MODE"),
+     * i18nControl.getMessage("GENERAL"), i18nControl.getMessage("MEDICAL_DATA"),
+     * i18nControl.getMessage("COLORS_AND_FONTS"),
+     * i18nControl.getMessage("RENDERING_QUALITY"), //
+     * i18nControl.getMessage("METER_CONFIGURATION"), i18nControl.getMessage("PRINTING"),
+     * i18nControl.getMessage("LANGUAGE") };
      */
 
     public ConfigurationDialog(AbstractConfigurationContext acc)
@@ -167,10 +167,10 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
          * ImageIcon("images/cfg_users.gif"), new
          * ImageIcon("images/cfg_lang.gif"), new
          * ImageIcon("images/cfg_web.gif"), null };
-         * public String config_types[] = { m_ic.getMessage("GENERAL"),
-         * m_ic.getMessage("MEDICAL_DATA"), m_ic.getMessage("COLORS_AND_FONTS"),
-         * m_ic.getMessage("RENDERING_QUALITY"),
-         * m_ic.getMessage("METER_CONFIGURATION"), m_ic.getMessage("PRINTING")
+         * public String config_types[] = { i18nControl.getMessage("GENERAL"),
+         * i18nControl.getMessage("MEDICAL_DATA"), i18nControl.getMessage("COLORS_AND_FONTS"),
+         * i18nControl.getMessage("RENDERING_QUALITY"),
+         * i18nControl.getMessage("METER_CONFIGURATION"), i18nControl.getMessage("PRINTING")
          * };
          */
         System.out.println("this.m_acc.getConfigOptions(): " + this.m_acc.getConfigOptions());
@@ -249,23 +249,23 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
 
     /*
      * public void createNodes() { prefNode = new
-     * DefaultMutableTreeNode(m_ic.getMessage("PREFERENCES")); prefNode.add(new
-     * DefaultMutableTreeNode(m_ic.getMessage("GENERAL"))); prefNode.add(new
-     * DefaultMutableTreeNode(m_ic.getMessage("MEDICAL_DATA")));
+     * DefaultMutableTreeNode(i18nControl.getMessage("PREFERENCES")); prefNode.add(new
+     * DefaultMutableTreeNode(i18nControl.getMessage("GENERAL"))); prefNode.add(new
+     * DefaultMutableTreeNode(i18nControl.getMessage("MEDICAL_DATA")));
      * prefNode.add(new
-     * DefaultMutableTreeNode(m_ic.getMessage("COLORS_AND_FONTS")));
+     * DefaultMutableTreeNode(i18nControl.getMessage("COLORS_AND_FONTS")));
      * prefNode.add(new
-     * DefaultMutableTreeNode(m_ic.getMessage("RENDERING_QUALITY")));
+     * DefaultMutableTreeNode(i18nControl.getMessage("RENDERING_QUALITY")));
      * //DefaultMutableTreeNode dataNode = new
-     * DefaultMutableTreeNode(m_ic.getMessage("DATA_STORING"));
+     * DefaultMutableTreeNode(i18nControl.getMessage("DATA_STORING"));
      * //dataNode.add(new
-     * DefaultMutableTreeNode(m_ic.getMessage("MYSQL_SETUP")));
+     * DefaultMutableTreeNode(i18nControl.getMessage("MYSQL_SETUP")));
      * //dataNode.add(new
-     * DefaultMutableTreeNode(m_ic.getMessage("TEXTFILE_SETUP")));
+     * DefaultMutableTreeNode(i18nControl.getMessage("TEXTFILE_SETUP")));
      * //prefNode.add(dataNode); prefNode.add(new
-     * DefaultMutableTreeNode(m_ic.getMessage("METER_CONFIGURATION")));
-     * //prefNode.add(new DefaultMutableTreeNode(m_ic.getMessage("NUTRITION")));
-     * prefNode.add(new DefaultMutableTreeNode(m_ic.getMessage("PRINTING")));
+     * DefaultMutableTreeNode(i18nControl.getMessage("METER_CONFIGURATION")));
+     * //prefNode.add(new DefaultMutableTreeNode(i18nControl.getMessage("NUTRITION")));
+     * prefNode.add(new DefaultMutableTreeNode(i18nControl.getMessage("PRINTING")));
      * /*DefaultMutableTreeNode meterNode = new
      * DefaultMutableTreeNode("Meters"); meterNode.add(new
      * DefaultMutableTreeNode("Glucocard")); prefNode.add(meterNode);
@@ -299,20 +299,20 @@ public class ConfigurationDialog extends JDialog implements ListSelectionListene
         this.m_acc.createPanels(panels, panel_id);
 
         /*
-         * //addPanel(m_ic.getMessage("PREFERENCES"), this.PANEL_MAIN, new
-         * PrefMainPane()); addPanel(m_ic.getMessage("MODE"), PANEL_MODE, new
-         * PrefModePane(this)); addPanel(m_ic.getMessage("GENERAL"),
+         * //addPanel(i18nControl.getMessage("PREFERENCES"), this.PANEL_MAIN, new
+         * PrefMainPane()); addPanel(i18nControl.getMessage("MODE"), PANEL_MODE, new
+         * PrefModePane(this)); addPanel(i18nControl.getMessage("GENERAL"),
          * this.PANEL_GENERAL, new PrefGeneralPane(this));
-         * addPanel(m_ic.getMessage("MEDICAL_DATA"), this.PANEL_MEDICAL_DATA,
+         * addPanel(i18nControl.getMessage("MEDICAL_DATA"), this.PANEL_MEDICAL_DATA,
          * new PrefMedicalDataPane(this));
-         * addPanel(m_ic.getMessage("COLORS_AND_FONTS"), PANEL_COLORS, new
+         * addPanel(i18nControl.getMessage("COLORS_AND_FONTS"), PANEL_COLORS, new
          * PrefFontsAndColorPane(this));
-         * addPanel(m_ic.getMessage("RENDERING_QUALITY"), PANEL_RENDERING, new
+         * addPanel(i18nControl.getMessage("RENDERING_QUALITY"), PANEL_RENDERING, new
          * PrefRenderingQualityPane(this));
-         * addPanel(m_ic.getMessage("PRINTING"), PANEL_PRINTING, new
-         * PrefPrintingPane(this)); addPanel(m_ic.getMessage("LANGUAGE"),
+         * addPanel(i18nControl.getMessage("PRINTING"), PANEL_PRINTING, new
+         * PrefPrintingPane(this)); addPanel(i18nControl.getMessage("LANGUAGE"),
          * PANEL_LANGUAGE, new PrefLanguagePane(this)); //
-         * addPanel(m_ic.getMessage("METER_CONFIGURATION"), PANEL_METER, new
+         * addPanel(i18nControl.getMessage("METER_CONFIGURATION"), PANEL_METER, new
          * PrefMeterConfPane(this));
          */
     }

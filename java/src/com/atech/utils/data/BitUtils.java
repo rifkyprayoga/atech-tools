@@ -518,6 +518,7 @@ public class BitUtils extends CRCUtils
     public String getCorrectHexValue(byte inp)
     {
         String hx = Integer.toHexString((char) inp);
+        hx = hx.toUpperCase();
 
         if (hx.length() == 0)
             return "00";

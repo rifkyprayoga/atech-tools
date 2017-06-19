@@ -42,7 +42,8 @@ public abstract class DbToolInitDbRunner extends Thread implements BackupRestore
         // create (delete) database
         if (dbInitTasks.containsKey(DbInitTaskType.DeleteDatabase.name()))
         {
-            CoreDbInitTasks dbInitTask = new CoreDbInitTasks(DbInitTaskType.DeleteDatabase, this);
+            CoreDbInitTasks dbInitTask = new CoreDbInitTasks(DbInitTaskType.DeleteDatabase, this,
+                    applicationInterface.getImportExportContext());
             dbInitTask.run();
 
             if (!tablesDeleted)
@@ -52,7 +53,8 @@ public abstract class DbToolInitDbRunner extends Thread implements BackupRestore
             }
         }
 
-        CoreDbInitTasks dbInitTask = new CoreDbInitTasks(DbInitTaskType.CreateDatabase, this);
+        CoreDbInitTasks dbInitTask = new CoreDbInitTasks(DbInitTaskType.CreateDatabase, this,
+                applicationInterface.getImportExportContext());
         dbInitTask.run();
 
         if (!tablesCreated)
@@ -62,7 +64,8 @@ public abstract class DbToolInitDbRunner extends Thread implements BackupRestore
         }
 
         // dbinfo
-        dbInitTask = new CoreDbInitTasks(DbInitTaskType.FillDbInfo, this);
+        dbInitTask = new CoreDbInitTasks(DbInitTaskType.FillDbInfo, this,
+                applicationInterface.getImportExportContext());
         dbInitTask.run();
 
         if (!dbInfoFilled)

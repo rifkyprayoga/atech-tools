@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import com.atech.db.hibernate.transfer.BackupRestoreBase;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
-import com.atech.db.hibernate.transfer.BackupRestoreObject;
 import com.atech.db.hibernate.transfer.BackupRestoreWorkGiver;
 
 /**
@@ -62,7 +62,7 @@ public interface UpgradeApplicationContext
      * backup file.
      */
     String runBackupRestoreRunner(BackupRestoreWorkGiver backupRestoreWorkGiver,
-            Map<String, BackupRestoreObject> ht_backup_objects);
+            Map<String, BackupRestoreBase> ht_backup_objects);
 
 
     int getUpgradeVersion();

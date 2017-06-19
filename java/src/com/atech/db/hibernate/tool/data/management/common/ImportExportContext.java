@@ -1,7 +1,8 @@
 package com.atech.db.hibernate.tool.data.management.common;
 
 import com.atech.db.hibernate.tool.data.DatabaseVersionConfiguration;
-import com.atech.db.hibernate.tool.data.management.export.DbExportConverter;
+import com.atech.db.hibernate.tool.data.management.impexp.DbExportConverter;
+import com.atech.db.hibernate.tool.data.management.impexp.DbImportConverter;
 
 public interface ImportExportContext
 {
@@ -23,9 +24,19 @@ public interface ImportExportContext
 
 
     /**
+     * getDbImportConverter - converter for imports (converter needs to handle or versioning funcationality and
+     * also import Strategy)
+     *
+     * @return DbImportConverter instance
+     */
+    DbImportConverter getDbImportConverter();
+
+
+    /**
      * getDatabaseVersionConfiguration - return DatabaseVersionConfiguration for Application
      *
      * @return DatabaseVersionConfiguration instance
      */
     DatabaseVersionConfiguration getDatabaseVersionConfiguration();
+
 }

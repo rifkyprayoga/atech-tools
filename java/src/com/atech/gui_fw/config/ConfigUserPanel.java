@@ -116,7 +116,8 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
 
         ATSwingUtils.getTitleLabel(m_ic.getMessage("CFG_USERS"), 0, 25, 520, 36, this, ATSwingUtils.FONT_BIG_BOLD);
 
-        // JLabel label = ATSwingUtils.getLabel(m_ic.getMessage("USERS"), 0, 25,
+        // JLabel label = ATSwingUtils.getLabel(i18nControl.getMessage("USERS"),
+        // 0, 25,
         // 520, 36, this, ATSwingUtils.FONT_BIG_BOLD);
         // label.setHorizontalAlignment(JLabel.CENTER);
 
@@ -127,12 +128,25 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
         pane.setBounds(40, 80, 340, 180);
         this.add(pane);
 
+        JButton b = ATSwingUtils.getButton("ADD", 60, 270, 100, 50, this, ATSwingUtils.FONT_NORMAL, "usr_add.png",
+            "users_add", this, m_da);
+        // getButton(String text, Integer x, Integer y, Integer width, Integer
+        // height,
+        // Container container, Object layoutConstraints, Font font, String
+        // icon_name, String action_cmd,
+        // ActionListener al, ATDataAccessAbstract da, int[] icon_size,
+        // Container containerForImage
+
         JButton button = new JButton(m_ic.getMessage("ADD"));
         button.setBounds(60, 270, 100, 25);
         button.setActionCommand("users_add");
         button.setFont(ATSwingUtils.getFont(ATSwingUtils.FONT_NORMAL));
         button.addActionListener(this);
-        this.add(button);
+        // this.add(button);
+
+        // ATSwingUtils.getButton("", 435, pos_y + 60, 50, 50, panel,
+        // ATSwingUtils.FONT_NORMAL, "data_find.png",
+        // "select_inventory_type", this, dataAccess, new int[] { 35, 35 });
 
         button = new JButton(m_ic.getMessage("EDIT"));
         button.setBounds(160, 270, 100, 25);
@@ -162,9 +176,10 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
 
         if (action.equals("users_add"))
         {
-            ConfigUserDialog ud = new ConfigUserDialog(m_da, new User(m_da), this.m_acc);
+            // FIXME null - dialog
+            ConfigUserDialog ud = new ConfigUserDialog(m_da, null, this.m_acc);
 
-            if (ud.wasAction())
+            if (ud.wasOperationSuccessful())
             {
                 m_listUsers = this.getUserDb().getUsers();
                 populateJListExtended(1, m_listUsers);
@@ -182,11 +197,11 @@ public class ConfigUserPanel extends AbstractConfigPanel implements HelpCapable,
             }
 
             // System.out.println("Index: " + getSelectedUserIndex());
-
+            // FIXME null - dialog
             User us = m_listUsers.get(getSelectedUserIndex());
-            ConfigUserDialog ud = new ConfigUserDialog(m_da, us, this.m_acc);
+            ConfigUserDialog ud = new ConfigUserDialog(m_da, null, us, true, this.m_acc);
 
-            if (ud.wasAction())
+            if (ud.wasOperationSuccessful())
             {
                 m_listUsers = this.getUserDb().getUsers();
                 populateJListExtended(1, m_listUsers);

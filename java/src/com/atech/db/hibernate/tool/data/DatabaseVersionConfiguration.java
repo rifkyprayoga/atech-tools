@@ -7,4 +7,7 @@ public interface DatabaseVersionConfiguration
 
     List<DatabaseTableConfiguration> getTablesForDatabase(String key);
 
+
+    String getVersion();
+
 }

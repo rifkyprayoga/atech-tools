@@ -104,19 +104,19 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
          * JPanel p3 = new JPanel(/* new GridLayout(2, 1)
          *//*
            * );
-           * p3.setBorder(new TitledBorder(m_ic.getMessage("LAF_SETTINGS")));
+           * p3.setBorder(new TitledBorder(i18nControl.getMessage("LAF_SETTINGS")));
            * p3.setBounds(10, 280, 490, 135);
            * p3.setLayout(null);
            */
 
         ATSwingUtils.getLabel(m_ic.getMessage("LAF_SETTINGS_DESC"), 50, 90, 400, 30, this, ATSwingUtils.FONT_NORMAL);
 
-        // addLabel(p3, m_ic.getMessage("LAF_SETTINGS_DESC"), 20, 10, 400, 30);
+        // addLabel(p3, i18nControl.getMessage("LAF_SETTINGS_DESC"), 20, 10, 400, 30);
 
         ATSwingUtils.getLabel(m_ic.getMessage("SELECTED_LAF_TYPE_NAME"), 50, 130, 400, 30, this,
             ATSwingUtils.FONT_NORMAL_BOLD);
 
-        // addLabel(p3, m_ic.getMessage("SELECTED_LAF_TYPE_NAME") + ":", 20, 40,
+        // addLabel(p3, i18nControl.getMessage("SELECTED_LAF_TYPE_NAME") + ":", 20, 40,
         // 150, 25);
 
         this.cb_lf_type = new JComboBox(m_dbc.getAvailableLFs());
@@ -128,7 +128,7 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
         ATSwingUtils.getLabel(m_ic.getMessage("SELECTED_LAF_TYPE_CLASS"), 50, 200, 400, 30, this,
             ATSwingUtils.FONT_NORMAL_BOLD);
 
-        // addLabel(p3, m_ic.getMessage("SELECTED_LAF_TYPE_CLASS") + ":", 20,
+        // addLabel(p3, i18nControl.getMessage("SELECTED_LAF_TYPE_CLASS") + ":", 20,
         // 70, 150, 25);
         this.cb_lf_type_class = new JComboBox(m_dbc.getAvailableLFsClass());
         this.cb_lf_type_class.setBounds(50, 230, 400, 23);
@@ -141,7 +141,7 @@ public class ConfigLAFPanel extends AbstractConfigPanel implements HelpCapable
         ATSwingUtils.getLabel(m_ic.getMessage("SELECTED_SKINLF_DEF"), 50, 270, 400, 30, this,
             ATSwingUtils.FONT_NORMAL_BOLD);
 
-        // addLabel(p3, m_ic.getMessage("SELECTED_SKINLF_DEF") + ":", 20, 100,
+        // addLabel(p3, i18nControl.getMessage("SELECTED_SKINLF_DEF") + ":", 20, 100,
         // 150, 25);
 
         this.tf_lf = new JTextField();

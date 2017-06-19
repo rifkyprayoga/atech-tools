@@ -1,6 +1,7 @@
 package com.atech.db.hibernate.tool.data.management.init;
 
 import com.atech.db.hibernate.tool.data.dto.DbInitTaskDto;
+import com.atech.db.hibernate.tool.data.management.common.ImportExportContext;
 
 public abstract class CustomDbInitTasksAbstract extends InitDbTool implements Runnable
 {
@@ -8,9 +9,10 @@ public abstract class CustomDbInitTasksAbstract extends InitDbTool implements Ru
     protected DbInitTaskDto taskDto;
 
 
-    public CustomDbInitTasksAbstract(DbInitTaskDto taskDto, DbToolInitDbRunner runner)
+    public CustomDbInitTasksAbstract(DbInitTaskDto taskDto, DbToolInitDbRunner runner,
+            ImportExportContext importExportContext)
     {
-        super(runner);
+        super(runner, importExportContext);
         System.out.println("CustomDbInitTasksAbstract:cnstr() ");
         this.taskDto = taskDto;
     }

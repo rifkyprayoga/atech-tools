@@ -43,7 +43,6 @@ public class JTableUtil
 
             private static final long serialVersionUID = -7335138964193508211L;
 
-
             {
                 // you need to set it to opaque
                 // setOpaque(true);
@@ -80,6 +79,14 @@ public class JTableUtil
                     // jComponent.setBorder(firstCellBorder);
                     else
                         jComponent.setBorder(cellBorder);
+                }
+
+                Font font = component.getFont();
+
+                if (!font.isBold())
+                {
+                    Font font1 = font.deriveFont(Font.BOLD);
+                    component.setFont(font1);
                 }
 
                 return component;

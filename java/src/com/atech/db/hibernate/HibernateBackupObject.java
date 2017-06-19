@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.atech.db.hibernate.transfer.BackupRestoreObject;
 import com.atech.graphics.components.tree.CheckBoxTreeNodeInterface;
-import com.atech.utils.ATDataAccessAbstract;
 
 /**
  * @author Hibernate CodeGenerator 
@@ -145,19 +144,5 @@ public abstract class HibernateBackupObject extends HibernateObject implements B
      * @return
      */
     protected abstract String getColumnNames(int tableVersion);
-
-
-    /**
-     * Get Splitted Values for Import
-     * 
-     * @param valueEntry value Line
-     * @return array of String
-     */
-    protected String[] getSplittedValues(String valueEntry)
-    {
-        valueEntry = ATDataAccessAbstract.replaceExpression(valueEntry, DELIMITER + DELIMITER,
-            DELIMITER + " " + DELIMITER);
-        return ATDataAccessAbstract.splitString(valueEntry, DELIMITER);
-    }
 
 }

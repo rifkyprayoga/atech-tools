@@ -3,18 +3,18 @@ package com.atech.utils;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.text.View;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atech.graphics.components.JDecimalTextField;
 import com.atech.i18n.I18nControlAbstract;
@@ -52,6 +52,8 @@ import com.atech.i18n.I18nControlAbstract;
 
 public class ATSwingUtils
 {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ATSwingUtils.class);
 
     /**
      * The Constant FONT_BIG_BOLD.
@@ -326,9 +328,11 @@ public class ATSwingUtils
             // JFrame.getToolkit();
             img = cmp.getToolkit().createImage(baos.toByteArray());
         }
-        catch (IOException ex)
+        catch (Exception ex)
         {
-            ex.printStackTrace();
+            LOG.error("Error loading image: [filename={}, component={}]: {}", filename, cmp.getClass().getSimpleName(),
+                ex.getMessage(), ex);
+            // ex.printStackTrace();
             return null;
         }
         return img;
@@ -542,22 +546,22 @@ public class ATSwingUtils
      * 
      * @return the numeric text field
      */
-    public static JDecimalTextField getNumericTextField(int columns, int decimal_places, Object value, int x, int y,
-            int width, int height, Container cont)
+    public static JDecimalTextField getNumericTextField(int decimal_places, Object value, int x, int y, int width,
+            int height, Container cont)
     {
-        return getNumericTextField(columns, decimal_places, value, x, y, width, height, cont, null);
+        return getNumericTextField(decimal_places, value, x, y, width, height, cont, null);
     }
 
 
-    public static JDecimalTextField getNumericTextField(int columns, int decimal_places, Object value, int x, int y,
-            int width, int height, Container cont, int fontId)
+    public static JDecimalTextField getNumericTextField(int decimal_places, Object value, int x, int y, int width,
+            int height, Container cont, int fontId)
     {
-        return getNumericTextField(columns, decimal_places, value, x, y, width, height, cont, getFont(fontId));
+        return getNumericTextField(decimal_places, value, x, y, width, height, cont, getFont(fontId));
     }
 
 
-    public static JDecimalTextField getNumericTextField(int columns, int decimal_places, Object value, int x, int y,
-            int width, int height, Container cont, Font font)
+    public static JDecimalTextField getNumericTextField(int decimal_places, Object value, int x, int y, int width,
+            int height, Container cont, Font font)
     {
         JDecimalTextField tf = new JDecimalTextField(value, decimal_places);
         tf.setBounds(x, y, width, height);
@@ -2670,6 +2674,28 @@ public class ATSwingUtils
         {
             this.paneType = paneType;
         }
+    }
+
+
+    public static <E extends Object> void populateJListExtended(JList listComponent, List<?> inputList, Class<E> clazz)
+    {
+        DefaultListModel newListModel = new DefaultListModel();
+
+        for (Object item : inputList)
+        {
+            // instanceof clazz.getClass())
+
+            if (clazz.isAssignableFrom(item.getClass()))
+            {
+                newListModel.addElement(item);
+            }
+            else
+            {
+                LOG.debug("populateJListExtended: Unsupported item: " + item);
+            }
+        }
+
+        listComponent.setModel(newListModel);
     }
 
 }

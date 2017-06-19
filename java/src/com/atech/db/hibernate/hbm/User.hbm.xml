@@ -5,12 +5,12 @@
     <!-- ***************** PisDb::Config SCHEMA  ******************* -->
 
     <!--  User -->
-    <class name="com.atech.db.hibernate.hdb_object.UserH" table="usr_user" lazy="false">
+    <class name="com.atech.db.hibernate.hdb_object.UserH" table="cfg_users" lazy="false">
         <id name="id" type="long" unsaved-value="0">
             <generator class="org.hibernate.id.AssignedIncrementGenerator"/>
         </id>            
         <property name="username" type="string" length="100" not-null="true"/>    
-        <property name="password"  column="pwd" type="string" length="100" not-null="true"/>
+        <property name="password"  type="string" length="100" not-null="true"/>
         <property name="real_name" type="string" length="100" />
         <property name="real_desc" type="string" length="255" />
         <property name="user_type" type="int" not-null="true"/> <!-- Not used mostly -->

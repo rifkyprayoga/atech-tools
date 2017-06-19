@@ -183,45 +183,44 @@ public class ATDataAccess extends ATDataAccessAbstract
     * The gender_minus.
     */
     public String gender_minus[] = { m_i18n.getMessage("GENDER_M"), // 1
-                                    m_i18n.getMessage("GENDER_F") };
+                                     m_i18n.getMessage("GENDER_F") };
 
     /**
      * The gender.
      */
     public String gender[] = { m_i18n.getMessage("SELECT"), m_i18n.getMessage("GENDER_M"), // 1
-                              m_i18n.getMessage("GENDER_F") };
+                               m_i18n.getMessage("GENDER_F") };
 
     /**
      * The contact_types.
      */
-    public String contact_types[] = { m_i18n.getMessage("SELECT"), m_i18n.getMessage("PHONE"),
-                                     m_i18n.getMessage("GSM"), m_i18n.getMessage("FAX"), m_i18n.getMessage("EMAIL"),
-                                     m_i18n.getMessage("WEB_PAGE"), m_i18n.getMessage("ICQ_MSNG"),
-                                     m_i18n.getMessage("YAHOO_MSNG"), m_i18n.getMessage("AIM_MSNG"),
-                                     m_i18n.getMessage("JABBER_MSNG"), m_i18n.getMessage("MSN_MSNG"),
-                                     m_i18n.getMessage("SKYPE_MSNG"), m_i18n.getMessage("OTHER") };
+    public String contact_types[] = { m_i18n.getMessage("SELECT"), m_i18n.getMessage("PHONE"), m_i18n.getMessage("GSM"),
+                                      m_i18n.getMessage("FAX"), m_i18n.getMessage("EMAIL"),
+                                      m_i18n.getMessage("WEB_PAGE"), m_i18n.getMessage("ICQ_MSNG"),
+                                      m_i18n.getMessage("YAHOO_MSNG"), m_i18n.getMessage("AIM_MSNG"),
+                                      m_i18n.getMessage("JABBER_MSNG"), m_i18n.getMessage("MSN_MSNG"),
+                                      m_i18n.getMessage("SKYPE_MSNG"), m_i18n.getMessage("OTHER") };
 
     /**
      * The contact_icons.
      */
-    public ImageIcon contact_icons[] = { null,
-                                        new ImageIcon("images/c_phone.gif"), // m_i18n.getMessage("PHONE"),
-                                        new ImageIcon("images/c_GSM.gif"), // m_i18n.getMessage("GSM"),
-                                        new ImageIcon("images/c_fax.gif"), // m_i18n.getMessage("FAX"),
-                                        new ImageIcon("images/c_email.gif"), // m_i18n.getMessage("EMAIL"),
-                                        new ImageIcon("images/c_hp.gif"), // m_i18n.getMessage("WEB_PAGE"),
-                                        new ImageIcon("images/c_icq.gif"), // m_i18n.getMessage("ICQ_MSNG"),
-                                        new ImageIcon("images/c_yahoo.gif"), // m_i18n.getMessage("YAHOO_MSNG"),
-                                        new ImageIcon("images/c_aim.gif"), // m_i18n.getMessage("MSN_MSNG")
-                                        new ImageIcon("images/c_jabber.gif"), new ImageIcon("images/c_msn.gif"), null,
-                                        null };
+    public ImageIcon contact_icons[] = { null, new ImageIcon("images/c_phone.gif"), // m_i18n.getMessage("PHONE"),
+                                         new ImageIcon("images/c_GSM.gif"), // m_i18n.getMessage("GSM"),
+                                         new ImageIcon("images/c_fax.gif"), // m_i18n.getMessage("FAX"),
+                                         new ImageIcon("images/c_email.gif"), // m_i18n.getMessage("EMAIL"),
+                                         new ImageIcon("images/c_hp.gif"), // m_i18n.getMessage("WEB_PAGE"),
+                                         new ImageIcon("images/c_icq.gif"), // m_i18n.getMessage("ICQ_MSNG"),
+                                         new ImageIcon("images/c_yahoo.gif"), // m_i18n.getMessage("YAHOO_MSNG"),
+                                         new ImageIcon("images/c_aim.gif"), // m_i18n.getMessage("MSN_MSNG")
+                                         new ImageIcon("images/c_jabber.gif"), new ImageIcon("images/c_msn.gif"), null,
+                                         null };
 
     /**
      * The mass_status.
      */
     public ImageIcon mass_status[] = { new ImageIcon("images/dot_green.gif"), new ImageIcon("images/dot_orange.gif"), // m_i18n.getMessage("PHONE"),
-                                      new ImageIcon("images/dot_blue.gif"), // m_i18n.getMessage("PHONE"),
-                                      new ImageIcon("images/dot_red.gif"), // m_i18n.getMessage("PHONE"),
+                                       new ImageIcon("images/dot_blue.gif"), // m_i18n.getMessage("PHONE"),
+                                       new ImageIcon("images/dot_red.gif"), // m_i18n.getMessage("PHONE"),
     };
 
     /**
@@ -229,16 +228,16 @@ public class ATDataAccess extends ATDataAccessAbstract
      */
     public String config_types[] = {
 
-    m_i18n.getMessage("DB_SETTINGS"), m_i18n.getMessage("LOOK"), m_i18n.getMessage("MY_PARISHES"),
-                                    m_i18n.getMessage("MASSES"), m_i18n.getMessage("USERS"),
-                                    m_i18n.getMessage("LANGUAGE"),
-    // m_i18n.getMessage("WEB_CONFIG")
+                                     m_i18n.getMessage("DB_SETTINGS"), m_i18n.getMessage("LOOK"),
+                                     m_i18n.getMessage("MY_PARISHES"), m_i18n.getMessage("MASSES"),
+                                     m_i18n.getMessage("USERS"), m_i18n.getMessage("LANGUAGE"),
+            // m_i18n.getMessage("WEB_CONFIG")
     };
-
 
     // ********************************************************
     // ****** Constructors and Access methods *****
     // ********************************************************
+
 
     // Constructor: DataAccess
     /**
@@ -342,10 +341,10 @@ public class ATDataAccess extends ATDataAccessAbstract
             return false;
     }
 
-
     // ********************************************************
     // ****** Demo stuff *****
     // ********************************************************
+
 
     // JDialog m_dialog = null;
 
@@ -368,7 +367,6 @@ public class ATDataAccess extends ATDataAccessAbstract
         this.m_dialog = dialog;
     }
 
-
     // ********************************************************
     // ****** Help stuff *****
     // ********************************************************
@@ -376,6 +374,7 @@ public class ATDataAccess extends ATDataAccessAbstract
     // ********************************************************
     // ****** Fonts *****
     // ********************************************************
+
 
     // ********************************************************
     // ****** Parent handling (for UIs) *****
@@ -400,7 +399,6 @@ public class ATDataAccess extends ATDataAccessAbstract
         return this.parent;
     }
 
-
     // ********************************************************
     // ****** Sorting algorithms *****
     // ********************************************************
@@ -412,6 +410,7 @@ public class ATDataAccess extends ATDataAccessAbstract
     // ********************************************************
     // ****** Look and Feel *****
     // ********************************************************
+
 
     // ********************************************************
     // ****** Colors *****
@@ -431,7 +430,6 @@ public class ATDataAccess extends ATDataAccessAbstract
 
         this.border_line = new LineBorder(this.color_foreground);
     }
-
 
     // ********************************************************
     // ****** Languages *****
@@ -596,6 +594,7 @@ public class ATDataAccess extends ATDataAccessAbstract
      * }
      */
 
+
     /*
      * public String getGCObjectFromDateTimeLong(long dt)
      * {
@@ -648,8 +647,8 @@ public class ATDataAccess extends ATDataAccessAbstract
     * The user types.
     */
     public String[] userTypes = { m_i18n.getMessage("SELECT"), m_i18n.getMessage("USER_NORMAL"),
-                                 m_i18n.getMessage("USER_WORKER"), m_i18n.getMessage("USER_ADMINISTRATOR"),
-                                 m_i18n.getMessage("USER_SUPERADMIN"), };
+                                  m_i18n.getMessage("USER_WORKER"), m_i18n.getMessage("USER_ADMINISTRATOR"),
+                                  m_i18n.getMessage("USER_SUPERADMIN"), };
 
 
     /*
@@ -667,6 +666,20 @@ public class ATDataAccess extends ATDataAccessAbstract
      * }
      * }
      */
+
+    @Override
+    protected void initDataDefinitionManager()
+    {
+
+    }
+
+
+    @Override
+    protected void initInternalSettings()
+    {
+
+    }
+
 
     /**
      * Not implemented.
@@ -752,6 +765,13 @@ public class ATDataAccess extends ATDataAccessAbstract
     public void loadLanguageInfo()
     {
         // TODO Auto-generated method stub
+    }
+
+
+    @Override
+    public void initObserverManager()
+    {
+
     }
 
 

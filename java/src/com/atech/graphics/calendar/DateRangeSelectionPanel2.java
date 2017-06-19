@@ -264,29 +264,29 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
          * JPanel a = new JPanel();
          * a.setLayout(new GridLayout(0, 1));
          * // Box a = Box.createVerticalBox();
-         * a.add(new JLabel(m_ic.getMessage("ENDING_DATE") + ":"));
+         * a.add(new JLabel(i18nControl.getMessage("ENDING_DATE") + ":"));
          * a.add(spinnerEnd = new JSpinner(endSpinnerDateModel));
          * ((JSpinner.DateEditor)
          * spinnerEnd.getEditor()).getFormat().applyPattern("dd.MM.yyyy");
-         * a.add(new JLabel(m_ic.getMessage("STARTING_DATE") + ":"));
+         * a.add(new JLabel(i18nControl.getMessage("STARTING_DATE") + ":"));
          * a.add(spinnerStart = new JSpinner(startSpinnerDateModel));
          * ((JSpinner.DateEditor)
          * spinnerStart.getEditor()).getFormat().applyPattern("dd.MM.yyyy");
          * spinnerEnd.addChangeListener(this);
          * spinnerStart.addChangeListener(this);
          * JRadioButton rbOneWeek = new JRadioButton("  " +
-         * m_ic.getMessage("1_WEEK"), iRadioGroupState ==
+         * i18nControl.getMessage("1_WEEK"), iRadioGroupState ==
          * DateRangeData.RANGE_ONE_WEEK);
          * rbOneWeek.setIconTextGap(8);
          * // rbOneWeek.se
          * JRadioButton rbOneMonth = new JRadioButton("  " +
-         * m_ic.getMessage("1_MONTH"), iRadioGroupState ==
+         * i18nControl.getMessage("1_MONTH"), iRadioGroupState ==
          * DateRangeData.RANGE_ONE_MONTH);
          * JRadioButton rbThreeMonths = new JRadioButton("  " +
-         * m_ic.getMessage("3_MONTHS"),
+         * i18nControl.getMessage("3_MONTHS"),
          * iRadioGroupState == DateRangeData.RANGE_THREE_MONTHS);
          * JRadioButton rbCustom = new JRadioButton("  " +
-         * m_ic.getMessage("CUSTOM"), iRadioGroupState ==
+         * i18nControl.getMessage("CUSTOM"), iRadioGroupState ==
          * DateRangeData.RANGE_CUSTOM);
          * ButtonGroup group = new ButtonGroup();
          * group.add(rbOneWeek);
@@ -307,7 +307,7 @@ public class DateRangeSelectionPanel2 extends JPanel implements ItemListener, /*
          * b.add(rbThreeMonths);
          * b.add(rbCustom);
          * setLayout(new BorderLayout());
-         * setBorder(BorderFactory.createTitledBorder(m_ic.getMessage(
+         * setBorder(BorderFactory.createTitledBorder(i18nControl.getMessage(
          * "DATE_RANGE_SELECTOR")));
          * JPanel c = new JPanel();
          * c.setLayout(new GridLayout());

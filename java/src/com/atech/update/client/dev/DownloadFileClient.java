@@ -205,7 +205,7 @@ public class DownloadFileClient extends JFrame implements ActionListener
 
             CheckSumUtility csu = new CheckSumUtility();
 
-            System.out.println("Checksum: " + csu.getChecksumValue("/home/andy/test.jpg"));
+            System.out.println("ChecksumUtil: " + csu.getChecksumValue("/home/andy/test.jpg"));
 
         }
         catch (Exception ex)

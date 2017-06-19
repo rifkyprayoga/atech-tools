@@ -196,11 +196,11 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
 
         /*
          * Box a = Box.createVerticalBox(); a.add(new
-         * JLabel(m_ic.getMessage("ENDING_DATE")+":")); a.add(spinnerEnd = new
+         * JLabel(i18nControl.getMessage("ENDING_DATE")+":")); a.add(spinnerEnd = new
          * JSpinner(endSpinnerDateModel));
          * ((JSpinner.DateEditor)spinnerEnd.getEditor
          * ()).getFormat().applyPattern("dd.MM.yyyy");
-         * a.add(new JLabel(m_ic.getMessage("STARTING_DATE")+":"));
+         * a.add(new JLabel(i18nControl.getMessage("STARTING_DATE")+":"));
          * a.add(spinnerStart = new JSpinner(startSpinnerDateModel));
          * ((JSpinner.
          * DateEditor)spinnerStart.getEditor()).getFormat().applyPattern
@@ -283,11 +283,11 @@ public class DateRangeSelectionPanel extends JPanel implements ChangeListener
 
         /*
          * Box a = Box.createVerticalBox(); a.add(new
-         * JLabel(m_ic.getMessage("ENDING_DATE")+":")); a.add(spinnerEnd = new
+         * JLabel(i18nControl.getMessage("ENDING_DATE")+":")); a.add(spinnerEnd = new
          * JSpinner(endSpinnerDateModel));
          * ((JSpinner.DateEditor)spinnerEnd.getEditor
          * ()).getFormat().applyPattern("dd.MM.yyyy");
-         * a.add(new JLabel(m_ic.getMessage("STARTING_DATE")+":"));
+         * a.add(new JLabel(i18nControl.getMessage("STARTING_DATE")+":"));
          * a.add(spinnerStart = new JSpinner(startSpinnerDateModel));
          * ((JSpinner.
          * DateEditor)spinnerStart.getEditor()).getFormat().applyPattern

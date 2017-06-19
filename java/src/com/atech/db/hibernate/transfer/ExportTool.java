@@ -17,9 +17,9 @@ import org.hibernate.mapping.RootClass;
 import org.hibernate.mapping.Table;
 import org.hibernate.mapping.Value;
 
+import com.atech.data.mng.DataDefinitionEntry;
 import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.db.hibernate.tool.data.DatabaseTableConfiguration;
-import com.atech.db.hibernate.tool.data.management.common.ImportExportAbstract;
 
 /**
  *  This file is part of ATech Tools library.
@@ -51,6 +51,7 @@ import com.atech.db.hibernate.tool.data.management.common.ImportExportAbstract;
  *
 */
 
+@Deprecated
 public abstract class ExportTool extends ImportExportAbstract
 {
 
@@ -86,7 +87,7 @@ public abstract class ExportTool extends ImportExportAbstract
     {
         System.out.println("Debug Configuration:");
 
-        // this.configuration.g
+        // this.configuration.
         // this.configuration.
 
         Iterator<?> it = this.getConfiguration().getClassMappings();
@@ -312,6 +313,34 @@ public abstract class ExportTool extends ImportExportAbstract
     }
 
 
+    public void writeHeader(DataDefinitionEntry dataDefinitionEntry, String dbVersion)
+    {
+        try
+        {
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Class: " + dataDefinitionEntry.getClazz().getName() + "\n");
+            bufferedWriter.write("; Date of export: " + getCurrentDate() + "\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Exported by ATechTools - Hibernate Exporter 0.4.1\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Columns: " + dataDefinitionEntry.getDbColumns() + "\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write("; Database version: " + dbVersion + "\n");
+            bufferedWriter.write(";\n");
+            bufferedWriter.write(
+                String.format("; DbToolInfo.0 [classShort=%s, databaseVersion=%s, tableVersion=%s, delimiter=%s]\n",
+                    dataDefinitionEntry.getClazz().getSimpleName(), dbVersion, dataDefinitionEntry.getTableVersion(),
+                    "$#|#$"));
+            bufferedWriter.write(";\n");
+            bufferedWriter.flush();
+        }
+        catch (Exception ex)
+        {
+            println("Exception on writeToFile: " + ex);
+        }
+    }
+
+
     public void writeHeader(DatabaseTableConfiguration tableConfiguration, int dbVersion)
     {
         try
@@ -327,8 +356,9 @@ public abstract class ExportTool extends ImportExportAbstract
             bufferedWriter.write("; Database version: " + dbVersion + "\n");
             bufferedWriter.write(";\n");
             bufferedWriter.write(
-                String.format("; DbToolInfo [classShort=%s, databaseVersion=%s, tableVersion=%s, delimiter=%s]",
+                String.format("; DbToolInfo [classShort=%s, databaseVersion=%s, tableVersion=%s, delimiter=%s]\n",
                     tableConfiguration.getObjectName(), dbVersion, tableConfiguration.getTableVersion(), "$#|#$"));
+            bufferedWriter.write(";\n");
             bufferedWriter.flush();
         }
         catch (Exception ex)

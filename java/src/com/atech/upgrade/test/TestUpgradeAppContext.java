@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.atech.db.hibernate.transfer.BackupRestoreBase;
 import com.atech.db.hibernate.transfer.BackupRestoreCollection;
-import com.atech.db.hibernate.transfer.BackupRestoreObject;
 import com.atech.db.hibernate.transfer.BackupRestoreWorkGiver;
 import com.atech.upgrade.client.data.UpgradeApplicationContextAbstract;
 
@@ -66,7 +66,7 @@ public class TestUpgradeAppContext extends UpgradeApplicationContextAbstract
 
 
     public String runBackupRestoreRunner(BackupRestoreWorkGiver backupRestoreWorkGiver,
-            Map<String, BackupRestoreObject> ht_backup_objects)
+            Map<String, BackupRestoreBase> ht_backup_objects)
     {
 
         return null;

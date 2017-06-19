@@ -57,9 +57,9 @@ public abstract class GraphUtil // extends JPanel
     protected RenderingHints renderingHints;
 
     /**
-     * The m_ic.
+     * The i18nControl.
      */
-    // protected I18nControlAbstract m_ic; // = I18nControl.getInstance();
+    // protected I18nControlAbstract i18nControl; // = I18nControl.getInstance();
 
     // private static ATDataAccessAbstract dataAccess;
 

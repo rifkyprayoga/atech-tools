@@ -22,6 +22,7 @@ import com.atech.gui_fw.CustomDataAccess;
 import com.atech.gui_fw.MainAppFrame;
 import com.atech.gui_fw.MenuContext;
 import com.atech.gui_fw.config.AbstractConfigurationContext;
+import com.atech.gui_fw.user.UserManagementCapableInterface;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.I18nControlRunner;
 import com.atech.i18n.mgr.LanguageManager;
@@ -30,7 +31,7 @@ import com.atech.utils.ATSwingUtils;
 import com.atech.utils.DataAccessApp;
 import com.atech.utils.file.ClassFinder;
 
-public abstract class AbstractApplicationContext implements ActionListener
+public abstract class AbstractApplicationContext implements ActionListener, UserManagementCapableInterface
 {
 
     public Dimension app_size = null;
