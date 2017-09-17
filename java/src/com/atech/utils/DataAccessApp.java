@@ -16,6 +16,7 @@ import com.atech.db.hibernate.transfer.BackupRestoreCollection;
 import com.atech.gui_fw.MainAppFrame;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.i18n.info.LanguageInfo;
+import com.atech.i18n.tool.simple.data.TranslationToolConfigurationDto;
 
 // TODO: Auto-generated Javadoc
 // LOAD
@@ -1076,4 +1077,17 @@ public class DataAccessApp extends ATDataAccessLMAbstract
         return DataAccessApp.s_app_context.getBackupRestoreCollection();
     }
 
+
+    @Override
+    public TranslationToolConfigurationDto getTranslationToolConfiguration()
+    {
+        return null;
+    }
+
+
+    @Override
+    public void saveTranslationToolConfiguration(TranslationToolConfigurationDto configuration)
+    {
+
+    }
 }

@@ -2,9 +2,14 @@ package com.atech.utils;
 
 import java.text.DateFormat;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.atech.i18n.I18nControlRunner;
+import com.atech.i18n.I18nControlRunnerModule;
+import com.atech.i18n.info.LanguageModule;
 import com.atech.i18n.mgr.LanguageManager;
+import com.atech.i18n.tool.simple.data.TranslationToolConfigurationDto;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -45,10 +50,10 @@ import com.atech.i18n.mgr.LanguageManager;
 public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
 {
 
-    // private static Log log = LogFactory.getLog(ATDataAccessLMAbstract.class);
+    protected LanguageManager languageManager;
+    protected I18nControlRunner i18nControlRunner = null;
 
-    protected LanguageManager lang_mgr;
-    protected I18nControlRunner m_icr = null;
+    static Map<LanguageModule, I18nControlRunnerModule> registeredRunners;
 
     // ********************************************************
     // ****** Constructors and Access methods *****
@@ -70,15 +75,41 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
     {
         super(lm.getI18nControl(icr));
         // log.debug("Loading Language Manager");
-        lang_mgr = lm;
-        this.m_icr = icr;
+        languageManager = lm;
+        this.i18nControlRunner = icr;
+
+        if (icr instanceof I18nControlRunnerModule)
+        {
+            registerI18nControlRunner((I18nControlRunnerModule) icr);
+        }
     }
 
 
     public LanguageManager getLanguageManager()
     {
-        return this.lang_mgr;
+        return this.languageManager;
     }
+
+
+    public I18nControlRunner getI18nControlRunner()
+    {
+        return this.i18nControlRunner;
+    }
+
+
+    public void registerI18nControlRunner(I18nControlRunnerModule i18nControlRunnerModule)
+    {
+        if (registeredRunners == null)
+            registeredRunners = new HashMap<LanguageModule, I18nControlRunnerModule>();
+
+        registeredRunners.put(i18nControlRunnerModule.getLanguageModule(), i18nControlRunnerModule);
+    }
+
+
+    public abstract TranslationToolConfigurationDto getTranslationToolConfiguration();
+
+
+    public abstract void saveTranslationToolConfiguration(TranslationToolConfigurationDto configuration);
 
 
     /**
@@ -103,21 +134,23 @@ public abstract class ATDataAccessLMAbstract extends ATDataAccessAbstract
             // System.out.println("i18ControlInstance: " +
             // getI18nControlInstance());
             // System.out.println("i18ControlInstance.selectedLocale: " +
-            // this.lang_mgr.getSelectedLanguageLocale());
+            // this.languageManager.getSelectedLanguageLocale());
             // System.out.println("i18ControlInstance.selectedLocale: " +
-            // this.lang_mgr.getSelectedLanguageInstance());
+            // this.languageManager.getSelectedLanguageInstance());
             // System.out.println("i18ControlInstance.selectedLocale:locale: " +
-            // this.lang_mgr.getSelectedLanguageInstance().locale);
+            // this.languageManager.getSelectedLanguageInstance().locale);
             // System.out.println("i18ControlInstance.selectedLocale:real_locale:
             // "
-            // + this.lang_mgr.getSelectedLanguageInstance().real_locale);
+            // +
+            // this.languageManager.getSelectedLanguageInstance().real_locale);
             // //System.out.println("i18ControlInstance.selectedLocale: " +
-            // this.lang_mgr.getSelectedLanguageInstance());
+            // this.languageManager.getSelectedLanguageInstance());
             //
             // System.out.println("Time: " + gc_value.getTime());
 
             // TODO: fix this
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, this.lang_mgr.getSelectedLanguageLocale());
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
+                this.languageManager.getSelectedLanguageLocale());
             return df.format(gc_value.getTime());
         }
     }

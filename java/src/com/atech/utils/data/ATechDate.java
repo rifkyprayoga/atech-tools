@@ -803,6 +803,7 @@ public class ATechDate
      *            the type
      * @return the aT date time from gc
      */
+    @Deprecated
     public static long getATDateTimeFromDateParts(int _day, int _month, int _year, int hour, int minute, int type) // throws
                                                                                                                    // Exception
     {
@@ -811,10 +812,78 @@ public class ATechDate
     }
 
 
+    /**
+     * Gets the ATechDateTime as long from parts.
+     *
+     * @param _day
+     * @param _month
+     * @param _year
+     * @param hour
+     * @param minute
+     * @param type the type
+     *             
+     * @return the ATechDateTime as long
+     */
+    public static long getATechDateFromPartsAsLong(int _day, int _month, int _year, int hour, int minute,
+            ATechDateType type)
+    {
+        ATechDate atd = new ATechDate(_day, _month, _year, hour, minute, type);
+        return atd.getATDateTimeAsLong();
+    }
+
+
+    /**
+     * Gets the ATechDateTime as long from parts.
+     *
+     * @param _day
+     * @param _month
+     * @param _year
+     * @param hour
+     * @param minute
+     * @param type the type
+     *
+     * @return the ATechDateTime as long
+     */
+    public static long getATechDateFromPartsAsLong(int _day, int _month, int _year, int hour, int minute, int seconds,
+            ATechDateType type)
+    {
+        ATechDate atd = new ATechDate(_day, _month, _year, hour, minute, seconds, type);
+        return atd.getATDateTimeAsLong();
+    }
+
+
+    /**
+     * Gets the ATechDateTime as long from parts.
+     *
+     * @param _day
+     * @param _month
+     * @param _year
+     * @param hour
+     * @param minute
+     * @param type the type
+     *
+     * @return the ATechDateTime as long
+     */
+    public static ATechDate getATechDateFromParts(int _day, int _month, int _year, int hour, int minute, int seconds,
+            ATechDateType type)
+    {
+        ATechDate atd = new ATechDate(_day, _month, _year, hour, minute, seconds, type);
+        return atd;
+    }
+
+
     @Deprecated
     public static long getATDateTimeFromGC(GregorianCalendar gc, int type)
     {
         return getATDateTimeFromGC(gc, getATechDateType(type));
+    }
+
+
+    public static ATechDate getATechDateFromGC(GregorianCalendar gc, ATechDateType type)
+    {
+        ATechDate atechDate = new ATechDate(type, gc);
+
+        return atechDate;
     }
 
 

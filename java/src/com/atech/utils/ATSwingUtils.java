@@ -1978,6 +1978,20 @@ public class ATSwingUtils
     }
 
 
+    public static JButton createHelpButton(Container comp, ATDataAccessAbstract dataAccess, String helpIconFilename)
+    {
+        return createHelpButtonBySize(null, null, comp, dataAccess.getImagesRoot(), dataAccess.getI18nControlInstance(),
+            helpIconFilename);
+    }
+
+
+    public static JButton createHelpButtonBySize(Integer width, Integer height, Container comp, String imagesRoot,
+            I18nControlAbstract ic)
+    {
+        return createHelpButtonBySize(width, height, comp, imagesRoot, ic, null);
+    }
+
+
     /**
      * Creates the help button by size.
      *
@@ -1988,7 +2002,7 @@ public class ATSwingUtils
      * @return the j button
      */
     public static JButton createHelpButtonBySize(Integer width, Integer height, Container comp, String imagesRoot,
-            I18nControlAbstract ic)
+            I18nControlAbstract ic, String helpIconFilename)
     {
         JButton help_button = new JButton(" " + ic.getMessage("HELP"));
 
@@ -1997,7 +2011,9 @@ public class ATSwingUtils
             help_button.setPreferredSize(new Dimension(width, height));
         }
 
-        help_button.setIcon(getImageIcon_22x22(imagesRoot, "help.png", comp));
+        String iconFilename = helpIconFilename != null ? helpIconFilename : "help.png";
+
+        help_button.setIcon(getImageIcon_22x22(imagesRoot, iconFilename, comp));
 
         return help_button;
     }
@@ -2258,15 +2274,17 @@ public class ATSwingUtils
 
     public static void showMessageDialog(Container cont, DialogType dialogType, String message, I18nControlAbstract ic)
     {
-        JOptionPane.showMessageDialog(cont, message, ic.getMessage(dialogType.i18nKey), dialogType.paneType);
+        JOptionPane.showMessageDialog(cont, message, " " + ic.getMessage(dialogType.i18nKey), dialogType.paneType);
     }
 
 
     public static int showConfirmDialog(Container parent, DialogType dialogType, String message,
             ConfirmDialogType confirmDialogType, I18nControlAbstract i18nControl)
     {
-        return JOptionPane.showConfirmDialog(parent, i18nControl.getMessage(message),
-            i18nControl.getMessage(dialogType.i18nKey), confirmDialogType.paneType);
+        return JOptionPane.showConfirmDialog(parent, //
+            i18nControl.getMessage(message), //
+            " " + i18nControl.getMessage(dialogType.i18nKey), //
+            confirmDialogType.paneType);
 
     }
 

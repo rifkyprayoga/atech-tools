@@ -1,9 +1,7 @@
 package com.atech.i18n.tool.simple;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.Hashtable;
 
@@ -64,10 +62,33 @@ import com.atech.utils.ATSwingUtils;
  * + exit - ask (0.8.5)
  */
 
-public class TranslationTool extends JFrame implements ActionListener, WindowListener
+// Translation Tool to be called from application (modified version of original
+// project)
+
+// 1. not configured, open configuration window
+// 1. call language selector (with configured parameters LT_ACTIVE_LANGUAGES if
+// empty create one from Enum - GGCLanguage - make interface), Show language
+// selector , with last
+// edited language preselected (LT_LAST_EDITED_LANGUAGE), ComboBox with all
+// languages and last item new Languag
+// 2a. go to 3
+// 2b. Open New Language Window (has family combo, and all children combo,
+// options: Next, Cancel) Next -> Select, save option, create files if they not
+// exist
+// 3. Open Editor with new files
+
+// checks:
+// - source file if in jat newer, update all soources
+// - target:
+// - if already in project ask (overwrite or not - ASK twice)
+
+// Wizard:
+// 1. If there is no configuration open
+
+public class TranslationToolInternal extends TranslationTool
 {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TranslationTool.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TranslationToolInternal.class);
     private static final long serialVersionUID = 8072388083288536444L;
     Hashtable<String, JMenu> menus = null;
     DataAccessTT m_da = DataAccessTT.getInstance();
@@ -88,14 +109,13 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
 
     /**
      * Constructor
-     * 
+     *
      * @param config_filename
      *            main configuration filename
      */
-    public TranslationTool(String config_filename)
+    public TranslationToolInternal(String config_filename)
     {
         super();
-        addWindowListener(this);
 
         m_da = DataAccessTT.createInstance(this);
         m_ic = m_da.getI18nControlInstance();
@@ -113,7 +133,7 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         {
             showTypesDialog("Configuration file invalid!", JOptionPane.ERROR_MESSAGE);
         }
-        else if (!this.m_da.isMasterFileMasterFile())
+        else if (!this.dlp.isMasterFileMasterFile())
         {
             showTypesDialog("Master file is not real master file.", JOptionPane.ERROR_MESSAGE);
         }
@@ -134,14 +154,6 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
             this.setSize(520, 640);
             this.setVisible(true);
         }
-    }
-
-
-    public TranslationTool()
-    {
-        super();
-        addWindowListener(this);
-
     }
 
 
@@ -168,93 +180,9 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
 
     protected void init()
     {
+        super.init();
+
         this.setTitle("Simple Translation Tool (v" + m_version + ")");
-        initMenus();
-
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-
-        ATSwingUtils.initLibrary();
-
-        ATSwingUtils.getLabel("Module:", 30, 20, 125, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        module = ATSwingUtils.getLabel("Unknown module", 110, 20, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
-
-        ATSwingUtils.getLabel("Group:", 30, 50, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        group = ATSwingUtils.getLabel("Unknown group", 110, 50, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
-
-        ATSwingUtils.getLabel("Subgroup:", 30, 75, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        sub_group = ATSwingUtils.getLabel("Unknown group", 110, 75, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
-
-        ATSwingUtils.getLabel("Group Priority:", 310, 75, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        priority = ATSwingUtils.getButton("x", 410, 75, 60, 25, panel, ATSwingUtils.FONT_NORMAL, null,
-            "show_group_info", this, m_da);
-
-        ATSwingUtils.getLabel("Index:", 30, 100, 60, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        index = ATSwingUtils.getLabel("0000", 80, 100, 120, 25, panel, ATSwingUtils.FONT_NORMAL);
-
-        ATSwingUtils.getLabel("Key:", 140, 100, 40, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        keyword = ATSwingUtils.getLabel("No id", 180, 100, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
-        // keyword.setBackground(Color.blue);
-
-        statuses = new JLabel[3];
-
-        ATSwingUtils.getLabel("Not translated:", 30, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        statuses[0] = ATSwingUtils.getLabel("0000", 140, 125, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
-
-        ATSwingUtils.getLabel("Need to be checked:", 175, 125, 150, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        statuses[1] = ATSwingUtils.getLabel("0000", 330, 125, 60, 25, panel, ATSwingUtils.FONT_NORMAL);
-
-        ATSwingUtils.getLabel("Translated:", 360, 125, 120, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        statuses[2] = ATSwingUtils.getLabel("0000", 450, 125, 300, 25, panel, ATSwingUtils.FONT_NORMAL);
-
-        int yst = 175;
-
-        ATSwingUtils.getLabel("Master Text File Translation", 30, yst, 300, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        jt_source = ATSwingUtils.getTextArea("Text Master File", 30, yst + 30, 450, 60, panel);
-        jt_source.setEditable(false);
-        jt_source.setLineWrap(true);
-        jt_source.setWrapStyleWord(true);
-
-        ATSwingUtils.getLabel("Description", 30, yst + 100, 300, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        jt_desc = ATSwingUtils.getTextArea("No Description", 30, yst + 130, 450, 60, panel);
-        jt_desc.setEditable(false);
-        jt_desc.setLineWrap(true);
-        jt_desc.setWrapStyleWord(true);
-
-        ATSwingUtils.getButton("Copy from Master file", 310, yst + 200, 170, 25, panel, ATSwingUtils.FONT_NORMAL, null,
-            "copy_text", this, m_da);
-
-        ATSwingUtils.getButton("Big", 210, yst + 200, 90, 25, panel, ATSwingUtils.FONT_NORMAL, null, "big_display",
-            this, m_da);
-
-        ATSwingUtils.getLabel("My Translation", 30, yst + 200, 300, 25, panel, ATSwingUtils.FONT_NORMAL_BOLD);
-        jt_mine = ATSwingUtils.getTextArea("Text", 30, yst + 230, 450, 60, panel);
-        jt_mine.setLineWrap(true);
-        jt_mine.setWrapStyleWord(true);
-        final TranslationBoxListener tbl = new TranslationBoxListener(cmb_status, jt_source, jt_mine);
-        jt_mine.addKeyListener(tbl);
-        jt_mine.addMouseListener(tbl);
-        // jt_mine.setEditable(false);
-
-        cmb_status = ATSwingUtils.getComboBox(m_da.status, 330, yst + 295, 150, 25, panel, ATSwingUtils.FONT_NORMAL);
-
-        int[] sz = { 40, 40 };
-
-        ATSwingUtils.getButton("", 30, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "find_previous.png",
-            "prev_untranslated", this, m_da, sz).setToolTipText("Find previous untranslated item");
-        ATSwingUtils.getButton("", 90, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "nav_left_blue.png", "prev",
-            this, m_da, sz).setToolTipText("Go to previous item");
-        ATSwingUtils.getButton("", 150, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "nav_right_blue.png",
-            "next", this, m_da, sz).setToolTipText("Go to next item");
-        ATSwingUtils.getButton("", 210, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "find_next.png",
-            "next_untranslated", this, m_da, sz).setToolTipText("Find next untranslated item");
-        ATSwingUtils.getButton("", 370, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "disk_blue.png", "save",
-            this, m_da, sz).setToolTipText("Save current translation status");
-        ATSwingUtils.getButton("", 430, yst + 330, 50, 50, panel, ATSwingUtils.FONT_NORMAL, "door2.png", "exit", this,
-            m_da, sz).setToolTipText("Exit the Translation Tool");
-
-        this.add(panel);
-        // this.setLayout(null);
     }
 
 
@@ -327,7 +255,6 @@ public class TranslationTool extends JFrame implements ActionListener, WindowLis
         this.statuses[0].setText("" + st[0]);
         this.statuses[1].setText("" + st[1]);
         this.statuses[2].setText("" + st[2]);
-
     }
 
 

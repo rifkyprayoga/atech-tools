@@ -2258,7 +2258,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         if (this.extended_handlers.containsKey(key))
         {
             ExtendedHandler extendedHandler = this.extended_handlers.get(key);
-            System.out.println("getExtendedHandler [key=" + key + ", ExtendeedHandler: " + extendedHandler);
+            // System.out.println("getExtendedHandler [key=" + key + ",
+            // ExtendeedHandler: " + extendedHandler);
 
             return extendedHandler;
         }
@@ -2593,28 +2594,33 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     }
 
 
-    /**
-     * @Deprecated Use showMessageDialog instead of showDialog
-     */
-    @Deprecated
-    public void showDialog(Container cont, ATSwingUtils.DialogType type, String message)
-    {
-        ATSwingUtils.showMessageDialog(cont, type, message, this.getI18nControlInstance());
-    }
-
-
-    public void showMessageDialog(Container cont, ATSwingUtils.DialogType type, String message)
-    {
-        ATSwingUtils.showMessageDialog(cont, type, message, this.getI18nControlInstance());
-    }
-
-
-    public int showConfirmDialog(Container cont, ATSwingUtils.DialogType type, String message,
-            ATSwingUtils.ConfirmDialogType confirmDialogType)
-    {
-        return ATSwingUtils.showConfirmDialog(cont, type, message, confirmDialogType, this.getI18nControlInstance());
-    }
-
+    // /**
+    // * @Deprecated Use showMessageDialog instead of showDialog
+    // */
+    // @Deprecated
+    // public void showDialog(Container cont, ATSwingUtils.DialogType type,
+    // String message)
+    // {
+    // ATSwingUtils.showMessageDialog(cont, type, message,
+    // this.getI18nControlInstance());
+    // }
+    //
+    //
+    // public void showMessageDialog(Container cont, ATSwingUtils.DialogType
+    // type, String message)
+    // {
+    // ATSwingUtils.showMessageDialog(cont, type, message,
+    // this.getI18nControlInstance());
+    // }
+    //
+    //
+    // public int showConfirmDialog(Container cont, ATSwingUtils.DialogType
+    // type, String message,
+    // ATSwingUtils.ConfirmDialogType confirmDialogType)
+    // {
+    // return ATSwingUtils.showConfirmDialog(cont, type, message,
+    // confirmDialogType, this.getI18nControlInstance());
+    // }
 
     /**
      * Get Developer mode flag

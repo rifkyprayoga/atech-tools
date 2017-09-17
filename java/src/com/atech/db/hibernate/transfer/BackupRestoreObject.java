@@ -60,6 +60,7 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * @return line that will be exported
      * @throws Exception if export for table is not supported
      */
+    @Deprecated
     String dbExport(int table_version) throws Exception;
 
 
@@ -69,6 +70,7 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * @return line that will be exported
      * @throws Exception if export for table is not supported
      */
+    @Deprecated
     String dbExport() throws Exception;
 
 
@@ -78,6 +80,7 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * @param table_version
      * @return
      */
+    @Deprecated
     String dbExportHeader(int table_version);
 
 
@@ -86,6 +89,7 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * 
      * @return
      */
+    @Deprecated
     String dbExportHeader();
 
 
@@ -124,6 +128,7 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * @param headers headers map
      * @throws Exception if import for selected table version is not supported or it fails
      */
+    @Deprecated
     void dbImport(int tableVersion, String valueEntry, Map<String, String> headers) throws Exception;
 
 
@@ -132,6 +137,7 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * 
      * @return
      */
+    @Deprecated
     boolean isNewImport();
 
 
@@ -156,6 +162,7 @@ public interface BackupRestoreObject extends BackupRestoreBase
      * 
      * @return true if we need to clean
      */
+    @Deprecated
     boolean hasToBeCleaned();
 
 }

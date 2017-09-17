@@ -1567,6 +1567,68 @@ public class BitUtils extends CRCUtils
         return c;
     }
 
+
+    public String getByteArrayHex(List<Byte> dataOut)
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append("[ ");
+
+        for (byte element : dataOut)
+        {
+            sb.append(getCorrectHexValue(element) + " ");
+            // getCorrectHexValue(arr[i]);
+            // System.out.print(Integer.toHexString((char)arr[i]) + " ");
+        }
+
+        sb.append("]");
+
+        return sb.toString();
+
+    }
+
+
+    public String toString(List<? extends Number> dataOut, OutputMode valueType, OutputMode resultFormat)
+    {
+        StringBuffer sb = new StringBuffer();
+
+        if (resultFormat.isInBrackets())
+            sb.append("[");
+
+        String delimiter = resultFormat.isDelimitedWithSpace() ? " " : "";
+
+        for (Number element : dataOut)
+        {
+            switch (valueType)
+            {
+                case AsChar:
+                    sb.append((char) element.longValue());
+                    ;
+                    break;
+
+                case AsHex:
+                    sb.append("0x" + getCorrectHexValue(element.intValue()));
+                    break;
+
+                case AsShortHex:
+                    sb.append(getCorrectHexValue(element.intValue()));
+                    break;
+
+                default:
+                case AsNumber:
+                    sb.append(element.longValue());
+
+            }
+
+            sb.append(delimiter);
+        }
+
+        if (resultFormat.isInBrackets())
+            sb.append("]");
+
+        return sb.toString();
+
+    }
+
     public enum BitConversion
     {
         LITTLE_ENDIAN, // 20 0 0 0 = reverse
@@ -1574,18 +1636,9 @@ public class BitUtils extends CRCUtils
     }
 
 
-    public int[] createIntArray(int... forArray)
+    public int[] toIntArray(int... forArray)
     {
         return forArray;
-
-        // int[] outArray = new int[forArray.length];
-        //
-        // for (int i = 0; i < forArray.length; i++)
-        // {
-        // outArray[i] = forArray[i];
-        // }
-        //
-        // return outArray;
     }
 
 
@@ -1611,6 +1664,33 @@ public class BitUtils extends CRCUtils
     public int toInt(byte[] b, BitConversion flag)
     {
         return toInt(b[0], b[1], b[2], b[3], flag);
+    }
+
+
+    /**
+     * Converts array of x bytes into int, starting with offset.
+     *
+     * @param b array containing x byte values
+     * @param offset offset from beging of array
+     * @return int value
+     */
+    public int toInt(byte[] b, int offset)
+    {
+        return toInt(b[offset], b[offset + 1], b[offset + 2], b[offset + 3], BitConversion.BIG_ENDIAN);
+    }
+
+
+    /**
+     * Converts array of x bytes into int, starting with offset.
+     *
+     * @param b array containing x byte values
+     * @param offset offset from beging of array
+     * @param flag Conversion Flag (Big Endian, Little endian)
+     * @return int value
+     */
+    public int toInt(byte[] b, int offset, BitConversion flag)
+    {
+        return toInt(b[offset], b[offset + 1], b[offset + 2], b[offset + 3], flag);
     }
 
 
@@ -1856,6 +1936,32 @@ public class BitUtils extends CRCUtils
     public int toInt(int b1, int b2, int b3, int b4)
     {
         return toInt(b1, b2, b3, b4, BitConversion.BIG_ENDIAN);
+    }
+
+
+    /**
+     * Converts array of x bytes into int, starting with offset.
+     *
+     * @param b array containing x byte values
+     * @param offset offset from beging of array
+     * @return int value
+     */
+    public short toShort(byte[] b, int offset)
+    {
+        return toShort(b[offset], b[offset + 1], BitConversion.BIG_ENDIAN);
+    }
+
+
+    /**
+     * Converts array of x bytes into int, starting with offset.
+     *
+     * @param b array containing x byte values
+     * @param offset offset from beging of array
+     * @return int value
+     */
+    public int toShortAsInt(byte[] b, int offset)
+    {
+        return (int) toShort(b[offset], b[offset + 1], BitConversion.BIG_ENDIAN);
     }
 
 

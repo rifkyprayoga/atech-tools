@@ -511,8 +511,11 @@ public abstract class GUIListDefAbstract
 
             if (database.isObjectUsed(deletableObject))
             {
-                dataAccess.showMessageDialog(this.getParentDialog(), ATSwingUtils.DialogType.Error, String.format(
-                    i18nControl.getMessage("OBJECT_IN_USE_CANT_DELETE"), deletableObject.toStringDescriptive()));
+                ATSwingUtils.showMessageDialog(this.getParentDialog(), //
+                    ATSwingUtils.DialogType.Error, //
+                    String.format(i18nControl.getMessage("OBJECT_IN_USE_CANT_DELETE"),
+                        deletableObject.toStringDescriptive()), //
+                    i18nControl);
             }
             else
             {
@@ -531,9 +534,11 @@ public abstract class GUIListDefAbstract
                 }
                 else
                 {
-                    dataAccess.showMessageDialog(this.getParentDialog(), ATSwingUtils.DialogType.Error,
+                    ATSwingUtils.showMessageDialog(this.getParentDialog(), //
+                        ATSwingUtils.DialogType.Error, //
                         String.format(i18nControl.getMessage("ERROR_DELETING_OBJECT"),
-                            deletableObject.toStringDescriptive(), database.getErrorDescription()));
+                            deletableObject.toStringDescriptive(), database.getErrorDescription()), //
+                        i18nControl);
                 }
             }
         }

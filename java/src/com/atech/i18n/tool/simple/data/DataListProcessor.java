@@ -65,6 +65,7 @@ public class DataListProcessor
     private PropertiesFile user_config = null;
     // private PropertiesFile master_config = null;
     private int backup_time = 5;
+    private boolean isMasterFileMasterFile;
 
 
     /**
@@ -260,7 +261,7 @@ public class DataListProcessor
     public MasterFileReader readMasterFile(String master_file_name)
     {
         LOG.debug("Reading master file: " + master_file_name + " !");
-        mfr = new MasterFileReader("../files/master_files/" + master_file_name + ".properties");
+        mfr = new MasterFileReader("../files/master_files/" + master_file_name + ".properties", this);
         // master_file_read = mfr.wasFileRead();
 
         LOG.debug("   Is Master file: " + mfr.isMasterFile());
@@ -839,4 +840,15 @@ public class DataListProcessor
         return this.backup_time;
     }
 
+
+    public void setIsMasterFileMasterFile(boolean isMasterFileMasterFile)
+    {
+        this.isMasterFileMasterFile = isMasterFileMasterFile;
+    }
+
+
+    public void setMasterFileMasterFile(boolean isMasterFileMasterFile)
+    {
+        this.isMasterFileMasterFile = isMasterFileMasterFile;
+    }
 }

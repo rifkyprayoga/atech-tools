@@ -33,6 +33,12 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
     protected boolean editValue;
 
 
+    public StandardDialogForObject(JFrame dialog, ATDataAccessAbstract dataAccess)
+    {
+        this(dialog, dataAccess, true);
+    }
+
+
     public StandardDialogForObject(JFrame dialog, ATDataAccessAbstract dataAccess, boolean init)
     {
         super(dialog, "", true);
@@ -309,6 +315,12 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
     public boolean wasOperationSuccessful()
     {
         return this.wasSuccessful;
+    }
+
+
+    public Object getEditedObject()
+    {
+        return null;
     }
 
 

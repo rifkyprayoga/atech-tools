@@ -16,7 +16,6 @@ import org.hibernate.mapping.Value;
 
 import com.atech.db.hibernate.HibernateConfiguration;
 import com.atech.db.hibernate.HibernateObject;
-import com.atech.db.hibernate.HibernateUtil;
 
 /**
  *  This file is part of ATech Tools library.
@@ -73,7 +72,7 @@ public abstract class ImportTool extends ImportExportAbstract
     /**
      * The hibernateUtil.
      */
-    protected HibernateUtil hibernate_util = null;
+    // protected HibernateUtil hibernate_util = null;
 
 
     /*

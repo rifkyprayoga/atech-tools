@@ -1,5 +1,6 @@
 package com.atech.i18n.tool.simple.util;
 
+import java.io.File;
 import java.util.Hashtable;
 
 import com.atech.i18n.I18nControlAbstract;
@@ -68,6 +69,7 @@ public class I18nControlTT extends I18nControlAbstract
     static private I18nControlTT m_i18n = null; // This is handle to unique
                                                 // singelton instance
 
+
     // Constructor: I18nControl
     /**
      *
@@ -87,6 +89,7 @@ public class I18nControlTT extends I18nControlAbstract
         // setLanguage("EN");
     }
 
+
     /**
      * 
      */
@@ -95,7 +98,11 @@ public class I18nControlTT extends I18nControlAbstract
     {
         def_language = "en";
         lang_file_root = "TranslationTool";
+
+        File f = new File(".");
+        System.out.println("File: " + f.getAbsolutePath());
     }
+
 
     // Method: getInstance
     // Author: Andy
@@ -117,6 +124,7 @@ public class I18nControlTT extends I18nControlAbstract
         return m_i18n;
     }
 
+
     // Method: deleteInstance
     /**
      *
@@ -127,6 +135,49 @@ public class I18nControlTT extends I18nControlAbstract
     {
         m_i18n = null;
     }
+
+
+    public String getSelectedLanguage()
+    {
+
+        this.selected_language = def_language;
+
+        return def_language;
+        // if (this.selected_language != null)
+        // return this.selected_language;
+        //
+        // try
+        // {
+        // Properties props = new Properties();
+        //
+        // FileInputStream in = new FileInputStream(getLanguageConfigFile());
+        // props.load(in);
+        //
+        // String tempLang = (String) props.get("SELECTED_LANG");
+        //
+        // if (tempLang != null)
+        // {
+        // this.selected_language = tempLang;
+        // }
+        //
+        // this.selected_language_locale = new Locale(this.selected_language);
+        //
+        // return this.selected_language;
+        // // System.out.println("selected language: " +
+        // // this.selected_language);
+        // }
+        // catch (Exception ex)
+        // {
+        // System.out.println("I18nControl: Configuration file not found. Using
+        // default langauge ('en')");
+        // LOG.warn("Configuration file not found. Using default langauge
+        // ('en')");
+        // ex.printStackTrace();
+        // return null;
+        // }
+
+    }
+
 
     /*
      * private void getSelectedLanguage()
@@ -148,7 +199,8 @@ public class I18nControlTT extends I18nControlAbstract
      * System.out.println(
      * "I18nControl: Configuration file not found. Using default langauge ('en')"
      * );
-     * s_logger.warn("Configuration file not found. Using default langauge ('en')"
+     * s_logger.
+     * warn("Configuration file not found. Using default langauge ('en')"
      * );
      * }
      */
@@ -170,14 +222,16 @@ public class I18nControlTT extends I18nControlAbstract
         }
     }
 
+
     @Override
     protected String getLanguageConfigFile()
     {
         // TODO Auto-generated method stub
-        return null;
+        return lang_file_root;
     }
 
     Hashtable<String, String> words = new Hashtable<String, String>();
+
 
     private void loadWords()
     {
@@ -192,6 +246,7 @@ public class I18nControlTT extends I18nControlAbstract
         this.words.put("ABOUT", "About...");
 
     }
+
 
     @Override
     public String getMessage(String key)

@@ -14,7 +14,11 @@ See Authors for more description on developers
 - added some old libraries: MakeWinampPlaylist, QuotesParser
 - BitUtils and CRC extensions
 - working with Checksums for files (for DB versioning)
-
+- extended internal settings
+- language ISO639
+- backup/restore objects
+- Translation tool integration - starting work on
+- Version Interface
 
 0.8.3
 - added GsonUtils

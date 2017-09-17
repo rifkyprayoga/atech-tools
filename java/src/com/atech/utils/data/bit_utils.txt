@@ -1,0 +1,792 @@
+package com.atech.utils.data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * This file is part of ATech Tools library.
+ *
+ * BitUtils - Utils for working with Bits (as received from serial devices). Since
+ *    this data can be in many forms (as byte, short, char or int arrays), this
+ *    class is intended to replace ByteUtils, ShortUtils and HexUtils.
+ * Copyright (C) 2014 Andy (Aleksander) Rozman (Atech-Software)
+ *
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *
+ *
+ * For additional information about this project please visit our project site
+ * on http://atech-tools.sourceforge.net/ or contact us via this emails:
+ * andyrozman@users.sourceforge.net or andy@atech-software.com
+ *
+ * @author Andy
+ *
+ */
+
+public class BitUtils extends CRCUtils
+{
+
+    public byte getByte(byte[] arr, int offset)
+    {
+        return arr[offset];
+    }
+
+
+
+
+    /**
+     * Gets the int.
+     *
+     * @param arr
+     *            the arr
+     * @param offset
+     *            the offset
+     *
+     * @return the int
+     */
+    public int getInt(byte[] arr, int offset)
+    {
+        int val = 0;
+
+        if (this.byte_order == ByteUtils.BIT_ORDER_BIG_ENDIAN)
+        {
+            val += arr[offset] << 8 & 0xff00;
+            val = val + (arr[offset + 1] & 0xff);
+        }
+        else
+        {
+            val += arr[offset + 1] << 8 & 0xff00;
+            val = val + (arr[offset] & 0xff);
+        }
+
+        return val;
+
+    }
+
+
+    // endian is here not supported
+    public int getByteFromIntsAsInt(int num1, int num2)
+    {
+        int k = num1 << 4 | num2 & 0xf;
+        return k;
+    }
+
+
+    /**
+     * Gets the string from array.
+     *
+     * @param offset
+     *            the offset
+     * @param size
+     *            the size
+     *
+     * @return the string from array
+     */
+    // public String getStringFromArray(int offset, int size)
+    // {
+    // return getString(this.byte_arr, offset, size);
+    // }
+
+    /**
+     * Gets the string.
+     *
+     * @param arr
+     *            the arr
+     * @param offset
+     *            the offset
+     * @param size
+     *            the size
+     *
+     * @return the string
+     */
+    public String getString(byte[] arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                destinationArray[i] = (char) arr[offset + i];
+            }
+
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
+            return str;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+
+
+    public String getString(List<Integer> arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                int d = arr.get(offset + i);
+                destinationArray[i] = (char) d;
+            }
+
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
+            return str;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+
+
+    public String getStringFromByteList(List<Byte> arr)
+    {
+        return getStringFromByteList(arr, 0, arr.size());
+    }
+
+
+    public String getStringFromByteList(List<Byte> arr, int offset, int size)
+    public String getString(short[] arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                destinationArray[i] = (char) arr[offset + i];
+            }
+
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
+            return str;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+
+
+    public String getString(int[] arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                destinationArray[i] = (char) arr[offset + i];
+            }
+
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
+            return str;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+
+
+    public String getStringInverted(int[] arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+
+            for (int i = size; i > 0; i--)
+            {
+                destinationArray[i] = (char) arr[offset + i];
+            }
+
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
+            return str;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+
+
+    /**
+     * Gets the ascii from array.
+     *
+     * @param offset
+     *            the offset
+     * @param size
+     *            the size
+     *
+     * @return the ascii from array
+     */
+    // public String getAsciiFromArray(int offset, int size)
+    // {
+    // return getAscii(this.byte_arr, offset, size);
+    // }
+
+    /**
+     * Gets the ascii.
+     *
+     * @param arr
+     *            the arr
+     * @param offset
+     *            the offset
+     * @param size
+     *            the size
+     *
+     * @return the ascii
+     */
+    public String getAscii(byte[] arr, int offset, int size)
+  public String getAscii(int[] arr, int offset, int size)
+    {
+        try
+        {
+            char[] destinationArray = new char[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                // byte b = (byte)(arr[offset+i] + 0x41);
+                destinationArray[i] = (char) (arr[offset + i] + 0x41);
+            }
+
+            // System.arraycopy(arr, offset, destinationArray, 0, size);
+            String str = new String(destinationArray); // , 0, size);
+            return str;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ex: " + ex);
+            return null;
+        }
+    }
+
+
+    /**
+     * Gets the byte sub array.
+     *
+     * @param arr
+     *            the arr
+     * @param start
+     *            the start
+     * @param end
+     *            the end
+     * @param length
+     *            the length
+     *
+     * @return the byte sub array
+     */
+    public byte[] getByteSubArray(byte[] arr, int start, int end, int length)
+    public byte[] getByteSubArray(byte[] arr, int start, int length)
+    public void setUseShortHex(boolean short_true)
+    {
+        this.short_hex_used = short_true;
+    }
+
+
+    public int[] getIntSubArray(int[] arr, int start, int end, int length)
+    public String getCorrectHexValue(byte inp)
+    {
+        String hx = Integer.toHexString((char) inp);
+        hx = hx.toUpperCase();
+
+        if (hx.length() == 0)
+            return "00";
+        else if (hx.length() == 1)
+            return "0" + hx;
+        else if (hx.length() == 2)
+            return hx;
+        else if (hx.length() == 4)
+            return hx.substring(2);
+        else
+        {
+            System.out.println("HEX ERROR !!!!!!!!!!!!!!!!");
+        }
+
+        // System.out.print(Integer.toHexString((char)arr[i]) + " ");
+
+        return null;
+    }
+
+
+    /**
+     * Gets the correct hex value.
+     *
+     * @param inp
+     *            the inp
+     *
+     * @return the correct hex value
+     */
+    public String getCorrectHexValue(int inp)
+    {
+        String hx = Integer.toHexString((char) inp);
+
+        if (hx.length() == 0)
+            return "00";
+        else if (hx.length() == 1)
+            return "0" + hx;
+        else if (hx.length() == 2)
+            return hx;
+        else if (hx.length() == 4)
+            return hx.substring(2);
+        else
+        {
+            System.out.println("HEX ERROR !!!!!!!!!!!!!!!!");
+        }
+
+        // System.out.print(Integer.toHexString((char)arr[i]) + " ");
+
+        return null;
+    }
+
+
+    /**
+     * Show byte array hex.
+     *
+     * @param arr
+     *            the arr
+     */
+    public void showByteArrayHex(byte[] arr)
+    {
+        System.out.print("Byte array: ");
+
+        for (byte element : arr)
+        {
+            System.out.print(getCorrectHexValue(element) + " ");
+            // getCorrectHexValue(arr[i]);
+            // System.out.print(Integer.toHexString((char)arr[i]) + " ");
+        }
+
+        System.out.print("\n");
+
+    }
+
+
+    public void showIntArrayHex(int[] arr)
+    {
+        System.out.print("Int array: ");
+
+        for (int element : arr)
+        {
+            System.out.print(getCorrectHexValue(element) + " ");
+            // getCorrectHexValue(arr[i]);
+            // System.out.print(Integer.toHexString((char)arr[i]) + " ");
+        }
+
+        System.out.print("\n");
+
+    }
+
+
+    public String getIntArrayShow(int[] arr)
+    {
+        // System.out.print("Int array: ");
+        StringBuffer sb = new StringBuffer();
+
+        for (int element : arr)
+        {
+            sb.append(element + " ");
+        }
+
+        // System.out.print("\n");
+
+        return sb.toString();
+
+    }
+
+
+    public String getByteArrayShow(byte[] arr)
+    {
+        // System.out.print("Int array: ");
+        StringBuffer sb = new StringBuffer();
+
+        for (byte element : arr)
+        {
+            sb.append(element + " ");
+        }
+
+        // System.out.print("\n");
+
+        return sb.toString();
+
+    }
+
+
+    /**
+     * Show byte array hex.
+     *
+     * @param arr
+     *            the arr
+     */
+    public String getIntArrayHex(int[] arr)
+    {
+        // System.out.print("Byte array: ");
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("[ ");
+
+        for (int element : arr)
+        {
+            sb.append(getCorrectHexValue(element) + " ");
+            // getCorrectHexValue(arr[i]);
+            // System.out.print(Integer.toHexString((char)arr[i]) + " ");
+        }
+
+        sb.append("]");
+
+        return sb.toString();
+    }
+
+
+    /**
+     * Show byte array hex.
+     *
+     * @param arr
+     *            the arr
+     */
+    public String getByteArrayHex(byte[] arr)
+    public void showByteArray(byte[] arr)
+    {
+        System.out.println("Byte array: ");
+
+        for (byte element : arr)
+        {
+            System.out.print(element + " ");
+        }
+
+    }
+
+
+    public void showByteArrayAsString(byte[] arr)
+    public String getDebugByteArrayHex(byte[] arr)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Byte array [Hex]: ");
+        // System.out.print("Byte array: ");
+
+        for (byte element : arr)
+        {
+            sb.append(getCorrectHexValue(element) + " ");
+            // System.out.print(getCorrectHexValue(arr[i]) + " ");
+            // getCorrectHexValue(arr[i]);
+            // System.out.print(Integer.toHexString((char)arr[i]) + " ");
+        }
+
+        sb.append("\n");
+        // System.out.print("\n");
+
+        return sb.toString();
+
+    }
+
+
+    public String getDebugArrayHexValue(byte[] arr)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (byte element : arr)
+        {
+            sb.append(getCorrectHexValue(element) + " ");
+        }
+
+        return sb.toString();
+
+    }
+
+
+    public String getDebugArrayHexValue(int[] arr)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (int element : arr)
+        {
+            sb.append(getCorrectHexValue(element) + " ");
+        }
+
+        return sb.toString();
+
+    }
+
+
+    public String getDebugByteListHex(List<Byte> list)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Byte array [Hex]: ");
+        sb.append(getDebugByteListHexValue(list));
+
+        return sb.toString();
+    }
+
+
+    public String getDebugByteListHexValue(List<Byte> list)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (byte element : list)
+        {
+            sb.append(getCorrectHexValue(element) + " ");
+        }
+
+        return sb.toString();
+    }
+
+
+    public String getDebugIntegerListHexValue(List<Integer> list)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (int element : list)
+        {
+            sb.append(getCorrectHexValue(element) + " ");
+        }
+
+        return sb.toString();
+    }
+
+
+    /**
+     * Show byte array.
+     *
+     * @param arr
+     *            the arr
+     */
+    public String getDebugByteArray(byte[] arr)
+    {
+        StringBuilder sb = new StringBuilder();
+        // System.out.println("Byte array: ");
+
+        sb.append("Byte array: ");
+
+        for (byte element : arr)
+        {
+            sb.append(element + " ");
+            // System.out.print(arr[i] + " ");
+        }
+
+        return sb.toString();
+    }
+
+
+    public String getDebugByteArrayAsString(byte[] arr)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Byte array as Str: ");
+
+        // System.out.println("Byte array as String: ");
+
+        for (byte element : arr)
+        {
+            sb.append((char) element);
+            // System.out.print(arr[i] + " ");
+        }
+
+        return sb.toString();
+    }
+
+
+    /**
+     * Reconvert.
+     *
+     * @param _strHex
+     *            the _str hex
+     *
+     * @return the byte[]
+     */
+
+    public byte[] reconvert(String _strHex)
+    public static byte[] cloneByteArray(byte[] ba)
+    public static int[] cloneIntArray(int[] ba)
+    public int[] makePackedBCD(String s)
+    public int[] makeIntArray(String s)
+    public int[] concatIntArrays(int arr_in1[], int arr_in2[])
+    public int getByteAsInt(int i, int j)
+    public byte[] convertIntArrayToByteArray(int[] arr_in)
+    public int[] convertByteArrayToUnsignedIntArray(byte[] arrayInput)
+    public int convertIntsToUnsignedShort(int i, int j)
+    public int[] getIntArrayFromList(List<Integer> list)
+    {
+        int[] out = new int[list.size()];
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            out[i] = list.get(i);
+        }
+
+        return out;
+    }
+
+
+    public List<Integer> getListFromIntArray(int[] array)
+    {
+        List<Integer> listOut = new ArrayList<Integer>();
+
+        for (int val : array)
+        {
+            listOut.add(val);
+        }
+
+        return listOut;
+    }
+
+
+    public byte[] getByteArrayFromList(List<Byte> list)
+    {
+        byte[] out = new byte[list.size()];
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            out[i] = list.get(i);
+        }
+
+        return out;
+    }
+
+
+    public List<Byte> getListFromByteArray(byte[] array)
+    {
+        List<Byte> listOut = new ArrayList<Byte>();
+
+        for (byte val : array)
+        {
+            listOut.add(val);
+        }
+
+        return listOut;
+    }
+
+
+    public void addIntArrayToList(List<Integer> list, int[] array)
+    {
+        for (int element : array)
+        {
+            list.add(element);
+        }
+    }
+
+
+    public void addByteArrayToList(List<Byte> list, byte[] array)
+    {
+        for (byte element : array)
+        {
+            list.add(element);
+        }
+    }
+
+
+    public String getHex(long l)
+    {
+        String s = l != -1L ? "0x" : "";
+        return s + getHexCompact(l);
+    }
+
+
+    public String getHex(int i)
+    {
+        String s;
+
+        if (this.short_hex_used)
+        {
+            s = "";
+        }
+        else
+        {
+            s = i != -1 ? "0x" : "";
+        }
+
+        return s + getHexCompact(i);
+    }
+
+
+    public String getHex(byte byte0)
+    {
+        String s = byte0 != -1 ? "0x" : "";
+        return s + getHexCompact(byte0);
+    }
+
+
+    public String getHex(byte abyte0[], int i)
+    public String getHex(int ai[], int i)
+    public String getHex(byte abyte0[])
+    public String getHex(int ai[])
+    public String getHexCompact(long l)
+    public String getHexCompact(int i)
+    public String getHexCompact(byte byte0)
+    public String getHexCompact(byte abyte0[], int i)
+    public String getHexCompact(int ai[], int i)
+    {
+    public String getHexCompact(byte abyte0[])
+    public String getHexCompact(int ai[])
+    public int convertUnsignedByteToInt(byte data)
+    public int convertByteToInt(byte data)
+    public long convertUnsignedIntToLong(int i)
+    public boolean isEven(int i)
+    public boolean isOdd(int i)
+    public boolean isZeros(int ai[])
+    public int makeByte(int i, int j)
+    public int makeLong(int b1, int b2, int b3, int b4)
+    public int makeLong(int b1, int b2, int b3, int b4, BitConversion flag)
+    public byte[] convertIntsToBytes(int ai[])
+    public int makeUnsignedShort(int i, int j)
+    public byte[] makeByteArray(int ai[])
+    public int[] makeIntArray(byte abyte0[])
+    public String makeString(int ai[])
+    public String makeString(int array[], int start, int end)
+    public String makeString(byte ai[])
+    public String makeString(byte array[], int start, int end)
+    public int[] concat(int ai[], int ai1[])
+    public int[] getIntSubArray(int[] arr, int start, int length)
+    public int[] getIntSubArray(List<Integer> list, int start, int length)
+    public String getDebugShortArray(short[] arr)
+    public short[] getShortSubArray(short[] arr, int start, int length)
+    public byte[] concat(byte[] a, byte[] b)
+    public String getByteArrayHex(List<Byte> dataOut)
+    public String getByteArrayCharAsString(List<Byte> dataOut)
+    public int[] createIntArray(int... forArray)
+    public int getHighByte(int i)
+    public int getLowByte(int i)
+    public int toInt(byte[] b, BitConversion flag)
+    public int toInt(short[] b, BitConversion flag)
+    public int toInt(Byte b1, Byte b2, Byte b3, Byte b4, BitConversion flag)
+    public int toInt(Short b1, Short b2, Short b3, Short b4, BitConversion flag)
+    public int toInt(Integer b1, Integer b2, Integer b3, Integer b4, BitConversion flag)
+    public int toInt(int b1, int b2)
+    public int toInt(int b1, int b2, BitConversion flag)
+    public int toInt(short b1, short b2, BitConversion flag)
+    public int toInt(byte b1, byte b2, BitConversion flag)
+    public int toInt(int b1, int b2, int b3)
+    public int toInt(int b1, int b2, int b3, BitConversion flag)
+    public int toInt(int b1, int b2, int b3, int b4)
+    public short toShort(Byte b1, Byte b2, BitConversion flag)
+    public short toShort(Short b1, Short b2, BitConversion flag)
+    public short toShort(Integer b1, Integer b2, BitConversion flag)
+    public short toShort(byte[] b, BitConversion flag)
+    public short toShort(short[] b, BitConversion flag)
+    public int toIntShort(short[] b, BitConversion flag)
+    public int toIntShort(byte[] b, BitConversion flag)

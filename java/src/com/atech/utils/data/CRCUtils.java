@@ -427,8 +427,6 @@ public abstract class CRCUtils // extends BitUtils // was HexUtils
 
     public int getLowNibble(int i)
     {
-        // Contract.pre(i >= 0 && i <= 255, "oneByte value of " + i +
-        // " is out of expected range 0.." + 255);
         return i & 0xf;
     }
 

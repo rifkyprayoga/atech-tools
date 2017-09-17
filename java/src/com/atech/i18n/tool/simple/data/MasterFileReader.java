@@ -46,6 +46,8 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
     private TranslationConfiguration m_config = null;
     private static final Logger LOG = LoggerFactory.getLogger(MasterFileReader.class);
 
+    DataListProcessor dataListProcessor;
+
     /**
      * The dataAccess.
      */
@@ -57,10 +59,14 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
      * 
      * @param filename the filename
      */
-    public MasterFileReader(String filename)
+    public MasterFileReader(String filename, DataListProcessor dataListProcessor)
     {
-        super(filename);
+        super(filename, false);
         LOG.debug("MasterFileReader: " + this + ", filename=" + filename);
+
+        this.dataListProcessor = dataListProcessor;
+
+        process();
     }
 
 
@@ -99,7 +105,7 @@ public class MasterFileReader extends FileReaderList<DataEntryRaw>
             {
                 this.is_master_file_xa = true;
 
-                m_da.setIsMasterFileMasterFile(true);
+                dataListProcessor.setIsMasterFileMasterFile(true);
             }
             else if (line.contains("!G!"))
             {

@@ -275,7 +275,7 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
 
         JPanel buttonPanel = new JPanel();
 
-        buttonPanel.setLayout(TableLayoutUtil.createHorizontalLayout(0.05, 0.4, 0.05, 0.4, 0.05));
+        buttonPanel.setLayout(TableLayoutUtil.createHorizontalLayout(0.01, 0.44, 0.01, 0.43, 0.01));
 
         JButton button = new JButton();
         button.setText("Help");
@@ -314,7 +314,7 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
             ATSwingUtils.FONT_NORMAL_BOLD);
 
         dateComponentFrom = new DateComponent(1800, 5, this.dataAccess);
-        dateComponentFrom.setEnabled(false);
+        dateComponentFrom.setEnabled(true);
         controlerDatePanel.add(dateComponentFrom, "0, 1");
 
         ATSwingUtils.getLabel(" " + getMessage("DTCMP_TILL"), controlerDatePanel, "0, 2",
@@ -326,6 +326,13 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
         controlerDatePanel.add(dateComponentTill, "0, 3");
 
         setRangeOnComponent(this.lastDate);
+
+        dateComponentFrom.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setRangeOnTill(ATechDate.getGregorianCalendar(ATechDateType.DateOnly, dateComponentFrom.getDate()));
+            }
+        });
+
 
         return controlerDatePanel;
     }
@@ -352,6 +359,39 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
             dateComponentFrom.setDate(gc);
         }
     }
+
+
+    private void setRangeOnTill(GregorianCalendar calendar)
+    {
+        DataRangeValue dataRangeValue = graphDefintionDto.getDataRangeValue();
+
+        //System.out.println("dataRangeValue: " + dataRangeValue);
+        //System.out.println("Before: " + ATDataAccessAbstract.getGregorianCalendarAsDateString(gc));
+
+        if (dataRangeValue == DataRangeValue.Day)
+        {
+            dateComponentTill.setDate(calendar);
+
+            this.lastDate = calendar;
+            dateComponentTill.setDate(calendar);
+
+            redrawGraphFull();
+        }
+        else
+        {
+            GregorianCalendar gc = (GregorianCalendar) calendar.clone();
+            gc.add(dataRangeValue.getCalendarType(), //
+                    1 * dataRangeValue.getValue());
+
+            //System.out.println("After: " + ATDataAccessAbstract.getGregorianCalendarAsDateString(gc));
+
+            this.lastDate = gc;
+            dateComponentTill.setDate(gc);
+
+            redrawGraphFull();
+        }
+    }
+
 
 
     public String getMessage(String key)
@@ -401,19 +441,23 @@ public class GraphViewerWithControler extends JDialog implements ActionListener,
         {
             this.lastDate = newLastDate;
             this.setRangeOnComponent(this.lastDate);
-            this.readData();
-            this.redrawGraph();
-
-            // this.chartPanel.repaint();
-            // this.graphPanel.repaint();
-
-            // this.chartPanel.invalidate();
-            this.chartPanel.updateUI();
-
-            // chart.fireChartChanged();
-            // chart.plotChanged());
-
+            redrawGraphFull();
         }
+
+    }
+
+    private void redrawGraphFull() {
+        this.readData();
+        this.redrawGraph();
+
+        // this.chartPanel.repaint();
+        // this.graphPanel.repaint();
+
+        // this.chartPanel.invalidate();
+        this.chartPanel.updateUI();
+
+        // chart.fireChartChanged();
+        // chart.plotChanged());
 
     }
 
