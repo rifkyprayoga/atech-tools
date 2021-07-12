@@ -141,7 +141,6 @@ public class UpdateConfigurationXml
      * Open Xml File
      * @param xml_text 
      * 
-     * @param file
      * @return
      * @throws DocumentException
      */
@@ -445,16 +444,26 @@ public class UpdateConfigurationXml
             p1 = doc.createElement("component_groups");
             p0.appendChild(p1);
 
-            for (Enumeration<ComponentGroup> en = uconfig.groups.elements(); en.hasMoreElements();)
+            for (ComponentGroup componentGroup : uconfig.groups.values())
             {
                 p2 = doc.createElement("group");
                 p1.appendChild(p2);
 
-                ComponentGroup gr = en.nextElement();
-
-                getElementWithValue(doc, p2, "id", "" + gr.id);
-                getElementWithValue(doc, p2, "name", gr.name);
+                getElementWithValue(doc, p2, "id", "" + componentGroup.id);
+                getElementWithValue(doc, p2, "name", componentGroup.name);
             }
+
+            // for (Enumeration<ComponentGroup> en = uconfig.groups.elements();
+            // en.hasMoreElements();)
+            // {
+            // p2 = doc.createElement("group");
+            // p1.appendChild(p2);
+            //
+            // ComponentGroup gr = en.nextElement();
+            //
+            // getElementWithValue(doc, p2, "id", "" + gr.id);
+            // getElementWithValue(doc, p2, "name", gr.name);
+            // }
 
             p1 = doc.createElement("components");
             p0.appendChild(p1);

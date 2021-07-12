@@ -228,7 +228,7 @@ public class LanguageCfgPanel extends JDialog implements ActionListener, /*
      * label.setBounds(0, 15, 420, 36);
      * label.setHorizontalAlignment(JLabel.CENTER);
      * panel.add(label);
-     * list_users = new JList();
+     * list_users = new CheckBoxList();
      * list_users.setFont(font_normal);
      * JScrollPane pane = new JScrollPane(list_users);
      * pane.setBounds(40, 80, 340, 180);

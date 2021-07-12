@@ -8,6 +8,7 @@ import org.apache.commons.lang.LocaleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.atech.data.user_data_dir.UserDataDirectory;
 import com.atech.i18n.I18nControlLangMgr;
 import com.atech.i18n.I18nControlLangMgrDual;
 import com.atech.i18n.I18nControlRunner;
@@ -61,6 +62,7 @@ public class LanguageManager
     private String selectedLanguage = null;
     private Hashtable<String, LanguageInstance> availableLanguages;
     private LanguageManagerRunner languageManagerRunner = null;
+    UserDataDirectory userDataDirectory = UserDataDirectory.getInstance();
 
 
     /**
@@ -82,7 +84,9 @@ public class LanguageManager
      */
     public void loadData()
     {
-        PropertiesFile props = new PropertiesFile(this.languageManagerRunner.getLanguageConfigFile());
+        String languageConfigFile = userDataDirectory.getParsedUserDataPath(this.languageManagerRunner
+                .getLanguageConfigFile());
+        PropertiesFile props = new PropertiesFile(languageConfigFile);
 
         // System.out.println(this.languageManagerRunner.getLanguageConfigFile());
 
@@ -91,8 +95,7 @@ public class LanguageManager
 
         if (!props.wasFileRead())
         {
-            String errorMsg = "LanguageManager: Configuration file "
-                    + this.languageManagerRunner.getLanguageConfigFile() + " was NOT read !";
+            String errorMsg = "LanguageManager: Configuration file " + languageConfigFile + " was NOT read !";
             LOG.error(errorMsg);
             throw new ATechToolsRuntimeException(errorMsg);
         }
@@ -178,14 +181,16 @@ public class LanguageManager
 
     private void loadSelectedLanguageData()
     {
-        PropertiesFile props = new PropertiesFile(this.languageManagerRunner.getLanguageSelectionConfigFile());
+        String languageSelectionConfigFile = userDataDirectory.getParsedUserDataPath(this.languageManagerRunner
+                .getLanguageSelectionConfigFile());
+
+        PropertiesFile props = new PropertiesFile(languageSelectionConfigFile);
 
         if (!props.wasFileRead())
         {
             this.selectedLanguage = this.languageManagerRunner.getDefaultLanguage();
 
-            LOG.warn("LanguageManager: Configuration file for selected language: "
-                    + this.languageManagerRunner.getLanguageSelectionConfigFile()
+            LOG.warn("LanguageManager: Configuration file for selected language: " + languageSelectionConfigFile
                     + " was NOT read ! Using default language (" + this.selectedLanguage + ") !");
         }
         else
@@ -200,7 +205,10 @@ public class LanguageManager
 
     private void loadTranslationData()
     {
-        PropertiesFile pf = new PropertiesFile(this.languageManagerRunner.getTranslationToolConfigFile());
+        String translationToolConfigFile = userDataDirectory.getParsedUserDataPath(this.languageManagerRunner
+                .getTranslationToolConfigFile());
+
+        PropertiesFile pf = new PropertiesFile(translationToolConfigFile);
 
         // System.out.println("loadTranslationData: " + pf.wasFileRead());
 

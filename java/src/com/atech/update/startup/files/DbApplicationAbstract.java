@@ -4,7 +4,7 @@ import java.util.StringTokenizer;
 
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.update.startup.StartupUtil;
-import com.atech.update.startup.os.StartupOSAbstract;
+import com.atech.update.startup.os.OSType;
 
 /**
  *  This file is part of ATech Tools library.
@@ -45,7 +45,7 @@ public abstract class DbApplicationAbstract extends AtechToolsApplication
      * @param uc
      * @param osa
      */
-    public DbApplicationAbstract(UpdateConfiguration uc, StartupOSAbstract osa)
+    public DbApplicationAbstract(UpdateConfiguration uc, OSType osa)
     {
         super(uc, osa);
     }
@@ -96,7 +96,7 @@ public abstract class DbApplicationAbstract extends AtechToolsApplication
             // old versions it must stay
         }
 
-        return StartupUtil.replaceExpression(sb.toString(), ";", this.os_abstract.getSeparator());
+        return StartupUtil.replaceExpression(sb.toString(), ";", this.osType.getPathSeparator());
     }
 
 

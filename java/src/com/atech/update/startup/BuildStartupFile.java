@@ -2,11 +2,15 @@ package com.atech.update.startup;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import com.atech.data.user_data_dir.UserDataDirectory;
 import com.atech.update.config.ComponentEntry;
 import com.atech.update.config.UpdateConfiguration;
-import com.atech.update.startup.os.OSUtil;
+import com.atech.update.startup.data.ApplicationStartupConfigDto;
 
 /**
  *  This file is part of ATech Tools library.
@@ -43,30 +47,26 @@ public class BuildStartupFile
 
     UpdateConfiguration upd_conf;
     StartupFilesCreator sfc; // = new StartupFileCreator(UpdateConfiguration uc)
-    int startupType = 1; // 1 = Default, old one, 2 = New (files in bin/ext)
+    // int startupType = 1; // 1 = Default, old one, 2 = New (files in bin/ext)
+    ApplicationStartupConfigDto applicationStartupConfig;
 
-
-    // StartupUtil dataAccess;
 
     /**
      * Constructor
      */
     public BuildStartupFile()
     {
-        Hashtable<String, String> startupConfiguration = StartupUtil
-                .getConfiguration(OSUtil.getOSSpecificConfigurationFile());
 
-        if (startupConfiguration.containsKey("STARTUP_TYPE"))
-        {
-            this.startupType = getIntValueFromString(startupConfiguration.get("STARTUP_TYPE"), 1);
-            StartupUtil.setStartupType(this.startupType);
-        }
+        UserDataDirectory userDataDirectory = UserDataDirectory.getInstance();
+        applicationStartupConfig = userDataDirectory.getApplicationStartupConfig();
+
+        StartupUtil.setStartupStatusPath(userDataDirectory);
 
         if (!StartupUtil.shouldStartupFilesBeCreated())
         {
             System.out.println("============================================================");
             System.out.println("===             Startup/Update Manager                   ===");
-            System.out.println("===   Startupfiles were not marked to be created. OK.    ===");
+            System.out.println("===   Startup files were not marked to be created. OK.   ===");
             System.out.println("============================================================");
 
             StartupUtil.writeStartupWithOldCopy(2);
@@ -74,11 +74,12 @@ public class BuildStartupFile
             return;
         }
 
-        if (startupConfiguration.containsKey("UPDATE_CONFIG"))
+        String updateConfig = userDataDirectory.getUpdateConfig();
+
+        if (updateConfig != null)
         {
-            this.upd_conf = new UpdateConfiguration(startupConfiguration.get("UPDATE_CONFIG"),
-                    startupConfiguration.get("JAVA_EXE"));
-            this.sfc = new StartupFilesCreator(this.upd_conf, this.startupType);
+            this.upd_conf = new UpdateConfiguration(updateConfig, applicationStartupConfig.getJavaExe());
+            this.sfc = new StartupFilesCreator(this.upd_conf, userDataDirectory);
 
             if (this.sfc.getOSAbstract() == null)
             {
@@ -133,11 +134,15 @@ public class BuildStartupFile
             System.out.println(" VERIFICATION of xxx_Update.properties");
             System.out.println("========================================\n");
 
-            Hashtable<String, String> cfg = StartupUtil.getConfiguration(OSUtil.getOSSpecificConfigurationFile());
+            UserDataDirectory userDataDirectory = UserDataDirectory.getInstance();
+            applicationStartupConfig = userDataDirectory.getApplicationStartupConfig();
+            StartupUtil.setStartupStatusPath(userDataDirectory);
 
-            if (cfg.containsKey("UPDATE_CONFIG"))
+            String updateConfig = userDataDirectory.getUpdateConfig();
+
+            if (updateConfig != null)
             {
-                this.upd_conf = new UpdateConfiguration(cfg.get("UPDATE_CONFIG"), cfg.get("JAVA_EXE"));
+                this.upd_conf = new UpdateConfiguration(updateConfig, applicationStartupConfig.getJavaExe());
 
                 List<File> allFiles = new ArrayList<File>();
                 boolean fileNotFound = false;

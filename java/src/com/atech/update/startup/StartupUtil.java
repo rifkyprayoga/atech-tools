@@ -6,6 +6,11 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.util.*;
 
+import com.atech.data.user_data_dir.UserDataDirectory;
+import com.atech.update.startup.data.ApplicationStartupConfigDto;
+import com.atech.update.startup.data.StartupTypeDefinition;
+import com.atech.update.startup.os.OSUtil;
+
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -42,29 +47,61 @@ public class StartupUtil
     /**
      * Startup status file
      */
-    public static String startup_status = "../data/StartupStatus.txt";
-    public static int startupType = 1;
+    public static String startupStatusFile = "../data/StartupStatus.txt";
+    // public static int startupType = 1;
+
+    static UserDataDirectory userDataDirectory;
 
 
-    public static void setStartupType(int startupType_)
+    public static void setStartupStatusPath(UserDataDirectory userDataDirectory_)
     {
-        if (startupType_ != 1)
+        userDataDirectory = userDataDirectory_;
+
+        if (userDataDirectory.getApplicationStartupConfig().getStartupType() == StartupTypeDefinition.ExtendedStartupWithDataDirectory)
         {
-            startupType = startupType_;
-            startup_status = "../../data/StartupStatus.txt";
+            startupStatusFile = userDataDirectory.getUserDataDirectory() + "/StartupStatus.txt";
         }
+    }
+
+
+    public static ApplicationStartupConfigDto getApplicationStartupConfig()
+    {
+        Map<String, String> configurationData = getConfigurationFile(OSUtil.getOSSpecificConfigurationFile());
+
+        if (configurationData.size() != 0)
+        {
+            ApplicationStartupConfigDto dto = new ApplicationStartupConfigDto();
+            dto.loadData(configurationData);
+
+            return dto;
+        }
+        else
+            return null;
+    }
+
+
+    public static Map<String, String> getStartupStatusFileContent()
+    {
+        return getConfigurationFile(startupStatusFile);
+    }
+
+
+    public static boolean doesStartupStatusFileExist()
+    {
+        File f = new File(startupStatusFile);
+        return (f.exists());
     }
 
 
     /**
      * Get Configuration - reads properties file and read all entries
      * 
-     * @param filename
+     * @param fileName
      * @return
      */
-    public static Hashtable<String, String> getConfiguration(String filename)
+    public static Map<String, String> getConfigurationFile(String fileName)
     {
-        Hashtable<String, String> config_db_values = new Hashtable<String, String>();
+        Map<String, String> config_db_values = new HashMap<String, String>();
 
         Properties props = new Properties();
 
@@ -72,7 +109,7 @@ public class StartupUtil
 
         try
         {
-            FileInputStream in = new FileInputStream(filename);
+            FileInputStream in = new FileInputStream(fileName);
             props.load(in);
         }
         catch (Exception ex)
@@ -103,13 +140,13 @@ public class StartupUtil
     public static boolean shouldStartupFilesBeCreated()
     {
 
-        File f = new File(startup_status);
+        File f = new File(startupStatusFile);
 
-        if (!f.exists())
+        if (!doesStartupStatusFileExist())
             return true;
         else
         {
-            Hashtable<String, String> cfg = StartupUtil.getConfiguration(startup_status);
+            Map<String, String> cfg = getStartupStatusFileContent();
 
             String running_os = cfg.get("RUNNING_OS");
             String running_arch = cfg.get("RUNNING_ARCH");
@@ -139,13 +176,13 @@ public class StartupUtil
     public static boolean shouldDbCheckBeDone()
     {
 
-        File f = new File(startup_status);
+        File f = new File(startupStatusFile);
 
-        if (!f.exists())
+        if (!doesStartupStatusFileExist())
             return true;
         else
         {
-            Hashtable<String, String> cfg = StartupUtil.getConfiguration(startup_status);
+            Map<String, String> cfg = getStartupStatusFileContent();
 
             boolean db_check = isOptionEnabled(cfg.get("DB_CHECK"));
 
@@ -174,16 +211,16 @@ public class StartupUtil
      */
     public static void writeStartupWithOldCopy()
     {
-        File f = new File(startup_status);
+        File f = new File(startupStatusFile);
 
-        if (!f.exists())
+        if (!doesStartupStatusFileExist())
         {
-            writeStartup(System.getProperty("os.name"), System.getProperty("os.arch"), System.getProperty("os.version"),
-                false, true);
+            writeStartup(System.getProperty("os.name"), System.getProperty("os.arch"),
+                System.getProperty("os.version"), false, true);
         }
         else
         {
-            Hashtable<String, String> cfg = StartupUtil.getConfiguration(startup_status);
+            Map<String, String> cfg = getStartupStatusFileContent();
 
             String running_os = cfg.get("RUNNING_OS");
             String running_arch = cfg.get("RUNNING_ARCH");
@@ -201,16 +238,16 @@ public class StartupUtil
      */
     public static void writeStartupWithOldCopy(int type)
     {
-        File f = new File(startup_status);
+        File f = new File(startupStatusFile);
 
-        if (!f.exists())
+        if (!doesStartupStatusFileExist())
         {
-            writeStartup(System.getProperty("os.name"), System.getProperty("os.arch"), System.getProperty("os.version"),
-                false, false);
+            writeStartup(System.getProperty("os.name"), System.getProperty("os.arch"),
+                System.getProperty("os.version"), false, false);
         }
         else
         {
-            Hashtable<String, String> cfg = StartupUtil.getConfiguration(startup_status);
+            Map<String, String> cfg = getStartupStatusFileContent();
 
             String running_os = cfg.get("RUNNING_OS");
             String running_arch = cfg.get("RUNNING_ARCH");
@@ -246,17 +283,16 @@ public class StartupUtil
      * @param db_check
      * @param rebuild
      */
-    public static void writeStartup(String os_name, String os_arch, String os_version, boolean db_check,
-            boolean rebuild)
+    public static void writeStartup(String os_name, String os_arch, String os_version, boolean db_check, boolean rebuild)
     {
 
         try
         {
-            File f = new File(startup_status);
+            File f = new File(startupStatusFile);
 
             // System.out.println("File: " + f.getPath());
 
-            if (!f.exists())
+            if (!doesStartupStatusFileExist())
             {
                 f.createNewFile();
                 db_check = true;
@@ -353,6 +389,11 @@ public class StartupUtil
 
     }
 
+
+    // public static Map<String, String> getConfiguration()
+    // {
+    // return getConfiguration(OSUtil.getOSSpecificConfigurationFile());
+    // }
 
     /**
      * Get Current DateTime String

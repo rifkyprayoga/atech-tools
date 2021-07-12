@@ -60,9 +60,9 @@ public class StatisticsCollection
     protected ATDataAccessAbstract m_da;
 
     /**
-     * The decimal_handler.
+     * The decimalHandler.
      */
-    // protected DecimalHandler decimal_handler;
+    // protected DecimalHandler decimalHandler;
 
     /**
      * The special_processed.
@@ -81,7 +81,7 @@ public class StatisticsCollection
         stat_objects = new ArrayList<StatisticsObject>();
         this.base_item = base_item_in;
         this.m_da = da;
-        // this.decimal_handler = new
+        // this.decimalHandler = new
         // DecimalHandler(da.getMaxDecimalsUsedByDecimalHandler());
 
         if (this.base_item.weHaveSpecialActions())

@@ -2,6 +2,7 @@ package com.atech.misc.converter;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  This file is part of ATech Tools library.
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 public class DecimalHandler
 {
 
-    ArrayList<DecimalFormat> formaters = null;
+    List<DecimalFormat> formaters = null;
 
     /**
      * Constructor
@@ -61,15 +62,15 @@ public class DecimalHandler
     /**
      * Get Decimal As String
      * 
-     * @param dec_value
-     * @param decimal_places
+     * @param decimalValue
+     * @param decimalPlaces
      *
      * @deprecated Use getDecimalNumberAsString instead.
      * @return
      */
-    public String getDecimalAsString(float dec_value, int decimal_places)
+    public String getDecimalAsString(float decimalValue, int decimalPlaces)
     {
-        return formaters.get(decimal_places).format(dec_value);
+        return formaters.get(decimalPlaces).format(decimalValue);
     }
 
 

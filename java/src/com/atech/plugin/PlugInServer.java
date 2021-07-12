@@ -60,7 +60,7 @@ public abstract class PlugInServer
     protected ATDataAccessAbstract dataAccess;
 
     protected boolean installed = false;
-    protected I18nControlAbstract ic = null;
+    protected I18nControlAbstract i18nControl = null;
     protected Container parent = null;
     protected String selected_lang = "en";
     protected boolean backup_restore_enabled = false;
@@ -240,13 +240,14 @@ public abstract class PlugInServer
      */
     public void featureNotImplemented(String command_desc)
     {
-        String text = String.format(ic.getMessage("PLUGIN_NOT_INSTALLED_OR_AVAILABLE"), this.getName());
+        String text = String.format(i18nControl.getMessage("PLUGIN_NOT_INSTALLED_OR_AVAILABLE"), this.getName());
 
-        text += "\n\n'" + ic.getMessage(command_desc) + "' ";
-        text += String.format(ic.getMessage("IMPLEMENTED_VERSION"), this.getWhenWillBeImplemented());
+        text += "\n\n'" + i18nControl.getMessage(command_desc) + "' ";
+        text += String.format(i18nControl.getMessage("IMPLEMENTED_VERSION"), this.getWhenWillBeImplemented());
         text += "!\n\n";
 
-        JOptionPane.showMessageDialog(this.parent, text, ic.getMessage("INFORMATION"), JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this.parent, text, i18nControl.getMessage("INFORMATION"),
+            JOptionPane.INFORMATION_MESSAGE);
 
     }
 

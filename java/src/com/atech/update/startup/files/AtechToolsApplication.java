@@ -2,7 +2,7 @@ package com.atech.update.startup.files;
 
 import com.atech.update.config.ComponentEntry;
 import com.atech.update.config.UpdateConfiguration;
-import com.atech.update.startup.os.StartupOSAbstract;
+import com.atech.update.startup.os.OSType;
 
 /**
  *  This file is part of ATech Tools library.
@@ -43,10 +43,11 @@ public abstract class AtechToolsApplication extends StartupFileAbstract
      * @param uc
      * @param osa
      */
-    public AtechToolsApplication(UpdateConfiguration uc, StartupOSAbstract osa)
+    public AtechToolsApplication(UpdateConfiguration uc, OSType osa)
     {
         super(uc, osa);
     }
+
 
     /**
      * Get Class Path

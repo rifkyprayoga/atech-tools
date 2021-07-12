@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import com.atech.data.enums.InternalSettingInterface;
 import com.atech.data.mng.DataDefinitionEntry;
 import com.atech.data.mng.DataDefinitionManager;
+import com.atech.data.user_data_dir.UserDataDirectory;
 import com.atech.db.ext.ExtendedHandler;
 import com.atech.db.hibernate.HibernateDb;
 import com.atech.db.hibernate.HibernateObject;
@@ -122,17 +123,17 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     // settings
     public AbstractConfigurationContext configuration_context = null;
     public DbToolApplicationAbstract db_tool_app = null;
-    public Hashtable<String, PlugInClient> plugins;
+    public Map<String, PlugInClient> plugins;
     private UpdateConfiguration update_configuration = null;
     private static ExceptionHandling numberParsingExceptionHandling = ExceptionHandling.CATCH_EXCEPTION_WITH_STACK_TRACE;
     protected LanguageInfo m_lang_info;
     protected I18nControlAbstract m_i18n = null; // ATI18nControl.getInstance();
     protected Collator m_collator = null;
     protected HibernateDb hib_db = null;
-    protected DecimalHandler decimal_handler = null;
-    protected Hashtable<String, ExtendedHandler> extended_handlers = null;
-    protected Hashtable<String, ATechConverter> converters = new Hashtable<String, ATechConverter>();
-    protected Hashtable<String, String> sorters = new Hashtable<String, String>();
+    protected DecimalHandler decimalHandler = null;
+    protected Map<String, ExtendedHandler> extendedHandlers = null;
+    protected Map<String, ATechConverter> converters = new Hashtable<String, ATechConverter>();
+    protected Map<String, String> sorters = new Hashtable<String, String>();
     protected BackupRestoreCollection backupRestoreCollection = null;
     protected ObserverManager observerManager;
     protected Map<InternalSettingInterface, String> internalSetting;
@@ -147,13 +148,13 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
 
     // user management
     public String[] user_types = null;
-    public long current_user_id;
+    public int current_user_id;
     public boolean demo_version = false;
     protected UserH loggedUser = null;
     // protected ArrayList<User> all_users = null;
 
     // misc settings
-    public Hashtable<String, String> m_settings_ht = null;
+    public Map<String, String> m_settings_ht = null;
     public Color color_background;
     public Color color_foreground;
 
@@ -161,7 +162,7 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     JDialog m_dialog = null;
     JFrame main_parent = null;
     private long component_id_last = 0L;
-    protected ArrayList<Component> components = new ArrayList<Component>();
+    protected List<Component> components = new ArrayList<Component>();
     protected Container parent = null;
     public int main_parent_type = 1;
 
@@ -169,6 +170,7 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     protected DataDefinitionManager dataDefinitionManager = new DataDefinitionManager();
     protected static List<DialogCreator> dialogCreators = new ArrayList<DialogCreator>();
     protected UserManagement userManagement;
+    protected static UserDataDirectory userDataDirectory = UserDataDirectory.getInstance();
 
     /**
      * The graph_config. (?)
@@ -194,9 +196,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * This is DataAccess constructor; Since classes use Singleton Pattern,
      * constructor is protected and can be accessed only with getInstance()
      * method.
-     * 
-     * @param ic
      *
+     * @param ic
      */
     public ATDataAccessAbstract(I18nControlAbstract ic)
     {
@@ -212,7 +213,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         m_collator = this.m_i18n.getCollationDefintion();
         loadPlugIns();
         loadBackupRestoreCollection();
-        loadExtendedHandlers();
+        if (extendedHandlers == null)
+            loadExtendedHandlers();
 
         this.loadConfigurationContexts();
         this.loadDbApplicationContext();
@@ -222,14 +224,14 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         this.initUserManagement();
         this.initInternalSettings();
 
-        this.decimal_handler = new DecimalHandler(this.getMaxDecimalsUsedByDecimalHandler());
+        this.decimalHandler = new DecimalHandler(this.getMaxDecimalsUsedByDecimalHandler());
 
         // initSpecial();
     }
 
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     // ********************************************************
     // ****** Config Loader *****
@@ -268,20 +270,19 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      *
      * @param number the number
      * @param places the places
-     *
      * @return the leading zero
      */
-    public static String getLeadingZero(int number, int places)
-    {
-        String nn = "" + number;
-
-        while (nn.length() < places)
+        public static String getLeadingZero(int number, int places)
         {
-            nn = "0" + nn;
-        }
+            String nn = "" + number;
 
-        return nn;
-    }
+            while (nn.length() < places)
+            {
+                nn = "0" + nn;
+            }
+
+            return nn;
+        }
 
 
     public static String getGregorianCalendarAsDateString(GregorianCalendar gc)
@@ -305,10 +306,9 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * For replacing strings.<br>
      *
-     * @param input   Input String
-     * @param replace What to seatch for.
-     * @param replacement  What to replace with.
-     *
+     * @param input       Input String
+     * @param replace     What to seatch for.
+     * @param replacement What to replace with.
      * @return Parsed string.
      */
     public static String replaceExpression(String input, String replace, String replacement)
@@ -356,7 +356,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Checks if is empty or unset.
      *
      * @param val the val
-     *
      * @return true, if is empty or unset
      */
     public static boolean isEmptyOrUnset(String val)
@@ -371,9 +370,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Checks if is found.
      *
-     * @param text the text
+     * @param text       the text
      * @param search_str the search_str
-     *
      * @return true, if is found
      */
     public static boolean isFound(String text, String search_str)
@@ -406,6 +404,7 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
             return false;
     }
 
+
     // ********************************************************
     // ****** Help stuff *****
     // ********************************************************
@@ -418,7 +417,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * The Constant FONT_UPDATE_TREE_HEADER.
      */
     // public static final int FONT_UPDATE_TREE_HEADER = 5;
-
 
     /**
      * The Constant FONT_UPDATE_TREE_ITEM.
@@ -437,6 +435,7 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         return (value & value_we_check_for) == value_we_check_for;
     }
 
+
     // ********************************************************
     // ****** Parent handling (for UIs) *****
     // ********************************************************
@@ -454,7 +453,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * null;
      * }
      */
-
 
     // public ImageIcon getImageIcon(String image)
 
@@ -635,9 +633,9 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Creates the error dialog.
      *
-     * @param module the module
-     * @param action the action
-     * @param ex the ex
+     * @param module   the module
+     * @param action   the action
+     * @param ex       the ex
      * @param err_msg1 the err_msg1
      */
     public void createErrorDialog(String module, String action, Exception ex, String err_msg1)
@@ -649,10 +647,10 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Creates the error dialog.
      *
-     * @param module the module
-     * @param action the action
-     * @param ex the ex
-     * @param errorMessage the err_msg1
+     * @param module          the module
+     * @param action          the action
+     * @param ex              the ex
+     * @param errorMessage    the err_msg1
      * @param solutionMessage the err_msg2
      */
     public void createErrorDialog(String module, String action, Exception ex, String errorMessage,
@@ -666,8 +664,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         }
         else
         {
-            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module, action,
-                    ex, errorMessage, solutionMessage);
+            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module,
+                    action, ex, errorMessage, solutionMessage);
         }
     }
 
@@ -682,14 +680,14 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         }
         else
         {
-            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), null, null, ex,
-                    errorMessage, solutionMessage);
+            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), null, null,
+                    ex, errorMessage, solutionMessage);
         }
     }
 
 
-    public void createErrorDialog(Exception ex, String errorMessage, String errorMessageToolTip, String solutionMessage,
-            String solutionMessageToolTip)
+    public void createErrorDialog(Exception ex, String errorMessage, String errorMessageToolTip,
+            String solutionMessage, String solutionMessageToolTip)
     {
 
         if (this.getCurrentComponentParent() instanceof JFrame)
@@ -699,8 +697,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         }
         else
         {
-            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), null, null, ex,
-                    errorMessage, errorMessageToolTip, solutionMessage, solutionMessageToolTip);
+            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), null, null,
+                    ex, errorMessage, errorMessageToolTip, solutionMessage, solutionMessageToolTip);
         }
     }
 
@@ -716,8 +714,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         }
         else
         {
-            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module, action,
-                    ex, errorMessage, errorMessageToolTip, solutionMessage, solutionMessageToolTip);
+            new ErrorDialog((JDialog) this.getCurrentComponentParent(), this, this.getApplicationName(), module,
+                    action, ex, errorMessage, errorMessageToolTip, solutionMessage, solutionMessageToolTip);
         }
     }
 
@@ -832,7 +830,7 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Adds the plug in.
      *
-     * @param key the key
+     * @param key    the key
      * @param plugin the plugin
      */
     public void addPlugIn(String key, PlugInClient plugin)
@@ -840,13 +838,13 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         this.plugins.put(key, plugin);
     }
 
+
     /*
      * public static final int USER_NORMAL = 1; public static final int
      * USER_WORKER = 2; public static final int USER_ADMINISTRATOR = 3; public
      * static final int USER_SUPERADMINISTRATOR = 4;
      * public int user_type = 3;
      */
-
 
     /*
      * public int authorizeUser(String username, String password) {
@@ -861,7 +859,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the plug in.
      *
      * @param key the key
-     *
      * @return the plug in
      */
     public PlugInClient getPlugIn(String key)
@@ -901,7 +898,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Load property file.
      *
      * @param filename the filename
-     *
      * @return the hashtable< string, string>
      */
     public Hashtable<String, String> loadPropertyFile(String filename)
@@ -949,7 +945,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      *
      * @param filename the filename
      * @param codepage
-     *
      * @return the hashtable< string, string>
      */
     public Hashtable<String, String> loadPropertyFile(String filename, String codepage)
@@ -1023,7 +1018,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Checks if is db loaded for status.
      *
      * @param status the status
-     *
      * @return true, if is db loaded for status
      */
     public boolean isDbLoadedForStatus(int status)
@@ -1122,7 +1116,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      *
      * @param s1 the s1
      * @param s2 the s2
-     *
      * @return the int
      */
     public int compareUnicodeStrings(String s1, String s2)
@@ -1206,7 +1199,7 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
 
     /**
      * get Observer Manager.
-     * 
+     *
      * @return
      */
     public ObserverManager getObserverManager()
@@ -1299,7 +1292,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      *
      * @param number the number
      * @param places the places
-     *
      * @return the leading zero
      */
     public String getLeadingZero(String number, int places)
@@ -1318,10 +1310,9 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Parses the expression.
      *
-     * @param in the in
+     * @param in         the in
      * @param expression the expression
-     * @param replace the replace
-     *
+     * @param replace    the replace
      * @return the string
      */
     public String parseExpression(String in, String expression, String replace)
@@ -1361,10 +1352,9 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Parses the expression full.
      *
-     * @param in the in
+     * @param in         the in
      * @param expression the expression
-     * @param replace the replace
-     *
+     * @param replace    the replace
      * @return the string
      */
     public static String parseExpressionFull(String in, String expression, String replace)
@@ -1406,9 +1396,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Split string.
      *
-     * @param input the input
+     * @param input     the input
      * @param delimiter the delimiter
-     *
      * @return the string[]
      */
     public static String[] splitString(String input, String delimiter)
@@ -1443,7 +1432,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the gregorian calendar.
      *
      * @param date the date
-     *
      * @return the gregorian calendar
      */
     public GregorianCalendar getGregorianCalendar(Date date)
@@ -1458,17 +1446,16 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Gets the as localized date string.
      *
-     * @param gc_value the gc_value
+     * @param gc_value     the gc_value
      * @param years_digits the years_digits
-     *
      * @return the as localized date string
      */
     public String getAsLocalizedDateString(GregorianCalendar gc_value, int years_digits)
     {
         if (years_digits == 2)
         {
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
-                getI18nControlInstance().getSelectedLanguageLocale());
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance()
+                    .getSelectedLanguageLocale());
             return df.format(gc_value.getTime());
         }
         else
@@ -1478,8 +1465,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
             System.out.println("Time: " + gc_value.getTime());
 
             // TODO: fix this
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
-                getI18nControlInstance().getSelectedLanguageLocale());
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, getI18nControlInstance()
+                    .getSelectedLanguageLocale());
             return df.format(gc_value.getTime());
         }
     }
@@ -1489,9 +1476,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Compare gregorian calendars.
      *
      * @param type the type
-     * @param gc1 the gc1
-     * @param gc2 the gc2
-     *
+     * @param gc1  the gc1
+     * @param gc2  the gc2
      * @return true, if successful
      */
     public boolean compareGregorianCalendars(int type, GregorianCalendar gc1, GregorianCalendar gc2)
@@ -1538,7 +1524,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the float value.
      *
      * @param aValue the a value
-     *
      * @return the float value
      */
     public float getFloatValue(Object aValue)
@@ -1587,7 +1572,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the int value.
      *
      * @param aValue the a value
-     *
      * @return the int value
      */
     public int getIntValue(Object aValue)
@@ -1629,7 +1613,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the int value.
      *
      * @param aValue the a value
-     *
      * @return the int value
      */
     public boolean getBooleanValue(Object aValue)
@@ -1682,7 +1665,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the long value.
      *
      * @param aValue the a value
-     *
      * @return the long value
      */
     public long getLongValue(Object aValue)
@@ -1740,7 +1722,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the float value from string.
      *
      * @param aValue the a value
-     *
      * @return the float value from string
      */
     public float getFloatValueFromString(String aValue)
@@ -1752,9 +1733,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Gets the float value from string.
      *
-     * @param aValue the a value
+     * @param aValue    the a value
      * @param def_value the def_value
-     *
      * @return the float value from string
      */
     public float getFloatValueFromString(String aValue, float def_value)
@@ -1773,9 +1753,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Gets the float value from string, can also throw Exception
      *
-     * @param aValue the a value
+     * @param aValue    the a value
      * @param def_value the def_value
-     *
      * @return the float value from string
      */
     public float getFloatValueFromStringWithException(String aValue, float def_value) throws Exception
@@ -1835,7 +1814,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the int value from string.
      *
      * @param aValue the a value
-     *
      * @return the int value from string
      */
     public int getIntValueFromString(String aValue)
@@ -1848,7 +1826,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the int value from string.
      *
      * @param aValue the a value
-     *
      * @return the int value from string
      */
     public static int getIntValueFromStringWithoutException(String aValue, int defaultValue)
@@ -1864,7 +1841,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the int value from string.
      *
      * @param aValue the a value
-     *
      * @return the int value from string
      */
     public static int getIntValueFromString(String aValue, int defaultValue)
@@ -1884,7 +1860,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the int value from string.
      *
      * @param aValue the a value
-     *
      * @return the int value from string
      */
     public static int getIntValueFromString(String aValue, int defaultValue,
@@ -1904,9 +1879,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Gets the int value from string, can also throw Exception
      *
-     * @param aValue the a value
+     * @param aValue    the a value
      * @param def_value the def_value
-     *
      * @return the int value from string
      */
     public static int getIntValueFromStringWithException(String aValue, int def_value,
@@ -1937,7 +1911,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Gets the long value from string.
      *
      * @param aValue the a value
-     *
      * @return the long value from string
      */
     public long getLongValueFromString(String aValue)
@@ -1949,9 +1922,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * Gets the long value from string, can also throw Exception
      *
-     * @param aValue the a value
+     * @param aValue    the a value
      * @param def_value the def_value
-     *
      * @return the long value from string
      */
     public long getLongValueFromString(String aValue, long def_value)
@@ -1988,7 +1960,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Checks if is value set.
      *
      * @param val the val
-     *
      * @return true, if is value set
      */
     public boolean isValueSet(String val)
@@ -2033,7 +2004,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Make i18n keyword.
      *
      * @param input the input
-     *
      * @return the string
      */
     public static String makeI18nKeyword(String input)
@@ -2175,10 +2145,10 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         return this.m_lang_info;
     }
 
+
     // ********************************************************
     // ****** Sorters *****
     // ********************************************************
-
 
     // /**
     // * Gets the selected lang index.
@@ -2200,7 +2170,7 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      *
      * @return the plugins
      */
-    public Hashtable<String, PlugInClient> getPlugins()
+    public Map<String, PlugInClient> getPlugins()
     {
         return this.plugins;
     }
@@ -2233,14 +2203,14 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      */
     public DecimalHandler getDecimalHandler()
     {
-        return this.decimal_handler;
+        return this.decimalHandler;
     }
 
 
     /**
      * Load Extended Handlers. Database tables can contain extended field, which is of type text and can
-     *    contain a lot of other data, stored in this field, this is hanlder for that field. Each table,
-     *    would use different handler.
+     * contain a lot of other data, stored in this field, this is hanlder for that field. Each table,
+     * would use different handler.
      */
     public void loadExtendedHandlers()
     {
@@ -2255,9 +2225,9 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      */
     public ExtendedHandler getExtendedHandler(String key)
     {
-        if (this.extended_handlers.containsKey(key))
+        if (this.extendedHandlers.containsKey(key))
         {
-            ExtendedHandler extendedHandler = this.extended_handlers.get(key);
+            ExtendedHandler extendedHandler = this.extendedHandlers.get(key);
             // System.out.println("getExtendedHandler [key=" + key + ",
             // ExtendeedHandler: " + extendedHandler);
 
@@ -2279,12 +2249,12 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      */
     public void addExtendedHandler(String key, ExtendedHandler eh)
     {
-        if (this.extended_handlers == null)
+        if (this.extendedHandlers == null)
         {
-            this.extended_handlers = new Hashtable<String, ExtendedHandler>();
+            this.extendedHandlers = new HashMap<String, ExtendedHandler>();
         }
-        System.out.println("addExtendedHandler [key=" + key + ", ExtendeedHandler: " + eh);
-        this.extended_handlers.put(key, eh);
+        // System.out.println("addExtendedHandler [key=" + key + ", ExtendeedHandler: " + eh);
+        this.extendedHandlers.put(key, eh);
     }
 
 
@@ -2346,11 +2316,7 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
 
 
     /**
-     *
-     *
-     *
      * NEED TO IMPLEMENT IN USING CLASSES
-     *
      */
     public void loadConfigurationContexts()
     {
@@ -2368,11 +2334,7 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
 
 
     /**
-     *
-     *
-     *
      * NEED TO IMPLEMENT IN USING CLASSES
-     *
      */
     public void loadDbApplicationContext()
     {
@@ -2388,13 +2350,13 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     }
 
 
-    public long getCurrentUserId()
+    public int getCurrentUserId()
     {
         return this.current_user_id;
     }
 
 
-    public void setCurrentUserId(long user_id)
+    public void setCurrentUserId(int user_id)
     {
         this.current_user_id = user_id;
     }
@@ -2483,10 +2445,10 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         return this.demo_version;
     }
 
+
     // *****************************
     // *** User Management
     // *****************************
-
 
     protected void initUserManagement()
     {
@@ -2624,9 +2586,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
 
     /**
      * Get Developer mode flag
+     *
      * @return
-     *
-     *
      */
     public boolean getDeveloperMode()
     {
@@ -2636,9 +2597,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
 
     /**
      * Get Developer mode flag
+     *
      * @return
-     *
-     *
      */
     public boolean isDeveloperMode()
     {
@@ -2650,8 +2610,6 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * Set Developer mode
      *
      * @param dev_mode
-     *
-     *
      */
     public void setDeveloperMode(boolean dev_mode)
     {
@@ -2800,7 +2758,7 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     /**
      * This is for action treshold. Sometimes, action happens twice, this method can help with prevention of that. We need to have local variable tipe long
      * set with currentTimeMillis(). we add following code in start of action/item listner (action can have treshiold set directly, while tem listener can't).
-     *
+     * <p>
      * If true is returned we have passed treshold.
      *
      * @return
@@ -2837,12 +2795,17 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      *
      * @param root the root
      * @param name the name
-     *
      * @return the image icon
      */
     public ImageIcon getImageIcon(String root, String name)
     {
         return new ImageIcon(ATSwingUtils.getImage(root + name, this.getCurrentComponentParent()));
+    }
+
+
+    public ImageIcon getImageIcon(String name, int width, int height, Container parent)
+    {
+        return ATSwingUtils.getImageIcon(getImagesRoot(), name, width, height, parent);
     }
 
 
@@ -2909,10 +2872,14 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
 
     public String getGregorianCalendarAsString(GregorianCalendar gregorianCalendar)
     {
-        return getLeadingZero(gregorianCalendar.get(Calendar.DAY_OF_MONTH), 2) + "." //
-                + getLeadingZero((gregorianCalendar.get(Calendar.MONTH) + 1), 2) + "." //
-                + gregorianCalendar.get(Calendar.YEAR) + " " //
-                + getLeadingZero(gregorianCalendar.get(Calendar.HOUR_OF_DAY), 2) + ":" //
+        return getLeadingZero(gregorianCalendar.get(Calendar.DAY_OF_MONTH), 2)
+                + "." //
+                + getLeadingZero((gregorianCalendar.get(Calendar.MONTH) + 1), 2)
+                + "." //
+                + gregorianCalendar.get(Calendar.YEAR)
+                + " " //
+                + getLeadingZero(gregorianCalendar.get(Calendar.HOUR_OF_DAY), 2)
+                + ":" //
                 + getLeadingZero(gregorianCalendar.get(Calendar.MINUTE), 2) + ":"
                 + getLeadingZero(gregorianCalendar.get(Calendar.SECOND), 2);
 
@@ -2992,10 +2959,10 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         return this.graphDbDataRetriever;
     }
 
+
     // -------------------------------------------------------
     // --- Look and Feel Override
     // -------------------------------------------------------
-
 
     public static SkinManager getSkinManager()
     {
@@ -3013,8 +2980,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     public void addDisplayManagerEntry(Class<? extends HibernateObject> clazz,
             SelectorConfiguration selectorConfiguration, DatabaseTableConfiguration databaseTableConfiguration)
     {
-        this.dataDefinitionManager
-                .addEntry(new DataDefinitionEntry(clazz, selectorConfiguration, databaseTableConfiguration));
+        this.dataDefinitionManager.addEntry(new DataDefinitionEntry(clazz, selectorConfiguration,
+                databaseTableConfiguration));
     }
 
 
@@ -3059,7 +3026,7 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
      * which is actually implemented in atech-tools library and we have HelpId, which will be different for
      * each application, so in dialog HelpId is specified as internal setting with key 'Help.Settings.UserAddEdit',
      * which will then resolve to different value for each application.
-     *
+     * <p>
      * Each possible value, needs to be defined in InternalSetting and initialized by each application (that needs it) in
      * initInternalSettings method.
      *
@@ -3073,5 +3040,13 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
 
 
     protected abstract void initInternalSettings();
+
+
+
+    public UserDataDirectory getUserDataDirectory()
+    {
+        return userDataDirectory;
+    }
+
 
 }

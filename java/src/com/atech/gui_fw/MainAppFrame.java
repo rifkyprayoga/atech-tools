@@ -92,16 +92,19 @@ public class MainAppFrame extends JFrame // implements ActionListener
      * Set Look & Feel
      * @param data 
      */
-    public void setLookAndFeel(String[] data)
+    public boolean setLookAndFeel(String[] data)
     {
 
         try
         {
 
+            if (System.getProperty("os.name").startsWith("Mac")) // Yields "Mac OS X"
+                return false;
+
             // String data[] = null; //ATDataAccess.getLFData();
 
             if (data == null)
-                return;
+                return false;
             else
             {
                 if (data[0].equals("com.l2fprod.gui.plaf.skin.SkinLookAndFeel"))
@@ -124,6 +127,8 @@ public class MainAppFrame extends JFrame // implements ActionListener
         {
             System.err.println("Error loading L&F: " + ex);
         }
+
+        return true;
 
     }
 
@@ -158,8 +163,8 @@ public class MainAppFrame extends JFrame // implements ActionListener
         {
             setLookAndFeel(this.app_context.getDataAccess().getDbToolAbstract().getLFData());
 
-            JFrame.setDefaultLookAndFeelDecorated(true);
-            JDialog.setDefaultLookAndFeelDecorated(true);
+            // JFrame.setDefaultLookAndFeelDecorated(true);
+            // JDialog.setDefaultLookAndFeelDecorated(true);
         }
 
         // this.setTitle(app_ctx.getTitle());

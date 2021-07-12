@@ -59,7 +59,7 @@ public class ConfigUserDialog extends StandardDialogForObject
 {
 
     private static final long serialVersionUID = 4132176317440765520L;
-    // I18nControlAbstract ic = null; // I18nControl.getInstance();
+    // I18nControlAbstract i18nControl = null; // I18nControl.getInstance();
     // ATDataAccessAbstract m_da = null;
     Font font_big, font_normal, font_normal_b;
     int m_error = 0;
@@ -142,7 +142,7 @@ public class ConfigUserDialog extends StandardDialogForObject
 
         // this.m_acc = acc;
         // this.m_da = da;
-        // this.ic = da.getI18nControlInstance();
+        // this.i18nControl = da.getI18nControlInstance();
         // this.m_da.addComponent(this);
 
         String ev = "";
@@ -209,7 +209,7 @@ public class ConfigUserDialog extends StandardDialogForObject
 
         // // this.m_acc = acc;
         // this.m_da = dataAccess;
-        // this.ic = dataAccess.getI18nControlInstance();
+        // this.i18nControl = dataAccess.getI18nControlInstance();
         // this.m_da.addComponent(this);
         //
         // String ev = "";

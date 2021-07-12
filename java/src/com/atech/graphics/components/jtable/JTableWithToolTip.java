@@ -7,9 +7,7 @@ import javax.swing.*;
 
 import org.apache.commons.lang.StringUtils;
 
-/**
- * Created by andy on 26.09.15.
- */
+
 public class JTableWithToolTip extends JTable
 {
 

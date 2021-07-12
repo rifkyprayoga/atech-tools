@@ -5,7 +5,7 @@ import java.util.*;
 
 import org.dom4j.Node;
 
-import com.atech.update.startup.os.StartupOSAbstract;
+import com.atech.update.startup.os.OSType;
 import com.atech.utils.xml.XmlUtil;
 
 /**
@@ -230,7 +230,7 @@ public class ComponentEntry implements ComponentInterface
      * @param os_abs StartupOSAbstract instance
      * @return
      */
-    public String getFiles(StartupOSAbstract os_abs)
+    public String getFiles(OSType os_abs)
     {
         StringBuffer sb = new StringBuffer();
         sb.append(this.files);

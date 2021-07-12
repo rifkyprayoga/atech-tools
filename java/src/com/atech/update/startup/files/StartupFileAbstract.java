@@ -1,15 +1,17 @@
 package com.atech.update.startup.files;
 
+import com.atech.data.user_data_dir.UserDataDirectory;
 import com.atech.update.config.ComponentEntry;
 import com.atech.update.config.UpdateConfiguration;
 import com.atech.update.startup.StartupUtil;
-import com.atech.update.startup.os.StartupOSAbstract;
+import com.atech.update.startup.data.StartupTypeDefinition;
+import com.atech.update.startup.os.OSType;
 
 /**
  *  This file is part of ATech Tools library.
  *  
  *  StartupFileAbstract - this is abstract class for all batch files
- *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
+ *  Copyright (C) 2008-18  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
@@ -39,18 +41,20 @@ public abstract class StartupFileAbstract
 {
 
     UpdateConfiguration upd_conf;
-    StartupOSAbstract os_abstract;
+    OSType osType;
 
+
+    // UserDataDirectory userDataDirectory;
 
     /**
      * Constructor
      * 
      * @param uc
-     * @param osa
+     * @param osType
      */
-    public StartupFileAbstract(UpdateConfiguration uc, StartupOSAbstract osa)
+    public StartupFileAbstract(UpdateConfiguration uc, OSType osType)
     {
-        this.os_abstract = osa;
+        this.osType = osType;
         this.upd_conf = uc;
     }
 
@@ -90,7 +94,7 @@ public abstract class StartupFileAbstract
     {
         StringBuffer sb = new StringBuffer();
 
-        sb.append(this.os_abstract.getHeader());
+        sb.append(this.osType.getHeader());
 
         sb.append(this.upd_conf.java_exe);
 
@@ -105,14 +109,14 @@ public abstract class StartupFileAbstract
         }
 
         sb.append(" -classpath ");
-        sb.append("." + this.os_abstract.getSeparator());
+        sb.append("." + this.osType.getPathSeparator());
         sb.append(this.getClassPath());
 
         if (this.needsJdbcDrivers())
         {
-            sb.append(this.os_abstract.getSeparator());
+            sb.append(this.osType.getPathSeparator());
 
-            String ret = StartupUtil.replaceExpression(this.upd_conf.jdbc_files, ";", this.os_abstract.getSeparator());
+            String ret = StartupUtil.replaceExpression(this.upd_conf.jdbc_files, ";", this.osType.getPathSeparator());
             sb.append(ret);
         }
 
@@ -125,7 +129,7 @@ public abstract class StartupFileAbstract
             sb.append(this.getApplicationParameters());
         }
 
-        sb.append(this.os_abstract.getFooter());
+        // sb.append(this.osType.getFooter());
 
         return sb.toString();
     }
@@ -165,7 +169,7 @@ public abstract class StartupFileAbstract
 
         for (int i = 1; i <= cnt; i++)
         {
-            sb.append(this.os_abstract.getCustomParameter() + i);
+            sb.append(this.osType.getCustomParameter() + i);
             sb.append(" ");
         }
 
@@ -186,7 +190,7 @@ public abstract class StartupFileAbstract
 
     protected String parseRoot(String path, String full_string)
     {
-        full_string = full_string.replaceAll(";", this.os_abstract.getSeparator());
+        full_string = full_string.replaceAll(";", this.osType.getPathSeparator());
         return full_string.replaceAll("%ROOT%", path);
     }
 
@@ -213,7 +217,7 @@ public abstract class StartupFileAbstract
      */
     public String getBinaryPath()
     {
-        return "-Djava.library.path=" + this.upd_conf.root + "/lib/native/" + this.os_abstract.getShortOSName();
+        return "-Djava.library.path=" + this.upd_conf.root + "/lib/native/" + this.osType.getShortOSName();
     }
 
 
@@ -248,12 +252,12 @@ public abstract class StartupFileAbstract
     {
         String prefix = "";
 
-        if (this.os_abstract.getStartupType() == 2)
+        if (UserDataDirectory.getInstance().getApplicationStartupConfig().getStartupType() != StartupTypeDefinition.LegacyStartup)
         {
             prefix = "./ext/";
         }
 
-        return prefix + getNameOfFile() + "." + this.os_abstract.getBatchFileExtension();
+        return prefix + getNameOfFile() + "." + this.osType.getBatchFileExtension();
     }
 
 

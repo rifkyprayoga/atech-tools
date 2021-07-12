@@ -2,9 +2,9 @@ package com.atech.tools.pdf;
 
 import java.text.MessageFormat;
 import java.util.Locale;
-import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.Map.Entry;
 
 import javax.swing.*;
 
@@ -100,6 +100,8 @@ public class IcePdfViewer
         }
 
         propertiesManager.setBoolean("org.icepdf.core.verbose", false);
+        propertiesManager.setInt("application.x", 50);
+        propertiesManager.setInt("application.y", 50);
 
         new FontPropertiesManager(propertiesManager, sysProps, activeLanguageBundle);
 

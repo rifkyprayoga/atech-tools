@@ -143,7 +143,7 @@ public abstract class AbstractConfigurationManager
         s.setDescription(m_da.getI18nControlInstance().getMessage("CFG_" + name));
         s.setType(parameterType);
         s.setValue(defaultValue);
-        s.setPerson_id((int) m_da.getCurrentUserId());
+        s.setPersonId((int) m_da.getCurrentUserId());
 
         db.add(s);
 

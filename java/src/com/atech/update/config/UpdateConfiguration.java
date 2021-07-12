@@ -2,10 +2,9 @@ package com.atech.update.config;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.StringTokenizer;
+import java.util.*;
 
+import com.atech.data.user_data_dir.UserDataDirectory;
 import com.atech.update.startup.StartupUtil;
 
 // TODO: Auto-generated Javadoc
@@ -44,22 +43,22 @@ public class UpdateConfiguration
     /**
      * Configuration
      */
-    Hashtable<String, String> cfg;
+    Map<String, String> cfg;
 
     /**
      * Components.
      */
-    ArrayList<ComponentEntry> components = new ArrayList<ComponentEntry>();
+    List<ComponentEntry> components = new ArrayList<ComponentEntry>();
 
     /**
      * Components HashTable.
      */
-    public Hashtable<String, ComponentEntry> components_ht = new Hashtable<String, ComponentEntry>();
+    public Map<String, ComponentEntry> components_ht = new HashMap<String, ComponentEntry>();
 
     /**
      * Group.
      */
-    public Hashtable<String, ComponentGroup> groups = new Hashtable<String, ComponentGroup>();
+    public Map<String, ComponentGroup> groups = new HashMap<String, ComponentGroup>();
 
     /**
      * Product Id
@@ -158,8 +157,14 @@ public class UpdateConfiguration
     public UpdateConfiguration()
     {
         // dataAccess = ATDataAccess.getInstance();
-        Hashtable<String, String> cfg_1 = StartupUtil.getConfiguration("StartupConfig.properties");
-        init(cfg_1.get("UPDATE_CONFIG"), cfg_1.get("JAVA_EXE"));
+        // Map<String, String> cfg_1 =
+
+        // ApplicationStartupConfigDto applicationStartupConfig =
+        // StartupUtil.getApplicationStartupConfig();
+
+        UserDataDirectory userDataDirectory = UserDataDirectory.getInstance();
+
+        init(userDataDirectory.getUpdateConfig(), userDataDirectory.getApplicationStartupConfig().getJavaExe());
     }
 
 
@@ -284,7 +289,7 @@ public class UpdateConfiguration
      */
     public boolean loadConfiguration(String upd_cfg_file)
     {
-        this.cfg = StartupUtil.getConfiguration(upd_cfg_file);
+        this.cfg = StartupUtil.getConfigurationFile(upd_cfg_file);
 
         boolean found = true;
 
@@ -536,7 +541,7 @@ public class UpdateConfiguration
      * 
      * @return the array list< component entry>
      */
-    public ArrayList<ComponentEntry> getComponents()
+    public List<ComponentEntry> getComponents()
     {
         return this.components;
     }

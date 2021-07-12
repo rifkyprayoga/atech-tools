@@ -1,7 +1,6 @@
 package com.atech.i18n.tool.simple.data;
 
 import java.io.File;
-import java.util.Enumeration;
 import java.util.Hashtable;
 
 import org.slf4j.Logger;
@@ -311,9 +310,9 @@ public class DataListProcessor
         int idx = -1;
         String key_sub;
 
-        for (Enumeration<String> en = pp.keys(); en.hasMoreElements();)
+        for (String key : pp.keySet())
         {
-            String key = en.nextElement();
+            //String key = en.nextElement();
 
             if (key.contains("__DESCRIPTION"))
             {
@@ -351,9 +350,9 @@ public class DataListProcessor
 
         LOG.debug("   Was file read: " + pp.wasFileRead());
 
-        for (Enumeration<String> en = pp.keys(); en.hasMoreElements();)
+        for (String key : pp.keySet())
         {
-            String key = en.nextElement();
+            //String key = en.nextElement();
 
             if (this.tra_data.containsKey(key))
             {
@@ -580,9 +579,9 @@ public class DataListProcessor
         int idx = -1;
         String key_sub = "";
 
-        for (Enumeration<String> en = pp.keys(); en.hasMoreElements();)
+        for (String key : pp.keySet())
         {
-            String key = en.nextElement();
+            //String key = en.nextElement();
 
             if (key.contains("__STATUS"))
             {

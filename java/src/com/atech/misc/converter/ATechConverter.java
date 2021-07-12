@@ -36,26 +36,26 @@ import java.util.Hashtable;
 public abstract class ATechConverter
 {
 
-    boolean m_debug = false;
+    protected boolean m_debug = false;
 
     /**
      * The decimal_formaters.
      */
     public static Hashtable<Integer, DecimalFormat> decimal_formaters = null;
 
-    private Hashtable<Integer, String> units = null;
+    protected Hashtable<Integer, String> units = null;
 
-    private int unit_1 = 1;
-    private int unit_2 = 2;
+    protected int unit_1 = 1;
+    protected int unit_2 = 2;
 
-    private int unit1_type = 1;
-    private int unit2_type = 1;
+    protected int unit1_type = 1;
+    protected int unit2_type = 1;
 
-    private int unit1_type_precission = 0;
-    private int unit2_type_precission = 1;
+    protected int unit1_type_precission = 0;
+    protected int unit2_type_precission = 0;
 
-    private float unit1_to_unit2_factor = 0.0f;
-    private float unit2_to_unit1_factor = 0.0f;
+    protected Float unit1_to_unit2_factor = 1.0f;
+    protected Float unit2_to_unit1_factor = 1.0f;
 
     /**
      * The Constant BASETYPE_INT.
@@ -72,6 +72,7 @@ public abstract class ATechConverter
      */
     public int configured_type = 1;
 
+
     /**
      * Instantiates a new a tech converter.
      * @param U1
@@ -86,7 +87,7 @@ public abstract class ATechConverter
      * @param dec_precission_U2
      */
     public ATechConverter(int U1, int U2, int U1_type, int U2_type, String U1_unit, String U2_unit,
-            float convert_1_to_2, float convert_2_to_1, int dec_precission_U1, int dec_precission_U2)
+            Float convert_1_to_2, Float convert_2_to_1, int dec_precission_U1, int dec_precission_U2)
     {
         units = new Hashtable<Integer, String>();
         this.unit_1 = U1;
@@ -102,6 +103,7 @@ public abstract class ATechConverter
 
         createDecimalFormaters(Math.max(this.unit1_type_precission, this.unit2_type_precission));
     }
+
 
     /**
      * Get BG Value By Type
@@ -228,13 +230,15 @@ public abstract class ATechConverter
 
     }
 
-    private void debug(String value)
+
+    protected void debug(String value)
     {
         if (m_debug)
         {
             System.out.println(value);
         }
     }
+
 
     /**
      * Get Decimaled Float
@@ -247,6 +251,7 @@ public abstract class ATechConverter
     {
         return Float.parseFloat(getFormatedFloat(num, precission).replace(',', '.'));
     }
+
 
     /**
      * Get Step
@@ -289,6 +294,7 @@ public abstract class ATechConverter
         else
             return 1;
     }
+
 
     /*
      * public float getBGValueByTypeXAX(int input_type, int output_type, float
@@ -362,6 +368,7 @@ public abstract class ATechConverter
             return this.unit_2;
     }
 
+
     /**
      * Get Unit
      *
@@ -376,6 +383,7 @@ public abstract class ATechConverter
             return "";
     }
 
+
     /**
      * Get Value Different
      *
@@ -387,6 +395,7 @@ public abstract class ATechConverter
     {
         return this.getValueByType(type, getDifferentType(type), value);
     }
+
 
     /**
      * Creates the decimal formaters.
@@ -408,6 +417,7 @@ public abstract class ATechConverter
 
     }
 
+
     /**
      * Gets the formated float.
      *
@@ -420,6 +430,7 @@ public abstract class ATechConverter
     {
         return decimal_formaters.get(decimals).format(value);
     }
+
 
     /**
      * Gets the formated double.
@@ -434,6 +445,7 @@ public abstract class ATechConverter
         return decimal_formaters.get(decimals).format(value);
     }
 
+
     /**
      * Gets the configured type.
      *
@@ -443,6 +455,7 @@ public abstract class ATechConverter
     {
         return this.configured_type;
     }
+
 
     /**
      * Sets the configured type.

@@ -14,6 +14,7 @@ import com.atech.graphics.layout.TableLayoutUtil;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATDataAccessAbstract;
 import com.atech.utils.ATSwingUtils;
+
 import info.clearthought.layout.TableLayout;
 
 /**
@@ -285,7 +286,7 @@ public class JListControler extends JPanel implements ActionListener
 
 
     /**
-     * Populates JList component
+     * Populates CheckBoxList component
      */
     public void populateJListExtended()
     {

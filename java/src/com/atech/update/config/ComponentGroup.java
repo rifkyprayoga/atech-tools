@@ -2,6 +2,7 @@ package com.atech.update.config;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  *  This file is part of ATech Tools library.
@@ -49,7 +50,7 @@ public class ComponentGroup implements ComponentInterface
     /**
      * Children
      */
-    public ArrayList<ComponentEntry> children;
+    public List<ComponentEntry> children;
 
     /**
      * Children By Id 
@@ -61,6 +62,7 @@ public class ComponentGroup implements ComponentInterface
      */
     public Hashtable<String, String> children_map_id_name;
 
+
     /**
      * Constructor
      */
@@ -70,6 +72,7 @@ public class ComponentGroup implements ComponentInterface
         this.children_id = new Hashtable<String, ComponentEntry>();
         this.children_map_id_name = new Hashtable<String, String>();
     }
+
 
     /**
      * Constructor
@@ -87,6 +90,7 @@ public class ComponentGroup implements ComponentInterface
         this.children_map_id_name = new Hashtable<String, String>();
     }
 
+
     /**
      * Constructor
      * 
@@ -103,6 +107,7 @@ public class ComponentGroup implements ComponentInterface
         this.children_map_id_name = new Hashtable<String, String>();
     }
 
+
     /**
      * Add Child
      * 
@@ -115,6 +120,7 @@ public class ComponentGroup implements ComponentInterface
         this.children_map_id_name.put(ce.name, "" + ce.id);
     }
 
+
     /**
      * Children Count
      * 
@@ -124,6 +130,7 @@ public class ComponentGroup implements ComponentInterface
     {
         return this.children.size();
     }
+
 
     /**
      * Get Child At
@@ -135,6 +142,7 @@ public class ComponentGroup implements ComponentInterface
     {
         return this.children.get(index);
     }
+
 
     /** 
      * Get Column Value
@@ -150,6 +158,7 @@ public class ComponentGroup implements ComponentInterface
             return "";
     }
 
+
     /** 
      * Is Element Group
      * @return true if element is group
@@ -158,6 +167,7 @@ public class ComponentGroup implements ComponentInterface
     {
         return true;
     }
+
 
     @Override
     public String toString()

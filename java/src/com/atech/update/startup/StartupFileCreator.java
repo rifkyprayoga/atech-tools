@@ -32,7 +32,7 @@ import com.atech.update.config.UpdateConfiguration;
  *  @author Andy {andy@atech-software.com}
  *
 */
-
+@Deprecated
 public class StartupFileCreator
 {
 

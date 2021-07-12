@@ -77,6 +77,12 @@ public class ExtendedEnumHandler<E extends ExtendedEnumType> implements Extended
             while (strtok.hasMoreTokens())
             {
                 String val = strtok.nextToken();
+
+                if (!val.contains("="))
+                {
+                    continue;
+                }
+
                 String[] splittedValue = val.split("=");
 
                 if (enumValuesDefinition.useI18nKey())
@@ -107,9 +113,12 @@ public class ExtendedEnumHandler<E extends ExtendedEnumType> implements Extended
         StringBuffer sb = new StringBuffer();
         boolean found = false;
 
+        //System.out.println("all: " + this.enumValuesDefinition.getAllValues());
+
         for (ExtendedEnumType enumEntry : this.enumValuesDefinition.getAllValues())
         {
-            if (extendedMap.containsKey(enumEntry.getI18nKey()))
+// if (extendedMap.containsKey(enumEntry.getI18nKey()))
+            if (extendedMap.containsKey(enumEntry))
             {
                 if (enumValuesDefinition.useI18nKey())
                     sb.append(enumEntry.getI18nKey() + "=" + extendedMap.get(enumEntry) + extendedDivider);
@@ -119,6 +128,8 @@ public class ExtendedEnumHandler<E extends ExtendedEnumType> implements Extended
                 found = true;
             }
         }
+
+        //System.out.println("sb: " + this.enumValuesDefinition.getAllValues());
 
         if (found)
         {

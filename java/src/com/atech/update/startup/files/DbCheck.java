@@ -1,7 +1,7 @@
 package com.atech.update.startup.files;
 
 import com.atech.update.config.UpdateConfiguration;
-import com.atech.update.startup.os.StartupOSAbstract;
+import com.atech.update.startup.os.OSType;
 
 /**
  *  This file is part of ATech Tools library.
@@ -42,7 +42,7 @@ public class DbCheck extends DbApplicationAbstract
      * @param uc
      * @param osa
      */
-    public DbCheck(UpdateConfiguration uc, StartupOSAbstract osa)
+    public DbCheck(UpdateConfiguration uc, OSType osa)
     {
         super(uc, osa);
     }

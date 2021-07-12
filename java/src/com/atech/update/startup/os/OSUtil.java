@@ -76,6 +76,116 @@ public class OSUtil
     }
 
 
+    public static OSType getStartupOS(boolean printNotSupported)
+    {
+
+        OSType type = OSType.getOSByType();
+
+        return type;
+
+        // String os_name = System.getProperty("os.name");
+        //
+        // // System.out.println("Found OS: " + os_name);
+        //
+        // if (os_name.contains("Linux"))
+        // {
+        // return new LinuxStartupOS();
+        // }
+        // else if (os_name.contains("FreeBSD"))
+        // {
+        // return new FreeBSDStartupOS();
+        // }
+        // else if (os_name.contains("Win"))
+        // {
+        // return new WindowsStartupOS();
+        // }
+        // else if (os_name.contains("Mac"))
+        // {
+        // return new MacStartupOS();
+        // }
+        // else
+        // {
+        // if (printNotSupported)
+        // printNotSupported(os_name);
+        //
+        // return null;
+        // }
+
+    }
+
+
+    /*
+     * os.name os.version os.arch Comments
+     * OS/2 20.40 x86
+     * Solaris 2.x sparc
+     * SunOS 5.7 sparc Sun Ultra 5 running Solaris 2.7
+     * SunOS 5.8 sparc Sun Ultra 2 running Solaris 8
+     * SunOS 5.9 sparc Java(TM) 2 Runtime Environment, Standard Edition (build 1.4.0_01-b03)
+     * Java HotSpot(TM) Client VM (build 1.4.0_01-b03, mixed mode)
+     * MPE/iX C.55.00 PA-RISC
+     * HP-UX B.10.20 PA-RISC JDK 1.1.x
+     * HP-UX B.11.00 PA-RISC JDK 1.1.x
+     * HP-UX B.11.11 PA-RISC JDK 1.1.x
+     * HP-UX B.11.11 PA_RISC JDK 1.2.x/1.3.x; note Java 2 returns PA_RISC and Java 1 returns PA-RISC
+     * HP-UX B.11.00 PA_RISC JDK 1.2.x/1.3.x
+     * HP-UX B.11.23 IA64N JDK 1.4.x
+     * HP-UX B.11.11 PA_RISC2.0 JDK 1.3.x or JDK 1.4.x, when run on a PA-RISC 2.0 system
+     * HP-UX B.11.11 PA_RISC JDK 1.2.x, even when run on a PA-RISC 2.0 system
+     * HP-UX B.11.11 PA-RISC JDK 1.1.x, even when run on a PA-RISC 2.0 system
+     * AIX 5.2 ppc64 sun.arch.data.model=64
+     * AIX 4.3 Power
+     * AIX 4.1 POWER_RS
+     * OS/390 390 02.10.00 J2RE 1.3.1 IBM OS/390 Persistent Reusable VM
+     * Irix 6.3 mips
+     * Digital Unix 4.0 alpha
+     * NetWare 4.11 4.11 x86
+     * OSF1 V5.1 alpha Java 1.3.1 on Compaq (now HP) Tru64 Unix V5.1
+     * OpenVMS V7.2-1 alpha Java 1.3.1_1 on OpenVMS 7.2
+     * === DONE ===
+     * FreeBSD 2.2.2-RELEASE x86
+     * Linux 2.0.31 x86 IBM Java 1.3
+     * Linux (*) i386 Sun Java 1.3.1, 1.4 or Blackdown Java; (*) os.version
+     * depends on Linux Kernel version
+     * Linux (*) x86_64 Blackdown Java; note x86_64 might change to amd64;
+     * (*) os.version depends on Linux Kernel version
+     * Linux (*) sparc Blackdown Java; (*) os.version depends on Linux
+     * Kernel version
+     * Linux (*) ppc Blackdown Java; (*) os.version depends on Linux Kernel
+     * version
+     * Linux (*) armv41 Blackdown Java; (*) os.version depends on Linux
+     * Kernel version
+     * Linux (*) i686 GNU Java Compiler (GCJ); (*) os.version depends on
+     * Linux Kernel version
+     * Linux (*) ppc64 IBM Java 1.3; (*) os.version depends on Linux Kernel
+     * version
+     * Mac OS 7.5.1 PowerPC
+     * Mac OS 8.1 PowerPC
+     * Mac OS 9.0, 9.2.2 PowerPC MacOS 9.0: java.version=1.1.8,
+     * mrj.version=2.2.5; MacOS 9.2.2: java.version=1.1.8 mrj.version=2.2.5
+     * Mac OS X 10.1.3 ppc
+     * Mac OS X 10.2.6 ppc Java(TM) 2 Runtime Environment, Standard Edition
+     * (build 1.4.1_01-39)
+     * Java HotSpot(TM) Client VM (build 1.4.1_01-14, mixed mode)
+     * Mac OS X 10.2.8 ppc using 1.3 JVM: java.vm.version=1.3.1_03-74,
+     * mrj.version=3.3.2; using 1.4 JVM: java.vm.version=1.4.1_01-24,
+     * mrj.version=69.1
+     * Mac OS X 10.3.1, 10.3.2, 10.3.3, 10.3.4 ppc JDK 1.4.x
+     * Mac OS X 10.3.8 ppc Mac OS X 10.3.8 Server; using 1.3 JVM:
+     * java.vm.version=1.3.1_03-76, mrj.version=3.3.3; using 1.4 JVM:
+     * java.vm.version=1.4.2-38; mrj.version=141.3
+     * Windows 95 4.0 x86
+     * Windows 98 4.10 x86 Note, that if you run Sun JDK 1.2.1 or 1.2.2
+     * Windows 98 identifies itself as Windows 95.
+     * Windows Me 4.90 x86
+     * Windows NT 4.0 x86
+     * Windows 2000 5.0 x86
+     * Windows XP 5.1 x86 Note, that if you run older Java runtimes Windows
+     * XP identifies itself as Windows 2000.
+     * Windows 2003 5.2 x86 java.vm.version=1.4.2_06-b03; Note, that Windows
+     * Server 2003 identifies itself only as Windows 2003.
+     * Windows CE 3.0 build 11171 arm Compaq iPAQ 3950 (PocketPC 2002)
+     */
+
     /**
      * Get OS Specific Configuration File
      * 
@@ -90,11 +200,56 @@ public class OSUtil
 
         File f = new File(osConfigFilename);
 
-        if (f.exists())
-            return osConfigFilename;
-        else
-            return defaultConfigFilename;
+        String[] files = new String[] { osConfigFilename, //
+                                       "./ext/" + osConfigFilename, //
+                                       defaultConfigFilename, //
+                                       "./ext/" + defaultConfigFilename };
 
+        for (String fileName : files)
+        {
+            if (fileExists(fileName))
+            {
+                return fileName;
+            }
+        }
+
+        return defaultConfigFilename;
+
+    }
+
+
+    public static boolean fileExists(String fileName)
+    {
+        File f = new File(fileName);
+
+        return f.exists();
+    }
+
+
+    public static OSArchitecture getOSArchitecture()
+    {
+        String arch = System.getProperty("os.arch");
+
+        OSArchitecture archType = OSArchitecture.getByDefinitionName(arch);
+
+        if (archType == OSArchitecture.Unknown)
+        {
+            System.out.println("Unknown architecture: " + arch);
+        }
+
+        return archType;
+    }
+
+
+    private static void printNotSupported(String osName)
+    {
+        System.out.println("This Operating System (" + osName + ") is not yet supported "
+                + "\nby ATech's Startup/Update Manager.");
+        System.out.println("If you wish to help us with support for your OS, please contact support");
+        System.out.println("for your application and supply them with following information: ");
+        System.out.println("  OS Name: " + System.getProperty("os.name"));
+        System.out.println("  OS Version: " + System.getProperty("os.version"));
+        System.out.println("  OS Architecture: " + System.getProperty("os.arch"));
     }
 
 }

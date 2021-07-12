@@ -47,4 +47,10 @@ public enum ATechDateType
         return mapByCode.get(code);
     }
 
+
+    public boolean isTimeOnly()
+    {
+        return ((this == TimeOnlyMin) || (this == TimeOnlySec) || (this == TimeOnlyMSec));
+    }
+
 }

@@ -59,16 +59,17 @@ public class SettingsH implements Serializable
     private String description;
 
     /** persistent field. */
-    private long group_id;
+    private long groupId;
 
     /** persistent field. */
-    private long person_id;
+    private long personId;
 
     /** nullable persistent field. */
     private String extended;
 
     /** nullable persistent field. */
     private String comment;
+
 
     /**
      * full constructor.
@@ -97,11 +98,12 @@ public class SettingsH implements Serializable
         this.value = value;
         this.type = type;
         this.description = description;
-        this.group_id = group_id;
-        this.person_id = person_id;
+        this.groupId = group_id;
+        this.personId = person_id;
         this.extended = extended;
         this.comment = comment;
     }
+
 
     /**
      * default constructor.
@@ -109,6 +111,7 @@ public class SettingsH implements Serializable
     public SettingsH()
     {
     }
+
 
     /**
      * minimal constructor.
@@ -123,9 +126,10 @@ public class SettingsH implements Serializable
     public SettingsH(String key, long group_id, long person_id)
     {
         this.key = key;
-        this.group_id = group_id;
-        this.person_id = person_id;
+        this.groupId = group_id;
+        this.personId = person_id;
     }
+
 
     /**
      * Gets the id.
@@ -136,6 +140,7 @@ public class SettingsH implements Serializable
     {
         return this.id;
     }
+
 
     /**
      * Sets the id.
@@ -148,6 +153,7 @@ public class SettingsH implements Serializable
         this.id = id;
     }
 
+
     /**
      * Gets the key.
      * 
@@ -157,6 +163,7 @@ public class SettingsH implements Serializable
     {
         return this.key;
     }
+
 
     /**
      * Sets the key.
@@ -169,6 +176,7 @@ public class SettingsH implements Serializable
         this.key = key;
     }
 
+
     /**
      * Gets the value.
      * 
@@ -178,6 +186,7 @@ public class SettingsH implements Serializable
     {
         return this.value;
     }
+
 
     /**
      * Sets the value.
@@ -190,6 +199,7 @@ public class SettingsH implements Serializable
         this.value = value;
     }
 
+
     /**
      * Gets the type.
      * 
@@ -199,6 +209,7 @@ public class SettingsH implements Serializable
     {
         return this.type;
     }
+
 
     /**
      * Sets the type.
@@ -211,6 +222,7 @@ public class SettingsH implements Serializable
         this.type = type;
     }
 
+
     /**
      * Gets the description.
      * 
@@ -220,6 +232,7 @@ public class SettingsH implements Serializable
     {
         return this.description;
     }
+
 
     /**
      * Sets the description.
@@ -232,47 +245,52 @@ public class SettingsH implements Serializable
         this.description = description;
     }
 
+
     /**
      * Gets the group_id.
      * 
      * @return the group_id
      */
-    public long getGroup_id()
+    public long getGroupId()
     {
-        return this.group_id;
+        return this.groupId;
     }
+
 
     /**
      * Sets the group_id.
      * 
-     * @param group_id
+     * @param groupId
      *            the new group_id
      */
-    public void setGroup_id(long group_id)
+    public void setGroupId(long groupId)
     {
-        this.group_id = group_id;
+        this.groupId = groupId;
     }
+
 
     /**
      * Gets the person_id.
      * 
      * @return the person_id
      */
-    public long getPerson_id()
+    public long getPersonId()
     {
-        return this.person_id;
+        return this.personId;
     }
+
 
     /**
      * Sets the person_id.
      * 
-     * @param person_id
+     * @param personId
      *            the new person_id
      */
-    public void setPerson_id(long person_id)
+    public void setPersonId(long personId)
     {
-        this.person_id = person_id;
+        this.personId = personId;
     }
+
 
     /**
      * Gets the extended.
@@ -283,6 +301,7 @@ public class SettingsH implements Serializable
     {
         return this.extended;
     }
+
 
     /**
      * Sets the extended.
@@ -295,6 +314,7 @@ public class SettingsH implements Serializable
         this.extended = extended;
     }
 
+
     /**
      * Gets the comment.
      * 
@@ -304,6 +324,7 @@ public class SettingsH implements Serializable
     {
         return this.comment;
     }
+
 
     /**
      * Sets the comment.
@@ -316,6 +337,7 @@ public class SettingsH implements Serializable
         this.comment = comment;
     }
 
+
     /*
      * (non-Javadoc)
      * @see java.lang.Object#toString()
@@ -325,6 +347,7 @@ public class SettingsH implements Serializable
     {
         return new ToStringBuilder(this).append("id", getId()).toString();
     }
+
 
     /*
      * (non-Javadoc)
@@ -338,6 +361,7 @@ public class SettingsH implements Serializable
         SettingsH castOther = (SettingsH) other;
         return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
     }
+
 
     /*
      * (non-Javadoc)

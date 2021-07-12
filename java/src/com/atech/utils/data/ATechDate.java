@@ -1171,6 +1171,12 @@ public class ATechDate
             dt += this.hourOfDay * 100L;
             dt += minute;
         }
+        else if (outputFormat == ATechDateType.TimeOnlySec)
+        {
+            dt += this.hourOfDay * 10000L;
+            dt += this.minute * 100L;
+            dt += this.second;
+        }
         else
         {
             System.out.println("ERROR: getATDateTimeAsLong: Unsupported type [" + outputFormat.name() + "]");

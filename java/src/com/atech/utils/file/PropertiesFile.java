@@ -3,9 +3,7 @@ package com.atech.utils.file;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Properties;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * @author Andy
  */
 
-public class PropertiesFile extends FileReaderHashtable<String, String>
+public class PropertiesFile extends FileReaderHashMap<String, String> implements PropertiesWriterInterface
 {
 
     private static final long serialVersionUID = 4486922769091769152L;
@@ -154,4 +152,13 @@ public class PropertiesFile extends FileReaderHashtable<String, String>
         }
     }
 
+    @Override
+    public Map<String, String> getData() {
+
+        Map<String, String> outMap = new HashMap<String, String>();
+
+        outMap.putAll(this);
+
+        return outMap;
+    }
 }

@@ -83,7 +83,10 @@ public class DbTool extends JFrame implements TreeSelectionListener
     {
         try
         {
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            if (!System.getProperty("os.name").startsWith("Mac")) // Yields "Mac OS X"
+            {
+                UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            }
         }
         catch (Exception ex)
         {}

@@ -97,6 +97,9 @@ public abstract class MainAppFrameAbstract extends JFrame implements ActionListe
         try
         {
 
+            if (System.getProperty("os.name").startsWith("Mac")) // Yields "Mac OS X"
+                return;
+
             String data[] = null; // ATDataAccess.getLFData();
 
             if (data == null)

@@ -1,7 +1,6 @@
 package com.atech.upgrade.client.gui;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -193,17 +192,26 @@ public class UpgradeSystemModel extends AbstractTableModel
         // System.out.println("Update Model.");
 
         // reset settings
-        for (Enumeration<ComponentGroup> en = uc_new.groups.elements(); en.hasMoreElements();)
+        for (ComponentGroup group : uc_new.groups.values())
         {
-
-            ComponentGroup cg = en.nextElement();
-
-            for (int j = 0; j < cg.children.size(); j++)
+            for (ComponentEntry componentEntry : group.children)
             {
-                ComponentEntry ce = cg.children.get(j);
-                ce.copyToServerSettings();
+                componentEntry.copyToServerSettings();
             }
         }
+
+        // // reset settings
+        // for (Enumeration<ComponentGroup> en = uc_new.groups.elements(); en.hasMoreElements();)
+        // {
+        //
+        // ComponentGroup cg = en.nextElement();
+        //
+        // for (int j = 0; j < cg.children.size(); j++)
+        // {
+        // ComponentEntry ce = cg.children.get(j);
+        // ce.copyToServerSettings();
+        // } }
+        //
 
         // update current records
         for (int i = 0; i < this.data.size(); i++)

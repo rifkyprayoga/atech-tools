@@ -1,7 +1,7 @@
 package com.atech.update.startup.files;
 
 import com.atech.update.config.UpdateConfiguration;
-import com.atech.update.startup.os.StartupOSAbstract;
+import com.atech.update.startup.os.OSType;
 
 /**
  *  This file is part of ATech Tools library.
@@ -42,7 +42,7 @@ public class DbTool extends DbApplication
      * @param uc
      * @param osa
      */
-    public DbTool(UpdateConfiguration uc, StartupOSAbstract osa)
+    public DbTool(UpdateConfiguration uc, OSType osa)
     {
         super(uc, osa);
     }

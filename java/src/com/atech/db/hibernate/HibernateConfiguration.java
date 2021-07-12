@@ -18,6 +18,7 @@ import org.hibernate.cfg.SettingsFactoryWithException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.atech.data.user_data_dir.UserDataDirectory;
 import com.atech.db.hibernate.check.DbCheckAbstract;
 import com.atech.db.hibernate.tool.data.DatabaseConfiguration;
 import com.atech.graphics.SplashAbstract;
@@ -67,6 +68,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
      */
     I18nControlAbstract ic = null;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateConfiguration.class);
+    protected UserDataDirectory userDataDirectory = UserDataDirectory.getInstance();
 
     /**
      * The dataAccess.
@@ -162,7 +164,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     protected Integer defaultVersion = null;
     protected CRCUtils crcUtils = new BitUtils();
 
-    protected Map<String,Integer> versionToResourceMap = new HashMap<String, Integer>();
+    protected Map<String, Integer> versionToResourceMap = new HashMap<String, Integer>();
 
 
     public abstract void initVersionToResourceFileMapping();
@@ -175,12 +177,14 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         if (versionToResourceMap.containsKey(currentSHA1))
         {
             int dbVersion = versionToResourceMap.get(currentSHA1);
-            LOG.error("Your DB version identified by HBM.xml resource files (sha1={}, db_version={}).", currentSHA1, dbVersion);
+            LOG.info("Your DB version identified by HBM.xml resource files (sha1={}, db_version={}).", currentSHA1,
+                dbVersion);
             return dbVersion;
         }
         else
         {
-            LOG.error("You DB version could not be identified (sha1={}). Returning default version - {}.", currentSHA1, defaultVersion);
+            LOG.warn("You DB version could not be identified (sha1={}). Returning default version - {}.", currentSHA1,
+                defaultVersion);
             return defaultVersion;
         }
     }
@@ -408,21 +412,21 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
 
         // for testing only
 
-
         try
         {
             Properties props = new Properties();
             boolean config_found = true;
+            String configurationFile = userDataDirectory.getParsedUserDataPath(this.getConfigurationFile());
 
             if (!doesConfigurationExist())
             {
-                LOG.error(this.cfg_file_missing_str + "(" + this.getConfigurationFile() + ").");
+                LOG.error(this.cfg_file_missing_str + "(" + configurationFile + ").");
                 config_found = false;
                 loadDefaultDatabase(config_found);
                 return;
             }
 
-            FileInputStream in = new FileInputStream(this.getConfigurationFile());
+            FileInputStream in = new FileInputStream(configurationFile);
             props.load(in);
 
             if (sel_db == -1)
@@ -448,7 +452,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
                 db_hib_dialect = (String) props.get("DB" + db_num + "_HIBERNATE_DIALECT");
 
                 db_driver_class = (String) props.get("DB" + db_num + "_CONN_DRIVER_CLASS");
-                db_conn_url = (String) props.get("DB" + db_num + "_CONN_URL");
+                db_conn_url = userDataDirectory.getParsedUserDataPath((String) props.get("DB" + db_num + "_CONN_URL"));
                 db_conn_username = (String) props.get("DB" + db_num + "_CONN_USERNAME");
                 db_conn_password = (String) props.get("DB" + db_num + "_CONN_PASSWORD");
 
@@ -485,7 +489,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
     {
         // System.out.println(this.getConfigurationFile());
 
-        File f = new File(this.getConfigurationFile());
+        File f = new File(userDataDirectory.getParsedUserDataPath(this.getConfigurationFile()));
         return f.exists();
     }
 
@@ -546,7 +550,8 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         Configuration cfg = new ConfigurationWithSessionFactory(new SettingsFactoryWithException())
                 .setProperty("hibernate.dialect", databaseConfiguration.dialect)
                 .setProperty("hibernate.connection.driver_class", databaseConfiguration.driver_class)
-                .setProperty("hibernate.connection.url", databaseConfiguration.url)
+                .setProperty("hibernate.connection.url",
+                    userDataDirectory.getParsedUserDataPath(databaseConfiguration.url))
                 .setProperty("hibernate.connection.username", databaseConfiguration.username)
                 .setProperty("hibernate.connection.password", databaseConfiguration.password)
                 .setProperty("hibernate.connection.charSet", "utf-8").setProperty("hibernate.use_outer_join", "true");
@@ -585,7 +590,7 @@ public abstract class HibernateConfiguration extends DbCheckAbstract
         Configuration cfg = new ConfigurationWithSessionFactory(new SettingsFactoryWithException())
                 .setProperty("hibernate.dialect", db_hib_dialect)
                 .setProperty("hibernate.connection.driver_class", db_driver_class)
-                .setProperty("hibernate.connection.url", db_conn_url)
+                .setProperty("hibernate.connection.url", userDataDirectory.getParsedUserDataPath(db_conn_url))
                 .setProperty("hibernate.connection.username", db_conn_username)
                 .setProperty("hibernate.connection.password", db_conn_password)
                 .setProperty("hibernate.connection.charSet", "utf-8").setProperty("hibernate.use_outer_join", "true");

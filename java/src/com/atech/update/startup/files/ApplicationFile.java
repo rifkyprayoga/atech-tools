@@ -3,7 +3,7 @@ package com.atech.update.startup.files;
 import com.atech.update.config.ComponentCustomApp;
 import com.atech.update.config.ComponentEntry;
 import com.atech.update.config.UpdateConfiguration;
-import com.atech.update.startup.os.StartupOSAbstract;
+import com.atech.update.startup.os.OSType;
 
 /**
  *  This file is part of ATech Tools library.
@@ -48,7 +48,7 @@ public class ApplicationFile extends StartupFileAbstract
      * @param osa
      * @param custom_app
      */
-    public ApplicationFile(UpdateConfiguration uc, StartupOSAbstract osa, ComponentCustomApp custom_app)
+    public ApplicationFile(UpdateConfiguration uc, OSType osa, ComponentCustomApp custom_app)
     {
         super(uc, osa);
         this.custom_app = custom_app;
@@ -92,6 +92,8 @@ public class ApplicationFile extends StartupFileAbstract
 
         int count = this.upd_conf.getComponents().size() - 1;
 
+        // System.out.println("Componets: " + this.upd_conf.getComponents());
+
         for (int i = 0; i <= count; i++)
         {
             ComponentEntry ce = this.upd_conf.getComponents().get(i);
@@ -101,13 +103,23 @@ public class ApplicationFile extends StartupFileAbstract
 
             String path = upd_conf.root + ce.root_dir;
 
-            files.append(parseRoot(path, ce.getFiles(this.os_abstract)));
+            String componentsParts = parseRoot(path, ce.getFiles(this.osType));
 
-            if (count != i)
+            // System.out.println("Component part: " + componentsParts);
+
+            if (componentsParts.trim().length() > 0)
             {
-                files.append(this.os_abstract.getSeparator());
+
+                files.append(componentsParts);
+
+                if (count != i)
+                {
+                    files.append(this.osType.getPathSeparator());
+                }
             }
         }
+
+        // System.out.println("CP: " + files.toString());
 
         return files.toString();
     }

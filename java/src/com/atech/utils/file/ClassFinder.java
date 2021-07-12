@@ -48,7 +48,7 @@ public class ClassFinder
 
     public ClassFinder(String jar_starts_with)
     {
-        refreshLocations();
+        refreshLocations(jar_starts_with);
     }
 
 
@@ -119,7 +119,7 @@ public class ClassFinder
                     }
                     catch (UnsupportedClassVersionError ex)
                     {
-
+                        errors.add(ex);
                     }
 
                     return findSubclasses(searchClass, classpathLocations);
@@ -167,7 +167,7 @@ public class ClassFinder
 
         String pathSep = System.getProperty("path.separator");
         String classpath = System.getProperty("java.class.path");
-        // System.out.println ("classpath=" + classpath);
+        System.out.println("classpath=" + classpath);
 
         StringTokenizer st = new StringTokenizer(classpath, pathSep);
         while (st.hasMoreTokens())
@@ -195,7 +195,7 @@ public class ClassFinder
 
         String pathSep = System.getProperty("path.separator");
         String classpath = System.getProperty("java.class.path");
-        // System.out.println ("classpath=" + classpath);
+        //System.out.println ("classpath=" + classpath);
 
         StringTokenizer st = new StringTokenizer(classpath, pathSep);
         while (st.hasMoreTokens())
@@ -203,8 +203,13 @@ public class ClassFinder
             String path = st.nextToken();
             file = new File(path);
 
+            //System.out.println("file.getName(): " + file.getName());
+            //System.out.println("startwith:      " + jar_starts_with);
+            //System.out.println("startsWith:     " + file.getName().startsWith(jar_starts_with));
+
             if (file.getName().startsWith(jar_starts_with))
             {
+                System.out.println("StartsWith: " + file);
                 include(null, file, map);
             }
         }
@@ -215,6 +220,8 @@ public class ClassFinder
             URL url = it.next();
             // System.out.println (url + "-->" + map.get (url));
         }
+
+        System.out.println("getClasspathLocations() - Map: " + map);
 
         return map;
     }
@@ -252,8 +259,14 @@ public class ClassFinder
 
     private final void include(String name, File file, Map<URL, String> map)
     {
-        if (!file.exists())
+        System.out.println("include: file: " + file);
+
+
+        if (!file.exists()) {
+            System.out.println("File not found: ");
+            System.out.println("Current: " + new File(".").getAbsoluteFile());
             return;
+        }
         if (!file.isDirectory())
         {
             // could be a JAR file
@@ -281,6 +294,7 @@ public class ClassFinder
             }
             catch (IOException ioe)
             {
+                errors.add(ioe);
                 return;
             }
 
@@ -291,6 +305,8 @@ public class ClassFinder
 
     private void includeJar(File file, Map<URL, String> map)
     {
+        System.out.println("includeJar: file: " + file);
+
         if (file.isDirectory())
             return;
 
@@ -305,10 +321,15 @@ public class ClassFinder
         }
         catch (Exception e)
         {
+            System.out.println("includeJar: exc: " + e);
+            e.printStackTrace();
+            errors.add(e);
             // not a JAR or disk I/O error
             // either way, just skip
             return;
         }
+
+        System.out.println("includeJar: jar: " + jar + "m, jarURL: " + jarURL);
 
         if (jar == null || jarURL == null)
             return;
@@ -317,6 +338,9 @@ public class ClassFinder
         map.put(jarURL, "");
 
         Enumeration<JarEntry> e = jar.entries();
+
+        System.out.println("includeJar: jar: " + jar.entries());
+
         while (e.hasMoreElements())
         {
             JarEntry entry = e.nextElement();
@@ -335,6 +359,7 @@ public class ClassFinder
                 catch (MalformedURLException murl)
                 {
                     // whacky entry?
+                    errors.add(murl);
                     continue;
                 }
             }
