@@ -26,7 +26,9 @@ import org.slf4j.LoggerFactory;
  * is to determine what subclasses/implementations of a given class/interface exist in the current 
  * runtime environment.
  * @author Daniel Le Berre, Elliott Wade
+ * @deprecated this class doesn't always work, use reflections library instead
  */
+@Deprecated
 public class ClassFinder
 {
 

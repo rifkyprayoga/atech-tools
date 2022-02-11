@@ -695,7 +695,6 @@ public abstract class PlugInClient implements ActionListener
      */
     public void executeReturnAction(PluginActionType actionType)
     {
-
     }
 
 

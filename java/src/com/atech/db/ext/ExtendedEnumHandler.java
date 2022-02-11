@@ -117,7 +117,6 @@ public class ExtendedEnumHandler<E extends ExtendedEnumType> implements Extended
 
         for (ExtendedEnumType enumEntry : this.enumValuesDefinition.getAllValues())
         {
-// if (extendedMap.containsKey(enumEntry.getI18nKey()))
             if (extendedMap.containsKey(enumEntry))
             {
                 if (enumValuesDefinition.useI18nKey())

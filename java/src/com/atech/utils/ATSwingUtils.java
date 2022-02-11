@@ -23,7 +23,7 @@ import java.util.List;
  *  This file is part of ATech Tools library.
  *  
  *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007  Andy (Aleksander) Rozman (Atech-Software)
+ *  Copyright (C) 2007-22  Andy (Aleksander) Rozman (Atech-Software)
  *  
  *  
  *  This library is free software; you can redistribute it and/or
