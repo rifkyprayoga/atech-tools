@@ -297,8 +297,8 @@ public class ATSwingUtils {
     public static Image getImage(String filename, Component cmp) {
         Image img;
 
-        // System.out.println("Component: " + cmp);
-        // System.out.println("Filename: " + filename);
+        //System.out.println("Component: " + cmp);
+        //System.out.println("Filename: " + filename);
 
         InputStream is = cmp.getClass().getResourceAsStream(filename);
 

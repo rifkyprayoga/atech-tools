@@ -505,8 +505,7 @@ public abstract class AbstractApplicationContext implements ActionListener, User
     public abstract void actionRunner(ActionEvent ae);
 
 
-    public JPanel getMainPanel()
-    {
+    public JComponent getMainPanel() {
         if (this.company_context != null && this.company_context.hasCustomMainPanel())
             return this.company_context.getCustomMainPanel();
         else
@@ -514,7 +513,18 @@ public abstract class AbstractApplicationContext implements ActionListener, User
     }
 
 
-    public abstract JPanel createMainPanel();
+    /**
+     * Gives you JPanel that can display status. Default implementation returns null. Override this method if you need
+     * status bar.
+     * @return JPanel or null
+     */
+    public JPanel getStatusPanel() {
+        return null;
+    }
+
+
+
+    public abstract JComponent createMainPanel();
 
 
     public CustomDataAccess getCustomDataAccess()

@@ -109,6 +109,8 @@ public class StartupUtil
 
         try
         {
+            System.out.println("Current Dir: " + new File(".").getAbsolutePath());
+            System.out.println("Test: " + fileName);
             FileInputStream in = new FileInputStream(fileName);
             props.load(in);
         }

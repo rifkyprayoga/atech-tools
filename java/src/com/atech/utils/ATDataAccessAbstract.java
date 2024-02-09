@@ -202,12 +202,20 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
     public ATDataAccessAbstract(I18nControlAbstract ic)
     {
         this.m_i18n = ic;
-        loadArraysTranslation();
-        checkPrerequisites();
 
         m_settings_ht = new Hashtable<String, String>();
         plugins = new Hashtable<String, PlugInClient>();
         internalSetting = new HashMap<InternalSettingInterface, String>();
+
+        defaultInit();
+
+        // initSpecial();
+    }
+
+
+    protected void defaultInit() {
+        loadArraysTranslation();
+        checkPrerequisites();
 
         // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!! COLATOR " + this);
         m_collator = this.m_i18n.getCollationDefintion();
@@ -225,9 +233,8 @@ public abstract class ATDataAccessAbstract implements UserManagementDataInterfac
         this.initInternalSettings();
 
         this.decimalHandler = new DecimalHandler(this.getMaxDecimalsUsedByDecimalHandler());
-
-        // initSpecial();
     }
+
 
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

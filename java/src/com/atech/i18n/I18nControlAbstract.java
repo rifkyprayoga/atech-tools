@@ -215,6 +215,8 @@ public abstract class I18nControlAbstract
             if (tempLang != null)
             {
                 this.selected_language = tempLang;
+            } else {
+                this.selected_language = "en";
             }
 
             this.selected_language_locale = new Locale(this.selected_language);

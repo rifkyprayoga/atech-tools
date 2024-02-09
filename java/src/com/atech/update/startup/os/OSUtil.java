@@ -207,6 +207,7 @@ public class OSUtil
 
         for (String fileName : files)
         {
+            System.out.println("Searching for " + fileName);
             if (fileExists(fileName))
             {
                 return fileName;

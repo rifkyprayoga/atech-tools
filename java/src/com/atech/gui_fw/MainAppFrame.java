@@ -293,12 +293,10 @@ public class MainAppFrame extends JFrame // implements ActionListener
         this.app_context.setSplashProgress(false, 9, "INIT_APP_SPECIFIC");
         this.app_context.initAppSpecific();
 
-        if (app_context.app_location == null)
-        {
+        if (app_context.app_location == null) {
             this.setBounds(0, 50, 800, 600);
         }
-        else
-        {
+        else {
             this.setBounds(this.app_context.app_location.x, this.app_context.app_location.y, 800, 600);
         }
 
@@ -308,6 +306,13 @@ public class MainAppFrame extends JFrame // implements ActionListener
         {
             app_ctx.disposeSplashScreen();
         }
+
+        JPanel statusPanel = this.app_context.getStatusPanel();
+
+        if (statusPanel!=null) {
+            getContentPane().add(statusPanel, BorderLayout.SOUTH);
+        }
+
 
         // this.setTitle(app_ctx.getTitle());
 

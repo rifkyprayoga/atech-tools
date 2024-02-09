@@ -32,6 +32,8 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
     protected JButton btnHelp;
     protected boolean editValue;
 
+    protected JFrame parentFrame;
+
 
     public StandardDialogForObject(JFrame dialog, ATDataAccessAbstract dataAccess)
     {
@@ -54,6 +56,11 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
     }
 
 
+//    public StandardDialogForObject(JFrame dialog, ATDataAccessAbstract dataAccess, Object dataObject)
+//    {
+//        this(dialog, dataAccess, dataObject, true);
+//    }
+
     public StandardDialogForObject(JDialog dialog, ATDataAccessAbstract dataAccess)
     {
         this(dialog, dataAccess, true);
@@ -75,11 +82,28 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
     }
 
 
+    public StandardDialogForObject(JFrame dialog, Object dataObject)
+    {
+        this(dialog, dataObject, true);
+    }
+
     public StandardDialogForObject(JDialog dialog, Object dataObject)
     {
         this(dialog, dataObject, true);
     }
 
+
+    public StandardDialogForObject(JFrame dialog, Object dataObject, boolean init)
+    {
+        super(dialog, "", true);
+        parentFrame = dialog;
+        dataAccess.addComponent(this);
+
+        if (init)
+        {
+            init(dataObject);
+        }
+    }
 
     public StandardDialogForObject(JDialog dialog, Object dataObject, boolean init)
     {
@@ -99,6 +123,20 @@ public abstract class StandardDialogForObject extends JDialog implements HelpCap
         this(dialog, dataAccess, dataObject, true);
     }
 
+
+    public StandardDialogForObject(JFrame dialog, ATDataAccessAbstract dataAccess, Object dataObject, boolean init)
+    {
+        super(dialog);
+        parentFrame = dialog;
+        this.dataAccess = dataAccess;
+        this.i18nControl = dataAccess.getI18nControlInstance();
+        dataAccess.addComponent(this);
+
+        if (init)
+        {
+            init(dataObject);
+        }
+    }
 
     public StandardDialogForObject(JDialog dialog, ATDataAccessAbstract dataAccess, Object dataObject, boolean init)
     {
