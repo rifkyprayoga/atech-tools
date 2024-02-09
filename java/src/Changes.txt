@@ -1,0 +1,323 @@
+
+Changes file for atech-tools
+==================================================
+See Authors for more description on developers
+--------------------------------------------------
+
+0.7.15 - Andy [24.10]
+- reafctoring about window
+- added AppPluginDefinition for use in Plugins/App for defining about window and special data (definitions/handlers)
+- added ATDataAccessAPDAbstract for use with AppPluginDefintion
+
+0.7.14 - Andy [for GGC 0.6.2]  [12.10.2015]
+   - ATDataAccessAbstract renamed method createListOfString to
+   - removed log from ATDataAccessLMAbstract
+   - AbstractConfigunationManager ready
+   - ATechDate changes
+   - some refactorings of ATDataAccessAbstract
+   - Graph changes: GraphUtil
+   - Plugins: Client, Server: Transfering data
+   - Printing
+
+
+0.7.13 - Andy [for GGC 0.6.1] [7.10.2015]
+   - changes to BitUtils
+   - JTableWithToolTip + Model
+   - working on SelectableInterface (+V2), Selector dialog
+   - ZeroLayout2 added (started working on it)
+   - added methods for string/stringbuilder concatenation
+   - changes after ATDataAccess refactoring
+   - changes to ATechDate object (added enum and some refactoring)
+
+
+0.7.12 - Andy [for GGC 0.6]
+   - changes to BitUtils (refactoring is still in progress)
+
+0.7.11
+   - fixed loading of Language Data (Locale was not read)
+   - fixed CodeEnumWithTranslation, CodeEnum, TimeZoneUtils
+   - fixing I18nControl
+   - temporary codeminders hidapi added
+   - Update Client/Server
+   - Startup changes
+   - Minor changes here and there
+
+0.7.10
+   - printing: new class for icepdf to display better window
+
+0.7.9
+   - printing icepdf changes
+
+0.7.8
+   - dexcom changes (Byte, Short Utils)
+
+
+0.7.7
+   - for GGC 0.5.0.3 release, some minor changes
+
+
+0.7.6
+   - GGC 0.5.0.1
+
+
+0.7.5
+   - MSP 0.8 changes
+
+0.7.4 [16.4.2012]
+   - Baralga changes
+
+
+
+[16.8.2011]
+     [GGC 0.5 [8] Minor changes]
+
+    * Minor chnages here and there
+    * Release for GGC 0.5 project
+
+    // 6=0.5.1 [GGC 0.4.19, Epris Web]
+    //   0.7.1 [MSP Project, TravelDoc]
+    //   0.7.2 [PIS: Bitwise, FW, Components, Hibernate]
+    //   0.7.3 [GGC: ExtendedDb, I18n Manager]
+    //   0.7.4 [GGC 0.5.1, Baralga 1.7]
+    //   0.7.5
+    //
+
+0.5.2
+    * Imported app and config handling from PIS project
+    * Adding features to global app and config handling
+    * Working on login features
+
+0.5.1
+    * Imported servlet/jsp handling from PIS project
+
+0.5.0
+    * Started work on Update system (reading xml)
+
+0.4.3 [24.4.2010]
+    * Added method getReturnObject with parameters for plugin structure
+    * Changes to TranslationTool (some of unicode characters 00xx were not written correctly to
+      output files)
+    * I18nControlLangMgr fixed to support loading files that are provided by translation tool
+      (for integration into applications).
+
+0.4.2 (current)
+    * Added Extended Handler (for handling extended field in database) and also changed DataAccess
+      to make this available
+    * Added DatabaseObject
+
+0.4.1
+    * Minor changes here and there (I18n, SwingUtils)
+
+
+0.4.0
+    * Translation tool completed
+    * Changes to Printing framework (iText)
+
+0.3.13 [30.10.2009]
+    * Translation Tool (v0.2)
+
+0.3.12
+    * Again changes to plugin framework
+    * Started work on Converter Framework
+    * Started work on Translation Tool (v0.1)
+
+0.3.11 [10.7.2009]
+    * Some changed for Plugin Framework v2
+    * TranslationTool changes
+
+0.3.10 [10.6.2009]
+    * plugins extended with executeCommandDialogReturn
+    * TranslationTool Db context, some admin classes
+    * PlugInClient class changed (isActive() and isActiveWarning methods added)
+
+
+0.3.9
+    * plugins extended with executeCommandDialogReturn
+    * ATDataAbstract
+    * started TranslationTool
+    * ...
+
+
+0.3.8
+    * ...
+
+
+0.3.7
+    * Added PrintDialog* classes and also abstract class for printing (with iText)
+
+0.3.6
+    * Minor changes here and there: DataAccess, DbTool, Selector, ...
+
+
+0.3.4
+    * Startup ................
+
+0.3.3
+    * fixed Calendar (big bug with February calendar display)
+
+0.3.2
+    * added Statistics functionality (work in progress)
+    * added DecimalHandler
+    * added ATechConverter, which should be super class to all converters
+    * STARTUP 1.1: minor changes
+
+0.3.1
+    * added library Nano Xml 2 Lite
+    * added com.jeans.httpclient (Http Client)
+    * added weiss.util (for Http Client)
+
+0.2.11
+    * Minor changes to ATDataAccessAbstract, SelectorAbstract
+    * STARTUP 1.0 [1.0.1]: minor changes into startup files, bug removed. In [] we have internal version
+
+0.2.10
+    * Added graph framework (ATGraphFramework), based on JFreeChart
+    * changed ant and some source files, so that startup files creation methods are now packed
+      as seperate jar. Changes to those methods, will be noted here, with STARTUP tag.
+    * STARTUP 1.0: First version of standalone startup classes (support for windows, linux, freebsd)
+
+0.2.9
+    * fixed About (added version to About screen)
+
+0.2.8
+    * added SwingUtilities
+    * fixed RestoreSelectorDialog
+
+0.2.7
+    * Changed ATDataAccessAbstract (date, time)
+    * changes to ATSwingUtils (added some methods for components)
+
+0.2.6
+    * Added Transfer classes
+
+0.2.5
+    * Export/Import, we force writing into file that is utf-8 encoded
+
+0.2.4
+    * Startup creation for non-windows systems changed
+    * changes to code files (removing some of warning in code)
+
+0.2.3
+    * AtechDate changed
+
+0.2.2
+    * AtechDate changed
+
+
+0.2.1
+    * Changes to DataAccess
+
+0.2
+    * Advanced to version
+
+
+
+
+0.1.21 (24.7.2008) - Andy
+    * Restore finished
+
+0.1.20 (8.7.2008) - Andy
+    * Minor changes to different classes
+    * Work on Restore Code
+
+0.1.19 (29.6.2008) - Andy
+    * Error dialog finished
+
+0.1.18 (28.6.2008) - Andy
+    * Plugin code extended to allow input data and to allow return data
+    * Restore code started
+
+0.1.17 (16/06/2008) - Andy
+    * DbCheck v0.1 finished. Whole idea was changed a little. DbCheck only creates report file, which can
+      then be used with application through DbCheckReport class
+
+0.1.16 (08/06/2008) - Andy
+    * added java_parameters to custom application (we can call java with special parameters, for
+      example to change memory heap size)
+
+0.1.15 (24/05/2008) - Andy
+    * Backup fixed
+    * DbCheck functionality started
+
+0.1.14 (03/05/2008) - Andy
+    * Some bug fixes
+
+
+0.1.13 (03/05/2008) - Andy
+    * Backup/Restore framework done for now. Backup is now fully supported,
+      restore is planned for later time.
+    * Startup mechanism is now reworked. We can have several applications startup
+      files created and for several OSes. Nothing is hardcoded anymore. Each OS
+      has it's own handling class (Update file has changed very much, added
+      seperate applications handling and also native files support (in
+      components)).
+
+0.1.12 (11/04/2008) - Andy  (In Work)
+    * Startup code: added OS handling and new OS: FreeBSD
+    * Added check node tree
+    * Backup/Restore system files added. Work is in progress.
+
+
+0.1.11 (11/04/2008) - Andy
+    * Changes to com.atech.hibernate.transfer (Export and Import)
+
+
+0.1.10 (22/03/2008) - Andy
+    * Added DataAccessAbstract as base class
+    * Added Editable panel (EditablePanel, EditableAbstractPanel) for panels
+      that can be edited (for tree's)
+    * Started work on *ExceptionCatch Dialogs for use together with ErrorDialog
+    * Selector dialog added (and whole bunch of supoorting files
+      (.graphics.dialogs.selector)
+    * Support for JavaHelp (HelpCapable interface and HelpContext)
+    * started on extending startup code
+
+0.1.9  13/02/2008 - Andy
+    * update/startup code added (development started), simple startup
+      of application is possible (no extended features). Config file is
+      only read at this point.
+      Startup is supported for Windows and Linux only.
+    * changed to code to support java 1.5
+      MAINTIAN JAVA 1.5 COMPATIBILITY
+
+0.1.8  01/02/2008 - Andy
+    * minor changes to about code and overall look of library
+    * fixing Eclipse warnings
+    * ATechDate fixed
+
+0.1.7  04/01/2008 - Andy
+
+    *  About Dialog (complete)
+    *  Added scroller (not finished)
+    *  I18nControl Translation Check
+    *  ATechDate added
+
+
+0.1.6  ~  Andy
+
+    *  DateTime componets fixed
+    *  JTreeTable added
+    *  I18nControl Check
+    *  ATSwingUtils Added
+
+
+
+v0.1 - First public Release (29/03/2007) - andyrozman
+------------------------------------------------------
+
+First packaging of this tools. Before this time, this tools resided in different
+personal projects I was working on. This is now the first time that everything
+is together in one place. Most of stuff is tested, but some still stay as work
+in progress. Comments are mostly missing, but this will be done as time
+permits.
+- added : Hibernate DbTool for creating database instances and managing databases
+          used on certain application (work in progress)
+- added : Hibernate Export/Import: Export is working, import is still work in
+          progress, because it's quite difficult
+- added : Graphics: DateComponent, TimeComponent, DateTimeComponent
+- added : Graphics: Zero Layout manager
+- added : Help:  Dummy Help Broker
+- added : I18n:  I18nControlAbstract, Tool
+- added : Hibernate: AssignedIncrementGenerator
+
+
