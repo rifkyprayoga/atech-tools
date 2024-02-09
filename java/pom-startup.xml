@@ -261,6 +261,40 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- EVERYTHING AFTER THIS LINE NEEDS TO BE REVIEWED slf4j over log4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- Commons logging over slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- IcePDF Viewer -->
+
+        <dependency>
+            <groupId>org.icepdf</groupId>
+            <artifactId>icepdf-core</artifactId>
+            <version>${icepdf-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.icepdf</groupId>
+            <artifactId>icepdf-viewer</artifactId>
+            <version>${icepdf-viewer.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${xstream.version}</version>
+        </dependency>
     </dependencies>
 
 
