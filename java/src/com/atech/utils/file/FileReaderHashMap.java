@@ -43,6 +43,7 @@ public abstract class FileReaderHashMap<K, V> extends HashMap<K, V>
 
     protected boolean file_read = false;
     protected boolean required = true;
+    protected boolean isStaticFile = false;
 
     /**
      * Filename
@@ -67,6 +68,14 @@ public abstract class FileReaderHashMap<K, V> extends HashMap<K, V>
         readFile();
     }
 
+    public FileReaderHashMap(String _filename, boolean _required, boolean isStaticFile)
+    {
+        this.filename = _filename;
+        this.required = _required;
+        this.isStaticFile = isStaticFile;
+        readFile();
+    }
+
     /**
      * Empty Constructor
      */
@@ -81,7 +90,13 @@ public abstract class FileReaderHashMap<K, V> extends HashMap<K, V>
     {
         try
         {
-            BufferedReader br = new BufferedReader(new FileReader(this.filename));
+            BufferedReader br;
+
+            if (isStaticFile) {
+                br = new BufferedReader(new FileReader(this.filename));
+            } else {
+                br = new BufferedReader(new FileReader(this.filename));
+            }
             String line = null;
 
             this.file_read = true;

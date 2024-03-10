@@ -1,11 +1,9 @@
 package com.atech.update.startup;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.*;
 
+import com.atech.data.NotImplementedException;
 import com.atech.data.user_data_dir.UserDataDirectory;
 import com.atech.update.startup.data.ApplicationStartupConfigDto;
 import com.atech.update.startup.data.StartupTypeDefinition;
@@ -53,7 +51,7 @@ public class StartupUtil
     static UserDataDirectory userDataDirectory;
 
 
-    public static void setStartupStatusPath(UserDataDirectory userDataDirectory_)
+    public void setStartupStatusPath(UserDataDirectory userDataDirectory_)
     {
         userDataDirectory = userDataDirectory_;
 
@@ -64,9 +62,10 @@ public class StartupUtil
     }
 
 
-    public static ApplicationStartupConfigDto getApplicationStartupConfig()
+    public ApplicationStartupConfigDto getApplicationStartupConfig()
     {
-        Map<String, String> configurationData = getConfigurationFile(OSUtil.getOSSpecificConfigurationFile());
+        OSUtil osUtil = new OSUtil();
+        Map<String, String> configurationData = getConfigurationFile(osUtil.getOSSpecificConfigurationFile());
 
         if (configurationData.size() != 0)
         {
@@ -80,7 +79,7 @@ public class StartupUtil
     }
 
 
-    public static Map<String, String> getStartupStatusFileContent()
+    public Map<String, String> getStartupStatusFileContent()
     {
         return getConfigurationFile(startupStatusFile);
     }
@@ -99,7 +98,7 @@ public class StartupUtil
      * @param fileName
      * @return
      */
-    public static Map<String, String> getConfigurationFile(String fileName)
+    public Map<String, String> getConfigurationFile(String fileName)
     {
         Map<String, String> config_db_values = new HashMap<String, String>();
 
@@ -107,12 +106,30 @@ public class StartupUtil
 
         boolean config_loaded = true;
 
+//        if (true)
+//            throw new NotImplementedException(this.getClass(), "getConfigurationFile");
+
         try
         {
-            System.out.println("Current Dir: " + new File(".").getAbsolutePath());
-            System.out.println("Test: " + fileName);
-            FileInputStream in = new FileInputStream(fileName);
-            props.load(in);
+
+            if (fileName.startsWith("RESOURCE")) {
+                System.out.println("File found as RESOURCE: " + fileName);
+
+                String resourceName = fileName.substring(9);
+
+                System.out.println("File found as RESOURCE: " + resourceName);
+
+                InputStream is = getClass().getClassLoader().getResourceAsStream(resourceName);
+                props.load(is);
+
+            } else {
+                System.out.println("Current Dir: " + new File(".").getAbsolutePath());
+                System.out.println("Test: " + fileName);
+
+                FileInputStream in = new FileInputStream(fileName);
+                props.load(in);
+            }
+
         }
         catch (Exception ex)
         {
@@ -139,7 +156,7 @@ public class StartupUtil
      * 
      * @return
      */
-    public static boolean shouldStartupFilesBeCreated()
+    public boolean shouldStartupFilesBeCreated()
     {
 
         File f = new File(startupStatusFile);
@@ -175,7 +192,7 @@ public class StartupUtil
      * 
      * @return
      */
-    public static boolean shouldDbCheckBeDone()
+    public boolean shouldDbCheckBeDone()
     {
 
         File f = new File(startupStatusFile);
@@ -211,7 +228,7 @@ public class StartupUtil
     /**
      * Write Startup With Old Copy 
      */
-    public static void writeStartupWithOldCopy()
+    public void writeStartupWithOldCopy()
     {
         File f = new File(startupStatusFile);
 
@@ -238,7 +255,7 @@ public class StartupUtil
     /**
      * @param type
      */
-    public static void writeStartupWithOldCopy(int type)
+    public void writeStartupWithOldCopy(int type)
     {
         File f = new File(startupStatusFile);
 

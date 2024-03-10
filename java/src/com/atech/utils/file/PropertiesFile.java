@@ -63,6 +63,10 @@ public class PropertiesFile extends FileReaderHashMap<String, String> implements
         super(filename, required);
     }
 
+    public PropertiesFile(String filename, boolean required, boolean isStatic)
+    {
+        super(filename, required, isStatic);
+    }
 
     /**
      * Instantiates a new properties file.
@@ -97,14 +101,11 @@ public class PropertiesFile extends FileReaderHashMap<String, String> implements
 
             Properties props = new Properties();
 
-            if (in_jar)
-            {
-                InputStream fin = getClass().getResourceAsStream(filename);
+            if (in_jar || isStaticFile) {
+                InputStream fin = getClass().getClassLoader().getResourceAsStream(filename);
                 props.load(fin);
                 fin.close();
-            }
-            else
-            {
+            } else {
                 FileInputStream in = new FileInputStream(filename);
                 props.load(in);
                 in.close();
@@ -126,7 +127,6 @@ public class PropertiesFile extends FileReaderHashMap<String, String> implements
                 String key = (String) en.nextElement();
                 this.put(key, props.getProperty(key));
             }
-            // this.putAll(props.)
 
         }
         catch (Exception ex)

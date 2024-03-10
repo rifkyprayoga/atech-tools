@@ -39,6 +39,7 @@ import com.atech.update.startup.StartupUtil;
 
 public class UpdateConfiguration
 {
+    StartupUtil startupUtil = new StartupUtil();
 
     /**
      * Configuration
@@ -289,7 +290,7 @@ public class UpdateConfiguration
      */
     public boolean loadConfiguration(String upd_cfg_file)
     {
-        this.cfg = StartupUtil.getConfigurationFile(upd_cfg_file);
+        this.cfg = startupUtil.getConfigurationFile(upd_cfg_file);
 
         boolean found = true;
 

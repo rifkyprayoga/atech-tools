@@ -1,6 +1,8 @@
 package com.atech.update.startup.os;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  *  This file is part of ATech Tools library.
@@ -48,7 +50,7 @@ public class OSUtil
      * Get Short OS Name
      * @return
      */
-    public static String getShortOSName()
+    public String getShortOSName()
     {
         String os_name = System.getProperty("os.name");
         String short_name = "unknown";
@@ -76,7 +78,7 @@ public class OSUtil
     }
 
 
-    public static OSType getStartupOS(boolean printNotSupported)
+    public OSType getStartupOS(boolean printNotSupported)
     {
 
         OSType type = OSType.getOSByType();
@@ -191,14 +193,14 @@ public class OSUtil
      * 
      * @return filename of configuration file
      */
-    public static String getOSSpecificConfigurationFile()
+    public String getOSSpecificConfigurationFile()
     {
         String defaultConfigFilename = "StartupConfig.properties";
 
-        String os_name = OSUtil.getShortOSName();
+        String os_name = getShortOSName();
         String osConfigFilename = "StartupConfig_" + os_name + ".properties";
 
-        File f = new File(osConfigFilename);
+        //File f = new File(osConfigFilename);
 
         String[] files = new String[] { osConfigFilename, //
                                        "./ext/" + osConfigFilename, //
@@ -214,12 +216,49 @@ public class OSUtil
             }
         }
 
-        return defaultConfigFilename;
+        // StartupConfig might have been added as resource
+        String filename = checkIfStartupIsResource(osConfigFilename, defaultConfigFilename);
+
+        return filename==null ? defaultConfigFilename : filename;
+
+//
+//        URL resource = OSUtil.class.getClass().getClassLoader().getResource("file.txt");
+//        if (resource == null) {
+//            throw new IllegalArgumentException("file not found!");
+//        } else {
+//
+//            // failed if files have whitespaces or special characters
+//            //return new File(resource.getFile());
+//
+//            return new File(resource.toURI());
+//        }
+//
+//
+//        return defaultConfigFilename;
+
+    }
+
+    public String checkIfStartupIsResource(String...files) {
+        //Object o = new Object();
+        for (String file : files) {
+            //URL resource = o.getClass().getClassLoader().getResource(file);
+            InputStream is = getClass().getClassLoader().getResourceAsStream(file);
+
+            if (is == null) {
+                System.out.println("File NOT found as resource: " + file);
+                //throw new IllegalArgumentException("file not found!");
+            } else {
+                System.out.println("File found as resource: " + file);
+                return "RESOURCE/" + file;
+            }
+        }
+
+        return null;
 
     }
 
 
-    public static boolean fileExists(String fileName)
+    public boolean fileExists(String fileName)
     {
         File f = new File(fileName);
 
@@ -227,7 +266,7 @@ public class OSUtil
     }
 
 
-    public static OSArchitecture getOSArchitecture()
+    public OSArchitecture getOSArchitecture()
     {
         String arch = System.getProperty("os.arch");
 
@@ -242,7 +281,7 @@ public class OSUtil
     }
 
 
-    private static void printNotSupported(String osName)
+    private void printNotSupported(String osName)
     {
         System.out.println("This Operating System (" + osName + ") is not yet supported "
                 + "\nby ATech's Startup/Update Manager.");

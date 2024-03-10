@@ -86,7 +86,7 @@ public class LanguageManager
     {
         String languageConfigFile = userDataDirectory.getParsedUserDataPath(this.languageManagerRunner
                 .getLanguageConfigFile());
-        PropertiesFile props = new PropertiesFile(languageConfigFile);
+        PropertiesFile props = new PropertiesFile(languageConfigFile, true, languageManagerRunner.isLanguageConfigStatic());
 
         // System.out.println(this.languageManagerRunner.getLanguageConfigFile());
 
@@ -177,6 +177,29 @@ public class LanguageManager
         // System.out.println("Available: " + this.availableLanguages);
 
     }
+
+
+    private void readFileFromUserHomeDirectory() {
+
+        String languageConfigFile = userDataDirectory.getParsedUserDataPath(this.languageManagerRunner
+                .getLanguageConfigFile());
+        PropertiesFile props = new PropertiesFile(languageConfigFile, languageManagerRunner.isLanguageConfigStatic());
+
+        // System.out.println(this.languageManagerRunner.getLanguageConfigFile());
+
+        // File uu = new File(".");
+        // System.out.println("ii" + uu.getAbsolutePath());
+
+        if (!props.wasFileRead())
+        {
+            String errorMsg = "LanguageManager: Configuration file " + languageConfigFile + " was NOT read !";
+            LOG.error(errorMsg);
+            throw new ATechToolsRuntimeException(errorMsg);
+        }
+
+
+    }
+
 
 
     private void loadSelectedLanguageData()

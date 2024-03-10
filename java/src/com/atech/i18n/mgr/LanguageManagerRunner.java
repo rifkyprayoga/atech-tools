@@ -35,4 +35,13 @@ public abstract class LanguageManagerRunner
 
     public abstract String getDefaultLanguage();
 
+    /**
+     * With some applications, some of the configurations can be staticaly put in
+     * application. If this is the case, this method needs to be overwritten.
+     * @return false by default
+     */
+    public boolean isLanguageConfigStatic() {
+        return false;
+    }
+
 }

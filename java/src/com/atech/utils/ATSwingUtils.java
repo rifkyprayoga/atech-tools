@@ -14,40 +14,39 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 // TODO: Auto-generated Javadoc
 
 /**
- *  This file is part of ATech Tools library.
- *  
- *  <one line to give the library's name and a brief idea of what it does.>
- *  Copyright (C) 2007-22  Andy (Aleksander) Rozman (Atech-Software)
- *  
- *  
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
+ * This file is part of ATech Tools library.
+ * <p>
+ * <one line to give the library's name and a brief idea of what it does.>
+ * Copyright (C) 2007-22  Andy (Aleksander) Rozman (Atech-Software)
+ * <p>
+ * <p>
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * <p>
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * <p>
+ * <p>
+ * For additional information about this project please visit our project site on
+ * http://atech-tools.sourceforge.net/ or contact us via this emails:
+ * andyrozman@users.sourceforge.net or andy@atech-software.com
  *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
- *  
- *  
- *  For additional information about this project please visit our project site on 
- *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
- *  andyrozman@users.sourceforge.net or andy@atech-software.com
- *  
- *  @author Andy
- *
-*/
+ * @author Andy
+ */
 
 public class ATSwingUtils {
 
@@ -57,6 +56,8 @@ public class ATSwingUtils {
      * The Constant FONT_BIG_BOLD.
      */
     public static final int FONT_BIG_BOLD = 0;
+    public static final int FONT_BIG_NORMAL = 6;
+
     /**
      * The Constant FONT_NORMAL.
      */
@@ -255,7 +256,7 @@ public class ATSwingUtils {
 
         JLabel label = new JLabel();
         Font f = label.getFont();
-        fonts = new Font[6];
+        fonts = new Font[7];
 
         fonts[0] = f.deriveFont(Font.BOLD, 22);
         fonts[1] = f.deriveFont(Font.PLAIN, 12);
@@ -263,6 +264,7 @@ public class ATSwingUtils {
         fonts[3] = f.deriveFont(Font.PLAIN, 14);
         fonts[4] = f.deriveFont(Font.BOLD, 14);
         fonts[5] = f.deriveFont(Font.PLAIN, 11);
+        fonts[6] = f.deriveFont(Font.PLAIN, 22);
 
         /*
          * fonts[0] = new Font("SansSerif", Font.BOLD, 22);
@@ -622,6 +624,24 @@ public class ATSwingUtils {
         return label_1;
     }
 
+    public static JLabel getLabel(String text, Container cont, Integer fontId) {
+        JLabel label_1 = new JLabel();
+
+        if (text != null) {
+            label_1.setText(text);
+        }
+
+        if (fontId != null) {
+            label_1.setFont(getFont(fontId));
+        }
+
+        if (cont != null) {
+            cont.add(label_1);
+        }
+
+        return label_1;
+    }
+
 
     public static JLabel getLabel(String text, Container cont, String layoutConstraints, int fontId) {
         return getLabel(text, cont, layoutConstraints, getFont(fontId));
@@ -895,6 +915,12 @@ public class ATSwingUtils {
                 action_cmd, al, da, null, null);
     }
 
+    public static JButton getButton(String text, int font_id, String icon_name, String action_cmd, ActionListener al,
+                                    ATDataAccessAbstract da, Container container) {
+        return ATSwingUtils.getButton(text, null, null, null, null, null, null, getFont(font_id), icon_name,
+                action_cmd, al, da, null, container);
+    }
+
 
     public static JButton getButton(String text, Container container, Object layoutConstraints, int font_id,
                                     String icon_name, ATDataAccessAbstract da) {
@@ -1010,7 +1036,7 @@ public class ATSwingUtils {
                                     ActionListener al, ATDataAccessAbstract da, int[] icon_size, Container containerForImage) {
         JButton button = null;
 
-        if (text == null || text.trim().length() == 0) {
+        if (text == null || text.trim().isEmpty()) {
             button = new JButton();
         } else {
             button = new JButton(text);
@@ -1148,6 +1174,9 @@ public class ATSwingUtils {
         return getTextField(text, x, y, width, height, cont, null, getFont(font_id));
     }
 
+    public static JTextField getTextField(String text, int x, int y, int width, int height, Container cont, Font font) {
+        return getTextField(text, x, y, width, height, cont, null, font);
+    }
 
     public static JTextField getTextField(String text, int fontId) {
         return getTextField(text, null, null, null, null, null, null, getFont(fontId));

@@ -20,6 +20,7 @@ public class UserDataDirectory
     String updateConfig;
     OSType osType;
 
+    private StartupUtil startupUtil = new StartupUtil();
 
     public static UserDataDirectory getInstance()
     {
@@ -42,7 +43,7 @@ public class UserDataDirectory
 
     private void initializeUserDataDirectory()
     {
-        this.applicationStartupConfig = StartupUtil.getApplicationStartupConfig();
+        this.applicationStartupConfig = startupUtil.getApplicationStartupConfig();
 
         if (this.applicationStartupConfig == null)
         {

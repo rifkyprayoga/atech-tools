@@ -31,6 +31,8 @@ public class ATDataAccessSimple extends ATDataAccessAbstract {
     private String imagesRoot;
 
 
+
+
     protected void defaultInit() {
 
     }

@@ -70,12 +70,14 @@ public class DbCheck
     private boolean get_successful = false;
     private HibernateConfiguration hc = null;
 
+    StartupUtil startupUtil = new StartupUtil();
+
     /**
      * Constructor
      */
     public DbCheck()
     {
-        if (!StartupUtil.shouldDbCheckBeDone())
+        if (!startupUtil.shouldDbCheckBeDone())
             return;
 
         this.upd_conf = new BuildStartupFile().getConfiguration();
@@ -86,7 +88,7 @@ public class DbCheck
         readCurrentDbVersion();
         writeReport();
 
-        StartupUtil.writeStartupWithOldCopy(1);
+        startupUtil.writeStartupWithOldCopy(1);
     }
 
     /**
@@ -97,7 +99,7 @@ public class DbCheck
      */
     public DbCheck(String req_version, String db_class)
     {
-        if (!StartupUtil.shouldDbCheckBeDone())
+        if (!startupUtil.shouldDbCheckBeDone())
             return;
 
         //da = ATDataAccess.getInstance();
@@ -107,7 +109,7 @@ public class DbCheck
         readCurrentDbVersion();
         writeReport();
 
-        StartupUtil.writeStartupWithOldCopy(1);
+        startupUtil.writeStartupWithOldCopy(1);
     }
 
     /**

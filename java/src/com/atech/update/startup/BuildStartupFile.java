@@ -44,7 +44,7 @@ import com.atech.update.startup.data.ApplicationStartupConfigDto;
 
 public class BuildStartupFile
 {
-
+    StartupUtil StartupUtil = new StartupUtil();
     UpdateConfiguration upd_conf;
     StartupFilesCreator sfc; // = new StartupFileCreator(UpdateConfiguration uc)
     // int startupType = 1; // 1 = Default, old one, 2 = New (files in bin/ext)
