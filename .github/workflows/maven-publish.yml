@@ -23,7 +23,7 @@ jobs:
         java-version: '8.0.402+6'
         distribution: 'temurin'
         server-id: jitpack.io # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
+        settings-path: ${{ github.workspace }}/java # location for the settings.xml file
 
     - name: Build with Maven
       working-directory: ./java
@@ -31,6 +31,6 @@ jobs:
 
     - name: Publish to GitHub Packages Apache Maven
       working-directory: ./java
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+      run: mvn deploy -s $GITHUB_WORKSPACE/java/settings.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
