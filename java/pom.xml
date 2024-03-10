@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
     <name>Atech-Tools Project</name>
 
@@ -11,26 +11,10 @@
 
     <repositories>
 
-        <!--
         <repository>
-            <id>atechrepositorypublic</id>
-            <name>Atech Software Public Repository</name> -->
-        <!-- <url>http://www.atech-software.com:8090/repository/public/</url>
-         http://www.atech-software.com:8081/nexus/content/groups/public/ -->
-        <!--            <url>http://www.atech-software.com/nexus/content/groups/public/</url>
-                </repository> -->
-
-
-        <!-- <repository> <id>mvnrepository</id> <name>mvnrepository</name> <url>http://www.mvnrepository.com</url>
-            </repository> <repository> <id>jbossrepository</id> <name>jbossrepository</name>
-            <url>https://repository.jboss.org/nexus/</url> </repository> <repository>
-            <id>sonatype</id> <name>Sonatype OSS Snapshots Repository</name> <url>http://oss.sonatype.org/content/groups/public</url>
-            </repository> <repository> <id>javanet</id> <name>Download Java Net Repository</name>
-            <url>http://download.java.net/maven/2/</url> </repository> -->
-
-        <!-- <url>http://repository.jboss.org/nexus/content/repositories/</url>
-            <repository> <id>central</id> <name>Maven Repository Switchboard</name> <layout>default</layout>
-            <url>http://repo1.maven.org/maven2</url> </repository> -->
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
 
         <repository>
             <id>sonatype</id>
@@ -54,38 +38,25 @@
         <repository>
             <id>atechrepositorypublic</id>
             <name>Atech Software Public Repository</name>
-            <!-- <url>http://www.atech-software.com:8090/repository/public/</url>
-             http://www.atech-software.com:8081/nexus/content/groups/public/ -->
             <url>http://www.atech-software.com/nexus/content/groups/public/</url>
         </repository>
 
     </repositories>
 
-    <!--
+
     <distributionManagement>
         <repository>
-            <id>releases</id>
-            <name>Internal Releases</name>
-            <! -X-
-            <url>http://www.atech-software.com:8090/repository/internal/</url>
-            -X- >
-            <url>http://www.atech-software.com:8081/nexus/content/repositories/releases/</url>
+            <id>github</id>
+            <name>Github Releases</name>
+            <url>https://jitpack.io</url>
         </repository>
         <snapshotRepository>
-            <id>snapshots</id>
-            <name>Internal Snapshots</name>
-            <! -X-
-            <url>http://www.atech-software.com:8090/repository/snapshots/</url>
-            -X- >
-            <url>http://www.atech-software.com:8081/nexus/content/repositories/snapshots/</url>
+            <id>github</id>
+            <name>Github Snapshot Releases</name>
+            <url>https://jitpack.io</url>
         </snapshotRepository>
     </distributionManagement>
--->
 
-    <!-- <pluginRepositories> <pluginRepository> <id>central</id> <name>Maven
-        Plugin Repository</name> <url>http://repo1.maven.org/maven2</url> <layout>default</layout>
-        <snapshots> <enabled>false</enabled> </snapshots> <releases> <updatePolicy>never</updatePolicy>
-    -->
 
     <build>
         <defaultGoal>compile</defaultGoal>
@@ -128,6 +99,7 @@
     </reporting>
 
     <dependencies>
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
@@ -402,4 +374,5 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
 </project>
