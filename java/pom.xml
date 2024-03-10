@@ -6,7 +6,7 @@
 
     <groupId>com.atech-software</groupId>
     <artifactId>atech-tools</artifactId>
-    <version>${atech-tools.version}</version>
+    <version>0.8.6-SNAPSHOT</version>
 
 
     <repositories>
@@ -95,7 +95,7 @@
         <testOutputDirectory>target/test-classes</testOutputDirectory>
         <sourceDirectory>src</sourceDirectory>
         <scriptSourceDirectory>src</scriptSourceDirectory>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <!--        <testSourceDirectory>src/test/java</testSourceDirectory>-->
         <resources>
             <resource>
                 <directory>src</directory>
@@ -247,7 +247,7 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.5</version>
+            <version>${commons-io.version}</version>
         </dependency>
 
 
@@ -310,12 +310,6 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.simpleframework</groupId>
             <artifactId>simple-xml</artifactId>
             <version>${simpleframework.version}</version>
@@ -365,7 +359,6 @@
     </dependencyManagement>
 
     <properties>
-        <atech-tools.version>0.8.6-SNAPSHOT</atech-tools.version>
 
         <skinlf.version>6.7</skinlf.version>
         <log4j.version>1.2.17</log4j.version>
@@ -397,7 +390,7 @@
         <joda-time.version>2.8.2</joda-time.version>
         <commons-collections.version>3.2.1</commons-collections.version>
         <slf4j.version>1.7.12</slf4j.version>
-        <commons-io.version>2.2</commons-io.version>
+        <commons-io.version>2.5</commons-io.version>
 
         <!-- 0.9.xx (GGC 0.7) -->
         <simpleframework.version>2.7.1</simpleframework.version>
@@ -409,31 +402,3 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 </project>
-
-
-        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.pom-->
-        <!--Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.pom-->
-        <!--Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.pom (0 B at 0.0 KB/sec)-->
-        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.pom-->
-        <!--Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.pom-->
-        <!--Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.pom (0 B at 0.0 KB/sec)-->
-        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/apache/maven/surefire/surefire-booter/2.12.4/surefire-booter-2.12.4.jar-->
-        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.jar-->
-        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.jar-->
-        <!--Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-booter/2.12.4/surefire-booter-2.12.4.jar-->
-        <!--Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.jar-->
-        <!--Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.jar-->
-        <!--Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-booter/2.12.4/surefire-booter-2.12.4.jar (0 B at 0.0 KB/sec)-->
-        <!--Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.jar (0 B at 0.0 KB/sec)-->
-        <!--Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.jar (0 B at 0.0 KB/sec)-->
-        <!--[INFO] No tests to run.-->
-        <!--[INFO]-->
-        <!--[INFO] -&#45;&#45; maven-jar-plugin:2.4:jar (default-jar) @ atech-tools -&#45;&#45;-->
-        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/codehaus/plexus/plexus-archiver/2.1/plexus-archiver-2.1.jar-->
-        <!--Downloading: http://oss.sonatype.org/content/groups/public/org/codehaus/plexus/plexus-io/2.0.2/plexus-io-2.0.2.jar-->
-        <!--Downloading: http://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.1/plexus-archiver-2.1.jar-->
-        <!--Downloading: http://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.2/plexus-io-2.0.2.jar-->
-        <!--Downloaded: http://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.1/plexus-archiver-2.1.jar (0 B at 0.0 KB/sec)-->
-        <!--Downloaded: http://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.2/plexus-io-2.0.2.jar (0 B at 0.0 KB/sec)-->
-
-
