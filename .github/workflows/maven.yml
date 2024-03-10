@@ -26,7 +26,6 @@ jobs:
       with:
         java-version: '8.0.402+6'
         distribution: 'temurin'
-        maven-version: '3.5.4'
         cache: maven
     - name: Build with Maven
       working-directory: ./java
