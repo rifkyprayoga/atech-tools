@@ -380,7 +380,7 @@
         <icepdf-viewer.version>5.0.7</icepdf-viewer.version> -->
 
         <commons-lang.version>2.6</commons-lang.version>
-        <jta.version>1.0.1B</jta.version>
+        <jta.version>1.1</jta.version>  <!-- 1.0.1B -->
         <table-layout.version>4.3.0</table-layout.version>
 
         <!-- GGC 0.8 -->
