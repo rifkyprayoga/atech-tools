@@ -47,14 +47,22 @@
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>Github Releases</name>
-            <url>https://jitpack.io</url>
+            <url>https://maven.pkg.github.com/andyrozman/atech-tools</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
-        <snapshotRepository>
-            <id>github</id>
-            <name>Github Snapshot Releases</name>
-            <url>https://jitpack.io</url>
-        </snapshotRepository>
+
+        <!--        <repository>-->
+        <!--            <id>jitpack.io</id>-->
+        <!--            <name>Github Releases</name>-->
+        <!--            <url>https://jitpack.io</url>-->
+        <!--        </repository>-->
+        <!--        <snapshotRepository>-->
+        <!--            <id>jitpack.io</id>-->
+        <!--            <name>Github Snapshot Releases</name>-->
+        <!--            <url>https://jitpack.io</url>-->
+        <!--        </snapshotRepository>-->
     </distributionManagement>
 
 
