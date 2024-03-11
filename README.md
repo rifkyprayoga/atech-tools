@@ -1,3 +1,9 @@
+[![Release](https://jitpack.io/v/com.atech-software/atech-tools.svg)](https://jitpack.io/#com.atech-software/atech-tools)
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/andyrozman/atech-tools/maven.yml)
+
+
+
 # Atech-Tools
 ATech Tools (library for help with development in Java (and also C#). (moved from sf.net on 10th March 2024).
 
@@ -16,4 +22,31 @@ file CHanges.txt.
 
 ## Building
 This is simple java project with maven build, so it can be rebuild very easilly... 
+
+## Usage
+
+Add following repository:
+
+```xml
+    <repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+```
+
+
+And then following dependency in your code (change 0.8.7 with latest version - see badge on top of this document):
+
+```xml
+	<dependency>
+	    <groupId>com.atech-software</groupId>
+	    <artifactId>atech-tools</artifactId>
+	    <version>0.8.7</version>
+	</dependency>
+
+```
+
+
 
