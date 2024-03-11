@@ -29,8 +29,8 @@ jobs:
       working-directory: ./java
       run: mvn -B package --file pom.xml
 
-    - name: Publish to GitHub Packages Apache Maven
-      working-directory: ./java
-      run: mvn deploy -s $GITHUB_WORKSPACE/java/settings.xml
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+#    - name: Publish to GitHub Packages Apache Maven
+#      working-directory: ./java
+#      run: mvn deploy -s $GITHUB_WORKSPACE/java/settings.xml
+#      env:
+#        GITHUB_TOKEN: ${{ github.token }}
