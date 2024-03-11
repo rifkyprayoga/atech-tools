@@ -1,76 +1,66 @@
 package com.atech.update.startup.os;
 
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 
 /**
- *  This file is part of ATech Tools library.
- *  
- *  OSUtil - Util for creating startup files
- *  Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
- *  
- *  
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
+ * This file is part of ATech Tools library.
+ * <p>
+ * OSUtil - Util for creating startup files
+ * Copyright (C) 2008  Andy (Aleksander) Rozman (Atech-Software)
+ * <p>
+ * <p>
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * <p>
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * <p>
+ * <p>
+ * For additional information about this project please visit our project site on
+ * http://atech-tools.sourceforge.net/ or contact us via this emails:
+ * andyrozman@users.sourceforge.net or andy@atech-software.com
  *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
- *  
- *  
- *  For additional information about this project please visit our project site on 
- *  http://atech-tools.sourceforge.net/ or contact us via this emails: 
- *  andyrozman@users.sourceforge.net or andy@atech-software.com
- *  
- *  @author Andy
- *
-*/
+ * @author Andy
+ */
 
-public class OSUtil
-{
+public class OSUtil {
 
     /**
      * Constructor
      */
-    public OSUtil()
-    {
+    public OSUtil() {
 
     }
 
 
     /**
      * Get Short OS Name
+     *
      * @return
      */
-    public String getShortOSName()
-    {
+    public String getShortOSName() {
         String os_name = System.getProperty("os.name");
         String short_name = "unknown";
 
         // System.out.println("Found OS: " + os_name);
 
-        if (os_name.contains("Linux"))
-        {
+        if (os_name.contains("Linux")) {
             short_name = "linux";
-        }
-        else if (os_name.contains("Mac"))
-        {
+        } else if (os_name.contains("Mac")) {
             short_name = "mac";
-        }
-        else if (os_name.contains("Win"))
-        {
+        } else if (os_name.contains("Win")) {
             short_name = "win";
-        }
-        else if (os_name.contains("FreeBSD"))
-        {
+        } else if (os_name.contains("FreeBSD")) {
             short_name = "freebsd";
         }
 
@@ -78,8 +68,7 @@ public class OSUtil
     }
 
 
-    public OSType getStartupOS(boolean printNotSupported)
-    {
+    public OSType getStartupOS(boolean printNotSupported) {
 
         OSType type = OSType.getOSByType();
 
@@ -188,13 +177,37 @@ public class OSUtil
      * Windows CE 3.0 build 11171 arm Compaq iPAQ 3950 (PocketPC 2002)
      */
 
+    public String getMyDocumentsFolder() {
+
+        String shortOSName = getShortOSName();
+
+        if ("win".equals(shortOSName)) {
+            // on windows FileSystemView getDefaultDirectory return My Documents directly
+            return FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
+        } else {
+            // this should work in most system. It seems Mac always keep the same name even if
+            // i18n-zed, but linux and other system don't always, because of this we will
+            // do check if Directory exist, if it doesn't user will have to pass the correct
+            // parameter, instead
+            String possibleDocPath = System.getProperty("user.home") + File.separator + "Documents";
+
+            File f = new File(possibleDocPath);
+
+            if (f.exists() && f.isDirectory()) {
+                return possibleDocPath;
+            } else
+                return null;
+
+        }
+    }
+
+
     /**
      * Get OS Specific Configuration File
-     * 
+     *
      * @return filename of configuration file
      */
-    public String getOSSpecificConfigurationFile()
-    {
+    public String getOSSpecificConfigurationFile() {
         String defaultConfigFilename = "StartupConfig.properties";
 
         String os_name = getShortOSName();
@@ -202,16 +215,14 @@ public class OSUtil
 
         //File f = new File(osConfigFilename);
 
-        String[] files = new String[] { osConfigFilename, //
-                                       "./ext/" + osConfigFilename, //
-                                       defaultConfigFilename, //
-                                       "./ext/" + defaultConfigFilename };
+        String[] files = new String[]{osConfigFilename, //
+                "./ext/" + osConfigFilename, //
+                defaultConfigFilename, //
+                "./ext/" + defaultConfigFilename};
 
-        for (String fileName : files)
-        {
+        for (String fileName : files) {
             System.out.println("Searching for " + fileName);
-            if (fileExists(fileName))
-            {
+            if (fileExists(fileName)) {
                 return fileName;
             }
         }
@@ -219,7 +230,7 @@ public class OSUtil
         // StartupConfig might have been added as resource
         String filename = checkIfStartupIsResource(osConfigFilename, defaultConfigFilename);
 
-        return filename==null ? defaultConfigFilename : filename;
+        return filename == null ? defaultConfigFilename : filename;
 
 //
 //        URL resource = OSUtil.class.getClass().getClassLoader().getResource("file.txt");
@@ -238,7 +249,7 @@ public class OSUtil
 
     }
 
-    public String checkIfStartupIsResource(String...files) {
+    public String checkIfStartupIsResource(String... files) {
         //Object o = new Object();
         for (String file : files) {
             //URL resource = o.getClass().getClassLoader().getResource(file);
@@ -258,22 +269,19 @@ public class OSUtil
     }
 
 
-    public boolean fileExists(String fileName)
-    {
+    public boolean fileExists(String fileName) {
         File f = new File(fileName);
 
         return f.exists();
     }
 
 
-    public OSArchitecture getOSArchitecture()
-    {
+    public OSArchitecture getOSArchitecture() {
         String arch = System.getProperty("os.arch");
 
         OSArchitecture archType = OSArchitecture.getByDefinitionName(arch);
 
-        if (archType == OSArchitecture.Unknown)
-        {
+        if (archType == OSArchitecture.Unknown) {
             System.out.println("Unknown architecture: " + arch);
         }
 
@@ -281,8 +289,7 @@ public class OSUtil
     }
 
 
-    private void printNotSupported(String osName)
-    {
+    private void printNotSupported(String osName) {
         System.out.println("This Operating System (" + osName + ") is not yet supported "
                 + "\nby ATech's Startup/Update Manager.");
         System.out.println("If you wish to help us with support for your OS, please contact support");
