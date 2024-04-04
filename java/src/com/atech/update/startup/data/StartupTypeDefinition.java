@@ -13,8 +13,14 @@ public enum StartupTypeDefinition implements CodeEnum
 
     LegacyStartup(1), // all startup files in \bin
     ExtendedStartup(2), // startup files in \bin\ext
-    ExtendedStartupWithDataDirectory(3); // startup files in \bin\ext and data directory is in user
-                                         // space (except for USB configuration)
+    ExtendedStartupWithDataDirectory(3), // startup files in \bin\ext and data directory is in user
+    // space (except for USB configuration)
+
+    InternalStartup(4), // Startup with file integrated and external Data Directory
+
+
+
+    ;
 
     private int code;
     static Map<Integer, StartupTypeDefinition> codeMapping = new HashMap<Integer, StartupTypeDefinition>();

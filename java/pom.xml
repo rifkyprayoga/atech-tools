@@ -16,16 +16,16 @@
             <url>https://jitpack.io</url>
         </repository>
 
-        <repository>
-            <id>sonatype</id>
-            <name>Sonatype OSS Snapshots Repository</name>
-            <url>http://oss.sonatype.org/content/groups/public</url>
-        </repository>
+<!--        <repository>-->
+<!--            <id>sonatype</id>-->
+<!--            <name>Sonatype OSS Snapshots Repository</name>-->
+<!--            <url>http://oss.sonatype.org/content/groups/public</url>-->
+<!--        </repository>-->
 
         <repository>
             <id>mvnrepository</id>
             <name>mvnrepository</name>
-            <url>http://www.mvnrepository.com</url>
+            <url>https://www.mvnrepository.com</url>
         </repository>
 
 
