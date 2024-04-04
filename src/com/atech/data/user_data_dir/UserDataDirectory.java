@@ -58,12 +58,10 @@ public class UserDataDirectory
         }
         else
         {
-            if (applicationStartupConfig.getStartupType() != StartupTypeDefinition.ExtendedStartupWithDataDirectory)
-            {
+            if (applicationStartupConfig.getStartupType() != StartupTypeDefinition.ExtendedStartupWithDataDirectory && applicationStartupConfig.getStartupType() != StartupTypeDefinition.InternalStartup) {
                 userDirectory = fallbackDirectory;
             }
-            else
-            {
+            else {
                 this.osType = OSType.getOSByType();
 
                 if (this.osType == null)
