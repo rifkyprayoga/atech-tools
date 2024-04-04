@@ -10,7 +10,7 @@ import java.util.Set;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import com.atech.data.enums.InternalSetting;
 import com.atech.data.enums.LanguageISO639;
