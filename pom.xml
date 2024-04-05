@@ -386,7 +386,7 @@
         <pygmy-handlers.version>0.2</pygmy-handlers.version>
         <junit.version>4.10</junit.version>
         <servlet-api.version>2.5</servlet-api.version>
-        <itextpdf.version>5.1.2</itextpdf.version>
+        <itextpdf.version>5.5.13.3</itextpdf.version>
         <commons-lang.version>2.6</commons-lang.version>
         <javahelp.version>2.0.05</javahelp.version>
         <lombok.version>1.18.30</lombok.version>
