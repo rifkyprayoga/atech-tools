@@ -302,7 +302,8 @@ public class ATSwingUtils {
         //System.out.println("Component: " + cmp);
         //System.out.println("Filename: " + filename);
 
-        InputStream is = cmp.getClass().getResourceAsStream(filename);
+        //InputStream is = cmp.getClass().getResourceAsStream(filename);
+        InputStream is = ATSwingUtils.class.getResourceAsStream(filename);
 
         if (is == null) {
             System.out.println("Error reading image: " + filename);
