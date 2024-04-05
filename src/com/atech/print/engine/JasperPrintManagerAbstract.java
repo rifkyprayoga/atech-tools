@@ -2,8 +2,11 @@ package com.atech.print.engine;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -57,16 +60,20 @@ public abstract class JasperPrintManagerAbstract
     public abstract String getSubReportDir();
 
 
-    public void startJasperPrint(String report_name, HashMap<String, String> parameters,
-            JRBeanCollectionDataSource collection)
-    {
+    public void startJasperPrint(String report_name,
+                                 Map<String, String> parameters,
+                                 JRBeanCollectionDataSource collection) {
         startJasperPrint(report_name, null, parameters, collection);
     }
 
 
-    public void startJasperPrint(String reportName, String subReports, HashMap<String, String> parameters,
-            JRBeanCollectionDataSource collection)
-    {
+    public void startJasperPrint(String reportName, String subReports,
+                                 Map<String, String> parameters,
+                                 JRDataSource collection) {
+        Map<String, Object> objectMap = parameters.entrySet()
+                .stream().collect(Collectors.toMap(
+                        String::valueOf,
+                        v-> v));
         try
         {
             String baseDir = this.getBaseDir();
@@ -77,7 +84,7 @@ public abstract class JasperPrintManagerAbstract
 
             checkIfSubreportsCompiled(this.getSubReportDir(), subReports);
 
-            String res = JasperFillManager.fillReportToFile(baseDir + reportName + ".jasper", parameters, collection);
+            String res = JasperFillManager.fillReportToFile(baseDir + reportName + ".jasper", objectMap, collection);
             LOG.debug("Jasper report filled with data and \nJasper .jrprint file created in " + baseDir
                     + ". Return data: " + res);
 

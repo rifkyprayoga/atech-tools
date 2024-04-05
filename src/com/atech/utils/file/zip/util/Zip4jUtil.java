@@ -3,10 +3,10 @@ package com.atech.utils.file.zip.util;
 import java.io.File;
 import java.util.ArrayList;
 
-import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
-import net.lingala.zip4j.util.Zip4jConstants;
+import net.lingala.zip4j.model.enums.CompressionLevel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ public class Zip4jUtil extends ZipUtilAbstract
             ZipFile zipFile = new ZipFile(sourceFile);
 
             if (zipFile.isEncrypted())
-                zipFile.setPassword(password);
+                zipFile.setPassword(password.toCharArray());
 
             zipFile.extractAll(destinationDirectory);
         }
@@ -68,7 +68,7 @@ public class Zip4jUtil extends ZipUtilAbstract
     public static ZipParameters generateDefaultZipParameters()
     {
         ZipParameters param = new ZipParameters();
-        param.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
+        param.setCompressionLevel(CompressionLevel.NORMAL);
 
         return param;
     }

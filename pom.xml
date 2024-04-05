@@ -272,13 +272,50 @@
                     <groupId>javax.media</groupId>
                     <artifactId>jai_core</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15on</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-ext-jdk15on</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcpkix-jdk15on</artifactId>
+                </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk18on</artifactId>
+            <version>${bouncy_castle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk18on</artifactId>
+            <version>${bouncy_castle.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.icepdf.os</groupId>
             <artifactId>icepdf-viewer</artifactId>
             <version>${icepdf-viewer.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15on</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-ext-jdk15on</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcpkix-jdk15on</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
 
@@ -342,7 +379,7 @@
 
         <skinlf.version>6.7</skinlf.version>
         <log4j.version>1.2.17</log4j.version>
-        <jasperreports.version>3.7.1</jasperreports.version>
+        <jasperreports.version>6.20.6</jasperreports.version>
         <jfreechart.version>1.0.13</jfreechart.version>
         <hibernate.version>3.1.3</hibernate.version>
         <pygmy-core.version>0.2</pygmy-core.version>
@@ -355,6 +392,7 @@
         <lombok.version>1.18.30</lombok.version>
 
         <commons-compress.version>1.26.1</commons-compress.version> <!-- V: 1.13 -->
+        <bouncy_castle.version>1.77</bouncy_castle.version> <!-- we replace old one from icepdf-core -->
 
         <!--
         <icepdf-core.version>5.0.7</icepdf-core.version>
@@ -375,7 +413,7 @@
 
         <!-- 0.9.xx (GGC 0.7) -->
         <simpleframework.version>2.7.1</simpleframework.version>
-        <zip4j.version>1.3.2</zip4j.version>
+        <zip4j.version>2.11.5</zip4j.version> <!-- 1.3.2 -->
         <xstream.version>1.4.20</xstream.version> <!-- V: 1.4.4 -->
 
 
