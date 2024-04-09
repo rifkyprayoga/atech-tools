@@ -1,11 +1,7 @@
-package com.atech.data.user_data_dir;
-
-import java.util.List;
-
-import com.atech.data.FileDirectoryDto;
+package com.atech.data.install_migration;
 
 /**
- * Created by andy on 27/01/18.
+ * Created by andy on 07.04.2024.
  */
 /**
  *  This file is part of ATech Tools library.
@@ -35,10 +31,25 @@ import com.atech.data.FileDirectoryDto;
  *  @author Andy
  *
  */
-public interface UserDataDirectoryContext {
+public enum MigrationOperation {
+    COPY_FILE,
+    COPY_DIRECTORY,
+    DELETE_FILE_FROM_TARGET,
+    RENAME_BEFORE, // rename is done in source directory
+    COPY_CONTENTS,
+    UNZIP_ARCHIVE,
+    INSTALL,
+    COPY_DIRECTORY_OR_INSTALL,
+    RENAME_AFTER, // rename is done in target directory
+    RENAME_SOURCE_AFTER, // rename source directory after work is done, so that its never migrated again
+    EDIT_FILE_IN_TARGET_REPLACE_LINE,
 
-
-    List<FileDirectoryDto> getAllDirectoriesToCheck();
-
-    List<FileDirectoryDto> getAllFileToCheck();
+    ;
 }
+
+
+
+
+
+
+

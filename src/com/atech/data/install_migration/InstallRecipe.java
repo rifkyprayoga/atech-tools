@@ -1,11 +1,9 @@
-package com.atech.data.user_data_dir;
+package com.atech.data.install_migration;
 
-import java.util.List;
-
-import com.atech.data.FileDirectoryDto;
+import java.util.ArrayList;
 
 /**
- * Created by andy on 27/01/18.
+ * Created by andy on 07.04.2024.
  */
 /**
  *  This file is part of ATech Tools library.
@@ -35,10 +33,28 @@ import com.atech.data.FileDirectoryDto;
  *  @author Andy
  *
  */
-public interface UserDataDirectoryContext {
+public class InstallRecipe extends ArrayList<RecipeEntryDto> {
 
 
-    List<FileDirectoryDto> getAllDirectoriesToCheck();
+    public void addUnzipArchive(String archiveName) {
+        add(RecipeEntryDto.builder()
+                .installOperation(InstallOperation.UNZIP_ARCHIVE)
+                .parameter1(archiveName)
+                .build());
+    }
 
-    List<FileDirectoryDto> getAllFileToCheck();
+    public void addUnzipArchive(String archiveName, String targetDirectory) {
+        add(RecipeEntryDto.builder()
+                .installOperation(InstallOperation.UNZIP_ARCHIVE)
+                .parameter1(archiveName)
+                .parameter2(targetDirectory)
+                .build());
+    }
+
+    public void addMakeDirectory(String targetDirectory) {
+        add(RecipeEntryDto.builder()
+                .installOperation(InstallOperation.MAKE_DIRECTORY)
+                .parameter1(targetDirectory)
+                .build());
+    }
 }

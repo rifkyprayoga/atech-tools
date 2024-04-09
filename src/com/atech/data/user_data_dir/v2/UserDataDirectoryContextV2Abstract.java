@@ -1,11 +1,12 @@
-package com.atech.data.user_data_dir;
+package com.atech.data.user_data_dir.v2;
+
+import com.atech.data.FileDirectoryDto;
+import com.atech.data.user_data_dir.UserDataDirectoryContext;
 
 import java.util.List;
 
-import com.atech.data.FileDirectoryDto;
-
 /**
- * Created by andy on 27/01/18.
+ * Created by andy on 06.04.2024.
  */
 /**
  *  This file is part of ATech Tools library.
@@ -35,36 +36,16 @@ import com.atech.data.FileDirectoryDto;
  *  @author Andy
  *
  */
-public abstract class UserDataDirectoryContextAbstract implements UserDataDirectoryContext {
+public abstract class UserDataDirectoryContextV2Abstract implements UserDataDirectoryContextV2 {
 
-    //UserDataDirectory userDataDirectory;
-    //String userDataDirectoryFolder;
     protected List<FileDirectoryDto> directoriesToCheck;
     protected List<FileDirectoryDto> filesToCheck;
 
-    public UserDataDirectoryContextAbstract()
-    {
+    public UserDataDirectoryContextV2Abstract() {
         initData();
     }
-//    {
-//        this.userDataDirectory = userDataDirectory;
-//        this.userDataDirectoryFolder = userDataDirectory.getUserDataDirectory();
-//
-//    }
-
-
-//    public UserDataDirectoryContextAbstract(UserDataDirectory userDataDirectory)
-//    {
-//        this.userDataDirectory = userDataDirectory;
-//        this.userDataDirectoryFolder = userDataDirectory.getUserDataDirectory();
-//        initData();
-//    }
 
     protected abstract void initData();
-    //{
-
-
-//    }
 
     @Override
     public List<FileDirectoryDto> getAllDirectoriesToCheck() {
@@ -72,8 +53,7 @@ public abstract class UserDataDirectoryContextAbstract implements UserDataDirect
     }
 
     @Override
-    public List<FileDirectoryDto> getAllFileToCheck()
-    {
+    public List<FileDirectoryDto> getAllFilesToCheck() {
         return this.filesToCheck;
     }
 

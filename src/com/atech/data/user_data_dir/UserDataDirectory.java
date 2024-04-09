@@ -1,6 +1,7 @@
 package com.atech.data.user_data_dir;
 
 import com.atech.data.user_data_dir.v2.UserDataDirectoryContextV2;
+import com.atech.data.user_data_dir.v2.UserDataDirectoryV2CreatorOrMigration;
 import com.atech.data.user_data_dir.v2.UserDataDirectoryV2Validator;
 import com.atech.update.startup.StartupUtil;
 import com.atech.update.startup.data.ApplicationStartupConfigDto;
@@ -14,6 +15,34 @@ import java.io.File;
 /**
  * Created by andy on 08/12/17.
  */
+/**
+ *  This file is part of ATech Tools library.
+ *
+ *  Copyright (C) 2017-24  Andy (Aleksander) Rozman (Atech-Software)
+ *
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ *
+ *  For additional information about this project please visit our project site on
+ *  https://github.com/andyrozman/atech-tools or contact us via this email:
+ *  andy@atech-software.com
+ *
+ *  @author Andy
+ *
+ */
 @Slf4j
 public class UserDataDirectory
 {
@@ -23,6 +52,7 @@ public class UserDataDirectory
     static String userDirectory;
 
     private static UserDataDirectory sUserDataDirectory; // = new UserDataDirectory(applicationUDDContext);
+    @Getter
     private UserDataDirectoryContextV2 userDataDirectoryContextV2;
     @Getter
     ApplicationStartupConfigDto applicationStartupConfig;
@@ -60,7 +90,7 @@ public class UserDataDirectory
 
     public String getUserDataDirectory()
     {
-        System.out.println("User Data Directory: " + userDirectory);
+        //System.out.println("User Data Directory: " + userDirectory);
         return userDirectory;
     }
 
@@ -152,10 +182,8 @@ public class UserDataDirectory
     }
 
 
-    public String getParsedUserDataPath(String path)
-    {
-        if (path.contains("%USER_DATA_DIR%"))
-        {
+    public String getParsedUserDataPath(String path) {
+        if (path.contains("%USER_DATA_DIR%")) {
             path = path.replace("%USER_DATA_DIR%", userDirectory);
         }
 
@@ -163,8 +191,7 @@ public class UserDataDirectory
     }
 
 
-    public String getUpdateConfig()
-    {
+    public String getUpdateConfig() {
         if (this.userDataDirectoryContextV2!=null) {
             log.warn("UserDataDirectoryContextV2 doesn't use UpdateConfig V2/V3 anymore");
             return null;
@@ -198,51 +225,14 @@ public class UserDataDirectory
 
     public void migrateAndValidateData() {
 
-        // TODO
+        UserDataDirectoryV2Validator validator = new UserDataDirectoryV2Validator(this);
 
-        // 1.Check if target application directory exists
-        //   YES - Check that it contains all needed files
-        //   NO - go to 2.
-        File userDirectoryFile = new File(userDirectory);
-
-
-        if (userDirectoryFile.exists() && userDirectoryFile.isDirectory()) {
-
+        if (!validator.isValidInstallation()) {
+            log.warn("Installation doesn't seem to be valid. Running creation or migration of data directories");
+            UserDataDirectoryV2CreatorOrMigration creatorOrMigration = new UserDataDirectoryV2CreatorOrMigration(this, validator.getUserApplicationDirectory());
+            creatorOrMigration.runInstallOrMigration();
         } else {
-
-        }
-
-
-        // 2. Try to find data files of previous version (data defined in context, we can search
-        //    for specific directory in this directory or in some of the parents)
-        //    FOUND - go to 3.
-        //    NOT FOUND - go to 4.
-
-
-        // 3. Migration scenario, copy all the files (directories to check)
-        //    from found directory. Do the check afterwards again.
-        //    IF ALL FILES THERE... EXIT
-        //    IF FILES NOT THERE need to copy them
-
-
-        // 4. New Instalation scenario
-        //    create directory structure, unpack installation files
-
-
-
-
-        // TODO
-        //UserDataDirectoryMigration migration = new UserDataDirectoryMigration(this);
-        //migration.process();
-
-        //x.GGCUserDataDirectoryExtractorValidator validator = new GGCUserDataDirectoryExtractorValidator("../ddda");
-        //userDataDirectoryExtractorValidator.validateAndRecreate();
-
-
-        UserDataDirectoryV2Validator validator = new UserDataDirectoryV2Validator();
-
-        if (validator.isValidInstalation()) {
-
+            log.info("Installation is valid. Continuing start of application.");
         }
     }
 

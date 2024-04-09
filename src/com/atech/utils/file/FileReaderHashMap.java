@@ -1,7 +1,11 @@
 package com.atech.utils.file;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 
 /**
@@ -35,7 +39,7 @@ import java.util.HashMap;
  * @param <V> 
  *
 */
-
+@Slf4j
 public abstract class FileReaderHashMap<K, V> extends HashMap<K, V>
 {
 
@@ -93,7 +97,8 @@ public abstract class FileReaderHashMap<K, V> extends HashMap<K, V>
             BufferedReader br;
 
             if (isStaticFile) {
-                br = new BufferedReader(new FileReader(this.filename));
+                InputStream resourceAsStream = FileReaderHashMap.class.getResourceAsStream(this.filename);
+                br = new BufferedReader(new InputStreamReader(resourceAsStream));
             } else {
                 br = new BufferedReader(new FileReader(this.filename));
             }

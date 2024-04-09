@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.*;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +39,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Andy
  */
-
+@Slf4j
 public class PropertiesFile extends FileReaderHashMap<String, String> implements PropertiesWriterInterface
 {
 
@@ -45,6 +47,11 @@ public class PropertiesFile extends FileReaderHashMap<String, String> implements
     private boolean in_jar = false;
 
     private static final Logger LOG = LoggerFactory.getLogger(PropertiesFile.class);
+
+    @Getter
+    private Properties properties = null;
+    //@Getter
+    //private boolean fileRead = false;
 
 
     /**
@@ -72,10 +79,8 @@ public class PropertiesFile extends FileReaderHashMap<String, String> implements
      * Instantiates a new properties file.
      * 
      * @param data 
-     * @param filename the filename
      */
-    public PropertiesFile(Hashtable<String, String> data)
-    {
+    public PropertiesFile(Map<String, String> data) {
         super();
         this.putAll(data);
     }
@@ -99,40 +104,30 @@ public class PropertiesFile extends FileReaderHashMap<String, String> implements
                 }
             }
 
-            Properties props = new Properties();
+            properties = new Properties();
 
             if (in_jar || isStaticFile) {
                 InputStream fin = getClass().getClassLoader().getResourceAsStream(filename);
-                props.load(fin);
+                properties.load(fin);
                 fin.close();
             } else {
                 FileInputStream in = new FileInputStream(filename);
-                props.load(in);
+                properties.load(in);
                 in.close();
             }
 
             file_read = true;
-            /*
-             * BufferedReader br = new BufferedReader(new
-             * FileReader(this.filename));
-             * String line = null;
-             * while((line = br.readLine()) != null)
-             * {
-             * processFileEntry(line);
-             * }
-             */
 
-            for (Enumeration<Object> en = props.keys(); en.hasMoreElements();)
+            for (Enumeration<Object> en = properties.keys(); en.hasMoreElements();)
             {
                 String key = (String) en.nextElement();
-                this.put(key, props.getProperty(key));
+                this.put(key, properties.getProperty(key));
             }
 
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             LOG.error("PropertiesFile: Error reading file: " + this.filename);
-            // ex.printStackTrace();
+            ex.printStackTrace();
             file_read = false;
         }
     }
@@ -161,4 +156,6 @@ public class PropertiesFile extends FileReaderHashMap<String, String> implements
 
         return outMap;
     }
+
+
 }

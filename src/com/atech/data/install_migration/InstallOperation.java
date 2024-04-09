@@ -1,11 +1,7 @@
-package com.atech.data.user_data_dir;
-
-import java.util.List;
-
-import com.atech.data.FileDirectoryDto;
+package com.atech.data.install_migration;
 
 /**
- * Created by andy on 27/01/18.
+ * Created by andy on 07.04.2024.
  */
 /**
  *  This file is part of ATech Tools library.
@@ -35,10 +31,8 @@ import com.atech.data.FileDirectoryDto;
  *  @author Andy
  *
  */
-public interface UserDataDirectoryContext {
-
-
-    List<FileDirectoryDto> getAllDirectoriesToCheck();
-
-    List<FileDirectoryDto> getAllFileToCheck();
+public enum InstallOperation {
+    UNZIP_ARCHIVE,
+    INSTALL,
+    MAKE_DIRECTORY,
 }
