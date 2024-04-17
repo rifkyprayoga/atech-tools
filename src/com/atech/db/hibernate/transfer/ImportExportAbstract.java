@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
@@ -46,6 +47,7 @@ import com.atech.utils.ATDataAccessAbstract;
  *
 */
 
+@Slf4j
 @Deprecated
 public abstract class ImportExportAbstract
 {
@@ -273,6 +275,7 @@ public abstract class ImportExportAbstract
      */
     public void openFile(String file)
     {
+        log.info("Writing file: {}", file);
         try
         {
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(file)), "UTF8"));

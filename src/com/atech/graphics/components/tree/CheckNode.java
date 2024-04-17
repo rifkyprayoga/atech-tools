@@ -194,7 +194,7 @@ public class CheckNode extends DefaultMutableTreeNode
 
     public void setSelected(boolean isSelected, boolean checkGroupSelect)
     {
-        System.out.println("Set selected: " + isSelected + "selectionMode: " + selectionMode);
+        //System.out.println("Set selected: " + isSelected + "selectionMode: " + selectionMode);
         this.isSelected = isSelected;
 
         if (selectionMode == DIG_IN_SELECTION)
@@ -225,10 +225,10 @@ public class CheckNode extends DefaultMutableTreeNode
 
     private boolean checkIfParentRequiresGroupSelect(CheckNode parent)
     {
-        System.out.println("checkIfParentRequiresGroupSelect");
+        //System.out.println("checkIfParentRequiresGroupSelect");
         if (parent.getObject() instanceof BackupRestoreCollection)
         {
-            System.out.println("checkIfParentRequiresGroupSelect: Collection");
+            //System.out.println("checkIfParentRequiresGroupSelect: Collection");
 
             BackupRestoreCollection brc = (BackupRestoreCollection) parent.getObject();
 

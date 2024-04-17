@@ -1,6 +1,12 @@
 package com.atech.app.data.about;
 
 // TODO: Auto-generated Javadoc
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  *  This file is part of ATech Tools library.
  *  
@@ -31,6 +37,10 @@ package com.atech.app.data.about;
  *
 */
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class LibraryInfoEntry
 {
 
@@ -157,14 +167,12 @@ public class LibraryInfoEntry
             "<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#990000\"><a href=\""
                     + this.link_to + "\">" + this.link_to + "</a></font></td></tr></table>");
 
-        if (this.copyright != null)
-        {
+        if (this.copyright != null) {
             sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#000099\">"
                     + this.copyright + "</font></td></tr></table>");
         }
 
-        if (this.copyright2 != null)
-        {
+        if (this.copyright2 != null) {
             sb.append("<table width=\"100%\" border=\"0\"><tr><td width=\"10%\">&nbsp;</td><td><font color=\"#000099\">"
                     + this.copyright2 + "</font></td></tr></table>");
         }

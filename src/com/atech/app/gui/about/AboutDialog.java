@@ -12,6 +12,8 @@ import javax.swing.*;
 import com.atech.app.data.about.*;
 import com.atech.i18n.I18nControlAbstract;
 import com.atech.utils.ATSwingUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -78,6 +80,13 @@ public class AboutDialog extends javax.swing.JDialog
     private List<CreditsGroup> credits = null;
     private List<LibraryInfoEntry> libraries = null;
     private List<FeaturesGroup> features = null;
+    /**
+     * Get/Set the modules.
+     *
+     * @param lie the new libraries
+     */
+    @Getter @Setter
+    List<ModuleInfoEntry> modules;
 
     /**
      * The title.
@@ -214,15 +223,8 @@ public class AboutDialog extends javax.swing.JDialog
         getRootPane().getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(escape, "ESCAPE");
         getRootPane().getActionMap().put("ESCAPE", escapeAction);
 
-        this.close_button = new JButton("Close"); // i18nControl.getMessage("CLOSE"));
-        this.close_button.addActionListener(new java.awt.event.ActionListener()
-        {
-
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                setVisible(false);
-            }
-        });
+        this.close_button = new JButton(m_ic.getMessage("CLOSE")); // i18nControl.getMessage("CLOSE"));
+        this.close_button.addActionListener(evt -> setVisible(false));
 
         this.main_panel.add(this.close_button, BorderLayout.SOUTH);
 
@@ -413,6 +415,11 @@ public class AboutDialog extends javax.swing.JDialog
     {
 
         addPanelToTabs(this.tabs_before);
+
+        if (this.modules != null && !this.modules.isEmpty()) {
+            ModuleInfo ci = new ModuleInfo(m_ic, this.modules);
+            this.tabbed_pane.add(ci.getTabName(), ci.getTabPanel());
+        }
 
         if (this.features != null && this.features.size() > 0)
         {
