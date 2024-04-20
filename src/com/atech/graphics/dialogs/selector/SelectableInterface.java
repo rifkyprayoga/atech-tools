@@ -91,7 +91,7 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      * @param width total width of table
      * @return width in int of column
      */
-    public int getColumnWidth(int num, int width);
+    int getColumnWidth(int num, int width);
 
 
     /**
@@ -100,7 +100,7 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      * @param text String we search for
      * @return true if object is correct, fakse if not.
      */
-    public abstract boolean isFound(String text);
+    boolean isFound(String text);
 
 
     /**
@@ -109,7 +109,7 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      * @param value we searching for
      * @return true if object is correct, fakse if not.
      */
-    public abstract boolean isFound(int value);
+    boolean isFound(int value);
 
 
     /**
@@ -120,13 +120,13 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      * @param state 0 = none selected, 1=from used, 2=till used, 3=both used
      * @return true if object is correct, false if not.
      */
-    public abstract boolean isFound(int from, int till, int state);
+    boolean isFound(int from, int till, int state);
 
 
     /**
      * setSearchContext - set context for searching
      */
-    public abstract void setSearchContext();
+    void setSearchContext();
 
 
     /**
@@ -139,7 +139,7 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      * 
      * @param cs ColumnSorter instance
      */
-    public abstract void setColumnSorter(ColumnSorter cs);
+    void setColumnSorter(ColumnSorter cs);
 
 
     /**
@@ -180,6 +180,6 @@ public interface SelectableInterface extends Comparable<SelectableInterface>
      * @throws ClassCastException if the specified object's type prevents it
      *         from being compared to this object.
      */
-    public abstract int compareTo(SelectableInterface o);
+    int compareTo(SelectableInterface o);
 
 }
